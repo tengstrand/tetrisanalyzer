@@ -1,0 +1,120 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TetrisApp - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x41d /fo"Release/TetrisApp.res" /d "NDEBUG" "C:\Source\CPP\TetrisApp\TetrisApp.rc"" 
+Creating temporary file "C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPC.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/TetrisApp.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Source\CPP\TetrisApp\Board.cpp"
+"C:\Source\CPP\TetrisApp\TetrisApp.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPC.tmp" 
+Creating temporary file "C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPD.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Source\CPP\TetrisApp\BrainJote20.cpp"
+"C:\Source\CPP\TetrisApp\DiffMove.cpp"
+"C:\Source\CPP\TetrisApp\DiffMoveGroup.cpp"
+"C:\Source\CPP\TetrisApp\DiffMoveTh.cpp"
+"C:\Source\CPP\TetrisApp\DiffMoveThList.cpp"
+"C:\Source\CPP\TetrisApp\FileReader.cpp"
+"C:\Source\CPP\TetrisApp\FileWriter.cpp"
+"C:\Source\CPP\TetrisApp\Game.cpp"
+"C:\Source\CPP\TetrisApp\GameInfo.cpp"
+"C:\Source\CPP\TetrisApp\GameObserverList.cpp"
+"C:\Source\CPP\TetrisApp\GameSettings.cpp"
+"C:\Source\CPP\TetrisApp\GameView.cpp"
+"C:\Source\CPP\TetrisApp\Move.cpp"
+"C:\Source\CPP\TetrisApp\MoveList.cpp"
+"C:\Source\CPP\TetrisApp\MovePath.cpp"
+"C:\Source\CPP\TetrisApp\MovePathStep.cpp"
+"C:\Source\CPP\TetrisApp\Piece.cpp"
+"C:\Source\CPP\TetrisApp\PieceGeneratorRandom.cpp"
+"C:\Source\CPP\TetrisApp\Player.cpp"
+"C:\Source\CPP\TetrisApp\Random.cpp"
+"C:\Source\CPP\TetrisApp\RenderText.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPD.tmp" 
+Creating temporary file "C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPE.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/TetrisApp.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Source\CPP\TetrisApp\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPE.tmp" 
+Creating temporary file "C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPF.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Lib/OpenGL32.lib Lib/GLU32.lib Lib/glut32.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/TetrisApp.pdb" /machine:I386 /out:"Release/TetrisApp.exe" 
+.\Release\Board.obj
+.\Release\BrainJote20.obj
+.\Release\DiffMove.obj
+.\Release\DiffMoveGroup.obj
+.\Release\DiffMoveTh.obj
+.\Release\DiffMoveThList.obj
+.\Release\FileReader.obj
+.\Release\FileWriter.obj
+.\Release\Game.obj
+.\Release\GameInfo.obj
+.\Release\GameObserverList.obj
+.\Release\GameSettings.obj
+.\Release\GameView.obj
+.\Release\Move.obj
+.\Release\MoveList.obj
+.\Release\MovePath.obj
+.\Release\MovePathStep.obj
+.\Release\Piece.obj
+.\Release\PieceGeneratorRandom.obj
+.\Release\Player.obj
+.\Release\Random.obj
+.\Release\RenderText.obj
+.\Release\StdAfx.obj
+.\Release\TetrisApp.obj
+.\Release\TetrisApp.res
+]
+Creating command line "link.exe @C:\DOCUME~1\Joakim\LOKALA~1\Temp\RSPF.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Board.cpp
+TetrisApp.cpp
+Generating Code...
+Compiling...
+BrainJote20.cpp
+DiffMove.cpp
+DiffMoveGroup.cpp
+DiffMoveTh.cpp
+DiffMoveThList.cpp
+FileReader.cpp
+FileWriter.cpp
+Game.cpp
+GameInfo.cpp
+GameObserverList.cpp
+GameSettings.cpp
+GameView.cpp
+Move.cpp
+MoveList.cpp
+MovePath.cpp
+MovePathStep.cpp
+Piece.cpp
+PieceGeneratorRandom.cpp
+Player.cpp
+Random.cpp
+Generating Code...
+Compiling...
+RenderText.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+TetrisApp.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
