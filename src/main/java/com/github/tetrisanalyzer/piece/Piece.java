@@ -7,6 +7,8 @@ public abstract class Piece {
     private static int[] ROTATION_MODULUS = { 0, 1, 0, 3 };
     private static Piece[] PIECES = { new PieceEmpty(), new PieceI(), new PieceZ(), new PieceS(), new PieceJ(), new PieceL(), new PieceT(), new PieceO(), new PieceAny() };
 
+    public static int NUMBER_OF_PIECE_TYPES = 7;
+
     public static Piece get(int pieceNumber) {
         return PIECES[pieceNumber];
     }
