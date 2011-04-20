@@ -22,19 +22,19 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
     val outline = BoardOutline(board)
 
     evaluateBasedOnHollows(board, outline) +
-    evaluateBasedOnOutlineHeight(board, outline) +
-    evaluateBasedOnOutlineStructure(board, outline)
+    evaluateBasedOnOutlineHeight(outline) +
+    evaluateBasedOnOutlineStructure(outline)
   }
 
   private def evaluateBasedOnHollows(board: Board, outline: BoardOutline) = {
     var equity = 0.0
-    val hollowFactorForLine = Array.ofDim[Double](board.height + 1)
+    val hollowFactorForLine = Array.ofDim[Double](boardHeight + 1)
 
-    for (y <- outline.minY until board.height) {
+    for (y <- outline.minY until boardHeight) {
       var numberOfBlocksPerLine = 0
-      var minOutlineForHole = board.height
+      var minOutlineForHole = boardHeight
 
-      for (x <- 0 until board.width) {
+      for (x <- 0 until boardWidth) {
         if (!board.isFree(x, y))
           numberOfBlocksPerLine += 1
         else if (outline.get(x) < minOutlineForHole && outline.get(x) < y)
@@ -42,38 +42,38 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
       }
       hollowFactorForLine(y) = blocksPerLineHollowFactor(numberOfBlocksPerLine);
 
-      if (minOutlineForHole < board.height) {
+      if (minOutlineForHole < boardHeight) {
         var hollowFactor = 1.0
 
         for (line <- minOutlineForHole to y)
           hollowFactor *= hollowFactorForLine(line)
 
-        equity += (1 - hollowFactor) * board.width
+        equity += (1 - hollowFactor) * boardWidth
       }
     }
     equity
   }
 
-  private def evaluateBasedOnOutlineHeight(board: Board, outline: BoardOutline): Double = {
-    outline.outline.foldLeft(0.0) {(sum, y) => sum + heightFactor(y)} - heightFactor(outline.get(board.width))
+  private def evaluateBasedOnOutlineHeight(outline: BoardOutline): Double = {
+    outline.outline.foldLeft(0.0) {(sum, y) => sum + heightFactor(y)} - heightFactor(outline.get(boardWidth))
   }
 
-  private def evaluateBasedOnOutlineStructure(board: Board, outline: BoardOutline): Double = {
+  private def evaluateBasedOnOutlineStructure(outline: BoardOutline): Double = {
     var equity = 0.0
 
-    for (x <- 1 to board.width) {
+    for (x <- 1 to boardWidth) {
       var hasAreaWallsSameHeight = false
       var isAreaWallsSameHeightNotInitialized = true
       var areaHeight = 0
       var previousAreaWidth = 0
 
       var rightWallY = outline.get(x)
-      var startY = if (x == board.width) outline.minY else outline.get(x)
+      var startY = if (x == boardWidth) outline.minY else outline.get(x)
 
       var continueCountAreaHeight = true
 
       // Calculate the size of the closed area in the outline (areaWidth * areaHeight).
-      for (y <- startY to board.height if (continueCountAreaHeight)) {
+      for (y <- startY to boardHeight if (continueCountAreaHeight)) {
         var areaWidth = 0
 
         var continueCountAreaWidth = true

@@ -21,7 +21,7 @@ object BoardOutline {
 }
 
 /**
- * Helper for classes that evaluates the the outline.
+ * Helper for classes that evaluates the outline.
  */
 class BoardOutline(val outline: Array[Int], val minY: Int) {
   def get(x: Int) = { outline(x) }

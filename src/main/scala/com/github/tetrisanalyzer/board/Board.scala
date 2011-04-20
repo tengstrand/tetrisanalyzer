@@ -29,7 +29,7 @@ object Board {
   def bottomTextLine(width: Int) = "#" * (width + 2)
 
   private def fromText(width: Int, textLine: String): Int = {
-    var line = 0
+    var line = EmptyLine
     for (i <- width to 1 by -1) {
       line <<= 1
       line |= (if (textLine(i) == '-') 0 else 1)
@@ -133,17 +133,17 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
   }
 
   override def toString: String = {
-    lines.map(asString(_)).mkString("\n") + "\n" + Board.bottomTextLine(width)
+    lines.map(boardLineAsString(_)).mkString("\n") + "\n" + Board.bottomTextLine(width)
   }
 
   /**
    * Converts a board line into its string representation.
    */
-  private def asString(lines: Int): String = {
+  private def boardLineAsString(boardLine: Int): String = {
     var result = "#"
 
     for (i <- 0 until width)
-      result += (if (((lines >> i) & 1) == 0) "-" else "x")
+      result += (if (((boardLine >> i) & 1) == 0) "-" else "x")
 
     result + "#"
   }

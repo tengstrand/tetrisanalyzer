@@ -4,7 +4,7 @@
     <groupId>tetrisanalyzer</groupId>
     <artifactId>tetrisanalyzer</artifactId>
     <name>Tetris Analyzer</name>
-    <url>http://sourceforge.net/projects/tetrisai</url>
+    <url>https://github.com/tengstrand/tetrisanalyzer</url>
     <packaging>jar</packaging>
     <version>0.01-alpha</version>
     <description>A Tetris playing engine and analyzing tool</description>
