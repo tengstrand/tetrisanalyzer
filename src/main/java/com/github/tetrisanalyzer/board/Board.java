@@ -102,6 +102,14 @@ public class Board {
         completeLine = calculateCompleteLine(width);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     private int calculateCompleteLine(int width) {
         int line = EMPTY_LINE;
 
