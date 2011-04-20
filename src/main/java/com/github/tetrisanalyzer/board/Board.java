@@ -106,6 +106,10 @@ public class Board {
         return width;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
