@@ -19,7 +19,7 @@ public abstract class Piece {
     public int rotationModulus() { return ROTATION_MODULUS[rotationsEndIndex()]; }
     public int width(int rotation) { return widths()[rotation]; }
     public int height(int rotation) { return heights()[rotation]; }
-    public PieceShape shape(int rotation) { return shapes()[rotation]; }
+    public PieceShape getShape(int rotation) { return shapes()[rotation]; }
     protected abstract int[] widths();
     protected abstract int[] heights();
     protected abstract PieceShape[] shapes();

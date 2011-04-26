@@ -110,6 +110,35 @@ public class Board {
         return height;
     }
 
+    /**
+     * Sets part of a piece on the board.
+     *
+     * @param y board row
+     * @param pieceRowDots dots of a piece row for a specific piece row
+     */
+    public void setBits(int y, int pieceRowDots) {
+        lines[y] |= pieceRowDots;
+    }
+
+    /**
+     * Cleares part of a piece on the board.
+     *
+     * @param y board row
+     * @param inversePieceRowDots dots of a piece row for a specific piece row
+     */
+    public void clearBits(int y, int inversePieceRowDots) {
+        lines[y] &= inversePieceRowDots;
+    }
+
+    /**
+     * @param y board row
+     * @param pieceRowDots dots of a piece row for a specific piece row
+     * @return true if the piece row dots are not occupied on the board
+     */
+    public boolean isBitsFree(int y, int pieceRowDots) {
+        return (lines[y] & pieceRowDots) == 0;
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }

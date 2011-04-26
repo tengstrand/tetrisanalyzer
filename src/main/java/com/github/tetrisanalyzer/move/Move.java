@@ -16,6 +16,22 @@ public class Move {
         this.y = y;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
+
     public Move up() { return new Move(rotation, x, y-1); }
     public Move down() { return new Move(rotation, x, y+1); }
     public Move left() { return new Move(rotation, x-1, y); }
