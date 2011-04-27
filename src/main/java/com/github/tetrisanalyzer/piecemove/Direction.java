@@ -11,6 +11,8 @@ public enum Direction {
 
     private int index;
 
+    public static int NUMBER_OF_DIRECTIONS = 4;
+
     Direction(int index) {
         this.index = index;
     }

@@ -52,8 +52,20 @@ public class PieceMove {
         }
     }
 
+    public Move getMove() {
+        return move;
+    }
+
     public PieceMove getDown() {
         return down;
+    }
+
+    public void setDown(PieceMove down) {
+        this.down = down;
+    }
+
+    public void addPieceMove(PieceMove pieceMove) {
+        asideAndRotate.add(pieceMove);
     }
 
     public Set<PieceMove> getAsideAndRotate() {
