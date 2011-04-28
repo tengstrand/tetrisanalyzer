@@ -52,6 +52,14 @@ public class PieceMove {
         }
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public Board getBoardCopy() {
+        return new Board(board);
+    }
+
     public Move getMove() {
         return move;
     }

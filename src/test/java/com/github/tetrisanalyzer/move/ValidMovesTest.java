@@ -30,7 +30,8 @@ public class ValidMovesTest {
                 if (m1.getX() > m2.getX()) { return 1; }
                 if (m1.getRotation() < m2.getRotation()) { return -1; }
                 if (m1.getRotation() < m2.getRotation()) { return 1; }
-                return Math.abs(m1.getY() - m2.getY());
+                if (m1.getY() < m2.getY()) { return -1; }
+                return m1.getY() > m2.getY() ? 1 : 0;
             }
         });
 
