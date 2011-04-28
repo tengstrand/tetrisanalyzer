@@ -13,7 +13,7 @@ class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings:
   private val boardHeight = board.height
   private var visitedPieceMoves = new VisitedPieceMoves(board, piece)
   private val rotationDirection = settings.rotationDirection
-  private val isSlidingOn = settings.slidingEnabled
+  private val isSlidingOn = settings.isSlidingEnabled
 
   private def markAsVisited(fromMovement: Movement, movement: Movement) {
     visitedPieceMoves.visit(movement)

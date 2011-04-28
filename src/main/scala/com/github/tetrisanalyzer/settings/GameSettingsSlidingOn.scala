@@ -4,5 +4,5 @@ package com.github.tetrisanalyzer.settings
  * Default game settings where sliding pieces is activated.
  */
 class GameSettingsSlidingOn extends DefaultGameSettings {
-  override def slidingEnabled = true
+  override def isSlidingEnabled = true
 }

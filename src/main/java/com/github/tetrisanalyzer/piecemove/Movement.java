@@ -55,7 +55,7 @@ public class Movement {
     }
 
     public Movement down(VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.getMove().right()), Direction.DOWN);
+        return new Movement(visitedPieceMoves.get(pieceMove.getMove().down()), Direction.DOWN);
     }
 
     @Override
