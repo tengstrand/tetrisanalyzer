@@ -25,7 +25,7 @@ class ValidMoves(board: Board) {
   /**
    * The incoming pieceMove is at the starting position of the board, and
    * links to all possible moves on an empty board. Because the board is probably not empty,
-   * every every possible move needs to be checked (and returned by this method).
+   * every possible move needs to be checked (and returned by this method).
    */
   def pieceMoves(pieceMove: PieceMove): List[PieceMove] = {
     if (isUnvisited(pieceMove.move)) {
