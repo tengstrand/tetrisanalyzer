@@ -47,10 +47,10 @@ class PieceMoveTest extends BaseTest {
 
   @Test def clearPiece {
     val board = Board(Array(
-      "#--------#",
-      "#----xx--#",
-      "#---xx---#",
-      "#---x----#",
+      "#xxxxxxxx#",
+      "#xxxxxxxx#",
+      "#xxxxxxxx#",
+      "#xxxxxxxx#",
       "##########"))
     val piece = new PieceS
     val move = Move(0,3, 1)
@@ -58,10 +58,10 @@ class PieceMoveTest extends BaseTest {
     PieceMove(board, piece, move).clearPiece
 
     board should be (Board(Array(
-      "#--------#",
-      "#--------#",
-      "#--------#",
-      "#---x----#",
+      "#xxxxxxxx#",
+      "#xxxx--xx#",
+      "xxxx--xxx#",
+      "#xxxxxxxx#",
       "##########")))
   }
 
