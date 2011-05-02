@@ -61,23 +61,24 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
   private def evaluateBasedOnOutlineStructure(outline: BoardOutline): Double = {
     var equity = 0.0
 
-    for (x <- 1 to boardWidth) {
+    var x = 1
+    while (x <= boardWidth) {
       var hasAreaWallsSameHeight = false
       var isAreaWallsSameHeightNotInitialized = true
       var areaHeight = 0
       var previousAreaWidth = 0
 
       var rightWallY = outline.get(x)
-      var startY = if (x == boardWidth) outline.minY else outline.get(x)
-
-      var continueCountAreaHeight = true
+      var y = if (x == boardWidth) outline.minY else outline.get(x)
 
       // Calculate the size of the closed area in the outline (areaWidth * areaHeight).
-      for (y <- startY to boardHeight if (continueCountAreaHeight)) {
+      var continueCountAreaHeight = true
+      while (y <= boardHeight && continueCountAreaHeight) {
         var areaWidth = 0
 
         var continueCountAreaWidth = true
-        for (areaX <- x - 1 to 0 by -1 if (continueCountAreaWidth)) {
+        var areaX = x - 1
+        while (areaX >= 0 && continueCountAreaWidth) {
           if (outline.get(areaX) <= y) {
             if (isAreaWallsSameHeightNotInitialized) {
               hasAreaWallsSameHeight = outline.get(areaX) == rightWallY
@@ -87,6 +88,7 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
           } else {
             areaWidth += 1
           }
+          areaX -= 1
         }
         if (areaWidth == 0 && previousAreaWidth == 0) {
           continueCountAreaHeight = false
@@ -104,7 +106,9 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
           }
           previousAreaWidth = areaWidth;
         }
+        y += 1
       }
+      x += 1
     }
     equity
   }
