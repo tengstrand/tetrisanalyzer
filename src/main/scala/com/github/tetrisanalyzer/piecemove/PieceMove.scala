@@ -53,6 +53,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
       board.lines(boardLineIndices(y)) &= andLines(y)
     }
   }
+
   /**
    * True if the piece position is not occupied.
    */
