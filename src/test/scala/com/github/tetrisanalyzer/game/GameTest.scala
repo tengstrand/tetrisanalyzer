@@ -6,11 +6,12 @@ import com.github.tetrisanalyzer.BaseTest
 import com.github.tetrisanalyzer.piece._
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.board.Board
-import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator
-import com.github.tetrisanalyzer.settings.GameSettingsSlidingOn
+import com.github.tetrisanalyzer.settings.{DefaultGameSettings, GameSettingsSlidingOn}
+import com.github.tetrisanalyzer.piecegenerator.{DefaultPieceGenerator, PredictablePieceGenerator}
 
 class GameTest extends BaseTest {
 
+/*
   @Test def playFivePieces() {
     val board = Board(10,15)
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
@@ -39,8 +40,9 @@ class GameTest extends BaseTest {
       "#OO---TTTZL#",
       "############")))
   }
+*/
 
-/*
+
   @Test def play() {
     val board = Board()
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
@@ -52,7 +54,7 @@ class GameTest extends BaseTest {
       game.play(100000)
     }
   }
- */
+
 
   // 10 000 = 6.976 sec
   // 20 000 = 11.2 sec
