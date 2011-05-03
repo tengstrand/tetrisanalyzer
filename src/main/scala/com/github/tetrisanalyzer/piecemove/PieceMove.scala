@@ -18,8 +18,8 @@ object PieceMove {
     for (y <- 0 until pieceHeight)
       boardLineIndices(y) = move.y + y
 
-    piece.getShape(move.rotation).dots.foreach(point => orLines(point.y) |= (1 << (move.x + point.x)))
-    piece.getShape(move.rotation).dots.foreach(point => andLines(point.y) &= ~(1 << (move.x + point.x)))
+    piece.shape(move.rotation).dots.foreach(point => orLines(point.y) |= (1 << (move.x + point.x)))
+    piece.shape(move.rotation).dots.foreach(point => andLines(point.y) &= ~(1 << (move.x + point.x)))
 
     new PieceMove(board, piece, move, boardLineIndices, orLines, andLines)
   }

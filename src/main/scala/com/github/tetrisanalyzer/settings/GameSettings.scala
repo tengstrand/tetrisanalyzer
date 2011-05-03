@@ -8,7 +8,7 @@ import com.github.tetrisanalyzer.move.Move
  * This interface defines the API of the game settings used by the Tetris engine.
  */
 trait GameSettings {
-  def slidingEnabled: Boolean
+  def isSlidingEnabled: Boolean
   def rotationDirection: RotationDirection
   def pieceStartMove(boardWidth: Int, piece: Piece): Move
 }

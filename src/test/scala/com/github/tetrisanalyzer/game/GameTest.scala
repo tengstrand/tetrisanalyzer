@@ -11,7 +11,6 @@ import com.github.tetrisanalyzer.piecegenerator.{DefaultPieceGenerator, Predicta
 
 class GameTest extends BaseTest {
 
-/*
   @Test def playFivePieces() {
     val board = Board(10,15)
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
@@ -40,26 +39,23 @@ class GameTest extends BaseTest {
       "#OO---TTTZL#",
       "############")))
   }
-*/
 
-
+/*
   @Test def play() {
     val board = Board()
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new DefaultPieceGenerator
-    val settings = new DefaultGameSettings
+    val settings = new GameSettingsSlidingOn //new DefaultGameSettings
     val game = new Game(board, boardEvaluator, pieceGenerator, settings)
 
     timed(printTime("#game.play: ")){
-      game.play(100000)
+      game.play(1000000)
     }
   }
+  */
 
-
-  // 10 000 = 6.976 sec
-  // 20 000 = 11.2 sec
-  // 100 000 = 48.614 sec = 2057 pieces/sec
-
-  // 100 000 = 20.275 sec = 4932 pieces/sec (sliding on)
-  // 100 000 = 9.529 sec = 10494 pieces/sec (sliding off)
+  //   100 000 = 26.5 sec = 3 700 pieces/sec (sliding on)
+  //   100 000 = 8.4 sec = 11 900 pieces/sec (sliding off)
+  // 1 000 000 = 112 sec = 8 900 pieces/sec (sliding on)
+  // 1 000 000 = 76 sec = 13 100 pieces/sec (sliding off)
 }
