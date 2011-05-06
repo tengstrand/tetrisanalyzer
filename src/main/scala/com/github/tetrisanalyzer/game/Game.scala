@@ -11,14 +11,14 @@ import com.github.tetrisanalyzer.piecemove.{PieceMove, AllValidPieceMovesForEmpt
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator, settings: GameSettings) {
-  var clearedLines = 0
+  var moves = 0L
+  var clearedLines = 0L
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   /**
    * Plays the specified number of pieces.
    */
   def play(maxMoves: Long) {
-    var moves: Long = 0
     var bestMove = evaluateBestMove
 
     while (moves < maxMoves && bestMove.isDefined) {

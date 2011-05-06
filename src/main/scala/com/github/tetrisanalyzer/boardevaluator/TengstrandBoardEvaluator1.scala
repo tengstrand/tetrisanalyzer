@@ -30,15 +30,18 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
     var equity = 0.0
     val hollowFactorForLine = Array.ofDim[Double](boardHeight + 1)
 
-    for (y <- outline.minY until boardHeight) {
+    var y = outline.minY
+    while (y < boardHeight) {
       var numberOfBlocksPerLine = 0
       var minOutlineForHole = boardHeight
 
-      for (x <- 0 until boardWidth) {
+      var x = 0
+      while (x < boardWidth) {
         if (!board.isFree(x, y))
           numberOfBlocksPerLine += 1
         else if (outline.get(x) < minOutlineForHole && outline.get(x) < y)
           minOutlineForHole = outline.get(x)
+        x += 1
       }
       hollowFactorForLine(y) = blocksPerLineHollowFactor(numberOfBlocksPerLine);
 
@@ -50,6 +53,7 @@ class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) ext
 
         equity += (1 - hollowFactor) * boardWidth
       }
+      y += 1
     }
     equity
   }

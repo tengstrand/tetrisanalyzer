@@ -2,12 +2,13 @@ package com.github.tetrisanalyzer.game
 
 import com.github.tetrisanalyzer.Profiling._
 import org.junit.Test
-import com.github.tetrisanalyzer.BaseTest
 import com.github.tetrisanalyzer.piece._
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.settings.{DefaultGameSettings, GameSettingsSlidingOn}
 import com.github.tetrisanalyzer.piecegenerator.{DefaultPieceGenerator, PredictablePieceGenerator}
+import com.github.tetrisanalyzer.BaseTest
+import com.github.tetrisanalyzer.Timer._
 
 class GameTest extends BaseTest {
 
@@ -44,18 +45,34 @@ class GameTest extends BaseTest {
   @Test def play() {
     val board = Board()
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
-    val pieceGenerator = new DefaultPieceGenerator
-    val settings = new GameSettingsSlidingOn //new DefaultGameSettings
+    val pieceGenerator = new DefaultPieceGenerator(4)
+    val settings = new DefaultGameSettings
     val game = new Game(board, boardEvaluator, pieceGenerator, settings)
 
-    timed(printTime("#game.play: ")){
-      game.play(1000000)
-    }
-  }
-  */
+    timer1.start
+    game.play(1000000)
+    timer1.stop
 
-  //   100 000 = 26.5 sec = 3 700 pieces/sec (sliding on)
-  //   100 000 = 8.4 sec = 11 900 pieces/sec (sliding off)
-  // 1 000 000 = 112 sec = 8 900 pieces/sec (sliding on)
-  // 1 000 000 = 76 sec = 13 100 pieces/sec (sliding off)
+    println(board)
+
+    println("moves: " + game.moves)
+    timer1.printResult
+    timer2.printResult
+  }
+*/
+  // Performance before optimization (code on http://sourceforge.net/projects/tetrisai:
+  // 1 000 000 pieces, sliding on  = 449 sec = 2 200 pieces/sec (254 sec = 56% board evaluation, 44% other)
+  // 1 000 000 pieces, sliding off = 325 sec = 3 000 pieces/sec (212 sec = 65% board evaluation, 45% other)
+
+  // Performance before optimizations of TetrisBoardEvaluator1 (code on https://github.com/tengstrand/tetrisanalyzer)
+  // 1 000 000 pieces, sliding on  = 355 sec =  2 800 pieces/sec (132 sec = 37% board evaluation, 63% other)
+  // 1 000 000 pieces, sliding off =  92 sec = 10 800 pieces/sec (72 sec = 78% board evaluation, 22% other)
+
+  // Performance after optimizations of TetrisBoardEvaluator1 (code on https://github.com/tengstrand/tetrisanalyzer)
+  // 1 000 000 pieces, sliding on  = 270 sec =  3 700 pieces/sec (44 sec = 16% board evaluation, 84% other)
+  // 1 000 000 pieces, sliding off =  68 sec = 14 700 pieces/sec (35 sec = 51% board evaluation, 49% other)
+
+  // Performance Java version (code on https://github.com/tengstrand/tetrisanalyzer))
+  // 1 000 000 pieces, sliding on =  200 sec =  5 000 pieces/sec (29 sec = 14% board evaluation, 49% other)
+  // 1 000 000 pieces, sliding off =  63 sec = 15 800 pieces/sec (24 sec = 38% board evaluation, 62% other)
 }
