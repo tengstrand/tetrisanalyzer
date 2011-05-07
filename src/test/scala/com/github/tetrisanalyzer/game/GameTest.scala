@@ -61,8 +61,12 @@ class GameTest extends BaseTest {
   }
 */
   // Performance before optimization (code on http://sourceforge.net/projects/tetrisai:
-  // 1 000 000 pieces, sliding on  = 449 sec = 2 200 pieces/sec (254 sec = 56% board evaluation, 44% other)
-  // 1 000 000 pieces, sliding off = 325 sec = 3 000 pieces/sec (212 sec = 65% board evaluation, 45% other)
+  // 1 000 000 pieces, sliding on  = 491 sec = 2 000 pieces/sec (274 sec = 56% board evaluation, 44% other)
+  // 1 000 000 pieces, sliding off = 451 sec = 2 200 pieces/sec (329 sec = 72% board evaluation, 39% other)
+
+  // Performance before optimization, with optimized TengstrandBoardEvaluator1 (code on http://sourceforge.net/projects/tetrisai:
+  // 1 000 000 pieces, sliding on  = 396 sec = 2 500 pieces/sec (220 sec = 55% board evaluation, 45% other)
+  // 1 000 000 pieces, sliding off = 338 sec = 2 900 pieces/sec (217 sec = 64% board evaluation, 39% other)
 
   // Performance before optimizations of TetrisBoardEvaluator1 (code on https://github.com/tengstrand/tetrisanalyzer)
   // 1 000 000 pieces, sliding on  = 355 sec =  2 800 pieces/sec (132 sec = 37% board evaluation, 63% other)
