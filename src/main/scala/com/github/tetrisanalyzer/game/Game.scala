@@ -16,7 +16,21 @@ class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGe
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   /**
-   * Plays the specified number of pieces.
+   * Keeps playing till the end.
+   */
+  def play() {
+    var bestMove = evaluateBestMove
+
+    while (bestMove.isDefined) {
+      moves += 1
+      clearedLines += bestMove.get.setPiece
+      bestMove = evaluateBestMove
+      Thread.sleep(500)
+    }
+  }
+
+  /**
+   * Plays the specified number of pieces, used for test.
    */
   def play(maxMoves: Long) {
     var bestMove = evaluateBestMove
@@ -30,7 +44,11 @@ class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGe
 
   private def evaluateBestMove: Option[PieceMove] = {
     val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
-    val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-    EvaluatedMoves(validMoves, boardEvaluator).bestMove
+    if (startPieceMove.isFree) {
+      val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
+      EvaluatedMoves(validMoves, boardEvaluator).bestMove
+    } else {
+      None
+    }
   }
 }

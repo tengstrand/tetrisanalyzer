@@ -8,7 +8,7 @@ import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.settings.{DefaultGameSettings, GameSettingsSlidingOn}
 import com.github.tetrisanalyzer.piecegenerator.{DefaultPieceGenerator, PredictablePieceGenerator}
 import com.github.tetrisanalyzer.BaseTest
-import com.github.tetrisanalyzer.Timer._
+import com.github.tetrisanalyzer.Stopwatch._
 
 class GameTest extends BaseTest {
 

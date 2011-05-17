@@ -1,8 +1,9 @@
 package com.github.tetrisanalyzer.gui
 
 import java.awt.{Color, Dimension, Graphics}
+import com.github.tetrisanalyzer.board.Board
 
-class Playfield extends DoubleBufferedComponent {
+class Playfield(board: Board) extends DoubleBufferedComponent {
   val margin = 10
   var rows = Seq.empty[Int]
   var columns = Seq.empty[Int]
@@ -17,12 +18,16 @@ class Playfield extends DoubleBufferedComponent {
 
   def paintGraphics(g: Graphics) {
     for (iy <- 0 to 19)
-      for (ix <- 0 to 9)
-        drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1), g)
+      for (ix <- 0 to 9) {
+        if (board.isFree(ix, iy))
+          drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1), new Color(200, 200, 230), g)
+        else
+          drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1), new Color(100, 100, 130), g)
+      }
   }
 
-  def drawSquare(x1: Int, y1: Int, x2: Int, y2: Int, g: Graphics) {
-    g.setColor(new Color(200, 200, 230))
+  def drawSquare(x1: Int, y1: Int, x2: Int, y2: Int, color: Color, g: Graphics) {
+    g.setColor(color)
     g.fillRect(x1, y1, x2, y2)
     g.setColor(new Color(230, 230, 255))
     g.drawLine(x1, y1, x1, y2)

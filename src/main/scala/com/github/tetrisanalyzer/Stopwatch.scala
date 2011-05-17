@@ -1,14 +1,14 @@
 package com.github.tetrisanalyzer
 
-object Timer {
-  var timer1 = new Timer("timer1")
+object Stopwatch {
+  var timer1 = new Stopwatch("timer1")
 
   def printAllResult() {
     timer1.printResult
   }
 }
 
-class Timer(message: String) {
+class Stopwatch(message: String) {
   private var startMillis: Long = 0L
   private var passed: Long = 0
 

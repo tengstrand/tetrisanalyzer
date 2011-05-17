@@ -1,20 +1,16 @@
 package com.github.tetrisanalyzer.game;
 
-import com.github.tetrisanalyzer.Timer;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.*;
-import com.github.tetrisanalyzer.piecegenerator.DefaultPieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.GameSettingsSlidingOn;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 

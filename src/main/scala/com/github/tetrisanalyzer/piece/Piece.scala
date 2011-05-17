@@ -19,7 +19,7 @@ object Piece {
     Piece(5).character -> Piece(5).number,
     Piece(6).character -> Piece(6).number,
     Piece(7).character -> Piece(7).number,
-    Piece(8).character -> Piece(7).number
+    Piece(8).character -> Piece(8).number
   )
 
   def apply(index: Int): Piece = Pieces(index)
