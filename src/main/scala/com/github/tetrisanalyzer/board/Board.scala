@@ -74,8 +74,8 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
   }
 
   /**
-   * Clears completed lines and returns which lines that was cleared.
-   * This method is be called after a piece has been placed on the board.
+   * Clears completed lines and returns number of cleared lines.
+   * This method is called after a piece has been placed on the board.
    *   pieceY: the y position of the piece.
    *   pieceHeight: height of the piece.
    */
