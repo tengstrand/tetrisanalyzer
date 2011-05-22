@@ -9,7 +9,7 @@ import com.github.tetrisanalyzer.piece.{PieceO, PieceI, PieceT, PieceS}
 class PositionTest extends BaseTest {
 
   @Test def testToString() {
-    val position = new Position();
+    val position = Position();
 
     position.toString should be (
       "######----------##\n" +
@@ -38,7 +38,7 @@ class PositionTest extends BaseTest {
   }
 
   @Test def testSetStartPiece() {
-    val position = new Position(10,5);
+    val position = Position(10,5);
     position.setStartPiece(new PieceS, new DefaultGameSettings)
 
     position.toString should be (
@@ -53,7 +53,7 @@ class PositionTest extends BaseTest {
   }
 
   @Test def testSetPiece() {
-    val position = new Position(10,5);
+    val position = Position(10,5);
     position.setPiece(new PieceT, Move(1, 5, 2))
 
     position.toString should be (
@@ -78,7 +78,7 @@ class PositionTest extends BaseTest {
     // ##################
     // ##################
 
-    val position = new Position(10,6);
+    val position = Position(10,6);
     position.setPiece(new PieceT, Move(0, 3, 0))
     position.setPiece(new PieceI, Move(0, 0, 5))
     position.setPiece(new PieceO, Move(0, 4, 4))
@@ -98,6 +98,23 @@ class PositionTest extends BaseTest {
       "######---TTT----##\n" +
       "######----T-----##\n" +
       "######----OO----##\n" +
+      "##################\n" +
+      "##################"
+    )
+  }
+
+  @Test def copyConstructor {
+    val position = Position(10,5);
+    position.setPiece(new PieceT, Move(1, 5, 2))
+
+    val copyPosition = Position(position)
+
+    copyPosition.toString should be (
+      "######----------##\n" +
+      "######----------##\n" +
+      "######-----T----##\n" +
+      "######-----TT---##\n" +
+      "######-----T----##\n" +
       "##################\n" +
       "##################"
     )

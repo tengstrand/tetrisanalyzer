@@ -1,35 +1,47 @@
 package com.github.tetrisanalyzer.gui
 
 import java.awt.{Color, Dimension, Graphics}
-import com.github.tetrisanalyzer.board.Board
+import com.github.tetrisanalyzer.game.{Position, PlayerEventReceiver}
+import com.github.tetrisanalyzer.settings.GameSettings
 
-class Playfield(board: Board) extends DoubleBufferedComponent {
+class Playfield(settings: GameSettings) extends DoubleBufferedComponent with PlayerEventReceiver {
   val margin = 10
   var rows = Seq.empty[Int]
   var columns = Seq.empty[Int]
+  private var position: Position = null
+
+  def positionReceived(position: Position) {
+    this.position = position
+  }
 
   def preparePaintGraphics = {
-    val squareSize = calculateSquareSize
-    rows = (0 to 20).map(y => margin + (y * squareSize).intValue)
-    columns = (0 to 10).map(x => margin + (x * squareSize).intValue)
+    if (position != null) {
+      val squareSize = calculateSquareSize
+      rows = (0 to position.playfieldHeight).map(y => margin + (y * squareSize).intValue)
+      columns = (0 to position.playfieldWidth).map(x => margin + (x * squareSize).intValue)
 
-    new Dimension(columns(10)-columns(0)+margin-1, rows(20)+margin-rows(0)-1)
+      new Dimension(columns(position.playfieldWidth)-columns(0)+margin-1, rows(position.playfieldHeight)+margin-rows(0)-1)
+    } else
+      new Dimension(0,0)
   }
 
   def paintGraphics(g: Graphics) {
-    for (iy <- 0 to 19)
-      for (ix <- 0 to 9) {
-        if (board.isFree(ix, iy))
-          drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1), new Color(200, 200, 230), g)
-        else
-          drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1), new Color(100, 100, 130), g)
+    if (position != null) {
+      for (iy <- 0 until position.playfieldHeight) {
+        for (ix <- 0 until position.playfieldWidth) {
+          val color = position.colorValue(ix, iy)
+          drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1),
+            settings.squareColor(color),
+            settings.lineColor(color), g)
+        }
       }
+    }
   }
 
-  def drawSquare(x1: Int, y1: Int, x2: Int, y2: Int, color: Color, g: Graphics) {
-    g.setColor(color)
+  def drawSquare(x1: Int, y1: Int, x2: Int, y2: Int, squareColor: Color, lineColor: Color, g: Graphics) {
+    g.setColor(squareColor)
     g.fillRect(x1, y1, x2, y2)
-    g.setColor(new Color(230, 230, 255))
+    g.setColor(lineColor)
     g.drawLine(x1, y1, x1, y2)
     g.drawLine(x1, y1, x2, y1)
   }
@@ -42,8 +54,8 @@ class Playfield(board: Board) extends DoubleBufferedComponent {
       0
 
     if (height / width > 2)
-      width / 10
+      width / position.playfieldWidth
     else
-      height / 20
+      height / position.playfieldHeight
   }
 }

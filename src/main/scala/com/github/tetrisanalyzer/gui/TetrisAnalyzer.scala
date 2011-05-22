@@ -6,8 +6,8 @@ import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import com.github.tetrisanalyzer.settings.DefaultGameSettings
 import scala.actors.Actor._
-import com.github.tetrisanalyzer.game.Game
 import com.github.tetrisanalyzer.game.Timer._
+import com.github.tetrisanalyzer.game._
 
 object TetrisAnalyzer extends SimpleSwingApplication {
   def top = new MainFrame {
@@ -17,29 +17,29 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val label = new Label
 
     val board = Board()
-    val game = createGame(board, 6)
+    val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
+    val pieceGenerator = new DefaultPieceGenerator(4)
+    val settings = new DefaultGameSettings
+    val position = Position()
+    val playfield = new Playfield(settings)
 
-    val playfield = new Playfield(board)
+    val gameEventReceiver = new GameEventReceiver(position, playfield)
+    val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
     contents = new BoxPanel(Orientation.Vertical) {
       contents += playfield
       contents += label
     }
-    val player = actor {
-      game.play()
-    }
+
+    gameEventReceiver.start()
+    playfield.start
+    computerPlayer.start()
+
+  // TODO: Handle as event!
     actor {
       fiftyTimesPerSecond(() => {
         playfield.repaint
-        label.text_=(" Pieces: " + game.moves)
       })
     }
-  }
-
-  private def createGame(board: Board, seed: Long) = {
-    val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
-    val pieceGenerator = new DefaultPieceGenerator(seed)
-    val settings = new DefaultGameSettings
-    new Game(board, boardEvaluator, pieceGenerator, settings)
   }
 }

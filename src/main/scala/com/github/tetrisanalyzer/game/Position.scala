@@ -1,8 +1,7 @@
 package com.github.tetrisanalyzer.game
 
 import com.github.tetrisanalyzer.settings.GameSettings
-import com.github.tetrisanalyzer.piece.{Point, PieceAny, Piece, PieceEmpty}
-import com.github.tetrisanalyzer.board.Board
+import com.github.tetrisanalyzer.piece.{Point, Piece, PieceEmpty}
 import com.github.tetrisanalyzer.move.Move
 
 object Wall {
@@ -29,14 +28,29 @@ object Dot {
   )
 }
 
+object Position {
+  def apply(width: Int = 10, height: Int = 20): Position = {
+    val playfield = Array.tabulate[Byte](height + Wall.Bottom, width + Wall.Left + Wall.Right) (
+      (y,x) => if (x < Wall.Left || x >= width + Wall.Left || y >= height) Wall.Number else PieceEmpty.Number
+    )
+    new Position(width, height, playfield)
+  }
+
+  // Copy constructor
+  def apply(position: Position): Position = {
+    new Position(position.width, position.height, position.playfieldCopy)
+  }
+}
+
 /**
  * A board with walls and next piece(es), used by the GUI.
  */
-class Position(val width: Int = 10, val height: Int = 20) {
-  private val playfield = Array.tabulate[Byte](height + Wall.Bottom, width + Wall.Left + Wall.Right) (
-    (y,x) => if (x < Wall.Left || x >= width + Wall.Left || y >= height) Wall.Number else PieceEmpty.Number
-  )
+class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   private def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
+
+  def playfieldWidth = width + Wall.Left + Wall.Right
+  def playfieldHeight = height + Wall.Bottom
+  def colorValue(x: Int, y: Int): Int = playfield(y)(x).toInt
 
   def setStartPiece(piece: Piece, settings: GameSettings) {
     setPiece(piece, settings.pieceStartMove(width, piece))
@@ -96,6 +110,14 @@ class Position(val width: Int = 10, val height: Int = 20) {
     clearedLines
   }
 
+  def playfieldCopy = {
+    val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](height + Wall.Bottom, width + Wall.Left + Wall.Right)
+
+    for (i <- 0 until playfield.length)
+      playfield(i).copyToArray(newPlayfield(i))
+
+    newPlayfield
+  }
 
   override def toString = {
     var result = "";
