@@ -29,31 +29,31 @@ object Dot {
 }
 
 object Position {
-  def apply(width: Int = 10, height: Int = 20): Position = {
-    val playfield = Array.tabulate[Byte](height + Wall.Bottom, width + Wall.Left + Wall.Right) (
-      (y,x) => if (x < Wall.Left || x >= width + Wall.Left || y >= height) Wall.Number else PieceEmpty.Number
+  def apply(boardWidth: Int = 10, boardHeight: Int = 20): Position = {
+    val playfield = Array.tabulate[Byte](boardHeight + Wall.Bottom, boardWidth + Wall.Left + Wall.Right) (
+      (y,x) => if (x < Wall.Left || x >= boardWidth + Wall.Left || y >= boardHeight) Wall.Number else PieceEmpty.Number
     )
-    new Position(width, height, playfield)
+    new Position(boardWidth, boardHeight, playfield)
   }
 
   // Copy constructor
   def apply(position: Position): Position = {
-    new Position(position.width, position.height, position.playfieldCopy)
+    new Position(position.boardWidth, position.boardHeight, position.playfieldCopy)
   }
 }
 
 /**
  * A board with walls and next piece(es), used by the GUI.
  */
-class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
+class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) {
   private def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
 
-  def playfieldWidth = width + Wall.Left + Wall.Right
-  def playfieldHeight = height + Wall.Bottom
+  def playfieldWidth = boardWidth + Wall.Left + Wall.Right
+  def playfieldHeight = boardHeight + Wall.Bottom
   def colorValue(x: Int, y: Int): Int = playfield(y)(x).toInt
 
   def setStartPieceIfFree(piece: Piece, settings: GameSettings) {
-    val startMove = settings.pieceStartMove(width, piece)
+    val startMove = settings.pieceStartMove(boardWidth, piece)
     val isFree = piece.shape(startMove.rotation).dots.foldLeft(0) {(sum,dot) => sum + emptyOrOccupied (dot.x, dot.y)} == 0
     if (isFree)
       setPiece(piece, startMove)
@@ -64,17 +64,17 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   }
 
   private def isCompleteLine(y: Int): Boolean = {
-    (0 until width).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == width
+    (0 until boardWidth).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == boardWidth
   }
 
   private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x + Wall.Left) == PieceEmpty.Number) 0 else 1
 
   private def clearLine(y: Int) {
-    (Wall.Left until Wall.Left + width).foreach(x => playfield(y)(x) = PieceEmpty.Number)
+    (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = PieceEmpty.Number)
   }
 
   private def copyLine(fromY: Int, toY: Int) {
-    (Wall.Left until Wall.Left + width).foreach(x => playfield(toY)(x) = playfield(fromY)(x))
+    (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(toY)(x) = playfield(fromY)(x))
   }
 
   /**
@@ -116,7 +116,7 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   }
 
   def playfieldCopy = {
-    val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](height + Wall.Bottom, width + Wall.Left + Wall.Right)
+    val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](playfieldHeight, playfieldWidth)
 
     for (i <- 0 until playfield.length)
       playfield(i).copyToArray(newPlayfield(i))
@@ -127,9 +127,9 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   override def toString = {
     var result = "";
     var newLine = "";
-    for (y <- 0 until height + Wall.Bottom) {
+    for (y <- 0 until playfieldHeight) {
       result += newLine;
-      for (x <- 0 until width + Wall.Left + Wall.Right) {
+      for (x <- 0 until playfieldWidth) {
         result += Dot.Characters(playfield(y)(x))
       }
       newLine = "\n"
