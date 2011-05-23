@@ -4,6 +4,7 @@ import actors.Actor
 
 trait PlayerEventReceiver extends Actor {
   def positionReceived(position: Position)
+  def readyToReceivePosition: Boolean
 
   override def act() {
     loop {

@@ -10,7 +10,10 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
   var columns = Seq.empty[Int]
   private var position: Position = null
 
+  var readyToReceivePosition = true
+
   def positionReceived(position: Position) {
+    readyToReceivePosition = false
     this.position = position
   }
 
@@ -35,6 +38,7 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
             settings.lineColor(color), g)
         }
       }
+      readyToReceivePosition = true
     }
   }
 

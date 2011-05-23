@@ -37,9 +37,9 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def testSetStartPiece() {
+  @Test def testSetStartPieceIfFree() {
     val position = Position(10,5);
-    position.setStartPiece(new PieceS, new DefaultGameSettings)
+    position.setStartPieceIfFree(new PieceS, new DefaultGameSettings)
 
     position.toString should be (
       "######-----SS---##\n" +

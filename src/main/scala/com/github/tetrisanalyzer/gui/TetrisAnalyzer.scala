@@ -11,8 +11,8 @@ import com.github.tetrisanalyzer.game._
 
 object TetrisAnalyzer extends SimpleSwingApplication {
   def top = new MainFrame {
-    title = "Tetris Analyzer"
-    preferredSize = new Dimension(250,500)
+    title = "Tetris Analyzer - by Joakim Tengstrand"
+    preferredSize = new Dimension(397,500)
 
     val label = new Label
 
@@ -23,7 +23,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val position = Position()
     val playfield = new Playfield(settings)
 
-    val gameEventReceiver = new GameEventReceiver(position, playfield)
+    val gameEventReceiver = new GameEventReceiver(position, settings, playfield)
     val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
     contents = new BoxPanel(Orientation.Vertical) {

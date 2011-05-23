@@ -52,8 +52,11 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   def playfieldHeight = height + Wall.Bottom
   def colorValue(x: Int, y: Int): Int = playfield(y)(x).toInt
 
-  def setStartPiece(piece: Piece, settings: GameSettings) {
-    setPiece(piece, settings.pieceStartMove(width, piece))
+  def setStartPieceIfFree(piece: Piece, settings: GameSettings) {
+    val startMove = settings.pieceStartMove(width, piece)
+    val isFree = piece.shape(startMove.rotation).dots.foldLeft(0) {(sum,dot) => sum + emptyOrOccupied (dot.x, dot.y)} == 0
+    if (isFree)
+      setPiece(piece, startMove)
   }
 
   def setPiece(piece: Piece, move: Move) {
@@ -61,8 +64,10 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   }
 
   private def isCompleteLine(y: Int): Boolean = {
-    (Wall.Left until Wall.Left + width).foldLeft(0) { (sum,x) => sum + (if (playfield(y)(x) == PieceEmpty.Number) 0 else 1) } == width
+    (Wall.Left until Wall.Left + width).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == width
   }
+
+  private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x) == PieceEmpty.Number) 0 else 1
 
   private def clearLine(y: Int) {
     (Wall.Left until Wall.Left + width).foreach(x => playfield(y)(x) = PieceEmpty.Number)
