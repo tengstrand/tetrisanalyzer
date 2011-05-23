@@ -17,7 +17,7 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
     this.position = position
   }
 
-  def preparePaintGraphics = {
+  override def preparePaintGraphics = {
     if (position != null) {
       val squareSize = calculateSquareSize
       rows = (0 to position.playfieldHeight).map(y => margin + (y * squareSize).intValue)
@@ -28,7 +28,7 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
       new Dimension(0,0)
   }
 
-  def paintGraphics(g: Graphics) {
+  override def paintGraphics(g: Graphics) {
     if (position != null) {
       for (iy <- 0 until position.playfieldHeight) {
         for (ix <- 0 until position.playfieldWidth) {
