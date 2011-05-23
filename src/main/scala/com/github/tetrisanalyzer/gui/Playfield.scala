@@ -20,18 +20,18 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
   override def preparePaintGraphics = {
     if (position != null) {
       val squareSize = calculateSquareSize
-      rows = (0 to position.playfieldHeight).map(y => margin + (y * squareSize).intValue)
-      columns = (0 to position.playfieldWidth).map(x => margin + (x * squareSize).intValue)
+      rows = (0 to position.height).map(y => margin + (y * squareSize).intValue)
+      columns = (0 to position.width).map(x => margin + (x * squareSize).intValue)
 
-      new Dimension(columns(position.playfieldWidth)-columns(0)+margin-1, rows(position.playfieldHeight)+margin-rows(0)-1)
+      new Dimension(columns(position.width)-columns(0)+margin-1, rows(position.height)+margin-rows(0)-1)
     } else
       new Dimension(0,0)
   }
 
   override def paintGraphics(g: Graphics) {
     if (position != null) {
-      for (iy <- 0 until position.playfieldHeight) {
-        for (ix <- 0 until position.playfieldWidth) {
+      for (iy <- 0 until position.height) {
+        for (ix <- 0 until position.width) {
           val color = position.colorValue(ix, iy)
           drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1),
             settings.squareColor(color),
@@ -58,8 +58,8 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
       0
 
     if (height / width > 2)
-      width / position.playfieldWidth
+      width / position.width
     else
-      height / position.playfieldHeight
+      height / position.height
   }
 }

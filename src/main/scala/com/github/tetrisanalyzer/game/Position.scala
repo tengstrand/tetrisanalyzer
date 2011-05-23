@@ -48,8 +48,8 @@ object Position {
 class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) {
   private def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
 
-  def playfieldWidth = boardWidth + Wall.Left + Wall.Right
-  def playfieldHeight = boardHeight + Wall.Bottom
+  def width = boardWidth + Wall.Left + Wall.Right
+  def height = boardHeight + Wall.Bottom
   def colorValue(x: Int, y: Int): Int = playfield(y)(x).toInt
 
   def setStartPieceIfFree(piece: Piece, settings: GameSettings) {
@@ -116,7 +116,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
   }
 
   def playfieldCopy = {
-    val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](playfieldHeight, playfieldWidth)
+    val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](height, width)
 
     for (i <- 0 until playfield.length)
       playfield(i).copyToArray(newPlayfield(i))
@@ -127,9 +127,9 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
   override def toString = {
     var result = "";
     var newLine = "";
-    for (y <- 0 until playfieldHeight) {
+    for (y <- 0 until height) {
       result += newLine;
-      for (x <- 0 until playfieldWidth) {
+      for (x <- 0 until width) {
         result += Dot.Characters(playfield(y)(x))
       }
       newLine = "\n"
