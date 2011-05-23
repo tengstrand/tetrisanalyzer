@@ -64,10 +64,10 @@ class Position(val width: Int, val height: Int, playfield: Array[Array[Byte]]) {
   }
 
   private def isCompleteLine(y: Int): Boolean = {
-    (Wall.Left until Wall.Left + width).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == width
+    (0 until width).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == width
   }
 
-  private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x) == PieceEmpty.Number) 0 else 1
+  private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x + Wall.Left) == PieceEmpty.Number) 0 else 1
 
   private def clearLine(y: Int) {
     (Wall.Left until Wall.Left + width).foreach(x => playfield(y)(x) = PieceEmpty.Number)
