@@ -8,17 +8,22 @@ import com.github.tetrisanalyzer.settings.DefaultGameSettings
 import scala.actors.Actor._
 import com.github.tetrisanalyzer.game.Timer._
 import com.github.tetrisanalyzer.game._
+import java.awt.{KeyEventPostProcessor, KeyboardFocusManager}
+import java.awt.event.KeyEvent
 
 object TetrisAnalyzer extends SimpleSwingApplication {
+
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
     preferredSize = new Dimension(397,500)
-
-    val label = new Label
-
+/*
+    val label = new Label {
+      text = "testing"
+    }
+*/
     val board = Board()
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
-    val pieceGenerator = new DefaultPieceGenerator(4)
+    val pieceGenerator = new DefaultPieceGenerator(5)
     val settings = new DefaultGameSettings
     val position = Position()
     val playfield = new Playfield(settings)
@@ -28,14 +33,26 @@ object TetrisAnalyzer extends SimpleSwingApplication {
 
     contents = new BoxPanel(Orientation.Vertical) {
       contents += playfield
-      contents += label
+//      contents += label
     }
 
     gameEventReceiver.start()
     playfield.start
     computerPlayer.start()
 
-  // TODO: Handle as event!
+    KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
+      def postProcessKeyEvent(e: KeyEvent): Boolean = {
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+          e.getKeyCode match {
+            case 40 => // Key Down
+              computerPlayer.performStep = true
+            case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode));
+          }
+        }
+        true;
+      }
+    });
+
     actor {
       fiftyTimesPerSecond(() => {
         playfield.repaint

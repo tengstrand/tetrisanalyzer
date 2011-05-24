@@ -8,7 +8,6 @@ import com.github.tetrisanalyzer.settings.GameSettings
 case class SetPiece(piece: Piece, move: Move)
 
 class GameEventReceiver(position: Position, settings: GameSettings, playerEventReceiver: PlayerEventReceiver) extends Actor {
-  var sendBoard: Boolean = true
 
   override def act() {
     loop {

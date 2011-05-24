@@ -14,20 +14,28 @@ import actors.Actor
 class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
-
+  var moves = 0L
   var clearedLines = 0L
+
+  private var isStepMode = true
+  var performStep = true
 
   override def act() {
     var bestMove = evaluateBestMove
-    var moves = 0
 
     while (bestMove.isDefined) {
-      clearedLines += bestMove.get.setPiece
-      gameEventReceiver ! SetPiece(bestMove.get.piece, bestMove.get.move)
-      bestMove = evaluateBestMove
-      moves += 1
-      Thread.sleep(500) // Send two pieces per second
+      while (isStepMode && !performStep)
+          Thread.sleep(20)
+      bestMove = makeMove(bestMove.get)
     }
+  }
+
+  private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
+    performStep = false
+    moves += 1
+    clearedLines += pieceMove.setPiece
+    gameEventReceiver ! SetPiece(pieceMove.piece, pieceMove.move)
+    evaluateBestMove
   }
 
   private def evaluateBestMove: Option[PieceMove] = {

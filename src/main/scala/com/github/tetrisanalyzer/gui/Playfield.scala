@@ -23,7 +23,7 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
       rows = (0 to position.height).map(y => margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => margin + (x * squareSize).intValue)
 
-      new Dimension(columns(position.width)-columns(0)+margin-1, rows(position.height)+margin-rows(0)-1)
+      new Dimension(columns(position.width)-columns(0)+margin, rows(position.height)+margin-rows(0))
     } else
       new Dimension(0,0)
   }
@@ -38,6 +38,8 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
             settings.lineColor(color), g)
         }
       }
+      g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))
+      g.drawLine(columns(0), rows(position.height)-1, columns(position.width), rows(position.height)-1)
       readyToReceivePosition = true
     }
   }
@@ -54,10 +56,10 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
     val width = this.size.width - 20.0
     val height = this.size.height - 20.0
 
-    if (width <= 0 || height <= 0)
+    if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
       0
 
-    if (height / width > 2)
+    if (height / width > 1.2)
       width / position.width
     else
       height / position.height
