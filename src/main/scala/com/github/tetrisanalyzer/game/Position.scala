@@ -45,7 +45,7 @@ object Position {
 /**
  * A board with walls and next piece(es), used by the GUI.
  */
-class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) {
+class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) extends PositionModel {
   private def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
 
   def width = boardWidth + Wall.Left + Wall.Right
