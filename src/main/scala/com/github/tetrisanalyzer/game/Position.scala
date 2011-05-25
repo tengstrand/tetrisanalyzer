@@ -30,15 +30,15 @@ object Dot {
 
 object Position {
   def apply(boardWidth: Int = 10, boardHeight: Int = 20): Position = {
-    val playfield = Array.tabulate[Byte](boardHeight + Wall.Bottom, boardWidth + Wall.Left + Wall.Right) (
+    val positionView = Array.tabulate[Byte](boardHeight + Wall.Bottom, boardWidth + Wall.Left + Wall.Right) (
       (y,x) => if (x < Wall.Left || x >= boardWidth + Wall.Left || y >= boardHeight) Wall.Number else PieceEmpty.Number
     )
-    new Position(boardWidth, boardHeight, playfield)
+    new Position(boardWidth, boardHeight, positionView)
   }
 
   // Copy constructor
   def apply(position: Position): Position = {
-    new Position(position.boardWidth, position.boardHeight, position.playfieldCopy)
+    new Position(position.boardWidth, position.boardHeight, position.positionCopy)
   }
 }
 
@@ -115,7 +115,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     clearedLines
   }
 
-  def playfieldCopy = {
+  def positionCopy = {
     val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](height, width)
 
     for (i <- 0 until playfield.length)

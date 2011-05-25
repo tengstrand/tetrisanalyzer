@@ -4,7 +4,7 @@ import java.awt.{Color, Dimension, Graphics}
 import com.github.tetrisanalyzer.game.{Position, PlayerEventReceiver}
 import com.github.tetrisanalyzer.settings.GameSettings
 
-class Playfield(settings: GameSettings) extends DoubleBufferedComponent with PlayerEventReceiver {
+class PositionView(settings: GameSettings) extends DoubleBufferedComponent with PlayerEventReceiver {
   private val margin = 10
   private var rows = Seq.empty[Int]
   private var columns = Seq.empty[Int]

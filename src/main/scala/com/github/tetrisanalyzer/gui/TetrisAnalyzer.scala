@@ -26,18 +26,18 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val pieceGenerator = new DefaultPieceGenerator(5)
     val settings = new DefaultGameSettings
     val position = Position()
-    val playfield = new Playfield(settings)
+    val positionView = new PositionView(settings)
 
-    val gameEventReceiver = new GameEventReceiver(position, settings, playfield)
+    val gameEventReceiver = new GameEventReceiver(position, settings, positionView)
     val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
     contents = new BoxPanel(Orientation.Vertical) {
-      contents += playfield
+      contents += positionView
 //      contents += label
     }
 
     gameEventReceiver.start()
-    playfield.start
+    positionView.start
     computerPlayer.start()
 
     KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
@@ -49,7 +49,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
             case 83 => // S = toggle Step mode
               computerPlayer.toggleStepMode()
               Thread.sleep(30)
-              playfield.toggleStepMode()
+              positionView.toggleStepMode()
             case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode));
           }
         }
@@ -59,7 +59,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
 
     actor {
       fiftyTimesPerSecond(() => {
-        playfield.repaint
+        positionView.repaint
       })
     }
   }
