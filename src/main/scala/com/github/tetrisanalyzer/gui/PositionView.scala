@@ -12,10 +12,10 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
 
   private var receivePosition = true
 
-  def readyToReceivePosition = receivePosition || isStepMode
-  private var isStepMode = false
+  def readyToReceivePosition = receivePosition || isPaused
+  private var isPaused = false
 
-  def toggleStepMode() { isStepMode = !isStepMode }
+  def togglePause() { isPaused = !isPaused }
 
   def positionReceived(positionModel: PositionModel) {
     receivePosition = false

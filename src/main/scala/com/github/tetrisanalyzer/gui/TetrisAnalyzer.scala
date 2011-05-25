@@ -16,11 +16,11 @@ object TetrisAnalyzer extends SimpleSwingApplication {
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
     preferredSize = new Dimension(397,500)
-/*
+
     val label = new Label {
       text = "testing"
     }
-*/
+
     val board = Board()
     val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new DefaultPieceGenerator(5)
@@ -31,9 +31,9 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val gameEventReceiver = new GameEventReceiver(position, settings, positionView)
     val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
-    contents = new BoxPanel(Orientation.Vertical) {
+    contents = new BoxPanel(Orientation.Horizontal) {
       contents += positionView
-//      contents += label
+      contents += label
     }
 
     gameEventReceiver.start()
@@ -46,11 +46,11 @@ object TetrisAnalyzer extends SimpleSwingApplication {
           e.getKeyCode match {
             case 40 => // Down
               computerPlayer.performStep()
-            case 83 => // S = toggle Step mode
-              computerPlayer.toggleStepMode()
+            case 80 => // P = Pause
+              computerPlayer.togglePause()
               Thread.sleep(30)
-              positionView.toggleStepMode()
-            case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode));
+              positionView.togglePause()
+            case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
           }
         }
         true;

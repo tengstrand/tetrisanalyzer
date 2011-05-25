@@ -17,12 +17,12 @@ class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerato
   var moves = 0L
   var clearedLines = 0L
 
-  private var isStepMode = true
+  private var isPaused = true
   private var doStep = true
 
-  def toggleStepMode() {
+  def togglePause() {
     doStep = true
-    isStepMode = !isStepMode
+    isPaused = !isPaused
   }
   def performStep() { doStep = true }
 
@@ -30,7 +30,7 @@ class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerato
     var bestMove = evaluateBestMove
 
     while (bestMove.isDefined) {
-      while (isStepMode && !doStep)
+      while (isPaused && !doStep)
           Thread.sleep(20)
       bestMove = makeMove(bestMove.get)
     }
