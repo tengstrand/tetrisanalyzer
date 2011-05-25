@@ -6,7 +6,7 @@ import java.awt._
 /**
  * Use this component when you want flicker free painting.
  */
-abstract class DoubleBufferedComponent extends Component {
+abstract class DoubleBufferedView extends Component {
   private var image: Image = _
 
   def preparePaintGraphics: Dimension
