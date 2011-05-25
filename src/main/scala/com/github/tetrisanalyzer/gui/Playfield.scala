@@ -5,15 +5,20 @@ import com.github.tetrisanalyzer.game.{Position, PlayerEventReceiver}
 import com.github.tetrisanalyzer.settings.GameSettings
 
 class Playfield(settings: GameSettings) extends DoubleBufferedComponent with PlayerEventReceiver {
-  val margin = 10
-  var rows = Seq.empty[Int]
-  var columns = Seq.empty[Int]
+  private val margin = 10
+  private var rows = Seq.empty[Int]
+  private var columns = Seq.empty[Int]
   private var position: Position = null
 
-  var readyToReceivePosition = true
+  private var receivePosition = true
+
+  def readyToReceivePosition = receivePosition || isStepMode
+  private var isStepMode = false
+
+  def toggleStepMode() { isStepMode = !isStepMode }
 
   def positionReceived(position: Position) {
-    readyToReceivePosition = false
+    receivePosition = false
     this.position = position
   }
 
@@ -40,7 +45,7 @@ class Playfield(settings: GameSettings) extends DoubleBufferedComponent with Pla
       }
       g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))
       g.drawLine(columns(0), rows(position.height)-1, columns(position.width), rows(position.height)-1)
-      readyToReceivePosition = true
+      receivePosition = true
     }
   }
 

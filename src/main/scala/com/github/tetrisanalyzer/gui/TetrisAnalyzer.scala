@@ -44,8 +44,12 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       def postProcessKeyEvent(e: KeyEvent): Boolean = {
         if (e.getID() == KeyEvent.KEY_PRESSED) {
           e.getKeyCode match {
-            case 40 => // Key Down
-              computerPlayer.performStep = true
+            case 40 => // Down
+              computerPlayer.performStep()
+            case 83 => // S = toggle Step mode
+              computerPlayer.toggleStepMode()
+              Thread.sleep(30)
+              playfield.toggleStepMode()
             case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode));
           }
         }

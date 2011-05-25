@@ -14,9 +14,9 @@ class GameEventReceiver(position: Position, settings: GameSettings, playerEventR
       react {
         case SetPiece(piece: Piece, move: Move) =>
           if (playerEventReceiver.readyToReceivePosition) {
-            val positionCopy = Position(position)
-            positionCopy.setStartPieceIfFree(piece, settings)
-            playerEventReceiver ! positionCopy
+            val positionWithStartPiece = Position(position)
+            positionWithStartPiece.setStartPieceIfFree(piece, settings)
+            playerEventReceiver ! positionWithStartPiece
           }
           position.setPiece(piece, move)
           position.clearLines(move.y, piece.height(move.rotation))

@@ -18,20 +18,26 @@ class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerato
   var clearedLines = 0L
 
   private var isStepMode = true
-  var performStep = true
+  private var doStep = true
+
+  def toggleStepMode() {
+    doStep = true
+    isStepMode = !isStepMode
+  }
+  def performStep() { doStep = true }
 
   override def act() {
     var bestMove = evaluateBestMove
 
     while (bestMove.isDefined) {
-      while (isStepMode && !performStep)
+      while (isStepMode && !doStep)
           Thread.sleep(20)
       bestMove = makeMove(bestMove.get)
     }
   }
 
   private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
-    performStep = false
+    doStep = false
     moves += 1
     clearedLines += pieceMove.setPiece
     gameEventReceiver ! SetPiece(pieceMove.piece, pieceMove.move)
