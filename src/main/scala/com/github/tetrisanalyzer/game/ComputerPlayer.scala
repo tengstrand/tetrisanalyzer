@@ -14,23 +14,22 @@ import actors.Actor
 class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
-  var moves = 0L
-  var clearedLines = 0L
 
-  private var isPaused = true
+  private var paused = true
   private var doStep = true
 
   def togglePause() {
     doStep = true
-    isPaused = !isPaused
+    paused = !paused
   }
+  def isPaused = paused
   def performStep() { doStep = true }
 
   override def act() {
     var bestMove = evaluateBestMove
 
     while (bestMove.isDefined) {
-      while (isPaused && !doStep)
+      while (paused && !doStep)
           Thread.sleep(20)
       bestMove = makeMove(bestMove.get)
     }
@@ -38,9 +37,8 @@ class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerato
 
   private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
     doStep = false
-    moves += 1
-    clearedLines += pieceMove.setPiece
-    gameEventReceiver ! SetPiece(pieceMove.piece, pieceMove.move)
+    val clearedLines: Long = pieceMove.setPiece
+    gameEventReceiver ! SetPieceMessage(pieceMove.piece, pieceMove.move, clearedLines)
     evaluateBestMove
   }
 

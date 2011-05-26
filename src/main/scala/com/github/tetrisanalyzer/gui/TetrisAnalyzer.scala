@@ -5,17 +5,13 @@ import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import com.github.tetrisanalyzer.settings.DefaultGameSettings
-import scala.actors.Actor._
-import com.github.tetrisanalyzer.game.Timer._
 import com.github.tetrisanalyzer.game._
-import java.awt.{KeyEventPostProcessor, KeyboardFocusManager}
-import java.awt.event.KeyEvent
 
 object TetrisAnalyzer extends SimpleSwingApplication {
 
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
-    preferredSize = new Dimension(397,500)
+    preferredSize = new Dimension(700,500)
 
     val label = new Label {
       text = "testing"
@@ -27,40 +23,21 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val settings = new DefaultGameSettings
     val position = Position()
     val positionView = new PositionView(settings)
+    val gameInfoView = new GameInfoView()
 
-    val gameEventReceiver = new GameEventReceiver(position, settings, positionView)
+    val gameEventReceiver = new GameEventReceiver(position, settings, positionView, gameInfoView)
     val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
     contents = new BoxPanel(Orientation.Horizontal) {
       contents += positionView
-      contents += label
+      contents += gameInfoView
     }
 
-    gameEventReceiver.start()
+    gameEventReceiver.start
     positionView.start
-    computerPlayer.start()
+    gameInfoView.start
+    computerPlayer.start
 
-    KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
-      def postProcessKeyEvent(e: KeyEvent): Boolean = {
-        if (e.getID() == KeyEvent.KEY_PRESSED) {
-          e.getKeyCode match {
-            case 40 => // Down
-              computerPlayer.performStep()
-            case 80 => // P = Pause
-              computerPlayer.togglePause()
-              Thread.sleep(30)
-              positionView.togglePause()
-            case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
-          }
-        }
-        true;
-      }
-    });
-
-    actor {
-      fiftyTimesPerSecond(() => {
-        positionView.repaint
-      })
-    }
+    new KeyManager(computerPlayer, positionView, gameInfoView)
   }
 }
