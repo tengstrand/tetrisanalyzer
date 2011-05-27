@@ -1,7 +1,7 @@
 package com.github.tetrisanalyzer.gui
 
 import swing._
-import com.github.tetrisanalyzer.game.{PauseMessage, GameInfoReceiver}
+import com.github.tetrisanalyzer.game.GameInfoReceiver
 
 class GameInfoScalaView extends FlowPanel with GameInfoReceiver {
   val pause = new Label("On")
@@ -11,12 +11,8 @@ class GameInfoScalaView extends FlowPanel with GameInfoReceiver {
   val numberSeparator = new NumberSeparator
 
   def setPause(pause: Boolean) { this.pause.text = if (pause) "On" else "Off" }
-  def setPieces(pieces: Long) { this.pieces.text = withSpaces(pieces) }
+  def setPieces(pieces: Long) { this.pieces.text = withSpaces(pieces); repaint() }
   def setTotalClearedLines(lines: Long) { this.lines.text = withSpaces(lines) }
-
-  def gameInfoReceived(message: PauseMessage) {
-    repaint()
-  }
 
   contents += new Label("[P]aus: "); contents += pause
   contents += new Label("Pieces: "); contents += pieces

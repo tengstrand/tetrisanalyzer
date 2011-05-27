@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.gui
 
 import java.awt.{KeyEventPostProcessor, KeyboardFocusManager}
 import java.awt.event.KeyEvent
-import com.github.tetrisanalyzer.game.{PauseMessage, ComputerPlayer}
+import com.github.tetrisanalyzer.game.ComputerPlayer
 
 class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gameInfoView: GameInfoScalaView) {
   KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
