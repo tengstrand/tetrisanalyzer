@@ -12,7 +12,7 @@ class GameEventReceiver(position: Position,
                         playerEventReceiver: PlayerEventReceiver,
                         gameInfoReceiver: GameInfoReceiver) extends Actor {
 
-  private var moves = 0L
+  private var pieces = 0L
   private var totalClearedLines = 0L
 
   override def act() {
@@ -20,13 +20,14 @@ class GameEventReceiver(position: Position,
       react {
         // TODO: Add number of cleared lines to the message and only clear lines if needed.
         case SetPieceMessage(piece: Piece, move: Move, clearedLines: Long) =>
-          if (playerEventReceiver.readyToReceivePosition) {
+          if (playerEventReceiver.isReadyToReceivePosition) {
             val positionWithStartPiece = Position(position)
             positionWithStartPiece.setStartPieceIfFree(piece, settings)
-            playerEventReceiver ! positionWithStartPiece
-            gameInfoReceiver ! GameInfoMessage(moves, totalClearedLines)
+            playerEventReceiver.setPosition(positionWithStartPiece)
+            gameInfoReceiver.setPieces(pieces)
+            gameInfoReceiver.setTotalClearedLines(totalClearedLines)
           }
-          moves += 1
+          pieces += 1
           totalClearedLines += clearedLines
           position.setPiece(piece, move)
           position.clearLines(move.y, piece.height(move.rotation))

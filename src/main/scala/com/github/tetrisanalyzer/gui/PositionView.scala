@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.gui
 
 import java.awt.{Color, Dimension, Graphics}
 import com.github.tetrisanalyzer.settings.GameSettings
-import com.github.tetrisanalyzer.game.{PositionModel, Position, PlayerEventReceiver}
+import com.github.tetrisanalyzer.game.{PositionModel, PlayerEventReceiver}
 import actors.Actor._
 import com.github.tetrisanalyzer.game.Timer._
 
@@ -18,12 +18,12 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
     fiftyTimesPerSecond(() => repaint)
   }
 
-  def readyToReceivePosition = receivePosition || isPaused
+  def isReadyToReceivePosition = receivePosition || isPaused
   private var isPaused = false
 
   def togglePause() { isPaused = !isPaused }
 
-  override def positionReceived(positionModel: PositionModel) {
+  override def setPosition(positionModel: PositionModel) {
     receivePosition = false
     position = positionModel
   }
