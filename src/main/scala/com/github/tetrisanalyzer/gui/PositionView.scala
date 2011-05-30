@@ -18,10 +18,11 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
     fiftyTimesPerSecond(() => repaint)
   }
 
-  def isReadyToReceivePosition = receivePosition || isPaused
-  private var isPaused = false
+  private var paused = false
 
-  def togglePause() { isPaused = !isPaused }
+  def setPaused(paused: Boolean) { this.paused = paused }
+
+  def isReadyToReceivePosition = receivePosition || paused
 
   override def setPosition(positionModel: PositionModel) {
     receivePosition = false

@@ -10,7 +10,7 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   val numberSeparator = new NumberSeparator
 
-  def setPause(pause: Boolean) { this.pause.text = if (pause) "On" else "Off" }
+  def setPaused(pause: Boolean) { this.pause.text = if (pause) "On" else "Off" }
   def setPieces(pieces: Long) { this.pieces.text = withSpaces(pieces); repaint() }
   def setTotalClearedLines(lines: Long) { this.lines.text = withSpaces(lines) }
 

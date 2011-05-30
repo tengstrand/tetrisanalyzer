@@ -18,11 +18,10 @@ class ComputerPlayer(board: Board, boardEvaluator: BoardEvaluator, pieceGenerato
   private var paused = true
   private var doStep = true
 
-  def togglePause() {
+  def setPaused(paused: Boolean) {
     doStep = true
-    paused = !paused
+    this.paused = paused
   }
-  def isPaused = paused
   def performStep() { doStep = true }
 
   override def act() {

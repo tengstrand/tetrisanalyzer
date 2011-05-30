@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent
 import com.github.tetrisanalyzer.game.ComputerPlayer
 
 class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gameInfoView: GameInfoView) {
+  private var paused: Boolean = true
+
   KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
     def postProcessKeyEvent(e: KeyEvent): Boolean = {
       if (e.getID() == KeyEvent.KEY_PRESSED) {
@@ -12,11 +14,10 @@ class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gam
           case 40 => // Down
             computerPlayer.performStep()
           case 80 => // P = Pause
-            // TODO: Change pause handling
-            computerPlayer.togglePause()
-            Thread.sleep(30)
-            positionView.togglePause()
-            gameInfoView.setPause(computerPlayer.isPaused)
+            paused = !paused
+            positionView.setPaused(paused)p
+            gameInfoView.setPaused(paused)
+            computerPlayer.setPaused(paused)
           case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
         }
       }
