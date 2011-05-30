@@ -4,7 +4,7 @@ import java.awt.{KeyEventPostProcessor, KeyboardFocusManager}
 import java.awt.event.KeyEvent
 import com.github.tetrisanalyzer.game.ComputerPlayer
 
-class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gameInfoView: GameInfoScalaView) {
+class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gameInfoView: GameInfoView) {
   KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
     def postProcessKeyEvent(e: KeyEvent): Boolean = {
       if (e.getID() == KeyEvent.KEY_PRESSED) {

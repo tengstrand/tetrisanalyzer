@@ -34,6 +34,9 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
       rows = (0 to position.height).map(y => margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => margin + (x * squareSize).intValue)
 
+      val dimension = new Dimension((squareSize * position.width).toInt, (squareSize * position.height).toInt)
+      preferredSize = dimension
+
       new Dimension(columns(position.width)-columns(0)+margin, rows(position.height)+margin-rows(0))
     } else
       new Dimension(0,0)
@@ -51,6 +54,7 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
       }
       g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))
       g.drawLine(columns(0), rows(position.height)-1, columns(position.width), rows(position.height)-1)
+
       receivePosition = true
     }
   }

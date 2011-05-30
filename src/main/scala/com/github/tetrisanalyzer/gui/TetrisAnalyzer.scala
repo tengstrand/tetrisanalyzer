@@ -11,7 +11,8 @@ object TetrisAnalyzer extends SimpleSwingApplication {
 
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
-    preferredSize = new Dimension(700,500)
+
+    preferredSize = new Dimension(650,500)
 
     val label = new Label {
       text = "testing"
@@ -23,7 +24,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val settings = new DefaultGameSettings
     val position = Position()
     val positionView = new PositionView(settings)
-    val gameInfoView = new GameInfoScalaView()
+    val gameInfoView = new GameInfoView()
 
     val gameEventReceiver = new GameEventReceiver(position, settings, positionView, gameInfoView)
     val computerPlayer = new ComputerPlayer(board, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
@@ -32,6 +33,12 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       contents += positionView
       contents += gameInfoView
     }
+
+//    positionView.background = new Color(0,255,0)
+//    gameInfoView.background = new Color(255,0,0)
+
+    positionView.preferredSize = new Dimension(200, 500)
+    gameInfoView.preferredSize = new Dimension(200, 500)
 
     gameEventReceiver.start
     computerPlayer.start
