@@ -15,7 +15,7 @@ class KeyManager(computerPlayer: ComputerPlayer, positionView: PositionView, gam
             computerPlayer.performStep()
           case 80 => // P = Pause
             paused = !paused
-            positionView.setPaused(paused)p
+            positionView.setPaused(paused)
             gameInfoView.setPaused(paused)
             computerPlayer.setPaused(paused)
           case _ => println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
