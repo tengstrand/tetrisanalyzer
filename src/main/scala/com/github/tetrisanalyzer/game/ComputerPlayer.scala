@@ -4,10 +4,10 @@ import com.github.tetrisanalyzer.settings.GameSettings
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator
 import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator
-import com.github.tetrisanalyzer.move.{EvaluatedMoves, ValidMoves}
 import com.github.tetrisanalyzer.piecemove.{PieceMove, AllValidPieceMovesForEmptyBoard}
 import actors.Actor
 import com.github.tetrisanalyzer.piece.Piece
+import com.github.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
@@ -32,16 +32,17 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
     var bestMove = evaluateBestMove
 
     while (bestMove.isDefined) {
-      while (paused && !doStep)
-          Thread.sleep(20)
-
+      waitIfPaused
       bestMove = makeMove(bestMove.get)
       moves += 1
     }
 
-    updatePlayerReceiver
+    updateEndPositionInGUI
+  }
 
-    println(board.toString)
+  private def waitIfPaused() {
+    while (paused && !doStep)
+        Thread.sleep(20)
   }
 
   private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
@@ -49,33 +50,21 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
 
     // Update GUI every 100 piece.
     if (doStep || moves % 100 == 0) {
-      updatePlayerReceiver(pieceMove.piece)
-      updateGameInfoReceiver()
+      updatePositionInGUI(pieceMove.piece)
+      updateGameInfoInGUI()
     }
+    setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
+
     doStep = false
-
-    position.setPiece(pieceMove.piece, pieceMove.move)
-    if (clearedLines > 0)
-      position.clearLines(pieceMove.move.y, pieceMove.piece.height(pieceMove.move.rotation))
-
     totalClearedLines += clearedLines
 
     evaluateBestMove
   }
 
-  private def updatePlayerReceiver() {
-    playerEventReceiver.setPosition(Position(position))
-  }
-
-  private def updatePlayerReceiver(piece: Piece) {
-    val positionWithStartPiece = Position(position)
-    positionWithStartPiece.setStartPieceIfFree(piece, settings)
-    playerEventReceiver.setPosition(positionWithStartPiece)
-  }
-
-  private def updateGameInfoReceiver() {
-    gameInfoReceiver.setPieces(moves)
-    gameInfoReceiver.setTotalClearedLines(totalClearedLines)
+  private def setPieceOnPosition(piece: Piece, move: Move, clearedLines: Long) {
+    position.setPiece(piece, move)
+    if (clearedLines > 0)
+      position.clearLines(move.y, piece.height(move.rotation))
   }
 
   private def evaluateBestMove: Option[PieceMove] = {
@@ -86,5 +75,20 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
     } else {
       None
     }
+  }
+
+  private def updateEndPositionInGUI() {
+    playerEventReceiver.setPosition(Position(position))
+  }
+
+  private def updatePositionInGUI(piece: Piece) {
+    val positionWithStartPiece = Position(position)
+    positionWithStartPiece.setStartPieceIfFree(piece, settings)
+    playerEventReceiver.setPosition(positionWithStartPiece)
+  }
+
+  private def updateGameInfoInGUI() {
+    gameInfoReceiver.setPieces(moves)
+    gameInfoReceiver.setTotalClearedLines(totalClearedLines)
   }
 }
