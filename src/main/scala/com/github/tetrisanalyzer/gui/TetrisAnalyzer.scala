@@ -26,8 +26,9 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val position = Position()
     val positionView = new PositionView(settings)
     val gameInfoView = new GameInfoView()
+    val gameEventReceiver = new GameEventDelegator(positionView, gameInfoView)
 
-    val computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, positionView, gameInfoView)
+    val computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
     contents = new BoxPanel(Orientation.Horizontal) {
       contents += positionView

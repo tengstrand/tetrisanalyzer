@@ -13,7 +13,7 @@ import com.github.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
-                     settings: GameSettings, playerEventReceiver: PlayerEventReceiver, gameInfoReceiver: GameInfoReceiver) extends Actor {
+                     settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private var paused = true
@@ -78,17 +78,17 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
   }
 
   private def updateEndPositionInGUI() {
-    playerEventReceiver.setPosition(Position(position))
+    gameEventReceiver.setPosition(Position(position))
   }
 
   private def updatePositionInGUI(piece: Piece) {
     val positionWithStartPiece = Position(position)
     positionWithStartPiece.setStartPieceIfFree(piece, settings)
-    playerEventReceiver.setPosition(positionWithStartPiece)
+    gameEventReceiver.setPosition(positionWithStartPiece)
   }
 
   private def updateGameInfoInGUI() {
-    gameInfoReceiver.setPieces(moves)
-    gameInfoReceiver.setTotalClearedLines(totalClearedLines)
+    gameEventReceiver.setNumberOfPieces(moves)
+    gameEventReceiver.setTotalClearedLines(totalClearedLines)
   }
 }
