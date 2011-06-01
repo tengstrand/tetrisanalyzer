@@ -12,13 +12,8 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
   private var columns = Seq.empty[Int]
   private var position: PositionModel = null
 
-  private var receivePosition = true
-
-  actor {
-    fiftyTimesPerSecond(() => repaint)
-  }
-
   private var paused = false
+  private var receivePosition = true
 
   def setPaused(paused: Boolean) { this.paused = paused }
 

@@ -15,7 +15,7 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   def setPieces(pieces: Long) { this.pieces = pieces.toDouble; this.piecesLabel.text = withSpaces(pieces); repaint() }
   def setTotalClearedLines(lines: Long) { this.lines.text = withSpaces(lines) }
-  def setTimePassed(timePassedSeconds: Double) { this.piecesPerSec.text = calculatePiecesPerSec(timePassedSeconds) }
+  def setTimePassed(seconds: Double) { this.piecesPerSec.text = withSpaces(calculatePiecesPerSec(seconds)) }
   def setPaused(pause: Boolean) { this.pause.text = if (pause) "On" else "Off" }
 
   add(new Label("Pieces:"), new Rectangle(10,10, 70,20))
@@ -32,12 +32,12 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)
 
-  private def calculatePiecesPerSec(timePassedSeconds: Double) = {
-    if (timePassedSeconds == 0 || piecesLabel == 0) {
-      "0"
+  private def calculatePiecesPerSec(seconds: Double): Long = {
+    if (seconds == 0 || piecesLabel == 0) {
+      0
     } else {
-      val piecesPerSecond = scala.math.round(pieces / timePassedSeconds * 100) / 100;
-      piecesPerSecond.toString
+      val piecesPerSecond = scala.math.round(pieces / seconds);
+      piecesPerSecond.toLong
     }
   }
 }

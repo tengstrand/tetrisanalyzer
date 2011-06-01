@@ -4,5 +4,5 @@ trait GameInfoReceiver {
   def setPaused(paused: Boolean)
   def setPieces(pieces: Long)
   def setTotalClearedLines(lines: Long)
-  def setTimePassed(timePassedSeconds: Double)
+  def setTimePassed(seconds: Double)
 }
