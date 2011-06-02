@@ -5,8 +5,8 @@ import com.github.tetrisanalyzer.BaseTest
 import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.settings.DefaultGameSettings
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
-import com.github.tetrisanalyzer.piecemove.{PieceMove, ValidPieceMovesForEmptyBoard}
 import com.github.tetrisanalyzer.piece.{Piece, PieceS}
+import com.github.tetrisanalyzer.piecemove.{AllValidPieceMovesForEmptyBoard, PieceMove, ValidPieceMovesForEmptyBoard}
 
 class EvaluatedMovesTest extends BaseTest {
   private var board: Board = Board()
@@ -19,10 +19,13 @@ class EvaluatedMovesTest extends BaseTest {
 
   private def getEvaluatedMoves = {
     val settings = new DefaultGameSettings
-    val startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).startMove
+    val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
+    val startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(piece)
     val validMoves = new ValidMoves(board).pieceMoves(startPieceMove)
     val boardEvaluator = new TengstrandBoardEvaluator1
-    new EvaluatedMoves(board, validMoves, boardEvaluator)
+    val startPieceMoves = allValidPieceMovesForEmptyBoard.startPieces
+    val maxEquity = boardEvaluator.evaluate(board.worstBoard)
+    new EvaluatedMoves(board, validMoves, boardEvaluator, startPieceMoves, settings.firstFreeRowUnderStartPiece, maxEquity)
   }
 
   @Test def evaluatedMoves {

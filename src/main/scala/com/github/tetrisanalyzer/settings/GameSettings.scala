@@ -12,6 +12,7 @@ trait GameSettings {
   def isSlidingEnabled: Boolean
   def rotationDirection: RotationDirection
   def pieceStartMove(boardWidth: Int, piece: Piece): Move
+  def firstFreeRowUnderStartPiece: Int
 
   /**
    * Returns the colour of the square for the specified position

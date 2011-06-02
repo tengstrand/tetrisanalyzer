@@ -52,10 +52,32 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
   require(width >= 4 && width <= 32)
   require(height >= 4)
 
+  def worstBoard: Board = {
+    val board = Board(width, height)
+    val worstLines = Array.tabulate(height) (
+      ((y) => worstLine(width, y % 2 == 0))
+    )
+    new Board(width, height, worstLines)
+  }
+
+  private def worstLine(width: Int, even: Boolean): Int = {
+    var line = Board.EmptyLine
+
+    for (x <- 1 to width) {
+      line <<= 1
+      if (x % 2 == 1)
+        line |= 1
+    }
+    if (even)
+      line
+    else
+      line >> 1
+  }
+
   private def calculateCompleteLine(width: Int): Int = {
     var line = Board.EmptyLine
 
-    for (i <- 1 to width) {
+    for (x <- 1 to width) {
       line <<= 1
       line |= 1
     }

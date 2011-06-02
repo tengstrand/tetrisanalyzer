@@ -14,6 +14,7 @@ class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGe
   var moves = 0L
   var clearedLines = 0L
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
+  val maxEquity = boardEvaluator.evaluate(board.worstBoard)
 
   /**
    * Keeps playing till the end.
@@ -46,7 +47,7 @@ class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGe
     val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(board, validMoves, boardEvaluator).bestMove
+      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMoves.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
     } else {
       None
     }

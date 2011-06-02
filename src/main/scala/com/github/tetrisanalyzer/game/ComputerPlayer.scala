@@ -14,7 +14,9 @@ import com.github.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
  */
 class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
-  val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
+
+  private val maxEquity = boardEvaluator.evaluate(board.worstBoard)
+  private val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private val startBoard = board.copy
   private var position: Position = null
@@ -85,7 +87,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(board, validMoves, boardEvaluator).bestMove
+      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMoves.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
     } else {
       None
     }

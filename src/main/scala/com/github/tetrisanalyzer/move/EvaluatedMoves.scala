@@ -3,19 +3,23 @@ package com.github.tetrisanalyzer.move
 import com.github.tetrisanalyzer.piecemove.PieceMove
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator
 import com.github.tetrisanalyzer.board.Board
+import com.github.tetrisanalyzer.piece.Piece
 
 case class MoveEquity(pieceMove: PieceMove, equity: Double)
 
 object EvaluatedMoves {
-  def apply(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) = {
-    new EvaluatedMoves(board, pieceMoves, boardEvaluator)
+  def apply(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator,
+            startPieceMoves: List[PieceMove], firstFreeRowUnderStartPiece: Int, maxEquity: Double) = {
+    new EvaluatedMoves(board, pieceMoves, boardEvaluator, startPieceMoves, firstFreeRowUnderStartPiece, maxEquity)
   }
 }
+
 
 /**
  * Takes a list of piece moves and evaluates them using the given board evaluator.
  */
-class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) {
+class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator,
+                     startPieceMoves: List[PieceMove], firstFreeRowUnderStartPiece: Int, maxEquity: Double) {
   val moves: List[MoveEquity] = evaluateValidMoves
 
   /**
@@ -55,7 +59,10 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
 
   private def evaluate(pieceMove: PieceMove, boardCopy: Board): Double = {
     val clearedLines = pieceMove.setPiece
-    val equity = boardEvaluator.evaluate(pieceMove.board)
+    var equity = boardEvaluator.evaluate(pieceMove.board)
+
+    if (pieceMove.move.y + clearedLines < firstFreeRowUnderStartPiece)
+       equity = adjustEquityIfNextPieceIsOccupied(pieceMove.board, equity)
 
     if (clearedLines == 0)
       pieceMove.clearPiece()
@@ -63,5 +70,9 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
       pieceMove.board.restore(boardCopy)
 
     equity
+  }
+
+  private def adjustEquityIfNextPieceIsOccupied(board: Board, equity: Double) = {
+    startPieceMoves.foldLeft(0.0) { (sum,pieceMove) => sum + (if (pieceMove.isFree) equity else maxEquity) } / Piece.NumberOfPieceTypes
   }
 }
