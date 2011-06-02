@@ -63,7 +63,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
     val clearedLines: Long = pieceMove.setPiece
 
-    // Update GUI every 100 piece.
+    // Update GUI every 100 piece (and always if in step mode).
     if (doStep || moves % 100 == 0) {
       updatePositionInGUI(pieceMove.piece)
       updateGameInfoInGUI()

@@ -6,7 +6,7 @@ import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.move.Move
 
 /**
- * Helper class for the calculation of valid moves on an empty board.
+ * Helper class to calculate the valid moves on an empty board.
  */
 class VisitedPieceMoves(board: Board, piece: Piece) {
   private val moves = Array.fill(board.height, board.width, Direction.NumberOfDirections) { 0 }
@@ -18,9 +18,9 @@ class VisitedPieceMoves(board: Board, piece: Piece) {
   def get(move: Move): PieceMove = validMoves.getOrElse(move, PieceMove(board, piece, move))
 
   /**
-   * Marks a move as visited. The attribute 'movement.direction' says the manner in which the
-   * transfer to this location has occurred. We also add the direction 'Rotate' because
-   * we don't need to rotate the piece a full circle (to the position we just have).
+   * Marks a move as visited. The attribute 'movement.direction' describes the way in which the
+   * movement to this location has occurred. We also add the direction 'Rotate' because
+   * we don't want to rotate the piece back to where we are..
    */
   def visit(movement: Movement) {
     val move = movement.pieceMove.move
