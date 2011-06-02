@@ -22,7 +22,7 @@ class EvaluatedMovesTest extends BaseTest {
     val startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).startMove
     val validMoves = new ValidMoves(board).pieceMoves(startPieceMove)
     val boardEvaluator = new TengstrandBoardEvaluator1
-    new EvaluatedMoves(validMoves, boardEvaluator)
+    new EvaluatedMoves(board, validMoves, boardEvaluator)
   }
 
   @Test def evaluatedMoves {

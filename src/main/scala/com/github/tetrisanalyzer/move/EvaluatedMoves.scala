@@ -7,15 +7,15 @@ import com.github.tetrisanalyzer.board.Board
 case class MoveEquity(pieceMove: PieceMove, equity: Double)
 
 object EvaluatedMoves {
-  def apply(pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) = {
-    new EvaluatedMoves(pieceMoves, boardEvaluator)
+  def apply(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) = {
+    new EvaluatedMoves(board, pieceMoves, boardEvaluator)
   }
 }
 
 /**
  * Takes a list of piece moves and evaluates them using the given board evaluator.
  */
-class EvaluatedMoves(pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) {
+class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator) {
   val moves: List[MoveEquity] = evaluateValidMoves
 
   /**
@@ -43,7 +43,7 @@ class EvaluatedMoves(pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator
    */
   private def evaluateValidMoves: List[MoveEquity] = {
     if (!pieceMoves.isEmpty) {
-      val boardCopy = pieceMoves.head.board.copy
+      val boardCopy = board.copy
 
       for {
         pieceMove <- pieceMoves

@@ -85,7 +85,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(validMoves, boardEvaluator).bestMove
+      EvaluatedMoves(board, validMoves, boardEvaluator).bestMove
     } else {
       None
     }
