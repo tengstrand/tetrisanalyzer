@@ -3,8 +3,8 @@ package com.github.tetrisanalyzer.piecemove
 import com.github.tetrisanalyzer.move.rotation.RotationDirection
 
 /**
- * Used by the algorithm that calculates the tree of linked moves
- * with all valid moves om an empty board.
+ * Used by the algorithm that calculates the linked list of moves
+ * representing all valid moves om an empty board.
  */
 class Movement(val pieceMove: PieceMove, val direction: Direction) {
   def this(pieceMove: PieceMove) = this(pieceMove, new Down)
