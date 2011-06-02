@@ -12,8 +12,6 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
   def togglePause {
     paused = !paused
 
-    gameInfoReceiver.setPaused(paused)
-
     val currentTimeMs = System.currentTimeMillis
 
     if (paused) {

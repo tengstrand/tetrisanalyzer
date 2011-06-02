@@ -12,15 +12,20 @@ import com.github.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
-class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
+class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
   val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 
+  private val startBoard = board.copy
+  private var position: Position = null
   private var paused = true
   private var doStep = true
 
   private var moves = 0L
-  private var totalClearedLines = 0L
+  private var movesTotal = 0L
+  private var clearedLines = 0L
+  private var clearedLinesTotal = 0L
+  private var games = 0
 
   def setPaused(paused: Boolean) {
     doStep = true
@@ -29,15 +34,23 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
   def performStep() { doStep = true }
 
   override def act() {
-    var bestMove = evaluateBestMove
+    while (true) {
+      board.restore(startBoard)
+      position = Position(startPosition)
+      var bestMove = evaluateBestMove
 
-    while (bestMove.isDefined) {
-      waitIfPaused
-      bestMove = makeMove(bestMove.get)
-      moves += 1
+      while (bestMove.isDefined) {
+        waitIfPaused
+        bestMove = makeMove(bestMove.get)
+        moves += 1
+        movesTotal += 1
+      }
+
+      games += 1
+      updateEndPositionInGUI
+      moves = 0
+      clearedLines = 0
     }
-
-    updateEndPositionInGUI
   }
 
   private def waitIfPaused() {
@@ -56,7 +69,8 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
 
     doStep = false
-    totalClearedLines += clearedLines
+    this.clearedLines += clearedLines
+    clearedLinesTotal += clearedLines
 
     evaluateBestMove
   }
@@ -79,6 +93,7 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
 
   private def updateEndPositionInGUI() {
     gameEventReceiver.setPosition(Position(position))
+    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines)
   }
 
   private def updatePositionInGUI(piece: Piece) {
@@ -89,6 +104,9 @@ class ComputerPlayer(board: Board, position: Position, boardEvaluator: BoardEval
 
   private def updateGameInfoInGUI() {
     gameEventReceiver.setNumberOfPieces(moves)
-    gameEventReceiver.setTotalClearedLines(totalClearedLines)
+    gameEventReceiver.setTotalNumberOfPieces(movesTotal)
+    gameEventReceiver.setNumberOfClearedLines(clearedLines)
+    gameEventReceiver.setTotalNumberOfClearedLines(clearedLinesTotal)
+    gameEventReceiver.updateGui()
   }
 }

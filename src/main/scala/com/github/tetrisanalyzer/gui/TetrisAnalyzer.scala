@@ -26,7 +26,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val position = Position()
     val positionView = new PositionView(settings)
     val gameInfoView = new GameInfoView()
-    val gameEventReceiver = new GameEventDelegator(positionView, gameInfoView)
+    val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
 
     val computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
@@ -48,7 +48,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
 
     val timer = new Timer(this, gameInfoView)
 
-    new KeyManager(computerPlayer, positionView, timer)
+    new KeyManager(computerPlayer, positionView, gameEventReceiver, timer)
 
     actor {
       timer.start
