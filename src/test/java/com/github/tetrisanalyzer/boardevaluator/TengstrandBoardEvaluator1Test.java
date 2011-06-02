@@ -9,7 +9,7 @@ public class TengstrandBoardEvaluator1Test {
 
     @Test
     public void evaluateVersionOneDotOne() {
-        BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
+        BoardEvaluator evaluator = new JTengstrandBoardEvaluator1(10, 5);
 
         Board board = Board.create(
           "#----------#",

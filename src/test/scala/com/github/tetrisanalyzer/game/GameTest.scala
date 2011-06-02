@@ -3,7 +3,7 @@ package com.github.tetrisanalyzer.game
 import com.github.tetrisanalyzer.Profiling._
 import org.junit.Test
 import com.github.tetrisanalyzer.piece._
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
+import com.github.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.board.Board
 import com.github.tetrisanalyzer.settings.{DefaultGameSettings, GameSettingsSlidingOn}
 import com.github.tetrisanalyzer.piecegenerator.{DefaultPieceGenerator, PredictablePieceGenerator}
@@ -14,7 +14,7 @@ class GameTest extends BaseTest {
 
   @Test def playFivePieces() {
     val board = Board(10,15)
-    val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
+    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new PredictablePieceGenerator(List(new PieceO, new PieceL, new PieceI, new PieceZ, new PieceT))
     val settings = new GameSettingsSlidingOn
     val game = new Game(board, boardEvaluator, pieceGenerator, settings)
@@ -44,7 +44,7 @@ class GameTest extends BaseTest {
 /*
   @Test def play() {
     val board = Board()
-    val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
+    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new DefaultPieceGenerator(4)
     val settings = new DefaultGameSettings
     val game = new Game(board, boardEvaluator, pieceGenerator, settings)
@@ -64,7 +64,7 @@ class GameTest extends BaseTest {
   // 1 000 000 pieces, sliding on  = 491 sec = 2 000 pieces/sec (274 sec = 56% board evaluation, 44% other)
   // 1 000 000 pieces, sliding off = 451 sec = 2 200 pieces/sec (329 sec = 72% board evaluation, 39% other)
 
-  // Performance before optimization, with optimized TengstrandBoardEvaluator1 (code at http://sourceforge.net/projects/tetrisai:
+  // Performance before optimization, with optimized JTengstrandBoardEvaluator1 (code at http://sourceforge.net/projects/tetrisai:
   // 1 000 000 pieces, sliding on  = 396 sec = 2 500 pieces/sec (220 sec = 55% board evaluation, 45% other)
   // 1 000 000 pieces, sliding off = 338 sec = 2 900 pieces/sec (217 sec = 64% board evaluation, 39% other)
 

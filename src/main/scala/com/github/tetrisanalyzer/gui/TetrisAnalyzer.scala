@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.gui
 
 import scala.swing._
 import com.github.tetrisanalyzer.board.Board
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1
+import com.github.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
 import com.github.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import com.github.tetrisanalyzer.settings.DefaultGameSettings
 import com.github.tetrisanalyzer.game._
@@ -20,7 +20,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     }
 
     val board = Board()
-    val boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height)
+    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new DefaultPieceGenerator(5)
     val settings = new DefaultGameSettings
     val position = Position()

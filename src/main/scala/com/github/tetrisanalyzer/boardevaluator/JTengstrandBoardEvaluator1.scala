@@ -5,7 +5,7 @@ import com.github.tetrisanalyzer.board.{Board, BoardOutline}
 /**
  * Board evaluator created by Joakim Tengstrand.
  */
-class TengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
+class JTengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
   require(boardWidth <= 10, "Only board widths between 4 and 10 is supported at the moment, but was: " + boardWidth)
   require(boardHeight <= 20, "Only board heights between 4 and 20 is supported at the moment, but was: " + boardHeight)
 

@@ -4,10 +4,10 @@ import org.junit.Test
 import com.github.tetrisanalyzer.BaseTest
 import com.github.tetrisanalyzer.board.Board
 
-class TengstrandBoardEvaluator1Test extends BaseTest {
+class JTengstrandBoardEvaluator1Test extends BaseTest {
 
   @Test def evaluateVersionOneDotOne {
-    val evaluator = new TengstrandBoardEvaluator1(10, 5)
+    val evaluator = new JTengstrandBoardEvaluator1(10, 5)
 
     val board = Board(Array(
         "#----------#",

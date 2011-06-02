@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.move;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
@@ -31,7 +31,7 @@ public class EvaluatedMovesTest {
         GameSettings settings = new DefaultGameSettings();
         PieceMove startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).getStartMove();
         List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
+        BoardEvaluator boardEvaluator = new JTengstrandBoardEvaluator1();
         return new EvaluatedMoves(validMoves, boardEvaluator);
     }
 

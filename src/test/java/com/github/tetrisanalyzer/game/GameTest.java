@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.*;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
@@ -19,7 +19,7 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         Board board = new Board(10,15);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
+        BoardEvaluator boardEvaluator = new JTengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(Arrays.asList(new PieceO(), new PieceL(), new PieceI(), new PieceZ(), new PieceT()));
         GameSettings settings = new GameSettingsSlidingOn();
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
@@ -50,7 +50,7 @@ public class GameTest {
     @Test
     public void play() {
         Board board = new Board();
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
+        BoardEvaluator boardEvaluator = new JTengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
         PieceGenerator pieceGenerator = new DefaultPieceGenerator();
         GameSettings settings = new DefaultGameSettings(); //GameSettingsSlidingOn();
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
