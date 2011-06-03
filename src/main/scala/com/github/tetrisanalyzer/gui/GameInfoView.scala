@@ -13,7 +13,8 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   val minLinesLabel = new Label("0")
   val maxLinesLabel = new Label("0")
   val piecesPerSec = new Label("0")
-  val pause = new Label("On")
+  val time = new Label("0")
+  val pause = new Label("Paused")
 
   val numberSeparator = new NumberSeparator
 
@@ -29,9 +30,13 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
   def setNumberOfClearedLines(lines: Long) { this.lines.text = withSpaces(lines) }
   def setTotalNumberOfClearedLines(lines: Long) { this.linesTotal.text = withSpaces(lines) }
-  def setTimePassed(seconds: Double) { this.piecesPerSec.text = withSpaces(calculatePiecesPerSec(seconds)) }
-  def setPaused(pause: Boolean) { this.pause.text = if (pause) "On" else "Off" }
+  def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "-" }
   def updateGui() { repaint() }
+
+  def setTimePassed(seconds: Double) {
+    this.time.text = calculateElapsedTime(seconds)
+    this.piecesPerSec.text = withSpaces(calculatePiecesPerSec(seconds))
+  }
 
   def setNumberOfGamesAndLinesInLastGame(games: Int, lines: Long) {
     this.games = games
@@ -61,15 +66,24 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   addLabel("Pieces/sec", piecesPerSec, 11)
 
-  addLabel("[P]ause", pause, 13)
+  addLabel("Time: ", time, 13)
+
+  addLabel("[P]ause", pause, 15)
 
   private def addLabel(text: String, label: Label, row: Int) {
     val y = 10 + row * 20
-    add(new Label(text + ":"), new Rectangle(10,y, 70,20))
-    add(label, new Rectangle(100,y, 70,20))
+    add(new Label(text + ":"), new Rectangle(10,y, 100,20))
+    add(label, new Rectangle(100,y, 100,20))
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)
+
+  private def calculateElapsedTime(seconds: Double): String = {
+    val sec: Int = (seconds*10 % 600).toInt
+    val min: Int = (seconds/60 % 60).toInt
+    val hours: Int = (seconds/3600).toInt
+    hours + "h " + min + "m " + (sec/10) + "." + (sec%10) + "s"
+  }
 
   private def calculatePiecesPerSec(seconds: Double): Long = {
     if (seconds == 0 || movesTotal == 0) {

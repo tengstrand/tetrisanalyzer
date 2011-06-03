@@ -1,5 +1,7 @@
 
-- Show elapsed time.
+- Change package name to nu.tengstrand.tetrisanalyzer.
+
+
 - Fix the GameInfoView by using correct layout managers.
 - Add support for animating current piece.
 - Show help screen when pressing [F1].
@@ -8,7 +10,7 @@
 - Show list of ranked valid moves.
 - Add battle mode, computer against computer or computer against human.
 
-- Dots/position.
+- Show dots/position.
 
 
 
