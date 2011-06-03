@@ -1,9 +1,7 @@
-package com.github.tetrisanalyzer.board;
+package nu.tengstrand.tetrisanalyzer.board;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class BoardOutlineTest {
     private Board board;

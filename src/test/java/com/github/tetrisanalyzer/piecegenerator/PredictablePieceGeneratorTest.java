@@ -1,6 +1,5 @@
-package com.github.tetrisanalyzer.piecegenerator;
+package nu.tengstrand.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.piece.*;
 import org.junit.Test;
 
 import java.util.Arrays;

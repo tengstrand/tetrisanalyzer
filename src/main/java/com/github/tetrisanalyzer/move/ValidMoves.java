@@ -1,7 +1,7 @@
-package com.github.tetrisanalyzer.move;
+package nu.tengstrand.tetrisanalyzer.move;
 
-import com.github.tetrisanalyzer.board.Board;
-import com.github.tetrisanalyzer.piecemove.PieceMove;
+import nu.tengstrand.tetrisanalyzer.board.Board;
+import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
 
 import java.util.ArrayList;
 import java.util.Arrays;

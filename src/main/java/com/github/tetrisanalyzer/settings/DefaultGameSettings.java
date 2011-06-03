@@ -1,9 +1,9 @@
-package com.github.tetrisanalyzer.settings;
+package nu.tengstrand.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.move.Move;
-import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
-import com.github.tetrisanalyzer.move.rotation.RotationDirection;
-import com.github.tetrisanalyzer.piece.Piece;
+import nu.tengstrand.tetrisanalyzer.move.Move;
+import nu.tengstrand.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
+import nu.tengstrand.tetrisanalyzer.move.rotation.RotationDirection;
+import nu.tengstrand.tetrisanalyzer.piece.Piece;
 
 /**
  * The default settings used by the Tetris engine.

@@ -1,3 +1,0 @@
-package com.github.tetrisanalyzer.game
-
-trait GameEventReceiver extends PlayerEventReceiver with GameInfoReceiver

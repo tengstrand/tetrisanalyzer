@@ -1,8 +1,7 @@
-package com.github.tetrisanalyzer.piecemove;
+package nu.tengstrand.tetrisanalyzer.piecemove;
 
-import com.github.tetrisanalyzer.board.Board;
-import com.github.tetrisanalyzer.piece.*;
-import com.github.tetrisanalyzer.settings.GameSettings;
+import nu.tengstrand.tetrisanalyzer.board.Board;
+import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
 
 import java.util.HashMap;
 import java.util.Map;

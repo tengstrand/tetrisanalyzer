@@ -1,14 +1,14 @@
-package com.github.tetrisanalyzer.move;
+package nu.tengstrand.tetrisanalyzer.move;
 
-import com.github.tetrisanalyzer.board.Board;
-import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1;
-import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceS;
-import com.github.tetrisanalyzer.piecemove.PieceMove;
-import com.github.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
-import com.github.tetrisanalyzer.settings.GameSettings;
+import nu.tengstrand.tetrisanalyzer.board.Board;
+import nu.tengstrand.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1;
+import nu.tengstrand.tetrisanalyzer.piece.Piece;
+import nu.tengstrand.tetrisanalyzer.piece.PieceS;
+import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
+import nu.tengstrand.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
+import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings;
+import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;

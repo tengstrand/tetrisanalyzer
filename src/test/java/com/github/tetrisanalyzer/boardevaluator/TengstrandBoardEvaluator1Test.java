@@ -1,6 +1,6 @@
-package com.github.tetrisanalyzer.boardevaluator;
+package nu.tengstrand.tetrisanalyzer.boardevaluator;
 
-import com.github.tetrisanalyzer.board.Board;
+import nu.tengstrand.tetrisanalyzer.board.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

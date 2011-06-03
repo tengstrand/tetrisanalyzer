@@ -1,11 +1,9 @@
-package com.github.tetrisanalyzer.settings;
+package nu.tengstrand.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.move.Move;
-import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceS;
+import nu.tengstrand.tetrisanalyzer.move.Move;
+import nu.tengstrand.tetrisanalyzer.piece.Piece;
+import nu.tengstrand.tetrisanalyzer.piece.PieceS;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class DefaultGameSettingsTest {
     private Piece piece = new PieceS();

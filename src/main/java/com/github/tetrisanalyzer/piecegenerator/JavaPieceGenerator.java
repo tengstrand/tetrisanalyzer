@@ -1,6 +1,6 @@
-package com.github.tetrisanalyzer.piecegenerator;
+package nu.tengstrand.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.piece.Piece;
+import nu.tengstrand.tetrisanalyzer.piece.Piece;
 
 import java.util.Random;
 

@@ -1,9 +1,9 @@
-package com.github.tetrisanalyzer.piecemove;
+package nu.tengstrand.tetrisanalyzer.piecemove;
 
-import com.github.tetrisanalyzer.board.Board;
-import com.github.tetrisanalyzer.move.Move;
-import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.Point;
+import nu.tengstrand.tetrisanalyzer.board.Board;
+import nu.tengstrand.tetrisanalyzer.move.Move;
+import nu.tengstrand.tetrisanalyzer.piece.Piece;
+import nu.tengstrand.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
 import java.util.HashSet;

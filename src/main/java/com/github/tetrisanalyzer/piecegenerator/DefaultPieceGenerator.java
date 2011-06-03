@@ -1,4 +1,4 @@
-package com.github.tetrisanalyzer.piecegenerator;
+package nu.tengstrand.tetrisanalyzer.piecegenerator;
 
 /**
  * This piece generator mimics the behaviour of the C++ version,

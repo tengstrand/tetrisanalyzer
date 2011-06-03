@@ -1,9 +1,7 @@
-package com.github.tetrisanalyzer.piecemove;
+package nu.tengstrand.tetrisanalyzer.piecemove;
 
-import com.github.tetrisanalyzer.move.Move;
-import com.github.tetrisanalyzer.move.rotation.RotationDirection;
-
-import javax.jnlp.DownloadService;
+import nu.tengstrand.tetrisanalyzer.move.Move;
+import nu.tengstrand.tetrisanalyzer.move.rotation.RotationDirection;
 
 /**
  * Used by the algorithm that calculates the tree of linked moves
