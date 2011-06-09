@@ -2,6 +2,10 @@ package nu.tengstrand.tetrisanalyzer.gui
 
 class NumberSeparator {
 
+  /**
+   * Separate numbers with spaces, e.g:
+   *   12345678 will be 12 345 678.
+   */
   def withSpaces(number: Long) = {
     val stringNumber = number.toString
     var result = ""

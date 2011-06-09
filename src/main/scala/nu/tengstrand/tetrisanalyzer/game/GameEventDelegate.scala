@@ -5,6 +5,8 @@ class GameEventDelegate(playerEventReceiver: PlayerEventReceiver, gameInfoReceiv
   def isReadyToReceivePosition: Boolean = { playerEventReceiver.isReadyToReceivePosition }
 
   def setPaused(paused: Boolean) { gameInfoReceiver.setPaused(paused) }
+  def setSeed(seed: Long) { gameInfoReceiver.setSeed(seed) }
+  def setBoardSize(width: Int, height: Int) { gameInfoReceiver.setBoardSize(width, height) }
   def setNumberOfPieces(pieces: Long) { gameInfoReceiver.setNumberOfPieces(pieces) }
   def setTotalNumberOfPieces(pieces: Long) { gameInfoReceiver.setTotalNumberOfPieces(pieces) }
   def setNumberOfClearedLines(lines: Long) { gameInfoReceiver.setNumberOfClearedLines(lines)}

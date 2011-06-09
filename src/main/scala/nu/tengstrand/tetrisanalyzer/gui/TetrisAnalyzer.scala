@@ -21,8 +21,8 @@ object TetrisAnalyzer extends SimpleSwingApplication {
 
     val board = Board()
     val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
-    val pieceGenerator = new DefaultPieceGenerator(5)
     val settings = new DefaultGameSettings
+    val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
     val position = Position()
     val positionView = new PositionView(settings)
     val gameInfoView = new GameInfoView()

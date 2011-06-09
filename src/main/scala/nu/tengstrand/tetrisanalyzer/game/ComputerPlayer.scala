@@ -36,6 +36,9 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   def performStep() { doStep = true }
 
   override def act() {
+    gameEventReceiver.setSeed(settings.pieceGeneratorSeed)
+    gameEventReceiver.setBoardSize(board.width, board.height)
+
     while (true) {
       board.restore(startBoard)
       position = Position(startPosition)

@@ -9,6 +9,7 @@ import java.awt.Color
  * This interface defines the API of the game settings used by the Tetris engine.
  */
 trait GameSettings {
+  def pieceGeneratorSeed: Long
   def isSlidingEnabled: Boolean
   def rotationDirection: RotationDirection
   def pieceStartMove(boardWidth: Int, piece: Piece): Move

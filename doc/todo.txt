@@ -1,16 +1,18 @@
 
-- Change package name to nu.tengstrand.tetrisanalyzer.
-
-
+- Show lines/sec.
+- Add support for changing speed (+ / -)
 - Fix the GameInfoView by using correct layout managers.
 - Add support for animating current piece.
 - Show help screen when pressing [F1].
 - Add support for [N]ext (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
+- Add Sliding.
+
 - Show list of ranked valid moves.
 - Add battle mode, computer against computer or computer against human.
 
 - Show dots/position.
+
 
 
 
