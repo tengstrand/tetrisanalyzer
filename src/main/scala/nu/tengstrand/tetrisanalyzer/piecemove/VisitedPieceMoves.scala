@@ -20,7 +20,7 @@ class VisitedPieceMoves(board: Board, piece: Piece) {
   /**
    * Marks a move as visited. The attribute 'movement.direction' describes the way in which the
    * movement to this location has occurred. We also add the direction 'Rotate' because
-   * we don't want to rotate the piece back to where we are..
+   * we don't want to rotate the piece back to current position.
    */
   def visit(movement: Movement) {
     val move = movement.pieceMove.move
