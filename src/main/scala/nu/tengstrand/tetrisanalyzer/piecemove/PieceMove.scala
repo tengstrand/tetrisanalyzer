@@ -59,7 +59,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
    */
   def isFree: Boolean = {
     var y = 0
-    while (y < pieceHeight && ((board.lines(boardLineIndices(y)) & orLines(y)) == 0)) {
+    while (y < pieceHeight && ((board.lines(boardLineIndices(y)) & orLines(y)) == AllBitsCleared)) {
       y += 1
     }
     y == pieceHeight
