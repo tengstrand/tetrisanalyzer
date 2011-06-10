@@ -6,7 +6,7 @@ import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.piece.{Piece, PieceS}
 
-class VisitedMovesTest extends BaseTest {
+class VisitedPieceMovesTest extends BaseTest {
   private var board: Board = _
   private var piece: Piece = _
 
