@@ -36,7 +36,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
   private val pieceHeight = piece.height(move.rotation)
 
   /**
-   * Sets a piece on the board.
+   * Sets a piece on the board, return number of cleared lines.
    */
   def setPiece(): Int = {
     for (y <- 0 until pieceHeight) {
