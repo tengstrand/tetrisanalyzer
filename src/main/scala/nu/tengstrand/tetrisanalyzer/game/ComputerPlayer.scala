@@ -16,7 +16,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.worstBoard)
-  private val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
+  private val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private val startBoard = board.copy
   private var position: Position = null
@@ -87,10 +87,10 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   }
 
   private def evaluateBestMove: Option[PieceMove] = {
-    val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
+    val startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMoves.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
+      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
     } else {
       None
     }
