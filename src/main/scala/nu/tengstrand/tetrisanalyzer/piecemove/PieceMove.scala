@@ -6,8 +6,9 @@ import nu.tengstrand.tetrisanalyzer.move.Move
 import collection.immutable.{Set, HashSet}
 
 object PieceMove {
+  val AllBitsCleared = 0
+
   def apply(board: Board, piece: Piece, move: Move): PieceMove = {
-    val AllBitsCleared = 0
     val AllBitsSet = -1
 
     val pieceHeight = piece.height(move.rotation)
@@ -59,7 +60,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
    */
   def isFree: Boolean = {
     var y = 0
-    while (y < pieceHeight && ((board.lines(boardLineIndices(y)) & orLines(y)) == AllBitsCleared)) {
+    while (y < pieceHeight && ((board.lines(boardLineIndices(y)) & orLines(y)) == PieceMove.AllBitsCleared)) {
       y += 1
     }
     y == pieceHeight
