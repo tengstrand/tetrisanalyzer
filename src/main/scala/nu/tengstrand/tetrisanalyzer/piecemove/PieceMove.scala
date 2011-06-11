@@ -36,6 +36,9 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
   var asideAndRotate: Set[PieceMove] = new HashSet[PieceMove]
   private val pieceHeight = piece.height(move.rotation)
 
+  var animatedPath: PieceMove = null
+  private var animatedPathValue: Int = Integer.MAX_VALUE
+
   /**
    * Sets a piece on the board, return number of cleared lines.
    */
@@ -68,7 +71,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
 
   /**
    * True if this piece hasn't reached the bottom (down == null) and the move down
-   * (current position where y is increased by one) is not occupied with "dots" (rest of pieces).
+   * (current position where y is increased by one) is not occupied with "dots" (pieces parts).
    */
   def canMoveDown: Boolean = {
     down != null && down.isFree
@@ -76,6 +79,35 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
 
   def freeAsideAndRotateMoves = {
     asideAndRotate.filter(_.isFree)
+  }
+
+  /**
+   * Resets the path values so the animated path can be calculated by calling calculateAnimatedPath.
+   */
+  def prepareAnimatedPath() {
+    if (animatedPathValue != Integer.MAX_VALUE) {
+      animatedPathValue = Integer.MAX_VALUE
+      asideAndRotate.foreach(_.prepareAnimatedPath)
+      if (down != null)
+        down.prepareAnimatedPath
+    }
+  }
+
+  /**
+   * Calculates an animated path which goes backwards, linked via the reference
+   * calculateAnimatedPath, from the move "at the bottom" up to the starting position.
+   *
+   * Make sure the method prepareAnimatedPath has ben called before calling this method.
+   */
+  def calculateAnimatedPath(fromPieceMove: PieceMove, pathValue: Int, asideValue: Int) {
+    if (pathValue + asideValue < animatedPathValue && isFree) {
+      animatedPath = fromPieceMove
+      animatedPathValue = pathValue + asideValue
+      asideAndRotate.foreach(pieceMove => pieceMove.calculateAnimatedPath(this, animatedPathValue, asideValue + 1))
+      if (canMoveDown) {
+        down.calculateAnimatedPath(this, animatedPathValue, 0)
+      }
+    }
   }
 
   override def equals(that: Any) = that match {

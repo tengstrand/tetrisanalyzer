@@ -5,6 +5,8 @@ import org.junit.Test
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.piece.{PieceI, PieceS}
+import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
+import collection.mutable.LinkedHashSet
 
 class PieceMoveTest extends BaseTest {
 
@@ -91,5 +93,40 @@ class PieceMoveTest extends BaseTest {
     val move = Move(0,3, 2)
 
     PieceMove(board, piece, move).isFree should be (false)
+  }
+
+  @Test def calculateAnimatedPath {
+    val board = Board(Array(
+      "#-----#",
+      "#-----#",
+      "#-----#",
+      "#----x#",
+      "#----x#",
+      "#######"))
+    val piece = new PieceS
+    val settings = new DefaultGameSettings
+    val validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings)
+    var pieceMove = validPieceMovesForEmptyBoard.startMove
+
+    pieceMove.calculateAnimatedPath(null, 0, 0)
+
+    pieceMove = pieceMove.asideAndRotate.find(_.move.x == 0).get
+
+    while (pieceMove.down != null)
+      pieceMove = pieceMove.down
+
+    var animatedPath = new LinkedHashSet[PieceMove]
+
+    while (pieceMove != null) {
+      animatedPath += pieceMove
+      pieceMove = pieceMove.animatedPath
+    }
+    animatedPath should be (LinkedHashSet(
+      PieceMove(board,piece,Move(0,0, 3)),
+      PieceMove(board,piece,Move(0,0, 2)),
+      PieceMove(board,piece,Move(0,0, 1)),
+      PieceMove(board,piece,Move(0,0, 0)),
+      PieceMove(board,piece,Move(0,1, 0))
+    ))
   }
 }

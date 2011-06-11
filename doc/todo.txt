@@ -1,4 +1,5 @@
 
+- Don't send totalClearedLines from ComputerPlayer.
 - Show lines/sec.
 - Add support for changing speed (+ / -)
 - Fix the GameInfoView by using correct layout managers.
