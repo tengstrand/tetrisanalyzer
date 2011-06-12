@@ -1,6 +1,6 @@
 
+- Move some GUI code from ComputerPlayer to Position (or a helper class)..
 - Don't send totalClearedLines from ComputerPlayer.
-- Show lines/sec.
 - Add support for changing speed (+ / -)
 - Fix the GameInfoView by using correct layout managers.
 - Add support for animating current piece.

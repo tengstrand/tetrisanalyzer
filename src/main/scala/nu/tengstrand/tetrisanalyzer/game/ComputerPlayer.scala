@@ -21,7 +21,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private val startBoard = board.copy
   private var position: Position = null
   private var paused = true
-  private var doStep = true
+  private var doStep = false
 
   private var moves = 0L
   private var movesTotal = 0L
@@ -42,11 +42,16 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     while (true) {
       board.restore(startBoard)
       position = Position(startPosition)
-      var bestMove = evaluateBestMove
+      var startPieceMove = nextPiece
+      var bestMove = evaluateBestMove(startPieceMove)
 
       while (bestMove.isDefined) {
-        waitIfPaused
-        bestMove = makeMove(bestMove.get)
+        waitIfPaused(startPieceMove.piece)
+        if (doStep)
+          animateMove(startPieceMove, bestMove.get)
+
+        startPieceMove = nextPiece
+        bestMove = makeMove(startPieceMove, bestMove.get)
         moves += 1
         movesTotal += 1
       }
@@ -58,12 +63,17 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     }
   }
 
-  private def waitIfPaused() {
+  private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
+
+  private def waitIfPaused(startPiece: Piece) {
+    if (paused)
+      updatePositionInGUI(startPiece)
+
     while (paused && !doStep)
-        Thread.sleep(20)
+      Thread.sleep(20)
   }
 
-  private def makeMove(pieceMove: PieceMove): Option[PieceMove] = {
+  private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedLines: Long = pieceMove.setPiece
 
     // Update GUI every 100 piece (and always if in step mode).
@@ -77,7 +87,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     this.clearedLines += clearedLines
     clearedLinesTotal += clearedLines
 
-    evaluateBestMove
+    evaluateBestMove(startPieceMove)
   }
 
   private def setPieceOnPosition(piece: Piece, move: Move, clearedLines: Long) {
@@ -86,14 +96,34 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
       position.clearLines(move.y, piece.height(move.rotation))
   }
 
-  private def evaluateBestMove: Option[PieceMove] = {
-    val startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
+  private def evaluateBestMove(startPieceMove: PieceMove): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
       EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
     } else {
       None
     }
+  }
+
+  private def animateMove(startPieceMove: PieceMove, pieceMove: PieceMove) {
+    startPieceMove.prepareAnimatedPath
+    startPieceMove.calculateAnimatedPath(null, 0, 0)
+
+    val animatedPosition = Position(position)
+
+    var step = pieceMove
+    var steps = List.empty[PieceMove]
+    while (step != null) {
+      steps = step :: steps
+      step = step.animatedPath
+    }
+
+    steps.foreach(step => {
+      val animatedPosition = Position(position)
+      animatedPosition.setPiece(step.piece, step.move)
+      gameEventReceiver.setPosition(animatedPosition)
+      Thread.sleep(20)
+    })
   }
 
   private def updateEndPositionInGUI() {
