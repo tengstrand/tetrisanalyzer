@@ -1,55 +1,46 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings
-import nu.tengstrand.tetrisanalyzer.boardevaluator.BoardEvaluator
+import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
+import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
+import nu.tengstrand.tetrisanalyzer.gui.{GameInfoView, PositionView}
 import nu.tengstrand.tetrisanalyzer.board.Board
-import nu.tengstrand.tetrisanalyzer.piecegenerator.PieceGenerator
-import nu.tengstrand.tetrisanalyzer.move.{EvaluatedMoves, ValidMoves}
-import nu.tengstrand.tetrisanalyzer.piecemove.{PieceMove, AllValidPieceMovesForEmptyBoard}
+import nu.tengstrand.tetrisanalyzer.settings.{GameSettings, DefaultGameSettings}
+class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gameInfoView: GameInfoView) {
+  private val board = Board()
+  private val position = Position()
+  private val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
+  private var pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
+  private val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
+  private var computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
-/**
- * Plays a game of Tetris using specified board, board evaluator and settings.
- */
-class Game(board: Board, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator, settings: GameSettings) {
-  var moves = 0L
-  var clearedLines = 0L
-  val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
-  val maxEquity = boardEvaluator.evaluate(board.worstBoard)
+  computerPlayer.start
 
-  /**
-   * Keeps playing till the end.
-   */
-  def play() {
-    var bestMove = evaluateBestMove
+  private def changeBoardSize(boardWidth: Int, boardHeight: Int) {
+    computerPlayer.quitGame
 
-    while (bestMove.isDefined) {
-      moves += 1
-      clearedLines += bestMove.get.setPiece
-      bestMove = evaluateBestMove
-      Thread.sleep(500)
-    }
+    val board = Board(boardWidth, boardHeight)
+    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
+    val settings = new DefaultGameSettings
+    val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
+    val position = Position()
+
+    computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
+    computerPlayer.start
   }
 
-  /**
-   * Plays the specified number of pieces, used for test.
-   */
-  def play(maxMoves: Long) {
-    var bestMove = evaluateBestMove
+  def performMove() { computerPlayer.performStep() }
 
-    while (moves < maxMoves && bestMove.isDefined) {
-      moves += 1
-      clearedLines += bestMove.get.setPiece
-      bestMove = evaluateBestMove
-    }
+  def pause() {
+    timer.togglePause
+    gameEventReceiver.setPaused(timer.paused)
+    computerPlayer.setPaused(timer.paused)
   }
 
-  private def evaluateBestMove: Option[PieceMove] = {
-    val startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece)
-    if (startPieceMove.isFree) {
-      val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMoves.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
-    } else {
-      None
+
+
+  def decreaseBoardWidth {
+    if (board.width > 4) {
+      changeBoardSize(board.width - 1, board.height)
     }
   }
 }

@@ -37,7 +37,7 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
   def setNumberOfClearedLines(lines: Long) { this.lines = lines; linesLabel.text = withSpaces(lines) }
   def setTotalNumberOfClearedLines(lines: Long) { this.linesTotal = lines; this.linesTotalLabel.text = withSpaces(lines) }
-  def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "-" }
+  def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "" }
   def updateGui() { repaint() }
 
   def setTimePassed(seconds: Double) {

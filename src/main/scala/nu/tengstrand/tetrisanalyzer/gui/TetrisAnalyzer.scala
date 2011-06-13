@@ -1,9 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
 import scala.swing._
-import nu.tengstrand.tetrisanalyzer.board.Board
-import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
-import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 import nu.tengstrand.tetrisanalyzer.game._
 import actors.Actor._
@@ -19,16 +16,15 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       text = "testing"
     }
 
-    val board = Board()
-    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val settings = new DefaultGameSettings
-    val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
-    val position = Position()
     val positionView = new PositionView(settings)
     val gameInfoView = new GameInfoView()
-    val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
+    val timer = new Timer(this, gameInfoView)
+    val game = new Game(settings, timer, positionView, gameInfoView)
 
-    val computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
+    actor {
+      timer.start
+    }
 
     contents = new BoxPanel(Orientation.Horizontal) {
       contents += positionView
@@ -44,14 +40,6 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     gameInfoView.preferredSize = new Dimension(150, 550)
     gameInfoView.size = new Dimension(150, 550)
 
-    computerPlayer.start
-
-    val timer = new Timer(this, gameInfoView)
-
-    new KeyManager(computerPlayer, positionView, gameEventReceiver, timer)
-
-    actor {
-      timer.start
-    }
+    new KeyManager(game)
   }
 }

@@ -22,6 +22,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private var position: Position = null
   private var paused = true
   private var doStep = false
+  private var quit = false
 
   private var moves = 0L
   private var movesTotal = 0L
@@ -35,11 +36,13 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   }
   def performStep() { doStep = true }
 
+  def quitGame() { quit = true }
+
   override def act() {
     gameEventReceiver.setSeed(settings.pieceGeneratorSeed)
     gameEventReceiver.setBoardSize(board.width, board.height)
 
-    while (true) {
+    while (!quit) {
       board.restore(startBoard)
       position = Position(startPosition)
       var startPieceMove = nextPiece

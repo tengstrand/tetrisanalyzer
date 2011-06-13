@@ -1,6 +1,8 @@
 
-- Make sure the key events is always registered (try run in its own thread).
+- Change size of the board with <ctrl>+/i
+- Toggle sliding on/off.
 - Add support for animation when not paused.
+- Change from PositionModel to ColoredPosition.
 
 - Move some GUI code from ComputerPlayer to Position (or a helper class).
 - Don't send totalClearedLines from ComputerPlayer.
