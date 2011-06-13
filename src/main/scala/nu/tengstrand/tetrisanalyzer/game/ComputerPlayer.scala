@@ -30,7 +30,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private var games = 0
 
   def setPaused(paused: Boolean) {
-    doStep = true
+    doStep = false
     this.paused = paused
   }
   def performStep() { doStep = true }
