@@ -77,8 +77,9 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     val clearedLines: Long = pieceMove.setPiece
 
     // Update GUI every 100 piece (if not in step mode)
-    if (!doStep && moves % 100 == 0) {
-      updatePositionInGUI(pieceMove.piece)
+    if (doStep || moves % 100 == 0) {
+      if (!doStep)
+        updatePositionInGUI(pieceMove.piece)
       updateGameInfoInGUI()
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
