@@ -76,8 +76,8 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedLines: Long = pieceMove.setPiece
 
-    // Update GUI every 100 piece (and always if in step mode).
-    if (doStep || moves % 100 == 0) {
+    // Update GUI every 100 piece (if not in step mode)
+    if (!doStep && moves % 100 == 0) {
       updatePositionInGUI(pieceMove.piece)
       updateGameInfoInGUI()
     }
@@ -92,8 +92,12 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
 
   private def setPieceOnPosition(piece: Piece, move: Move, clearedLines: Long) {
     position.setPiece(piece, move)
-    if (clearedLines > 0)
-      position.clearLines(move.y, piece.height(move.rotation))
+    if (clearedLines > 0) {
+      val pieceHeight = piece.height(move.rotation)
+      if (doStep)
+        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver)
+      position.clearLines(move.y, pieceHeight)
+    }
   }
 
   private def evaluateBestMove(startPieceMove: PieceMove): Option[PieceMove] = {
