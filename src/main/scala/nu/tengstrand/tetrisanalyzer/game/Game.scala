@@ -4,25 +4,24 @@ import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
 import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import nu.tengstrand.tetrisanalyzer.gui.{GameInfoView, PositionView}
 import nu.tengstrand.tetrisanalyzer.board.Board
-import nu.tengstrand.tetrisanalyzer.settings.{GameSettings, DefaultGameSettings}
+import nu.tengstrand.tetrisanalyzer.settings.GameSettings
 class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gameInfoView: GameInfoView) {
-  private val board = Board()
-  private val position = Position()
-  private val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
-  private var pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
+  private var boardWidth = 10
+  private var boardHeight = 20
   private val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
-  private var computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
 
-  computerPlayer.start
+  private var computerPlayer: ComputerPlayer = null
 
-  private def changeBoardSize(boardWidth: Int, boardHeight: Int) {
-    computerPlayer.quitGame
+  updateBoardSize()
+
+  private def updateBoardSize() {
+    if (computerPlayer != null)
+      computerPlayer.quitGame
 
     val board = Board(boardWidth, boardHeight)
+    val position = Position(boardWidth, boardHeight)
     val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
-    val settings = new DefaultGameSettings
     val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
-    val position = Position()
 
     computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
     computerPlayer.start
@@ -30,17 +29,40 @@ class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gam
 
   def performMove() { computerPlayer.performStep() }
 
+  def isPaused = timer.paused
+
   def pause() {
     timer.togglePause
     gameEventReceiver.setPaused(timer.paused)
     computerPlayer.setPaused(timer.paused)
   }
 
-
-
   def decreaseBoardWidth {
-    if (board.width > 4) {
-      changeBoardSize(board.width - 1, board.height)
+    if (boardWidth > 4) {
+      boardWidth -= 1
+      updateBoardSize()
     }
   }
+
+  def increaseBoardWidth {
+    if (boardWidth < 10) {
+      boardWidth += 1
+      updateBoardSize()
+    }
+  }
+
+  def decreaseBoardHeight {
+    if (boardHeight > 4) {
+      boardHeight -= 1
+      updateBoardSize()
+    }
+  }
+
+  def increaseBoardHeight {
+    if (boardHeight < 20) {
+      boardHeight += 1
+      updateBoardSize()
+    }
+  }
+
 }

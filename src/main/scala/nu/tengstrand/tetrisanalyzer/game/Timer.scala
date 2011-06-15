@@ -34,7 +34,7 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
     while (true) {
       gameInfoReceiver.setTimePassed(secondsPassed)
       mainFrame.repaint
-     Thread.sleep(sleepMs)
+      Thread.sleep(sleepMs)
     }
   }
 }

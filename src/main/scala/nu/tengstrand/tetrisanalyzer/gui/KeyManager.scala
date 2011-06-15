@@ -10,15 +10,22 @@ class KeyManager(game: Game) {
       if (e.getID() == KeyEvent.KEY_PRESSED) {
         e.getKeyCode match {
           case 40 => // Down
-            game.performMove()
+            if (e.getModifiers == 2)
+              game.increaseBoardHeight
+            else
+              game.performMove()
           case 80 => // P = Pause
             game.pause()
-          case 37 => // Left
-            println("modifiers=" + e.getModifiers)
+          case 37 =>
+            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Left
+              game.decreaseBoardWidth
+          case 38 =>
+            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Up
+              game.decreaseBoardHeight
           case 39 => // Right
-            println("modifiers=" + e.getModifiers)
+            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Right
+              game.increaseBoardWidth
           case _ =>
-            //println(e)
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
         }
       }

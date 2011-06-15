@@ -1,4 +1,5 @@
 
+- Buffer key events.
 - Change size of the board with <ctrl>+/i
 - Toggle sliding on/off.
 - Add support for animation when not paused.
