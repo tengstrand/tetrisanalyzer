@@ -121,14 +121,14 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     clearedLines
   }
 
-  def animateClearedLines(pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver) {
+  def animateClearedLines(pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver, timeToShowStep: Int) {
     val copyPosition = Position(this)
     val clearedLines = for {y <- pieceY until pieceY + pieceHeight if (isCompleteLine(y))} yield y
 
     clearLines(clearedLines, gameEventReceiver)
-    showClearedLines(clearedLines, copyPosition, 100, gameEventReceiver)
+    showClearedLines(clearedLines, copyPosition, (timeToShowStep * 5).toInt, gameEventReceiver)
     clearLines(clearedLines, gameEventReceiver)
-    showClearedLines(clearedLines, copyPosition, 50, gameEventReceiver)
+    showClearedLines(clearedLines, copyPosition, (timeToShowStep * 2.5).toInt, gameEventReceiver)
   }
 
   private def clearLines(clearedLines: IndexedSeq[Int], gameEventReceiver: GameEventReceiver) {

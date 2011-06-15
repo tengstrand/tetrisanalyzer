@@ -9,6 +9,11 @@ import actors.Actor
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 
+object MoveStep {
+  val DefaultStepTime = 20
+  val FastStepTime = 5
+}
+
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
@@ -23,6 +28,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private var paused = true
   private var doStep = false
   private var quit = false
+  private var timeToShowStep = MoveStep.DefaultStepTime
 
   private var moves = 0L
   private var movesTotal = 0L
@@ -34,7 +40,12 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     doStep = false
     this.paused = paused
   }
-  def performStep() { doStep = true }
+  def performStep() {
+    if (doStep)
+      timeToShowStep = 5
+
+    doStep = true
+  }
 
   def quitGame() { quit = true }
 
@@ -87,7 +98,8 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
 
-    doStep = false
+    doStep = timeToShowStep == MoveStep.FastStepTime
+    timeToShowStep = MoveStep.DefaultStepTime
     this.clearedLines += clearedLines
     clearedLinesTotal += clearedLines
 
@@ -99,7 +111,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     if (clearedLines > 0) {
       val pieceHeight = piece.height(move.rotation)
       if (doStep)
-        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver)
+        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, timeToShowStep)
       position.clearLines(move.y, pieceHeight)
     }
   }
@@ -130,7 +142,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
       val animatedPosition = Position(position)
       animatedPosition.setPiece(step.piece, step.move)
       gameEventReceiver.setPosition(animatedPosition)
-      Thread.sleep(20)
+      Thread.sleep(timeToShowStep)
     })
   }
 
