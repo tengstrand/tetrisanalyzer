@@ -64,5 +64,4 @@ class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gam
       updateBoardSize()
     }
   }
-
 }

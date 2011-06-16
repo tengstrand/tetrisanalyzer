@@ -47,7 +47,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     doStep = true
   }
 
-  def quitGame() { quit = true }
+  def quitGame() { quit = true; Thread.sleep(25) }
 
   override def act() {
     gameEventReceiver.setSeed(settings.pieceGeneratorSeed)
@@ -59,7 +59,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
       var startPieceMove = nextPiece
       var bestMove = evaluateBestMove(startPieceMove)
 
-      while (bestMove.isDefined) {
+      while (!quit && bestMove.isDefined) {
         waitIfPaused(startPieceMove.piece)
         if (doStep)
           animateMove(startPieceMove, bestMove.get)
@@ -69,22 +69,25 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
         moves += 1
         movesTotal += 1
       }
-
       games += 1
-      updateEndPositionInGUI
       moves = 0
       clearedLines = 0
     }
+    exit()
   }
 
   private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
 
   private def waitIfPaused(startPiece: Piece) {
-    if (paused)
+    if (paused && !quit) {
       updatePositionInGUI(startPiece)
+    }
 
-    while (paused && !doStep)
+    while (paused && !doStep && !quit)
       Thread.sleep(20)
+
+    updateGameInfoInGUI
+    updatePositionInGUI(startPiece)
   }
 
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
