@@ -16,7 +16,7 @@ import java.awt.Dimension
 class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
 
-  private val maxEquity = boardEvaluator.evaluate(board.worstBoard)
+  private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
   private val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private val startBoard = board.copy

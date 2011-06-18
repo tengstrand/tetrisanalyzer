@@ -115,10 +115,10 @@ class BoardTest extends BaseTest {
   }
 
   @Test
-  def worstBoard {
+  def junkBoard {
     val board = Board(10, 5)
 
-    board.worstBoard should be (Board(Array(
+    board.junkBoard should be (Board(Array(
       "#-x-x-x-x-x#",
       "#x-x-x-x-x-#",
       "#-x-x-x-x-x#",

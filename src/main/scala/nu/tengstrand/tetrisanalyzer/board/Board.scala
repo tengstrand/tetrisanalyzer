@@ -52,12 +52,25 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
   require(width >= 4 && width <= 32)
   require(height >= 4)
 
-  def worstBoard: Board = {
+  /**
+   * Returns a "junk board" that is used by the BoardEvaluator to calculate the "max equity" for
+   * a given board size to compensate if any of the next seven possible pieces are occupied.
+   * Example:
+   *
+   * #-x-x-x-x-x#
+   * #x-x-x-x-x-#
+   * #-x-x-x-x-x#
+   * #x-x-x-x-x-#
+   * #-x-x-x-x-x#
+   * #x-x-x-x-x-#
+   * ############
+   */
+  def junkBoard: Board = {
     val board = Board(width, height)
-    val worstLines = Array.tabulate(height) (
+    val junkLines = Array.tabulate(height) (
       ((y) => worstLine(width, y % 2 == 0))
     )
-    new Board(width, height, worstLines)
+    new Board(width, height, junkLines)
   }
 
   private def worstLine(width: Int, even: Boolean): Int = {
