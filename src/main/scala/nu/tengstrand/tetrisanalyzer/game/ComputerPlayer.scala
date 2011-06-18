@@ -98,7 +98,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
     if (clearedLines > 0) {
       val pieceHeight = piece.height(move.rotation)
       if (doStep)
-        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, pieceMoveAnimator.fastAnimation)
+        pieceMoveAnimator.animateClearedLines(position, move.y, pieceHeight, gameEventReceiver)
       position.clearLines(move.y, pieceHeight)
     }
   }

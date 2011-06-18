@@ -26,4 +26,25 @@ class PieceMoveAnimator(gameEventReceiver: GameEventReceiver) {
     })
   }
 
+  def animateClearedLines(position: Position, pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver) {
+    val copyPosition = Position(position)
+    val clearedLines = for {y <- pieceY until pieceY + pieceHeight if (position.isCompleteLine(y))} yield y
+
+    clearLines(clearedLines, position, gameEventReceiver)
+    showClearedLines(clearedLines, position, copyPosition, if (fastAnimation) 20 else 100, gameEventReceiver)
+    clearLines(clearedLines, position, gameEventReceiver)
+    showClearedLines(clearedLines, position, copyPosition, if (fastAnimation) 10 else 50, gameEventReceiver)
+  }
+
+  private def clearLines(clearedLines: IndexedSeq[Int], position: Position, gameEventReceiver: GameEventReceiver) {
+    clearedLines.foreach(y => position.clearLine(y))
+    gameEventReceiver.setPosition(position)
+    Thread.sleep(100)
+  }
+
+  private def showClearedLines(clearedLines: IndexedSeq[Int], position: Position, copyPosition: Position, pauseMilisec: Int, gameEventReceiver: GameEventReceiver) {
+    clearedLines.foreach(y => position.copyLine(y, copyPosition))
+    gameEventReceiver.setPosition(position)
+    Thread.sleep(pauseMilisec)
+  }
 }

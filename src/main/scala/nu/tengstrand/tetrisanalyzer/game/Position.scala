@@ -65,13 +65,13 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, piece.number))
   }
 
-  private def isCompleteLine(y: Int): Boolean = {
+  def isCompleteLine(y: Int): Boolean = {
     (0 until boardWidth).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == boardWidth
   }
 
   private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x + Wall.Left) == PieceEmpty.Number) 0 else 1
 
-  private def clearLine(y: Int) {
+  def clearLine(y: Int) {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = PieceEmpty.Number)
   }
 
@@ -79,7 +79,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(toY)(x) = playfield(fromY)(x))
   }
 
-  private def copyLine(y: Int, fromPosition: Position) {
+  def copyLine(y: Int, fromPosition: Position) {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = fromPosition.getDot(x,y))
   }
 
@@ -119,28 +119,6 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
       }
     }
     clearedLines
-  }
-
-  def animateClearedLines(pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver, fastAnimation: Boolean) {
-    val copyPosition = Position(this)
-    val clearedLines = for {y <- pieceY until pieceY + pieceHeight if (isCompleteLine(y))} yield y
-
-    clearLines(clearedLines, gameEventReceiver)
-    showClearedLines(clearedLines, copyPosition, if (fastAnimation) 20 else 100, gameEventReceiver)
-    clearLines(clearedLines, gameEventReceiver)
-    showClearedLines(clearedLines, copyPosition, if (fastAnimation) 10 else 50, gameEventReceiver)
-  }
-
-  private def clearLines(clearedLines: IndexedSeq[Int], gameEventReceiver: GameEventReceiver) {
-    clearedLines.foreach(y => clearLine(y))
-    gameEventReceiver.setPosition(this)
-    Thread.sleep(100)
-  }
-
-  private def showClearedLines(clearedLines: IndexedSeq[Int], copyPosition: Position, pauseMilisec: Int, gameEventReceiver: GameEventReceiver) {
-    clearedLines.foreach(y => copyLine(y, copyPosition))
-    gameEventReceiver.setPosition(this)
-    Thread.sleep(pauseMilisec)
   }
 
   def positionCopy = {
