@@ -17,7 +17,7 @@ object MoveStep {
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
-class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
+class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.worstBoard)
@@ -25,16 +25,19 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
 
   private val startBoard = board.copy
   private var position: Position = null
-  private var paused = true
+  private var paused = isPaused
   private var doStep = false
   private var quit = false
-  private var timeToShowStep = MoveStep.DefaultStepTime
+  private var timeToShowStepMilisec = MoveStep.DefaultStepTime
 
   private var moves = 0L
   private var movesTotal = 0L
   private var clearedLines = 0L
   private var clearedLinesTotal = 0L
-  private var games = 0
+  private var games = 0L
+  private var totalClearedLines = 0L
+  private var minClearedLines = 0L
+  private var maxClearedLines = 0L
 
   def setPaused(paused: Boolean) {
     doStep = false
@@ -42,7 +45,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   }
   def performStep() {
     if (doStep)
-      timeToShowStep = 5
+      timeToShowStepMilisec = 5
 
     doStep = true
   }
@@ -52,6 +55,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   override def act() {
     gameEventReceiver.setSeed(settings.pieceGeneratorSeed)
     gameEventReceiver.setBoardSize(board.width, board.height)
+    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines, totalClearedLines, minClearedLines, maxClearedLines)
 
     while (!quit) {
       board.restore(startBoard)
@@ -69,11 +73,27 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
         moves += 1
         movesTotal += 1
       }
-      games += 1
+      if (!quit) {
+        newGame
+      }
       moves = 0
       clearedLines = 0
     }
     exit()
+  }
+
+  private def newGame() {
+    games += 1
+
+    totalClearedLines += clearedLines
+
+    if (minClearedLines == 0 || clearedLines < minClearedLines)
+      minClearedLines = clearedLines
+
+    if (maxClearedLines == 0 || clearedLines > maxClearedLines)
+      maxClearedLines = clearedLines
+
+    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines, totalClearedLines, minClearedLines, maxClearedLines)
   }
 
   private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
@@ -81,28 +101,26 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
   private def waitIfPaused(startPiece: Piece) {
     if (paused && !quit) {
       updatePositionInGUI(startPiece)
+      updateGameInfoInGUI
     }
 
     while (paused && !doStep && !quit)
       Thread.sleep(20)
-
-    updateGameInfoInGUI
-    updatePositionInGUI(startPiece)
   }
 
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedLines: Long = pieceMove.setPiece
 
-    // Update GUI every 100 piece (if not in step mode)
-    if (doStep || moves % 100 == 0) {
+    // Update GUI every 100 piece and always if in step mode
+    if (doStep || movesTotal % 100 == 0) {
       if (!doStep)
         updatePositionInGUI(pieceMove.piece)
       updateGameInfoInGUI()
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
 
-    doStep = timeToShowStep == MoveStep.FastStepTime
-    timeToShowStep = MoveStep.DefaultStepTime
+    doStep = timeToShowStepMilisec == MoveStep.FastStepTime
+    timeToShowStepMilisec = MoveStep.DefaultStepTime
     this.clearedLines += clearedLines
     clearedLinesTotal += clearedLines
 
@@ -114,7 +132,7 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
     if (clearedLines > 0) {
       val pieceHeight = piece.height(move.rotation)
       if (doStep)
-        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, timeToShowStep)
+        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, timeToShowStepMilisec)
       position.clearLines(move.y, pieceHeight)
     }
   }
@@ -145,13 +163,8 @@ class ComputerPlayer(board: Board, startPosition: Position, boardEvaluator: Boar
       val animatedPosition = Position(position)
       animatedPosition.setPiece(step.piece, step.move)
       gameEventReceiver.setPosition(animatedPosition)
-      Thread.sleep(timeToShowStep)
+      Thread.sleep(timeToShowStepMilisec)
     })
-  }
-
-  private def updateEndPositionInGUI() {
-    gameEventReceiver.setPosition(Position(position))
-    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines)
   }
 
   private def updatePositionInGUI(piece: Piece) {

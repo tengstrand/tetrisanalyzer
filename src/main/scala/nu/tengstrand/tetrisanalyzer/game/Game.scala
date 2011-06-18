@@ -12,6 +12,8 @@ class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gam
 
   private var computerPlayer: ComputerPlayer = null
 
+  private var paused = true
+
   updateBoardSize()
 
   private def updateBoardSize() {
@@ -23,18 +25,18 @@ class Game(settings: GameSettings, timer: Timer, positionView: PositionView, gam
     val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
 
-    computerPlayer = new ComputerPlayer(board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
+    computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
+    timer.reset
     computerPlayer.start
   }
 
   def performMove() { computerPlayer.performStep() }
 
-  def isPaused = timer.paused
-
-  def pause() {
-    timer.togglePause
-    gameEventReceiver.setPaused(timer.paused)
-    computerPlayer.setPaused(timer.paused)
+  def togglePause() {
+    paused = !paused
+    timer.setPaused(paused)
+    computerPlayer.setPaused(paused)
+    gameEventReceiver.setPaused(paused)
   }
 
   def decreaseBoardWidth {

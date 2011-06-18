@@ -11,7 +11,8 @@ class GameEventDelegate(playerEventReceiver: PlayerEventReceiver, gameInfoReceiv
   def setTotalNumberOfPieces(pieces: Long) { gameInfoReceiver.setTotalNumberOfPieces(pieces) }
   def setNumberOfClearedLines(lines: Long) { gameInfoReceiver.setNumberOfClearedLines(lines)}
   def setTotalNumberOfClearedLines(lines: Long) { gameInfoReceiver.setTotalNumberOfClearedLines(lines)}
-  def setNumberOfGamesAndLinesInLastGame(games: Int, lines: Long) { gameInfoReceiver.setNumberOfGamesAndLinesInLastGame(games, lines) }
+  def setNumberOfGamesAndLinesInLastGame(games: Long, lines: Long, totalClearedLines: Long, minLines: Long, maxLines: Long) {
+    gameInfoReceiver.setNumberOfGamesAndLinesInLastGame(games, lines, totalClearedLines, minLines, maxLines) }
   def setTimePassed(seconds: Double) { gameInfoReceiver.setTimePassed(seconds) }
   def updateGui() { gameInfoReceiver.updateGui() }
 }

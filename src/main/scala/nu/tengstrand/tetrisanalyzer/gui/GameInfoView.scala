@@ -21,21 +21,14 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   val numberSeparator = new NumberSeparator
 
-  var moves = 0L
   var movesTotal = 0.0
-  var lines = 0L
   var linesTotal = 0.0
-
-  var games = 0
-  var totalLinesPerGame = 0L
-  var minLines = 0L
-  var maxLines = 0L
 
   def setSeed(seed: Long) { this.seed.text = seed.toString }
   def setBoardSize(width: Int, height: Int) { boardSize.text = width + " x " + height }
-  def setNumberOfPieces(pieces: Long) { this.moves = pieces; this.pieces.text = withSpaces(pieces) }
+  def setNumberOfPieces(pieces: Long) { this.pieces.text = withSpaces(pieces) }
   def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
-  def setNumberOfClearedLines(lines: Long) { this.lines = lines; linesLabel.text = withSpaces(lines) }
+  def setNumberOfClearedLines(lines: Long) { linesLabel.text = withSpaces(lines) }
   def setTotalNumberOfClearedLines(lines: Long) { this.linesTotal = lines; this.linesTotalLabel.text = withSpaces(lines) }
   def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "" }
   def updateGui() { repaint() }
@@ -46,17 +39,9 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
     this.piecesPerSec.text = withSpaces(calculatePerSec(seconds, movesTotal))
   }
 
-  def setNumberOfGamesAndLinesInLastGame(games: Int, lines: Long) {
-    this.games = games
-    totalLinesPerGame += lines
-    if (minLines == 0 || lines < minLines)
-      minLines = lines
-
-    if (maxLines == 0 || lines > maxLines)
-      maxLines = lines
-
-    this.gamesLabel.text = withSpaces(games.toLong)
-    linesPerGame.text = withSpaces(totalLinesPerGame / games)
+  def setNumberOfGamesAndLinesInLastGame(games: Long, lines: Long, totalClearedLines: Long, minLines: Long, maxLines: Long) {
+    gamesLabel.text = withSpaces(games)
+    linesPerGame.text = withSpaces(if (games == 0) 0 else totalClearedLines / games)
     minLinesLabel.text = withSpaces(minLines)
     maxLinesLabel.text = withSpaces(maxLines)
   }

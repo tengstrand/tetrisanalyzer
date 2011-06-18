@@ -9,8 +9,8 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
   private var timeStarted = 0L;
   private var totalTimeMs = 0L;
 
-  def togglePause {
-    paused = !paused
+  def setPaused(paused: Boolean) {
+    this.paused = paused
 
     val currentTimeMs = System.currentTimeMillis
 
@@ -36,5 +36,10 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
       mainFrame.repaint
       Thread.sleep(sleepMs)
     }
+  }
+
+  def reset() {
+    timeStarted = System.currentTimeMillis
+    totalTimeMs = 0
   }
 }

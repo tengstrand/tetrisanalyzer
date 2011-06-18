@@ -15,15 +15,15 @@ class KeyManager(game: Game) {
             else
               game.performMove()
           case 80 => // P = Pause
-            game.pause()
+            game.togglePause()
           case 37 =>
-            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Left
+            if (e.getModifiers == 2)  // <CTRL> + Left
               game.decreaseBoardWidth
           case 38 =>
-            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Up
+            if (e.getModifiers == 2)  // <CTRL> + Up
               game.decreaseBoardHeight
           case 39 => // Right
-            if (game.isPaused && e.getModifiers == 2)  // <CTRL> + Right
+            if (e.getModifiers == 2)  // <CTRL> + Right
               game.increaseBoardWidth
           case _ =>
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
