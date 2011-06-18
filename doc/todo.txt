@@ -1,4 +1,5 @@
 
+- Change to boardSize in Board.
 - Changed from lines to rows.
 - Move number of games to Game.
 - Fix lines/game, lines/sec and others.
