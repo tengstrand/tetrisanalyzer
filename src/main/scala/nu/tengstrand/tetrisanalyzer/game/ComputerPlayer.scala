@@ -10,11 +10,6 @@ import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 import java.awt.Dimension
 
-object MoveStep {
-  val DefaultStepTime = 20
-  val FastStepTime = 5
-}
-
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
@@ -29,17 +24,15 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
   private var paused = isPaused
   private var doStep = false
   private var quit = false
-  private var timeToShowStepMilisec = MoveStep.DefaultStepTime
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)
+  private val pieceMoveAnimator = new PieceMoveAnimator(gameEventReceiver)
 
   def setPaused(paused: Boolean) {
     doStep = false
     this.paused = paused
   }
   def performStep() {
-    if (doStep)
-      timeToShowStepMilisec = 5
-
+    pieceMoveAnimator.fastAnimation = doStep
     doStep = true
   }
 
@@ -57,7 +50,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
       while (!quit && bestMove.isDefined) {
         waitIfPaused(startPieceMove.piece)
         if (doStep)
-          animateMove(startPieceMove, bestMove.get)
+          pieceMoveAnimator.animateMove(position, startPieceMove, bestMove.get)
 
         startPieceMove = nextPiece
         bestMove = makeMove(startPieceMove, bestMove.get)
@@ -93,8 +86,8 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
 
-    doStep = timeToShowStepMilisec == MoveStep.FastStepTime
-    timeToShowStepMilisec = MoveStep.DefaultStepTime
+    doStep = pieceMoveAnimator.fastAnimation
+    pieceMoveAnimator.fastAnimation = false
     gameStatistics.addClearedLines(clearedLines)
 
     evaluateBestMove(startPieceMove)
@@ -105,7 +98,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
     if (clearedLines > 0) {
       val pieceHeight = piece.height(move.rotation)
       if (doStep)
-        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, timeToShowStepMilisec)
+        position.animateClearedLines(move.y, pieceHeight, gameEventReceiver, pieceMoveAnimator.fastAnimation)
       position.clearLines(move.y, pieceHeight)
     }
   }
@@ -117,26 +110,5 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
     } else {
       None
     }
-  }
-
-  private def animateMove(startPieceMove: PieceMove, pieceMove: PieceMove) {
-    startPieceMove.prepareAnimatedPath
-    startPieceMove.calculateAnimatedPath(null, 0, 0)
-
-    val animatedPosition = Position(position)
-
-    var step = pieceMove
-    var steps = List.empty[PieceMove]
-    while (step != null) {
-      steps = step :: steps
-      step = step.animatedPath
-    }
-
-    steps.foreach(step => {
-      val animatedPosition = Position(position)
-      animatedPosition.setPiece(step.piece, step.move)
-      gameEventReceiver.setPosition(animatedPosition)
-      Thread.sleep(timeToShowStepMilisec)
-    })
   }
 }
