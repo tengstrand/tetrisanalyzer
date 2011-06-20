@@ -6,14 +6,16 @@ import nu.tengstrand.tetrisanalyzer.board.{Board, BoardOutline}
  * Board evaluator created by Joakim Tengstrand.
  */
 class JTengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
-  require(boardWidth <= 10, "Only board widths between 4 and 10 is supported at the moment, but was: " + boardWidth)
-  require(boardHeight <= 20, "Only board heights between 4 and 20 is supported at the moment, but was: " + boardHeight)
-
   val heightFactor = Array[Double](7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1)
   val blocksPerLineHollowFactor = Array[Double](0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553)
   val areaWidthFactor = Array[Double](0, 4.25, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0)
   val areaHeightFactor = Array[Double](0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6)
   val areaHeightFactorEqualWallHeight = Array[Double](0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6)
+
+  val minBoardWidth = 4
+  val maxBoardWidth = 10
+  val minBoardHeight = 4
+  val maxBoardHeight = 20
 
   def evaluate(board: Board): Double = {
     require(board.width <= boardWidth, "Can not evaluate board width > " + boardWidth)

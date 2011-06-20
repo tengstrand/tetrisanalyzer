@@ -1,16 +1,17 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
 import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import nu.tengstrand.tetrisanalyzer.gui.{GameInfoView, PositionView}
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
+import nu.tengstrand.tetrisanalyzer.boardevaluator.{BoardEvaluator, JTengstrandBoardEvaluator1}
 
 class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView) {
   private var boardWidth = 10
   private var boardHeight = 20
   private val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
 
+  private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null
 
   private var slidingEnabled = false
@@ -24,10 +25,10 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
 
     val board = Board(boardWidth, boardHeight)
     val position = Position(boardWidth, boardHeight)
-    val boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     val settings = new SpecifiedGameSettings(slidingEnabled)
     val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
 
+    boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
     timer.reset
     computerPlayer.start
@@ -48,28 +49,28 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
   }
 
   def decreaseBoardWidth {
-    if (boardWidth > 4) {
+    if (boardWidth > boardEvaluator.minBoardHeight) {
       boardWidth -= 1
       startNewGame()
     }
   }
 
   def increaseBoardWidth {
-    if (boardWidth < 10) {
+    if (boardWidth < boardEvaluator.maxBoardWidth) {
       boardWidth += 1
       startNewGame()
     }
   }
 
   def decreaseBoardHeight {
-    if (boardHeight > 4) {
+    if (boardHeight > boardEvaluator.minBoardWidth) {
       boardHeight -= 1
       startNewGame()
     }
   }
 
   def increaseBoardHeight {
-    if (boardHeight < 20) {
+    if (boardHeight < boardEvaluator.maxBoardHeight) {
       boardHeight += 1
       startNewGame()
     }
