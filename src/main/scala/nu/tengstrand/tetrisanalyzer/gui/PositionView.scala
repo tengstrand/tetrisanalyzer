@@ -1,10 +1,10 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
 import java.awt.{Color, Dimension, Graphics}
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings
 import nu.tengstrand.tetrisanalyzer.game.{PositionModel, PlayerEventReceiver}
+import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 
-class PositionView(settings: GameSettings) extends DoubleBufferedView with PlayerEventReceiver {
+class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with PlayerEventReceiver {
   private val Margin = 10
   private var rows = Seq.empty[Int]
   private var columns = Seq.empty[Int]
@@ -44,8 +44,8 @@ class PositionView(settings: GameSettings) extends DoubleBufferedView with Playe
         for (ix <- 0 until position.width) {
           val color = position.colorValue(ix, iy)
           drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1),
-            settings.squareColor(color),
-            settings.lineColor(color), g)
+            colorSettings.squareColor(color),
+            colorSettings.lineColor(color), g)
         }
       }
       g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))

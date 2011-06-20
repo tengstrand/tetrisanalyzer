@@ -1,9 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
 import scala.swing._
-import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 import nu.tengstrand.tetrisanalyzer.game._
 import actors.Actor._
+import nu.tengstrand.tetrisanalyzer.settings.DefaultColorSettings
 
 object TetrisAnalyzer extends SimpleSwingApplication {
 
@@ -16,11 +16,11 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       text = "testing"
     }
 
-    val settings = new DefaultGameSettings
-    val positionView = new PositionView(settings)
+    val colorSettings = new DefaultColorSettings
+    val positionView = new PositionView(colorSettings)
     val gameInfoView = new GameInfoView()
     val timer = new Timer(this, gameInfoView)
-    val game = new Game(settings, timer, positionView, gameInfoView)
+    val game = new Game(timer, positionView, gameInfoView)
 
     actor {
       timer.start

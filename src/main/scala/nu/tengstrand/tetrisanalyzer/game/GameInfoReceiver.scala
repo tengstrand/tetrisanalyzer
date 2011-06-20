@@ -3,6 +3,7 @@ package nu.tengstrand.tetrisanalyzer.game
 trait GameInfoReceiver {
   def setPaused(paused: Boolean)
   def setSeed(seed: Long)
+  def setSliding(enabled: Boolean)
   def setBoardSize(width: Int, height: Int)
   def setNumberOfPieces(pieces: Long)
   def setTotalNumberOfPieces(pieces: Long)

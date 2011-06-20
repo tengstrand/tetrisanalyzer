@@ -40,6 +40,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
 
   override def act() {
     gameStatistics.updateAll()
+    gameEventReceiver.setSliding(settings.isSlidingEnabled)
 
     while (!quit) {
       board.restore(startBoard)

@@ -1,23 +1,13 @@
 
-- Change to boardSize in Board.
 - Changed from lines to rows.
-- Move number of games to Game.
-- Fix lines/game, lines/sec and others.
 - Support for bigger board sizes.
-- Show right number of pieces.
-- Toggle sliding on/off.
-- Add support for animation when not paused.
 - Change from PositionModel to ColoredPosition.
 
-- Move some GUI code from ComputerPlayer to Position (or a helper class).
 - Don't send totalClearedLines from ComputerPlayer.
-- Add support for changing speed (+ / -)
 - Fix the GameInfoView by using correct layout managers.
-- Add support for animating current piece.
 - Show help screen when pressing [F1].
 - Add support for [N]ext (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
-- Add Sliding.
 
 - Show list of ranked valid moves.
 - Add battle mode, computer against computer or computer against human.

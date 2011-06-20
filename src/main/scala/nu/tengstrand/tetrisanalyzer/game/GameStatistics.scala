@@ -46,11 +46,7 @@ class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEv
   def updateAll() {
     gameEventReceiver.setSeed(seed)
     gameEventReceiver.setBoardSize(boardSize.width, boardSize.height)
-    updateGameInfo
-    updateNumberOfGamesAndLines
-  }
-
-  def updateNumberOfGamesAndLines() {
+    updateGameInfo()
     gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines, totalClearedLines, minClearedLines, maxClearedLines)
   }
 

@@ -5,6 +5,7 @@ import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
 
 class GameInfoView extends NullPanel with GameInfoReceiver {
   val boardSize = new Label("")
+  val sliding = new Label("off")
   val seed = new Label("")
   val linesLabel = new Label("0")
   val pieces = new Label("0")
@@ -25,6 +26,7 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   var linesTotal = 0.0
 
   def setSeed(seed: Long) { this.seed.text = seed.toString }
+  def setSliding(enabled: Boolean) { sliding.text = if (enabled) "on" else "off" }
   def setBoardSize(width: Int, height: Int) { boardSize.text = width + " x " + height }
   def setNumberOfPieces(pieces: Long) { this.pieces.text = withSpaces(pieces) }
   def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
@@ -62,10 +64,11 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
 
   addLabel("Board", boardSize, 14)
   addLabel("Seed", seed, 15)
+  addLabel("S[l]iding", sliding, 16)
 
-  addLabel("Time: ", time, 17)
+  addLabel("Time: ", time, 18)
 
-  addLabel("[P]ause", pause, 19)
+  addLabel("[P]ause", pause, 20)
 
   private def addLabel(text: String, label: Label, row: Int) {
     val y = 10 + row * 20
