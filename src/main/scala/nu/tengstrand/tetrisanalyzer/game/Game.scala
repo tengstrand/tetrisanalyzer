@@ -14,6 +14,7 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
   private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null
 
+  private var seed = 0
   private var slidingEnabled = false
   private var paused = true
 
@@ -25,8 +26,8 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
 
     val board = Board(boardWidth, boardHeight)
     val position = Position(boardWidth, boardHeight)
-    val settings = new SpecifiedGameSettings(slidingEnabled)
-    val pieceGenerator = new DefaultPieceGenerator(settings.pieceGeneratorSeed)
+    val settings = new SpecifiedGameSettings(slidingEnabled, seed)
+    val pieceGenerator = new DefaultPieceGenerator(seed)
 
     boardEvaluator = new JTengstrandBoardEvaluator1(board.width, board.height)
     computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
@@ -51,28 +52,40 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
     startNewGame()
   }
 
-  def decreaseBoardWidth {
+  def increaseSeed() {
+    seed += 1
+    startNewGame()
+  }
+
+  def decreaseSeed() {
+    if (seed > 0) {
+      seed -= 1
+      startNewGame()
+    }
+  }
+
+  def decreaseBoardWidth() {
     if (boardWidth > boardEvaluator.minBoardHeight) {
       boardWidth -= 1
       startNewGame()
     }
   }
 
-  def increaseBoardWidth {
+  def increaseBoardWidth() {
     if (boardWidth < boardEvaluator.maxBoardWidth) {
       boardWidth += 1
       startNewGame()
     }
   }
 
-  def decreaseBoardHeight {
+  def decreaseBoardHeight() {
     if (boardHeight > boardEvaluator.minBoardWidth) {
       boardHeight -= 1
       startNewGame()
     }
   }
 
-  def increaseBoardHeight {
+  def increaseBoardHeight() {
     if (boardHeight < boardEvaluator.maxBoardHeight) {
       boardHeight += 1
       startNewGame()

@@ -63,7 +63,7 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   addLabel("Pieces/sec", piecesPerSec, 12)
 
   addLabel("Board", boardSize, 14)
-  addLabel("Seed", seed, 15)
+  addLabel("S[e]ed", seed, 15)
   addLabel("S[l]iding", sliding, 16)
 
   addLabel("Time: ", time, 18)

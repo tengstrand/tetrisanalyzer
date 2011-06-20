@@ -27,8 +27,15 @@ class KeyManager(game: Game) {
               game.increaseBoardWidth
           case 76 =>  // L = Toggle sliding
             game.toggleSliding()
+          case 69 =>
+            if (e.getModifiers == 1)
+              game.decreaseSeed() // <Shift> + E = Decrease seed
+            else
+              game.increaseSeed() // E = Increase seed
+
+            //game.toggleSliding()
           case _ =>
-            println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + ")");
+            println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + "), modifiers=" + e.getModifiers);
         }
       }
       true;
