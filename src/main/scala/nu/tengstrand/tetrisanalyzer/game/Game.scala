@@ -34,7 +34,10 @@ class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView)
     computerPlayer.start
   }
 
-  def performMove() { computerPlayer.performStep() }
+  def performMove() {
+    if (paused)
+      computerPlayer.performStep()
+  }
 
   def togglePause() {
     paused = !paused
