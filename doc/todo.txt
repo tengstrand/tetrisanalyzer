@@ -1,4 +1,3 @@
-
 - Support for bigger board sizes.
 - Change from PositionModel to ColoredPosition.
 
