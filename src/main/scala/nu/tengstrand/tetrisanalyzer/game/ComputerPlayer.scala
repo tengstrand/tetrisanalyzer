@@ -77,7 +77,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
   }
 
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
-    val clearedLines = pieceMove.setPiece
+    val clearedRows = pieceMove.setPiece
 
     // Update GUI every 100 piece and always if in step mode
     if (doStep || gameStatistics.hasPassedHundredPieces) {
@@ -85,22 +85,22 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
         gameStatistics.updatePosition(position, pieceMove.piece, settings)
       gameStatistics.updateGameInfo()
     }
-    setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedLines)
+    setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedRows)
 
     doStep = pieceMoveAnimator.fastAnimation
     pieceMoveAnimator.fastAnimation = false
-    gameStatistics.addClearedLines(clearedLines)
+    gameStatistics.addClearedRows(clearedRows)
 
     evaluateBestMove(startPieceMove)
   }
 
-  private def setPieceOnPosition(piece: Piece, move: Move, clearedLines: Long) {
+  private def setPieceOnPosition(piece: Piece, move: Move, clearedRows: Long) {
     position.setPiece(piece, move)
-    if (clearedLines > 0) {
+    if (clearedRows > 0) {
       val pieceHeight = piece.height(move.rotation)
       if (doStep)
-        pieceMoveAnimator.animateClearedLines(position, move.y, pieceHeight, gameEventReceiver)
-      position.clearLines(move.y, pieceHeight)
+        pieceMoveAnimator.animateClearedRows(position, move.y, pieceHeight, gameEventReceiver)
+      position.clearRows(move.y, pieceHeight)
     }
   }
 

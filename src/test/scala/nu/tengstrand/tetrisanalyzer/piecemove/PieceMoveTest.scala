@@ -25,7 +25,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-  @Test def setPiece_clearTwoLines {
+  @Test def setPiece_clearTwoRows {
     val board = Board(Array(
       "#----------#",
       "#----x-----#",

@@ -69,7 +69,7 @@ class BoardTest extends BaseTest {
     board.isFree(1,4) should be (true)
   }
 
-  @Test def clearLines {
+  @Test def clearRows {
     val board = Board(Array(
       "#----------#",
       "#----x-----#",
@@ -79,7 +79,7 @@ class BoardTest extends BaseTest {
       "#xxxxxxxxxx#",
       "############"))
 
-    board.clearLines(2, 4) should be (3)
+    board.clearRows(2, 4) should be (3)
 
     board should be (Board(Array(
       "#----------#",

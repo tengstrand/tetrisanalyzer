@@ -16,7 +16,7 @@ object DefaultColorSettings {
     new Color(200, 200, 200)  // 9 = Wall
   )
 
-  private val LineColors = Array.tabulate(Colors.size) {
+  private val RowColors = Array.tabulate(Colors.size) {
       ((i) => (new Color(
         Colors(i).getRed / 2,
         Colors(i).getGreen / 2,
@@ -28,5 +28,5 @@ object DefaultColorSettings {
 
 class DefaultColorSettings extends ColorSettings {
   def squareColor(element: Int) = DefaultColorSettings.Colors(element)
-  def lineColor(element: Int) = DefaultColorSettings.LineColors(element)
+  def rowColor(element: Int) = DefaultColorSettings.RowColors(element)
 }

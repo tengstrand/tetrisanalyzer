@@ -7,59 +7,59 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
   val boardSize = new Label("")
   val sliding = new Label("off")
   val seed = new Label("")
-  val linesLabel = new Label("0")
+  val rowsLabel = new Label("0")
   val pieces = new Label("0")
-  val linesTotalLabel = new Label("0")
+  val rowsTotalLabel = new Label("0")
   val piecesTotal = new Label("0")
   val gamesLabel = new Label("0")
-  val linesPerGame = new Label("0")
-  val minLinesLabel = new Label("0")
-  val maxLinesLabel = new Label("0")
+  val rowsPerGame = new Label("0")
+  val minRowsLabel = new Label("0")
+  val maxRowsLabel = new Label("0")
   val piecesPerSec = new Label("0")
-  val linesPerSec = new Label("0")
+  val rowsPerSec = new Label("0")
   val time = new Label("0")
   val pause = new Label("Paused")
 
   val numberSeparator = new NumberSeparator
 
   var movesTotal = 0.0
-  var linesTotal = 0.0
+  var rowsTotal = 0.0
 
   def setSeed(seed: Long) { this.seed.text = seed.toString }
   def setSliding(enabled: Boolean) { sliding.text = if (enabled) "on" else "off" }
   def setBoardSize(width: Int, height: Int) { boardSize.text = width + " x " + height }
   def setNumberOfPieces(pieces: Long) { this.pieces.text = withSpaces(pieces) }
   def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
-  def setNumberOfClearedLines(lines: Long) { linesLabel.text = withSpaces(lines) }
-  def setTotalNumberOfClearedLines(lines: Long) { this.linesTotal = lines; this.linesTotalLabel.text = withSpaces(lines) }
+  def setNumberOfClearedRows(rows: Long) { rowsLabel.text = withSpaces(rows) }
+  def setTotalNumberOfClearedRows(rows: Long) { this.rowsTotal = rows; this.rowsTotalLabel.text = withSpaces(rows) }
   def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "" }
   def updateGui() { repaint() }
 
   def setTimePassed(seconds: Double) {
     this.time.text = calculateElapsedTime(seconds)
-    this.linesPerSec.text = withSpaces(calculatePerSec(seconds, linesTotal))
+    this.rowsPerSec.text = withSpaces(calculatePerSec(seconds, rowsTotal))
     this.piecesPerSec.text = withSpaces(calculatePerSec(seconds, movesTotal))
   }
 
-  def setNumberOfGamesAndLinesInLastGame(games: Long, lines: Long, totalClearedLines: Long, minLines: Long, maxLines: Long) {
+  def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     gamesLabel.text = withSpaces(games)
-    linesPerGame.text = withSpaces(if (games == 0) 0 else totalClearedLines / games)
-    minLinesLabel.text = withSpaces(minLines)
-    maxLinesLabel.text = withSpaces(maxLines)
+    rowsPerGame.text = withSpaces(if (games == 0) 0 else totalClearedRows / games)
+    minRowsLabel.text = withSpaces(minRows)
+    maxRowsLabel.text = withSpaces(maxRows)
   }
 
-  addLabel("Lines", linesLabel, 0)
+  addLabel("Rows", rowsLabel, 0)
   addLabel("Pieces", pieces, 1)
 
-  addLabel("Lines total", linesTotalLabel, 3)
+  addLabel("Rows total", rowsTotalLabel, 3)
   addLabel("Pieces total", piecesTotal, 4)
 
   addLabel("Games", gamesLabel, 6)
-  addLabel("Lines/game", linesPerGame, 7)
-  addLabel("Min lines", minLinesLabel, 8)
-  addLabel("Max lines", maxLinesLabel, 9)
+  addLabel("Rows/game", rowsPerGame, 7)
+  addLabel("Min rows", minRowsLabel, 8)
+  addLabel("Max rows", maxRowsLabel, 9)
 
-  addLabel("Lines/sec", linesPerSec, 11)
+  addLabel("Rows/sec", rowsPerSec, 11)
   addLabel("Pieces/sec", piecesPerSec, 12)
 
   addLabel("Board", boardSize, 14)

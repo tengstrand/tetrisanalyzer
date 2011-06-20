@@ -58,13 +58,13 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
   }
 
   private def evaluate(pieceMove: PieceMove, boardCopy: Board): Double = {
-    val clearedLines = pieceMove.setPiece
+    val clearedRows = pieceMove.setPiece
     var equity = boardEvaluator.evaluate(pieceMove.board)
 
-    if (pieceMove.move.y + clearedLines < firstFreeRowUnderStartPiece)
+    if (pieceMove.move.y + clearedRows < firstFreeRowUnderStartPiece)
        equity = adjustEquityIfNextPieceIsOccupied(pieceMove.board, equity)
 
-    if (clearedLines == 0)
+    if (clearedRows == 0)
       pieceMove.clearPiece()
     else
       pieceMove.board.restore(boardCopy)

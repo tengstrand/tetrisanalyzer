@@ -67,7 +67,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def clearLines() {
+  @Test def clearRows() {
     // Before:
     // ######---TTT----##
     // ######----T-----##
@@ -89,7 +89,7 @@ class PositionTest extends BaseTest {
     position.setPiece(new PieceI, Move(0, 0, 2))
     position.setPiece(new PieceI, Move(0, 4, 2))
 
-    position.clearLines(2, 4) should be (3)
+    position.clearRows(2, 4) should be (3)
 
     position.toString should be (
       "######----------##\n" +

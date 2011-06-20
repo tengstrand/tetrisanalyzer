@@ -1,53 +1,53 @@
 package nu.tengstrand.tetrisanalyzer.board
 
 object Board {
-  val EmptyLine = 0
+  val EmptyRow = 0
 
   /**
    * Creates an empty board.
    */
   def apply(width: Int = 10, height: Int = 20) = {
-    val lines = Array.fill(height) { EmptyLine }
-    new Board(width, height, lines)
+    val rows = Array.fill(height) { EmptyRow }
+    new Board(width, height, rows)
   }
 
   /**
    * Create a board from a string representation.
    */
-  def apply(lines: Array[String]) = {
-    val width = lines(0).length - 2
-    val height = lines.length - 1
+  def apply(rows: Array[String]) = {
+    val width = rows(0).length - 2
+    val height = rows.length - 1
 
-    require(lines(height) == bottomTextLine(width))
+    require(rows(height) == bottomTextRow(width))
 
-    val boardLines = Array.tabulate(height) (
-      ((y) => fromText(width, lines(y)))
+    val boardRows = Array.tabulate(height) (
+      ((y) => fromText(width, rows(y)))
     )
-    new Board(width, height, boardLines)
+    new Board(width, height, boardRows)
   }
 
-  def bottomTextLine(width: Int) = "#" * (width + 2)
+  def bottomTextRow(width: Int) = "#" * (width + 2)
 
-  private def fromText(width: Int, textLine: String): Int = {
-    var line = EmptyLine
+  private def fromText(width: Int, textRow: String): Int = {
+    var row = EmptyRow
     for (i <- width to 1 by -1) {
-      line <<= 1
-      line |= (if (textLine(i) == '-') 0 else 1)
+      row <<= 1
+      row |= (if (textRow(i) == '-') 0 else 1)
     }
-    line
+    row
   }
 }
 
 /**
  * Represents a Tetris board. Default size is 10x20.
  *
- * Each line is represented by a 32 bit integer where each bit corresponds to a column on the board.
+ * Each row is represented by a 32 bit integer where each bit corresponds to a column on the board.
  * Bit 0 corresponds to the x-value 0 (left most position), bit 1 to x-value 1 etc.
  *
  * This is a highly optimized version that does not follow best practice in object-orientation!
  */
-class Board(val width: Int, val height: Int, val lines: Array[Int]) {
-  private val completeLine = calculateCompleteLine(width)
+class Board(val width: Int, val height: Int, val rows: Array[Int]) {
+  private val completeRow = calculateCompleteRow(width)
 
   require(width >= 4 && width <= 32)
   require(height >= 4)
@@ -67,34 +67,34 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
    */
   def junkBoard: Board = {
     val board = Board(width, height)
-    val junkLines = Array.tabulate(height) (
-      ((y) => worstLine(width, y % 2 == 0))
+    val junkRows = Array.tabulate(height) (
+      ((y) => worstRow(width, y % 2 == 0))
     )
-    new Board(width, height, junkLines)
+    new Board(width, height, junkRows)
   }
 
-  private def worstLine(width: Int, even: Boolean): Int = {
-    var line = Board.EmptyLine
+  private def worstRow(width: Int, even: Boolean): Int = {
+    var row = Board.EmptyRow
 
     for (x <- 1 to width) {
-      line <<= 1
+      row <<= 1
       if (x % 2 == 1)
-        line |= 1
+        row |= 1
     }
     if (even)
-      line
+      row
     else
-      line >> 1
+      row >> 1
   }
 
-  private def calculateCompleteLine(width: Int): Int = {
-    var line = Board.EmptyLine
+  private def calculateCompleteRow(width: Int): Int = {
+    var row = Board.EmptyRow
 
     for (x <- 1 to width) {
-      line <<= 1
-      line |= 1
+      row <<= 1
+      row |= 1
     }
-    line
+    row
   }
 
   /**
@@ -102,83 +102,83 @@ class Board(val width: Int, val height: Int, val lines: Array[Int]) {
    */
   def isFree(x: Int, y: Int) = {
     try {
-      (lines(y) & (1 << x)) == 0
+      (rows(y) & (1 << x)) == 0
     } catch {
       case e: IndexOutOfBoundsException => false
     }
   }
 
   /**
-   * Clears completed lines and returns number of cleared lines.
+   * Clears completed rows and returns number of cleared rows.
    * This method is called after a piece has been placed on the board.
    *   pieceY: the y position of the piece.
    *   pieceHeight: height of the piece.
    */
-  def clearLines(pieceY: Int, pieceHeight: Int): Int = {
-    var clearedLines = 0
+  def clearRows(pieceY: Int, pieceHeight: Int): Int = {
+    var clearedRows = 0
     var y1 = pieceY + pieceHeight
 
-    // Find first line to clear
+    // Find first row to clear
     do {
       y1 -= 1
-      if (lines(y1) == completeLine)
-        clearedLines += 1
-    } while (clearedLines == 0 && y1 > pieceY)
+      if (rows(y1) == completeRow)
+        clearedRows += 1
+    } while (clearedRows == 0 && y1 > pieceY)
 
-    // Clear lines
-    if (clearedLines > 0) {
+    // Clear rows
+    if (clearedRows > 0) {
       var y2 = y1
 
       while (y1 >= 0) {
         y2 -= 1
-        while (y2 >= pieceY && lines(y2) == completeLine) {
-          clearedLines += 1
+        while (y2 >= pieceY && rows(y2) == completeRow) {
+          clearedRows += 1
           y2 -= 1
         }
         if (y2 >= 0)
-          lines(y1) = lines(y2)
+          rows(y1) = rows(y2)
         else
-          lines(y1) = Board.EmptyLine
+          rows(y1) = Board.EmptyRow
 
         y1 -= 1
       }
     }
-    clearedLines
+    clearedRows
   }
 
   /**
    * Returns a new copy of this (mutable) board.
    */
   def copy: Board = {
-    val copyLines = new Array[Int](height)
-    lines.copyToArray(copyLines)
-    new Board(width, height, copyLines)
+    val copyRows = new Array[Int](height)
+    rows.copyToArray(copyRows)
+    new Board(width, height, copyRows)
   }
 
   /**
    * Restores this (mutable) bard from a another board.
    */
   def restore(other: Board) {
-    other.lines.copyToArray(lines)
+    other.rows.copyToArray(rows)
   }
 
   override def equals(that: Any) = that match {
-    case other: Board => lines.toList == other.lines.toList
+    case other: Board => rows.toList == other.rows.toList
     case _ => false
   }
 
   override def toString: String = {
-    lines.map(boardLineAsString(_)).mkString("\n") + "\n" + Board.bottomTextLine(width)
+    rows.map(boardRowAsString(_)).mkString("\n") + "\n" + Board.bottomTextRow(width)
   }
 
   /**
-   * Converts a board line into its string representation.
+   * Converts a board row into its string representation.
    */
-  private def boardLineAsString(boardLine: Int): String = {
+  private def boardRowAsString(boardRow: Int): String = {
     var result = "#"
 
     for (i <- 0 until width)
-      result += (if (((boardLine >> i) & 1) == 0) "-" else "x")
+      result += (if (((boardRow >> i) & 1) == 0) "-" else "x")
 
     result + "#"
   }

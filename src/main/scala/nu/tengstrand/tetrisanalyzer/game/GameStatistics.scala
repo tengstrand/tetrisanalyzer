@@ -7,21 +7,21 @@ import nu.tengstrand.tetrisanalyzer.settings.GameSettings
 class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEventReceiver) {
   private var moves = 0L
   private var movesTotal = 0L
-  private var clearedLines = 0L
-  private var clearedLinesTotal = 0L
+  private var clearedRows = 0L
+  private var clearedRowsTotal = 0L
   private var games = 0L
-  private var totalClearedLines = 0L
-  private var minClearedLines = 0L
-  private var maxClearedLines = 0L
+  private var totalClearedRows = 0L
+  private var minClearedrows = 0L
+  private var maxClearedrows = 0L
 
   def addMove() {
     moves += 1
     movesTotal += 1
   }
 
-  def addClearedLines(clearedLines: Int) {
-    this.clearedLines += clearedLines
-    clearedLinesTotal += clearedLines
+  def addClearedRows(clearedRows: Int) {
+    this.clearedRows += clearedRows
+    clearedRowsTotal += clearedRows
   }
 
   def hasPassedHundredPieces = movesTotal % 100 == 0
@@ -29,25 +29,25 @@ class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEv
   def newGame() {
     games += 1
 
-    totalClearedLines += clearedLines
+    totalClearedRows += clearedRows
 
-    if (minClearedLines == 0 || clearedLines < minClearedLines)
-      minClearedLines = clearedLines
+    if (minClearedrows == 0 || clearedRows < minClearedrows)
+      minClearedrows = clearedRows
 
-    if (maxClearedLines == 0 || clearedLines > maxClearedLines)
-      maxClearedLines = clearedLines
+    if (maxClearedrows == 0 || clearedRows > maxClearedrows)
+      maxClearedrows = clearedRows
 
-    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines, totalClearedLines, minClearedLines, maxClearedLines)
+    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
 
     moves = 0
-    clearedLines = 0
+    clearedRows = 0
   }
 
   def updateAll() {
     gameEventReceiver.setSeed(seed)
     gameEventReceiver.setBoardSize(boardSize.width, boardSize.height)
     updateGameInfo()
-    gameEventReceiver.setNumberOfGamesAndLinesInLastGame(games, clearedLines, totalClearedLines, minClearedLines, maxClearedLines)
+    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
   }
 
   def updatePosition(position: Position, piece: Piece, settings: GameSettings) {
@@ -59,8 +59,8 @@ class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEv
   def updateGameInfo() {
     gameEventReceiver.setNumberOfPieces(moves)
     gameEventReceiver.setTotalNumberOfPieces(movesTotal)
-    gameEventReceiver.setNumberOfClearedLines(clearedLines)
-    gameEventReceiver.setTotalNumberOfClearedLines(clearedLinesTotal)
+    gameEventReceiver.setNumberOfClearedRows(clearedRows)
+    gameEventReceiver.setTotalNumberOfClearedRows(clearedRowsTotal)
     gameEventReceiver.updateGui()
   }
 }

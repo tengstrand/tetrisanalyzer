@@ -65,60 +65,60 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, piece.number))
   }
 
-  def isCompleteLine(y: Int): Boolean = {
+  def isCompleteRow(y: Int): Boolean = {
     (0 until boardWidth).foldLeft(0) { (sum,x) => sum + emptyOrOccupied(x,y) } == boardWidth
   }
 
   private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x + Wall.Left) == PieceEmpty.Number) 0 else 1
 
-  def clearLine(y: Int) {
+  def clearRow(y: Int) {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = PieceEmpty.Number)
   }
 
-  private def copyLine(fromY: Int, toY: Int) {
+  private def copyRow(fromY: Int, toY: Int) {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(toY)(x) = playfield(fromY)(x))
   }
 
-  def copyLine(y: Int, fromPosition: Position) {
+  def copyRow(y: Int, fromPosition: Position) {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = fromPosition.getDot(x,y))
   }
 
   /**
-   * Clears completed lines and returns number of cleared lines.
+   * Clears completed rows and returns number of cleared rows.
    * This method is called after a piece has been placed on the board.
    *   pieceY: the y position of the piece.
    *   pieceHeight: height of the piece.
    */
-  def clearLines(pieceY: Int, pieceHeight: Int): Int = {
-    var clearedLines = 0
+  def clearRows(pieceY: Int, pieceHeight: Int): Int = {
+    var clearedRows = 0
     var y1 = pieceY + pieceHeight
 
-    // Find first line to clear
+    // Find first row to clear
     do {
       y1 -= 1
-      if (isCompleteLine(y1))
-        clearedLines += 1
-    } while (clearedLines == 0 && y1 > pieceY)
+      if (isCompleteRow(y1))
+        clearedRows += 1
+    } while (clearedRows == 0 && y1 > pieceY)
 
-    // Clear lines
-    if (clearedLines > 0) {
+    // Clear rows
+    if (clearedRows > 0) {
       var y2 = y1
 
       while (y1 >= 0) {
         y2 -= 1
-        while (y2 >= pieceY && isCompleteLine(y2)) {
-          clearedLines += 1
+        while (y2 >= pieceY && isCompleteRow(y2)) {
+          clearedRows += 1
           y2 -= 1
         }
         if (y2 >= 0)
-          copyLine(y2, y1)
+          copyRow(y2, y1)
         else
-          clearLine(y1)
+          clearRow(y1)
 
         y1 -= 1
       }
     }
-    clearedLines
+    clearedRows
   }
 
   def positionCopy = {
@@ -132,13 +132,13 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
 
   override def toString = {
     var result = "";
-    var newLine = "";
+    var newRow = "";
     for (y <- 0 until height) {
-      result += newLine;
+      result += newRow;
       for (x <- 0 until width) {
         result += Dot.Characters(playfield(y)(x))
       }
-      newLine = "\n"
+      newRow = "\n"
     }
     result
   }

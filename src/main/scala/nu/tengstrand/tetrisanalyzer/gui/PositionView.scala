@@ -45,7 +45,7 @@ class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with
           val color = position.colorValue(ix, iy)
           drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1),
             colorSettings.squareColor(color),
-            colorSettings.lineColor(color), g)
+            colorSettings.rowColor(color), g)
         }
       }
       g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))

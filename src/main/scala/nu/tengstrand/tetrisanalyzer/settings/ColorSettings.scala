@@ -10,8 +10,8 @@ trait ColorSettings {
   def squareColor(element: Int): Color
 
   /**
-   * Returns the colour of the square line for the specified position
+   * Returns the colour of the square row for the specified position
    * element which can be empty (0), a piece (1-8) or wall (9).
    */
-  def lineColor(element: Int): Color
+  def rowColor(element: Int): Color
 }

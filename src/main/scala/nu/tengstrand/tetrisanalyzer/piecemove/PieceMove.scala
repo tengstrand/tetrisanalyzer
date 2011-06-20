@@ -12,17 +12,17 @@ object PieceMove {
     val AllBitsSet = -1
 
     val pieceHeight = piece.height(move.rotation)
-    val orLines = Array.fill(pieceHeight) { AllBitsCleared }
-    val andLines = Array.fill(pieceHeight) { AllBitsSet }
-    val boardLineIndices = Array.ofDim[Int](pieceHeight)
+    val orRows = Array.fill(pieceHeight) { AllBitsCleared }
+    val andRows = Array.fill(pieceHeight) { AllBitsSet }
+    val boardRowIndices = Array.ofDim[Int](pieceHeight)
 
     for (y <- 0 until pieceHeight)
-      boardLineIndices(y) = move.y + y
+      boardRowIndices(y) = move.y + y
 
-    piece.shape(move.rotation).dots.foreach(point => orLines(point.y) |= (1 << (move.x + point.x)))
-    piece.shape(move.rotation).dots.foreach(point => andLines(point.y) &= ~(1 << (move.x + point.x)))
+    piece.shape(move.rotation).dots.foreach(point => orRows(point.y) |= (1 << (move.x + point.x)))
+    piece.shape(move.rotation).dots.foreach(point => andRows(point.y) &= ~(1 << (move.x + point.x)))
 
-    new PieceMove(board, piece, move, boardLineIndices, orLines, andLines)
+    new PieceMove(board, piece, move, boardRowIndices, orRows, andRows)
   }
 }
 
@@ -30,8 +30,8 @@ object PieceMove {
  * Has responsible of setting and clearing a piece on the board and can tell which
  * moves are valid on the (none empty) board.
  */
-class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineIndices: Array[Int],
-                orLines: Array[Int], andLines: Array[Int]) {
+class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndices: Array[Int],
+                orRows: Array[Int], andRows: Array[Int]) {
   var down: PieceMove = null
   var asideAndRotate: Set[PieceMove] = new HashSet[PieceMove]
   private val pieceHeight = piece.height(move.rotation)
@@ -40,13 +40,13 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
   private var animatedPathValue: Int = Integer.MAX_VALUE
 
   /**
-   * Sets a piece on the board, return number of cleared lines.
+   * Sets a piece on the board, return number of cleared rows.
    */
   def setPiece(): Int = {
     for (y <- 0 until pieceHeight) {
-      board.lines(boardLineIndices(y)) |= orLines(y)
+      board.rows(boardRowIndices(y)) |= orRows(y)
     }
-    board.clearLines(move.y, pieceHeight)
+    board.clearRows(move.y, pieceHeight)
   }
 
   /**
@@ -54,7 +54,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
    */
   def clearPiece() {
     for (y <- 0 until pieceHeight) {
-      board.lines(boardLineIndices(y)) &= andLines(y)
+      board.rows(boardRowIndices(y)) &= andRows(y)
     }
   }
 
@@ -63,7 +63,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
    */
   def isFree: Boolean = {
     var y = 0
-    while (y < pieceHeight && ((board.lines(boardLineIndices(y)) & orLines(y)) == PieceMove.AllBitsCleared)) {
+    while (y < pieceHeight && ((board.rows(boardRowIndices(y)) & orRows(y)) == PieceMove.AllBitsCleared)) {
       y += 1
     }
     y == pieceHeight
@@ -82,7 +82,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardLineInd
   }
 
   /**
-   * Resets the path values so the animated path can be calculated by calling calculateAnimatedPath.
+   * Resets the path values so the animated path can be calculated by caling calculateAnimatedPath.
    */
   def prepareAnimatedPath() {
     if (animatedPathValue != Integer.MAX_VALUE) {

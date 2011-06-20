@@ -7,9 +7,9 @@ trait GameInfoReceiver {
   def setBoardSize(width: Int, height: Int)
   def setNumberOfPieces(pieces: Long)
   def setTotalNumberOfPieces(pieces: Long)
-  def setNumberOfGamesAndLinesInLastGame(games: Long, lines: Long, totalClearedLines: Long, minLines: Long, maxLines: Long)
-  def setNumberOfClearedLines(lines: Long)
-  def setTotalNumberOfClearedLines(lines: Long)
+  def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long)
+  def setNumberOfClearedRows(rows: Long)
+  def setTotalNumberOfClearedRows(rows: Long)
   def setTimePassed(seconds: Double)
   def updateGui()
 }

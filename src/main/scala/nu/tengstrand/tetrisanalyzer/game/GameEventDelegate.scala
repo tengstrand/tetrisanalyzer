@@ -10,11 +10,11 @@ class GameEventDelegate(playerEventReceiver: PlayerEventReceiver, gameInfoReceiv
   def setBoardSize(width: Int, height: Int) { gameInfoReceiver.setBoardSize(width, height) }
   def setNumberOfPieces(pieces: Long) { gameInfoReceiver.setNumberOfPieces(pieces) }
   def setTotalNumberOfPieces(pieces: Long) { gameInfoReceiver.setTotalNumberOfPieces(pieces) }
-  def setNumberOfClearedLines(lines: Long) { gameInfoReceiver.setNumberOfClearedLines(lines)}
-  def setTotalNumberOfClearedLines(lines: Long) { gameInfoReceiver.setTotalNumberOfClearedLines(lines)}
+  def setNumberOfClearedRows(rows: Long) { gameInfoReceiver.setNumberOfClearedRows(rows)}
+  def setTotalNumberOfClearedRows(rows: Long) { gameInfoReceiver.setTotalNumberOfClearedRows(rows)}
   def setTimePassed(seconds: Double) { gameInfoReceiver.setTimePassed(seconds) }
   def updateGui() { gameInfoReceiver.updateGui() }
-  def setNumberOfGamesAndLinesInLastGame(games: Long, lines: Long, totalClearedLines: Long, minLines: Long, maxLines: Long) {
-    gameInfoReceiver.setNumberOfGamesAndLinesInLastGame(games, lines, totalClearedLines, minLines, maxLines)
+  def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
+    gameInfoReceiver.setNumberOfGamesAndRowsInLastGame(games, rows, totalClearedRows, minRows, maxRows)
   }
 }
