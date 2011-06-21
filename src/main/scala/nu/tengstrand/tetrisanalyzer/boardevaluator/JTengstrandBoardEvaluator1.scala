@@ -6,16 +6,44 @@ import nu.tengstrand.tetrisanalyzer.board.{Board, BoardOutline}
  * Board evaluator created by Joakim Tengstrand.
  */
 class JTengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
-  val heightFactor = Array[Double](7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1)
-  val blocksPerRowHollowFactor = Array[Double](0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553)
-  val areaWidthFactor = Array[Double](0, 4.25, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0)
-  val areaHeightFactor = Array[Double](0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6)
-  val areaHeightFactorEqualWallHeight = Array[Double](0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6)
+  val heightFactor = Array[Double](7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05  )
+  val blocksPerRowHollowFactor = calculateBlocksPerRowHollowFactor
+
+  val areaWidthFactorFactor = 0.88
+  private val areaWidthFactor = calculateAreaWidthFactor
+
+  val areaHeightFactor = Array[Double](0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6, 20.6, 21.6, 22.6, 23.6, 24.6, 25.6, 26.6, 27.6, 28.6, 29.6, 30.6, 31.6)
+  val areaHeightFactorEqualWallHeight = Array[Double](0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6, 20.6, 21.6, 22.6, 23.6, 24.6, 25.6, 26.6, 27.6, 28.6, 29.6, 30.6, 31.6)
 
   val minBoardWidth = 4
-  val maxBoardWidth = 10
+  val maxBoardWidth = 32
   val minBoardHeight = 4
-  val maxBoardHeight = 20
+  val maxBoardHeight = 32
+
+  def calculateBlocksPerRowHollowFactor = {
+    val tail = Array[Double](0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553)
+
+    val result = Array.fill[Double](boardWidth) { 0.0 }
+    val startIndex = if (boardWidth < tail.length) 0 else boardWidth - tail.length
+    val length = if (boardWidth > tail.length) tail.length else boardWidth
+    tail.copyToArray(result, startIndex, length)
+    result
+  }
+
+  def calculateAreaWidthFactor: Array[Double] = {
+    val head = Array[Double](0, 4.25, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 1 )
+
+    val width = if (boardWidth + 1 < head.size) head.size else boardWidth + 1
+    val result = Array.ofDim[Double](width)
+    head.copyToArray(result, 0)
+
+    var factor = head(head.size - 1)
+    for (i <- head.size until width) {
+      factor *= areaWidthFactorFactor
+      result(i) = factor
+    }
+    result
+  }
 
   def evaluate(board: Board): Double = {
     require(board.width <= boardWidth, "Can not evaluate board width > " + boardWidth)
