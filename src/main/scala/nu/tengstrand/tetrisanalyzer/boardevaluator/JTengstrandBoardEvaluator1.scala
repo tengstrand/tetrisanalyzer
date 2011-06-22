@@ -5,68 +5,17 @@ import nu.tengstrand.tetrisanalyzer.board.{Board, BoardOutline}
 /**
  * Board evaluator created by Joakim Tengstrand.
  */
-class JTengstrandBoardEvaluator1(boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
-  val heightFactor = calculateHeightFactor
-  val blocksPerRowHollowFactor = calculateBlocksPerRowHollowFactor
-
-  private val areaWidthFactor = calculateAreaWidthFactor
-
-  val areaHeightFactor = calculateAreaHeightFactor
-  val areaHeightFactorEqualWallHeight = calculateAreaHeightFactorEqualWallHeight
+class JTengstrandBoardEvaluator1(settings: JTengstrandBoardEvaluator1Settings, boardWidth: Int = 10, boardHeight: Int = 20) extends BoardEvaluator {
+  private val heightFactor = settings.calculateHeightFactor(boardHeight)
+  private val blocksPerRowHollowFactor = settings.calculateBlocksPerRowHollowFactor(boardWidth)
+  private val areaWidthFactor = settings.calculateAreaWidthFactor(boardWidth)
+  private val areaHeightFactor = settings.calculateAreaHeightFactor(boardHeight)
+  private val areaHeightFactorEqualWallHeight = settings.calculateAreaHeightFactorEqualWallHeight(boardHeight)
 
   val minBoardWidth = 4
   val maxBoardWidth = 32
   val minBoardHeight = 4
   val maxBoardHeight = 100
-
-  def calculateHeightFactor: Array[Double] = {
-    val head = List[Double](7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.09)
-
-    if (boardHeight < head.length)
-      head.take(boardHeight + 1).toArray
-    else {
-      val lastValue = head.takeRight(1)(0)
-      val secondLastValue = head.takeRight(2)(0)
-      val factor = lastValue / secondLastValue
-      (head ::: List.tabulate(boardHeight - head.length + 1) (((n) => powSeries(lastValue, factor, n)))).toArray
-    }
-  }
-
-  def calculateBlocksPerRowHollowFactor: Array[Double] = {
-    val tail = List[Double](0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553)
-
-    if (boardWidth > tail.length)
-      (List.fill(boardWidth - tail.length) { 0.0 } ::: tail).toArray
-    else
-      tail.takeRight(boardWidth).toArray
-  }
-
-  def calculateAreaWidthFactor: Array[Double] = {
-    val head = List[Double](0, 4.25, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 1 )
-
-    if (boardWidth < head.size)
-      head.take(boardWidth + 1).toArray
-    else {
-      val factor = head.takeRight(1)(0) / head.takeRight(2)(0)
-      (head ::: List.tabulate(boardWidth - head.length + 1) (((n) => powSeries(head.takeRight(1)(0), factor, n)))).toArray
-    }
-  }
-
-  def calculateAreaHeightFactor(): Array[Double] = calculateAreaHeightFactor(List(0, 0.5, 1.19, 2.3, 3.1, 4.6, 5.6))
-  def calculateAreaHeightFactorEqualWallHeight(): Array[Double] = calculateAreaHeightFactor(List(0, 0.42, 1.05, 2.2, 3.1, 4.6, 5.6))
-
-  private def calculateAreaHeightFactor(params: List[Double]): Array[Double] = {
-    if (boardHeight < params.length)
-      params.take(boardHeight + 1).toArray
-    else {
-      val lastValue = params.takeRight(1)(0)
-      val secondLastValue = params.takeRight(2)(0)
-      val factor = lastValue - secondLastValue
-      (params ::: List.tabulate(boardHeight - params.length + 1) (((n) => lastValue + (n+1) * factor))).toArray
-    }
-  }
-
-  private def powSeries(initialValue: Double, factor: Double, n: Int) = (initialValue * scala.math.pow(factor, n + 1) * 100).round / 100.0
 
   def evaluate(board: Board): Double = {
     require(board.width <= boardWidth, "Can not evaluate board width > " + boardWidth)

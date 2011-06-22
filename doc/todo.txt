@@ -1,9 +1,8 @@
 
 - Optimize the painting of the board, store an empty board and only paint the rest.
-- Ligter colors of the lines like in the C++ version.
+- Lighter colors of the lines like in the C++ version.
 - add test for calculateHeightFactor.
 - Fix rows/sec.
-- Support for bigger board sizes.
 - Change from PositionModel to ColoredPosition.
 
 - Don't send totalClearedRows from ComputerPlayer.

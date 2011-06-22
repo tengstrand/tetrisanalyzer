@@ -4,9 +4,9 @@ import org.junit.Test
 import nu.tengstrand.tetrisanalyzer.BaseTest
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
-import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1
 import nu.tengstrand.tetrisanalyzer.piece.{Piece, PieceS}
 import nu.tengstrand.tetrisanalyzer.piecemove.{AllValidPieceMovesForEmptyBoard, PieceMove}
+import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, JTengstrandBoardEvaluator1}
 
 class EvaluatedMovesTest extends BaseTest {
   private var board: Board = Board()
@@ -22,7 +22,8 @@ class EvaluatedMovesTest extends BaseTest {
     val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
     val startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(piece)
     val validMoves = new ValidMoves(board).pieceMoves(startPieceMove)
-    val boardEvaluator = new JTengstrandBoardEvaluator1
+    val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
+    val boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings)
     val startPieceMoves = allValidPieceMovesForEmptyBoard.startPieces
     val maxEquity = boardEvaluator.evaluate(board.junkBoard)
     new EvaluatedMoves(board, validMoves, boardEvaluator, startPieceMoves, settings.firstFreeRowUnderStartPiece, maxEquity)
