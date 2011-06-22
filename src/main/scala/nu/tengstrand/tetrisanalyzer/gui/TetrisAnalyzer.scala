@@ -37,8 +37,8 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     positionView.preferredSize = new Dimension(500, 550)
     positionView.size = new Dimension(500, 550)
 
-    gameInfoView.preferredSize = new Dimension(150, 550)
-    gameInfoView.size = new Dimension(150, 550)
+    gameInfoView.preferredSize = new Dimension(200, 550)
+    gameInfoView.size = new Dimension(200, 550)
 
     new KeyManager(game)
   }
