@@ -1,6 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.game
 
 trait PlayerEventReceiver {
-  def setPosition(positionModel: PositionModel)
+  def setPosition(coloredPosition: ColoredPosition)
   def isReadyToReceivePosition: Boolean
 }

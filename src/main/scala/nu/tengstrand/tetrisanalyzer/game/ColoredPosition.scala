@@ -1,6 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-trait PositionModel {
+trait ColoredPosition {
   def width: Int
   def height: Int
   def colorValue(x: Int, y: Int): Int

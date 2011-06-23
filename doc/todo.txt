@@ -1,9 +1,5 @@
 
-- Optimize the painting of the board, store an empty board and only paint the rest.
-- Lighter colors of the lines like in the C++ version.
 - add test for calculateHeightFactor.
-- Fix rows/sec.
-- Change from PositionModel to ColoredPosition.
 
 - Don't send totalClearedRows from ComputerPlayer.
 - Fix the GameInfoView by using correct layout managers.
@@ -16,6 +12,7 @@
 
 - Show dots/position.
 
+- Lighter colors of the lines like in the C++ version.
 
 
 

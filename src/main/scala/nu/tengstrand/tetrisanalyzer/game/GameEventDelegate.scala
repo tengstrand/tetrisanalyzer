@@ -1,7 +1,7 @@
 package nu.tengstrand.tetrisanalyzer.game
 
 class GameEventDelegate(playerEventReceiver: PlayerEventReceiver, gameInfoReceiver: GameInfoReceiver) extends GameEventReceiver {
-  def setPosition(positionModel: PositionModel) { playerEventReceiver.setPosition(positionModel) }
+  def setPosition(coloredPosition: ColoredPosition) { playerEventReceiver.setPosition(coloredPosition) }
   def isReadyToReceivePosition: Boolean = { playerEventReceiver.isReadyToReceivePosition }
 
   def setPaused(paused: Boolean) { gameInfoReceiver.setPaused(paused) }

@@ -1,15 +1,15 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
 import java.awt.{Color, Dimension, Graphics}
-import nu.tengstrand.tetrisanalyzer.game.{PositionModel, PlayerEventReceiver}
+import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 
 class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with PlayerEventReceiver {
   private val Margin = 10
   private var rows = Seq.empty[Int]
   private var columns = Seq.empty[Int]
-  private var position: PositionModel = null
-  private var newPosition: PositionModel = null
+  private var position: ColoredPosition = null
+  private var newPosition: ColoredPosition = null
 
   private var paused = false
 
@@ -17,14 +17,14 @@ class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with
 
   def isReadyToReceivePosition = position == newPosition || paused
 
-  override def setPosition(positionModel: PositionModel) {
-    newPosition = positionModel
+  override def setPosition(coloredPosition: ColoredPosition) {
+    newPosition = coloredPosition
 
     if (position == null)
-      position = positionModel
+      position = coloredPosition
   }
 
-  override def preparePaintGraphics = {
+  override def preparePaintGraphics: Dimension = {
     if (position != null) {
       val squareSize = calculateSquareSize
       rows = (0 to position.height).map(y => Margin + (y * squareSize).intValue)
@@ -42,10 +42,10 @@ class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with
     if (position != null) {
       for (iy <- 0 until position.height) {
         for (ix <- 0 until position.width) {
-          val color = position.colorValue(ix, iy)
+          val colorValue = position.colorValue(ix, iy)
           drawSquare(columns(ix), rows(iy), columns(ix+1), rows(iy+1),
-            colorSettings.squareColor(color),
-            colorSettings.rowColor(color), g)
+            colorSettings.squareColor(colorValue),
+            colorSettings.lineColor(colorValue), g)
         }
       }
       g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))
