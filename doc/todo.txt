@@ -1,8 +1,5 @@
 
-- add test for calculateHeightFactor.
-
-- Don't send totalClearedRows from ComputerPlayer.
-- Fix the GameInfoView by using correct layout managers.
+- Fix the GameInfoView by using correct layout managers or use 2D libraries.
 - Show help screen when pressing [F1].
 - Add support for [N]ext (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
