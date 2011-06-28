@@ -1,15 +1,14 @@
 package nu.tengstrand.tetrisanalyzer.game
 
 import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
-import nu.tengstrand.tetrisanalyzer.gui.{GameInfoView, PositionView}
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
 
-class Game(timer: Timer, positionView: PositionView, gameInfoView: GameInfoView) {
+class Game(timer: Timer, playerEventReceiver: PlayerEventReceiver, gameInfoReceiver: GameInfoReceiver) {
   private var boardWidth = 10
   private var boardHeight = 20
-  private val gameEventReceiver = new GameEventDelegate(positionView, gameInfoView)
+  private val gameEventReceiver = new GameEventDelegate(playerEventReceiver, gameInfoReceiver)
 
   private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null

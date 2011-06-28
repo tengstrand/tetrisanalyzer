@@ -1,79 +1,85 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import swing._
 import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
+import java.awt._
 
-class GameInfoView extends NullPanel with GameInfoReceiver {
-  val boardSize = new Label("")
-  val sliding = new Label("off")
-  val seed = new Label("")
-  val rowsLabel = new Label("0")
-  val pieces = new Label("0")
-  val rowsTotalLabel = new Label("0")
-  val piecesTotal = new Label("0")
-  val gamesLabel = new Label("0")
-  val rowsPerGame = new Label("0")
-  val minRowsLabel = new Label("0")
-  val maxRowsLabel = new Label("0")
-  val piecesPerSec = new Label("0")
-  val rowsPerSec = new Label("0")
-  val time = new Label("0")
-  val pause = new Label("Paused")
+class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
+  private val textFont = new Font("Monospaced", Font.PLAIN, 14);
+
+  private var seed = 0L
+  private var slidingEnabled = false
+  private var boardSize: Dimension = new Dimension(10, 20)
+  private var pieces = 0L
+  private var piecesTotal = 0L
+  private var clearedRows = 0L
+  private var clearedRowsTotal = 0L
+  private var paused = true
+
+  private var games = 0L
+  private var minRows = 0L
+  private var maxRows = 0L
+
+  private var secondsPassed = 0.0
 
   val numberSeparator = new NumberSeparator
 
-  var movesTotal = 0.0
-  var rowsTotal = 0.0
-
-  def setSeed(seed: Long) { this.seed.text = seed.toString }
-  def setSliding(enabled: Boolean) { sliding.text = if (enabled) "on" else "off" }
-  def setBoardSize(width: Int, height: Int) { boardSize.text = width + " x " + height }
-  def setNumberOfPieces(pieces: Long) { this.pieces.text = withSpaces(pieces) }
-  def setTotalNumberOfPieces(pieces: Long) { this.movesTotal = pieces.toDouble; this.piecesTotal.text = withSpaces(pieces); }
-  def setNumberOfClearedRows(rows: Long) { rowsLabel.text = withSpaces(rows) }
-  def setTotalNumberOfClearedRows(rows: Long) { this.rowsTotal = rows; this.rowsTotalLabel.text = withSpaces(rows) }
-  def setPaused(pause: Boolean) { this.pause.text = if (pause) "Paused" else "" }
+  def setSeed(seed: Long) { this.seed = seed }
+  def setSliding(enabled: Boolean) { slidingEnabled = enabled }
+  def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
+  def setNumberOfPieces(pieces: Long) { this.pieces = pieces }
+  def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = pieces }
+  def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
+  def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
+  def setPaused(paused: Boolean) { this.paused = paused }
   def updateGui() { repaint() }
-
-  def setTimePassed(seconds: Double) {
-    this.time.text = calculateElapsedTime(seconds)
-    this.rowsPerSec.text = withSpaces(calculatePerSec(seconds, rowsTotal))
-    this.piecesPerSec.text = withSpaces(calculatePerSec(seconds, movesTotal))
-  }
+  def setTimePassed(seconds: Double) { secondsPassed = seconds }
 
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
-    gamesLabel.text = withSpaces(games)
-    rowsPerGame.text = withSpaces(if (games == 0) 0 else totalClearedRows / games)
-    minRowsLabel.text = withSpaces(minRows)
-    maxRowsLabel.text = withSpaces(maxRows)
+    this.games = games
+    this.minRows = minRows
+    this.maxRows = maxRows
+    this.clearedRowsTotal = totalClearedRows
   }
 
-  addLabel("Rows", rowsLabel, 0)
-  addLabel("Pieces", pieces, 1)
+  override def preparePaintGraphics: Dimension = size
 
-  addLabel("Rows total", rowsTotalLabel, 3)
-  addLabel("Pieces total", piecesTotal, 4)
+  override def paintGraphics(graphics: Graphics) {
+    val g = graphics.asInstanceOf[Graphics2D];
 
-  addLabel("Games", gamesLabel, 6)
-  addLabel("Rows/game", rowsPerGame, 7)
-  addLabel("Min rows", minRowsLabel, 8)
-  addLabel("Max rows", maxRowsLabel, 9)
+    g.setFont(textFont);
+    g.setColor(Color.BLACK);
 
-  addLabel("Rows/sec", rowsPerSec, 11)
-  addLabel("Pieces/sec", piecesPerSec, 12)
+    drawInfo("Rows:", withSpaces(clearedRows), 1, g)
+    drawInfo("Pieces:", withSpaces(pieces), 2, g)
 
-  addLabel("Board", boardSize, 14)
-  addLabel("S[e]ed", seed, 15)
-  addLabel("S[l]iding", sliding, 16)
+    drawInfo("Rows total:", withSpaces(clearedRowsTotal), 4, g)
+    drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
 
-  addLabel("Time: ", time, 18)
+    drawInfo("Games:", withSpaces(games), 7, g)
+    drawInfo("Rows/game:", withSpaces(if (games == 0) 0 else clearedRowsTotal / games), 8, g)
+    drawInfo("Min rows:", minRows, 9, g)
+    drawInfo("Max rows:", maxRows, 10, g)
 
-  addLabel("[P]ause", pause, 20)
+    drawInfo("Rows/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, clearedRowsTotal)), 12, g)
+    drawInfo("Pieces/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, piecesTotal)), 13, g)
 
-  private def addLabel(text: String, label: Label, row: Int) {
-    val y = 10 + row * 20
-    add(new Label(text + ":"), new Rectangle(10,y, 100,20))
-    add(label, new Rectangle(100,y, 100,20))
+    drawInfo("Board:", boardSize.width + " x " + boardSize.height, 15, g)
+    drawInfo("S[e]ed:", seed, 16, g)
+    drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 17, g)
+
+    drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 19, g)
+
+    drawInfo("[P]ause:", if (paused) "On" else "", 21, g)
+  }
+
+  private def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
+    val y = 15 + row * 20
+    g.drawString(label, 10, y)
+    drawValue(value.toString, y, g)
+  }
+
+  private def drawValue(value: String, y: Int, g: Graphics2D) {
+    g.drawString(value, 240 - value.length * 8, y)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)
@@ -85,12 +91,12 @@ class GameInfoView extends NullPanel with GameInfoReceiver {
     hours + "h " + min + "m " + (sec/10) + "." + (sec%10) + "s"
   }
 
-  private def calculatePerSec(seconds: Double, total: Double): Long = {
+  private def calculateUnitsPerSec(seconds: Double, total: Double): Long = {
     if (seconds == 0 || total == 0) {
       0
     } else {
-      val piecesPerSecond = scala.math.round(total / seconds);
-      piecesPerSecond.toLong
+      val unitsPerSecond = scala.math.round(total / seconds);
+      unitsPerSecond.toLong
     }
   }
 }
