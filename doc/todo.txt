@@ -1,4 +1,5 @@
 
+- Make sure the game info is always visible when resizing the board.
 - Fix the GameInfoView by using correct layout managers or use 2D libraries.
 - Show help screen when pressing [F1].
 - Add support for [N]ext (default = no).
