@@ -4,18 +4,17 @@ import java.awt.{Color, Dimension, Graphics}
 import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 
-class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with PlayerEventReceiver {
+abstract class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with PlayerEventReceiver {
+  private val backgroundColor = new Color(240, 240, 240)
+
   private val Margin = 10
   private var rows = Seq.empty[Int]
   private var columns = Seq.empty[Int]
   private var position: ColoredPosition = null
   private var newPosition: ColoredPosition = null
 
-  private var paused = false
-
-  def setPaused(paused: Boolean) { this.paused = paused }
-
-  def isReadyToReceivePosition = position == newPosition || paused
+  def isPaused: Boolean
+  def isReadyToReceivePosition = position == newPosition || isPaused
 
   override def setPosition(coloredPosition: ColoredPosition) {
     newPosition = coloredPosition
@@ -33,12 +32,15 @@ class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with
       val dimension = new Dimension((squareSize * position.width).toInt, (squareSize * position.height).toInt)
       preferredSize = dimension
 
-      new Dimension(columns(position.width)-columns(0)+Margin, rows(position.height)+Margin-rows(0))
+      this.size
     } else
       new Dimension(0,0)
   }
 
   override def paintGraphics(g: Graphics) {
+    g.setColor(backgroundColor)
+    g.fillRect(0, 0, size.width, size.height)
+
     if (position != null) {
       for (iy <- 0 until position.height) {
         for (ix <- 0 until position.width) {
@@ -56,7 +58,7 @@ class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with
 
   def drawSquare(x1: Int, y1: Int, x2: Int, y2: Int, squareColor: Color, lineColor: Color, g: Graphics) {
     g.setColor(squareColor)
-    g.fillRect(x1, y1, x2, y2)
+    g.fillRect(x1, y1, x2-x1, y2-y1)
     g.setColor(lineColor)
     g.drawLine(x1, y1, x1, y2)
     g.drawLine(x1, y1, x2, y1)

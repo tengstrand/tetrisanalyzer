@@ -17,28 +17,20 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     }
 
     val colorSettings = new DefaultColorSettings
-    val positionView = new PositionView(colorSettings)
-    val gameInfoView = new GameInfoView()
-    val timer = new Timer(this, gameInfoView)
-    val game = new Game(timer, positionView, gameInfoView)
+    val gameView = new GameView(colorSettings)
+    val timer = new Timer(this, gameView)
+    val game = new Game(timer, gameView, gameView)
 
     actor {
       timer.start
     }
 
     contents = new BoxPanel(Orientation.Horizontal) {
-      contents += positionView
-      contents += gameInfoView
+      contents += gameView
     }
 
-//    positionView.background = new Color(0,255,0)
-//    gameInfoView.background = new Color(255,0,0)
-
-    positionView.preferredSize = new Dimension(500, 550)
-    positionView.size = new Dimension(500, 550)
-
-    gameInfoView.preferredSize = new Dimension(200, 550)
-    gameInfoView.size = new Dimension(200, 550)
+    gameView.preferredSize = new Dimension(500, 550)
+    gameView.size = new Dimension(500, 550)
 
     new KeyManager(game)
   }

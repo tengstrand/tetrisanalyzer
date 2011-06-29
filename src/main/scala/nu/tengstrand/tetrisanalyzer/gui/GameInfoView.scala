@@ -3,7 +3,11 @@ package nu.tengstrand.tetrisanalyzer.gui
 import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
 import java.awt._
 
-class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
+object GameInfoView {
+  val OrigoX = 420
+}
+
+trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
   private val textFont = new Font("Monospaced", Font.PLAIN, 14);
 
   private var seed = 0L
@@ -13,7 +17,6 @@ class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
   private var piecesTotal = 0L
   private var clearedRows = 0L
   private var clearedRowsTotal = 0L
-  private var paused = true
 
   private var games = 0L
   private var minRows = 0L
@@ -23,6 +26,8 @@ class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
 
   val numberSeparator = new NumberSeparator
 
+  def isPaused: Boolean
+
   def setSeed(seed: Long) { this.seed = seed }
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
   def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
@@ -30,7 +35,6 @@ class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
   def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = pieces }
   def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
-  def setPaused(paused: Boolean) { this.paused = paused }
   def updateGui() { repaint() }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
 
@@ -41,9 +45,13 @@ class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
     this.clearedRowsTotal = totalClearedRows
   }
 
-  override def preparePaintGraphics: Dimension = size
+  abstract override def preparePaintGraphics: Dimension = {
+    super.preparePaintGraphics
+  }
 
-  override def paintGraphics(graphics: Graphics) {
+  abstract override def paintGraphics(graphics: Graphics) {
+    super.paintGraphics(graphics)
+
     val g = graphics.asInstanceOf[Graphics2D];
 
     g.setFont(textFont);
@@ -69,17 +77,17 @@ class GameInfoView extends DoubleBufferedView with GameInfoReceiver {
 
     drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 19, g)
 
-    drawInfo("[P]ause:", if (paused) "On" else "", 21, g)
+    drawInfo("[P]ause:", if (isPaused) "On" else "", 21, g)
   }
 
   private def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
     val y = 15 + row * 20
-    g.drawString(label, 10, y)
+    g.drawString(label, 10 + GameInfoView.OrigoX, y)
     drawValue(value.toString, y, g)
   }
 
   private def drawValue(value: String, y: Int, g: Graphics2D) {
-    g.drawString(value, 240 - value.length * 8, y)
+    g.drawString(value, 240 - value.length * 8 + GameInfoView.OrigoX, y)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

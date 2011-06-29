@@ -26,7 +26,6 @@ abstract class DoubleBufferedView extends Component {
     initializeOffscreenImageIfNeeded(paintArea)
 
     val imageGraphics: Graphics = image.getGraphics()
-    paintBackground(imageGraphics)
 
     paintGraphics(imageGraphics)
 
@@ -35,11 +34,6 @@ abstract class DoubleBufferedView extends Component {
 
   private def isZeroSize(area: Dimension) = {
     area.width <= 0 || area.height <= 0
-  }
-
-  def paintBackground(g: Graphics) {
-    g.setColor(this.background);
-    g.fillRect(0,0, this.size.width,this.size.height)
   }
 
   private def initializeOffscreenImageIfNeeded(area: Dimension) {
