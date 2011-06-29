@@ -19,7 +19,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     val colorSettings = new DefaultColorSettings
     val gameView = new GameView(colorSettings)
     val timer = new Timer(this, gameView)
-    val game = new Game(timer, gameView, gameView)
+    val game = new Game(timer, gameView)
 
     actor {
       timer.start

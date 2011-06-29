@@ -5,10 +5,9 @@ import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
 
-class Game(timer: Timer, playerEventReceiver: PlayerEventReceiver, gameInfoReceiver: GameInfoReceiver) {
+class Game(timer: Timer, gameEventReceiver: GameEventReceiver) {
   private var boardWidth = 10
   private var boardHeight = 20
-  private val gameEventReceiver = new GameEventDelegate(playerEventReceiver, gameInfoReceiver)
 
   private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null

@@ -4,8 +4,10 @@ import java.awt.{Color, Dimension, Graphics}
 import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 
-abstract class PositionView(colorSettings: ColorSettings) extends DoubleBufferedView with PlayerEventReceiver {
+class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(240, 240, 240)
+
+  private val paused = true
 
   private val Margin = 10
   private var rows = Seq.empty[Int]
@@ -13,8 +15,7 @@ abstract class PositionView(colorSettings: ColorSettings) extends DoubleBuffered
   private var position: ColoredPosition = null
   private var newPosition: ColoredPosition = null
 
-  def isPaused: Boolean
-  def isReadyToReceivePosition = position == newPosition || isPaused
+  def isReadyToReceivePosition = position == newPosition || paused
 
   override def setPosition(coloredPosition: ColoredPosition) {
     newPosition = coloredPosition
@@ -23,21 +24,15 @@ abstract class PositionView(colorSettings: ColorSettings) extends DoubleBuffered
       position = coloredPosition
   }
 
-  override def preparePaintGraphics: Dimension = {
+  def preparePaintGraphics(size: Dimension) {
     if (position != null) {
-      val squareSize = calculateSquareSize
+      val squareSize = calculateSquareSize(size)
       rows = (0 to position.height).map(y => Margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => Margin + (x * squareSize).intValue)
-
-      val dimension = new Dimension((squareSize * position.width).toInt, (squareSize * position.height).toInt)
-      preferredSize = dimension
-
-      this.size
-    } else
-      new Dimension(0,0)
+    }
   }
 
-  override def paintGraphics(g: Graphics) {
+  def paintGraphics(size: Dimension, g: Graphics) {
     g.setColor(backgroundColor)
     g.fillRect(0, 0, size.width, size.height)
 
@@ -64,9 +59,9 @@ abstract class PositionView(colorSettings: ColorSettings) extends DoubleBuffered
     g.drawLine(x1, y1, x2, y1)
   }
 
-  private def calculateSquareSize: Double = {
-    val width = this.size.width - 20.0
-    val height = this.size.height - 20.0
+  private def calculateSquareSize(size: Dimension): Double = {
+    val width = size.width - 20.0
+    val height = size.height - 20.0
 
     if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
       0

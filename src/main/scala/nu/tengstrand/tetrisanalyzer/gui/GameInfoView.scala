@@ -7,7 +7,7 @@ object GameInfoView {
   val OrigoX = 420
 }
 
-trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
+class GameInfoView extends GameInfoReceiver {
   private val textFont = new Font("Monospaced", Font.PLAIN, 14);
 
   private var seed = 0L
@@ -26,7 +26,8 @@ trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
 
   val numberSeparator = new NumberSeparator
 
-  def isPaused: Boolean
+  // TODO: Refactor out
+  private var paused = true
 
   def setSeed(seed: Long) { this.seed = seed }
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
@@ -35,8 +36,9 @@ trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
   def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = pieces }
   def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
-  def updateGui() { repaint() }
+  def updateGui() { /* repaint() */ }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
+  def setPaused(paused: Boolean) { this.paused = paused }
 
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     this.games = games
@@ -45,13 +47,7 @@ trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
     this.clearedRowsTotal = totalClearedRows
   }
 
-  abstract override def preparePaintGraphics: Dimension = {
-    super.preparePaintGraphics
-  }
-
-  abstract override def paintGraphics(graphics: Graphics) {
-    super.paintGraphics(graphics)
-
+  def paintGraphics(graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
     g.setFont(textFont);
@@ -77,7 +73,7 @@ trait GameInfoView extends DoubleBufferedView with GameInfoReceiver {
 
     drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 19, g)
 
-    drawInfo("[P]ause:", if (isPaused) "On" else "", 21, g)
+    drawInfo("[P]ause:", if (paused) "On" else "", 21, g)
   }
 
   private def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
