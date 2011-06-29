@@ -9,6 +9,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private val gameInfoView = new GameInfoView
 
   private var paused = false
+  private var boardSize = new Dimension(0,0)
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -30,12 +31,12 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   }
 
   def preparePaintGraphics: Dimension = {
-    positionView.preparePaintGraphics(size)
+    boardSize = positionView.preparePaintGraphics(size)
     size
   }
 
   def paintGraphics(g: Graphics) {
     positionView.paintGraphics(size, g)
-    gameInfoView.paintGraphics(g)
+    gameInfoView.paintGraphics(boardSize, g)
   }
 }

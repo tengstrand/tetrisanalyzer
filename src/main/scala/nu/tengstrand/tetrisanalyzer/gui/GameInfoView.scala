@@ -3,10 +3,6 @@ package nu.tengstrand.tetrisanalyzer.gui
 import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
 import java.awt._
 
-object GameInfoView {
-  val OrigoX = 420
-}
-
 class GameInfoView extends GameInfoReceiver {
   private val textFont = new Font("Monospaced", Font.PLAIN, 14);
 
@@ -24,7 +20,9 @@ class GameInfoView extends GameInfoReceiver {
 
   private var secondsPassed = 0.0
 
-  val numberSeparator = new NumberSeparator
+  private var origoX = 0
+
+  private val numberSeparator = new NumberSeparator
 
   // TODO: Refactor out
   private var paused = true
@@ -47,8 +45,10 @@ class GameInfoView extends GameInfoReceiver {
     this.clearedRowsTotal = totalClearedRows
   }
 
-  def paintGraphics(graphics: Graphics) {
+  def paintGraphics(positionSize: Dimension, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
+
+    origoX = positionSize.width + 15
 
     g.setFont(textFont);
     g.setColor(Color.BLACK);
@@ -77,13 +77,13 @@ class GameInfoView extends GameInfoReceiver {
   }
 
   private def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
-    val y = 15 + row * 20
-    g.drawString(label, 10 + GameInfoView.OrigoX, y)
+    val y = 10 + row * 20
+    g.drawString(label, origoX, y)
     drawValue(value.toString, y, g)
   }
 
   private def drawValue(value: String, y: Int, g: Graphics2D) {
-    g.drawString(value, 240 - value.length * 8 + GameInfoView.OrigoX, y)
+    g.drawString(value, 240 - value.length * 8 + origoX, y)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

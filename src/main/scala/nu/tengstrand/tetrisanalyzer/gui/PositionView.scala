@@ -24,11 +24,15 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
       position = coloredPosition
   }
 
-  def preparePaintGraphics(size: Dimension) {
+  def preparePaintGraphics(size: Dimension): Dimension = {
     if (position != null) {
       val squareSize = calculateSquareSize(size)
       rows = (0 to position.height).map(y => Margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => Margin + (x * squareSize).intValue)
+
+      new Dimension(columns(position.width)-columns(0)+Margin, rows(position.height)+Margin-rows(0))
+    } else {
+      new Dimension(0, 0)
     }
   }
 

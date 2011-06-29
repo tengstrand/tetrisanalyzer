@@ -15,7 +15,7 @@ class JTengstrandBoardEvaluator1(settings: JTengstrandBoardEvaluator1Settings, b
   val minBoardWidth = 4
   val maxBoardWidth = 32
   val minBoardHeight = 4
-  val maxBoardHeight = 100
+  val maxBoardHeight = 200
 
   def evaluate(board: Board): Double = {
     require(board.width <= boardWidth, "Can not evaluate board width > " + boardWidth)
