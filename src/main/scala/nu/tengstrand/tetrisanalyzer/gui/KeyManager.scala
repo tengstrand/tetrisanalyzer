@@ -32,8 +32,8 @@ class KeyManager(game: Game) {
               game.decreaseSeed() // <Shift> + E = Decrease seed
             else
               game.increaseSeed() // E = Increase seed
-
-            //game.toggleSliding()
+          case 112 => // <F1> = toggle Help
+              game.toggleShowHelp()
           case _ =>
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + "), modifiers=" + e.getModifiers);
         }

@@ -7,9 +7,14 @@ import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
   private val gameInfoView = new GameInfoView
+  private val helpView = new HelpView
 
   private var paused = false
   private var boardSize = new Dimension(0,0)
+
+  private var showHelp = false
+
+  def toggleShowHelp { showHelp = !showHelp }
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -36,7 +41,13 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   }
 
   def paintGraphics(g: Graphics) {
+    val origoX = boardSize.width + 15
+
     positionView.paintGraphics(size, g)
-    gameInfoView.paintGraphics(boardSize, g)
+
+    if (showHelp)
+      helpView.paintGraphics(origoX, g)
+    else
+      gameInfoView.paintGraphics(origoX, g)
   }
 }

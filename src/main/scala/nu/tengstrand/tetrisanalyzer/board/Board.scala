@@ -68,12 +68,12 @@ class Board(val width: Int, val height: Int, val rows: Array[Int]) {
   def junkBoard: Board = {
     val board = Board(width, height)
     val junkRows = Array.tabulate(height) (
-      ((y) => worstRow(width, y % 2 == 0))
+      ((y) => junkRow(width, y % 2 == 0))
     )
     new Board(width, height, junkRows)
   }
 
-  private def worstRow(width: Int, even: Boolean): Int = {
+  private def junkRow(width: Int, even: Boolean): Int = {
     var row = Board.EmptyRow
 
     for (x <- 1 to width) {

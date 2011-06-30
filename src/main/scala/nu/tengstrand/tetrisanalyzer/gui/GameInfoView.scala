@@ -4,8 +4,6 @@ import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
 import java.awt._
 
 class GameInfoView extends GameInfoReceiver {
-  private val textFont = new Font("Monospaced", Font.PLAIN, 14);
-
   private var seed = 0L
   private var slidingEnabled = false
   private var boardSize: Dimension = new Dimension(10, 20)
@@ -20,7 +18,7 @@ class GameInfoView extends GameInfoReceiver {
 
   private var secondsPassed = 0.0
 
-  private var origoX = 0
+  private val textDrawer = new TextDrawer
 
   private val numberSeparator = new NumberSeparator
 
@@ -45,45 +43,33 @@ class GameInfoView extends GameInfoReceiver {
     this.clearedRowsTotal = totalClearedRows
   }
 
-  def paintGraphics(positionSize: Dimension, graphics: Graphics) {
+  def paintGraphics(origoX: Int, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
-    origoX = positionSize.width + 15
+    textDrawer.prepareDraw(origoX, g)
 
-    g.setFont(textFont);
-    g.setColor(Color.BLACK);
+    textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
+    textDrawer.drawInfo("Pieces:", withSpaces(pieces), 2, g)
 
-    drawInfo("Rows:", withSpaces(clearedRows), 1, g)
-    drawInfo("Pieces:", withSpaces(pieces), 2, g)
+    textDrawer.drawInfo("Rows total:", withSpaces(clearedRowsTotal), 4, g)
+    textDrawer.drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
 
-    drawInfo("Rows total:", withSpaces(clearedRowsTotal), 4, g)
-    drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
+    textDrawer.drawInfo("Games:", withSpaces(games), 7, g)
+    textDrawer.drawInfo("Rows/game:", withSpaces(if (games == 0) 0 else clearedRowsTotal / games), 8, g)
+    textDrawer.drawInfo("Min rows:", minRows, 9, g)
+    textDrawer.drawInfo("Max rows:", maxRows, 10, g)
 
-    drawInfo("Games:", withSpaces(games), 7, g)
-    drawInfo("Rows/game:", withSpaces(if (games == 0) 0 else clearedRowsTotal / games), 8, g)
-    drawInfo("Min rows:", minRows, 9, g)
-    drawInfo("Max rows:", maxRows, 10, g)
+    textDrawer.drawInfo("Rows/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, clearedRowsTotal)), 12, g)
+    textDrawer.drawInfo("Pieces/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, piecesTotal)), 13, g)
 
-    drawInfo("Rows/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, clearedRowsTotal)), 12, g)
-    drawInfo("Pieces/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, piecesTotal)), 13, g)
+    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 15, g)
+    textDrawer.drawInfo("S[e]ed:", seed, 16, g)
+    textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 17, g)
 
-    drawInfo("Board:", boardSize.width + " x " + boardSize.height, 15, g)
-    drawInfo("S[e]ed:", seed, 16, g)
-    drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 17, g)
+    textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 19, g)
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 20, g)
 
-    drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 19, g)
-
-    drawInfo("[P]ause:", if (paused) "On" else "", 21, g)
-  }
-
-  private def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
-    val y = 10 + row * 20
-    g.drawString(label, origoX, y)
-    drawValue(value.toString, y, g)
-  }
-
-  private def drawValue(value: String, y: Int, g: Graphics2D) {
-    g.drawString(value, 240 - value.length * 8 + origoX, y)
+    textDrawer.drawText("[F1] Help", 22, g)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

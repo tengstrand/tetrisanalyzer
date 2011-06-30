@@ -5,7 +5,7 @@ import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
-  private val backgroundColor = new Color(240, 240, 240)
+  private val backgroundColor = new Color(250, 250, 250)
 
   private val paused = true
 

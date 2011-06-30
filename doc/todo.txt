@@ -1,7 +1,5 @@
 
-- Make sure the game info is always visible when resizing the board.
-- Fix the GameInfoView by using correct layout managers or use 2D libraries.
-- Show help screen when pressing [F1].
+- Adjust x+1 for "standing" piece I.
 - Add support for [N]ext (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
 
@@ -9,9 +7,6 @@
 - Add battle mode, computer against computer or computer against human.
 
 - Show dots/position.
-
-- Lighter colors of the lines like in the C++ version.
-
 
 
 

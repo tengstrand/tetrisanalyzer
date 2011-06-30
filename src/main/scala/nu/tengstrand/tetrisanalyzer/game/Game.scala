@@ -4,8 +4,9 @@ import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
+import nu.tengstrand.tetrisanalyzer.gui.GameView
 
-class Game(timer: Timer, gameEventReceiver: GameEventReceiver) {
+class Game(timer: Timer, gameView: GameView) {
   private var boardWidth = 10
   private var boardHeight = 20
 
@@ -29,7 +30,7 @@ class Game(timer: Timer, gameEventReceiver: GameEventReceiver) {
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
-    computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameEventReceiver)
+    computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameView)
     timer.reset
     computerPlayer.start
   }
@@ -43,7 +44,7 @@ class Game(timer: Timer, gameEventReceiver: GameEventReceiver) {
     paused = !paused
     timer.setPaused(paused)
     computerPlayer.setPaused(paused)
-    gameEventReceiver.setPaused(paused)
+    gameView.setPaused(paused)
   }
 
   def toggleSliding() {
@@ -89,5 +90,9 @@ class Game(timer: Timer, gameEventReceiver: GameEventReceiver) {
       boardHeight += 1
       startNewGame()
     }
+  }
+
+  def toggleShowHelp() {
+    gameView.toggleShowHelp
   }
 }
