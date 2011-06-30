@@ -49,8 +49,8 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
             colorSettings.lineColor(colorValue), g)
         }
       }
-      g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height))
-      g.drawLine(columns(0), rows(position.height)-1, columns(position.width), rows(position.height)-1)
+      g.drawLine(columns(position.width)-1, rows(0), columns(position.width)-1, rows(position.height)-1)
+      g.drawLine(columns(0), rows(position.height)-1, columns(position.width)-1, rows(position.height)-1)
     }
     position = newPosition
   }
@@ -59,8 +59,8 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
     g.setColor(squareColor)
     g.fillRect(x1, y1, x2-x1, y2-y1)
     g.setColor(lineColor)
-    g.drawLine(x1, y1, x1, y2)
-    g.drawLine(x1, y1, x2, y1)
+    g.drawLine(x1, y1, x1, y2-1)
+    g.drawLine(x1, y1, x2-1, y1)
   }
 
   private def calculateSquareSize(size: Dimension): Double = {
