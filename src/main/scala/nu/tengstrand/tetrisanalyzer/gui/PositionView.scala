@@ -70,9 +70,9 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
     if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
       0
 
-    if (width / position.width < height / position.height)
-      width / position.width
+    if (position.height / position.width.toDouble < 1.15)
+      (width * 0.6) / position.width
     else
-      height / position.height
+      (height / position.height)
   }
 }
