@@ -15,6 +15,7 @@ class Game(timer: Timer, gameView: GameView) {
 
   private var seed = 0
   private var slidingEnabled = false
+  private val speed = new Speed()
   private var paused = true
 
   startNewGame()
@@ -30,14 +31,13 @@ class Game(timer: Timer, gameView: GameView) {
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
-    computerPlayer = new ComputerPlayer(paused, board, position, boardEvaluator, pieceGenerator, settings, gameView)
+    computerPlayer = new ComputerPlayer(paused, speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
     timer.reset
     computerPlayer.start
   }
 
   def performMove() {
-    if (paused)
-      computerPlayer.performStep()
+    computerPlayer.performStep()
   }
 
   def togglePause() {
@@ -50,6 +50,14 @@ class Game(timer: Timer, gameView: GameView) {
   def toggleSliding() {
     slidingEnabled = !slidingEnabled
     startNewGame()
+  }
+
+  def increaseSpeed() {
+    computerPlayer.increaseSpeed()
+  }
+
+  def decreaseSpeed() {
+    computerPlayer.decreaseSpeed()
   }
 
   def increaseSeed() {

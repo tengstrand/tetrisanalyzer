@@ -10,7 +10,7 @@ object TetrisAnalyzer extends SimpleSwingApplication {
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
 
-    preferredSize = new Dimension(800,520)
+    preferredSize = new Dimension(800,530)
 
     val label = new Label {
       text = "testing"
@@ -28,9 +28,6 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     contents = new BoxPanel(Orientation.Horizontal) {
       contents += gameView
     }
-
-    gameView.preferredSize = new Dimension(500, 550)
-    gameView.size = new Dimension(500, 550)
 
     new KeyManager(game)
   }

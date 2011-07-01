@@ -13,7 +13,7 @@ import java.awt.Dimension
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
-class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
+class ComputerPlayer(isPaused: Boolean, speed: Speed, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
@@ -25,22 +25,36 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
   private var doStep = false
   private var quit = false
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)
-  private val pieceMoveAnimator = new PieceMoveAnimator(gameEventReceiver)
+  private val pieceMoveAnimator = new PieceMoveAnimator(speed, gameEventReceiver)
 
   def setPaused(paused: Boolean) {
-    doStep = false
+    doStep = pieceMoveAnimator.continueDoStep(paused)
     this.paused = paused
   }
+
+  def increaseSpeed() {
+    pieceMoveAnimator.increaseSpeed()
+    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
+    doStep = !pieceMoveAnimator.isMaxSpeed
+  }
+
+  def decreaseSpeed() {
+    pieceMoveAnimator.decreaseSpeed()
+    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
+    doStep = !pieceMoveAnimator.isMaxSpeed
+  }
+
   def performStep() {
-    pieceMoveAnimator.fastAnimation = doStep
+    pieceMoveAnimator.fastAnimation = doStep && paused || (!paused && !pieceMoveAnimator.isMaxSpeed)
     doStep = true
   }
 
-  def quitGame() { quit = true; Thread.sleep(25) }
+  def quitGame() { quit = true; pieceMoveAnimator.quit = true; Thread.sleep(pieceMoveAnimator.maxDelay) }
 
   override def act() {
     gameStatistics.updateAll()
     gameEventReceiver.setSliding(settings.isSlidingEnabled)
+    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
 
     while (!quit) {
       board.restore(startBoard)
@@ -87,7 +101,7 @@ class ComputerPlayer(isPaused: Boolean, board: Board, startPosition: Position, b
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedRows)
 
-    doStep = pieceMoveAnimator.fastAnimation
+    doStep = pieceMoveAnimator.continueDoStep(paused)
     pieceMoveAnimator.fastAnimation = false
     gameStatistics.addClearedRows(clearedRows)
 

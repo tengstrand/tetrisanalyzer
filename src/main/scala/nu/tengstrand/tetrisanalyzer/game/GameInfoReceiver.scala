@@ -11,5 +11,6 @@ trait GameInfoReceiver {
   def setNumberOfClearedRows(rows: Long)
   def setTotalNumberOfClearedRows(rows: Long)
   def setTimePassed(seconds: Double)
+  def setSpeed(name: String)
   def updateGui()
 }

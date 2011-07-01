@@ -2,8 +2,19 @@ package nu.tengstrand.tetrisanalyzer.game
 
 import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove
 
-class PieceMoveAnimator(gameEventReceiver: GameEventReceiver) {
+class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
+  var quit = false
   var fastAnimation = false
+
+  def isMaxSpeed() = speed.isMaxSpeed
+  def increaseSpeed() { speed.increaseSpeed() }
+  def decreaseSpeed() { speed.decreaseSpeed() }
+
+  def maxDelay = speed.maxDelay
+
+  def speedAsName = if (isMaxSpeed) "MAX" else speed.asName
+
+  def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
   def animateMove(position: Position, startPieceMove: PieceMove, pieceMove: PieceMove) {
     startPieceMove.prepareAnimatedPath
@@ -19,10 +30,12 @@ class PieceMoveAnimator(gameEventReceiver: GameEventReceiver) {
     }
 
     steps.foreach(step => {
-      val animatedPosition = Position(position)
-      animatedPosition.setPiece(step.piece, step.move)
-      gameEventReceiver.setPosition(animatedPosition)
-      Thread.sleep(if (fastAnimation) 5 else 20)
+      if (!quit) {
+        val animatedPosition = Position(position)
+        animatedPosition.setPiece(step.piece, step.move)
+        gameEventReceiver.setPosition(animatedPosition)
+        Thread.sleep(speed.pieceDelay(fastAnimation))
+      }
     })
   }
 
@@ -31,15 +44,15 @@ class PieceMoveAnimator(gameEventReceiver: GameEventReceiver) {
     val clearedRows = for {y <- pieceY until pieceY + pieceHeight if (position.isCompleteRow(y))} yield y
 
     clearRows(clearedRows, position, gameEventReceiver)
-    showClearedRows(clearedRows, position, copyPosition, if (fastAnimation) 20 else 100, gameEventReceiver)
+    showClearedRows(clearedRows, position, copyPosition, speed.clearRowDelay(fastAnimation), gameEventReceiver)
     clearRows(clearedRows, position, gameEventReceiver)
-    showClearedRows(clearedRows, position, copyPosition, if (fastAnimation) 10 else 50, gameEventReceiver)
+    showClearedRows(clearedRows, position, copyPosition, speed.clearRowDelay(fastAnimation) / 2, gameEventReceiver)
   }
 
   private def clearRows(clearedRows: IndexedSeq[Int], position: Position, gameEventReceiver: GameEventReceiver) {
     clearedRows.foreach(y => position.clearRow(y))
     gameEventReceiver.setPosition(position)
-    Thread.sleep(100)
+    Thread.sleep(speed.clearRowDelay(fastAnimation))
   }
 
   private def showClearedRows(clearedRows: IndexedSeq[Int], position: Position, copyPosition: Position, pauseMilisec: Int, gameEventReceiver: GameEventReceiver) {

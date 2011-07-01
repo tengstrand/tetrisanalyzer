@@ -5,6 +5,7 @@ import java.awt._
 
 class GameInfoView extends GameInfoReceiver {
   private var seed = 0L
+  private var speed = ""
   private var slidingEnabled = false
   private var boardSize: Dimension = new Dimension(10, 20)
   private var pieces = 0L
@@ -32,9 +33,10 @@ class GameInfoView extends GameInfoReceiver {
   def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = pieces }
   def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
-  def updateGui() { /* repaint() */ }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
+  def setSpeed(name: String) { speed = name }
   def setPaused(paused: Boolean) { this.paused = paused }
+  def updateGui() { /* repaint() */ }
 
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     this.games = games
@@ -67,9 +69,10 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 17, g)
 
     textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 19, g)
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 20, g)
+    textDrawer.drawInfo("Speed:", speed, 20, g)
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 21, g)
 
-    textDrawer.drawText("[F1] Help", 22, g)
+    textDrawer.drawText("[F1] Help", 23, g)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

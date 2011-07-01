@@ -11,28 +11,32 @@ class KeyManager(game: Game) {
         e.getKeyCode match {
           case 40 =>
             if (e.getModifiers == 2) // <CTRL> + Down
-              game.increaseBoardHeight
+              game.increaseBoardHeight()
             else
               game.performMove()  // Down
-          case 80 => // P = Pause
+          case 80 => // P
             game.togglePause()
           case 37 =>
             if (e.getModifiers == 2)  // <CTRL> + Left
-              game.decreaseBoardWidth
+              game.decreaseBoardWidth()
+            else
+              game.decreaseSpeed() // Left
           case 38 =>
             if (e.getModifiers == 2)  // <CTRL> + Up
-              game.decreaseBoardHeight
-          case 39 => // Right
+              game.decreaseBoardHeight()
+          case 39 =>
             if (e.getModifiers == 2)  // <CTRL> + Right
-              game.increaseBoardWidth
+              game.increaseBoardWidth()
+            else
+              game.increaseSpeed() // Right
           case 76 =>  // L = Toggle sliding
             game.toggleSliding()
           case 69 =>
             if (e.getModifiers == 1)
-              game.decreaseSeed() // <Shift> + E = Decrease seed
+              game.decreaseSeed() // E
             else
-              game.increaseSeed() // E = Increase seed
-          case 112 => // <F1> = toggle Help
+              game.increaseSeed() // e
+          case 112 => // <F1>
               game.toggleShowHelp()
           case _ =>
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + "), modifiers=" + e.getModifiers);
