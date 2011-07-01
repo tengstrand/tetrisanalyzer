@@ -30,7 +30,7 @@ class GameInfoView extends GameInfoReceiver {
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
   def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
   def setNumberOfPieces(pieces: Long) { this.pieces = pieces }
-  def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = pieces }
+  def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = piecesTotal }
   def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
@@ -58,8 +58,8 @@ class GameInfoView extends GameInfoReceiver {
 
     textDrawer.drawInfo("Games:", withSpaces(games), 7, g)
     textDrawer.drawInfo("Rows/game:", withSpaces(if (games == 0) 0 else clearedRowsTotal / games), 8, g)
-    textDrawer.drawInfo("Min rows:", minRows, 9, g)
-    textDrawer.drawInfo("Max rows:", maxRows, 10, g)
+    textDrawer.drawInfo("Min rows:", withSpaces(minRows), 9, g)
+    textDrawer.drawInfo("Max rows:", withSpaces(maxRows), 10, g)
 
     textDrawer.drawInfo("Rows/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, clearedRowsTotal)), 12, g)
     textDrawer.drawInfo("Pieces/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, piecesTotal)), 13, g)
