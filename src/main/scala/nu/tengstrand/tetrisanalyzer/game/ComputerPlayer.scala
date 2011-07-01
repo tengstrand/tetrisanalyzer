@@ -13,7 +13,7 @@ import java.awt.Dimension
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
-class ComputerPlayer(isPaused: Boolean, speed: Speed, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
+class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
                      settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
@@ -21,7 +21,7 @@ class ComputerPlayer(isPaused: Boolean, speed: Speed, board: Board, startPositio
 
   private val startBoard = board.copy
   private var position: Position = null
-  private var paused = isPaused
+  private var paused = true
   private var doStep = false
   private var quit = false
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)

@@ -31,9 +31,10 @@ class Game(timer: Timer, gameView: GameView) {
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
-    computerPlayer = new ComputerPlayer(paused, speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
+    computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
     timer.reset
     computerPlayer.start
+    computerPlayer.setPaused(paused)
   }
 
   def performMove() {
