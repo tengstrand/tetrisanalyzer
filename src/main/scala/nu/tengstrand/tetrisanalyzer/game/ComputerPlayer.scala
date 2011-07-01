@@ -34,14 +34,17 @@ class ComputerPlayer(isPaused: Boolean, speed: Speed, board: Board, startPositio
 
   def increaseSpeed() {
     pieceMoveAnimator.increaseSpeed()
-    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
-    doStep = !pieceMoveAnimator.isMaxSpeed
+    updateSpeed()
   }
 
   def decreaseSpeed() {
     pieceMoveAnimator.decreaseSpeed()
+    updateSpeed()
+  }
+
+  private def updateSpeed() {
     gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
-    doStep = !pieceMoveAnimator.isMaxSpeed
+    doStep = pieceMoveAnimator.continueDoStep(paused)
   }
 
   def performStep() {
