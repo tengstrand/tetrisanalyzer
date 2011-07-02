@@ -68,11 +68,11 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Min rows:", withSpaces(minRows), 9, g)
     textDrawer.drawInfo("Max rows:", withSpaces(maxRows), 10, g)
 
-    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(secondsPassed - speedInfo.secondsPassed, clearedRowsTotal - speedInfo.clearedRowsTotal), 12, g)
-    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(secondsPassed - speedInfo.secondsPassed, piecesTotal - speedInfo.piecesTotal), 13, g)
+    textDrawer.drawInfo("Speed:", speed, 12, g)
+    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 13, g)
+    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 14, g)
 
-    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 15, g)
-    textDrawer.drawInfo("Speed:", speed, 16, g)
+    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 16, g)
     textDrawer.drawInfo("S[e]ed:", seed, 17, g)
     textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 18, g)
 
@@ -91,14 +91,16 @@ class GameInfoView extends GameInfoReceiver {
     hours + "h " + min + "m " + (sec/10) + "." + (sec%10) + "s"
   }
 
-  private def calculateUnitsPerSec(seconds: Double, total: Double): Any = {
+  private def calculateUnitsPerSec(total: Double): Any = {
+    val seconds = secondsPassed - speedInfo.secondsPassed
+
     if (seconds == 0 || total == 0) {
       0
     } else {
       if (total / seconds >= 100)
         withSpaces(scala.math.round(total / seconds))
       else
-        scala.math.round(total * 10 / seconds) / 10.0
+        (scala.math.round(total * 10 / seconds) / 10.0)
     }
   }
 }

@@ -57,6 +57,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   override def act() {
     gameStatistics.updateAll()
     gameEventReceiver.setSliding(settings.isSlidingEnabled)
+    gameEventReceiver.setTimePassed(0)
     gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
 
     while (!quit) {
