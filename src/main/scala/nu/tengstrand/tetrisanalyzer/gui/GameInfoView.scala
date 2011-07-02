@@ -3,6 +3,8 @@ package nu.tengstrand.tetrisanalyzer.gui
 import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
 import java.awt._
 
+case class SpeedInfo(secondsPassed: Double, piecesTotal: Long, clearedRowsTotal: Long)
+
 class GameInfoView extends GameInfoReceiver {
   private var seed = 0L
   private var speed = ""
@@ -18,6 +20,7 @@ class GameInfoView extends GameInfoReceiver {
   private var maxRows = 0L
 
   private var secondsPassed = 0.0
+  private var speedInfo = SpeedInfo(0.0, 0, 0)
 
   private val textDrawer = new TextDrawer
 
@@ -34,9 +37,13 @@ class GameInfoView extends GameInfoReceiver {
   def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
-  def setSpeed(name: String) { speed = name }
   def setPaused(paused: Boolean) { this.paused = paused }
   def updateGui() { /* repaint() */ }
+
+  def setSpeed(name: String) {
+    speed = name
+    speedInfo = SpeedInfo(secondsPassed, piecesTotal, clearedRowsTotal)
+  }
 
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     this.games = games
@@ -61,18 +68,18 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Min rows:", withSpaces(minRows), 9, g)
     textDrawer.drawInfo("Max rows:", withSpaces(maxRows), 10, g)
 
-    textDrawer.drawInfo("Rows/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, clearedRowsTotal)), 12, g)
-    textDrawer.drawInfo("Pieces/sec:", withSpaces(calculateUnitsPerSec(secondsPassed, piecesTotal)), 13, g)
+    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(secondsPassed - speedInfo.secondsPassed, clearedRowsTotal - speedInfo.clearedRowsTotal), 12, g)
+    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(secondsPassed - speedInfo.secondsPassed, piecesTotal - speedInfo.piecesTotal), 13, g)
 
     textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 15, g)
-    textDrawer.drawInfo("S[e]ed:", seed, 16, g)
-    textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 17, g)
+    textDrawer.drawInfo("Speed:", speed, 16, g)
+    textDrawer.drawInfo("S[e]ed:", seed, 17, g)
+    textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 18, g)
 
-    textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 19, g)
-    textDrawer.drawInfo("Speed:", speed, 20, g)
+    textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 20, g)
     textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 21, g)
 
-    textDrawer.drawText("[F1] Help", 23, g)
+    textDrawer.drawText("Press [F1] for help", 23, g)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)
@@ -84,12 +91,14 @@ class GameInfoView extends GameInfoReceiver {
     hours + "h " + min + "m " + (sec/10) + "." + (sec%10) + "s"
   }
 
-  private def calculateUnitsPerSec(seconds: Double, total: Double): Long = {
+  private def calculateUnitsPerSec(seconds: Double, total: Double): Any = {
     if (seconds == 0 || total == 0) {
       0
     } else {
-      val unitsPerSecond = scala.math.round(total / seconds);
-      unitsPerSecond.toLong
+      if (total / seconds >= 100)
+        withSpaces(scala.math.round(total / seconds))
+      else
+        scala.math.round(total * 10 / seconds) / 10.0
     }
   }
 }

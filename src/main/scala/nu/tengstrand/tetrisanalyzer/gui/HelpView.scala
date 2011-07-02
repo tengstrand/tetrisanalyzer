@@ -14,7 +14,7 @@ class HelpView extends TextDrawer {
 
     drawText("down            Animate next piece (if paused)", 3, g)
 
-    drawText("left/right      Change speed", 5, g)
+    drawText("left/right      Change speed (1..10)", 5, g)
 
     drawText("[Ctrl] + left/  Change board size", 7, g)
     drawText("right/up/down", 8, g)

@@ -13,17 +13,12 @@ class TextDrawer {
     g.setColor(Color.BLACK);
   }
 
-  def drawText(text: String, row: Int, g: Graphics2D) {
-    drawInfo(text, "", row, g)
-  }
-
   def drawInfo(label: String, value: Any, row: Int, g: Graphics2D) {
-    val y = 10 + row * 20
-    g.drawString(label, origoX, y)
-    drawValue(value.toString, y, g)
+    drawText(label + " " + value.toString, row, g)
   }
 
-  def drawValue(value: String, y: Int, g: Graphics2D) {
-    g.drawString(value, 240 - value.length * 8 + origoX, y)
+  def drawText(text: String, row: Int, g: Graphics2D) {
+    val y = 10 + row * 20
+    g.drawString(text, origoX, y)
   }
 }
