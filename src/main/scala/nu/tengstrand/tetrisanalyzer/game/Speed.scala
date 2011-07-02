@@ -15,7 +15,7 @@ class Speed {
   def decreaseSpeed() { if (speed > Speed.MinSpeed) speed -= 1 }
   def increaseSpeed() { if (speed < Speed.MaxSpeed) speed += 1 }
 
-  def asName = if (isMaxSpeed) "MAX" else speed.toString
+  def asName = if (isMaxSpeed) "Max" else speed.toString
 
   def maxDelay = 100
   def pieceDelay(fastAnimation: Boolean): Int = if (fastAnimation) Speed.PieceDelay(speed) / 2 else Speed.PieceDelay(speed)

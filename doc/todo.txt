@@ -1,9 +1,10 @@
 
+- Show list of ranked valid moves.
+
 - Adjust x+1 for "standing" piece I.
 - Add support for [N]ext (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
 
-- Show list of ranked valid moves.
 - Add battle mode, computer against computer or computer against human.
 
 - Show dots/position.

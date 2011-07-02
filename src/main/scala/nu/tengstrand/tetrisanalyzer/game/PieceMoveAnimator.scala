@@ -12,7 +12,7 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
 
   def maxDelay = speed.maxDelay
 
-  def speedAsName = if (isMaxSpeed) "MAX" else speed.asName
+  def speedAsName = speed.asName
 
   def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
