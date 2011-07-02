@@ -29,16 +29,25 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
    * but this will slow down the over all speed with more than 20%!
    */
   def bestMove: Option[PieceMove] = {
+    val best = bestMoveEquity
+
+    if (!best.isDefined)
+      None
+    else
+      Some(best.get.pieceMove)
+  }
+
+  def bestMoveEquity: Option[MoveEquity] = {
     if (moves.isEmpty) {
       None
     } else {
       var bestEquity = Double.MaxValue
-      var bestPieceMove: PieceMove = null
-      moves.foreach(pieceMove => if (pieceMove.equity < bestEquity) {
-        bestEquity = pieceMove.equity
-        bestPieceMove = pieceMove.pieceMove
+      var bestMoveEquity: MoveEquity = null
+      moves.foreach(moveEquity => if (moveEquity.equity < bestEquity) {
+        bestEquity = moveEquity.equity
+        bestMoveEquity = moveEquity
       })
-      Some(bestPieceMove)
+      Some(bestMoveEquity)
     }
   }
 
@@ -74,5 +83,23 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
 
   private def adjustEquityIfNextPieceIsOccupied(board: Board, equity: Double) = {
     startPieceMoves.foldLeft(0.0) { (sum,pieceMove) => sum + (if (pieceMove.isFree) equity else maxEquity) } / Piece.NumberOfPieceTypes
+  }
+
+  def sortedMovesWithAdjustedEquity: List[MoveEquity] = {
+    def roundThreeDecimals(moveEquity: MoveEquity, bestEquity: Double) = {
+      val equity = scala.math.round((moveEquity.equity - bestEquity) * 1000) / 1000.0
+      MoveEquity(moveEquity.pieceMove, equity)
+    }
+
+    val bestMove = bestMoveEquity
+
+    if (!bestMove.isDefined)
+      List.empty[MoveEquity]
+    else {
+      val bestEquity = bestMove.get.equity
+      for {
+        moveEquity <- moves.sortBy{m => (m.equity)}
+      } yield roundThreeDecimals(moveEquity, bestEquity)
+    }
   }
 }

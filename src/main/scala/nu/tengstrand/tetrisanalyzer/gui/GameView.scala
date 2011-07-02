@@ -3,6 +3,7 @@ package nu.tengstrand.tetrisanalyzer.gui
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt.{Graphics, Dimension}
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
+import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
@@ -31,6 +32,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def setNumberOfClearedRows(rows: Long) { gameInfoView.setNumberOfClearedRows(rows)}
   def setTotalNumberOfClearedRows(rows: Long) { gameInfoView.setTotalNumberOfClearedRows(rows)}
   def setTimePassed(seconds: Double) { gameInfoView.setTimePassed(seconds) }
+  def setRankedMoves(rankedMoves: List[MoveEquity]) { gameInfoView.setRankedMoves(rankedMoves) }
   def updateGui() { gameInfoView.updateGui() }
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     gameInfoView.setNumberOfGamesAndRowsInLastGame(games, rows, totalClearedRows, minRows, maxRows)

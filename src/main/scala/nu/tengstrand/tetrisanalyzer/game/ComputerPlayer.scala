@@ -94,11 +94,13 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
       Thread.sleep(20)
   }
 
+  private def shouldGameInfoBeUpdated = doStep || gameStatistics.hasPassedHundredPieces
+
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedRows = pieceMove.setPiece
 
     // Update GUI every 100 piece and always if in step mode
-    if (doStep || gameStatistics.hasPassedHundredPieces) {
+    if (shouldGameInfoBeUpdated) {
       if (!doStep)
         gameStatistics.updatePosition(position, pieceMove.piece, settings)
       gameStatistics.updateGameInfo()
@@ -125,7 +127,13 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private def evaluateBestMove(startPieceMove: PieceMove): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity).bestMove
+      val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity)
+
+      if (shouldGameInfoBeUpdated) {
+        gameEventReceiver.setRankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity)
+      }
+
+      evaluatedMoves.bestMove
     } else {
       None
     }

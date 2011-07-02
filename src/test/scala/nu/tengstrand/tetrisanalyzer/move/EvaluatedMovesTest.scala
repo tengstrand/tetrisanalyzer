@@ -30,11 +30,7 @@ class EvaluatedMovesTest extends BaseTest {
   }
 
   @Test def evaluatedMoves {
-    val evaluatedMoves: List[MoveEquity] = getEvaluatedMoves.moves
-
-    val moves = for {
-      moveEquity <- evaluatedMoves.sortBy{m => (m.equity)}
-    } yield roundThreeDecimals(moveEquity)
+    val moves: List[MoveEquity] = getEvaluatedMoves.sortedMovesWithAdjustedEquity
 
     moves should be (List(
       MoveEquity(PieceMove(board, piece, Move(0,7, 18)), 0.000),
@@ -54,10 +50,5 @@ class EvaluatedMovesTest extends BaseTest {
       MoveEquity(PieceMove(board, piece, Move(1,7, 17)), 8.319),
       MoveEquity(PieceMove(board, piece, Move(1,3, 17)), 9.075),
       MoveEquity(PieceMove(board, piece, Move(1,1, 17)), 10.824)))
-  }
-
-  private def roundThreeDecimals(moveEquity: MoveEquity) = {
-    val equity = scala.math.round((moveEquity.equity - 12.43) * 1000) / 1000.0
-    MoveEquity(moveEquity.pieceMove, equity)
   }
 }

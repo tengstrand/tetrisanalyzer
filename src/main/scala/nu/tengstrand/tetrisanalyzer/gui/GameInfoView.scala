@@ -1,7 +1,8 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
+import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
-import java.awt._
+import java.awt.{Graphics2D, Graphics, Dimension}
 
 case class SpeedInfo(secondsPassed: Double, piecesTotal: Long, clearedRowsTotal: Long)
 
@@ -14,6 +15,7 @@ class GameInfoView extends GameInfoReceiver {
   private var piecesTotal = 0L
   private var clearedRows = 0L
   private var clearedRowsTotal = 0L
+  private var rankedMoves: List[MoveEquity] = null
 
   private var games = 0L
   private var minRows = 0L
@@ -38,6 +40,8 @@ class GameInfoView extends GameInfoReceiver {
   def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
   def setPaused(paused: Boolean) { this.paused = paused }
+  def setRankedMoves(rankedMoves: List[MoveEquity]) { this.rankedMoves = rankedMoves }
+
   def updateGui() { /* repaint() */ }
 
   def setSpeed(name: String) {
@@ -55,7 +59,7 @@ class GameInfoView extends GameInfoReceiver {
   def paintGraphics(origoX: Int, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
-    textDrawer.prepareDraw(origoX, g)
+    textDrawer.prepareDraw(false, origoX, g)
 
     textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
     textDrawer.drawInfo("Pieces:", withSpaces(pieces), 2, g)
@@ -83,6 +87,15 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 24, g)
 
     textDrawer.drawText("Press [F1] for help", 26, g)
+
+
+    textDrawer.prepareDraw(true, origoX + 230, g)
+
+    if (rankedMoves != null) {
+      for (i <- 0 until rankedMoves.size) {
+        textDrawer.drawInfo(i+1, rankedMoves(i).equity, i+1, g)
+      }
+    }
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

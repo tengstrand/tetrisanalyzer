@@ -8,16 +8,16 @@ class HelpView extends TextDrawer {
   def paintGraphics(origoX: Int, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
-    prepareDraw(origoX, g)
+    prepareDraw(false, origoX, g)
 
     drawText("P = Toggle pause", 1, g)
     drawText("down = Animate next piece (if paused)", 2, g)
 
-    drawText("left/right = Change speed (1..10)", 4, g)
+    drawText("left/right = Change speed", 4, g)
 
     drawText("[Ctrl] + left/right/up/down = Change board size", 6, g)
 
-    drawText("e / E = Change seed", 8, g)
+    drawText("e / E = Change random generator seed", 8, g)
     drawText("l = Toggle sliding", 9, g)
 
 
