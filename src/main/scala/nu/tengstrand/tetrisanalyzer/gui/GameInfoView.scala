@@ -77,9 +77,12 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 18, g)
 
     textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 20, g)
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 21, g)
 
-    textDrawer.drawText("Press [F1] for help", 23, g)
+
+
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 24, g)
+
+    textDrawer.drawText("Press [F1] for help", 26, g)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

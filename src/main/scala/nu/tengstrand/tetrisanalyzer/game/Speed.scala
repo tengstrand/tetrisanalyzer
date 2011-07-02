@@ -4,7 +4,7 @@ object Speed {
   var MinSpeed = 1
   var MaxSpeed = 10
 
-  val PieceDelay = Array(0, 80, 60, 40, 28, 20, 16, 12, 8, 4, 0)
+  val PieceDelay = Array(0, 100, 60, 40, 28, 20, 16, 12, 8, 4, 0)
 }
 
 class Speed {
@@ -17,7 +17,13 @@ class Speed {
 
   def asName = if (isMaxSpeed) "Max" else speed.toString
 
-  def maxDelay = 100
+  def maxDelay = Speed.PieceDelay(1) + 20
   def pieceDelay(fastAnimation: Boolean): Int = if (fastAnimation) Speed.PieceDelay(speed) / 2 else Speed.PieceDelay(speed)
-  def clearRowDelay(fastAnimation: Boolean): Int = if (fastAnimation) (Speed.PieceDelay(speed) * 2.5).toInt else Speed.PieceDelay(speed) * 5
+  def clearRowDelay(fastAnimation: Boolean): Int = {
+    val delay = if (fastAnimation) (Speed.PieceDelay(speed) * 2.5).toInt else Speed.PieceDelay(speed) * 5
+    if (delay > 200)
+      200
+    else
+      delay
+  }
 }

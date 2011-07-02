@@ -10,26 +10,22 @@ class HelpView extends TextDrawer {
 
     prepareDraw(origoX, g)
 
-    drawText("P               Toggle pause", 1, g)
+    drawText("P = Toggle pause", 1, g)
+    drawText("down = Animate next piece (if paused)", 2, g)
 
-    drawText("down            Animate next piece (if paused)", 3, g)
+    drawText("left/right = Change speed (1..10)", 4, g)
 
-    drawText("left/right      Change speed (1..10)", 5, g)
+    drawText("[Ctrl] + left/right/up/down = Change board size", 6, g)
 
-    drawText("[Ctrl] + left/  Change board size", 7, g)
-    drawText("right/up/down", 8, g)
-
-    drawText("e / E           Change seed", 10, g)
-
-    drawText("l               Toggle sliding", 12, g)
+    drawText("e / E = Change seed", 8, g)
+    drawText("l = Toggle sliding", 9, g)
 
 
 
+    drawText("[F1] = Show game info", 22, g)
 
-    drawText("[F1]            Show game info", 18, g)
-
-    drawText("Tetris Analyzer " + version, 20, g)
-    drawText("tetrisanalyzer@tengstrand.nu", 21, g)
-    drawText("https://github.com/tengstrand/tetrisanalyzer", 22, g)
+    drawText("Tetris Analyzer " + version, 24, g)
+    drawText("tetrisanalyzer@tengstrand.nu", 25, g)
+    drawText("https://github.com/tengstrand/tetrisanalyzer", 26, g)
   }
 }

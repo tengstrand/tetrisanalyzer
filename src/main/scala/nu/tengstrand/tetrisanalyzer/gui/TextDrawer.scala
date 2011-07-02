@@ -18,7 +18,7 @@ class TextDrawer {
   }
 
   def drawText(text: String, row: Int, g: Graphics2D) {
-    val y = 10 + row * 20
+    val y = 10 + row * 18
     g.drawString(text, origoX, y)
   }
 }
