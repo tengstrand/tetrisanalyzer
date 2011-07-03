@@ -16,7 +16,7 @@ class Game(timer: Timer, gameView: GameView) {
   private var seed = 0
   private var slidingEnabled = false
   private val speed = new Speed()
-  private var paused = true
+  private var paused = false
 
   startNewGame()
 

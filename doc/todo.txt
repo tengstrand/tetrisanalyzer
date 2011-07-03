@@ -1,4 +1,5 @@
 
+- Continue with same position when sliding on/off is changed.
 - Show list of ranked valid moves.
 
 - Adjust x+1 for "standing" piece I.

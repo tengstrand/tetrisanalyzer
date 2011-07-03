@@ -1,13 +1,14 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
-import java.awt.{Graphics, Dimension}
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
+import java.awt.{Graphics2D, Graphics, Dimension}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
   private val gameInfoView = new GameInfoView
+  private val rankedMovesView = new RankedMovesView
   private val helpView = new HelpView
 
   private var paused = false
@@ -32,25 +33,28 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def setNumberOfClearedRows(rows: Long) { gameInfoView.setNumberOfClearedRows(rows)}
   def setTotalNumberOfClearedRows(rows: Long) { gameInfoView.setTotalNumberOfClearedRows(rows)}
   def setTimePassed(seconds: Double) { gameInfoView.setTimePassed(seconds) }
-  def setRankedMoves(rankedMoves: List[MoveEquity]) { gameInfoView.setRankedMoves(rankedMoves) }
   def updateGui() { gameInfoView.updateGui() }
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     gameInfoView.setNumberOfGamesAndRowsInLastGame(games, rows, totalClearedRows, minRows, maxRows)
   }
+  def setRankedMoves(rankedMoves: List[MoveEquity]) { rankedMovesView.setRankedMoves(rankedMoves) }
 
   def preparePaintGraphics: Dimension = {
     boardSize = positionView.preparePaintGraphics(size)
     size
   }
 
-  def paintGraphics(g: Graphics) {
+  def paintGraphics(graphics: Graphics) {
     val origoX = boardSize.width + 15
 
-    positionView.paintGraphics(size, g)
+    positionView.paintGraphics(size, graphics)
 
     if (showHelp)
-      helpView.paintGraphics(origoX, g)
-    else
+      helpView.paintGraphics(origoX, graphics)
+    else {
+      val g = graphics.asInstanceOf[Graphics2D];
       gameInfoView.paintGraphics(origoX, g)
+      rankedMovesView.paintGraphics(origoX + 230, g)
+    }
   }
 }

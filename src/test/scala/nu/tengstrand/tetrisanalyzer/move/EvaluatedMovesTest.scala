@@ -4,13 +4,13 @@ import org.junit.Test
 import nu.tengstrand.tetrisanalyzer.BaseTest
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
-import nu.tengstrand.tetrisanalyzer.piece.{Piece, PieceS}
+import nu.tengstrand.tetrisanalyzer.piece.PieceS
 import nu.tengstrand.tetrisanalyzer.piecemove.{AllValidPieceMovesForEmptyBoard, PieceMove}
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, JTengstrandBoardEvaluator1}
 
 class EvaluatedMovesTest extends BaseTest {
-  private var board: Board = Board()
-  private var piece: Piece = new PieceS
+  private val board = Board()
+  private val piece = new PieceS
 
   @Test def bestMove {
     getEvaluatedMoves.bestMove should be (

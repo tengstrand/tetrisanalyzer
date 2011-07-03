@@ -21,7 +21,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
   private val startBoard = board.copy
   private var position: Position = null
-  private var paused = true
+  private var paused = false
   private var doStep = false
   private var quit = false
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)
@@ -96,6 +96,8 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
   private def shouldGameInfoBeUpdated = doStep || gameStatistics.hasPassedHundredPieces
 
+  private def shouldRankedMovesBeUpdated = paused || shouldGameInfoBeUpdated
+
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedRows = pieceMove.setPiece
 
@@ -129,7 +131,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
       val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity)
 
-      if (shouldGameInfoBeUpdated) {
+      if (shouldRankedMovesBeUpdated) {
         gameEventReceiver.setRankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity)
       }
 

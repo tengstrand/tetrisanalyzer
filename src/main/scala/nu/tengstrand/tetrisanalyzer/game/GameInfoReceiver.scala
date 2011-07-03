@@ -1,7 +1,5 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-import nu.tengstrand.tetrisanalyzer.move.MoveEquity
-
 trait GameInfoReceiver {
   def setPaused(paused: Boolean)
   def setSeed(seed: Long)
@@ -14,6 +12,5 @@ trait GameInfoReceiver {
   def setTotalNumberOfClearedRows(rows: Long)
   def setTimePassed(seconds: Double)
   def setSpeed(name: String)
-  def setRankedMoves(rankedMoves: List[MoveEquity])
   def updateGui()
 }

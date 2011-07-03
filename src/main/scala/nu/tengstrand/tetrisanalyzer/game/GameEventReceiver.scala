@@ -1,3 +1,3 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-trait GameEventReceiver extends PlayerEventReceiver with GameInfoReceiver
+trait GameEventReceiver extends PlayerEventReceiver with GameInfoReceiver with RankedMovesReceiver
