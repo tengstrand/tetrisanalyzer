@@ -1,5 +1,6 @@
 
-- Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx".
+- Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx",
+  only show y for these duplicated rows.
 - Support for toggling ranked moves, e.g with [F2].
 - Show help on position where the ranked moves are now + explanation next to the game info.
 - Continue with same position when sliding on/off is changed.
@@ -16,7 +17,8 @@
 
 
 
-name = JT-01
+name = JTengstrand
+version = 1.01
 
 height = [7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1]
 hollowsPerRow = [0.553, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]

@@ -63,9 +63,9 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
 
     textDrawer.drawInfo("Games:", withSpaces(games), 7, g)
-    textDrawer.drawInfo("Rows/game:", withSpaces(if (games == 0) 0 else clearedRowsTotal / games), 8, g)
-    textDrawer.drawInfo("Min rows:", withSpaces(minRows), 9, g)
-    textDrawer.drawInfo("Max rows:", withSpaces(maxRows), 10, g)
+    textDrawer.drawInfo("Rows/game:", if (games == 0) "" else withSpaces(clearedRowsTotal / games), 8, g)
+    textDrawer.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
+    textDrawer.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 
     textDrawer.drawInfo("Speed:", speed, 12, g)
     textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 13, g)
