@@ -91,15 +91,16 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
       MoveEquity(moveEquity.pieceMove, equity)
     }
 
-    val bestMove = bestMoveEquity
-
-    if (!bestMove.isDefined)
+    if (moves.isEmpty)
       List.empty[MoveEquity]
     else {
-      val bestEquity = bestMove.get.equity
-      for {
-        moveEquity <- moves.sortBy{m => (m.equity)}
-      } yield roundThreeDecimals(moveEquity, bestEquity)
+      val sortedMoves = moves.sortBy{m => (m.equity)}
+      val bestMove = sortedMoves.head
+
+      roundThreeDecimals(sortedMoves.head, 0) ::
+      (for {
+        moveEquity <- sortedMoves.tail
+      } yield roundThreeDecimals(moveEquity, bestMove.equity))
     }
   }
 }

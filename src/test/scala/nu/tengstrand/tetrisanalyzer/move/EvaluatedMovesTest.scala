@@ -33,7 +33,7 @@ class EvaluatedMovesTest extends BaseTest {
     val moves: List[MoveEquity] = getEvaluatedMoves.sortedMovesWithAdjustedEquity
 
     moves should be (List(
-      MoveEquity(PieceMove(board, piece, Move(0,7, 18)), 0.000),
+      MoveEquity(PieceMove(board, piece, Move(0,7, 18)), 12.430),
       MoveEquity(PieceMove(board, piece, Move(1,0, 17)), 0.755),
       MoveEquity(PieceMove(board, piece, Move(0,0, 18)), 2.504),
       MoveEquity(PieceMove(board, piece, Move(0,5, 18)), 3.374),

@@ -21,7 +21,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
   private val startBoard = board.copy
   private var position: Position = null
-  private var paused = false
+  private var paused = Game.PausedOnStartup
   private var doStep = false
   private var quit = false
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)

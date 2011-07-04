@@ -6,6 +6,10 @@ import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
 import nu.tengstrand.tetrisanalyzer.gui.GameView
 
+object Game {
+  def PausedOnStartup = true
+}
+
 class Game(timer: Timer, gameView: GameView) {
   private var boardWidth = 10
   private var boardHeight = 20
@@ -13,10 +17,10 @@ class Game(timer: Timer, gameView: GameView) {
   private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null
 
-  private var seed = 0
+  private var seed = 2L
   private var slidingEnabled = false
   private val speed = new Speed()
-  private var paused = false
+  private var paused = Game.PausedOnStartup
 
   startNewGame()
 
@@ -27,7 +31,7 @@ class Game(timer: Timer, gameView: GameView) {
     val board = Board(boardWidth, boardHeight)
     val position = Position(boardWidth, boardHeight)
     val settings = new SpecifiedGameSettings(slidingEnabled, seed)
-    val pieceGenerator = new DefaultPieceGenerator(seed)
+    val pieceGenerator = new DefaultPieceGenerator
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)

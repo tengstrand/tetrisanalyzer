@@ -6,7 +6,6 @@ import actors.Actor._
 import nu.tengstrand.tetrisanalyzer.settings.DefaultColorSettings
 
 object TetrisAnalyzer extends SimpleSwingApplication {
-
   def top = new MainFrame {
     title = "Tetris Analyzer - by Joakim Tengstrand"
 
