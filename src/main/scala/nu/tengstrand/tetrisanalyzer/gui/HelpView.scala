@@ -12,7 +12,8 @@ class HelpView extends TextDrawer {
 
     drawText("p = Pause (toggle)", 1, g)
 
-    drawText("down = Animate next piece (if paused)", 3, g)
+    drawText("down = Move next piece (if paused) or", 3, g)
+    drawText("       increase speed if not paused", 4, g)
 
     drawText("[Ctrl] + left/right/up/down = Change board size", 6, g)
     drawText("                              + restart game", 7, g)

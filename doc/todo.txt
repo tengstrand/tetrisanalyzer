@@ -1,9 +1,8 @@
 
 - Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx",
   only show y for these duplicated rows.
-- Support for toggling ranked moves, e.g with [F2].
-- Show help on position where the ranked moves are now + explanation next to the game info.
-- Continue with same position when sliding on/off is changed.
+- Continue with the same position when sliding on/off is changed.
+- Continue with (almost) the same position when ste board size is changed.
 - Toggle "focus" between board and ranked moves, show an arrow next to selected ranked move if in focus +
   possible to changing selected move with <up> and <down> and animate.
 
