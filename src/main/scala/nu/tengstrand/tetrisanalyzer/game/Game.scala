@@ -105,6 +105,10 @@ class Game(timer: Timer, gameView: GameView) {
     }
   }
 
+  def toggleMaxSpeed() {
+    computerPlayer.toggleMaxSpeed()
+  }
+
   def toggleShowGameInfo() {
     gameView.toggleShowGameInfo()
   }

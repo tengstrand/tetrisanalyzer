@@ -42,8 +42,13 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
     updateSpeed()
   }
 
+  def toggleMaxSpeed() {
+    pieceMoveAnimator.toggleMaxSpeed()
+    updateSpeed()
+  }
+
   private def updateSpeed() {
-    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
+    gameEventReceiver.setSpeed(pieceMoveAnimator.getSpeedIndex, pieceMoveAnimator.isMaxSpeed)
     doStep = pieceMoveAnimator.continueDoStep(paused)
   }
 
@@ -58,7 +63,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
     gameStatistics.updateAll()
     gameEventReceiver.setSliding(settings.isSlidingEnabled)
     gameEventReceiver.setTimePassed(0)
-    gameEventReceiver.setSpeed(pieceMoveAnimator.speedAsName)
+    gameEventReceiver.setSpeed(pieceMoveAnimator.getSpeedIndex, pieceMoveAnimator.isMaxSpeed)
 
     while (!quit) {
       board.restore(startBoard)
@@ -87,7 +92,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private def waitIfPaused(startPiece: Piece) {
     if (paused && !quit) {
       gameStatistics.updatePosition(position, startPiece, settings)
-      gameStatistics.updateGameInfo
+      gameStatistics.updateGameInfo()
     }
 
     while (paused && !doStep && !quit)
@@ -99,7 +104,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private def shouldRankedMovesBeUpdated = paused || shouldGameInfoBeUpdated
 
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
-    val clearedRows = pieceMove.setPiece
+    val clearedRows = pieceMove.setPiece()
 
     // Update GUI every 100 piece and always if in step mode
     if (shouldGameInfoBeUpdated) {

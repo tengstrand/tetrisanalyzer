@@ -1,13 +1,14 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import nu.tengstrand.tetrisanalyzer.game.GameInfoReceiver
-import java.awt.{Graphics2D, Dimension}
+import java.awt.{Color, Graphics2D, Dimension}
+import nu.tengstrand.tetrisanalyzer.game.{Speed, GameInfoReceiver}
 
 case class SpeedInfo(secondsPassed: Double, piecesTotal: Long, clearedRowsTotal: Long)
 
 class GameInfoView extends GameInfoReceiver {
   private var seed = 0L
-  private var speed = ""
+  private var speedIndex = 1
+  private var isMaxSpeed = false
   private var slidingEnabled = false
   private var boardSize: Dimension = new Dimension(10, 20)
   private var pieces = 0L
@@ -41,8 +42,10 @@ class GameInfoView extends GameInfoReceiver {
 
   def updateGui() { /* repaint() */ }
 
-  def setSpeed(name: String) {
-    speed = name
+  def setSpeed(speedIndex: Int, isMaxSpeed: Boolean) {
+    this.speedIndex = speedIndex
+    this.isMaxSpeed = isMaxSpeed
+    // Used to calculate the speed
     speedInfo = SpeedInfo(secondsPassed, piecesTotal, clearedRowsTotal)
   }
 
@@ -71,7 +74,7 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Seed:", seed, 13, g)
     textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 14, g)
 
-    textDrawer.drawInfo("Speed:", speed, 16, g)
+    textDrawer.drawInfo("Speed:", "", 16, g)
     textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 17, g)
     textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 18, g)
 
@@ -84,6 +87,30 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawText("[F1] Show game info (toggle)", 25, g)
     textDrawer.drawText("[F2] Show moves (toggle)", 26, g)
     textDrawer.drawText("[F3] Show help (toggle)", 27, g)
+
+    drawSpeed(16, origoX, g)
+  }
+
+  private def drawSpeed(row: Int, origoX: Int, g: Graphics2D) {
+    val factor = 10
+
+    if (isMaxSpeed)
+      g.setColor(Color.RED)
+    else
+      g.setColor(Color.GREEN)
+
+    val y1 = textDrawer.getY(row) - 10
+    val x1 = origoX + 55
+    val width = if (isMaxSpeed) Speed.MaxSpeedIndex * factor else speedIndex * factor
+    val height = 10
+    val x2 = x1 + Speed.MaxSpeedIndex * factor
+    val y2 = y1 + height
+    g.fillRect(x1+1, y1+1, width, height)
+    g.setColor(Color.BLACK)
+    g.drawLine(x1,y1, x2,y1)
+    g.drawLine(x1,y2, x2,y2)
+    g.drawLine(x1,y1, x1,y2)
+    g.drawLine(x2,y1, x2,y2)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

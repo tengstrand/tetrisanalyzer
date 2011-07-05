@@ -30,7 +30,9 @@ class TextDrawer {
   }
 
   def drawText(text: Any, row: Int, g: Graphics2D) {
-    val y = origoY + row * spacing
+    val y = getY(row)
     g.drawString(text.toString, origoX, y)
   }
+
+  def getY(row: Int) = origoY + row * spacing
 }

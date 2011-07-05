@@ -36,6 +36,8 @@ class KeyManager(game: Game) {
               game.decreaseSeed() // E
             else
               game.increaseSeed() // e
+          case 77 => // m
+              game.toggleMaxSpeed()
           case 112 => // <F1>
               game.toggleShowGameInfo()
           case 113 => // <F2>

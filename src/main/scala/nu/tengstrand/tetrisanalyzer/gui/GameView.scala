@@ -29,7 +29,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def isReadyToReceivePosition: Boolean = { positionView.isReadyToReceivePosition }
 
   def setSeed(seed: Long) { gameInfoView.setSeed(seed) }
-  def setSpeed(name: String) { gameInfoView.setSpeed(name) }
+  def setSpeed(speedIndex: Int, isMaxSpeed: Boolean) { gameInfoView.setSpeed(speedIndex, isMaxSpeed) }
   def setSliding(enabled: Boolean) { gameInfoView.setSliding(enabled) }
   def setBoardSize(width: Int, height: Int) { gameInfoView.setBoardSize(width, height) }
   def setNumberOfPieces(pieces: Long) { gameInfoView.setNumberOfPieces(pieces) }

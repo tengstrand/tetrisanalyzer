@@ -6,21 +6,19 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
   var quit = false
   var fastAnimation = false
 
-  def isMaxSpeed() = speed.isMaxSpeed
+  def isMaxSpeed = speed.isMaxSpeed
+  def getSpeedIndex = speed.getSpeedIndex
   def increaseSpeed() { speed.increaseSpeed() }
   def decreaseSpeed() { speed.decreaseSpeed() }
+  def toggleMaxSpeed() { speed.toggleMaxSpeed() }
 
   def maxDelay = speed.maxDelay
-
-  def speedAsName = speed.asName
 
   def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
   def animateMove(position: Position, startPieceMove: PieceMove, pieceMove: PieceMove) {
-    startPieceMove.prepareAnimatedPath
+    startPieceMove.prepareAnimatedPath()
     startPieceMove.calculateAnimatedPath(null, 0, 0)
-
-    val animatedPosition = Position(position)
 
     var step = pieceMove
     var steps = List.empty[PieceMove]
