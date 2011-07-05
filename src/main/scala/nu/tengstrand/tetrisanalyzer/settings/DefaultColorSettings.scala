@@ -23,7 +23,8 @@ object DefaultColorSettings {
         (Colors(i).getBlue * 0.6).toInt)))
   }
 
-  Colors(0) = new Color(255, 255, 255);
+  Colors(0) = new Color(255, 255, 255)
+  LineColors(0) = new Color(200, 200, 200)
 }
 
 class DefaultColorSettings extends ColorSettings {
