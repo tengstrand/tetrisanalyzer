@@ -1,4 +1,5 @@
 
+- Stop the piece if paused.
 - Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx",
   only show y for these duplicated rows.
 - Continue with the same position when sliding on/off is changed.

@@ -9,7 +9,7 @@ object Speed {
 
 class Speed {
   private var maxSpeed = false
-  private var speedIndex = 9
+  private var speedIndex = 7
 
   def toggleMaxSpeed() { maxSpeed = !maxSpeed }
   def isMaxSpeed = maxSpeed

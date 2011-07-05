@@ -8,7 +8,7 @@ class HelpView extends TextDrawer {
   def paintGraphics(origoX: Int, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
-    prepareDraw(false, origoX, g, 10, new Color(0, 150, 0))
+    prepareDraw(false, origoX, g, 10, new Color(0, 120, 0))
 
     drawText("p = Pause (toggle)", 1, g)
 
