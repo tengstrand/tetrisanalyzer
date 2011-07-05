@@ -30,6 +30,9 @@ class GameInfoView extends GameInfoReceiver {
   // TODO: Refactor out
   private var paused = true
 
+  private val speedBarColor = new Color(150, 255, 150)
+  private val speedBarColorMax = new Color(255, 150, 150)
+
   def setSeed(seed: Long) { this.seed = seed }
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
   def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
@@ -95,9 +98,9 @@ class GameInfoView extends GameInfoReceiver {
     val factor = 10
 
     if (isMaxSpeed)
-      g.setColor(Color.RED)
+      g.setColor(speedBarColorMax)
     else
-      g.setColor(Color.GREEN)
+      g.setColor(speedBarColor)
 
     val y1 = textDrawer.getY(row) - 10
     val x1 = origoX + 55
