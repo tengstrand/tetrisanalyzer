@@ -67,21 +67,23 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
     textDrawer.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 
-    textDrawer.drawInfo("Speed:", speed, 12, g)
-    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 13, g)
-    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 14, g)
+    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 12, g)
+    textDrawer.drawInfo("Seed:", seed, 13, g)
+    textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 14, g)
 
-    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 16, g)
-    textDrawer.drawInfo("S[e]ed:", seed, 17, g)
-    textDrawer.drawInfo("S[l]iding:", if (slidingEnabled) "On" else "Off", 18, g)
+    textDrawer.drawInfo("Speed:", speed, 16, g)
+    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 17, g)
+    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 18, g)
 
-    textDrawer.drawInfo("[P]ause:", if (paused) "On" else "", 20, g)
+    textDrawer.drawInfo("Pause:", if (paused) "On" else "", 20, g)
 
 
 
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 25, g)
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 23, g)
 
-    textDrawer.drawText("Press [F1] for help", 27, g)
+    textDrawer.drawText("[F1] Show game info (toggle)", 25, g)
+    textDrawer.drawText("[F2] Show moves (toggle)", 26, g)
+    textDrawer.drawText("[F3] Show help (toggle)", 27, g)
   }
 
   private def withSpaces(number: Long) = numberSeparator.withSpaces(number)

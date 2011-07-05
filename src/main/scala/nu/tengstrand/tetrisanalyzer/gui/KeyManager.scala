@@ -7,7 +7,7 @@ import nu.tengstrand.tetrisanalyzer.game.Game
 class KeyManager(game: Game) {
   KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
     def postProcessKeyEvent(e: KeyEvent): Boolean = {
-      if (e.getID() == KeyEvent.KEY_PRESSED) {
+      if (e.getID == KeyEvent.KEY_PRESSED) {
         e.getKeyCode match {
           case 40 =>
             if (e.getModifiers == 2) // <CTRL> + Down
@@ -37,6 +37,10 @@ class KeyManager(game: Game) {
             else
               game.increaseSeed() // e
           case 112 => // <F1>
+              game.toggleShowGameInfo()
+          case 113 => // <F2>
+              game.toggleShowRankedMoves()
+          case 114 => // <F3>
               game.toggleShowHelp()
           case _ =>
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + "), modifiers=" + e.getModifiers);

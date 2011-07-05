@@ -14,9 +14,13 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private var paused = false
   private var boardSize = new Dimension(0,0)
 
+  private var showGameInfo = true
   private var showHelp = false
+  private var showRankedMoves = false
 
-  def toggleShowHelp { showHelp = !showHelp }
+  def toggleShowGameInfo() { showGameInfo = !showGameInfo }
+  def toggleShowHelp() { showHelp = !showHelp }
+  def toggleShowRankedMoves() { showRankedMoves = !showRankedMoves }
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -45,16 +49,23 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   }
 
   def paintGraphics(graphics: Graphics) {
-    val origoX = boardSize.width + 15
+    var origoX = boardSize.width + 15
 
     positionView.paintGraphics(size, graphics)
 
-    if (showHelp)
-      helpView.paintGraphics(origoX, graphics)
-    else {
-      val g = graphics.asInstanceOf[Graphics2D];
+    val g = graphics.asInstanceOf[Graphics2D];
+
+    if (showGameInfo) {
       gameInfoView.paintGraphics(origoX, g)
-      rankedMovesView.paintGraphics(origoX + 230, g)
+      origoX += 240
+    }
+
+    if (showRankedMoves) {
+      rankedMovesView.paintGraphics(origoX, g)
+      origoX += 130
+    }
+    if (showHelp) {
+      helpView.paintGraphics(origoX, graphics)
     }
   }
 }

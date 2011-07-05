@@ -26,7 +26,7 @@ class Game(timer: Timer, gameView: GameView) {
 
   private def startNewGame() {
     if (computerPlayer != null)
-      computerPlayer.quitGame
+      computerPlayer.quitGame()
 
     val board = Board(boardWidth, boardHeight)
     val position = Position(boardWidth, boardHeight)
@@ -36,8 +36,8 @@ class Game(timer: Timer, gameView: GameView) {
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
     computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
-    timer.reset
-    computerPlayer.start
+    timer.reset()
+    computerPlayer.start()
     computerPlayer.setPaused(paused)
   }
 
@@ -105,7 +105,15 @@ class Game(timer: Timer, gameView: GameView) {
     }
   }
 
+  def toggleShowGameInfo() {
+    gameView.toggleShowGameInfo()
+  }
+
   def toggleShowHelp() {
-    gameView.toggleShowHelp
+    gameView.toggleShowHelp()
+  }
+
+  def toggleShowRankedMoves() {
+    gameView.toggleShowRankedMoves()
   }
 }
