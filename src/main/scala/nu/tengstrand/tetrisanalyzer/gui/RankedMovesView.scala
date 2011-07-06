@@ -18,12 +18,12 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
     if (rankedMoves != null) {
-      prepareDraw(true, origoX, g, 7, Color.BLUE)
+      prepareDraw(origoX, g, 7, Color.BLUE)
       drawHeader(g)
-      prepareDraw(true, origoX, g, 10, Color.BLUE)
+      prepareDraw(origoX, g, 10, Color.BLUE)
       drawNumbers(g)
 
-      prepareDraw(true, origoX + 28, g)
+      prepareDraw(origoX + 28, g)
       drawMoves(g)
       rankedMoves = newRankedMoves
     }

@@ -1,7 +1,10 @@
 
-- Stop the piece if paused.
+- Show "Paused, press P to continue" on the board.
 - Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx",
   only show y for these duplicated rows.
+- Smaller fonts in game info, add "Next piece", "AI".
+- Improve speed when sliding is on.
+- Stop the piece if paused.
 - Continue with the same position when sliding on/off is changed.
 - Continue with (almost) the same position when ste board size is changed.
 - Toggle "focus" between board and ranked moves, show an arrow next to selected ranked move if in focus +

@@ -60,7 +60,7 @@ class GameInfoView extends GameInfoReceiver {
   }
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
-    textDrawer.prepareDraw(false, origoX, g)
+    textDrawer.prepareDraw(origoX, g)
 
     textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
     textDrawer.drawInfo("Pieces:", withSpaces(pieces), 2, g)
@@ -85,11 +85,11 @@ class GameInfoView extends GameInfoReceiver {
 
 
 
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 23, g)
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 31, g)
 
-    textDrawer.drawText("[F1] Show game info (toggle)", 25, g)
-    textDrawer.drawText("[F2] Show moves (toggle)", 26, g)
-    textDrawer.drawText("[F3] Show help (toggle)", 27, g)
+    textDrawer.drawText("[F1] Show game info (toggle)", 33, g)
+    textDrawer.drawText("[F2] Show moves (toggle)", 34, g)
+    textDrawer.drawText("[F3] Show help (toggle)", 35, g)
 
     drawSpeed(16, origoX, g)
   }

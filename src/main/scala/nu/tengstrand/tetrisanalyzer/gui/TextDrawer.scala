@@ -5,23 +5,14 @@ import java.awt.{Color, Font, Graphics2D}
 class TextDrawer {
   private var origoX = 0
   private var origoY = 10
-  private var spacing = 18
+  private var spacing = 14
 
-  private val smallTextFont = new Font("Monospaced", Font.PLAIN, 12);
-  private val mediumTextFont = new Font("Monospaced", Font.PLAIN, 14);
+  private val textFont = new Font("Monospaced", Font.PLAIN, 12);
 
-  def prepareDraw(useSmallFontSize: Boolean, origoX: Int, g: Graphics2D, origoY: Int = 10, color: Color = Color.BLACK) {
+  def prepareDraw(origoX: Int, g: Graphics2D, origoY: Int = 10, color: Color = Color.BLACK) {
     this.origoX = origoX
     this.origoY = origoY
-
-    if (useSmallFontSize) {
-      spacing = 14
-      g.setFont(smallTextFont);
-    } else {
-      spacing = 18
-      g.setFont(mediumTextFont);
-    }
-
+    g.setFont(textFont);
     g.setColor(color);
   }
 

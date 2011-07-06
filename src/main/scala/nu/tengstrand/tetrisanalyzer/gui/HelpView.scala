@@ -8,7 +8,7 @@ class HelpView extends TextDrawer {
   def paintGraphics(origoX: Int, graphics: Graphics) {
     val g = graphics.asInstanceOf[Graphics2D];
 
-    prepareDraw(false, origoX, g, 10, new Color(0, 120, 0))
+    prepareDraw(origoX, g, 10, new Color(0, 120, 0))
 
     drawText("p = Pause (toggle)", 1, g)
 
@@ -25,8 +25,8 @@ class HelpView extends TextDrawer {
     drawText("m = Max speed (toggle)", 17, g)
 
 
-    drawText("Tetris Analyzer " + version, 25, g)
-    drawText("tetrisanalyzer@tengstrand.nu", 26, g)
-    drawText("https://github.com/tengstrand/tetrisanalyzer", 27, g)
+    drawText("Tetris Analyzer " + version, 33, g)
+    drawText("tetrisanalyzer@tengstrand.nu", 34, g)
+    drawText("https://github.com/tengstrand/tetrisanalyzer", 35, g)
   }
 }
