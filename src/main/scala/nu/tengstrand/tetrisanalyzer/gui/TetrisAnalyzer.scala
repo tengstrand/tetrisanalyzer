@@ -16,12 +16,12 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     }
 
     val colorSettings = new DefaultColorSettings
-    val gameView = new GameView(colorSettings, new MainFrameSize(this))
+    val gameView = new GameView(colorSettings)
     val timer = new Timer(this, gameView)
     val game = new Game(timer, gameView)
 
     actor {
-      timer.start
+      timer.start()
     }
 
     contents = new BoxPanel(Orientation.Horizontal) {
@@ -29,10 +29,5 @@ object TetrisAnalyzer extends SimpleSwingApplication {
     }
 
     new KeyManager(game)
-  }
-
-  class MainFrameSize(frame: Frame) {
-    def width = frame.size.width
-    def height = frame.size.height
   }
 }

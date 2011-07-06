@@ -1,7 +1,6 @@
 
-- Show "Paused, press P to continue" on the board.
-- Fix "vx" when x can be > 10. Separate v and x + right align x. Also show column for y if more than one row with same "vx",
-  only show y for these duplicated rows.
+- Show "y" if sliding is on and more than one row has the same "v x" (only show y for these duplicated rows).
+- Show "Paused, press P to continue" on top of the board.
 - Smaller fonts in game info, add "Next piece", "AI".
 - Improve speed when sliding is on.
 - Stop the piece if paused.

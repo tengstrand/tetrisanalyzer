@@ -10,8 +10,20 @@ import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove
 class RankedMovesViewHelperTest extends BaseTest {
   private val rankedMovesViewHelper = new RankedMovesViewHelper
 
+  @Test def header {
+    rankedMovesViewHelper.header(9) should be ("    v x  Depth 0")
+  }
+
+  @Test def header_adjustRight {
+    rankedMovesViewHelper.header(10) should be ("    v  x  Depth 0")
+  }
+
   @Test def rotationAndX {
-    rankedMovesViewHelper.rotationAndX(Move(1, 2, 3)) should be ("12")
+    rankedMovesViewHelper.rotationAndX(Move(1, 2, 3), 9) should be ("1 3")
+  }
+
+  @Test def rotationAndX_adjustRight {
+    rankedMovesViewHelper.rotationAndX(Move(1, 2, 3), 10) should be ("1  3")
   }
 
   @Test def withThreeDecimals {
@@ -24,12 +36,12 @@ class RankedMovesViewHelperTest extends BaseTest {
 
   @Test def rowInfo {
     val rankedMove = getRankedMove(0, 1, 2.504, 9)
-    rankedMovesViewHelper.rowInfo(false, rankedMove, 9) should be ("01  +2.504")
+    rankedMovesViewHelper.rowInfo(false, rankedMove, 9, 9) should be ("0 2  +2.504")
   }
 
   @Test def rowInfo_adjustRight {
     val rankedMove = getRankedMove(0, 1, 2.504, 10)
-    rankedMovesViewHelper.rowInfo(false, rankedMove, 10) should be ("01   +2.504")
+    rankedMovesViewHelper.rowInfo(false, rankedMove, 9, 10) should be ("0 2   +2.504")
   }
 
   private def getRankedMove(v: Int, x: Int, equity: Double, maxEquity: Double) = {

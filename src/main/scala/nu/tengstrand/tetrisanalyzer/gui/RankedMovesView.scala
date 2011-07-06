@@ -29,10 +29,14 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
     }
   }
 
-  private def drawHeader(g: Graphics2D) { drawText("    vx  Depth 0", 1, g) }
+  private def maxX = {
+    rankedMoves.map(_.pieceMove.move.x).max + 1
+  }
+
+  private def drawHeader(g: Graphics2D) { drawText(helper.header(maxX), 1, g) }
 
   private def drawNumbers(g: Graphics2D) {
-    def rowNumber(row: Int) = if (row < 10) " " + row + "." else row + "."
+    def rowNumber(row: Int) = if (row < 10) " " + row else row.toString
 
     for (row <- 1 to rankedMoves.size)
       drawText(rowNumber(row), row + 1, g)
@@ -40,8 +44,9 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
 
   private def drawMoves(g: Graphics2D) {
     val maxEquity = rankedMoves.map(_.equity).max
+
     for (i <- 0 until rankedMoves.size) {
-      drawText(helper.rowInfo(i == 0, rankedMoves(i), maxEquity), i+2, g)
+      drawText(helper.rowInfo(i == 0, rankedMoves(i), maxX, maxEquity), i+2, g)
     }
   }
 }

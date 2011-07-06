@@ -3,10 +3,9 @@ package nu.tengstrand.tetrisanalyzer.gui
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
-import nu.tengstrand.tetrisanalyzer.gui.TetrisAnalyzer.MainFrameSize
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
 
-class GameView(colorSettings: ColorSettings, mainFrameSize: MainFrameSize) extends DoubleBufferedView with GameEventReceiver {
+class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
   private val gameInfoView = new GameInfoView
   private val rankedMovesView = new RankedMovesView
@@ -22,7 +21,7 @@ class GameView(colorSettings: ColorSettings, mainFrameSize: MainFrameSize) exten
   def toggleSmallBoard() { positionView.toggleSmallBoard() }
   def toggleShowGameInfo() { showGameInfo = !showGameInfo }
   def toggleShowHelp() { showHelp = !showHelp }
-  def toggleShowRankedMoves() { showRankedMoves = !showRankedMoves }
+  def toggleShowRankedMoves() { showRankedMoves = !showRankedMoves; positionView.toggleShowNumbers() }
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -76,6 +75,6 @@ class GameView(colorSettings: ColorSettings, mainFrameSize: MainFrameSize) exten
 
   private def paintWhiteBackground(g: Graphics2D) {
     g.setColor(Color.WHITE)
-    g.fillRect(0, 0, mainFrameSize.width, mainFrameSize.height)
+    g.fillRect(0, 0, size.width, size.height)
   }
 }
