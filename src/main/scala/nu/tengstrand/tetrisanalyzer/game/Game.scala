@@ -109,6 +109,10 @@ class Game(timer: Timer, gameView: GameView) {
     computerPlayer.toggleMaxSpeed()
   }
 
+  def toggleSmallBoard() {
+    gameView.toggleSmallBoard()
+  }
+
   def toggleShowGameInfo() {
     gameView.toggleShowGameInfo()
   }

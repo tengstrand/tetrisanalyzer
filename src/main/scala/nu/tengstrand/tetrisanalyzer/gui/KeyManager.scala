@@ -37,13 +37,16 @@ class KeyManager(game: Game) {
             else
               game.increaseSeed() // e
           case 77 => // m
-              game.toggleMaxSpeed()
+            game.toggleMaxSpeed()
           case 112 => // <F1>
-              game.toggleShowGameInfo()
+            game.toggleSmallBoard()
           case 113 => // <F2>
-              game.toggleShowRankedMoves()
+            game.toggleShowGameInfo()
           case 114 => // <F3>
-              game.toggleShowHelp()
+            game.toggleShowRankedMoves()
+          case 115 => // <F4>
+            game.toggleShowHelp()
+
           case _ =>
             println("key=" + e.getKeyCode + " (" + KeyEvent.getKeyText(e.getKeyCode) + "), modifiers=" + e.getModifiers);
         }

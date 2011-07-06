@@ -1,19 +1,22 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import java.awt.{Color, Dimension, Graphics}
 import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
+import java.awt.{Graphics2D, Color, Dimension, Graphics}
 
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(250, 250, 250)
 
   private val paused = true
+  private var smallBoard = false
 
   private val Margin = 10
   private var rows = Seq.empty[Int]
   private var columns = Seq.empty[Int]
   private var position: ColoredPosition = null
   private var newPosition: ColoredPosition = null
+
+  def toggleSmallBoard() { smallBoard = !smallBoard }
 
   def isReadyToReceivePosition = position == newPosition || paused
 
@@ -36,7 +39,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
     }
   }
 
-  def paintGraphics(size: Dimension, g: Graphics) {
+  def paintGraphics(size: Dimension, g: Graphics2D) {
     g.setColor(backgroundColor)
     g.fillRect(0, 0, size.width, size.height)
 
@@ -65,15 +68,19 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   }
 
   private def calculateSquareSize(size: Dimension): Double = {
-    val width = size.width - 20.0
-    val height = size.height - 20.0
+    if (smallBoard)
+      6
+    else {
+      val width = size.width - 20.0
+      val height = size.height - 20.0
 
-    if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
-      0
+      if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
+        0
 
-    if (position.height / position.width.toDouble < 1.15)
-      (width * 0.6) / position.width
-    else
-      (height / position.height)
+      if (position.height / position.width.toDouble < 1.15)
+        (width * 0.6) / position.width
+      else
+        (height / position.height)
+    }
   }
 }
