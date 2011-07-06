@@ -51,9 +51,11 @@ class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEv
   }
 
   def updatePosition(position: Position, piece: Piece, settings: GameSettings) {
-    val positionWithStartPiece = Position(position)
-    positionWithStartPiece.setStartPieceIfFree(piece, settings)
-    gameEventReceiver.setPosition(positionWithStartPiece)
+    if (gameEventReceiver.isReadyToReceivePosition) {
+      val positionWithStartPiece = Position(position)
+      positionWithStartPiece.setStartPieceIfFree(piece, settings)
+      gameEventReceiver.setPosition(positionWithStartPiece)
+    }
   }
 
   def updateGameInfo() {
