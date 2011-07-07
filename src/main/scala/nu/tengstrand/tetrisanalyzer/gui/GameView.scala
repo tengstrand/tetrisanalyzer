@@ -4,6 +4,7 @@ import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
+import rankedmove.RankedMovesView
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
