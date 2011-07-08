@@ -2,7 +2,31 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 
-class RankedMoves(val moves: List[MoveEquity]) extends AlignRight {
+class RankedMoves(equityMoves: List[MoveEquity]) extends AlignRight {
+  val moves = calculateRankedMoves
+
+  private case class VX(rotation:Int, x:Int)
+
+  private def vxList = equityMoves.map(m => VX(m.pieceMove.move.rotation, m.pieceMove.move.x))
+
+  private def calculateRankedMoves = {
+    var rankedMoves = List.empty[RankedMove]
+    var row = 1
+    val hasDuplicates = hasDuplicatedVX
+
+    for (moveEquity <- equityMoves) {
+      val rankedMove = new RankedMove(row, moveEquity, maxX, maxEquity)
+
+      if (!hasDuplicates)
+        rankedMoves = rankedMove :: rankedMoves
+      else {
+        val isDuplicatedVX = vxList.count(_.equals(VX(moveEquity.pieceMove.move.rotation, moveEquity.pieceMove.move.x))) > 1
+        rankedMoves = rankedMove.withYColumn(maxY, isDuplicatedVX) :: rankedMoves
+      }
+      row += 1
+    }
+    rankedMoves.reverse
+  }
 
   def headerAsText = {
     var x = alignRight("x", maxX.toString.length()) + " "
@@ -11,14 +35,21 @@ class RankedMoves(val moves: List[MoveEquity]) extends AlignRight {
     "    v " + x + y + "Depth 0"
   }
 
-  def size = moves.size
+  def size = equityMoves.size
 
-  // TODL: Implement!
-  def hasDuplicatedVX = true
+  def hasDuplicatedVX = {
+    var hasDuplicates = false
 
-  def maxX = moves.map(_.pieceMove.move.x).max + 1
+    for (vx <- vxList)
+      if (vxList.count(_.equals(vx)) > 1)
+        hasDuplicates = true
 
-  def maxY = moves.map(_.pieceMove.move.y).max
+    hasDuplicates
+  }
 
-  def maxEquity = moves.map(_.equity).max
+  def maxX = equityMoves.map(_.pieceMove.move.x).max + 1
+
+  def maxY = equityMoves.map(_.pieceMove.move.y).max
+
+  def maxEquity = equityMoves.map(_.equity).max
 }

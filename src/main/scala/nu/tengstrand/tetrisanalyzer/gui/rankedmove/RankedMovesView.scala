@@ -39,18 +39,6 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   }
 
   private def drawMoves(g: Graphics2D) {
-    val maxX = rankedMoves.maxX
-    val maxY = rankedMoves.maxY
-    val maxEquity = rankedMoves.maxEquity
-    val hasDuplicatedVX = rankedMoves.hasDuplicatedVX
-
-    for (i <- 0 until rankedMoves.size) {
-      val isDuplicatedVX = i % 2 == 0
-      val rankedMove = new RankedMove(i == 0, rankedMoves.moves(i), maxX, maxEquity)
-      if (!hasDuplicatedVX)
-        drawText(rankedMove.asText, i+2, g)
-      else
-        drawText(rankedMove.withYColumn(maxY, isDuplicatedVX).asText, i+2, g)
-    }
+    rankedMoves.moves.foreach(rankedMove => drawText(rankedMove.asText, rankedMove.row + 1, g))
   }
 }

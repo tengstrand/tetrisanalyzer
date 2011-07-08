@@ -3,15 +3,17 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 import nu.tengstrand.tetrisanalyzer.move.{Move, MoveEquity}
 import java.util.Locale
 
-class RankedMove(firstRow: Boolean, moveEquity: MoveEquity, maxX: Int, maxEquity: Double) extends AlignRight {
+class RankedMove(val row: Int, val moveEquity: MoveEquity, maxX: Int, maxEquity: Double) extends AlignRight {
   private var showY = false
   private var maxY = 0
   private var isDuplicatedVX: Boolean = false
 
+  private val isFirstRow = row == 1
+
   def asText: String = {
     val move = moveEquity.pieceMove.move
     val equityWidth = maxEquity.toInt.toString.length + 5
-    val equityDiff = if (firstRow) " " else "+"
+    val equityDiff = if (isFirstRow) " " else "+"
     val equity = alignRight(equityDiff + withThreeDecimals(moveEquity.equity), equityWidth)
 
     if (showY)
@@ -39,4 +41,6 @@ class RankedMove(firstRow: Boolean, moveEquity: MoveEquity, maxX: Int, maxEquity
   def withThreeDecimals(equity: Double): String = {
     "%.3f".formatLocal(Locale.ENGLISH, equity)
   }
+
+  override def toString = asText
 }
