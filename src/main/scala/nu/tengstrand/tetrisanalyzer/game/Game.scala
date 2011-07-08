@@ -110,7 +110,7 @@ class Game(timer: Timer, gameView: GameView) {
   }
 
   def toggleSmallBoard() {
-    gameView.toggleSmallBoard()
+    gameView.toggleMiniatureBoard()
   }
 
   def toggleShowGameInfo() {

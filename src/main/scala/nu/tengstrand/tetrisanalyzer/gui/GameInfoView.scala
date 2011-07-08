@@ -33,6 +33,12 @@ class GameInfoView extends GameInfoReceiver {
   private val speedBarColor = new Color(150, 255, 150)
   private val speedBarColorMax = new Color(255, 150, 150)
 
+  var showView = true
+
+  def toggleShowView() { showView = !showView }
+
+  def width = if (showView) 235 else 0
+
   def setSeed(seed: Long) { this.seed = seed }
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
   def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
@@ -59,7 +65,12 @@ class GameInfoView extends GameInfoReceiver {
     this.clearedRowsTotal = totalClearedRows
   }
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintGameInfo(origoX: Int, g: Graphics2D) {
+    if (showView)
+      paintGraphics(origoX, g)
+  }
+
+  private def paintGraphics(origoX: Int, g: Graphics2D) {
     textDrawer.prepareDraw(origoX, g)
 
     textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
@@ -87,7 +98,7 @@ class GameInfoView extends GameInfoReceiver {
 
     textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 30, g)
 
-    textDrawer.drawText("[F1] Small board (toggle)", 32, g)
+    textDrawer.drawText("[F1] Miniature board (toggle)", 32, g)
     textDrawer.drawText("[F2] Show game info (toggle)", 33, g)
     textDrawer.drawText("[F3] Show moves (toggle)", 34, g)
     textDrawer.drawText("[F4] Help (toggle)", 35, g)

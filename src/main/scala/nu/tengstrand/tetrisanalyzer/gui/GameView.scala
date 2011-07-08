@@ -15,14 +15,10 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private var paused = false
   private var boardSize = new Dimension(0,0)
 
-  private var showGameInfo = true
-  private var showHelp = false
-  private var showRankedMoves = false
-
-  def toggleSmallBoard() { positionView.toggleSmallBoard() }
-  def toggleShowGameInfo() { showGameInfo = !showGameInfo }
-  def toggleShowHelp() { showHelp = !showHelp }
-  def toggleShowRankedMoves() { showRankedMoves = !showRankedMoves; positionView.toggleShowNumbers() }
+  def toggleMiniatureBoard() { positionView.toggleMiniatureBoard() }
+  def toggleShowGameInfo() { gameInfoView.toggleShowView() }
+  def toggleShowHelp() { helpView.toggleShowView() }
+  def toggleShowRankedMoves() { rankedMovesView.toggleShowView(); positionView.toggleShowNumbers() }
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -60,18 +56,13 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
     positionView.paintGraphics(size, g)
     origoX += boardSize.width
 
-    if (showGameInfo) {
-      gameInfoView.paintGraphics(origoX, g)
-      origoX += 240
-    }
+    gameInfoView.paintGameInfo(origoX, g)
+    origoX += gameInfoView.width
 
-    if (showRankedMoves) {
-      rankedMovesView.paintGraphics(origoX, g)
-      origoX += 130
-    }
-    if (showHelp) {
-      helpView.paintGraphics(origoX, graphics)
-    }
+    rankedMovesView.paintRankedMoves(origoX, g)
+    origoX += rankedMovesView.width
+
+    helpView.paintHelp(origoX, g)
   }
 
   private def paintWhiteBackground(g: Graphics2D) {

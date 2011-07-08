@@ -1,13 +1,20 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import java.awt.{Color, Graphics2D, Graphics}
+import java.awt.{Color, Graphics2D}
 
 class HelpView extends TextDrawer {
   private def version = 1.01
 
-  def paintGraphics(origoX: Int, graphics: Graphics) {
-    val g = graphics.asInstanceOf[Graphics2D];
+  private var showView = false
 
+  def toggleShowView() { showView = !showView }
+
+  def paintHelp(origoX: Int, g: Graphics2D) {
+    if (showView)
+      paintGraphics(origoX, g)
+  }
+
+  private def paintGraphics(origoX: Int, g: Graphics2D) {
     prepareDraw(origoX, g, 10, new Color(0, 120, 0))
 
     drawText("p = Pause (toggle)", 1, g)

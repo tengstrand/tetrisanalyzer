@@ -23,7 +23,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val NumberOfLeftWalls = 6
 
   def toggleShowNumbers() { showNumbers = !showNumbers }
-  def toggleSmallBoard() { smallBoard = !smallBoard }
+  def toggleMiniatureBoard() { smallBoard = !smallBoard }
   def isReadyToReceivePosition = position == newPosition || paused
 
   override def setPosition(coloredPosition: ColoredPosition) {

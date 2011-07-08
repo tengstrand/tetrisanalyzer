@@ -1,8 +1,7 @@
 
 - Show y values on position if the y column i viewed in ranked moves.
-- Let the views know their widths.
-- Show "y" if sliding is on and more than one row has the same "v x" (only show y for these duplicated rows).
 - Show "Paused, press P to continue" on top of the board.
+- [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".
 - Improve speed when sliding is on.
 - Stop the piece if paused.

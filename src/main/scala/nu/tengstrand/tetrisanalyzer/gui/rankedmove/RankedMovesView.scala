@@ -9,6 +9,18 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   private var rankedMoves: RankedMoves = null
   private var newRankedMoves: RankedMoves = null
 
+  private var showView = false
+
+  def toggleShowView() { showView = !showView }
+
+  def width = {
+    if (rankedMoves == 0 || !showView)
+      0
+    else {
+      rankedMoves.moves(0).asText.length() * 8 + 40
+    }
+  }
+
   def setRankedMoves(moves: List[MoveEquity]) {
     newRankedMoves = new RankedMoves(moves)
 
@@ -16,7 +28,12 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
       rankedMoves = newRankedMoves
   }
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintRankedMoves(origoX: Int, g: Graphics2D) {
+    if (showView)
+      paintGraphics(origoX, g)
+  }
+
+  private def paintGraphics(origoX: Int, g: Graphics2D) {
     if (rankedMoves != null) {
       prepareDraw(origoX, g, 7, Color.BLUE)
       drawHeader(g)
