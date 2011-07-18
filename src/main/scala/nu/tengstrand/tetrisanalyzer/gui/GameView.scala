@@ -39,7 +39,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     gameInfoView.setNumberOfGamesAndRowsInLastGame(games, rows, totalClearedRows, minRows, maxRows)
   }
-  def setRankedMoves(rankedMoves: List[MoveEquity]) { rankedMovesView.setRankedMoves(rankedMoves) }
+  def setRankedMoves(rankedMoves: List[MoveEquity], maxX: Int, maxY: Int) { rankedMovesView.setRankedMoves(rankedMoves, maxX, maxY) }
 
   def preparePaintGraphics: Dimension = {
     boardSize = positionView.preparePaintGraphics(size)
@@ -53,6 +53,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
 
     paintWhiteBackground(g)
 
+    positionView.setShowRowNumbers(rankedMovesView.showRowNumbers)
     positionView.paintGraphics(size, g)
     origoX += boardSize.width
 

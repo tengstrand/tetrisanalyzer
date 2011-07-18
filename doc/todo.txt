@@ -1,6 +1,5 @@
 
-- Show y values on position if the y column i viewed in ranked moves.
-- Show "Paused, press P to continue" on top of the board.
+- Fix problems with seed.
 - [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".
 - Improve speed when sliding is on.

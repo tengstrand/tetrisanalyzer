@@ -137,9 +137,9 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
       val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstFreeRowUnderStartPiece, maxEquity)
 
       if (shouldRankedMovesBeUpdated) {
-        gameEventReceiver.setRankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity)
+        val board = startPieceMove.board
+        gameEventReceiver.setRankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity, board.width, board.height)
       }
-
       evaluatedMoves.bestMove
     } else {
       None

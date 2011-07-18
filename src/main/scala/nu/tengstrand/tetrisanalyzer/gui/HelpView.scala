@@ -3,7 +3,7 @@ package nu.tengstrand.tetrisanalyzer.gui
 import java.awt.{Color, Graphics2D}
 
 class HelpView extends TextDrawer {
-  private def version = 1.01
+  private def version = "2.0"
 
   private var showView = false
 
@@ -32,7 +32,8 @@ class HelpView extends TextDrawer {
     drawText("m = Max speed (toggle)", 17, g)
 
 
-    drawText("Tetris Analyzer " + version, 33, g)
+    drawText("Tetris Analyzer " + version, 32, g)
+    drawText("AI: JTengstrand 1.1.01", 33, g)
     drawText("tetrisanalyzer@tengstrand.nu", 34, g)
     drawText("https://github.com/tengstrand/tetrisanalyzer", 35, g)
   }

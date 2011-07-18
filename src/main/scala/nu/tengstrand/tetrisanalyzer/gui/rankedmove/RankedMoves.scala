@@ -2,7 +2,7 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 
-class RankedMoves(equityMoves: List[MoveEquity]) extends AlignRight {
+class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends AlignRight {
   val moves = calculateRankedMoves
 
   private case class VX(rotation:Int, x:Int)
@@ -46,10 +46,6 @@ class RankedMoves(equityMoves: List[MoveEquity]) extends AlignRight {
 
     hasDuplicates
   }
-
-  def maxX = equityMoves.map(_.pieceMove.move.x).max + 1
-
-  def maxY = equityMoves.map(_.pieceMove.move.y).max
 
   def maxEquity = equityMoves.map(_.equity).max
 }

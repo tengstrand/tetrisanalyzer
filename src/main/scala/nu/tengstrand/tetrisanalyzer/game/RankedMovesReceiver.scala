@@ -3,5 +3,5 @@ package nu.tengstrand.tetrisanalyzer.game
 import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 
 trait RankedMovesReceiver {
-  def setRankedMoves(rankedMoves: List[MoveEquity])
+  def setRankedMoves(rankedMoves: List[MoveEquity], maxX: Int, maxY: Int)
 }

@@ -13,16 +13,18 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
 
   def toggleShowView() { showView = !showView }
 
+  def showRowNumbers = rankedMoves != null && rankedMoves.hasDuplicatedVX
+
   def width = {
-    if (rankedMoves == 0 || !showView)
+    if (rankedMoves == null || !showView)
       0
     else {
       rankedMoves.moves(0).asText.length() * 8 + 40
     }
   }
 
-  def setRankedMoves(moves: List[MoveEquity]) {
-    newRankedMoves = new RankedMoves(moves)
+  def setRankedMoves(moves: List[MoveEquity], maxX: Int, maxY: Int) {
+    newRankedMoves = new RankedMoves(moves, maxX, maxY)
 
     if (rankedMoves == null)
       rankedMoves = newRankedMoves

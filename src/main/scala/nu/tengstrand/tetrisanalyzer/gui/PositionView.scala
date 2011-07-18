@@ -1,14 +1,15 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt._
+import nu.tengstrand.tetrisanalyzer.game.{Wall, ColoredPosition, PlayerEventReceiver}
 
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(250, 250, 250)
 
   private val paused = true
   private var showNumbers = false
+  private var showRowNumbers = false
   private var smallBoard = false
 
   private val Margin = 10
@@ -17,11 +18,11 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private var position: ColoredPosition = null
   private var newPosition: ColoredPosition = null
 
+  private var squareSize = 0.0
   private val fontChooser = new FontChooser
 
-  private val NumberOfWalls = 8
-  private val NumberOfLeftWalls = 6
 
+  def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
   def toggleShowNumbers() { showNumbers = !showNumbers }
   def toggleMiniatureBoard() { smallBoard = !smallBoard }
   def isReadyToReceivePosition = position == newPosition || paused
@@ -35,7 +36,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
 
   def preparePaintGraphics(size: Dimension): Dimension = {
     if (position != null) {
-      val squareSize = calculateSquareSize(size)
+      squareSize = calculateSquareSize(size)
       rows = (0 to position.height).map(y => Margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => Margin + (x * squareSize).intValue)
 
@@ -61,10 +62,30 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
       g.drawLine(columns(0), rows(position.height)-1, columns(position.width)-1, rows(position.height)-1)
       g.drawLine(columns(6), rows(0), columns(6), rows(position.height-2)-1)
 
-      if (showNumbers && !smallBoard)
+      if (squareSize > 6 && showNumbers) {
         paintColumnNumbers(g)
+
+        if (showRowNumbers)
+          paintRowNumbers(g)
+      }
     }
     position = newPosition
+  }
+
+  private def paintRowNumbers(g: Graphics2D) {
+    g.setColor(Color.BLACK)
+
+    val squareWidth = (columns(Wall.Left) - columns(Wall.Left - 1))
+
+    fontChooser.setFont(squareWidth, g)
+
+    for (number <- 1 to position.height - 2) {
+      val row = number - 1
+      val squareHeight = rows(row + 1) - rows(row)
+      val x = columns(Wall.Left - 1) + squareWidth / 2  + (if (number < 10) -1 else -4)
+      val y = rows(row) + (squareHeight-1) / 2 + 5
+      g.drawString(number.toString, x, y)
+    }
   }
 
   private def paintColumnNumbers(g: Graphics2D) {
@@ -74,10 +95,10 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
 
     fontChooser.setFont(squareHeight, g)
 
-    val y = rows(position.height-2) + squareHeight / 2 + 5
+    val y = rows(position.height-2) + (squareHeight-1) / 2 + 5
 
-    for (number <- 1 to position.width - NumberOfWalls) {
-      val column = number + NumberOfLeftWalls - 1
+    for (number <- 1 to position.width - Wall.Left - Wall.Right) {
+      val column = number + Wall.Left - 1
       val squareWidth = columns(column + 1) - columns(column)
       val x = columns(column) + squareWidth / 2 + (if (number < 10) -2 else -5)
       g.drawString(number.toString, x, y)
