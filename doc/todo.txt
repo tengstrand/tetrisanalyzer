@@ -1,5 +1,4 @@
 
-- Fix problems with seed.
 - [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".
 - Improve speed when sliding is on.

@@ -30,8 +30,8 @@ class Game(timer: Timer, gameView: GameView) {
 
     val board = Board(boardWidth, boardHeight)
     val position = Position(boardWidth, boardHeight)
-    val settings = new SpecifiedGameSettings(slidingEnabled, seed)
-    val pieceGenerator = new DefaultPieceGenerator
+    val settings = new SpecifiedGameSettings(slidingEnabled)
+    val pieceGenerator = new DefaultPieceGenerator(seed)
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
