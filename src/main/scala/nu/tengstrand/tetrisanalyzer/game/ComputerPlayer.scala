@@ -24,7 +24,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private var paused = Game.PausedOnStartup
   private var doStep = false
   private var quit = false
-  private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), settings.pieceGeneratorSeed, gameEventReceiver)
+  private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), gameEventReceiver)
   private val pieceMoveAnimator = new PieceMoveAnimator(speed, gameEventReceiver)
 
   def setPaused(paused: Boolean) {
@@ -48,6 +48,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   }
 
   private def updateSpeed() {
+    gameStatistics.updateGameInfo()
     gameEventReceiver.setSpeed(pieceMoveAnimator.getSpeedIndex, pieceMoveAnimator.isMaxSpeed)
     doStep = pieceMoveAnimator.continueDoStep(paused)
   }

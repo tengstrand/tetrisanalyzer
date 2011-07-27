@@ -67,12 +67,14 @@ class Game(timer: Timer, gameView: GameView) {
 
   def increaseSeed() {
     seed += 1
+    gameView.setSeed(seed)
     startNewGame()
   }
 
   def decreaseSeed() {
     if (seed > 0) {
       seed -= 1
+      gameView.setSeed(seed)
       startNewGame()
     }
   }

@@ -19,16 +19,12 @@ class KeyManager(game: Game) {
           case 37 =>
             if (e.getModifiers == 2)  // <CTRL> + Left
               game.decreaseBoardWidth()
-            else
-              game.decreaseSpeed() // Left
           case 38 =>
             if (e.getModifiers == 2)  // <CTRL> + Up
               game.decreaseBoardHeight()
           case 39 =>
             if (e.getModifiers == 2)  // <CTRL> + Right
               game.increaseBoardWidth()
-            else
-              game.increaseSpeed() // Right
           case 76 =>  // L = Toggle sliding
             game.toggleSliding()
           case 69 =>
@@ -36,8 +32,13 @@ class KeyManager(game: Game) {
               game.decreaseSeed() // E
             else
               game.increaseSeed() // e
-          case 77 => // m
-            game.toggleMaxSpeed()
+          case 83 => // s
+            if (e.getModifiers == 0)
+              game.increaseSpeed() // S
+            else if (e.getModifiers == 1)
+              game.decreaseSpeed() // s
+            else if (e.getModifiers == 2) // <CTRL> + s
+              game.toggleMaxSpeed()
           case 112 => // <F1>
             game.toggleSmallBoard()
           case 113 => // <F2>

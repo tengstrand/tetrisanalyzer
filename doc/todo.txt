@@ -1,10 +1,10 @@
 
+- [Left] and {Right] will shift focus between the board and ranked moves.
 - [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".
-- Improve speed when sliding is on.
-- Stop the piece if paused.
+- Optimize speed when sliding is on.
 - Continue with the same position when sliding on/off is changed.
-- Continue with (almost) the same position when ste board size is changed.
+- Continue with (almost) the same position when the board size is changed.
 - Toggle "focus" between board and ranked moves, show an arrow next to selected ranked move if in focus +
   possible to changing selected move with <up> and <down> and animate.
 
@@ -15,7 +15,7 @@
 - Add battle mode, computer against computer or computer against human.
 
 - Show dots/position.
-
+- Add support for calculating average equity diff between different search depths (normally depth 0 and 1).
 
 
 name = JTengstrand

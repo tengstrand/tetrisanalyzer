@@ -28,8 +28,8 @@ class HelpView extends TextDrawer {
     drawText("e / E = Change random seed + restart game", 13, g)
     drawText("l = Toggle sliding + restart game",14, g)
 
-    drawText("left/right = Change animation speed", 16, g)
-    drawText("m = Max speed (toggle)", 17, g)
+    drawText("s / S = Change animation speed", 16, g)
+    drawText("[Ctrl] + s = Max speed (toggle)", 17, g)
 
 
     drawText("Tetris Analyzer " + version, 32, g)

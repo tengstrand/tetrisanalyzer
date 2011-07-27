@@ -4,7 +4,7 @@ import java.awt.Dimension
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.settings.GameSettings
 
-class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEventReceiver) {
+class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver) {
   private var moves = 0L
   private var movesTotal = 0L
   private var clearedRows = 0L
@@ -44,7 +44,6 @@ class GameStatistics(boardSize: Dimension, seed: Long, gameEventReceiver: GameEv
   }
 
   def updateAll() {
-    gameEventReceiver.setSeed(seed)
     gameEventReceiver.setBoardSize(boardSize.width, boardSize.height)
     updateGameInfo()
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
