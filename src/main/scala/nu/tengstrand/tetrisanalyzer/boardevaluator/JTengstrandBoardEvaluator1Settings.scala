@@ -8,16 +8,12 @@ trait JTengstrandBoardEvaluator1Settings {
   def areaHeightFactorEqualWallHeight: List[Double]
 
   def calculateHeightFactor(boardHeight: Int): Array[Double] = {
-    val head = heightFactor
+    val heights = heightFactor
 
-    if (boardHeight < head.length)
-      head.take(boardHeight + 1).toArray
-    else {
-      val lastValue = head.takeRight(1)(0)
-      val secondLastValue = head.takeRight(2)(0)
-      val factor = lastValue / secondLastValue
-      (head ::: List.tabulate(boardHeight - head.length + 1) (((n) => powSeries(lastValue, factor, n)))).toArray
-    }
+    if (boardHeight < heights.length)
+      heights.take(boardHeight + 1).toArray
+    else
+      (List.fill(boardHeight - heights.length + 1) { heights.head } ::: heights).toArray
   }
 
   def calculateBlocksPerRowHollowFactor(boardWidth: Int): Array[Double] = {
