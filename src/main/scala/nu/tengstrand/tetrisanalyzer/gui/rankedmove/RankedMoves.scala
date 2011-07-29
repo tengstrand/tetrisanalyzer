@@ -5,6 +5,8 @@ import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends AlignRight {
   val moves = calculateRankedMoves
 
+  var selectedRow = 0
+
   private case class VX(rotation:Int, x:Int)
 
   private def vxList = equityMoves.map(m => VX(m.pieceMove.move.rotation, m.pieceMove.move.x))
@@ -26,6 +28,18 @@ class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends A
       row += 1
     }
     rankedMoves.reverse
+  }
+
+  def selectedMove = moves(selectedRow)
+
+  def selectPreviousMove() {
+    if (selectedRow > 0)
+      selectedRow -= 1
+  }
+
+  def selectNextMove() {
+    if (selectedRow < moves.size - 1)
+      selectedRow += 1
   }
 
   def headerAsText = {

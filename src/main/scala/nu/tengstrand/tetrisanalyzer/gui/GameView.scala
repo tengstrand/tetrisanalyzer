@@ -2,9 +2,8 @@ package nu.tengstrand.tetrisanalyzer.gui
 
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
-import nu.tengstrand.tetrisanalyzer.move.MoveEquity
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
-import rankedmove.RankedMovesView
+import rankedmove.{RankedMoves, RankedMovesView}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
@@ -15,10 +14,14 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private var paused = false
   private var boardSize = new Dimension(0,0)
 
+  def selectNextRankedMove() { rankedMovesView.selectNextRankedMove() }
+  def selectPreviousRankedMove() { rankedMovesView.selectPreviousRankedMove() }
+
   def toggleMiniatureBoard() { positionView.toggleMiniatureBoard() }
   def toggleShowGameInfo() { gameInfoView.toggleShowView() }
   def toggleShowHelp() { helpView.toggleShowView() }
-  def toggleShowRankedMoves() { rankedMovesView.toggleShowView(); positionView.toggleShowNumbers() }
+  def showRankedMoves(show: Boolean) { rankedMovesView.showRankedMoves(show); positionView.showNumbers(show) }
+  def isRankedMovesVisible = rankedMovesView.isVisible
 
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
@@ -35,11 +38,10 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def setNumberOfClearedRows(rows: Long) { gameInfoView.setNumberOfClearedRows(rows)}
   def setTotalNumberOfClearedRows(rows: Long) { gameInfoView.setTotalNumberOfClearedRows(rows)}
   def setTimePassed(seconds: Double) { gameInfoView.setTimePassed(seconds) }
-  def updateGui() { gameInfoView.updateGui() }
   def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
     gameInfoView.setNumberOfGamesAndRowsInLastGame(games, rows, totalClearedRows, minRows, maxRows)
   }
-  def setRankedMoves(rankedMoves: List[MoveEquity], maxX: Int, maxY: Int) { rankedMovesView.setRankedMoves(rankedMoves, maxX, maxY) }
+  def setRankedMoves(rankedMoves: RankedMoves) { rankedMovesView.setRankedMoves(rankedMoves) }
 
   def preparePaintGraphics: Dimension = {
     boardSize = positionView.preparePaintGraphics(size)

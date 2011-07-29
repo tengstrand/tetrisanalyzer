@@ -23,7 +23,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
 
 
   def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
-  def toggleShowNumbers() { showNumbers = !showNumbers }
+  def showNumbers(show: Boolean) { showNumbers = show }
   def toggleMiniatureBoard() { smallBoard = !smallBoard }
   def isReadyToReceivePosition = position == newPosition || paused
 

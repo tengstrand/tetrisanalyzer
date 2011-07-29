@@ -15,21 +15,33 @@ class HelpView extends TextDrawer {
   }
 
   private def paintGraphics(origoX: Int, g: Graphics2D) {
-    prepareDraw(origoX, g, 10, new Color(0, 120, 0))
+    prepareDrawText(origoX, g, 10, new Color(0, 120, 0))
 
     drawText("p = Pause (toggle)", 1, g)
 
-    drawText("down = Move next piece (if paused) or", 3, g)
-    drawText("       increase speed if not paused", 4, g)
+    drawText("right = Show ranked moves", 3, g)
 
-    drawText("[Ctrl] + left/right/up/down = Change board size", 6, g)
-    drawText("                              + restart game", 7, g)
+    drawText("left = Hide ranked moves", 5, g)
 
-    drawText("e / E = Change random seed + restart game", 13, g)
-    drawText("l = Toggle sliding + restart game",14, g)
+    drawText("up = Select previous ranked move", 7, g)
 
-    drawText("s / S = Change animation speed", 16, g)
-    drawText("[Ctrl] + s = Max speed (toggle)", 17, g)
+    drawText("down = If ranked moves is hidden:", 9, g)
+    drawText("         Move next piece (if paused) or", 10, g)
+    drawText("         increase speed if not paused", 11, g)
+    drawText("       If ranked moves is visible:", 12, g)
+    drawText("         Select next ranked move", 13, g)
+
+    drawText("space = Move next piece (if paused)", 15, g)
+
+
+    drawText("[Ctrl] + left/right/up/down = Change board size", 17, g)
+    drawText("                              + restart game", 18, g)
+
+    drawText("e / E = Change random seed + restart game", 20, g)
+    drawText("l = Toggle sliding + restart game",21, g)
+
+    drawText("s / S = Change animation speed", 23, g)
+    drawText("[Ctrl] + s = Max speed (toggle)", 24, g)
 
 
     drawText("Tetris Analyzer " + version, 32, g)

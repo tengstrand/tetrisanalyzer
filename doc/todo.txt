@@ -1,4 +1,5 @@
 
+- If ranked moves and the help is viewed, also describe the ranked moves.
 - [Left] and {Right] will shift focus between the board and ranked moves.
 - [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".

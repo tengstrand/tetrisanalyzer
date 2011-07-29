@@ -13,7 +13,8 @@ object DefaultColorSettings {
     new Color(71, 184, 0),    // 6 = T, Green
     new Color(0, 71, 222),    // 7 = O, Blue
     new Color(100, 100, 130), // 8 = Any Piece
-    new Color(200, 200, 200)  // 9 = Wall
+    new Color(200, 200, 200), // 9 = Wall
+    new Color(235, 235, 235)  // 10 = Ranked piece move
   )
 
   private val LineColors = Array.tabulate(Colors.size) {

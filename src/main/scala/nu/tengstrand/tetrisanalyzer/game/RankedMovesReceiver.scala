@@ -1,7 +1,8 @@
 package nu.tengstrand.tetrisanalyzer.game
 
-import nu.tengstrand.tetrisanalyzer.move.MoveEquity
+import nu.tengstrand.tetrisanalyzer.gui.rankedmove.RankedMoves
 
 trait RankedMovesReceiver {
-  def setRankedMoves(rankedMoves: List[MoveEquity], maxX: Int, maxY: Int)
+  def setRankedMoves(rankedMoves: RankedMoves)
+  def selectNextRankedMove()
 }

@@ -41,9 +41,7 @@ class Game(timer: Timer, gameView: GameView) {
     computerPlayer.setPaused(paused)
   }
 
-  def performMove() {
-    computerPlayer.performStep()
-  }
+  def performMove() { computerPlayer.performStep() }
 
   def togglePause() {
     paused = !paused
@@ -52,18 +50,18 @@ class Game(timer: Timer, gameView: GameView) {
     gameView.setPaused(paused)
   }
 
+  def selectNextRankedMove() { gameView.selectNextRankedMove() }
+
+  def selectPreviousRankedMove() { gameView.selectPreviousRankedMove() }
+
   def toggleSliding() {
     slidingEnabled = !slidingEnabled
     startNewGame()
   }
 
-  def increaseSpeed() {
-    computerPlayer.increaseSpeed()
-  }
+  def increaseSpeed() { computerPlayer.increaseSpeed() }
 
-  def decreaseSpeed() {
-    computerPlayer.decreaseSpeed()
-  }
+  def decreaseSpeed() { computerPlayer.decreaseSpeed() }
 
   def increaseSeed() {
     seed += 1
@@ -107,23 +105,16 @@ class Game(timer: Timer, gameView: GameView) {
     }
   }
 
-  def toggleMaxSpeed() {
-    computerPlayer.toggleMaxSpeed()
-  }
+  def toggleMaxSpeed() { computerPlayer.toggleMaxSpeed() }
 
-  def toggleSmallBoard() {
-    gameView.toggleMiniatureBoard()
-  }
+  def toggleSmallBoard() { gameView.toggleMiniatureBoard() }
 
-  def toggleShowGameInfo() {
-    gameView.toggleShowGameInfo()
-  }
+  def toggleShowGameInfo() { gameView.toggleShowGameInfo() }
 
-  def toggleShowHelp() {
-    gameView.toggleShowHelp()
-  }
+  def toggleShowHelp() { gameView.toggleShowHelp() }
 
-  def toggleShowRankedMoves() {
-    gameView.toggleShowRankedMoves()
+  def showRankedMoves(show: Boolean) {
+    computerPlayer.setShowRankedMoves(show)
+    gameView.showRankedMoves(show)
   }
 }

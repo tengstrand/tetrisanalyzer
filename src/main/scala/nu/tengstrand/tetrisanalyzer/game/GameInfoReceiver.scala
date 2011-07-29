@@ -12,5 +12,4 @@ trait GameInfoReceiver {
   def setTotalNumberOfClearedRows(rows: Long)
   def setTimePassed(seconds: Double)
   def setSpeed(speedIndex: Int, isMaxSpeed: Boolean)
-  def updateGui()
 }

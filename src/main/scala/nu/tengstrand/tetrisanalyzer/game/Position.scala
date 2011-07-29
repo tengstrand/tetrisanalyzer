@@ -5,12 +5,17 @@ import nu.tengstrand.tetrisanalyzer.piece.{Point, Piece, PieceEmpty}
 import nu.tengstrand.tetrisanalyzer.move.Move
 
 object Wall {
-  val Number: Byte = 9.toByte
+  val Number = 9.toByte
   val Character = '#'
 
   val Left = 6
   val Right = 2
   val Bottom = 2
+}
+
+object RankedPiece {
+  val Number = 10.toByte
+  val Character = '*'
 }
 
 object Dot {
@@ -24,7 +29,8 @@ object Dot {
     Piece(6).character,
     Piece(7).character,
     Piece(8).character,
-    Wall.Character
+    Wall.Character,
+    RankedPiece.Character
   )
 }
 
@@ -56,9 +62,13 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
 
   def setStartPieceIfFree(piece: Piece, settings: GameSettings) {
     val startMove = settings.pieceStartMove(boardWidth, piece)
-    val isFree = piece.shape(startMove.rotation).dots.foldLeft(0) {(sum,dot) => sum + emptyOrOccupied (dot.x, dot.y)} == 0
+    val isFree = piece.shape(startMove.rotation).dots.foldLeft(0) {(sum,dot) => sum + emptyOrOccupied(dot.x, dot.y)} == 0
     if (isFree)
       setPiece(piece, startMove)
+  }
+
+  def setRankedPiece(piece: Piece, move: Move) {
+    piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, RankedPiece.Number))
   }
 
   def setPiece(piece: Piece, move: Move) {

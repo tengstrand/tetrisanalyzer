@@ -28,6 +28,6 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       contents += gameView
     }
 
-    new KeyManager(game)
+    new KeyManager(game, gameView)
   }
 }

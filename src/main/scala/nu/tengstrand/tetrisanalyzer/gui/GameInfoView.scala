@@ -27,7 +27,6 @@ class GameInfoView extends GameInfoReceiver {
 
   private val numberSeparator = new NumberSeparator
 
-  // TODO: Refactor out
   private var paused = true
 
   private val speedBarColor = new Color(150, 255, 150)
@@ -49,11 +48,10 @@ class GameInfoView extends GameInfoReceiver {
   def setTimePassed(seconds: Double) { secondsPassed = seconds }
   def setPaused(paused: Boolean) { this.paused = paused }
 
-  def updateGui() { /* repaint() */ }
-
   def setSpeed(speedIndex: Int, isMaxSpeed: Boolean) {
     this.speedIndex = speedIndex
     this.isMaxSpeed = isMaxSpeed
+
     // Used to calculate the speed
     speedInfo = SpeedInfo(secondsPassed, piecesTotal, clearedRowsTotal)
   }
@@ -71,7 +69,7 @@ class GameInfoView extends GameInfoReceiver {
   }
 
   private def paintGraphics(origoX: Int, g: Graphics2D) {
-    textDrawer.prepareDraw(origoX, g)
+    textDrawer.prepareDrawText(origoX, g)
 
     textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
     textDrawer.drawInfo("Pieces:", withSpaces(pieces), 2, g)
@@ -96,12 +94,11 @@ class GameInfoView extends GameInfoReceiver {
 
 
 
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 30, g)
+    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 31, g)
 
-    textDrawer.drawText("[F1] Miniature board (toggle)", 32, g)
-    textDrawer.drawText("[F2] Show game info (toggle)", 33, g)
-    textDrawer.drawText("[F3] Show moves (toggle)", 34, g)
-    textDrawer.drawText("[F4] Help (toggle)", 35, g)
+    textDrawer.drawText("[F1] Miniature board (toggle)", 33, g)
+    textDrawer.drawText("[F2] Show game info (toggle)", 34, g)
+    textDrawer.drawText("[F3] Help (toggle)", 35, g)
 
     drawSpeed(16, origoX, g)
   }

@@ -9,6 +9,7 @@ import actors.Actor
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 import java.awt.Dimension
+import nu.tengstrand.tetrisanalyzer.gui.rankedmove.RankedMoves
 
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
@@ -26,6 +27,11 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private var quit = false
   private val gameStatistics = new GameStatistics(new Dimension(board.width, board.height), gameEventReceiver)
   private val pieceMoveAnimator = new PieceMoveAnimator(speed, gameEventReceiver)
+
+  private var showRankedMoves: Boolean = false
+  private var rankedMoves: RankedMoves = null
+
+  def setShowRankedMoves(show: Boolean) { showRankedMoves = show }
 
   def setPaused(paused: Boolean) {
     doStep = pieceMoveAnimator.continueDoStep(paused)
@@ -90,19 +96,31 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
   private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
 
-  private def waitIfPaused(startPiece: Piece) {
-    if (paused && !quit) {
-      gameStatistics.updatePosition(position, startPiece, settings)
-      gameStatistics.updateGameInfo()
-    }
+  private def selectedRankedMove = {
+    if (rankedMoves == null || !showRankedMoves)
+      null
+    else
+      rankedMoves.selectedMove.moveEquity.pieceMove.move
+  }
 
-    while (paused && !doStep && !quit)
+  private def waitIfPaused(startPiece: Piece) {
+    if (paused && !quit)
+      updatePosition(startPiece)
+
+    while (paused && !doStep && !quit) {
+      updatePosition(startPiece)
       Thread.sleep(20)
+    }
+  }
+
+  private def updatePosition(startPiece: Piece) {
+    gameStatistics.setPosition(position, startPiece, selectedRankedMove, settings)
+    gameStatistics.updateGameInfo()
   }
 
   private def shouldGameInfoBeUpdated = doStep || gameStatistics.hasPassedHundredPieces
 
-  private def shouldRankedMovesBeUpdated = paused || shouldGameInfoBeUpdated
+  private def shouldRankedMovesBeUpdated = showRankedMoves || (paused || shouldGameInfoBeUpdated)
 
   private def makeMove(startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
     val clearedRows = pieceMove.setPiece()
@@ -110,7 +128,7 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
     // Update GUI every 100 piece and always if in step mode
     if (shouldGameInfoBeUpdated) {
       if (!doStep)
-        gameStatistics.updatePosition(position, pieceMove.piece, settings)
+        gameStatistics.setPosition(position, pieceMove.piece, selectedRankedMove, settings)
       gameStatistics.updateGameInfo()
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedRows)
@@ -139,7 +157,8 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
       if (shouldRankedMovesBeUpdated) {
         val board = startPieceMove.board
-        gameEventReceiver.setRankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity, board.width, board.height)
+        rankedMoves = new RankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity, board.width, board.height)
+        gameEventReceiver.setRankedMoves(rankedMoves)
       }
       evaluatedMoves.bestMove
     } else {
