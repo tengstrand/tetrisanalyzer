@@ -19,6 +19,7 @@ class Game(timer: Timer, gameView: GameView) {
 
   private var seed = 2L
   private var slidingEnabled = false
+  private var showMoves = false
   private val speed = new Speed()
   private var paused = Game.PausedOnStartup
 
@@ -36,12 +37,15 @@ class Game(timer: Timer, gameView: GameView) {
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
     computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
+    computerPlayer.setShowRankedMoves(showMoves)
     timer.reset()
     computerPlayer.start()
     computerPlayer.setPaused(paused)
   }
 
   def performMove() { computerPlayer.performStep() }
+
+  def performRankedMove() { computerPlayer.performStep() }
 
   def togglePause() {
     paused = !paused
@@ -114,7 +118,8 @@ class Game(timer: Timer, gameView: GameView) {
   def toggleShowHelp() { gameView.toggleShowHelp() }
 
   def showRankedMoves(show: Boolean) {
-    computerPlayer.setShowRankedMoves(show)
+    showMoves = show
+    computerPlayer.setShowRankedMoves(showMoves)
     gameView.showRankedMoves(show)
   }
 }

@@ -31,7 +31,10 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   private var showRankedMoves: Boolean = false
   private var rankedMoves: RankedMoves = null
 
-  def setShowRankedMoves(show: Boolean) { showRankedMoves = show }
+  def setShowRankedMoves(show: Boolean) {
+    showRankedMoves = show
+    updateSpeed()
+  }
 
   def setPaused(paused: Boolean) {
     doStep = pieceMoveAnimator.continueDoStep(paused)
@@ -80,11 +83,12 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
       while (!quit && bestMove.isDefined) {
         waitIfPaused(startPieceMove.piece)
+        var selectedMove = selectedPieceMove(bestMove)
         if (doStep)
-          pieceMoveAnimator.animateMove(position, startPieceMove, bestMove.get)
+          pieceMoveAnimator.animateMove(position, startPieceMove, selectedMove)
 
         startPieceMove = nextPiece
-        bestMove = makeMove(startPieceMove, bestMove.get)
+        bestMove = makeMove(startPieceMove, selectedMove)
         gameStatistics.addMove()
       }
       if (!quit) {
@@ -95,6 +99,13 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
   }
 
   private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
+
+  private def selectedPieceMove(bestPieceMove: Option[PieceMove]) = {
+    if (rankedMoves == null || !showRankedMoves)
+      bestPieceMove.get
+    else
+      rankedMoves.selectedMove.moveEquity.pieceMove
+  }
 
   private def selectedRankedMove = {
     if (rankedMoves == null || !showRankedMoves)

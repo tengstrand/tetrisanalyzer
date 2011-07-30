@@ -34,7 +34,10 @@ class KeyManager(game: Game, gameView: GameView) {
                 game.selectPreviousRankedMove()
           case 39 =>
             if (e.getModifiers == 0) // Right
-              game.showRankedMoves(true)
+              if (gameView.isRankedMovesVisible)
+                game.performMove()
+              else
+                game.showRankedMoves(true)
             else if (e.getModifiers == 2)  // <CTRL> + Right
               game.increaseBoardWidth()
           case 76 =>  // L = Toggle sliding

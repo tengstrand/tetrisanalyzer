@@ -35,11 +35,15 @@ class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends A
   def selectPreviousMove() {
     if (selectedRow > 0)
       selectedRow -= 1
+    else
+      selectedRow = moves.size - 1
   }
 
   def selectNextMove() {
     if (selectedRow < moves.size - 1)
       selectedRow += 1
+    else
+      selectedRow = 0
   }
 
   def headerAsText = {
