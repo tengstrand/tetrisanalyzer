@@ -1,5 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
+import help.HelpView
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
@@ -20,7 +21,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def toggleMiniatureBoard() { positionView.toggleMiniatureBoard() }
   def toggleShowGameInfo() { gameInfoView.toggleShowView() }
   def toggleShowHelp() { helpView.toggleShowView() }
-  def showRankedMoves(show: Boolean) { rankedMovesView.showRankedMoves(show); positionView.showNumbers(show) }
+  def showRankedMoves(show: Boolean) { rankedMovesView.showRankedMoves(show); positionView.showNumbers(show); helpView.showRankedMoves(show) }
   def isRankedMovesVisible = rankedMovesView.isVisible
 
   def isPaused: Boolean = paused
