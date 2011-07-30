@@ -10,8 +10,6 @@ class KeyManager(game: Game, gameView: GameView) {
     def postProcessKeyEvent(e: KeyEvent): Boolean = {
       if (e.getID == KeyEvent.KEY_PRESSED) {
         e.getKeyCode match {
-          case 32 =>
-            game.performMove()
           case 40 =>
             if (e.getModifiers == 2) // <CTRL> + Down
               game.increaseBoardHeight()

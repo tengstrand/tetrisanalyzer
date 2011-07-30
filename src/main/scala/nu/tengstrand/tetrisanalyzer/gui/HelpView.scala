@@ -31,7 +31,6 @@ class HelpView extends TextDrawer {
     drawText("       If ranked moves is visible:", 12, g)
     drawText("         Select next ranked move", 13, g)
 
-    drawText("space = Move next piece (if paused)", 15, g)
 
 
     drawText("[Ctrl] + left/right/up/down = Change board size", 17, g)
