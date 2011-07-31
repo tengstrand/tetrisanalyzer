@@ -1,14 +1,14 @@
 
-- Continue with the same position when sliding on/off is changed.
+- Remove y-values for non slided moves if paused.
 - Toggle "change board size mode". Only operate on the original Position to increase speed.
 
 - [Esc] = New game, reset to defaults.
-- Smaller fonts in game info, add "Next piece", "AI".
 - Optimize speed when sliding is on.
 
 - Adjust x+1 for "standing" piece I.
-- Add support for [N]ext (default = no).
+- Add support for Next piece (default = no).
 - Add support for Search depth (default = 0), key <1>..<8>.
+- Show AI.
 
 - Add battle mode, computer against computer or computer against human.
 

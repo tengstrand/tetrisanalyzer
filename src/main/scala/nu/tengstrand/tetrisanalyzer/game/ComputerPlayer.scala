@@ -14,14 +14,14 @@ import nu.tengstrand.tetrisanalyzer.gui.rankedmove.RankedMoves
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
-class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
-                     settings: GameSettings, gameEventReceiver: GameEventReceiver) extends Actor {
+class ComputerPlayer(speed: Speed, board: Board, position: Position, boardEvaluator: BoardEvaluator, pieceGenerator: PieceGenerator,
+                     settings: GameSettings, rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
   private val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private val startBoard = board.copy
-  private var position: Position = null
+  private var startPosition = Position(position)
   private var paused = Game.PausedOnStartup
   private var doStep = false
   private var quit = false
@@ -77,19 +77,21 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
     while (!quit) {
       board.restore(startBoard)
-      position = Position(startPosition)
-      var startPieceMove = nextPiece
+      position.copyFrom(startPosition)
+      var startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.piece)
       var bestMove = evaluateBestMove(startPieceMove)
 
       while (!quit && bestMove.isDefined) {
         waitIfPaused(startPieceMove.piece)
-        var selectedMove = selectedPieceMove(bestMove)
-        if (doStep)
-          pieceMoveAnimator.animateMove(position, startPieceMove, selectedMove)
+        if (!quit) {
+          var selectedMove = selectedPieceMove(bestMove)
+          if (doStep)
+            pieceMoveAnimator.animateMove(position, startPieceMove, selectedMove)
 
-        startPieceMove = nextPiece
-        bestMove = makeMove(startPieceMove, selectedMove)
-        gameStatistics.addMove()
+          startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
+          bestMove = makeMove(startPieceMove, selectedMove)
+          gameStatistics.addMove()
+        }
       }
       if (!quit) {
         gameStatistics.newGame()
@@ -98,21 +100,21 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
     exit()
   }
 
-  private def nextPiece = allValidPieceMovesForEmptyBoard.startMoveForPiece(pieceGenerator.nextPiece)
-
   private def selectedPieceMove(bestPieceMove: Option[PieceMove]) = {
-    if (rankedMoves == null || !showRankedMoves)
+    if (hasRankedMoves)
       bestPieceMove.get
     else
-      rankedMoves.selectedMove.moveEquity.pieceMove
+      rankedMoves.selectedMove.get.moveEquity.pieceMove
   }
 
   private def selectedRankedMove = {
-    if (rankedMoves == null || !showRankedMoves)
+    if (hasRankedMoves)
       null
     else
-      rankedMoves.selectedMove.moveEquity.pieceMove.move
+      rankedMoves.selectedMove.get.moveEquity.pieceMove.move
   }
+
+  private def hasRankedMoves = rankedMoves == null || !showRankedMoves || !rankedMoves.selectedMove.isDefined
 
   private def waitIfPaused(startPiece: Piece) {
     if (paused && !quit)
@@ -168,7 +170,11 @@ class ComputerPlayer(speed: Speed, board: Board, startPosition: Position, boardE
 
       if (shouldRankedMovesBeUpdated) {
         val board = startPieceMove.board
+        val selectRow = rankedMoves == null && rankedMoveToSelect.isDefined
         rankedMoves = new RankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity, board.width, board.height)
+        if (selectRow)
+          rankedMoves.selectMove(rankedMoveToSelect.get)
+
         gameEventReceiver.setRankedMoves(rankedMoves)
       }
       evaluatedMoves.bestMove

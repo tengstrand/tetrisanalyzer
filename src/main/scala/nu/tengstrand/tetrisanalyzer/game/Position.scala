@@ -44,7 +44,7 @@ object Position {
 
   // Copy constructor
   def apply(position: Position): Position = {
-    new Position(position.boardWidth, position.boardHeight, position.positionCopy)
+    new Position(position.boardWidth, position.boardHeight, position.playfieldCopy)
   }
 }
 
@@ -53,8 +53,9 @@ object Position {
  * If next piece is activated that piece is also shown.
  */
 class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) extends ColoredPosition {
-  private def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
-  private def getDot(x: Int, y: Int) = { playfield(y)(x) }
+  def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
+  def getDot(x: Int, y: Int) = { playfield(y)(x) }
+  def getRow(y: Int): Array[Byte] = playfield(y)
 
   def width = boardWidth + Wall.Left + Wall.Right
   def height = boardHeight + Wall.Bottom
@@ -131,11 +132,17 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     clearedRows
   }
 
-  def positionCopy = {
+  def copyFrom(position: Position) {
+    for (y <- 0 until height) {
+      position.getRow(y).copyToArray(playfield(y))
+    }
+  }
+
+  def playfieldCopy = {
     val newPlayfield: Array[Array[Byte]] = Array.ofDim[Byte](height, width)
 
-    for (i <- 0 until playfield.length)
-      playfield(i).copyToArray(newPlayfield(i))
+    for (y <- 0 until playfield.length)
+      playfield(y).copyToArray(newPlayfield(y))
 
     newPlayfield
   }

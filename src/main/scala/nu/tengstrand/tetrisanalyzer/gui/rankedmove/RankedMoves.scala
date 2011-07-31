@@ -1,6 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 
-import nu.tengstrand.tetrisanalyzer.move.MoveEquity
+import nu.tengstrand.tetrisanalyzer.move.{Move, MoveEquity}
 
 class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends AlignRight {
   val moves = calculateRankedMoves
@@ -30,7 +30,18 @@ class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends A
     rankedMoves.reverse
   }
 
-  def selectedMove = moves(selectedRow)
+  def selectMove(move: Move) {
+    selectedRow = moves.map(_.moveEquity.pieceMove.move).indexWhere(m => { m == move } )
+    if (selectedRow < 0)
+      selectedRow = 0
+  }
+
+  def selectedMove: Option[RankedMove] = {
+    if (moves.size == 0)
+      None
+    else
+      Some(moves(selectedRow))
+  }
 
   def selectPreviousMove() {
     if (selectedRow > 0)

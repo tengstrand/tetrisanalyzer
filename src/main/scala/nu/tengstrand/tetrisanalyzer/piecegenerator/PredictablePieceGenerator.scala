@@ -8,10 +8,16 @@ import nu.tengstrand.tetrisanalyzer.piece.{PieceO, Piece}
 class PredictablePieceGenerator(pieceSequence: List[Piece]) extends PieceGenerator {
   private val pieceSequenceIterator = pieceSequence.iterator
 
-  def nextPieceNumber = {
+  private var number = nextPieceNumber
+
+  private def nextPieceNumber = {
     if (pieceSequenceIterator.hasNext)
       pieceSequenceIterator.next.number
     else
       new PieceO().number
   }
+
+  def pieceNumber = number
+
+  def prepareNext() { number = nextPieceNumber }
 }

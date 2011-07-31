@@ -5,6 +5,7 @@ import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
 import rankedmove.{RankedMoves, RankedMovesView}
+import nu.tengstrand.tetrisanalyzer.move.Move
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
@@ -14,6 +15,8 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
 
   private var paused = true
   private var boardSize = new Dimension(0,0)
+
+  def selectedRankedMove: Option[Move] = rankedMovesView.selectedMove
 
   def selectNextRankedMove() { rankedMovesView.selectNextRankedMove() }
   def selectPreviousRankedMove() { rankedMovesView.selectPreviousRankedMove() }

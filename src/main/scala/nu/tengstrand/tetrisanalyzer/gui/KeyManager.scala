@@ -27,9 +27,9 @@ class KeyManager(game: Game, gameView: GameView) {
               game.decreaseBoardWidth()
           case 38 =>
             if (e.getModifiers == 2)  // <CTRL> + Up
-              game.selectNextRankedMove()
+              game.decreaseBoardHeight()
             else if (gameView.isRankedMovesVisible) // Up
-                game.selectPreviousRankedMove()
+              game.selectPreviousRankedMove()
           case 39 =>
             if (e.getModifiers == 0) // Right
               if (gameView.isRankedMovesVisible)

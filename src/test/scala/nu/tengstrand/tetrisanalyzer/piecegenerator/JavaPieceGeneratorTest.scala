@@ -8,7 +8,7 @@ class JavaPieceGeneratorTest extends BaseTest {
     val pieceGenerator = new JavaPieceGenerator
 
     for (i <- 1 to 1000) {
-      val pieceNumber = pieceGenerator.nextPiece.number.toInt
+      val pieceNumber = pieceGenerator.piece.number.toInt
       pieceNumber should be >= 1
       pieceNumber should be <= 7
     }

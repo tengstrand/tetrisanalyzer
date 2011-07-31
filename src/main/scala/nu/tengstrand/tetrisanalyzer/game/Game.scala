@@ -5,6 +5,7 @@ import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
 import nu.tengstrand.tetrisanalyzer.gui.GameView
+import nu.tengstrand.tetrisanalyzer.move.Move
 
 object Game {
   def PausedOnStartup = true
@@ -14,6 +15,9 @@ class Game(timer: Timer, gameView: GameView) {
   private var boardWidth = 10
   private var boardHeight = 20
 
+  private var board: Board = null
+  private var position: Position = null
+
   private var boardEvaluator: BoardEvaluator = null
   private var computerPlayer: ComputerPlayer = null
 
@@ -22,21 +26,25 @@ class Game(timer: Timer, gameView: GameView) {
   private var showMoves = false
   private val speed = new Speed()
   private var paused = Game.PausedOnStartup
+  private var pieceGenerator = new DefaultPieceGenerator(seed)
 
-  startNewGame()
+  startNewGameWithEmptyBoard()
 
-  private def startNewGame() {
+  private def startNewGameWithEmptyBoard() {
+    board = Board(boardWidth, boardHeight)
+    position = Position(boardWidth, boardHeight)
+    startNewGame(None)
+  }
+
+  private def startNewGame(selectedRankedMove: Option[Move]) {
     if (computerPlayer != null)
       computerPlayer.quitGame()
 
-    val board = Board(boardWidth, boardHeight)
-    val position = Position(boardWidth, boardHeight)
     val settings = new SpecifiedGameSettings(slidingEnabled)
-    val pieceGenerator = new DefaultPieceGenerator(seed)
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
-    computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, gameView)
+    computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, selectedRankedMove, gameView)
     computerPlayer.setShowRankedMoves(showMoves)
     timer.reset()
     computerPlayer.start()
@@ -60,7 +68,8 @@ class Game(timer: Timer, gameView: GameView) {
 
   def toggleSliding() {
     slidingEnabled = !slidingEnabled
-    startNewGame()
+
+    startNewGame(gameView.selectedRankedMove)
   }
 
   def increaseSpeed() { computerPlayer.increaseSpeed() }
@@ -68,44 +77,46 @@ class Game(timer: Timer, gameView: GameView) {
   def decreaseSpeed() { computerPlayer.decreaseSpeed() }
 
   def increaseSeed() {
-    seed += 1
-    gameView.setSeed(seed)
-    startNewGame()
+    changeSeedAndStartNewGame(1)
   }
 
   def decreaseSeed() {
-    if (seed > 0) {
-      seed -= 1
-      gameView.setSeed(seed)
-      startNewGame()
-    }
+    if (seed > 0)
+      changeSeedAndStartNewGame(-1)
+  }
+
+  private def changeSeedAndStartNewGame(seedAdd: Int) {
+    seed += seedAdd
+    gameView.setSeed(seed)
+    pieceGenerator = new DefaultPieceGenerator(seed)
+    startNewGame(gameView.selectedRankedMove)
   }
 
   def decreaseBoardWidth() {
     if (boardWidth > boardEvaluator.minBoardHeight) {
       boardWidth -= 1
-      startNewGame()
+      startNewGameWithEmptyBoard()
     }
   }
 
   def increaseBoardWidth() {
     if (boardWidth < boardEvaluator.maxBoardWidth) {
       boardWidth += 1
-      startNewGame()
+      startNewGameWithEmptyBoard()
     }
   }
 
   def decreaseBoardHeight() {
     if (boardHeight > boardEvaluator.minBoardWidth) {
       boardHeight -= 1
-      startNewGame()
+      startNewGameWithEmptyBoard()
     }
   }
 
   def increaseBoardHeight() {
     if (boardHeight < boardEvaluator.maxBoardHeight) {
       boardHeight += 1
-      startNewGame()
+      startNewGameWithEmptyBoard()
     }
   }
 

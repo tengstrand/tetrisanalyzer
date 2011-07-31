@@ -8,6 +8,11 @@ import java.util.Random
  */
 class JavaPieceGenerator  extends PieceGenerator {
   private val random = new Random
+  private var number = nextRandomPieceNumber
 
-  def nextPieceNumber = random.nextInt(Piece.NumberOfPieceTypes) + 1
+  private def nextRandomPieceNumber = random.nextInt(Piece.NumberOfPieceTypes) + 1
+
+  def pieceNumber = number
+
+  def prepareNext() { number = nextRandomPieceNumber }
 }

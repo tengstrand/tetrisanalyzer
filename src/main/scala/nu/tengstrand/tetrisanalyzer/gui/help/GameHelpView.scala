@@ -21,8 +21,8 @@ class GameHelpView extends TextDrawer with HelpPainter {
     drawText("[Ctrl] + left/right/up/down = Change board size", 10, g)
     drawText("                              + restart game", 11, g)
 
-    drawText("e / E = Change random seed + restart game", 13, g)
-    drawText("l = Toggle sliding + restart game",14, g)
+    drawText("e / E = Change random seed", 13, g)
+    drawText("l = Toggle sliding", 14, g)
 
     drawText("s / S = Change animation speed", 16, g)
     drawText("[Ctrl] + s = Max speed (toggle)", 17, g)
