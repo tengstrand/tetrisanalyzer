@@ -12,7 +12,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private val rankedMovesView = new RankedMovesView
   private val helpView = new HelpView
 
-  private var paused = false
+  private var paused = true
   private var boardSize = new Dimension(0,0)
 
   def selectNextRankedMove() { rankedMovesView.selectNextRankedMove() }
@@ -21,11 +21,20 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def toggleMiniatureBoard() { positionView.toggleMiniatureBoard() }
   def toggleShowGameInfo() { gameInfoView.toggleShowView() }
   def toggleShowHelp() { helpView.toggleShowView() }
-  def showRankedMoves(show: Boolean) { rankedMovesView.showRankedMoves(show); positionView.showNumbers(show); helpView.showRankedMoves(show) }
+
+  def showRankedMoves(show: Boolean) {
+    rankedMovesView.showRankedMoves(show);
+    rankedMovesView.showCursor(paused)
+    positionView.showNumbers(show);
+    helpView.showRankedMoves(show)
+  }
   def isRankedMovesVisible = rankedMovesView.isVisible
 
   def isPaused: Boolean = paused
-  def setPaused(paused: Boolean) { this.paused = paused; gameInfoView.setPaused(paused) }
+  def setPaused(paused: Boolean) {
+    this.paused = paused; gameInfoView.setPaused(paused)
+    rankedMovesView.showCursor(paused)
+  }
 
   def setPosition(coloredPosition: ColoredPosition) { positionView.setPosition(coloredPosition) }
   def isReadyToReceivePosition: Boolean = { positionView.isReadyToReceivePosition }

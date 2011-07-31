@@ -8,9 +8,12 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   private var rankedMoves: RankedMoves = null
   private var newRankedMoves: RankedMoves = null
 
+  private var showCursor = false
   private var showView = false
 
   private val selectedRowColor = new Color(240, 240, 240)
+
+  def showCursor(show: Boolean) { showCursor = show }
 
   def showRankedMoves(show: Boolean) { showView = show }
 
@@ -51,7 +54,9 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   private def paintGraphics(origoX: Int, g: Graphics2D) {
     prepareDrawText(origoX, g, 7, Color.BLUE)
     drawHeader(g)
-    drawSelectedRow(origoX, g)
+
+    if (showCursor)
+      drawCursor(origoX, g)
     prepareDrawText(origoX, g, 10, Color.BLUE)
     drawRowNumbers(g)
 
@@ -69,7 +74,7 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
       drawText(rowNumber(row), row + 1, g)
   }
 
-  private def drawSelectedRow(x1: Int, g: Graphics2D) {
+  private def drawCursor(x1: Int, g: Graphics2D) {
     val adjustY = 5
     val y1 = getY(rankedMoves.selectedRow + 1) + adjustY
     val width = 130
