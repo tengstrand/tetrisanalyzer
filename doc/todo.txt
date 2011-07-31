@@ -1,5 +1,4 @@
 
-- Move origo-y to the bottom.
 - If ranked moves and the help is viewed, also describe the ranked moves.
 - [Esc] = New game, reset to defaults.
 - Smaller fonts in game info, add "Next piece", "AI".

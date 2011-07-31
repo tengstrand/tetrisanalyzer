@@ -33,10 +33,10 @@ class RankedMovesTest extends BaseTest {
   @Test def calculateRankedMoves() {
     val rankedMoves = new RankedMoves(equityMoves, 9, 20)
     rankedMoves.moves.map(_.asText).mkString("\n") should be (
-      "0 2 15   1.001\n" +
+      "0 2  4   1.001\n" +
       "0 3     +1.002\n" +
       "1 5     +1.003\n" +
-      "0 2 18  +1.004\n" +
+      "0 2  1  +1.004\n" +
       "1 4     +1.005"
     )
   }

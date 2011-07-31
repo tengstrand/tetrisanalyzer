@@ -12,12 +12,13 @@ class RankedMove(val row: Int, val moveEquity: MoveEquity, maxX: Int, maxEquity:
 
   def asText: String = {
     val move = moveEquity.pieceMove.move
+    val pieceHeight = moveEquity.pieceMove.piece.height(move.rotation)
     val equityWidth = maxEquity.toInt.toString.length + 5
     val equityDiff = if (isFirstRow) " " else "+"
     val equity = alignRight(equityDiff + withThreeDecimals(moveEquity.equity), equityWidth)
 
     if (showY)
-      withY(move, maxX, maxY, isDuplicatedVX) + "  " + equity
+      withY(move, pieceHeight, maxX, maxY, isDuplicatedVX) + "  " + equity
     else
       withoutY(move, maxX) + "  " + equity
   }
@@ -31,10 +32,10 @@ class RankedMove(val row: Int, val moveEquity: MoveEquity, maxX: Int, maxEquity:
 
   def withoutY(move: Move, maxX: Int) = move.rotation + " " + alignRight((move.x + 1).toString, maxX.toString.length)
 
-  def withY(move: Move, maxX: Int, maxY: Int, isDuplicatedVX: Boolean) = {
+  def withY(move: Move, pieceHeight: Int, maxX: Int, maxY: Int, isDuplicatedVX: Boolean) = {
     val xWidth = maxX.toString.length
     val yWidth = maxY.toString.length + 1
-    val y = if (isDuplicatedVX) alignRight(move.y.toString, yWidth) else " " * yWidth
+    val y = if (isDuplicatedVX) alignRight((maxY - move.y - pieceHeight + 1).toString, yWidth) else " " * yWidth
     move.rotation + " " + alignRight((move.x + 1).toString, xWidth) + y
   }
 

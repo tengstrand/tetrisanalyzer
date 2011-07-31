@@ -80,7 +80,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
     fontChooser.setFont(squareWidth, g)
 
     for (number <- 1 to position.height - 2) {
-      val row = number - 1
+      val row = position.height - number - 2
       val squareHeight = rows(row + 1) - rows(row)
       val x = columns(Wall.Left - 1) + squareWidth / 2  + (if (number < 10) -1 else -4)
       val y = rows(row) + (squareHeight-1) / 2 + 5

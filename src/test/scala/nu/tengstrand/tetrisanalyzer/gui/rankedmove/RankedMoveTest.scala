@@ -19,8 +19,8 @@ class RankedMoveTest extends BaseTest {
     anyRankedMove.withoutY(Move(1, 2, 15), 10) should be ("1  3")
   }
 
-  @Test def vxyInfo() {
-    anyRankedMove.withY(Move(1, 2, 15), 9, 100, true) should be ("1 3  15")
+  @Test def withY() {
+    anyRankedMove.withY(Move(1, 2, 15), 3, 9, 100, true) should be ("1 3  83")
   }
 
   @Test def withThreeDecimals() {
@@ -52,7 +52,7 @@ class RankedMoveTest extends BaseTest {
   }
 
   @Test def astText_withYColumn_duplicatedVX() {
-    getRankedMove(0, 1, 18, 2.504, 9, 9).withYColumn(100, true).asText should be ("0 2  18  +2.504")
+    getRankedMove(0, 1, 18, 2.504, 9, 9).withYColumn(100, true).asText should be ("0 2  81  +2.504")
   }
 
   private def getRankedMove(v: Int, x: Int, y: Int, equity: Double, maxX: Int, maxEquity: Double) = {
