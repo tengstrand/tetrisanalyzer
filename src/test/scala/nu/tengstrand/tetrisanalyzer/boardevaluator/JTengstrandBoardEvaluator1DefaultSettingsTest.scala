@@ -67,6 +67,6 @@ class JTengstrandBoardEvaluator1DefaultSettingsTest extends BaseTest {
   @Test def calculateHeightFactor_height25 {
     val result = boardEvaluatorSettings.calculateHeightFactor(25)
 
-    result should be (Array(7.0, 7.0, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.09, 0.08, 0.07, 0.07, 0.06))
+    result should be (Array(7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.09))
   }
 }
