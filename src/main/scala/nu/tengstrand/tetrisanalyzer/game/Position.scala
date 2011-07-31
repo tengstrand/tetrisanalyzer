@@ -68,7 +68,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
   }
 
   def setRankedPiece(piece: Piece, move: Move) {
-    piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, RankedPiece.Number))
+    piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, (RankedPiece.Number + piece.number).toByte))
   }
 
   def setPiece(piece: Piece, move: Move) {
