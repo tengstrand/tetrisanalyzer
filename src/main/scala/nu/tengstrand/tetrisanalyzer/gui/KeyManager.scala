@@ -21,37 +21,37 @@ class KeyManager(game: Game, gameView: GameView) {
           case 80 => // P
             game.togglePause()
           case 37 =>
-            if (e.getModifiers == 0)  // Left
-              game.showRankedMoves(false)
-            if (e.getModifiers == 2)  // <CTRL> + Left
-              game.decreaseBoardWidth()
+            e.getModifiers match {
+              case 0 => game.showRankedMoves(false) // Left
+              case 1 => game.decreaseSpeed()        // <Shift> + Left
+              case 2 => game.decreaseBoardWidth()   // <CTRL> + Left
+              case _ =>
+            }
           case 38 =>
             if (e.getModifiers == 2)  // <CTRL> + Up
               game.decreaseBoardHeight()
             else if (gameView.isRankedMovesVisible) // Up
               game.selectPreviousRankedMove()
           case 39 =>
-            if (e.getModifiers == 0) // Right
-              if (gameView.isRankedMovesVisible)
-                game.performMove()
-              else
-                game.showRankedMoves(true)
-            else if (e.getModifiers == 2)  // <CTRL> + Right
-              game.increaseBoardWidth()
+            e.getModifiers match {
+              case 0 => // Right
+                if (gameView.isRankedMovesVisible)
+                  game.performMove()
+                else
+                  game.showRankedMoves(true)
+              case 1 => game.increaseSpeed()      // <Shift> + Right
+              case 2 => game.increaseBoardWidth() // <CTRL> + Right
+              case _ =>
+            }
           case 76 =>  // L = Toggle sliding
             game.toggleSliding()
-          case 69 =>
+          case 83 =>
             if (e.getModifiers == 1)
-              game.decreaseSeed() // E
+              game.decreaseSeed() // S
             else
-              game.increaseSeed() // e
-          case 83 => // s
-            if (e.getModifiers == 0)
-              game.increaseSpeed() // S
-            else if (e.getModifiers == 1)
-              game.decreaseSpeed() // s
-            else if (e.getModifiers == 2) // <CTRL> + s
-              game.toggleMaxSpeed()
+              game.increaseSeed() // s
+          case 77 =>
+            game.toggleMaxSpeed() // m
           case 112 => // <F1>
             game.toggleSmallBoard()
           case 113 => // <F2>

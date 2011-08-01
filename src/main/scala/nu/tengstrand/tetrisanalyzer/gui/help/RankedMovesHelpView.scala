@@ -17,7 +17,7 @@ class RankedMovesHelpView extends TextDrawer with HelpPainter {
     drawText("down = Select next move", 7, g)
 
 
-    drawText("=============== Ranked moves ===============", 9, g)
+    drawText("============== Ranked moves ==============", 9, g)
     drawText(" v = Number of rotations for the piece.", 10, g)
     drawText(" x = X position.", 11, g)
     drawText(" y = Y position (shown only if sliding is", 12, g)
