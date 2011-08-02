@@ -5,6 +5,7 @@ object Speed {
 
   val PieceDelay = Array(200, 100, 60, 50, 40, 35, 30, 26, 24, 20, 16, 12, 8, 4, 2, 1)
   var MaxSpeedIndex = PieceDelay.size - 1
+  var MaxDelay = Speed.PieceDelay(1) + 20
 }
 
 class Speed {
@@ -18,7 +19,6 @@ class Speed {
   def decreaseSpeed() { maxSpeed = false; if (speedIndex > Speed.MinSpeedIndex) speedIndex -= 1 }
   def increaseSpeed() { maxSpeed = false; if (speedIndex < Speed.MaxSpeedIndex) speedIndex += 1 }
 
-  def maxDelay = Speed.PieceDelay(1) + 20
   def pieceDelay(fastAnimation: Boolean): Int = {
     if (maxSpeed)
       2

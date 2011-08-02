@@ -12,8 +12,6 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
   def decreaseSpeed() { speed.decreaseSpeed() }
   def toggleMaxSpeed() { speed.toggleMaxSpeed() }
 
-  def maxDelay = speed.maxDelay
-
   def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
   def animateMove(position: Position, startPieceMove: PieceMove, pieceMove: PieceMove) {

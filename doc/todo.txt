@@ -1,5 +1,6 @@
 
-- Toggle "change board size mode". Only operate on the original Position to increase speed.
+- If the position was not paused before "resize board", set back to not paused.
+- Refactor out row- and column numbers from PositionView.
 
 - [Esc] = New game, reset to defaults.
 - Optimize speed when sliding is on.

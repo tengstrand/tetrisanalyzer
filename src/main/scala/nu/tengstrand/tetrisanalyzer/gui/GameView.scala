@@ -2,19 +2,23 @@ package nu.tengstrand.tetrisanalyzer.gui
 
 import help.HelpView
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
-import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
+import position.PositionView
 import rankedmove.{RankedMoves, RankedMovesView}
 import nu.tengstrand.tetrisanalyzer.move.Move
+import nu.tengstrand.tetrisanalyzer.game.{Size, GameEventReceiver, ColoredPosition}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
+  private val resizeBoardView = new PositionView(colorSettings)
   private val gameInfoView = new GameInfoView
   private val rankedMovesView = new RankedMovesView
   private val helpView = new HelpView
 
   private var paused = true
-  private var boardSize = new Dimension(0,0)
+  private var boardSizeInPixels = new Dimension(0,0)
+
+  private var isResizingBoard = false
 
   def selectedRankedMove: Option[Move] = rankedMovesView.selectedMove
 
@@ -23,13 +27,26 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
 
   def toggleMiniatureBoard() { positionView.toggleMiniatureBoard() }
   def toggleShowGameInfo() { gameInfoView.toggleShowView() }
+  def setResizingBoard(coloredPosition: ColoredPosition, boardWidth: Int, boardHeight: Int) {
+    isResizingBoard = true;
+    resizeBoardView.setPosition(coloredPosition)
+    helpView.setBoardSize(boardWidth, boardHeight)
+    helpView.setView(isResizingBoard, false)
+  }
+  def stopResizingBoard(position: ColoredPosition, showRankedMoves: Boolean) {
+    positionView.forceSetPosition(position)
+    resizeBoardView.setPosition(position)
+
+    isResizingBoard = false
+    helpView.setView(false, showRankedMoves)
+  }
   def toggleShowHelp() { helpView.toggleShowView() }
 
   def showRankedMoves(show: Boolean) {
     rankedMovesView.showRankedMoves(show);
     rankedMovesView.showCursor(paused)
     positionView.showNumbers(show);
-    helpView.showRankedMoves(show)
+    helpView.setView(isResizingBoard, show)
   }
   def isRankedMovesVisible = rankedMovesView.isVisible
 
@@ -57,7 +74,11 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   def setRankedMoves(rankedMoves: RankedMoves) { rankedMovesView.setRankedMoves(rankedMoves) }
 
   def preparePaintGraphics: Dimension = {
-    boardSize = positionView.preparePaintGraphics(size)
+    if (isResizingBoard)
+      boardSizeInPixels = resizeBoardView.preparePaintGraphics(size)
+    else
+      boardSizeInPixels = positionView.preparePaintGraphics(size)
+
     size
   }
 
@@ -68,16 +89,21 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
 
     paintWhiteBackground(g)
 
-    positionView.setShowRowNumbers(rankedMovesView.showRowNumbers)
-    positionView.paintGraphics(size, g)
-    origoX += boardSize.width
+    if (isResizingBoard) {
+      resizeBoardView.paintGraphics(size, g)
+    } else {
+      positionView.setShowRowNumbers(rankedMovesView.showRowNumbers)
+      positionView.paintGraphics(size, g)
+    }
+    origoX += boardSizeInPixels.width
 
-    gameInfoView.paintGameInfo(origoX, g)
-    origoX += gameInfoView.width
+    if (!isResizingBoard) {
+      gameInfoView.paintGameInfo(origoX, g)
+      origoX += gameInfoView.width
 
-    rankedMovesView.paintRankedMoves(origoX, g)
-    origoX += rankedMovesView.width
-
+      rankedMovesView.paintRankedMoves(origoX, g)
+      origoX += rankedMovesView.width
+    }
     helpView.paintHelp(origoX, g)
   }
 

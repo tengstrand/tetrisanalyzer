@@ -7,7 +7,12 @@ class TextDrawer {
   private var origoY = 10
   private var spacing = 14
 
-  private val textFont = new Font("Monospaced", Font.PLAIN, 12);
+  private var textFont = defaultFont
+
+  def setDefaultFont(g: Graphics2D) { textFont = defaultFont; g.setFont(textFont)  }
+  def setBigFont(g: Graphics2D) { textFont = new Font("Monospaced", Font.PLAIN, 18); g.setFont(textFont) }
+
+  private def defaultFont = new Font("Monospaced", Font.PLAIN, 12)
 
   def prepareDrawText(origoX: Int, g: Graphics2D, origoY: Int = 10, color: Color = Color.BLACK) {
     this.origoX = origoX

@@ -1,0 +1,41 @@
+package nu.tengstrand.tetrisanalyzer.game
+
+case class MinMax(var value: Int, min: Int, max: Int) {
+  def set(value: Int) {
+    if (value < min) this.value = min
+    else if (value > max) this.value = max
+    else this.value = value
+  }
+  def increase() = { if (value < max) { value += 1; true } else false }
+  def decrease() = { if (value > min) { value -= 1; true } else false }
+}
+case class Size(width: Int, height: Int)
+
+class BoardSize(var width: MinMax, var height: MinMax) {
+  def size = Size(width.value, height.value)
+
+  def increaseWidth() { width.increase() }
+  def decreaseWidth() { width.decrease() }
+  def increaseHeight() { height.increase() }
+  def decreaseHeight() { height.decrease() }
+
+  def increaseSizeByWidth() {
+    if (width.increase())
+      height.set(width.value * 2)
+  }
+
+  def decreaseSizeByWidth() {
+    if (width.decrease())
+      height.set(width.value * 2)
+  }
+
+  def increaseSizeByHeight() {
+    if (height.increase() && height.increase())
+      width.set(height.value / 2)
+  }
+
+  def decreaseSizeByHeight() {
+    if (height.decrease() && height.decrease())
+      width.set(height.value / 2)
+  }
+}

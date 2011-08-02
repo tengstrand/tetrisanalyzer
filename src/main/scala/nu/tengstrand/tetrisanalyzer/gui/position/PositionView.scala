@@ -1,8 +1,9 @@
-package nu.tengstrand.tetrisanalyzer.gui
+package nu.tengstrand.tetrisanalyzer.gui.position
 
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt._
 import nu.tengstrand.tetrisanalyzer.game.{Wall, ColoredPosition, PlayerEventReceiver}
+import nu.tengstrand.tetrisanalyzer.gui.FontChooser
 
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(250, 250, 250)
@@ -21,11 +22,15 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private var squareSize = 0.0
   private val fontChooser = new FontChooser
 
-
   def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
   def showNumbers(show: Boolean) { showNumbers = show }
   def toggleMiniatureBoard() { smallBoard = !smallBoard }
   def isReadyToReceivePosition = position == newPosition || paused
+
+  def forceSetPosition(coloredPosition: ColoredPosition) {
+    position = coloredPosition
+    newPosition = coloredPosition
+  }
 
   override def setPosition(coloredPosition: ColoredPosition) {
     newPosition = coloredPosition

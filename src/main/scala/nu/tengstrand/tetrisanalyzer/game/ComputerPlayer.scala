@@ -67,7 +67,9 @@ class ComputerPlayer(speed: Speed, board: Board, position: Position, boardEvalua
     doStep = true
   }
 
-  def quitGame() { quit = true; pieceMoveAnimator.quit = true; Thread.sleep(pieceMoveAnimator.maxDelay) }
+  def quitGame() { quit = true; pieceMoveAnimator.quit = true; waitForComputerPlayerToFinish() }
+
+  private def waitForComputerPlayerToFinish() { Thread.sleep(Speed.MaxDelay) }
 
   override def act() {
     gameStatistics.updateAll()
