@@ -22,6 +22,8 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private var squareSize = 0.0
   private val fontChooser = new FontChooser
 
+  private val columnNumberPainter = new ColumnNumberPainter
+
   def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
   def showNumbers(show: Boolean) { showNumbers = show }
   def toggleMiniatureBoard() { smallBoard = !smallBoard }
@@ -68,7 +70,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
       g.drawLine(columns(6), rows(0), columns(6), rows(position.height-2)-1)
 
       if (squareSize > 6 && showNumbers) {
-        paintColumnNumbers(g)
+        columnNumberPainter.paintNumbers(position, rows, columns, g)
 
         if (showRowNumbers)
           paintRowNumbers(g)
@@ -89,23 +91,6 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
       val squareHeight = rows(row + 1) - rows(row)
       val x = columns(Wall.Left - 1) + squareWidth / 2  + (if (number < 10) -1 else -4)
       val y = rows(row) + (squareHeight-1) / 2 + 5
-      g.drawString(number.toString, x, y)
-    }
-  }
-
-  private def paintColumnNumbers(g: Graphics2D) {
-    g.setColor(Color.BLACK)
-
-    val squareHeight = (rows(position.height-1) - rows(position.height-2))
-
-    fontChooser.setFont(squareHeight, g)
-
-    val y = rows(position.height-2) + (squareHeight-1) / 2 + 5
-
-    for (number <- 1 to position.width - Wall.Left - Wall.Right) {
-      val column = number + Wall.Left - 1
-      val squareWidth = columns(column + 1) - columns(column)
-      val x = columns(column) + squareWidth / 2 + (if (number < 10) -2 else -5)
       g.drawString(number.toString, x, y)
     }
   }
