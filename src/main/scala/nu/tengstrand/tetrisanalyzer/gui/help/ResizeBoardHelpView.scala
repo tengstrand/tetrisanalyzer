@@ -25,16 +25,10 @@ class ResizeBoardHelpView extends TextDrawer with HelpPainter {
     drawText("Use the arrow keys to change the board size", 4, g)
     drawText("===========================================", 5, g)
 
-    drawText("left / right: Change board width", 6, g)
-    drawText("              (keep 1:2 ratio if possible)", 7, g)
-    drawText("up / down   : Change board height", 8, g)
-    drawText("              (keep 1:2 ratio if possible)", 9, g)
+    drawText("left / right: Change width, keep 1:2 ratio", 6, g)
 
-    drawText("[Shift] + left : Decrease board width", 11, g)
-    drawText("[Shift] + right: Increase board width", 12, g)
-    drawText("[Shift] + up   : Decrease board height", 13, g)
-    drawText("[Shift] + down : Increase board height", 14, g)
+    drawText("up / down   : Change height", 8, g)
 
-    drawText("Press 'b' to accept or [Esc] to abort", 17, g)
+    drawText("Press 'b' to accept or [Esc] to abort", 11, g)
   }
 }

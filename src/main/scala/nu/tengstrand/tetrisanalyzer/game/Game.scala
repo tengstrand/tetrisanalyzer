@@ -123,16 +123,6 @@ class Game(timer: Timer, gameView: GameView) {
     gameView.stopResizingBoard(position, showRankedMoves)
   }
 
-  def decreaseBoardWidth() {
-    boardSize.decreaseWidth()
-    updateBoardSize()
-  }
-
-  def increaseBoardWidth() {
-    boardSize.increaseWidth()
-    updateBoardSize()
-  }
-
   def decreaseBoardHeight() {
     boardSize.decreaseHeight()
     updateBoardSize()
@@ -143,23 +133,13 @@ class Game(timer: Timer, gameView: GameView) {
     updateBoardSize()
   }
 
-  def increaseBoardSizeByWidth() {
-    boardSize.increaseSizeByWidth()
+  def increaseBoardWidthKeepRatio() {
+    boardSize.increaseSizeKeepRatio()
     updateBoardSize()
   }
 
-  def decreaseBoardSizeByHeight() {
-    boardSize.decreaseSizeByHeight()
-    updateBoardSize()
-  }
-
-  def increaseBoardSizeByHeight() {
-    boardSize.increaseSizeByHeight()
-    updateBoardSize()
-  }
-
-  def decreaseBoardSizeByWidth() {
-    boardSize.decreaseSizeByWidth()
+  def decreaseBoardWidthKeepRatio() {
+    boardSize.decreaseSizeKeepRatio()
     updateBoardSize()
   }
 

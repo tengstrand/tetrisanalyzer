@@ -31,18 +31,6 @@ class BoardSizeTest extends BaseTest {
     minMax.value should be (4)
   }
 
-  @Test def increaseWidth() {
-    val boardSize = defaultBoardSize
-    boardSize.increaseWidth()
-    boardSize.size should be (Size(11, 20))
-  }
-
-  @Test def decreaseWidth() {
-    val boardSize = defaultBoardSize
-    boardSize.decreaseWidth()
-    boardSize.size should be (Size(9, 20))
-  }
-
   @Test def increaseHeight() {
     val boardSize = defaultBoardSize
     boardSize.increaseHeight()
