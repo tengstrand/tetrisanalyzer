@@ -2,9 +2,7 @@ package nu.tengstrand.tetrisanalyzer.gui.position
 
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt._
-import nu.tengstrand.tetrisanalyzer.game.{Wall, ColoredPosition, PlayerEventReceiver}
-import nu.tengstrand.tetrisanalyzer.gui.FontChooser
-
+import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(250, 250, 250)
 
@@ -20,8 +18,8 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private var newPosition: ColoredPosition = null
 
   private var squareSize = 0.0
-  private val fontChooser = new FontChooser
 
+  private val rowNumberPainter = new RowNumberPainter
   private val columnNumberPainter = new ColumnNumberPainter
 
   def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
@@ -73,26 +71,10 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
         columnNumberPainter.paintNumbers(position, rows, columns, g)
 
         if (showRowNumbers)
-          paintRowNumbers(g)
+          rowNumberPainter.paintNumbers(position, rows, columns, g)
       }
     }
     position = newPosition
-  }
-
-  private def paintRowNumbers(g: Graphics2D) {
-    g.setColor(Color.BLACK)
-
-    val squareWidth = (columns(Wall.Left) - columns(Wall.Left - 1))
-
-    fontChooser.setFont(squareWidth, g)
-
-    for (number <- 1 to position.height - 2) {
-      val row = position.height - number - 2
-      val squareHeight = rows(row + 1) - rows(row)
-      val x = columns(Wall.Left - 1) + squareWidth / 2  + (if (number < 10) -1 else -4)
-      val y = rows(row) + (squareHeight-1) / 2 + 5
-      g.drawString(number.toString, x, y)
-    }
   }
 
   private def paintSquare(x1: Int, y1: Int, x2: Int, y2: Int, squareColor: Color, lineColor: Color, g: Graphics) {

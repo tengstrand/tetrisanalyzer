@@ -1,5 +1,4 @@
 
-- Refactor out row- and column numbers from PositionView.
 - Fix problems when changing board size (the board sometimes gets too big).
 
 - [Esc] = New game, reset to defaults.
