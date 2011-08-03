@@ -1,4 +1,5 @@
 
+- Fix rows/game.
 - [Esc] = New game, reset to defaults.
 - Optimize speed when sliding is on.
 

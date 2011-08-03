@@ -13,6 +13,7 @@ object Game {
 
 class Game(timer: Timer, gameView: GameView) {
   private var boardSize = new BoardSize(new MinMax(10, 10, 10), new MinMax(20, 20, 20))
+  private var boardSizeBeforeResize: Size = null
 
   private var board: Board = null
   private var position: Position = null
@@ -108,6 +109,7 @@ class Game(timer: Timer, gameView: GameView) {
   }
 
   def startResizeBoard() {
+    boardSizeBeforeResize = boardSize.size
     pausedBeforeResizing = paused
     setPaused(true);
     updateBoardSize()
@@ -115,8 +117,13 @@ class Game(timer: Timer, gameView: GameView) {
 
   def acceptBoardSize() {
     setPaused(pausedBeforeResizing)
-    startNewGameWithEmptyBoard()
+    if (hasBoardSizeChanged)
+      startNewGameWithEmptyBoard()
+    else
+      gameView.stopResizingBoard(position, showRankedMoves)
   }
+
+  private def hasBoardSizeChanged = boardSize.size != boardSizeBeforeResize
 
   def abortBoardSize() {
     setPaused(pausedBeforeResizing)
