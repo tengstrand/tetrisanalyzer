@@ -1,8 +1,8 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import keyevent.MainKeyReceiver
 import scala.swing._
 import nu.tengstrand.tetrisanalyzer.game._
+import nu.tengstrand.tetrisanalyzer.game.keyevent.MainKeyReceiver
 import actors.Actor._
 import nu.tengstrand.tetrisanalyzer.settings.DefaultColorSettings
 

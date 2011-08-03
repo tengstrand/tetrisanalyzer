@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.gui.keyevent
+package nu.tengstrand.tetrisanalyzer.game.keyevent
 
 import java.awt.{KeyEventPostProcessor, KeyboardFocusManager}
 import java.awt.event.KeyEvent

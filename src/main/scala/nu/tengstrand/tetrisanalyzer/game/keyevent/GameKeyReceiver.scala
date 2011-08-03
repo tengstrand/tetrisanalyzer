@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.gui.keyevent
+package nu.tengstrand.tetrisanalyzer.game.keyevent
 
 import java.awt.event.KeyEvent
 import nu.tengstrand.tetrisanalyzer.game.Game
