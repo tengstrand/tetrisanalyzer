@@ -35,6 +35,6 @@ class ResizeBoardHelpView extends TextDrawer with HelpPainter {
     drawText("[Shift] + up   : Decrease board height", 13, g)
     drawText("[Shift] + down : Increase board height", 14, g)
 
-    drawText("Press 'b' to confirm or [Esc] to abort", 17, g)
+    drawText("Press 'b' to accept or [Esc] to abort", 17, g)
   }
 }

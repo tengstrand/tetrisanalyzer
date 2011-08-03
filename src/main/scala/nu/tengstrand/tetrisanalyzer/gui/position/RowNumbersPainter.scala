@@ -4,7 +4,7 @@ import java.awt.{Color, Graphics2D}
 import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, Wall}
 import nu.tengstrand.tetrisanalyzer.gui.FontChooser
 
-class RowNumberPainter {
+class RowNumbersPainter {
   private val fontChooser = new FontChooser
 
   def paintNumbers(position: ColoredPosition, rows: Seq[Int], columns: Seq[Int], g: Graphics2D) {

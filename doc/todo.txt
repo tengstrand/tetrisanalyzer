@@ -1,6 +1,4 @@
 
-- Fix problems when changing board size (the board sometimes gets too big).
-
 - [Esc] = New game, reset to defaults.
 - Optimize speed when sliding is on.
 

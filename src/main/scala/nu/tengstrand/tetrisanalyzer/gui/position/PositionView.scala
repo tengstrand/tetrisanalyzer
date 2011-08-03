@@ -1,8 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.gui.position
 
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
-import java.awt._
 import nu.tengstrand.tetrisanalyzer.game.{ColoredPosition, PlayerEventReceiver}
+import java.awt._
+
 class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private val backgroundColor = new Color(250, 250, 250)
 
@@ -18,9 +19,10 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
   private var newPosition: ColoredPosition = null
 
   private var squareSize = 0.0
+  private val squareSizeCalculator = new SquareSizeCalculator
 
-  private val rowNumberPainter = new RowNumberPainter
-  private val columnNumberPainter = new ColumnNumberPainter
+  private val rowNumbersPainter = new RowNumbersPainter
+  private val columnNumbersPainter = new ColumnNumbersPainter
 
   def setShowRowNumbers(show: Boolean) { showRowNumbers = show }
   def showNumbers(show: Boolean) { showNumbers = show }
@@ -41,7 +43,7 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
 
   def preparePaintGraphics(size: Dimension): Dimension = {
     if (position != null) {
-      squareSize = calculateSquareSize(size)
+      squareSize = squareSizeCalculator.calculateSquareSize(smallBoard, size.width-350, size.height-20, position.width, position.height)
       rows = (0 to position.height).map(y => Margin + (y * squareSize).intValue)
       columns = (0 to position.width).map(x => Margin + (x * squareSize).intValue)
 
@@ -68,10 +70,10 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
       g.drawLine(columns(6), rows(0), columns(6), rows(position.height-2)-1)
 
       if (squareSize > 6 && showNumbers) {
-        columnNumberPainter.paintNumbers(position, rows, columns, g)
+        columnNumbersPainter.paintNumbers(position, rows, columns, g)
 
         if (showRowNumbers)
-          rowNumberPainter.paintNumbers(position, rows, columns, g)
+          rowNumbersPainter.paintNumbers(position, rows, columns, g)
       }
     }
     position = newPosition
@@ -83,22 +85,5 @@ class PositionView(colorSettings: ColorSettings) extends PlayerEventReceiver {
     g.setColor(lineColor)
     g.drawLine(x1, y1, x1, y2-1)
     g.drawLine(x1, y1, x2-1, y1)
-  }
-
-  private def calculateSquareSize(size: Dimension): Double = {
-    if (smallBoard)
-      6
-    else {
-      val width = size.width - 20.0
-      val height = size.height - 20.0
-
-      if (width <= 0 || height <= 0 || position.height == 0|| position.width == 0)
-        0
-
-      if (position.height / position.width.toDouble < 1.15)
-        (width * 0.6) / position.width
-      else
-        (height / position.height)
-    }
   }
 }
