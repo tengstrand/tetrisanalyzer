@@ -12,7 +12,7 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
   private var clearedRowsTotal = 0L
   private var games = 0L
   private var totalClearedRows = 0L
-  private var minClearedrows = 0L
+  private var minClearedrows = Long.MaxValue
   private var maxClearedrows = 0L
 
   def addMove() {
@@ -32,10 +32,10 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
 
     totalClearedRows += clearedRows
 
-    if (minClearedrows == 0 || clearedRows < minClearedrows)
+    if (clearedRows < minClearedrows)
       minClearedrows = clearedRows
 
-    if (maxClearedrows == 0 || clearedRows > maxClearedrows)
+    if (clearedRows > maxClearedrows)
       maxClearedrows = clearedRows
 
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
