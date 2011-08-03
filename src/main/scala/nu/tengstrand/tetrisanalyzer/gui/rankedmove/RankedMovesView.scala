@@ -18,8 +18,6 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
 
   def showRankedMoves(show: Boolean) { showView = show }
 
-  def isVisible = showView
-
   def showRowNumbers = rankedMoves != null && rankedMoves.hasDuplicatedVX
 
   def width = {

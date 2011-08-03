@@ -1,6 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.gui
 
-import keyevent.KeyEventDelegator
+import keyevent.MainKeyReceiver
 import scala.swing._
 import nu.tengstrand.tetrisanalyzer.game._
 import actors.Actor._
@@ -29,6 +29,6 @@ object TetrisAnalyzer extends SimpleSwingApplication {
       contents += gameView
     }
 
-    new KeyEventDelegator(game, gameView)
+    new MainKeyReceiver(game, gameView)
   }
 }

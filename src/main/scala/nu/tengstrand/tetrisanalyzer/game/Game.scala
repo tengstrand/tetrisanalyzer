@@ -28,6 +28,7 @@ class Game(timer: Timer, gameView: GameView) {
   private val speed = new Speed()
   private var paused = Game.PausedOnStartup
   private var pausedBeforeResizing = paused
+  private var pausedBeforeShowRankedMoves = paused
   private var pieceGenerator = new DefaultPieceGenerator(seed)
 
   startNewGameWithEmptyBoard()
@@ -65,7 +66,12 @@ class Game(timer: Timer, gameView: GameView) {
   def performRankedMove() { computerPlayer.performStep() }
 
   def togglePause() {
-    setPaused(!paused)
+    if (paused && showRankedMoves) {
+      pausedBeforeShowRankedMoves = false
+      showRankedMoves(false)
+    } else {
+      setPaused(!paused)
+    }
   }
 
   private def setPaused(paused: Boolean) {
@@ -164,7 +170,16 @@ class Game(timer: Timer, gameView: GameView) {
 
   def toggleMaxSpeed() { computerPlayer.toggleMaxSpeed() }
 
+  def isRankedMovesVisible = showRankedMoves
+
   def showRankedMoves(show: Boolean) {
+    if (show) {
+      pausedBeforeShowRankedMoves = paused
+      setPaused(true)
+    } else {
+      setPaused(pausedBeforeShowRankedMoves)
+    }
+
     showRankedMoves = show
     computerPlayer.setShowRankedMoves(showRankedMoves)
     gameView.showRankedMoves(show)

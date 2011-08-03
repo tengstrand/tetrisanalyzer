@@ -9,7 +9,7 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
   def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
         keyCode match {
           case 40 =>
-            if (gameView.isRankedMovesVisible) // Down
+            if (game.isRankedMovesVisible) // Down
               gameView.selectNextRankedMove()
             else
               game.performMove()
@@ -19,12 +19,12 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
             if (shiftKey) game.decreaseSpeed()          // <Shift> + Left
             else game.showRankedMoves(false)            // Left
           case 38 =>
-            if (gameView.isRankedMovesVisible)
+            if (game.isRankedMovesVisible)
               gameView.selectPreviousRankedMove()       // Up
           case 39 =>
             if (shiftKey) game.increaseSpeed()          // <Shift> + Right
             else {                                      // Right
-              if (gameView.isRankedMovesVisible)
+              if (game.isRankedMovesVisible)
                 game.performMove()
               else
                 game.showRankedMoves(true)

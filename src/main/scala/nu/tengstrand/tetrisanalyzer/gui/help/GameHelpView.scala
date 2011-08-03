@@ -11,7 +11,7 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("p = Pause (toggle)", 1, g)
 
-    drawText("right = Show ranked moves", 3, g)
+    drawText("right = Show moves", 3, g)
 
     drawText("down = Move next piece (if paused) or", 5, g)
     drawText("       increase speed if not paused", 6, g)

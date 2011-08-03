@@ -6,7 +6,7 @@ import java.awt.{Color, Graphics2D, Graphics, Dimension}
 import position.PositionView
 import rankedmove.{RankedMoves, RankedMovesView}
 import nu.tengstrand.tetrisanalyzer.move.Move
-import nu.tengstrand.tetrisanalyzer.game.{Size, GameEventReceiver, ColoredPosition}
+import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
@@ -48,11 +48,10 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
     positionView.showNumbers(show);
     helpView.setView(isResizingBoard, show)
   }
-  def isRankedMovesVisible = rankedMovesView.isVisible
-
   def isPaused: Boolean = paused
   def setPaused(paused: Boolean) {
-    this.paused = paused; gameInfoView.setPaused(paused)
+    this.paused = paused;
+    gameInfoView.setPaused(paused)
     rankedMovesView.showCursor(paused)
   }
 
