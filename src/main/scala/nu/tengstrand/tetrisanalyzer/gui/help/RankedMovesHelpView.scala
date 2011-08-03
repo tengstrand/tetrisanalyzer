@@ -10,7 +10,7 @@ class RankedMovesHelpView extends TextDrawer with HelpPainter {
 
     drawText("left = Hide moves", 1, g)
 
-    drawText("right = Perform selected move", 3, g)
+    drawText("space / right = Perform selected move", 3, g)
 
     drawText("up = Select previous move", 5, g)
 

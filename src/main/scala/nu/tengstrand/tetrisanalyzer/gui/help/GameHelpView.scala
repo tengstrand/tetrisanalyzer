@@ -13,8 +13,8 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("right = Show moves", 3, g)
 
-    drawText("down = Move next piece (if paused) or", 5, g)
-    drawText("       increase speed if not paused", 6, g)
+    drawText("space / down = Move next piece (if paused) or", 5, g)
+    drawText("               increase speed if not paused", 6, g)
 
     drawText("b = Change board size", 8, g)
 

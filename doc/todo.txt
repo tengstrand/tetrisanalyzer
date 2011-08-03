@@ -1,4 +1,5 @@
 
+- Remove support for max speed (with down / space).
 - Refactor out row- and column numbers from PositionView.
 - Fix problems when changing board size (the board sometimes gets too big).
 

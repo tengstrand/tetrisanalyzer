@@ -8,6 +8,8 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
 
   def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
         keyCode match {
+          case 32 => // Space
+            game.performMove()
           case 40 =>
             if (game.isRankedMovesVisible) // Down
               gameView.selectNextRankedMove()
