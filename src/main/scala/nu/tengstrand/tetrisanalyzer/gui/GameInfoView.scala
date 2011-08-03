@@ -15,6 +15,7 @@ class GameInfoView extends GameInfoReceiver {
   private var piecesTotal = 0L
   private var clearedRows = 0L
   private var clearedRowsTotal = 0L
+  private var clearedRowsTotalInFinishedGames = 0L
 
   private var games = 0L
   private var minRows = 0L
@@ -61,6 +62,7 @@ class GameInfoView extends GameInfoReceiver {
     this.minRows = minRows
     this.maxRows = maxRows
     this.clearedRowsTotal = totalClearedRows
+    this.clearedRowsTotalInFinishedGames = totalClearedRows
   }
 
   def paintGameInfo(origoX: Int, g: Graphics2D) {
@@ -78,7 +80,7 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
 
     textDrawer.drawInfo("Games:", withSpaces(games), 7, g)
-    textDrawer.drawInfo("Rows/game:", if (games == 0) "" else withSpaces(clearedRowsTotal / games), 8, g)
+    textDrawer.drawInfo("Rows/game:", if (games == 0) "" else withSpaces(clearedRowsTotalInFinishedGames / games), 8, g)
     textDrawer.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
     textDrawer.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 

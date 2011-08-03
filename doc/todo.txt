@@ -1,6 +1,5 @@
 
-- Fix rows/game.
-- [Esc] = New game, reset to defaults.
+- [Esc] = New game, reset to defaults (seed and other).
 - Optimize speed when sliding is on.
 
 - Adjust x+1 for "standing" piece I.
