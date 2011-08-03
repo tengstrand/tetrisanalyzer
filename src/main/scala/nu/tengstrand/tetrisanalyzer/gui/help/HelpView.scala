@@ -13,7 +13,6 @@ class HelpView extends TextDrawer {
 
   def setView(isResizingBoard: Boolean, showRankedMoves: Boolean) {
     this.isResizingBoard = isResizingBoard
-    println("isResize=" + isResizingBoard)
 
     if (isResizingBoard)
       helpPainter = resizeBoardHelpView

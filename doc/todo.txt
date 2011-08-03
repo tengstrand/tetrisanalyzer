@@ -1,6 +1,6 @@
 
-- If the position was not paused before "resize board", set back to not paused.
 - Refactor out row- and column numbers from PositionView.
+- Fix problems when changing board size (the board sometimes gets too big).
 
 - [Esc] = New game, reset to defaults.
 - Optimize speed when sliding is on.

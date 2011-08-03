@@ -27,6 +27,7 @@ class Game(timer: Timer, gameView: GameView) {
   private var showRankedMoves = false
   private val speed = new Speed()
   private var paused = Game.PausedOnStartup
+  private var pausedBeforeResizing = paused
   private var pieceGenerator = new DefaultPieceGenerator(seed)
 
   startNewGameWithEmptyBoard()
@@ -100,11 +101,19 @@ class Game(timer: Timer, gameView: GameView) {
     startNewGame(gameView.selectedRankedMove)
   }
 
-  def startResizeBoard() { setPaused(true); updateBoardSize() }
+  def startResizeBoard() {
+    pausedBeforeResizing = paused
+    setPaused(true);
+    updateBoardSize()
+  }
 
-  def acceptBoardSize() { startNewGameWithEmptyBoard() }
+  def acceptBoardSize() {
+    setPaused(pausedBeforeResizing)
+    startNewGameWithEmptyBoard()
+  }
 
   def abortBoardSize() {
+    setPaused(pausedBeforeResizing)
     gameView.stopResizingBoard(position, showRankedMoves)
   }
 
