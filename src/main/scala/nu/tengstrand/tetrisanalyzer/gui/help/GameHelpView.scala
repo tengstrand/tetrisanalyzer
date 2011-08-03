@@ -4,7 +4,11 @@ import java.awt.{Color, Graphics2D}
 import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
 
 class GameHelpView extends TextDrawer with HelpPainter {
-  private def version = "2.0"
+  private val version = "2.0"
+
+  private var paused = true
+
+  def setPaused(paused: Boolean) { this.paused = paused }
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
     prepareDrawText(origoX, g, 10, new Color(0, 120, 0))
@@ -13,19 +17,19 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("right = Show moves", 3, g)
 
-    drawText("space / down = Move next piece (if paused) or", 5, g)
-    drawText("               increase speed if not paused", 6, g)
+    val pausedText = if (paused) "Move next piece" else "Move piece faster"
+    drawText("space / down = " + pausedText, 5, g)
 
-    drawText("b = Change board size", 8, g)
+    drawText("b = Change board size", 7, g)
 
-    drawText("s / S = Change random generator seed", 10, g)
+    drawText("s / S = Change random generator seed", 9, g)
 
-    drawText("l = Toggle sliding", 12, g)
+    drawText("l = Toggle sliding", 11, g)
 
-    drawText("m = Max speed (toggle)", 14, g)
+    drawText("m = Max speed (toggle)", 13, g)
 
-    drawText("[Shift] + left = Decrease animation speed", 16, g)
-    drawText("[Shift] + right = Increase animation speed", 17, g)
+    drawText("[Shift] + left = Decrease animation speed", 15, g)
+    drawText("[Shift] + right = Increase animation speed", 16, g)
 
 
 

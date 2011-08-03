@@ -53,6 +53,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
     this.paused = paused;
     gameInfoView.setPaused(paused)
     rankedMovesView.showCursor(paused)
+    helpView.setPaused(paused)
   }
 
   def setPosition(coloredPosition: ColoredPosition) { positionView.setPosition(coloredPosition) }

@@ -21,6 +21,9 @@ class HelpView extends TextDrawer {
     else
       helpPainter = gameHelpView
   }
+
+  def setPaused(paused: Boolean) { gameHelpView.setPaused(paused) }
+
   def toggleShowView() { showView = !showView }
 
   def setBoardSize(width: Int, height: Int) { resizeBoardHelpView.setBoardSize(width, height)}
