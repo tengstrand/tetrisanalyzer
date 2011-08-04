@@ -20,6 +20,8 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
 
   private var isResizingBoard = false
 
+  def setShowNextPiece(show: Boolean) { gameInfoView.setShowNextPiece(show) }
+
   def selectedRankedMove: Option[Move] = rankedMovesView.selectedMove
 
   def selectNextRankedMove() { rankedMovesView.selectNextRankedMove() }

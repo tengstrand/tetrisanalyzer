@@ -29,6 +29,7 @@ class GameInfoView extends GameInfoReceiver {
   private val numberSeparator = new NumberSeparator
 
   private var paused = true
+  private var showNextPiece = false
 
   private val speedBarColor = new Color(150, 255, 150)
   private val speedBarColorMax = new Color(255, 150, 150)
@@ -41,6 +42,7 @@ class GameInfoView extends GameInfoReceiver {
 
   def setSeed(seed: Long) { this.seed = seed }
   def setSliding(enabled: Boolean) { slidingEnabled = enabled }
+  def setShowNextPiece(show: Boolean) { showNextPiece = show }
   def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
   def setNumberOfPieces(pieces: Long) { this.pieces = pieces }
   def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = piecesTotal }
@@ -88,11 +90,13 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Seed:", seed, 13, g)
     textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 14, g)
 
-    textDrawer.drawInfo("Speed:", "", 16, g)
-    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 17, g)
-    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 18, g)
+    textDrawer.drawInfo("Next:", if (showNextPiece) "On" else "Off", 16, g)
 
-    textDrawer.drawInfo("Pause:", if (paused) "On" else "", 20, g)
+    textDrawer.drawInfo("Speed:", "", 18, g)
+    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 19, g)
+    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 20, g)
+
+    textDrawer.drawInfo("Pause:", if (paused) "On" else "", 22, g)
 
 
 
@@ -102,7 +106,7 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawText("[F2] Miniature board (toggle)", 34, g)
     textDrawer.drawText("[F3] Show game info (toggle)", 35, g)
 
-    drawSpeed(16, origoX, g)
+    drawSpeed(18, origoX, g)
   }
 
   private def drawSpeed(row: Int, origoX: Int, g: Graphics2D) {

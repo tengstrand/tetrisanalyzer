@@ -22,14 +22,17 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("b = Change board size", 7, g)
 
-    drawText("s / S = Change random generator seed", 9, g)
+    drawText("r / R = Change random generator seed", 9, g)
 
-    drawText("l = Toggle sliding", 11, g)
+    drawText("s = Toggle sliding", 11, g)
 
-    drawText("m = Max speed (toggle)", 13, g)
+    drawText("n = Show next piece (toggle)", 13, g)
 
-    drawText("[Shift] + left = Decrease animation speed", 15, g)
-    drawText("[Shift] + right = Increase animation speed", 16, g)
+
+    drawText("m = Max speed (toggle)", 16, g)
+
+    drawText("[Shift] + left = Decrease animation speed", 18, g)
+    drawText("[Shift] + right = Increase animation speed", 19, g)
 
 
 

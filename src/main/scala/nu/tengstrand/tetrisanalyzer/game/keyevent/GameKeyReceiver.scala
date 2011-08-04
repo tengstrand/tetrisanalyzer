@@ -31,13 +31,15 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
               else
                 game.showRankedMoves(true)
             }
-          case 76 =>  // L = Toggle sliding
+          case 83 =>  // s = Toggle sliding
             game.toggleSliding()
-          case 83 =>
-            if (shiftKey) game.decreaseSeed() // S
-            else game.increaseSeed()          // s
+          case 82 =>
+            if (shiftKey) game.decreaseSeed() // R
+            else game.increaseSeed()          // r
           case 77 =>
             game.toggleMaxSpeed() // m
+          case 78 => // n
+            game.toggleShowNextPiece()
           case 112 => // <F1>
             gameView.toggleShowHelp()
           case 113 => // <F2>
