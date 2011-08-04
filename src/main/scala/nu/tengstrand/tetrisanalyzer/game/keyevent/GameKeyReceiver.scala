@@ -39,12 +39,11 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
           case 77 =>
             game.toggleMaxSpeed() // m
           case 112 => // <F1>
-            gameView.toggleMiniatureBoard()
-          case 113 => // <F2>
-            gameView.toggleShowGameInfo()
-          case 114 => // <F3>
             gameView.toggleShowHelp()
-
+          case 113 => // <F2>
+            gameView.toggleMiniatureBoard()
+          case 114 => // <F3>
+            gameView.toggleShowGameInfo()
           case _ =>
             println("key=" + keyCode + " (" + KeyEvent.getKeyText(keyCode) + "), shift=" + shiftKey + ", ctrl=" + ctrlKey);
         }

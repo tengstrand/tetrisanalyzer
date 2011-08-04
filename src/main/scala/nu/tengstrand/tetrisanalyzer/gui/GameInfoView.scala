@@ -98,9 +98,9 @@ class GameInfoView extends GameInfoReceiver {
 
     textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 31, g)
 
-    textDrawer.drawText("[F1] Miniature board (toggle)", 33, g)
-    textDrawer.drawText("[F2] Show game info (toggle)", 34, g)
-    textDrawer.drawText("[F3] Help (toggle)", 35, g)
+    textDrawer.drawText("[F1] Help (toggle)", 33, g)
+    textDrawer.drawText("[F2] Miniature board (toggle)", 34, g)
+    textDrawer.drawText("[F3] Show game info (toggle)", 35, g)
 
     drawSpeed(16, origoX, g)
   }
