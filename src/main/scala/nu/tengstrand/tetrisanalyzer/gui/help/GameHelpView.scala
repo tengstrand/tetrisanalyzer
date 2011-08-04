@@ -15,7 +15,7 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("p = Pause (toggle)", 1, g)
 
-    drawText("right = Show moves", 3, g)
+    drawText("right = Show valid moves", 3, g)
 
     val pausedText = if (paused) "Move next piece" else "Move piece faster"
     drawText("space / down = " + pausedText, 5, g)
