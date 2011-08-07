@@ -11,5 +11,5 @@ trait GameSettings {
   def isSlidingEnabled: Boolean
   def rotationDirection: RotationDirection
   def pieceStartMove(boardWidth: Int, piece: Piece): Move
-  def firstFreeRowUnderStartPiece: Int
+  def firstGuaranteedFreeRowUnderStartPiece: Int
 }

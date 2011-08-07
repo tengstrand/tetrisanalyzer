@@ -12,5 +12,5 @@ class DefaultGameSettings extends GameSettings {
   def isSlidingEnabled = false
   val rotationDirection = new AnticlockwiseRotation
   def pieceStartMove(boardWidth: Int, piece: Piece) = new Move(0, if (boardWidth <= 4) 0 else (boardWidth - 2) / 2, 0)
-  def firstFreeRowUnderStartPiece: Int = 2
+  def firstGuaranteedFreeRowUnderStartPiece: Int = 2
 }

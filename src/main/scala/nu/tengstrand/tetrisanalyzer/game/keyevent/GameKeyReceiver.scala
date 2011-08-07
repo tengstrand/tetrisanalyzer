@@ -15,7 +15,7 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
               gameView.selectNextRankedMove()
             else
               game.performMove()
-          case 80 => // P
+          case 80 => // p
             game.togglePause()
           case 37 =>
             if (shiftKey) game.decreaseSpeed()          // <Shift> + Left

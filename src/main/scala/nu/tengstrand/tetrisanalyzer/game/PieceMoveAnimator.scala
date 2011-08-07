@@ -1,6 +1,7 @@
 package nu.tengstrand.tetrisanalyzer.game
 
 import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove
+import startpiece.StartPiece
 
 class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
   var quit = false
@@ -14,7 +15,7 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
 
   def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
-  def animateMove(position: Position, startPieceMove: PieceMove, pieceMove: PieceMove) {
+  def animateMove(position: Position, startPiece: StartPiece, startPieceMove: PieceMove, pieceMove: PieceMove) {
     startPieceMove.prepareAnimatedPath()
     startPieceMove.calculateAnimatedPath(null, 0, 0)
 
@@ -28,6 +29,7 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
     steps.foreach(step => {
       if (!quit) {
         val animatedPosition = Position(position)
+        animatedPosition.setNextPieceIfShown(startPiece)
         animatedPosition.setPiece(step.piece, step.move)
         gameEventReceiver.setPosition(animatedPosition)
         Thread.sleep(speed.pieceDelay(fastAnimation))

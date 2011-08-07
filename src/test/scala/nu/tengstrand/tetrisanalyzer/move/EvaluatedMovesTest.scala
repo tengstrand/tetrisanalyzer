@@ -26,7 +26,7 @@ class EvaluatedMovesTest extends BaseTest {
     val boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings)
     val startPieceMoves = allValidPieceMovesForEmptyBoard.startPieces
     val maxEquity = boardEvaluator.evaluate(board.junkBoard)
-    new EvaluatedMoves(board, validMoves, boardEvaluator, startPieceMoves, settings.firstFreeRowUnderStartPiece, maxEquity)
+    new EvaluatedMoves(board, validMoves, boardEvaluator, startPieceMoves, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
   }
 
   @Test def evaluatedMoves {

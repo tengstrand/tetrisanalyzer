@@ -9,13 +9,13 @@ class PredictablePieceGeneratorTest extends BaseTest {
   @Test def piece {
     val pieceGenerator = new PredictablePieceGenerator(List(new PieceS, new PieceZ))
 
-    pieceGenerator.piece should  be (new PieceS)
-    pieceGenerator.piece should  be (new PieceS)
+    pieceGenerator.nextPiece() should  be (new PieceS)
+    pieceGenerator.nextPiece() should  be (new PieceZ)
   }
 
   @Test def pieceAndNextPiece {
     val pieceGenerator = new PredictablePieceGenerator(List(new PieceS, new PieceZ, new PieceI))
-    val result = pieceGenerator.piece ::
+    val result = pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() :: Nil;
 
@@ -24,7 +24,7 @@ class PredictablePieceGeneratorTest extends BaseTest {
 
   @Test def runOutOfPieces {
     val pieceGenerator = new PredictablePieceGenerator(List(new PieceI))
-    val result = pieceGenerator.piece ::
+    val result = pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() :: Nil;
 

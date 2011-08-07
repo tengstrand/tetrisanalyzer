@@ -6,6 +6,7 @@ import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1De
 import nu.tengstrand.tetrisanalyzer.gui.GameView
 import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.settings.SpecifiedGameSettings
+import startpiece.StartPieceGenerator
 
 object Game {
   def PausedOnStartup = true
@@ -32,6 +33,7 @@ class Game(timer: Timer, gameView: GameView) {
   private var pausedBeforeResizing = paused
   private var pausedBeforeShowRankedMoves = paused
   private var pieceGenerator = new DefaultPieceGenerator(seed)
+  private var startPieceGenerator = new StartPieceGenerator(pieceGenerator)
 
   startNewGameWithEmptyBoard()
 
@@ -52,10 +54,12 @@ class Game(timer: Timer, gameView: GameView) {
     val settings = new SpecifiedGameSettings(slidingEnabled)
 
     gameView.setSeed(seed)
+    gameView.setShowNextPiece(showNextPiece)
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
     boardSize = new BoardSize(new MinMax(board.width, boardEvaluator.minBoardWidth, boardEvaluator.maxBoardWidth),
                               new MinMax(board.height, boardEvaluator.minBoardHeight, boardEvaluator.maxBoardHeight))
-    computerPlayer = new ComputerPlayer(speed, board, position, boardEvaluator, pieceGenerator, settings, selectedRankedMove, gameView)
+    computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, selectedRankedMove, gameView)
+    computerPlayer.setShowNextPiece(showNextPiece)
     computerPlayer.setShowRankedMoves(showRankedMoves)
     timer.reset()
     computerPlayer.start()
@@ -91,7 +95,7 @@ class Game(timer: Timer, gameView: GameView) {
 
   def toggleShowNextPiece() {
     showNextPiece = !showNextPiece
-    gameView.setShowNextPiece(showNextPiece)
+    startNewGame(gameView.selectedRankedMove)
   }
 
   def increaseSpeed() { computerPlayer.increaseSpeed() }

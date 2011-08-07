@@ -11,6 +11,8 @@
 - Show AI.
 - Remove y-values for non slided moves if paused.
 
+- Add support for starting games from a given position.
+
 - Add battle mode, computer against computer or computer against human.
 
 - Show dots/position.

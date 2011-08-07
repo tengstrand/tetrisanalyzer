@@ -1,9 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.game
 
 import java.awt.Dimension
-import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.settings.GameSettings
 import nu.tengstrand.tetrisanalyzer.move.Move
+import startpiece.StartPiece
 
 class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver) {
   private var moves = 0L
@@ -50,12 +50,13 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
   }
 
-  def setPosition(position: Position, piece: Piece, rankedMove: Move, settings: GameSettings) {
+  def setStartPieceAndSelectedMoveIfSelectedOnPosition(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
     if (gameEventReceiver.isReadyToReceivePosition) {
+      position.setNextPieceIfShown(startPiece)
       val positionWithStartPiece = Position(position)
-      positionWithStartPiece.setStartPieceIfFree(piece, settings)
-      if (rankedMove != null)
-        positionWithStartPiece.setRankedPiece(piece, rankedMove)
+      positionWithStartPiece.setStartPieceIfFree(startPiece, settings)
+      if (selectedRankedMove != null)
+        positionWithStartPiece.setSelectedMove(startPiece.firstPiece, selectedRankedMove)
       gameEventReceiver.setPosition(positionWithStartPiece)
     }
   }

@@ -19,7 +19,7 @@ object EvaluatedMoves {
  * Takes a list of piece moves and evaluates them using the given board evaluator.
  */
 class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator,
-                     startPieceMoves: List[PieceMove], firstFreeRowUnderStartPiece: Int, maxEquity: Double) {
+                     startPieceMoves: List[PieceMove], firstGuaranteedFreeRowUnderStartPiece: Int, maxEquity: Double) {
   val moves: List[MoveEquity] = evaluateValidMoves
 
   /**
@@ -67,11 +67,11 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
   }
 
   private def evaluate(pieceMove: PieceMove, boardCopy: Board): Double = {
-    val clearedRows = pieceMove.setPiece
+    val clearedRows = pieceMove.setPiece()
     var equity = boardEvaluator.evaluate(pieceMove.board)
 
-    if (pieceMove.move.y + clearedRows < firstFreeRowUnderStartPiece)
-       equity = adjustEquityIfNextPieceIsOccupied(pieceMove.board, equity)
+    if (pieceMove.move.y + clearedRows < firstGuaranteedFreeRowUnderStartPiece)
+       equity = adjustEquityIfAnyNextPieceIsOccupied(pieceMove.board, equity)
 
     if (clearedRows == 0)
       pieceMove.clearPiece()
@@ -81,7 +81,7 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
     equity
   }
 
-  private def adjustEquityIfNextPieceIsOccupied(board: Board, equity: Double) = {
+  private def adjustEquityIfAnyNextPieceIsOccupied(board: Board, equity: Double) = {
     startPieceMoves.foldLeft(0.0) { (sum,pieceMove) => sum + (if (pieceMove.isFree) equity else maxEquity) } / Piece.NumberOfPieceTypes
   }
 

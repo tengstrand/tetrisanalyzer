@@ -10,17 +10,15 @@ object DefaultPieceGenerator {
  */
 class DefaultPieceGenerator(var seed: Long = 0) extends PieceGenerator {
 
-  def pieceNumber = {
+  def nextPieceNumber = {
+    seed = (this.seed * 1664525) & DefaultPieceGenerator.BitMask
+    seed = (seed + 1013904223) & DefaultPieceGenerator.BitMask
+
     modulus7 + 1
   }
 
   private def modulus7 = {
     val div: Long = seed / 7;
     (seed - div * 7).toInt
-  }
-
-  def prepareNext() {
-    seed = (this.seed * 1664525) & DefaultPieceGenerator.BitMask
-    seed = (seed + 1013904223) & DefaultPieceGenerator.BitMask
   }
 }

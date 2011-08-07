@@ -5,6 +5,7 @@ import org.junit.Test
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.piece.{PieceO, PieceI, PieceT, PieceS}
+import startpiece.StartPiece
 
 class PositionTest extends BaseTest {
 
@@ -37,9 +38,10 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def testSetStartPieceIfFree() {
+  @Test def setStartPieceIfFree() {
     val position = Position(10,5);
-    position.setStartPieceIfFree(new PieceS, new DefaultGameSettings)
+    val startPiece = new StartPiece(new PieceS)
+    position.setStartPieceIfFree(startPiece, new DefaultGameSettings)
 
     position.toString should be (
       "######-----SS---##\n" +
@@ -52,7 +54,23 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def testSetPiece() {
+  @Test def setStartPieceAndNextPiece() {
+    val position = Position(10,5);
+    val startPiece = new StartPiece(new PieceS, new PieceT)
+    position.setStartPieceIfFree(startPiece, new DefaultGameSettings)
+
+    position.toString should be (
+      "-TTT-#-----SS---##\n" +
+      "--T--#----SS----##\n" +
+      "######----------##\n" +
+      "######----------##\n" +
+      "######----------##\n" +
+      "##################\n" +
+      "##################"
+    )
+  }
+
+  @Test def setPiece() {
     val position = Position(10,5);
     position.setPiece(new PieceT, Move(1, 5, 2))
 
