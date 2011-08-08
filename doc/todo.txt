@@ -1,7 +1,4 @@
 
-- Set and remove next peace "for real" in Position, don't set it every time by calling setStartPieceIfFree.
-- Don't restart the game if paused and toggling sliding.
-
 - Refactor som code to more functional style, like getting max values.
 - Add support for Search depth (default = 0), key <1>..<8>.
 - Add sound.

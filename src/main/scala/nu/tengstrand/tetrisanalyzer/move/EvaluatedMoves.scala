@@ -95,7 +95,7 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
     validMoves.foreach(pieceMove => {
       val clearedRows = pieceMove.setPiece()
       val equity = boardEvaluator.evaluate(board)
-      if (equity < bestEquity) {
+      if (equity < bestEquity || (equity == bestEquity && pieceMove < bestPieceMove)) {
         bestEquity = equity
         bestPieceMove = pieceMove
       }
@@ -120,7 +120,7 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
     if (moves.isEmpty)
       List.empty[MoveEquity]
     else {
-      val sortedMoves = moves.sortBy{m => (m.equity)}
+      val sortedMoves = moves.sortBy{m => (m.equity, m.pieceMove.move.rotation, m.pieceMove.move.x, m.pieceMove.move.y)}
       val bestMove = sortedMoves.head
 
       roundThreeDecimals(sortedMoves.head, 0) ::

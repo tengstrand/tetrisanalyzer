@@ -31,7 +31,7 @@ object PieceMove {
  * moves are valid on the (none empty) board.
  */
 class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndices: Array[Int],
-                orRows: Array[Int], andRows: Array[Int]) {
+                orRows: Array[Int], andRows: Array[Int]) extends Ordered[PieceMove] {
   var down: PieceMove = null
   var asideAndRotate: Set[PieceMove] = new HashSet[PieceMove]
   private val pieceHeight = piece.height(move.rotation)
@@ -87,9 +87,9 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   def prepareAnimatedPath() {
     if (animatedPathValue != Integer.MAX_VALUE) {
       animatedPathValue = Integer.MAX_VALUE
-      asideAndRotate.foreach(_.prepareAnimatedPath)
+      asideAndRotate.foreach(_.prepareAnimatedPath())
       if (down != null)
-        down.prepareAnimatedPath
+        down.prepareAnimatedPath()
     }
   }
 
@@ -108,6 +108,22 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
         down.calculateAnimatedPath(this, animatedPathValue, 0)
       }
     }
+  }
+
+  def compare(that: PieceMove) = {
+    if (move.rotation < that.move.rotation)
+      -1
+    else if (move.rotation > that.move.rotation)
+      1
+    else if (move.x < that.move.x)
+      -1
+    else if (move.x > that.move.x)
+      1
+    else if (move.y < that.move.y)
+      -1
+    else if (move.y > that.move.y)
+      1
+    else 0
   }
 
   override def equals(that: Any) = that match {
