@@ -54,10 +54,10 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def setNextPieceIfShown() {
+  @Test def setOrRestoreNextPiece() {
     val position = Position(10,5);
     val startPiece = new StartPiece(new PieceS, new PieceT)
-    position.setNextPieceIfShown(startPiece)
+    position.setOrRestoreNextPiece(startPiece)
 
     position.toString should be (
       "-TTT-#----------##\n" +

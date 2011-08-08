@@ -53,9 +53,8 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedRows, maxClearedRows)
   }
 
-  def setStartPieceAndSelectedMoveIfSelectedInGui(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
+  def setStartPieceAndSelectedMove(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
     if (gameEventReceiver.isReadyToReceivePosition) {
-      position.setNextPieceIfShown(startPiece)
       val positionWithStartPiece = Position(position)
       positionWithStartPiece.setStartPieceIfFree(startPiece, settings)
       if (selectedRankedMove != null)

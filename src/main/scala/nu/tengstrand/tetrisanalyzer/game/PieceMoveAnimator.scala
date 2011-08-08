@@ -29,7 +29,6 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
     steps.foreach(step => {
       if (!quit) {
         val animatedPosition = Position(position)
-        animatedPosition.setNextPieceIfShown(startPiece)
         animatedPosition.setPiece(step.piece, step.move)
         gameEventReceiver.setPosition(animatedPosition)
         Thread.sleep(speed.pieceDelay(fastAnimation))

@@ -99,6 +99,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
       var bestMove = evaluateBestMove()
 
       while (!quit && bestMove.isDefined) {
+        position.setOrRestoreNextPiece(startPiece)
         waitIfPaused(startPiece)
 
         if (!quit) {
@@ -153,7 +154,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   }
 
   private def updatePosition(startPiece: StartPiece) {
-    gameStatistics.setStartPieceAndSelectedMoveIfSelectedInGui(position, startPiece, selectedRankedMove, settings)
+    gameStatistics.setStartPieceAndSelectedMove(position, startPiece, selectedRankedMove, settings)
     gameStatistics.updateGameInfo()
   }
 
@@ -165,7 +166,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     // Update GUI every 10th or 100th piece move, and always if paused
     if (shouldGameInfoBeUpdated) {
       if (!doStep)
-        gameStatistics.setStartPieceAndSelectedMoveIfSelectedInGui(position, startPiece, selectedRankedMove, settings)
+        gameStatistics.setStartPieceAndSelectedMove(position, startPiece, selectedRankedMove, settings)
       gameStatistics.updateGameInfo()
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedRows)
