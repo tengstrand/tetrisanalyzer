@@ -12,6 +12,4 @@ case class StartPiece(var firstPiece: Piece, var secondPiece: Piece = null) {
     secondPiece = null
     piece
   }
-
-  def copy = new StartPiece(firstPiece, secondPiece)
 }

@@ -20,14 +20,14 @@ class StartPieceGeneratorTest extends BaseTest {
 
   @Test def nextPiece() {
     val startPiece = startPieceGenerator.nextPiece(false)
-    startPiece.nextPiece() should be (new PieceL)
+    startPiece.firstPiece should be (new PieceL)
     startPiece.hasNext should be (false)
   }
 
   @Test def nextPieces() {
     val startPiece = startPieceGenerator.nextPiece(true)
-    startPiece.nextPiece() should be (new PieceI)
-    startPiece.nextPiece() should be (new PieceO)
-    startPiece.hasNext should be (false)
+    startPiece.firstPiece should be (new PieceL)
+    startPiece.secondPiece should be (new PieceI)
+    startPiece.hasNext should be (true)
   }
 }

@@ -18,6 +18,11 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
                      settings: GameSettings, rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
+
+  private var startPiece: StartPiece = null
+  private var startPieceMove: PieceMove = null
+  private var nextPieceMove: PieceMove = null
+
   private val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
 
   private val startBoard = board.copy
@@ -86,50 +91,56 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     gameEventReceiver.setTimePassed(0)
     gameEventReceiver.setSpeed(pieceMoveAnimator.getSpeedIndex, pieceMoveAnimator.isMaxSpeed)
 
-    var startPiece = startPieceGenerator.piece(showNextPiece)
-
     while (!quit) {
       board.restore(startBoard)
       position.copyFrom(startPosition)
 
-      var startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.firstPiece)
-      var bestMove = evaluateBestMove(startPieceMove, startPiece.copy)
+      initCurrentAndNextStartPiece(startPieceGenerator.piece(showNextPiece))
+      var bestMove = evaluateBestMove()
 
       while (!quit && bestMove.isDefined) {
         waitIfPaused(startPiece)
+
         if (!quit) {
           var selectedMove = selectedPieceMove(bestMove)
           if (doStep)
             pieceMoveAnimator.animateMove(position, startPiece, startPieceMove, selectedMove)
 
-          startPiece = startPieceGenerator.nextPiece(showNextPiece)
-          startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.firstPiece)
-          bestMove = makeMove(startPiece, startPieceMove, selectedMove)
+          initCurrentAndNextStartPiece(startPieceGenerator.nextPiece(showNextPiece))
+
+          makeMove(selectedMove)
+          bestMove = evaluateBestMove()
+
           gameStatistics.addMove()
         }
       }
-      if (!quit) {
+      if (!quit)
         gameStatistics.newGame()
-      }
     }
     exit()
   }
 
+  private def initCurrentAndNextStartPiece(startPiece: StartPiece) {
+    this.startPiece = startPiece
+    startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.firstPiece)
+    nextPieceMove = if (startPiece.hasNext) allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.secondPiece) else null
+  }
+
   private def selectedPieceMove(bestPieceMove: Option[PieceMove]) = {
     if (hasRankedMoves)
-      bestPieceMove.get
-    else
       rankedMoves.selectedMove.get.moveEquity.pieceMove
+    else
+      bestPieceMove.get
   }
 
   private def selectedRankedMove = {
     if (hasRankedMoves)
-      null
-    else
       rankedMoves.selectedMove.get.moveEquity.pieceMove.move
+    else
+      null
   }
 
-  private def hasRankedMoves = rankedMoves == null || !showRankedMoves || !rankedMoves.selectedMove.isDefined
+  private def hasRankedMoves = showRankedMoves && rankedMoves != null && rankedMoves.selectedMove.isDefined
 
   private def waitIfPaused(startPiece: StartPiece) {
     if (paused && !quit)
@@ -148,7 +159,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   private def shouldGameInfoBeUpdated = doStep || gameStatistics.hasPassedHundredPieces
 
-  private def makeMove(startPiece: StartPiece, startPieceMove: PieceMove, pieceMove: PieceMove): Option[PieceMove] = {
+  private def makeMove(pieceMove: PieceMove) {
     val clearedRows = pieceMove.setPiece()
 
     // Update GUI every 100 piece and always if in step mode
@@ -162,8 +173,6 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     doStep = pieceMoveAnimator.continueDoStep(paused)
     pieceMoveAnimator.fastAnimation = false
     gameStatistics.addClearedRows(clearedRows)
-
-    evaluateBestMove(startPieceMove, startPiece.copy)
   }
 
   private def setPieceOnPosition(piece: Piece, move: Move, clearedRows: Long) {
@@ -176,6 +185,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     }
   }
 
+  /*
   private def evaluateBestMove(startPieceMove: PieceMove, startPiece: StartPiece): Option[PieceMove] = {
     if (!startPiece.hasNext) {
       evaluateBestMove(startPieceMove)
@@ -184,7 +194,8 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
       evaluateBestMove(startPieceMove, nextStartPieceMove)
     }
   }
-
+  */
+  /*
   private def evaluateBestMove(startPieceMove: PieceMove, nextStartPieceMove: PieceMove): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val boardCopy = board.copy
@@ -194,7 +205,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
       var bestPieceMove: PieceMove = null
       validMoves.foreach(pieceMove => {
         val clearedRows = pieceMove.setPiece()
-        val equity = evaluateNextPiece(nextStartPieceMove)
+        val equity = evaluateNextPiece(nextStartPieceMove, startPiece)
         if (equity < bestEquity) {
           bestEquity = equity
           bestPieceMove = pieceMove
@@ -209,21 +220,23 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
       None
     }
   }
+ */
 
-  private def evaluateNextPiece(nextStartPieceMove: PieceMove): Double = {
+ /*
+  private def evaluateNextPiece(nextStartPieceMove: PieceMove, startPiece: StartPiece): Double = {
     if (nextStartPieceMove.isFree) {
       val validNextMoves = ValidMoves(board).pieceMoves(nextStartPieceMove)
-      val evaluatedMoves = EvaluatedMoves(board, validNextMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
+      val evaluatedMoves = EvaluatedMoves(board, validNextMoves, boardEvaluator, startPiece, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
       evaluatedMoves.bestMoveEquity.get.equity
     } else {
       maxEquity
     }
   }
-
-  private def evaluateBestMove(startPieceMove: PieceMove): Option[PieceMove] = {
+ */
+  private def evaluateBestMove(): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-      val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
+      val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, startPiece, nextPieceMove, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
 
       if (showRankedMoves || paused)
         notifySelectedRankedMove(startPieceMove, evaluatedMoves)
@@ -237,7 +250,8 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   private def notifySelectedRankedMove(startPieceMove: PieceMove, evaluatedMoves: EvaluatedMoves) {
     val board = startPieceMove.board
     val selectRow = rankedMoves == null && rankedMoveToSelect.isDefined
-    rankedMoves = new RankedMoves(evaluatedMoves.sortedMovesWithAdjustedEquity, board.width, board.height)
+    val sortedMoves = evaluatedMoves.sortedMovesWithAdjustedEquity
+    rankedMoves = new RankedMoves(sortedMoves, board.width, board.height)
     if (selectRow)
       rankedMoves.selectMove(rankedMoveToSelect.get)
 

@@ -1,15 +1,17 @@
 
-- Add support for Next piece (default = no).
+- Set and remove next peace "for real" in Position, don't set it every time by calling setStartPieceIfFree.
+- Don't restart the game if paused and toggling sliding or "next piece".
+
+- Refactor som code to more functional style, like getting max values.
 - Add support for Search depth (default = 0), key <1>..<8>.
 - Add sound.
-- Add support for "browse moves" mode, where the moves are saved and can be "browsed" by the arrow keys.
+- Add support for "browse moves" mode, where the positions are saved and can be "browsed" by the arrow keys.
 
 - [Esc] = New game, reset to defaults (seed and other).
 - Optimize speed when sliding is on.
 
 - Adjust x+1 for "standing" piece I.
 - Show AI.
-- Remove y-values for non slided moves if paused.
 
 - Add support for starting games from a given position.
 

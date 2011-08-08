@@ -54,14 +54,14 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def setStartPieceAndNextPiece() {
+  @Test def setNextPieceIfShown() {
     val position = Position(10,5);
     val startPiece = new StartPiece(new PieceS, new PieceT)
-    position.setStartPieceIfFree(startPiece, new DefaultGameSettings)
+    position.setNextPieceIfShown(startPiece)
 
     position.toString should be (
-      "-TTT-#-----SS---##\n" +
-      "--T--#----SS----##\n" +
+      "-TTT-#----------##\n" +
+      "--T--#----------##\n" +
       "######----------##\n" +
       "######----------##\n" +
       "######----------##\n" +

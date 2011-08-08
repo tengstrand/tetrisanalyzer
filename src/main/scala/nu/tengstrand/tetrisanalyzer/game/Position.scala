@@ -71,17 +71,19 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
   }
 
   def setNextPieceIfShown(startPiece: StartPiece) {
-    if (startPiece.hasNext) {
-      setEmptyNextPieceSquare()
+    if (!startPiece.hasNext) {
+      setNextPieceSquare(Wall.Number)
+    } else {
+      setNextPieceSquare(PieceEmpty.Number)
       val piece = startPiece.secondPiece
       piece.shape(0).dots.foreach(dot => playfield(dot.y)(dot.x + 1) = piece.number)
     }
   }
 
-  private def setEmptyNextPieceSquare() {
+  private def setNextPieceSquare(number: Byte) {
     for (y <- 0 to 1) {
       for (x <- 0 to 4) {
-        playfield(y)(x) = PieceEmpty.Number
+        playfield(y)(x) = number
       }
     }
   }

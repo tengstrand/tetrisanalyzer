@@ -61,9 +61,9 @@ class Game(timer: Timer, gameView: GameView) {
     computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, selectedRankedMove, gameView)
     computerPlayer.setShowNextPiece(showNextPiece)
     computerPlayer.setShowRankedMoves(showRankedMoves)
+    computerPlayer.setPaused(paused)
     timer.reset()
     computerPlayer.start()
-    computerPlayer.setPaused(paused)
     gameView.stopResizingBoard(position, showRankedMoves)
   }
 
