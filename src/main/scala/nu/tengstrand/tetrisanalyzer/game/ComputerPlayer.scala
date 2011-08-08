@@ -153,19 +153,19 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   }
 
   private def updatePosition(startPiece: StartPiece) {
-    gameStatistics.setStartPieceAndSelectedMoveIfSelectedOnPosition(position, startPiece, selectedRankedMove, settings)
+    gameStatistics.setStartPieceAndSelectedMoveIfSelectedInGui(position, startPiece, selectedRankedMove, settings)
     gameStatistics.updateGameInfo()
   }
 
-  private def shouldGameInfoBeUpdated = doStep || gameStatistics.hasPassedHundredPieces
+  private def shouldGameInfoBeUpdated = doStep || gameStatistics.isTimeToUpdateGui(showNextPiece)
 
   private def makeMove(pieceMove: PieceMove) {
     val clearedRows = pieceMove.setPiece()
 
-    // Update GUI every 100 piece and always if in step mode
+    // Update GUI every 10th or 100th piece move, and always if paused
     if (shouldGameInfoBeUpdated) {
       if (!doStep)
-        gameStatistics.setStartPieceAndSelectedMoveIfSelectedOnPosition(position, startPiece, selectedRankedMove, settings)
+        gameStatistics.setStartPieceAndSelectedMoveIfSelectedInGui(position, startPiece, selectedRankedMove, settings)
       gameStatistics.updateGameInfo()
     }
     setPieceOnPosition(pieceMove.piece, pieceMove.move, clearedRows)
@@ -185,54 +185,6 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     }
   }
 
-  /*
-  private def evaluateBestMove(startPieceMove: PieceMove, startPiece: StartPiece): Option[PieceMove] = {
-    if (!startPiece.hasNext) {
-      evaluateBestMove(startPieceMove)
-    } else {
-      val nextStartPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.secondPiece)
-      evaluateBestMove(startPieceMove, nextStartPieceMove)
-    }
-  }
-  */
-  /*
-  private def evaluateBestMove(startPieceMove: PieceMove, nextStartPieceMove: PieceMove): Option[PieceMove] = {
-    if (startPieceMove.isFree) {
-      val boardCopy = board.copy
-      val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
-
-      var bestEquity = Double.MaxValue
-      var bestPieceMove: PieceMove = null
-      validMoves.foreach(pieceMove => {
-        val clearedRows = pieceMove.setPiece()
-        val equity = evaluateNextPiece(nextStartPieceMove, startPiece)
-        if (equity < bestEquity) {
-          bestEquity = equity
-          bestPieceMove = pieceMove
-        }
-        if (clearedRows == 0)
-          pieceMove.clearPiece()
-        else
-          pieceMove.board.restore(boardCopy)
-      })
-      Some(bestPieceMove)
-    } else {
-      None
-    }
-  }
- */
-
- /*
-  private def evaluateNextPiece(nextStartPieceMove: PieceMove, startPiece: StartPiece): Double = {
-    if (nextStartPieceMove.isFree) {
-      val validNextMoves = ValidMoves(board).pieceMoves(nextStartPieceMove)
-      val evaluatedMoves = EvaluatedMoves(board, validNextMoves, boardEvaluator, startPiece, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
-      evaluatedMoves.bestMoveEquity.get.equity
-    } else {
-      maxEquity
-    }
-  }
- */
   private def evaluateBestMove(): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)

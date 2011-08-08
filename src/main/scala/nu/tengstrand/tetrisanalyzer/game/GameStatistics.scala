@@ -12,8 +12,8 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
   private var clearedRowsTotal = 0L
   private var games = 0L
   private var totalClearedRows = 0L
-  private var minClearedrows = Long.MaxValue
-  private var maxClearedrows = 0L
+  private var minClearedRows = Long.MaxValue
+  private var maxClearedRows = 0L
 
   def addMove() {
     moves += 1
@@ -25,20 +25,23 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     clearedRowsTotal += clearedRows
   }
 
-  def hasPassedHundredPieces = movesTotal % 100 == 0
+  def isTimeToUpdateGui(showNextPiece: Boolean) = {
+    val updateEveryXMove = if (showNextPiece) 10 else 100
+    movesTotal % updateEveryXMove == 0
+  }
 
   def newGame() {
     games += 1
 
     totalClearedRows += clearedRows
 
-    if (clearedRows < minClearedrows)
-      minClearedrows = clearedRows
+    if (clearedRows < minClearedRows)
+      minClearedRows = clearedRows
 
-    if (clearedRows > maxClearedrows)
-      maxClearedrows = clearedRows
+    if (clearedRows > maxClearedRows)
+      maxClearedRows = clearedRows
 
-    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
+    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedRows, maxClearedRows)
 
     moves = 0
     clearedRows = 0
@@ -47,10 +50,10 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
   def updateAll() {
     gameEventReceiver.setBoardSize(boardSize.width, boardSize.height)
     updateGameInfo()
-    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedrows, maxClearedrows)
+    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedRows, maxClearedRows)
   }
 
-  def setStartPieceAndSelectedMoveIfSelectedOnPosition(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
+  def setStartPieceAndSelectedMoveIfSelectedInGui(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
     if (gameEventReceiver.isReadyToReceivePosition) {
       position.setNextPieceIfShown(startPiece)
       val positionWithStartPiece = Position(position)
