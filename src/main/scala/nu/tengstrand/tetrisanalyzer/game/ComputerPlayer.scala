@@ -50,6 +50,9 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   def setShowNextPiece(show: Boolean) {
     this.showNextPiece = show
+    initCurrentAndNextStartPiece(startPieceGenerator.piece(show))
+    position.setOrRestoreNextPiece(startPiece)
+    updateSpeed()
   }
 
   def increaseSpeed() {
@@ -100,7 +103,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
       while (!quit && bestMove.isDefined) {
         position.setOrRestoreNextPiece(startPiece)
-        waitIfPaused(startPiece)
+        waitIfPaused()
 
         if (!quit) {
           var selectedMove = selectedPieceMove(bestMove)
@@ -143,7 +146,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   private def hasRankedMoves = showRankedMoves && rankedMoves != null && rankedMoves.selectedMove.isDefined
 
-  private def waitIfPaused(startPiece: StartPiece) {
+  private def waitIfPaused() {
     if (paused && !quit)
       updatePosition(startPiece)
 

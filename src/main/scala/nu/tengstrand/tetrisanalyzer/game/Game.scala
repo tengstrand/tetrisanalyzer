@@ -95,7 +95,8 @@ class Game(timer: Timer, gameView: GameView) {
 
   def toggleShowNextPiece() {
     showNextPiece = !showNextPiece
-    startNewGame(gameView.selectedRankedMove)
+    gameView.setShowNextPiece(showNextPiece)
+    computerPlayer.setShowNextPiece(showNextPiece)
   }
 
   def increaseSpeed() { computerPlayer.increaseSpeed() }
