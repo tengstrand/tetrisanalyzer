@@ -64,7 +64,6 @@ class Game(timer: Timer, gameView: GameView) {
     computerPlayer.setPaused(paused)
     timer.reset()
     computerPlayer.start()
-    gameView.stopResizingBoard(position, showRankedMoves)
   }
 
   def performMove() { computerPlayer.performStep() }
