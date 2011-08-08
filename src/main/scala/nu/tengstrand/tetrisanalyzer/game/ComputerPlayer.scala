@@ -15,7 +15,7 @@ import startpiece.{StartPiece, StartPieceGenerator}
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, board: Board, position: Position, boardEvaluator: BoardEvaluator,
-                     settings: GameSettings, rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
+                     settings: GameSettings, var rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
 
@@ -48,10 +48,12 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     this.paused = paused
   }
 
-  def setShowNextPiece(show: Boolean) {
+  def setShowNextPiece(show: Boolean, rankedMoveToSelect: Option[Move]) {
     this.showNextPiece = show
+    this.rankedMoveToSelect = rankedMoveToSelect
     initCurrentAndNextStartPiece(startPieceGenerator.piece(show))
     position.setOrRestoreNextPiece(startPiece)
+    evaluateBestMove()
     updateSpeed()
   }
 
@@ -205,10 +207,9 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   private def notifySelectedRankedMove(startPieceMove: PieceMove, evaluatedMoves: EvaluatedMoves) {
     val board = startPieceMove.board
-    val selectRow = rankedMoves == null && rankedMoveToSelect.isDefined
     val sortedMoves = evaluatedMoves.sortedMovesWithAdjustedEquity
     rankedMoves = new RankedMoves(sortedMoves, board.width, board.height)
-    if (selectRow)
+    if (rankedMoveToSelect.isDefined)
       rankedMoves.selectMove(rankedMoveToSelect.get)
 
     gameEventReceiver.setRankedMoves(rankedMoves)

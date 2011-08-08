@@ -59,7 +59,7 @@ class Game(timer: Timer, gameView: GameView) {
     boardSize = new BoardSize(new MinMax(board.width, boardEvaluator.minBoardWidth, boardEvaluator.maxBoardWidth),
                               new MinMax(board.height, boardEvaluator.minBoardHeight, boardEvaluator.maxBoardHeight))
     computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, selectedRankedMove, gameView)
-    computerPlayer.setShowNextPiece(showNextPiece)
+    computerPlayer.setShowNextPiece(showNextPiece, selectedRankedMove)
     computerPlayer.setShowRankedMoves(showRankedMoves)
     computerPlayer.setPaused(paused)
     timer.reset()
@@ -95,7 +95,7 @@ class Game(timer: Timer, gameView: GameView) {
   def toggleShowNextPiece() {
     showNextPiece = !showNextPiece
     gameView.setShowNextPiece(showNextPiece)
-    computerPlayer.setShowNextPiece(showNextPiece)
+    computerPlayer.setShowNextPiece(showNextPiece, gameView.selectedRankedMove)
   }
 
   def increaseSpeed() { computerPlayer.increaseSpeed() }
