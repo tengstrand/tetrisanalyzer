@@ -1,4 +1,5 @@
 
+- Fix problems that sometimes not the best move is selected when both sliding and next move is on!
 - Remove sliding handling from GameSettings + do not restart game when toggling sliding. Remove rankedMoveToSelect from ComputerPlayer constructor.
 - Refactor som code to more functional style, like getting max values.
 - Add support for Search depth (default = 0), key <1>..<8>.
