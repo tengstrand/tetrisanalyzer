@@ -25,6 +25,6 @@ class RankedMovesHelpView extends TextDrawer with HelpPainter {
     drawText("       can be slided).", 14, g)
     drawText(" Depth = Look ahead. A search depth of 0", 15, g)
     drawText("         means that only the current piece", 16, g)
-    drawText("         is known.", 17, g)
+    drawText("         and next piece (if enabled) is known.", 17, g)
   }
 }
