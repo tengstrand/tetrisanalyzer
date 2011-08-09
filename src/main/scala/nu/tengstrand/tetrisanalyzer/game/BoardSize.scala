@@ -14,6 +14,8 @@ case class Size(width: Int, height: Int)
 class BoardSize(var width: MinMax, var height: MinMax) {
   def size = Size(width.value, height.value)
 
+  def increaseWidth() { width.increase() }
+  def decreaseWidth() { width.decrease() }
   def increaseHeight() { height.increase() }
   def decreaseHeight() { height.decrease() }
 

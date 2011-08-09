@@ -140,6 +140,16 @@ class Game(timer: Timer, gameView: GameView) {
     gameView.stopResizingBoard(position, showRankedMoves)
   }
 
+  def decreaseBoardWidth() {
+    boardSize.decreaseWidth()
+    updateBoardSize()
+  }
+
+  def increaseBoardWidth() {
+    boardSize.increaseWidth()
+    updateBoardSize()
+  }
+
   def decreaseBoardHeight() {
     boardSize.decreaseHeight()
     updateBoardSize()
