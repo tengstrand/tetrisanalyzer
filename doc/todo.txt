@@ -1,5 +1,4 @@
 
-- Shift + arrow = change width or height in "board size" mode.
 - Remove sliding handling from GameSettings + do not restart game when toggling sliding. Remove rankedMoveToSelect from ComputerPlayer constructor.
 - Refactor som code to more functional style, like getting max values.
 - Add support for Search depth (default = 0), key <1>..<8>.
