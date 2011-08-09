@@ -3,8 +3,6 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 import nu.tengstrand.tetrisanalyzer.game.RankedMovesReceiver
 import java.awt.{Color, Graphics2D}
 import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
-import nu.tengstrand.tetrisanalyzer.move.Move
-
 class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   private var rankedMoves: RankedMoves = null
   private var newRankedMoves: RankedMoves = null
@@ -21,7 +19,7 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
   def showRowNumbers = rankedMoves != null && rankedMoves.hasDuplicatedVX
 
   def width = {
-    if (rankedMoves == null || !showView)
+    if (rankedMoves == null || rankedMoves.isEmpty || !showView)
       0
     else {
       rankedMoves.moves(0).asText.length() * 8 + 40
@@ -33,18 +31,6 @@ class RankedMovesView extends TextDrawer with RankedMovesReceiver {
 
     if (this.rankedMoves == null)
       this.rankedMoves = newRankedMoves
-  }
-
-  def selectedMove: Option[Move] = {
-    if (rankedMoves == null)
-      None
-    else {
-      val selectedMove = rankedMoves.selectedMove
-      if (selectedMove.isDefined)
-        Some(selectedMove.get.moveEquity.pieceMove.move)
-      else
-        None
-    }
   }
 
   def selectNextRankedMove() {

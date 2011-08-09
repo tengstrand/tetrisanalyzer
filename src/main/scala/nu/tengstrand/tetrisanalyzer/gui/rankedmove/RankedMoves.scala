@@ -2,8 +2,9 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 
 import nu.tengstrand.tetrisanalyzer.move.{Move, MoveEquity}
 
-class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends AlignRight {
-  val moves = calculateRankedMoves
+class RankedMoves(maxX: Int, maxY: Int) extends AlignRight {
+  var moves: List[RankedMove] = List.empty[RankedMove]
+  var equityMoves = List.empty[MoveEquity]
 
   var selectedRow = 0
 
@@ -11,7 +12,7 @@ class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends A
 
   private def vxList = equityMoves.map(m => VX(m.pieceMove.move.rotation, m.pieceMove.move.x))
 
-  private def calculateRankedMoves = {
+  private def calculateRankedMoves(equityMoves: List[MoveEquity]) = {
     var rankedMoves = List.empty[RankedMove]
     var row = 1
     val hasDuplicates = hasDuplicatedVX
@@ -30,18 +31,27 @@ class RankedMoves(equityMoves: List[MoveEquity], maxX: Int, maxY: Int) extends A
     rankedMoves.reverse
   }
 
-  def selectMove(move: Move) {
+  def setMoves(equityMoves: List[MoveEquity], keepSelectedMove: Boolean = false) {
+    this.equityMoves = equityMoves
+    if (keepSelectedMove && moves.size > 0) {
+      val selectedMove = moves(selectedRow)
+      moves = calculateRankedMoves(equityMoves)
+      selectMove(selectedMove.moveEquity.pieceMove.move)
+    } else {
+      moves = calculateRankedMoves(equityMoves)
+      selectedRow = 0
+    }
+  }
+
+  private def selectMove(move: Move) {
     selectedRow = moves.map(_.moveEquity.pieceMove.move).indexWhere(m => { m == move } )
     if (selectedRow < 0)
       selectedRow = 0
   }
 
-  def selectedMove: Option[RankedMove] = {
-    if (moves.size == 0)
-      None
-    else
-      Some(moves(selectedRow))
-  }
+  def isEmpty = moves.size == 0
+
+  def selectedPieceMove = moves(selectedRow).moveEquity.pieceMove
 
   def selectPreviousMove() {
     if (selectedRow > 0)

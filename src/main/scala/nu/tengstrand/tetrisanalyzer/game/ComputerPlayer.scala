@@ -6,16 +6,16 @@ import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.piecemove.{PieceMove, AllValidPieceMovesForEmptyBoard}
 import actors.Actor
 import nu.tengstrand.tetrisanalyzer.piece.Piece
-import nu.tengstrand.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 import java.awt.Dimension
 import nu.tengstrand.tetrisanalyzer.gui.rankedmove.RankedMoves
 import startpiece.{StartPiece, StartPieceGenerator}
+import nu.tengstrand.tetrisanalyzer.move.{Move, EvaluatedMoves, ValidMoves}
 
 /**
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, board: Board, position: Position, boardEvaluator: BoardEvaluator,
-                     settings: GameSettings, var slidingEnabled: Boolean, var rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
+                     settings: GameSettings, var slidingEnabled: Boolean, gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
 
@@ -36,10 +36,11 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   private val pieceMoveAnimator = new PieceMoveAnimator(speed, gameEventReceiver)
 
   private var showRankedMoves = false
-  private var rankedMoves: RankedMoves = null
+  private var rankedMoves: RankedMoves = new RankedMoves(board.width, board.height)
 
   def setShowRankedMoves(show: Boolean) {
     showRankedMoves = show
+    evaluateBestMove(true)
     updateSpeed()
   }
 
@@ -48,21 +49,19 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     this.paused = paused
   }
 
-  def setSliding(slidingEnabled: Boolean, rankedMoveToSelect: Option[Move]) {
+  def setSliding(slidingEnabled: Boolean) {
     this.slidingEnabled = slidingEnabled
-    this.rankedMoveToSelect = rankedMoveToSelect
     allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings, slidingEnabled)
     initCurrentAndNextStartPiece(startPieceGenerator.piece(showNextPiece))
-    evaluateBestMove()
+    evaluateBestMove(true)
     updateSpeed()
   }
 
-  def setShowNextPiece(show: Boolean, rankedMoveToSelect: Option[Move]) {
+  def setShowNextPiece(show: Boolean) {
     this.showNextPiece = show
-    this.rankedMoveToSelect = rankedMoveToSelect
     initCurrentAndNextStartPiece(startPieceGenerator.piece(show))
     position.setOrRestoreNextPiece(startPiece)
-    evaluateBestMove()
+    evaluateBestMove(true)
     updateSpeed()
   }
 
@@ -117,7 +116,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
         waitIfPaused()
 
         if (!quit) {
-          var selectedMove = selectedPieceMove(bestMove)
+          val selectedMove = selectedPieceMove(bestMove)
           if (doStep)
             pieceMoveAnimator.animateMove(position, startPiece, startPieceMove, selectedMove)
 
@@ -143,19 +142,19 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   private def selectedPieceMove(bestPieceMove: Option[PieceMove]) = {
     if (hasRankedMoves)
-      rankedMoves.selectedMove.get.moveEquity.pieceMove
+      rankedMoves.selectedPieceMove
     else
       bestPieceMove.get
   }
 
   private def selectedRankedMove = {
     if (hasRankedMoves)
-      rankedMoves.selectedMove.get.moveEquity.pieceMove.move
+      rankedMoves.selectedPieceMove.move
     else
       null
   }
 
-  private def hasRankedMoves = showRankedMoves && rankedMoves != null && rankedMoves.selectedMove.isDefined
+  private def hasRankedMoves = showRankedMoves && !rankedMoves.isEmpty
 
   private def waitIfPaused() {
     if (paused && !quit)
@@ -200,13 +199,13 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     }
   }
 
-  private def evaluateBestMove(): Option[PieceMove] = {
+  private def evaluateBestMove(keepSelectedMove: Boolean = false): Option[PieceMove] = {
     if (startPieceMove.isFree) {
       val validMoves = ValidMoves(board).pieceMoves(startPieceMove)
       val evaluatedMoves = EvaluatedMoves(board, validMoves, boardEvaluator, startPiece, nextPieceMove, allValidPieceMovesForEmptyBoard.startPieces, settings.firstGuaranteedFreeRowUnderStartPiece, maxEquity)
 
       if (showRankedMoves || paused)
-        notifySelectedRankedMove(startPieceMove, evaluatedMoves)
+        notifySelectedRankedMove(startPieceMove, evaluatedMoves, keepSelectedMove)
 
       evaluatedMoves.bestMove
     } else {
@@ -214,12 +213,9 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     }
   }
 
-  private def notifySelectedRankedMove(startPieceMove: PieceMove, evaluatedMoves: EvaluatedMoves) {
-    val board = startPieceMove.board
+  private def notifySelectedRankedMove(startPieceMove: PieceMove, evaluatedMoves: EvaluatedMoves, keepSelectedMove: Boolean) {
     val sortedMoves = evaluatedMoves.sortedMovesWithAdjustedEquity
-    rankedMoves = new RankedMoves(sortedMoves, board.width, board.height)
-    if (rankedMoveToSelect.isDefined)
-      rankedMoves.selectMove(rankedMoveToSelect.get)
+    rankedMoves.setMoves(sortedMoves, keepSelectedMove)
 
     gameEventReceiver.setRankedMoves(rankedMoves)
   }

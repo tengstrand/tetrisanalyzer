@@ -5,7 +5,6 @@ import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
 import position.PositionView
 import rankedmove.{RankedMoves, RankedMovesView}
-import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
@@ -21,8 +20,6 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
   private var isResizingBoard = false
 
   def setShowNextPiece(show: Boolean) { gameInfoView.setShowNextPiece(show) }
-
-  def selectedRankedMove: Option[Move] = rankedMovesView.selectedMove
 
   def selectNextRankedMove() { rankedMovesView.selectNextRankedMove() }
   def selectPreviousRankedMove() { rankedMovesView.selectPreviousRankedMove() }

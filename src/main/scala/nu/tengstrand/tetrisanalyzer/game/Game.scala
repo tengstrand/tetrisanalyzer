@@ -4,7 +4,6 @@ import nu.tengstrand.tetrisanalyzer.piecegenerator.DefaultPieceGenerator
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.boardevaluator.{JTengstrandBoardEvaluator1DefaultSettings, BoardEvaluator, JTengstrandBoardEvaluator1}
 import nu.tengstrand.tetrisanalyzer.gui.GameView
-import nu.tengstrand.tetrisanalyzer.move.Move
 import startpiece.StartPieceGenerator
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
@@ -44,10 +43,10 @@ class Game(timer: Timer, gameView: GameView) {
     board = Board(boardWidth, boardHeight)
     position = Position(boardWidth, boardHeight)
     resizingPosition = Position(boardWidth, boardHeight)
-    startNewGame(None)
+    startNewGame()
   }
 
-  private def startNewGame(selectedRankedMove: Option[Move]) {
+  private def startNewGame() {
     if (computerPlayer != null)
       computerPlayer.quitGame()
 
@@ -58,8 +57,8 @@ class Game(timer: Timer, gameView: GameView) {
     boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
     boardSize = new BoardSize(new MinMax(board.width, boardEvaluator.minBoardWidth, boardEvaluator.maxBoardWidth),
                               new MinMax(board.height, boardEvaluator.minBoardHeight, boardEvaluator.maxBoardHeight))
-    computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, slidingEnabled, selectedRankedMove, gameView)
-    computerPlayer.setShowNextPiece(showNextPiece, selectedRankedMove)
+    computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, slidingEnabled, gameView)
+    computerPlayer.setShowNextPiece(showNextPiece)
     computerPlayer.setShowRankedMoves(showRankedMoves)
     computerPlayer.setPaused(paused)
     timer.reset()
@@ -90,15 +89,13 @@ class Game(timer: Timer, gameView: GameView) {
   def toggleSliding() {
     slidingEnabled = !slidingEnabled
     gameView.setSliding(slidingEnabled)
-    computerPlayer.setSliding(slidingEnabled, gameView.selectedRankedMove)
-//    startNewGame(gameView.selectedRankedMove)
-
+    computerPlayer.setSliding(slidingEnabled)
   }
 
   def toggleShowNextPiece() {
     showNextPiece = !showNextPiece
     gameView.setShowNextPiece(showNextPiece)
-    computerPlayer.setShowNextPiece(showNextPiece, gameView.selectedRankedMove)
+    computerPlayer.setShowNextPiece(showNextPiece)
   }
 
   def increaseSpeed() { computerPlayer.increaseSpeed() }
@@ -118,7 +115,7 @@ class Game(timer: Timer, gameView: GameView) {
     seed += seedAdd
     gameView.setSeed(seed)
     pieceGenerator = new DefaultPieceGenerator(seed)
-    startNewGame(gameView.selectedRankedMove)
+    startNewGame()
   }
 
   def startResizeBoard() {
