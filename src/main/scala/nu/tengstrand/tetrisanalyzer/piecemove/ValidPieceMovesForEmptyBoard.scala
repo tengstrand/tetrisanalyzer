@@ -8,12 +8,11 @@ import nu.tengstrand.tetrisanalyzer.board.Board
  * Calculates all valid moves for a given piece on an empty board.
  * If sliding is on, rotations and lateral movements can only occur in the top row.
  */
-class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings: GameSettings) {
+class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings: GameSettings, isSlidingEnabled: Boolean = false) {
   private val boardWidth = board.width
   private val boardHeight = board.height
   private var visitedPieceMoves = new VisitedPieceMoves(board, piece)
   private val rotationDirection = settings.rotationDirection
-  private val isSlidingOn = settings.isSlidingEnabled
 
   private def markAsVisited(fromMovement: Movement, movement: Movement) {
     visitedPieceMoves.visit(movement)
@@ -46,7 +45,7 @@ class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings:
   private def calculateValidMoves(fromMovement: Movement, movement: Movement) {
     while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
       markAsVisited(fromMovement, movement)
-      if (isSlidingOn || movement.pieceMove.move.y == 0) {
+      if (isSlidingEnabled || movement.pieceMove.move.y == 0) {
         calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus, visitedPieceMoves))
         calculateValidMoves(movement, movement.left(visitedPieceMoves))
         calculateValidMoves(movement, movement.right(visitedPieceMoves))

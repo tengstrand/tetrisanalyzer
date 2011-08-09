@@ -15,7 +15,7 @@ import startpiece.{StartPiece, StartPieceGenerator}
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, board: Board, position: Position, boardEvaluator: BoardEvaluator,
-                     settings: GameSettings, var rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
+                     settings: GameSettings, var slidingEnabled: Boolean, var rankedMoveToSelect: Option[Move], gameEventReceiver: GameEventReceiver) extends Actor {
 
   private val maxEquity = boardEvaluator.evaluate(board.junkBoard)
 
@@ -23,7 +23,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   private var startPieceMove: PieceMove = null
   private var nextPieceMove: PieceMove = null
 
-  private val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
+  private var allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings, slidingEnabled)
 
   private val startBoard = board.copy
   private var startPosition = Position(position)
@@ -46,6 +46,15 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   def setPaused(paused: Boolean) {
     doStep = pieceMoveAnimator.continueDoStep(paused)
     this.paused = paused
+  }
+
+  def setSliding(slidingEnabled: Boolean, rankedMoveToSelect: Option[Move]) {
+    this.slidingEnabled = slidingEnabled
+    this.rankedMoveToSelect = rankedMoveToSelect
+    allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings, slidingEnabled)
+    initCurrentAndNextStartPiece(startPieceGenerator.piece(showNextPiece))
+    evaluateBestMove()
+    updateSpeed()
   }
 
   def setShowNextPiece(show: Boolean, rankedMoveToSelect: Option[Move]) {
@@ -92,7 +101,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
    */
   override def act() {
     gameStatistics.updateAll()
-    gameEventReceiver.setSliding(settings.isSlidingEnabled)
+    gameEventReceiver.setSliding(slidingEnabled)
     gameEventReceiver.setTimePassed(0)
     gameEventReceiver.setSpeed(pieceMoveAnimator.getSpeedIndex, pieceMoveAnimator.isMaxSpeed)
 

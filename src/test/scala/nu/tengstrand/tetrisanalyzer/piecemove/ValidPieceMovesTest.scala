@@ -6,7 +6,7 @@ import nu.tengstrand.tetrisanalyzer.BaseTest
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.piece.{PieceS, PieceO}
-import nu.tengstrand.tetrisanalyzer.settings.{GameSettingsSlidingOn, DefaultGameSettings}
+import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
 class ValidPieceMovesTest extends BaseTest {
 
@@ -70,7 +70,7 @@ class ValidPieceMovesTest extends BaseTest {
   @Test def slidingOn {
     val board = slidingBoard
     val piece = new PieceS
-    val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new GameSettingsSlidingOn)
+    val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings, true)
     val startMove = validPieceMoves.startMove
 
     asMoves(startMove) should be (List(
