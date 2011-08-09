@@ -42,8 +42,8 @@ class Game(timer: Timer, gameView: GameView) {
 
   private def startNewGameWithEmptyBoard() {
     board = Board(boardWidth, boardHeight)
-    resizingPosition = Position(boardWidth, boardHeight)
     position = Position(boardWidth, boardHeight)
+    resizingPosition = Position(boardWidth, boardHeight)
     startNewGame(None)
   }
 
@@ -64,6 +64,7 @@ class Game(timer: Timer, gameView: GameView) {
     computerPlayer.setPaused(paused)
     timer.reset()
     computerPlayer.start()
+    gameView.stopResizingBoard(position, showRankedMoves)
   }
 
   def performMove() { computerPlayer.performStep() }
@@ -88,8 +89,8 @@ class Game(timer: Timer, gameView: GameView) {
 
   def toggleSliding() {
     slidingEnabled = !slidingEnabled
-
-    startNewGame(gameView.selectedRankedMove)
+    gameView.setSliding(slidingEnabled)
+    computerPlayer.setSliding(slidingEnabled)
   }
 
   def toggleShowNextPiece() {
