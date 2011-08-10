@@ -34,10 +34,10 @@ class Game(timer: Timer, gameView: GameView) {
   private var pieceGenerator = new DefaultPieceGenerator(seed)
   private var startPieceGenerator = new StartPieceGenerator(pieceGenerator)
 
-  startNewGameWithEmptyBoard()
-
   private def boardWidth = boardSize.width.value
   private def boardHeight = boardSize.height.value
+
+  startNewGameWithEmptyBoard()
 
   private def startNewGameWithEmptyBoard() {
     board = Board(boardWidth, boardHeight)
@@ -103,19 +103,21 @@ class Game(timer: Timer, gameView: GameView) {
   def decreaseSpeed() { computerPlayer.decreaseSpeed() }
 
   def increaseSeed() {
-    changeSeedAndStartNewGame(1)
+    seed += 1
+    restartPieceGenerator()
   }
 
   def decreaseSeed() {
-    if (seed > 0)
-      changeSeedAndStartNewGame(-1)
+    if (seed > 0) {
+      seed -= 1
+      restartPieceGenerator()
+    }
   }
 
-  private def changeSeedAndStartNewGame(seedAdd: Int) {
-    seed += seedAdd
-    gameView.setSeed(seed)
+  private def restartPieceGenerator() {
     pieceGenerator = new DefaultPieceGenerator(seed)
-    startNewGame()
+    computerPlayer.setPieceGenerator(pieceGenerator)
+    gameView.setSeed(seed)
   }
 
   def startResizeBoard() {

@@ -87,8 +87,8 @@ class GameInfoView extends GameInfoReceiver {
     textDrawer.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 
     textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 12, g)
-    textDrawer.drawInfo("Seed:", seed, 13, g)
-    textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 14, g)
+    textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 13, g)
+    textDrawer.drawInfo("Random seed:", seed, 14, g)
 
     textDrawer.drawInfo("Next:", if (showNextPiece) "On" else "Off", 16, g)
 

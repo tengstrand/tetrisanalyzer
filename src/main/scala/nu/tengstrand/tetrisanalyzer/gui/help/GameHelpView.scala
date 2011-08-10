@@ -1,11 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.gui.help
 
 import java.awt.{Color, Graphics2D}
-import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
+import nu.tengstrand.tetrisanalyzer.gui.{TetrisAnalyzer, TextDrawer}
 
 class GameHelpView extends TextDrawer with HelpPainter {
-  private val version = "2.0"
-
   private var paused = true
 
   def setPaused(paused: Boolean) { this.paused = paused }
@@ -17,12 +15,12 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("right = Show valid moves", 3, g)
 
-    val pausedText = if (paused) "Move next piece" else "Move piece faster"
+    val pausedText = if (paused) "Move next piece" else "Increase speed"
     drawText("space / down = " + pausedText, 5, g)
 
     drawText("b = Change board size", 7, g)
 
-    drawText("r / R = Change random generator seed", 9, g)
+    drawText("r / R = Change seed + restart random sequence", 9, g)
 
     drawText("s = Toggle sliding", 11, g)
 
@@ -36,7 +34,7 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
 
 
-    drawText("Tetris Analyzer " + version, 32, g)
+    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 32, g)
     drawText("AI: JTengstrand 1.1.01", 33, g)
     drawText("tetrisanalyzer@tengstrand.nu", 34, g)
     drawText("https://github.com/tengstrand/tetrisanalyzer", 35, g)

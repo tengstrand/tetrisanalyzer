@@ -70,7 +70,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
       setPiece(piece, startMove)
   }
 
-  def setOrRestoreNextPiece(startPiece: StartPiece) {
+  def setOrRemoveNextPiece(startPiece: StartPiece) {
     if (!startPiece.hasNext) {
       setNextPieceSquare(Wall.Number)
     } else {

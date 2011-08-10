@@ -7,14 +7,12 @@ import actors.Actor._
 import nu.tengstrand.tetrisanalyzer.settings.DefaultColorSettings
 
 object TetrisAnalyzer extends SimpleSwingApplication {
+  val version = "2.0"
+
   def top = new MainFrame {
-    title = "Tetris Analyzer - by Joakim Tengstrand"
+    title = "Tetris Analyzer " + version + " - by Joakim Tengstrand"
 
     preferredSize = new Dimension(850,560)
-
-    val label = new Label {
-      text = "testing"
-    }
 
     val colorSettings = new DefaultColorSettings
     val gameView = new GameView(colorSettings)

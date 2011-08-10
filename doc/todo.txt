@@ -1,16 +1,22 @@
 
-- Refactor som code to more functional style, like getting max values.
-- Add support for Search depth (default = 0), key <1>..<8>.
-- Add sound.
-- Add support for "browse moves" mode, where the positions are saved and can be "browsed" by the arrow keys.
-
 - [Esc] = New game, reset to defaults (seed and other).
-- Optimize speed when sliding is on.
-
 - Adjust x+1 for "standing" piece I.
-- Show AI.
+- Add support for Search depth (default = 0), key <1>..<8>.
+- Use lzPack to deliver current version.
+- Finish a first version of the Wiki and release a first version.
 
-- Add support for starting games from a given position.
+
+- Refactor some code to more functional style, like getting max values.
+- Optimize speed when sliding is on.
+- Add support for "saved position" mode, where saved positions can be "browsed" by the arrow keys.
+- It should be possible to choose between different color settings.
+- Add support for setting and choose between different "rules", like start position, direction of rotation,
+  if the piece also should try the position x-1 if occupied after rotation, and others.
+
+- Add sound.
+
+- Add more AI:s and a way to select between them. This could be its own mode, like "ranked moves", where
+  you choose between different AI:s with a help text (with pictures) that explains the algorithm.
 
 - Add battle mode, computer against computer or computer against human.
 

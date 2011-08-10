@@ -57,7 +57,7 @@ class PositionTest extends BaseTest {
   @Test def setOrRestoreNextPiece() {
     val position = Position(10,5);
     val startPiece = new StartPiece(new PieceS, new PieceT)
-    position.setOrRestoreNextPiece(startPiece)
+    position.setOrRemoveNextPiece(startPiece)
 
     position.toString should be (
       "-TTT-#----------##\n" +
@@ -121,7 +121,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def copyConstructor {
+  @Test def copyConstructor() {
     val position = Position(10,5);
     position.setPiece(new PieceT, Move(1, 5, 2))
 
