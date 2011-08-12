@@ -12,6 +12,6 @@ class PredictablePieceGenerator(pieceSequence: List[Piece]) extends PieceGenerat
     if (pieceSequenceIterator.hasNext)
       pieceSequenceIterator.next().number
     else
-      new PieceO().number
+      PieceO().number
   }
 }

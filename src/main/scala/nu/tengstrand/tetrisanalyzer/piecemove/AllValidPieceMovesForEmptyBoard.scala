@@ -9,13 +9,13 @@ import nu.tengstrand.tetrisanalyzer.board.Board
  */
 class AllValidPieceMovesForEmptyBoard(board: Board, settings: GameSettings, isSlidingEnabled: Boolean = false) {
   val startPieces = List(
-    new ValidPieceMovesForEmptyBoard(board, new PieceI, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceZ, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceS, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceJ, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceL, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceT, settings, isSlidingEnabled).startMove,
-    new ValidPieceMovesForEmptyBoard(board, new PieceO, settings, isSlidingEnabled).startMove
+    new ValidPieceMovesForEmptyBoard(board, PieceI(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceZ(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceS(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceJ(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceL(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceT(), settings, isSlidingEnabled).startMove,
+    new ValidPieceMovesForEmptyBoard(board, PieceO(), settings, isSlidingEnabled).startMove
   )
 
   def startMoveForPiece(piece: Piece): PieceMove = startPieces(piece.number - 1)

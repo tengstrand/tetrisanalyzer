@@ -12,7 +12,7 @@ class ValidPieceMovesTest extends BaseTest {
 
   @Test def getStartMove {
     val board = Board(5,5)
-    val piece = new PieceO
+    val piece = PieceO()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
     val startMove = validPieceMoves.startMove
 
@@ -42,14 +42,14 @@ class ValidPieceMovesTest extends BaseTest {
       "#--xxxx--#",
       "##########"))
 
-    val piece = new PieceS
+    val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
     validPieceMoves.startMove
   }
 
   @Test def freeAsideAndRotateMoves {
     val board = startBoardForAsideAndRotate
-    val piece = new PieceS
+    val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
     val startMove = validPieceMoves.startMove
 
@@ -69,7 +69,7 @@ class ValidPieceMovesTest extends BaseTest {
 
   @Test def slidingOn {
     val board = slidingBoard
-    val piece = new PieceS
+    val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings, true)
     val startMove = validPieceMoves.startMove
 
@@ -93,7 +93,7 @@ class ValidPieceMovesTest extends BaseTest {
 
   @Test def slidingOff {
     val board = slidingBoard
-    val piece = new PieceS
+    val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
     val startMove = validPieceMoves.startMove
 

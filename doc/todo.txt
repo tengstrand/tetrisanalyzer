@@ -1,17 +1,17 @@
 
-- [Esc] = New game, reset to defaults (seed and other).
-- Adjust x+1 for "standing" piece I.
 - Add support for Search depth (default = 0), key <1>..<8>.
 - Use lzPack to deliver current version.
 - Finish a first version of the Wiki and release a first version.
 
-
+- [Esc] = New game, reset to defaults (seed and other).
 - Refactor some code to more functional style, like getting max values.
 - Optimize speed when sliding is on.
 - Add support for "saved position" mode, where saved positions can be "browsed" by the arrow keys.
 - It should be possible to choose between different color settings.
 - Add support for setting and choose between different "rules", like start position, direction of rotation,
   if the piece also should try the position x-1 if occupied after rotation, and others.
+
+- Fix problem that rotation adjustment does not support clockwise rotation.
 
 - Add sound.
 

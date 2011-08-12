@@ -11,7 +11,7 @@ class AllValidPieceMovesTest extends BaseTest {
 
   @Test def startMoveForPiece {
     val board = Board(6,6)
-    val piece = new PieceT
+    val piece = PieceT()
     val settings = new DefaultGameSettings
     val allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings)
 

@@ -82,7 +82,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   }
 
   /**
-   * Resets the path values so the animated path can be calculated by caling calculateAnimatedPath.
+   * Resets the path values so the animated path can be calculated by calling calculateAnimatedPath.
    */
   def prepareAnimatedPath() {
     if (animatedPathValue != Integer.MAX_VALUE) {
@@ -97,7 +97,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
    * Calculates an animated path which goes backwards, linked via the reference
    * calculateAnimatedPath, from the move "at the bottom" up to the starting position.
    *
-   * Make sure the method prepareAnimatedPath has ben called before calling this method.
+   * Make sure the method prepareAnimatedPath has been called before calling this method.
    */
   def calculateAnimatedPath(fromPieceMove: PieceMove, pathValue: Int, asideValue: Int) {
     if (pathValue + asideValue < animatedPathValue && isFree) {
@@ -111,19 +111,12 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   }
 
   def compare(that: PieceMove) = {
-    if (move.rotation < that.move.rotation)
-      -1
-    else if (move.rotation > that.move.rotation)
-      1
-    else if (move.x < that.move.x)
-      -1
-    else if (move.x > that.move.x)
-      1
-    else if (move.y < that.move.y)
-      -1
-    else if (move.y > that.move.y)
-      1
-    else 0
+    if (move.rotation.compare(that.move.rotation) != 0)
+      move.rotation.compare(that.move.rotation)
+    else if (move.x.compare(that.move.x) != 0)
+      move.x.compare(that.move.x)
+    else
+      move.y.compare(that.move.y)
   }
 
   override def equals(that: Any) = that match {

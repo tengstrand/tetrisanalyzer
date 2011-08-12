@@ -53,7 +53,7 @@ class RankedMovesTest extends BaseTest {
 
   private def moveEquity(v: Int, x: Int, y: Int, equity: Double, maxX: Int, maxEquity: Double) = {
     val board = Board()
-    val piece = new PieceS
+    val piece = PieceS()
     MoveEquity(PieceMove(board, piece, Move(v,x, y)), equity)
   }
 }

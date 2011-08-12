@@ -40,7 +40,7 @@ class PositionTest extends BaseTest {
 
   @Test def setStartPieceIfFree() {
     val position = Position(10,5);
-    val startPiece = new StartPiece(new PieceS)
+    val startPiece = new StartPiece(PieceS())
     position.setStartPieceIfFree(startPiece, new DefaultGameSettings)
 
     position.toString should be (
@@ -56,7 +56,7 @@ class PositionTest extends BaseTest {
 
   @Test def setOrRestoreNextPiece() {
     val position = Position(10,5);
-    val startPiece = new StartPiece(new PieceS, new PieceT)
+    val startPiece = new StartPiece(PieceS(), PieceT())
     position.setOrRemoveNextPiece(startPiece)
 
     position.toString should be (
@@ -72,7 +72,7 @@ class PositionTest extends BaseTest {
 
   @Test def setPiece() {
     val position = Position(10,5);
-    position.setPiece(new PieceT, Move(1, 5, 2))
+    position.setPiece(PieceT(), Move(1, 5, 2))
 
     position.toString should be (
       "######----------##\n" +
@@ -97,15 +97,15 @@ class PositionTest extends BaseTest {
     // ##################
 
     val position = Position(10,6);
-    position.setPiece(new PieceT, Move(0, 3, 0))
-    position.setPiece(new PieceI, Move(0, 0, 5))
-    position.setPiece(new PieceO, Move(0, 4, 4))
-    position.setPiece(new PieceI, Move(0, 6, 5))
-    position.setPiece(new PieceI, Move(0, 0, 3))
-    position.setPiece(new PieceI, Move(0, 4, 3))
-    position.setPiece(new PieceO, Move(0, 8, 2))
-    position.setPiece(new PieceI, Move(0, 0, 2))
-    position.setPiece(new PieceI, Move(0, 4, 2))
+    position.setPiece(PieceT(), Move(0, 3, 0))
+    position.setPiece(PieceI(), Move(0, 0, 5))
+    position.setPiece(PieceO(), Move(0, 4, 4))
+    position.setPiece(PieceI(), Move(0, 6, 5))
+    position.setPiece(PieceI(), Move(0, 0, 3))
+    position.setPiece(PieceI(), Move(0, 4, 3))
+    position.setPiece(PieceO(), Move(0, 8, 2))
+    position.setPiece(PieceI(), Move(0, 0, 2))
+    position.setPiece(PieceI(), Move(0, 4, 2))
 
     position.clearRows(2, 4) should be (3)
 
@@ -123,7 +123,7 @@ class PositionTest extends BaseTest {
 
   @Test def copyConstructor() {
     val position = Position(10,5);
-    position.setPiece(new PieceT, Move(1, 5, 2))
+    position.setPiece(PieceT(), Move(1, 5, 2))
 
     val copyPosition = Position(position)
 

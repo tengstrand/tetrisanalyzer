@@ -1,6 +1,7 @@
 package nu.tengstrand.tetrisanalyzer.move
 
 import rotation.RotationDirection
+import nu.tengstrand.tetrisanalyzer.settings.rotation.MoveAdjustment
 
 object Move {
   def apply(rotation: Int, x: Int, y: Int) = new Move(rotation, x, y)
@@ -14,7 +15,7 @@ class Move(val rotation: Int, val x: Int, val y: Int) {
   def down = new Move(rotation, x, y + 1)
   def left = new Move(rotation, x - 1, y)
   def right = new Move(rotation, x + 1, y)
-  def rotate(rotationType: RotationDirection, rotationModulus: Int) = new Move((rotation + rotationType.direction) & rotationModulus, x, y)
+  def rotate(adjust: MoveAdjustment, rotationDirection: RotationDirection, modulus: Int) = new Move((rotation + rotationDirection.direction) & modulus, x + adjust.x, y + adjust.y)
 
   override def equals(that: Any) = that match {
     case other: Move => x == other.x && y == other.y && rotation == other.rotation

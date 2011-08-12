@@ -1,5 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.piece
 
+object PieceS {
+  def apply() = new PieceS
+}
+
 class PieceS extends Piece {
   val number = 3.toByte
   val character = 'S'

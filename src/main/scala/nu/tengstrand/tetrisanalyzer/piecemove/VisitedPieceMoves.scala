@@ -9,7 +9,7 @@ import nu.tengstrand.tetrisanalyzer.move.Move
  * Helper class to calculate the valid moves on an empty board.
  */
 class VisitedPieceMoves(board: Board, piece: Piece) {
-  private val moves = Array.fill(board.height, board.width, Direction.NumberOfDirections) { 0 }
+  private val visitedMoves = Array.fill(board.height, board.width, Direction.NumberOfDirections) { 0 }
   val validMoves = new HashMap[Move, PieceMove]
 
   /**
@@ -24,8 +24,8 @@ class VisitedPieceMoves(board: Board, piece: Piece) {
    */
   def visit(movement: Movement) {
     val move = movement.pieceMove.move
-    moves(move.y)(move.x)(movement.direction.index) |= (1 << move.rotation)
-    moves(move.y)(move.x)(Direction.Rotate.index) |= (1 << move.rotation)
+    visitedMoves(move.y)(move.x)(movement.direction.index) |= (1 << move.rotation)
+    visitedMoves(move.y)(move.x)(Direction.Rotate.index) |= (1 << move.rotation)
     validMoves += move -> movement.pieceMove
   }
 
@@ -35,7 +35,7 @@ class VisitedPieceMoves(board: Board, piece: Piece) {
   def isUnvisited(movement: Movement): Boolean = {
     try {
       val move = movement.pieceMove.move
-      (moves(move.y)(move.x)(movement.direction.index) & (1 << move.rotation)) == 0
+      (visitedMoves(move.y)(move.x)(movement.direction.index) & (1 << move.rotation)) == 0
     } catch {
       case e: IndexOutOfBoundsException =>
         false

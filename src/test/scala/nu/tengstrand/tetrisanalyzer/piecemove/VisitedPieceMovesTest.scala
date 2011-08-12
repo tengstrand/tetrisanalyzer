@@ -12,7 +12,7 @@ class VisitedPieceMovesTest extends BaseTest {
 
   @Before def setUp {
     board = Board(6,6)
-    piece = new PieceS
+    piece = PieceS()
   }
 
   @Test def visitLeft {

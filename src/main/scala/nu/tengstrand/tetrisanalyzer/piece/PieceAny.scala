@@ -2,6 +2,8 @@ package nu.tengstrand.tetrisanalyzer.piece
 
 object PieceAny {
   val Number = 8.toByte
+
+  def apply() = new PieceAny
 }
 
 class PieceAny extends Piece {

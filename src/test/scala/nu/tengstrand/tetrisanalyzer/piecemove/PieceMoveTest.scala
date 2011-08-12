@@ -12,7 +12,7 @@ class PieceMoveTest extends BaseTest {
 
   @Test def setPiece {
     val board = Board(8,4)
-    val piece = new PieceS
+    val piece = PieceS()
     val move = Move(0,3, 1)
 
     PieceMove(board, piece, move).setPiece()
@@ -28,7 +28,7 @@ class PieceMoveTest extends BaseTest {
 /*
   @Test def setStandingPieceI {
     val board = Board(8,4)
-    val piece = new PieceI
+    val piece = PieceI
     val move = Move(1,0, 0)
 
     PieceMove(board, piece, move).setPiece()
@@ -49,7 +49,7 @@ class PieceMoveTest extends BaseTest {
       "#-x--x----x#",
       "#xxxxxxxxxx#",
       "############"))
-    val piece = new PieceI
+    val piece = PieceI()
     val move = Move(1,4, 1)
 
     PieceMove(board, piece, move).setPiece() should be (2)
@@ -70,7 +70,7 @@ class PieceMoveTest extends BaseTest {
       "#xxxxxxxx#",
       "#xxxxxxxx#",
       "##########"))
-    val piece = new PieceS
+    val piece = PieceS()
     val move = Move(0,3, 1)
 
     PieceMove(board, piece, move).clearPiece
@@ -91,7 +91,7 @@ class PieceMoveTest extends BaseTest {
       "#xxx--xxx#",
       "##########"))
 
-    val piece = new PieceS
+    val piece = PieceS()
     val move = Move(0,3, 2)
 
     PieceMove(board, piece, move).isFree should be (true)
@@ -105,7 +105,7 @@ class PieceMoveTest extends BaseTest {
       "#----x---#",
       "##########"))
 
-    val piece = new PieceS
+    val piece = PieceS()
     val move = Move(0,3, 2)
 
     PieceMove(board, piece, move).isFree should be (false)
@@ -119,7 +119,7 @@ class PieceMoveTest extends BaseTest {
       "#----x#",
       "#----x#",
       "#######"))
-    val piece = new PieceS
+    val piece = PieceS()
     val settings = new DefaultGameSettings
     val validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings)
     var pieceMove = validPieceMovesForEmptyBoard.startMove

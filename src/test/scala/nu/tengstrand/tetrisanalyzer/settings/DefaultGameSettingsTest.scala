@@ -6,7 +6,7 @@ import nu.tengstrand.tetrisanalyzer.piece.PieceS
 import nu.tengstrand.tetrisanalyzer.move.Move
 
 class DefaultGameSettingsTest extends BaseTest {
-  var piece = new PieceS
+  var piece = PieceS()
   var defaultGameSettings = new DefaultGameSettings
 
   @Test def pieceStartMove_width10 {

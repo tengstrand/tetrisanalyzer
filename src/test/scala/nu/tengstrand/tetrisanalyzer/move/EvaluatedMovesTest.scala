@@ -10,7 +10,7 @@ import nu.tengstrand.tetrisanalyzer.game.startpiece.StartPiece
 import nu.tengstrand.tetrisanalyzer.piece.{PieceL, PieceS}
 
 class EvaluatedMovesTest extends BaseTest {
-  private val piece = new PieceS
+  private val piece = PieceS()
 
   @Test def bestMove {
     val board = Board()
@@ -69,7 +69,7 @@ class EvaluatedMovesTest extends BaseTest {
       "#-xxx------#",
       "############"))
 
-    val startPiece = new StartPiece(new PieceL, new PieceS)
+    val startPiece = new StartPiece(PieceL(), PieceS())
     val evaluatedMoves = getEvaluatedMoves(board, startPiece)
     val moves: List[MoveEquity] = evaluatedMoves.sortedMovesWithAdjustedEquity
     val piece = startPiece.firstPiece

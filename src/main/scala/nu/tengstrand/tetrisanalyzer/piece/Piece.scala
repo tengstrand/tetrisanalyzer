@@ -4,7 +4,7 @@ object Piece {
   val NumberOfPieceTypes = 7
   private val RotationModulus: Array[Int] = Array(0, 1, 0, 3)
   private val Pieces: Array[Piece] = Array(
-    new PieceEmpty, new PieceI, new PieceZ, new PieceS, new PieceJ, new PieceL, new PieceT, new PieceO, new PieceAny
+    PieceEmpty(), PieceI(), PieceZ(), PieceS(), PieceJ(), PieceL(), PieceT(), PieceO(), PieceAny()
   )
   private val Characters = Array.tabulate(NumberOfPieceTypes + 2) {
       ((i) => (Piece(i).character.toString))
@@ -28,7 +28,7 @@ object Piece {
 }
 
 /**
- * Represents one of the pieces: I, Z, S, J, L, T or O.
+ * Represents one of the pieces: I, Z, S, J, L, T or O (1..7).
  */
 abstract class Piece {
   def number: Byte
