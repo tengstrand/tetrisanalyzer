@@ -33,10 +33,14 @@ class GameHelpView extends TextDrawer with HelpPainter {
     drawText("[Shift] + right = Increase animation speed", 19, g)
 
 
+    drawText("The game info is reseted when pressing any of: r / l or n", 23, g)
 
-    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 32, g)
-    drawText("AI: JTengstrand 1.1.01", 33, g)
-    drawText("tetrisanalyzer@tengstrand.nu", 34, g)
-    drawText("https://github.com/tengstrand/tetrisanalyzer", 35, g)
+
+
+    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 31, g)
+    drawText("AI: JTengstrand 1.1.01", 32, g)
+    drawText("tetrisanalyzer@tengstrand.nu", 33, g)
+    drawText("http://tetris.tengstrand.nu or", 34, g)
+    drawText("http://tetrisanalyzer.tengstrand.nu", 35, g)
   }
 }

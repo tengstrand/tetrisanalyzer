@@ -1,16 +1,17 @@
 
-- Clear number of rows when changing seed, toggling next piece or sliding.
+- Show help at starting up, before first key stroke.
+- Use lzPack to deliver current version.
+- Release a first version on the website!
+
 - Split up GameSettings into traits and let Game use a mutable implementation of GameSettings.
 - Write test for clockwise rotation.
-
 - Add support for Search depth (default = 0), key <1>..<8>.
-- Use lzPack to deliver current version.
 - Finish a first version of the Wiki and release a first version.
-- It should not be allowed to slide the piece more than one position when has reached the ground.
+- It should not be allowed to slide the piece more than one position when it has reached the ground.
 
 - [Esc] = New game, reset to defaults (seed and other).
 - Refactor some code to more functional style, like getting max values.
-- Optimize speed when sliding is on.
+- Improve speed when sliding is on.
 - Add support for "saved position" mode, where saved positions can be "browsed" by the arrow keys.
 - It should be possible to choose between different color settings.
 - Add support for setting and choose between different "rules", like start position, direction of rotation,

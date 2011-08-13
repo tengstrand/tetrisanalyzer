@@ -30,6 +30,20 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     movesTotal % updateEveryXMove == 0
   }
 
+  def reset() {
+    moves = 0L
+    movesTotal = 0L
+    clearedRows = 0L
+    clearedRowsTotal = 0L
+    games = 0L
+    totalClearedRows = 0L
+    minClearedRows = Long.MaxValue
+    maxClearedRows = 0L
+
+    updateGameInfo()
+    gameEventReceiver.setNumberOfGamesAndRowsInLastGame(0L, 0L, 0L, 0L, 0L)
+  }
+
   def newGame() {
     games += 1
 

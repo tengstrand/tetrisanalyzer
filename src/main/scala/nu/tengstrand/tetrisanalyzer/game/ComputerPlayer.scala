@@ -96,6 +96,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     initCurrentAndNextStartPiece(startPieceGenerator.piece(showNextPiece))
     evaluateBestMove(false)
     position.setOrRemoveNextPiece(startPiece)
+    resetGameInfo()
   }
 
   def setSliding(slidingEnabled: Boolean) {
@@ -103,7 +104,8 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings, slidingEnabled)
     initCurrentAndNextStartPiece(startPieceGenerator.piece(showNextPiece))
     evaluateBestMove(true)
-    updateSpeed()
+    gameStatistics.reset()
+    resetGameInfo()
   }
 
   def setShowNextPiece(show: Boolean) {
@@ -111,7 +113,12 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
     initCurrentAndNextStartPiece(startPieceGenerator.piece(show))
     position.setOrRemoveNextPiece(startPiece)
     evaluateBestMove(true)
+    resetGameInfo()
+  }
+
+  def resetGameInfo() {
     updateSpeed()
+    gameStatistics.reset()
   }
 
   def increaseSpeed() {
