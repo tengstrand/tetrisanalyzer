@@ -12,19 +12,17 @@ class RankedMovesHelpView extends TextDrawer with HelpPainter {
 
     drawText("space / right = Perform selected move", 3, g)
 
-    drawText("up = Select previous move", 5, g)
-
-    drawText("down = Select next move", 7, g)
+    drawText("up / down = Select move", 5, g)
 
 
-    drawText("============== Ranked moves ==============", 9, g)
-    drawText(" v = Number of rotations for the piece.", 10, g)
-    drawText(" x = X position.", 11, g)
-    drawText(" y = Y position (shown only if sliding is", 12, g)
-    drawText("       activated and at least one piece", 13, g)
-    drawText("       can be slided).", 14, g)
-    drawText(" Depth = Look ahead. A search depth of 0", 15, g)
-    drawText("         means that only the current piece", 16, g)
-    drawText("         and next piece (if enabled) is known.", 17, g)
+    drawText("============== Ranked moves ==============", 7, g)
+    drawText(" v = Number of rotations for the piece.", 8, g)
+    drawText(" x = X position.", 9, g)
+    drawText(" y = Y position (shown only if sliding is", 10, g)
+    drawText("       activated and at least one piece", 11, g)
+    drawText("       can be slided).", 12, g)
+    drawText(" Depth = Look ahead. A search depth of 0", 13, g)
+    drawText("         means that only the current piece", 14, g)
+    drawText("         and next piece (if enabled) is known.", 15, g)
   }
 }
