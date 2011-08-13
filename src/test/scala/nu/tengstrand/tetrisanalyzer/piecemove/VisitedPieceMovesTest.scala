@@ -7,15 +7,10 @@ import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.piece.{Piece, PieceS}
 
 class VisitedPieceMovesTest extends BaseTest {
-  private var board: Board = _
-  private var piece: Piece = _
+  private var board: Board = Board(6,6)
+  private var piece: Piece = PieceS()
 
-  @Before def setUp {
-    board = Board(6,6)
-    piece = PieceS()
-  }
-
-  @Test def visitLeft {
+  @Test def visitLeftPieceS() {
     val move = new Move(0,0,0)
     val visitedMoves = new VisitedPieceMoves(board, piece)
     visitedMoves.visit(getMovement(move, new Left))

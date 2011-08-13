@@ -12,14 +12,14 @@ import nu.tengstrand.tetrisanalyzer.piece.{PieceL, PieceS}
 class EvaluatedMovesTest extends BaseTest {
   private val piece = PieceS()
 
-  @Test def bestMove {
+  @Test def bestMove() {
     val board = Board()
     val startPiece = new StartPiece(piece)
     getEvaluatedMoves(board, startPiece).bestMove should be (
       Some(PieceMove(board, piece, Move(0,7, 18))))
   }
 
-  @Test def evaluatedMovesOnePiece {
+  @Test def evaluatedMovesOnePiece() {
     val board = Board()
     val startPiece = new StartPiece(piece)
     val evaluatedMoves = getEvaluatedMoves(board, startPiece)
@@ -45,7 +45,7 @@ class EvaluatedMovesTest extends BaseTest {
       MoveEquity(PieceMove(board, piece, Move(1,1, 17)), 10.824)))
   }
 
-  @Test def evaluatedMovesTwoPieces {
+  @Test def evaluatedMovesTwoPieces() {
     val board = Board(Array(
       "#----------#",
       "#----------#",

@@ -10,7 +10,7 @@ import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
 class ValidPieceMovesTest extends BaseTest {
 
-  @Test def getStartMove {
+  @Test def calculateStartMove() {
     val board = Board(5,5)
     val piece = PieceO()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -26,11 +26,11 @@ class ValidPieceMovesTest extends BaseTest {
     startMove.down should be (PieceMove(board, piece, Move(0,1, 1)))
   }
 
-  @Test def canMoveDown {
+  @Test def _canMoveDown() {
     startMoveForDown.canMoveDown should be (true)
   }
 
-  @Test def canMoveDown_occupied {
+  @Test def _canMoveDown_occupied() {
     startMoveForDown.down.canMoveDown should be (false)
   }
 
@@ -47,7 +47,7 @@ class ValidPieceMovesTest extends BaseTest {
     validPieceMoves.startMove
   }
 
-  @Test def freeAsideAndRotateMoves {
+  @Test def freeAsideAndRotateMoves() {
     val board = startBoardForAsideAndRotate
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -67,7 +67,7 @@ class ValidPieceMovesTest extends BaseTest {
       "##########"))
   }
 
-  @Test def slidingOn {
+  @Test def slidingOn() {
     val board = slidingBoard
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings, true)
@@ -91,7 +91,7 @@ class ValidPieceMovesTest extends BaseTest {
     ))
   }
 
-  @Test def slidingOff {
+  @Test def slidingOff() {
     val board = slidingBoard
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -141,5 +141,4 @@ class ValidPieceMovesTest extends BaseTest {
         moves += pieceMove.move
     }
   }
-
 }

@@ -12,7 +12,7 @@ import nu.tengstrand.tetrisanalyzer.move.Move
 
 class ValidPieceMovesForEmptyBoardTest extends BaseTest {
 
-  @Test def startMove {
+  @Test def startMove() {
     val board = Board(5,5)
     val piece = PieceS()
     val settings = new DefaultGameSettings

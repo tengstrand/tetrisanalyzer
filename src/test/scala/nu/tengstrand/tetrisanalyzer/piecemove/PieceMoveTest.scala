@@ -10,7 +10,7 @@ import collection.mutable.LinkedHashSet
 
 class PieceMoveTest extends BaseTest {
 
-  @Test def setPiece {
+  @Test def setPiece() {
     val board = Board(8,4)
     val piece = PieceS()
     val move = Move(0,3, 1)
@@ -41,7 +41,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 */
-  @Test def setPiece_clearTwoRows {
+  @Test def setPiece_clearTwoRows() {
     val board = Board(Array(
       "#----------#",
       "#----x-----#",
@@ -63,7 +63,7 @@ class PieceMoveTest extends BaseTest {
       "############")))
   }
 
-  @Test def clearPiece {
+  @Test def clearPiece() {
     val board = Board(Array(
       "#xxxxxxxx#",
       "#xxxxxxxx#",
@@ -73,7 +73,7 @@ class PieceMoveTest extends BaseTest {
     val piece = PieceS()
     val move = Move(0,3, 1)
 
-    PieceMove(board, piece, move).clearPiece
+    PieceMove(board, piece, move).clearPiece()
 
     board should be (Board(Array(
       "#xxxxxxxx#",
@@ -83,7 +83,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-  @Test def isFree {
+  @Test def _isFree() {
     val board = Board(Array(
       "#-xxxxxxx#",
       "#-xxxxxxx#",
@@ -97,7 +97,7 @@ class PieceMoveTest extends BaseTest {
     PieceMove(board, piece, move).isFree should be (true)
   }
 
-  @Test def isFree_occupied {
+  @Test def _isFree_occupied() {
     val board = Board(Array(
       "#--------#",
       "#--------#",
@@ -111,7 +111,7 @@ class PieceMoveTest extends BaseTest {
     PieceMove(board, piece, move).isFree should be (false)
   }
 
-  @Test def calculateAnimatedPath {
+  @Test def calculateAnimatedPath() {
     val board = Board(Array(
       "#-----#",
       "#-----#",

@@ -12,7 +12,7 @@ abstract class DoubleBufferedView extends Component {
   def preparePaintGraphics: Dimension
   def paintGraphics(g: Graphics)
 
-  override def paintComponent(g: Graphics2D) = {
+  override def paintComponent(g: Graphics2D) {
     super.paintComponent(g);
 
     val paintArea = preparePaintGraphics
@@ -25,7 +25,7 @@ abstract class DoubleBufferedView extends Component {
   private def paintOffscreenImage(paintArea: Dimension, g: Graphics) {
     initializeOffscreenImageIfNeeded(paintArea)
 
-    val imageGraphics: Graphics = image.getGraphics()
+    val imageGraphics: Graphics = image.getGraphics
 
     paintGraphics(imageGraphics)
 
