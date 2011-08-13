@@ -15,8 +15,6 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
               gameView.selectNextRankedMove()
             else
               game.performMove()
-          case 80 => // p
-            game.togglePause()
           case 37 =>
             if (shiftKey) game.decreaseSpeed()          // <Shift> + Left
             else game.showRankedMoves(false)            // Left
@@ -31,15 +29,17 @@ class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
               else
                 game.showRankedMoves(true)
             }
-          case 83 =>  // s = Toggle sliding
+          case 76 =>  // l = Toggle sliding
             game.toggleSliding()
-          case 82 =>
-            if (shiftKey) game.decreaseSeed() // R
-            else game.increaseSeed()          // r
           case 77 =>
             game.toggleMaxSpeed() // m
           case 78 => // n
             game.toggleShowNextPiece()
+          case 80 => // p
+            game.togglePause()
+          case 82 =>
+            if (shiftKey) game.decreaseSeed() // R
+            else game.increaseSeed()          // r
           case 112 => // <F1>
             gameView.toggleShowHelp()
           case 113 => // <F2>

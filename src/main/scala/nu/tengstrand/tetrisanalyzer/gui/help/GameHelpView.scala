@@ -22,7 +22,7 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
     drawText("r / R = Change seed + restart random sequence", 9, g)
 
-    drawText("s = Toggle sliding", 11, g)
+    drawText("l = Sliding (toggle)", 11, g)
 
     drawText("n = Show next piece (toggle)", 13, g)
 
