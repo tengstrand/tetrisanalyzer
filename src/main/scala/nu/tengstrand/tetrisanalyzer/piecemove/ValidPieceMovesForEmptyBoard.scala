@@ -46,7 +46,7 @@ class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings:
     while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
       markAsVisited(fromMovement, movement)
       if (isSlidingEnabled || movement.pieceMove.move.y == 0) {
-        val moveAdjustment = settings.adjustment(movement.pieceMove.piece, movement.pieceMove.move.rotation)
+        val moveAdjustment = settings.rotationAdjustment(movement.pieceMove.piece, movement.pieceMove.move.rotation)
         calculateValidMoves(movement, movement.rotate(moveAdjustment, rotationDirection, piece.rotationModulus, visitedPieceMoves))
         calculateValidMoves(movement, movement.left(visitedPieceMoves))
         calculateValidMoves(movement, movement.right(visitedPieceMoves))
