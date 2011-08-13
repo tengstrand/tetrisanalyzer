@@ -25,22 +25,21 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-/*
-  @Test def setStandingPieceI {
+  @Test def setStandingPieceI() {
     val board = Board(8,4)
-    val piece = PieceI
+    val piece = PieceI()
     val move = Move(1,0, 0)
 
     PieceMove(board, piece, move).setPiece()
 
     board should be (Board(Array(
-      "#-x------#",
-      "#-x------#",
-      "#-x------#",
-      "#-x------#",
+      "#x-------#",
+      "#x-------#",
+      "#x-------#",
+      "#x-------#",
       "##########")))
   }
-*/
+
   @Test def setPiece_clearTwoRows() {
     val board = Board(Array(
       "#----------#",
