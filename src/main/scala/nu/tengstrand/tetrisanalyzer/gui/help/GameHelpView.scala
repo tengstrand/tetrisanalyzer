@@ -37,10 +37,9 @@ class GameHelpView extends TextDrawer with HelpPainter {
 
 
 
-    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 31, g)
-    drawText("AI: JTengstrand 1.1.01", 32, g)
-    drawText("tetrisanalyzer@tengstrand.nu", 33, g)
-    drawText("http://tetris.tengstrand.nu or", 34, g)
+    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 32, g)
+    drawText("AI: JTengstrand 1.1.01", 33, g)
+    drawText("tetrisanalyzer@tengstrand.nu", 34, g)
     drawText("http://tetrisanalyzer.tengstrand.nu", 35, g)
   }
 }
