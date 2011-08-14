@@ -28,7 +28,7 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
 
   private val startBoard = board.copy
   private var startPosition = Position(position)
-  private var paused = Game.PausedOnStartup
+  private var paused = Game.PausedAtStartup
   private var doStep = false
   private var quit = false
   private var showNextPiece = false

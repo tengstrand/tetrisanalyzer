@@ -4,7 +4,7 @@ import swing.UIElement
 
 class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
   var sleepMs = 20 // 50 times per second
-  var paused: Boolean = Game.PausedOnStartup
+  var paused: Boolean = Game.PausedAtStartup
 
   private var timeStarted = 0L;
   private var totalTimeMs = 0L;
@@ -33,7 +33,7 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
   def start() {
     while (true) {
       gameInfoReceiver.setTimePassed(secondsPassed)
-      mainFrame.repaint
+      mainFrame.repaint()
       Thread.sleep(sleepMs)
     }
   }

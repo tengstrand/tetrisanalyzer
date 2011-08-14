@@ -8,7 +8,7 @@ import startpiece.StartPieceGenerator
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
 object Game {
-  def PausedOnStartup = true
+  def PausedAtStartup = true
 }
 
 class Game(timer: Timer, gameView: GameView) {
@@ -28,7 +28,7 @@ class Game(timer: Timer, gameView: GameView) {
   private var slidingEnabled = false
   private var showRankedMoves = false
   private val speed = new Speed()
-  private var paused = Game.PausedOnStartup
+  private var paused = Game.PausedAtStartup
   private var pausedBeforeResizing = paused
   private var pausedBeforeShowRankedMoves = paused
   private var pieceGenerator = new DefaultPieceGenerator(seed)
