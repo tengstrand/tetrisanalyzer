@@ -117,8 +117,8 @@ class ComputerPlayer(speed: Speed, startPieceGenerator: StartPieceGenerator, boa
   }
 
   def resetGameInfo() {
-    updateSpeed()
     gameStatistics.reset()
+    updateSpeed()
   }
 
   def increaseSpeed() {

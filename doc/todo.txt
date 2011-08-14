@@ -1,5 +1,4 @@
 
-- Fix problems with calculation of rows/sec.
 - Use lzPack to deliver current version.
 - Release a first version on the website!
 
