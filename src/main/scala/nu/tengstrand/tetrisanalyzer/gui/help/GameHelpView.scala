@@ -1,15 +1,15 @@
 package nu.tengstrand.tetrisanalyzer.gui.help
 
 import java.awt.{Color, Graphics2D}
-import nu.tengstrand.tetrisanalyzer.gui.{TetrisAnalyzer, TextDrawer}
+import nu.tengstrand.tetrisanalyzer.gui.{TetrisAnalyzer, TextPainter}
 
-class GameHelpView extends TextDrawer with HelpPainter {
+class GameHelpView extends TextPainter with HelpPainter {
   private var paused = true
 
   def setPaused(paused: Boolean) { this.paused = paused }
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
-    prepareDrawText(origoX, g, 10, new Color(0, 120, 0))
+    prepareDrawText(origoX, g, 10, HelpColor.Color)
 
     drawText("p = Pause (toggle)", 1, g)
 

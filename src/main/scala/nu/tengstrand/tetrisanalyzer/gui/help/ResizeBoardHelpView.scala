@@ -1,9 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.gui.help
 
-import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
+import nu.tengstrand.tetrisanalyzer.gui.TextPainter
 import java.awt.{Color, Graphics2D}
 
-class ResizeBoardHelpView extends TextDrawer with HelpPainter {
+class ResizeBoardHelpView extends TextPainter with HelpPainter {
   private var boardWidth = 10
   private var boardHeight = 20
 

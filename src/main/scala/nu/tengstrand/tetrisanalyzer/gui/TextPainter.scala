@@ -2,7 +2,7 @@ package nu.tengstrand.tetrisanalyzer.gui
 
 import java.awt.{Color, Font, Graphics2D}
 
-class TextDrawer {
+class TextPainter {
   private var origoX = 0
   private var origoY = 10
   private var spacing = 14
@@ -10,6 +10,7 @@ class TextDrawer {
   private var textFont = defaultFont
 
   def setDefaultFont(g: Graphics2D) { textFont = defaultFont; g.setFont(textFont)  }
+  def setMediumFont(g: Graphics2D) { textFont = new Font("Monospaced", Font.PLAIN, 14); g.setFont(textFont) }
   def setBigFont(g: Graphics2D) { textFont = new Font("Monospaced", Font.PLAIN, 18); g.setFont(textFont) }
 
   private def defaultFont = new Font("Monospaced", Font.PLAIN, 12)

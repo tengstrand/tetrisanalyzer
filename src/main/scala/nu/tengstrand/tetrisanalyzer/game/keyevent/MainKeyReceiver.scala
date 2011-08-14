@@ -23,6 +23,8 @@ class MainKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
   });
 
   def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
+    gameView.hideStartupHelp()
+
     if (keyCode == 27 && isResizingBoard) {
       keyReceiver = gameKeyReceiver // <Esc>
       game.abortBoardSize()

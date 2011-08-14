@@ -2,8 +2,8 @@ package nu.tengstrand.tetrisanalyzer.gui.rankedmove
 
 import nu.tengstrand.tetrisanalyzer.game.RankedMovesReceiver
 import java.awt.{Color, Graphics2D}
-import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
-class RankedMovesView extends TextDrawer with RankedMovesReceiver {
+import nu.tengstrand.tetrisanalyzer.gui.TextPainter
+class RankedMovesView extends TextPainter with RankedMovesReceiver {
   private var rankedMoves: RankedMoves = null
   private var newRankedMoves: RankedMoves = null
 

@@ -3,21 +3,25 @@ package nu.tengstrand.tetrisanalyzer.gui
 import help.HelpView
 import nu.tengstrand.tetrisanalyzer.settings.ColorSettings
 import java.awt.{Color, Graphics2D, Graphics, Dimension}
-import position.PositionView
+import position.{PositionStartupHelpPainter, PositionView}
 import rankedmove.{RankedMoves, RankedMovesView}
 import nu.tengstrand.tetrisanalyzer.game.{GameEventReceiver, ColoredPosition}
 
 class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with GameEventReceiver {
   private val positionView = new PositionView(colorSettings)
+  private val positionStartupHelpPainter = new PositionStartupHelpPainter
   private val resizeBoardView = new PositionView(colorSettings)
   private val gameInfoView = new GameInfoView
   private val rankedMovesView = new RankedMovesView
   private val helpView = new HelpView
 
   private var paused = true
+  private var showStartupHelp = true
   private var boardSizeInPixels = new Dimension(0,0)
 
   private var isResizingBoard = false
+
+  def hideStartupHelp() { showStartupHelp = false }
 
   def setShowNextPiece(show: Boolean) { gameInfoView.setShowNextPiece(show) }
 
@@ -93,6 +97,8 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
     } else {
       positionView.setShowRowNumbers(rankedMovesView.showRowNumbers)
       positionView.paintGraphics(size, g)
+      if (showStartupHelp)
+        positionStartupHelpPainter.paintGraphics((boardSizeInPixels.width * 0.45).intValue(), g)
     }
     origoX += boardSizeInPixels.width
 

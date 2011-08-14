@@ -1,9 +1,9 @@
 package nu.tengstrand.tetrisanalyzer.gui.help
 
 import java.awt.Graphics2D
-import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
+import nu.tengstrand.tetrisanalyzer.gui.TextPainter
 
-class HelpView extends TextDrawer {
+class HelpView extends TextPainter {
   private var isResizingBoard = false
   private var showView = false
   private val resizeBoardHelpView = new ResizeBoardHelpView

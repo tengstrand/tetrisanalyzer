@@ -1,12 +1,12 @@
 package nu.tengstrand.tetrisanalyzer.gui.help
 
-import java.awt.{Color, Graphics2D}
-import nu.tengstrand.tetrisanalyzer.gui.TextDrawer
+import java.awt.Graphics2D
+import nu.tengstrand.tetrisanalyzer.gui.TextPainter
 
-class RankedMovesHelpView extends TextDrawer with HelpPainter {
+class RankedMovesHelpView extends TextPainter with HelpPainter {
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
-    prepareDrawText(origoX, g, 10, new Color(0, 120, 0))
+    prepareDrawText(origoX, g, 10, HelpColor.Color)
 
     drawText("left = Hide moves", 1, g)
 

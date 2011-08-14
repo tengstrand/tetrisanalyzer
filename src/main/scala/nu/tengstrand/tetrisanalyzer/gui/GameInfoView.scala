@@ -24,7 +24,7 @@ class GameInfoView extends GameInfoReceiver {
   private var secondsPassed = 0.0
   private var speedInfo = SpeedInfo(0.0, 0, 0)
 
-  private val textDrawer = new TextDrawer
+  private val textPainter = new TextPainter
 
   private val numberSeparator = new NumberSeparator
 
@@ -73,38 +73,38 @@ class GameInfoView extends GameInfoReceiver {
   }
 
   private def paintGraphics(origoX: Int, g: Graphics2D) {
-    textDrawer.prepareDrawText(origoX, g)
+    textPainter.prepareDrawText(origoX, g)
 
-    textDrawer.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
-    textDrawer.drawInfo("Pieces:", withSpaces(pieces), 2, g)
+    textPainter.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
+    textPainter.drawInfo("Pieces:", withSpaces(pieces), 2, g)
 
-    textDrawer.drawInfo("Rows total:", withSpaces(clearedRowsTotal), 4, g)
-    textDrawer.drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
+    textPainter.drawInfo("Rows total:", withSpaces(clearedRowsTotal), 4, g)
+    textPainter.drawInfo("Pieces total:", withSpaces(piecesTotal), 5, g)
 
-    textDrawer.drawInfo("Games:", withSpaces(games), 7, g)
-    textDrawer.drawInfo("Rows/game:", if (games == 0) "" else withSpaces(clearedRowsTotalInFinishedGames / games), 8, g)
-    textDrawer.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
-    textDrawer.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
+    textPainter.drawInfo("Games:", withSpaces(games), 7, g)
+    textPainter.drawInfo("Rows/game:", if (games == 0) "" else withSpaces(clearedRowsTotalInFinishedGames / games), 8, g)
+    textPainter.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
+    textPainter.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 
-    textDrawer.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 12, g)
-    textDrawer.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 13, g)
-    textDrawer.drawInfo("Random seed:", seed, 14, g)
+    textPainter.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 12, g)
+    textPainter.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 13, g)
+    textPainter.drawInfo("Random seed:", seed, 14, g)
 
-    textDrawer.drawInfo("Next:", if (showNextPiece) "On" else "Off", 16, g)
+    textPainter.drawInfo("Next:", if (showNextPiece) "On" else "Off", 16, g)
 
-    textDrawer.drawInfo("Speed:", "", 18, g)
-    textDrawer.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 19, g)
-    textDrawer.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 20, g)
+    textPainter.drawInfo("Speed:", "", 18, g)
+    textPainter.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 19, g)
+    textPainter.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 20, g)
 
-    textDrawer.drawInfo("Pause:", if (paused) "On" else "", 22, g)
+    textPainter.drawInfo("Pause:", if (paused) "On" else "", 22, g)
 
 
 
-    textDrawer.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 31, g)
+    textPainter.drawInfo("Elapsed time:", calculateElapsedTime(secondsPassed), 31, g)
 
-    textDrawer.drawText("[F1] Help (toggle)", 33, g)
-    textDrawer.drawText("[F2] Miniature board (toggle)", 34, g)
-    textDrawer.drawText("[F3] Show game info (toggle)", 35, g)
+    textPainter.drawText("[F1] Help (toggle)", 33, g)
+    textPainter.drawText("[F2] Miniature board (toggle)", 34, g)
+    textPainter.drawText("[F3] Show game info (toggle)", 35, g)
 
     drawSpeed(18, origoX, g)
   }
@@ -117,7 +117,7 @@ class GameInfoView extends GameInfoReceiver {
     else
       g.setColor(speedBarColor)
 
-    val y1 = textDrawer.getY(row) - 10
+    val y1 = textPainter.getY(row) - 10
     val x1 = origoX + 55
     val width = if (isMaxSpeed) Speed.MaxSpeedIndex * factor else speedIndex * factor
     val height = 10
