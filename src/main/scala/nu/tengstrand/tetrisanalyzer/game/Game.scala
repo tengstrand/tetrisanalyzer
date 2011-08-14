@@ -24,7 +24,7 @@ class Game(timer: Timer, gameView: GameView) {
   private var computerPlayer: ComputerPlayer = null
 
   private var seed = 1L
-  private var showNextPiece = false
+  private var showNextPiece = true
   private var slidingEnabled = false
   private var showRankedMoves = false
   private val speed = new Speed()
