@@ -31,5 +31,9 @@ class TextPainter {
     g.drawString(text.toString, origoX, y)
   }
 
+  def drawText(text: Any, pixelX: Int, pixelY: Int, g: Graphics2D) {
+    g.drawString(text.toString, origoX + pixelX, pixelY)
+  }
+
   def getY(row: Int) = origoY + row * spacing
 }

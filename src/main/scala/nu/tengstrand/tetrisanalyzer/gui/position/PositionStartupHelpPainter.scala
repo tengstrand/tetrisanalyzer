@@ -8,10 +8,10 @@ class PositionStartupHelpPainter extends TextPainter {
 
   def paintGraphics(origoX: Int, g: Graphics2D) {
     setMediumFont(g)
-    prepareDrawText(origoX, g, 8, HelpColor.Color)
+    prepareDrawText(origoX, g, 10, HelpColor.Color)
 
-    drawText("Press 'P' to start", 14, g)
+    drawText("Press 'P' to start", 3, 140, g)
 
-    drawText(" or [F1] for help", 16, g)
+    drawText(" or [F1] for help", 3, 163, g)
   }
 }

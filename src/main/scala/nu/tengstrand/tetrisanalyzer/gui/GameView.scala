@@ -98,7 +98,7 @@ class GameView(colorSettings: ColorSettings) extends DoubleBufferedView with Gam
       positionView.setShowRowNumbers(rankedMovesView.showRowNumbers)
       positionView.paintGraphics(size, g)
       if (showStartupHelp)
-        positionStartupHelpPainter.paintGraphics((boardSizeInPixels.width * 0.45).intValue(), g)
+        positionStartupHelpPainter.paintGraphics((boardSizeInPixels.width * 0.44).intValue(), g)
     }
     origoX += boardSizeInPixels.width
 
