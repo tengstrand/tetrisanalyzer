@@ -3,7 +3,7 @@ import sbt._
 trait AssemblyProject extends BasicScalaProject {
   def assemblyExclude(base: PathFinder) = base / "META-INF" ** "*"
   def assemblyOutputPath = outputPath / assemblyJarName
-  def assemblyJarName = artifactID + "-assembly-" + version + ".jar"
+  def assemblyJarName = "TetrisAnalyzer-2.0.jar"
   def assemblyTemporaryPath = outputPath / "assembly-libs"
   def assemblyClasspath = runClasspath
   def assemblyExtraJars = mainDependencies.scalaJars
