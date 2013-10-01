@@ -5,7 +5,7 @@
 (use '[tetrisanalyzer.piece])
 (use '[tetrisanalyzer.file])
 
-(expect 30 (count (:dots (empty-board))))
+(expect 30 (count (:dots (new-board))))
 
 (expect [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] (empty-dots 5 4))
 
@@ -21,7 +21,7 @@
             [[0 5 1 5 2 5 6 5] [0 5 6 5 12 5 13 5] [2 5 6 5 7 5 8 5] [0 5 1 5 7 5 13 5]]
             [[0 6 1 6 2 6 7 6] [0 6 6 6 7 6 12 6] [1 6 6 6 7 6 8 6] [1 6 6 6 7 6 13 6]]
             [[0 7 1 7 6 7 7 7]]
-            []]} (empty-board 6 5))
+            []]} (new-board 6 5))
 
 ;; A board row should be converted to a string representation.
 (expect "#--ISJ-#" (row->str [0 0 1 3 4 0]))
@@ -32,7 +32,7 @@
 ;; #--S---#
 ;; #--SJ--#
 ;; ########
-(def test-board (empty-board 6 5 (assoc (empty-dots) 20 3 26 3 27 4)))
+(def test-board (new-board 6 5 (assoc (empty-dots) 20 3 26 3 27 4)))
 
 (expect (str "#------#\n"
              "#------#\n"
@@ -44,7 +44,7 @@
 
 (expect [0 1 2 3 4 5 6 7 8 0 0] (str->row "#-IZSJLTOx--#"))
 
-(expect (empty-board ["#ZZ----#"
+(expect (new-board ["#ZZ----#"
                       "#-ZZ---#"
                       "#------#"
                       "#--S---#"
@@ -62,5 +62,3 @@
 ;;(write-board test-board)
 ;;(write-board (set-piece test-board 2 0))
 ;;(write-board test-board3)
-
-

@@ -13,15 +13,15 @@
   (def row (subs row-with-border 1 (dec (count row-with-border))))
   (vec (map #(char->piece %) row)))
 
-;; Creates an empty board.
-(defn empty-board
-  ([] (empty-board 6 5))
+;; Creates a new board.
+(defn new-board
+  ([] (new-board 6 5))
   ([rows]
    (def width (- (count (first rows)) 2))
    (def height (count rows))
    (def dots (vec (flatten (map #(str->row %) rows))))
-   (empty-board width height dots))
-  ([width height] (empty-board width height (empty-dots width height)))
+   (new-board width height dots))
+  ([width height] (new-board width height (empty-dots width height)))
   ([width height dots] {:width width :height height :dots dots
                         :pieces (vec (map #(piece->rotations % width) pieces))}))
 
@@ -39,3 +39,4 @@
   (def piece-dots (get (get (:pieces board) piece) rotation))
   (def board-dots (apply assoc (board :dots) piece-dots))
     (assoc board :dots board-dots))
+
