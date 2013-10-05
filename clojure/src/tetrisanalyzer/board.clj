@@ -18,8 +18,9 @@
   ([] (new-board 6 5))
   ([rows]
    (def width (- (count (first rows)) 2))
-   (def height (count rows))
-   (def dots (vec (flatten (map #(str->row %) rows))))
+   (def height (dec (count rows)))
+   (def rows-skip-bottom (subvec rows 0 height))
+   (def dots (vec (flatten (map #(str->row %) rows-skip-bottom))))
    (new-board width height dots))
   ([width height] (new-board width height (empty-dots width height)))
   ([width height dots] {:width width :height height :dots dots}))
@@ -47,3 +48,16 @@
 (defn set-piece-on-board [board boardpiece]
   (def dots (apply assoc (:dots board) boardpiece))
   (assoc board :dots dots))
+
+;;(def r ["#T-----#"
+;;        "#------#"
+;;        "#------#"
+;;        "#T-S---#"
+;;        "#T-SJ--#"
+;;        "########"])
+
+
+
+
+
+
