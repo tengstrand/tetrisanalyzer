@@ -49,6 +49,9 @@
   (def dots (apply assoc (:dots board) boardpiece))
   (assoc board :dots dots))
 
+(defn boardpiece [x y p board-width pieceshape]
+  (vec (flatten (map (fn [[x1 y1]] [(+ x x1 (* (+ y y1) board-width)) p]) pieceshape))))
+
 ;; used by the tests
 (defn !! [& board] (new-board (vec board)))
 

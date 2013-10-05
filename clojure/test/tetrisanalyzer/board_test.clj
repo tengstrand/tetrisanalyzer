@@ -42,6 +42,9 @@
             "########")
   (set-piece-on-board test-board ((piece->rotations Z 6) 0)))
 
+(expect [21 7 22 7 23 7 32 7]
+  (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))
+
 ;; ########## Manual tests ##########
 
 ;; (defn write-board [board]
