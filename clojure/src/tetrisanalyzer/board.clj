@@ -55,12 +55,15 @@
 ;; used by the tests
 (defn !! [& board] (new-board (vec board)))
 
-;;(def r ["#T-----#"
-;;        "#------#"
-;;        "#------#"
-;;        "#T-S---#"
-;;        "#T-SJ--#"
-;;        "########"])
+;; Sets a piece (p) on the board at position (x,y) with rotation v.
+(defn set-piece-on-board2 [board x y p v]
+  (def piece ((:rotations (pieces p)) v))
+  (def dots (apply assoc (:dots board) (boardpiece x y p (:width board) piece)))
+  (assoc board :dots dots))
+
+
+
+
 
 
 
