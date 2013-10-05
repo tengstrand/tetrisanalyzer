@@ -49,6 +49,9 @@
   (def dots (apply assoc (:dots board) boardpiece))
   (assoc board :dots dots))
 
+;; used by the tests
+(defn !! [& board] (new-board (vec board)))
+
 ;;(def r ["#T-----#"
 ;;        "#------#"
 ;;        "#------#"

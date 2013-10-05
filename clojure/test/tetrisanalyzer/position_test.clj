@@ -24,19 +24,21 @@
   )
 
 ;; new-position should return an empty board and customized pieces for that board.
-(expect {:board (new-board ["#------#"
-                            "#------#"
-                            "#------#"
-                            "#------#"
-                            "#------#"]),
+(expect {:board (!! "#------#"
+                    "#------#"
+                    "#------#"
+                    "#------#"
+                    "#------#"
+                    "########"),
          :pieces pieces-for-board-width-6}
     (new-position (new-board)))
 
-(expect {:board (new-board ["#-Z----#"
-                            "#ZZ----#"
-                            "#Z-----#"
-                            "#------#"
-                            "#------#"])
+(expect {:board (!! "#-Z----#"
+                    "#ZZ----#"
+                    "#Z-----#"
+                    "#------#"
+                    "#------#"
+                    "########")
          :pieces pieces-for-board-width-6}
   (set-piece (new-position) 2 1))
 

@@ -17,12 +17,12 @@
 ;; A board row should be converted to a string representation.
 (expect "#--ISJ-#" (row->str [0 0 1 3 4 0]))
 
-(def test-board (new-board ["#------#"
-                            "#------#"
-                            "#------#"
-                            "#--S---#"
-                            "#--SJ--#"
-                            "########"]))
+(def test-board (!! "#------#"
+                    "#------#"
+                    "#------#"
+                    "#--S---#"
+                    "#--SJ--#"
+                    "########"))
 
 (expect (str "#------#\n"
              "#------#\n"
@@ -34,12 +34,12 @@
 
 (expect [0 1 2 3 4 5 6 7 8 0 0] (str->row "#-IZSJLTOx--#"))
 
-(expect (new-board ["#ZZ----#"
-                    "#-ZZ---#"
-                    "#------#"
-                    "#--S---#"
-                    "#--SJ--#"
-                    "########"])
+(expect (!! "#ZZ----#"
+            "#-ZZ---#"
+            "#------#"
+            "#--S---#"
+            "#--SJ--#"
+            "########")
   (set-piece-on-board test-board ((piece->rotations Z 6) 0)))
 
 ;; ########## Manual tests ##########
