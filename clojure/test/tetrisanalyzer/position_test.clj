@@ -36,7 +36,7 @@
                   [[0 6 1 6 2 6 7 6] [0 6 6 6 7 6 12 6] [1 6 6 6 7 6 8 6] [1 6 6 6 7 6 13 6]]
                   [[0 7 1 7 6 7 7 7]]
                   []]}
-  (set-piece (new-position (new-board)) 2 1))
+  (set-piece (new-position) 2 1))
 
 ;; ---------- Manual test ----------
 

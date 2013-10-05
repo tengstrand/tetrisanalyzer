@@ -10,8 +10,10 @@
   [width]
   (vec (map #(piece->rotations % width) pieces)))
 
-(defn new-position [board] {:board board
-                            :pieces (all-piece-rotations (:width board))})
+(defn new-position
+  ([] (new-position (new-board)))
+  ([board] {:board board
+            :pieces (all-piece-rotations (:width board))}))
 
 (defn set-piece [position piece rotation]
   (def piece-dots (get (get (:pieces position) piece) rotation))
