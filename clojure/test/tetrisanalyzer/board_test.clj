@@ -12,16 +12,7 @@
 (expect
   {:width 6
    :height 5
-   :dots [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-   :pieces [[]
-            [[0 1 1 1 2 1 3 1] [0 1 6 1 12 1 18 1]]
-            [[0 2 1 2 7 2 8 2] [1 2 6 2 7 2 12 2]]
-            [[1 3 2 3 6 3 7 3] [0 3 6 3 7 3 13 3]]
-            [[0 4 1 4 2 4 8 4] [0 4 1 4 6 4 12 4] [0 4 6 4 7 4 8 4] [1 4 7 4 12 4 13 4]]
-            [[0 5 1 5 2 5 6 5] [0 5 6 5 12 5 13 5] [2 5 6 5 7 5 8 5] [0 5 1 5 7 5 13 5]]
-            [[0 6 1 6 2 6 7 6] [0 6 6 6 7 6 12 6] [1 6 6 6 7 6 8 6] [1 6 6 6 7 6 13 6]]
-            [[0 7 1 7 6 7 7 7]]
-            []]} (new-board 6 5))
+   :dots [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]} (new-board 6 5))
 
 ;; A board row should be converted to a string representation.
 (expect "#--ISJ-#" (row->str [0 0 1 3 4 0]))
@@ -49,15 +40,15 @@
                       "#------#"
                       "#--S---#"
                       "#--SJ--#"])
-  (set-piece test-board 2 0))
+  (set-piece-on-board test-board ((piece->rotations Z 6) 0)))
 
 ;; ########## Manual tests ##########
 
-(defn write-board [board]
-  (def filename "C:/Source/IDEA/tetrisanalyzer/clojure/target/tetris.txt")
-  (def board-str (board->str board))
-  (with-open [w (clojure.java.io/writer filename :append true)]
-    (.write w (str "\n\n" board-str))))
+;; (defn write-board [board]
+;;   (def filename "C:/Source/IDEA/tetrisanalyzer/clojure/target/tetris.txt")
+;;   (def board-str (board->str board))
+;;   (with-open [w (clojure.java.io/writer filename :append true)]
+;;     (.write w (str "\n\n" board-str))))
 
 ;;(write-board test-board)
 ;;(write-board (set-piece test-board 2 0))

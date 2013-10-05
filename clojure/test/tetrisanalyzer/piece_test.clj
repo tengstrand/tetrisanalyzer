@@ -23,11 +23,3 @@
 (expect 6 (char->piece \T))
 (expect 7 (char->piece \O))
 (expect 8 (char->piece \x))
-
-;; Should create a vector used to place a piece (7) on a board with width 4.
-(expect [0 7 1 7 2 7 5 7] (dots->piece [[0 0][1 0][2 0][1 1]] 4 7))
-
-;; Should create a vector used to place the the different shapes of piece Z on a board with width 4.
-(expect [[0 2 1 2 5 2 6 2][1 2 4 2 5 2 8 2]]
-        (piece->rotations Z 4))
-

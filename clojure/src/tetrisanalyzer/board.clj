@@ -22,8 +22,7 @@
    (def dots (vec (flatten (map #(str->row %) rows))))
    (new-board width height dots))
   ([width height] (new-board width height (empty-dots width height)))
-  ([width height dots] {:width width :height height :dots dots
-                        :pieces (vec (map #(piece->rotations % width) pieces))}))
+  ([width height dots] {:width width :height height :dots dots}))
 
 ;; Converts a board row to a string representation, e.g. from [0 1 2 0] to "#-IZ-#".
 (defn row->str [row]
@@ -34,9 +33,17 @@
   (def bottom (apply str (repeat (+ (board :width) 2) "#")))
   (str (join "\n" (map row->str (partition (board :width) (board :dots)))) "\n" bottom))
 
-;; Places a piece on a board with a given rotation, currently in position (0,0).
-(defn set-piece [board piece rotation]
-  (def piece-dots (get (get (:pieces board) piece) rotation))
-  (def board-dots (apply assoc (board :dots) piece-dots))
-    (assoc board :dots board-dots))
+;; Converts four piece dots into a vector that can be used to put a piece
+;; on a board (with a given width) using the 'assoc' function.
+(defn dots->piece
+  [dots board-width p]
+  (vec (flatten (map (fn [[x y]] (vector (+ x (* y board-width)) p)) dots))))
 
+;; Converts from a piece to indexes on a board.
+(defn piece->rotations [piece board-width]
+  (vec (map #(dots->piece % board-width (:index piece)) (:rotations piece))))
+
+;; Places a piece on a board, currently in position (0,0).
+(defn set-piece-on-board [board boardpiece]
+  (def dots (apply assoc (:dots board) boardpiece))
+  (assoc board :dots dots))

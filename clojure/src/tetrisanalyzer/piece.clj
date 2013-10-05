@@ -52,12 +52,3 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx" piece))
 
-;; Converts four piece dots into a vector that can be used to put a piece
-;; on a board (with a given width) using the 'assoc' function.
-(defn dots->piece
-  [dots board-width p]
-  (vec (flatten (map (fn [[x y]] (vector (+ x (* y board-width)) p)) dots))))
-
-;; Converts from a piece to indexes on a board.
-(defn piece->rotations [piece board-width]
-  (vec (map #(dots->piece % board-width (:index piece)) (:rotations piece))))
