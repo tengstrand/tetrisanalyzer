@@ -34,13 +34,8 @@
 
 (expect [0 1 2 3 4 5 6 7 8 0 0] (str->row "#-IZSJLTOx--#"))
 
-(expect (!! "#ZZ----#"
-            "#-ZZ---#"
-            "#------#"
-            "#--S---#"
-            "#--SJ--#"
-            "########")
-  (set-piece-on-board test-board ((piece->rotations Z 6) 0)))
+(expect [21 7 22 7 23 7 32 7]
+  (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))
 
 (expect (!!! "#------#"
             "#--LLL-#"
@@ -50,8 +45,6 @@
             "########")
   (set-piece-on-board2 (empty-board) 6 2 1 5 0))
 
-(expect [21 7 22 7 23 7 32 7]
-  (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))
 
 
 
