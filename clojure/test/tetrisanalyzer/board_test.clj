@@ -42,14 +42,13 @@
             "########")
   (set-piece-on-board test-board ((piece->rotations Z 6) 0)))
 
-(expect (!! "#------#"
-            "#--TTT-#"
-            "#---T--#"
+(expect (!!! "#------#"
+            "#--LLL-#"
+            "#--L---#"
             "#------#"
             "#------#"
             "########")
-  (set-piece-on-board2 (new-board) 2 1 6 0))
-
+  (set-piece-on-board2 (empty-board) 6 2 1 5 0))
 
 (expect [21 7 22 7 23 7 32 7]
   (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))

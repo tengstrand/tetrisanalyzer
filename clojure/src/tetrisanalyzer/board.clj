@@ -8,7 +8,12 @@
   ([width height]
   (vec (repeat (* width height) 0))))
 
-;; Converts a row as string to a row.
+(defn empty-board
+  ([] (empty-dots 6 5))
+  ([width height]
+    (vec (repeat (* width height) 0))))
+
+;; Converts a row string representation to a board row.
 (defn str->row [row-with-border]
   (def row (subs row-with-border 1 (dec (count row-with-border))))
   (vec (map #(char->piece %) row)))
@@ -25,6 +30,13 @@
   ([width height] (new-board width height (empty-dots width height)))
   ([width height dots] {:width width :height height :dots dots}))
 
+(defn new-board2
+  ([rows]
+    (def width (- (count (first rows)) 2))
+    (def height (dec (count rows)))
+    (def rows-without-bottom (subvec rows 0 height))
+    (vec (flatten (map #(str->row %) rows-without-bottom)))))
+
 ;; Converts a board row to a string representation, e.g. from [0 1 2 0] to "#-IZ-#".
 (defn row->str [row]
   (str "#" (apply str (map #(piece->char %) row)) "#"))
@@ -33,6 +45,10 @@
 (defn board->str [board]
   (def bottom (apply str (repeat (+ (board :width) 2) "#")))
   (str (join "\n" (map row->str (partition (board :width) (board :dots)))) "\n" bottom))
+
+(defn board->str2 [board witdh]
+    (def bottom (apply str (repeat (+ width 2) "#")))
+    (str (join "\n" (map row->str (partition width board))) "\n" bottom))
 
 ;; Converts four piece dots into a vector that can be used to put a piece
 ;; on a board (with a given width) using the 'assoc' function.
@@ -54,14 +70,12 @@
 
 ;; used by the tests
 (defn !! [& board] (new-board (vec board)))
+(defn !!! [& board] (new-board2 (vec board)))
 
 ;; Sets a piece (p) on the board at position (x,y) with rotation v.
-(defn set-piece-on-board2 [board x y p v]
+(defn set-piece-on-board2 [board board-width x y p v]
   (def piece ((:rotations (pieces p)) v))
-  (def dots (apply assoc (:dots board) (boardpiece x y p (:width board) piece)))
-  (assoc board :dots dots))
-
-
+  (apply assoc board (boardpiece x y p board-width piece)))
 
 
 
