@@ -8,14 +8,21 @@
   ([width height]
   (vec (repeat (* width height) 0))))
 
+(defn empty-line
+  ([] (empty-line 8))
+  ([width] (vec (flatten (list 9 (repeat (- width 2) 0) 9)))))
+
+(defn bottom-line
+  ([] (bottom-line 8))
+  ([width] (repeat width 9)))
+
 (defn empty-board
-  ([] (empty-dots 6 5))
+  ([] (empty-board 8 5))
   ([width height]
-    (vec (repeat (* width height) 0))))
+    (vec (flatten (conj (bottom-line width) (repeat height (empty-line width)))))))
 
 ;; Converts a row string representation to a board row.
-(defn str->row [row-with-border]
-  (def row (subs row-with-border 1 (dec (count row-with-border))))
+(defn str->row [row]
   (vec (map #(char->piece %) row)))
 
 ;; Creates a new board.
@@ -30,25 +37,24 @@
   ([width height] (new-board width height (empty-dots width height)))
   ([width height dots] {:width width :height height :dots dots}))
 
-(defn new-board2
+(defn str->board
   ([rows]
-    (def width (- (count (first rows)) 2))
-    (def height (dec (count rows)))
-    (def rows-without-bottom (subvec rows 0 height))
-    (vec (flatten (map #(str->row %) rows-without-bottom)))))
+    (vec (flatten (map #(str->row %) rows)))))
 
 ;; Converts a board row to a string representation, e.g. from [0 1 2 0] to "#-IZ-#".
 (defn row->str [row]
   (str "#" (apply str (map #(piece->char %) row)) "#"))
+
+(defn row->str2 [row]
+  (apply str (map #(piece->char %) row)))
 
 ;; Converts a board to a string representation.
 (defn board->str [board]
   (def bottom (apply str (repeat (+ (board :width) 2) "#")))
   (str (join "\n" (map row->str (partition (board :width) (board :dots)))) "\n" bottom))
 
-(defn board->str2 [board witdh]
-    (def bottom (apply str (repeat (+ width 2) "#")))
-    (str (join "\n" (map row->str (partition width board))) "\n" bottom))
+(defn board->str2 [board width]
+  (join "\n" (map row->str2 (partition width board))))
 
 ;; Converts four piece dots into a vector that can be used to put a piece
 ;; on a board (with a given width) using the 'assoc' function.
@@ -70,17 +76,10 @@
 
 ;; used by the tests
 (defn !! [& board] (new-board (vec board)))
-(defn !!! [& board] (new-board2 (vec board)))
+(defn !!! [& board] (str->board (vec board)))
 
 ;; Sets a piece (p) on the board at position (x,y) with rotation v.
 (defn set-piece-on-board2 [board board-width x y p v]
   (def piece ((:rotations (pieces p)) v))
   (apply assoc board (boardpiece x y p board-width piece)))
-
-
-
-
-
-
-
 

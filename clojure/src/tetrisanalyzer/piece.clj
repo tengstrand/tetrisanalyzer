@@ -1,7 +1,7 @@
 (ns tetrisanalyzer.piece)
 
-;; -
-(def A {:index 0 :char \- })
+;; - (empty)
+(def E {:index 0 :char \- })
 
 ;; I
 (def I0 [[0 0][1 0][2 0][3 0]])
@@ -46,9 +46,13 @@
 ;; X
 (def X {:index 8 :char \x })
 
-(def pieces [A I Z S J L T O X])
+;; W (wall)
+(def W {:index 9 :char \# })
 
-(def char->piece {\- 0 \I 1 \Z 2 \S 3 \J 4 \L 5 \T 6 \O 7 \x 8})
+(def pieces [E I Z S J L T O X W])
 
-(defn piece->char [piece] (nth "-IZSJLTOx" piece))
+(def char->piece {\- 0 \I 1 \Z 2 \S 3 \J 4 \L 5 \T 6 \O 7 \x 8 \# 9})
+
+(defn piece->char [piece] (nth "-IZSJLTOx#" piece))
+
 

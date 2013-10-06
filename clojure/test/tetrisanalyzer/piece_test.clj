@@ -12,6 +12,7 @@
 (expect \T (piece->char 6))
 (expect \O (piece->char 7))
 (expect \x (piece->char 8))
+(expect \# (piece->char 9))
 
 ;; Convert from character to piece index.
 (expect 0 (char->piece \-))
@@ -23,3 +24,4 @@
 (expect 6 (char->piece \T))
 (expect 7 (char->piece \O))
 (expect 8 (char->piece \x))
+(expect 9 (char->piece \#))
