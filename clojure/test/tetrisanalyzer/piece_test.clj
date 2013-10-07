@@ -1,6 +1,5 @@
-(ns tetrisanalyzer.piece-test
-  (:require [expectations :refer :all]
-            [tetrisanalyzer.piece :refer :all]))
+(ns tetrisanalyzer.piece
+  (:require [expectations :refer :all]))
 
 ;; Convert from piece index to character.
 (expect \- (piece->char 0))

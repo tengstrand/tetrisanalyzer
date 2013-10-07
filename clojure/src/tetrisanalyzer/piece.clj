@@ -55,4 +55,3 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
-
