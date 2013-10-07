@@ -1,6 +1,5 @@
-(ns tetrisanalyzer.board-test
-  (:require [expectations :refer :all]
-            [tetrisanalyzer.board :refer :all]))
+(ns tetrisanalyzer.board
+  (:require [expectations :refer :all]))
 
 (use '[tetrisanalyzer.piece])
 (use '[tetrisanalyzer.file])
