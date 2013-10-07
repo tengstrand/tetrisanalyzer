@@ -5,19 +5,7 @@
 (use '[tetrisanalyzer.piece])
 (use '[tetrisanalyzer.file])
 
-(expect 30 (count (:dots (new-board))))
-
-(expect [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] (empty-dots 5 4))
-
-(expect
-  {:width 6
-   :height 5
-   :dots [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]} (new-board 6 5))
-
-;; A board row should be converted to a string representation.
-(expect "#--ISJ-#" (row->str [0 0 1 3 4 0]))
-
-(def test-board (!!! "#------#"
+(def test-board (!! "#------#"
                     "#------#"
                     "#------#"
                     "#--S---#"
@@ -30,20 +18,20 @@
              "#--S---#\n"
              "#--SJ--#\n"
              "########")
-        (board->str2 test-board 8))
+        (board->str test-board 8))
 
 (expect [9 0 1 2 3 4 5 6 7 8 0 0 9] (str->row "#-IZSJLTOx--#"))
 
 (expect [21 7 22 7 23 7 32 7]
   (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))
 
-(expect (!!! "#------#"
+(expect (!! "#------#"
             "#--LLL-#"
             "#--L---#"
             "#------#"
             "#------#"
             "########")
-  (set-piece-on-board2 (empty-board) 8 3 1 5 0))
+  (set-piece-on-board (empty-board) 8 3 1 5 0))
 
 (expect [9 0 0 0 0 0 0 9] (empty-line 8))
 
