@@ -33,6 +33,7 @@
 (defn board->str [board width]
   (join "\n" (map row->str (partition width board))))
 
+;; Returns a vector that can be used to apply a piece on a board.
 ;; x,y = position on the board where to put the piece.
 ;; p = piece, a value in the range 1..7.
 ;; v = rotation of the piece, 0 = initial rotation
