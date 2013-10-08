@@ -35,15 +35,14 @@
 
 ;; x,y = position on the board where to put the piece.
 ;; p = piece, a value in the range 1..7.
-;; pieceshape = the four dots [x y] that form the piece,
-;;              e.g. [[0 0][1 0][2 0][1 1]] = T.
-(defn- boardpiece [x y p board-width pieceshape]
-  (vec (flatten (map (fn [[px py]] [(+ x px (* (+ y py) board-width)) p]) pieceshape))))
+;; v = rotation of the piece, 0 = initial rotation
+(defn- boardpiece [board-width x y p v]
+  (vec (flatten (map (fn [[px py]] [(+ x px (* (+ y py) board-width)) p]) (piece-shape p v)))))
 
 ;; Sets a piece (p) on the board at position (x,y) with the rotation v.
 (defn set-piece-on-board [board-width board x y p v]
-  (apply assoc board (boardpiece x y p board-width (piece-shape p v))))
+  (apply assoc board (boardpiece board-width x y p v)))
 
 ;; Converts a list of board lines into a board
-;; (convenient method to simplify the tests).
+;; (convenient method to make the tests more readable).
 (defn !! [& str-board-rows] (str->board (vec str-board-rows)))
