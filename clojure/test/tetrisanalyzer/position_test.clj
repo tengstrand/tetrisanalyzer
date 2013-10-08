@@ -1,6 +1,5 @@
-(ns tetrisanalyzer.position-test
+(ns tetrisanalyzer.position
   (:require [expectations :refer :all]
-            [tetrisanalyzer.position :refer :all]
             [tetrisanalyzer.board :refer :all]
             [tetrisanalyzer.piece :refer :all]))
 
