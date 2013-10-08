@@ -30,7 +30,7 @@
             "#------#"
             "#------#"
             "########")
-  (set-piece-on-board (empty-board) 8 3 1 5 0))
+  (set-piece-on-board 8 (empty-board) 3 1 5 0))
 
 (expect [9 0 0 0 0 0 0 9] (empty-line 8))
 

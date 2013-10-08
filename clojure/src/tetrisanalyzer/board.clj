@@ -41,7 +41,7 @@
   (vec (flatten (map (fn [[px py]] [(+ x px (* (+ y py) board-width)) p]) pieceshape))))
 
 ;; Sets a piece (p) on the board at position (x,y) with the rotation v.
-(defn set-piece-on-board [board board-width x y p v]
+(defn set-piece-on-board [board-width board x y p v]
   (def pieceshape ((:rotations (pieces p)) v))
   (apply assoc board (boardpiece x y p board-width pieceshape)))
 
