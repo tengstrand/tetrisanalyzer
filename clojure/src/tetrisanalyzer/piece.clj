@@ -55,3 +55,4 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
+(defn piece-shape [p v] ((:rotations (pieces p)) v))

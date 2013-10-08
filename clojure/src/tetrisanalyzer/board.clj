@@ -42,8 +42,7 @@
 
 ;; Sets a piece (p) on the board at position (x,y) with the rotation v.
 (defn set-piece-on-board [board-width board x y p v]
-  (def pieceshape ((:rotations (pieces p)) v))
-  (apply assoc board (boardpiece x y p board-width pieceshape)))
+  (apply assoc board (boardpiece x y p board-width (piece-shape p v))))
 
 ;; Converts a list of board lines into a board
 ;; (convenient method to simplify the tests).
