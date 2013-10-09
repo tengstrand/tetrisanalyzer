@@ -24,6 +24,10 @@
 (expect [21 7 22 7 23 7 32 7]
   (boardpiece 1 2 7 10 [[0 0][1 0][2 0][1 1]]))
 
+(expect [9 0 0 0 0 0 0 9] (empty-line 8))
+
+(expect [9 9 9 9 9 9 9 9] (bottom-line 8))
+
 (expect (!! "#------#"
             "#--LLL-#"
             "#--L---#"
@@ -32,20 +36,6 @@
             "########")
   (set-piece-on-board 8 (empty-board) 3 1 5 0))
 
-(expect [9 0 0 0 0 0 0 9] (empty-line 8))
+;;(expect is-piece-free
 
-(expect [9 9 9 9 9 9 9 9] (bottom-line 8))
-
-;; ########## Manual tests ##########
-
-;; (defn write-board [board]
-;;   (def filename "C:/Source/IDEA/tetrisanalyzer/clojure/target/tetris.txt")
-;;   (def board-str (board->str board))
-;;   (with-open [w (clojure.java.io/writer filename :append true)]
-;;     (.write w (str "\n\n" board-str))))
-
-;;(write-board test-board)
-;;(write-board (set-piece test-board 2 0))
-;;(write-board test-board3)
-
-
+;; set-piece-on-board 8 (empty-board) 2 2 6 1
