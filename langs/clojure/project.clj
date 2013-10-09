@@ -1,5 +1,5 @@
 (defproject tetrisanalyzer "0.1.0-SNAPSHOT"
-  :description "A Tetris palying AI"
+  :description "A Tetris playing AI"
   :url "http://tetrisanalyzer.tengstrand.nu"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
