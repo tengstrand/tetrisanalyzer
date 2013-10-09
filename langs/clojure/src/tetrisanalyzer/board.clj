@@ -3,11 +3,11 @@
 (use '[clojure.string :only (join)])
 (use '[tetrisanalyzer.piece])
 
-(defn- empty-line
+(defn empty-line
   ([] (empty-line 8))
   ([width] (vec (flatten (list 9 (repeat (- width 2) 0) 9)))))
 
-(defn- bottom-line
+(defn bottom-line
   ([] (bottom-line 8))
   ([width] (repeat width 9)))
 
@@ -17,7 +17,7 @@
     (vec (flatten (conj (bottom-line width) (repeat height (empty-line width)))))))
 
 ;; Converts from e.g. "#---L--TT#" to [9 0 0 0 5 0 0 6 6 9].
-(defn- str->row [row]
+(defn str->row [row]
   (vec (map #(char->piece %) row)))
 
 ;; Creates a board from a string representation.
@@ -26,7 +26,7 @@
     (vec (flatten (map #(str->row %) rows)))))
 
 ;; Converts from e.g. [9 0 0 0 5 0 0 6 6 9] to "#---L--TT#".
-(defn- row->str [row]
+(defn row->str [row]
   (apply str (map #(piece->char %) row)))
 
 ;; Creates a board string representation from a board.
@@ -37,7 +37,7 @@
 ;; x,y = position on the board where to put the piece.
 ;; p = piece, a value in the range 1..7.
 ;; v = rotation of the piece, 0 = initial rotation
-(defn- boardpiece [board-width x y p v]
+(defn boardpiece [board-width x y p v]
   (vec (flatten (map (fn [[px py]] [(+ x px (* (+ y py) board-width)) p]) (piece-shape p v)))))
 
 (defn boardpiece-index [board-width x y p v]
