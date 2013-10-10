@@ -26,4 +26,8 @@
 (expect 8 (char->piece \x))
 (expect 9 (char->piece \#))
 
-(expect [[1 0][0 1][1 1][0 2]] )
+;; Piece 2 (Z) with one rotation.
+;; -x--
+;; xx--
+;; x--
+(expect [[1 0][0 1][1 1][0 2]] (piece-shape 2 1))
