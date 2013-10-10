@@ -1,7 +1,6 @@
-(ns tetrisanalyzer.board)
-
-(use '[clojure.string :only (join)])
-(use '[tetrisanalyzer.piece])
+(ns tetrisanalyzer.board
+  (:require [tetrisanalyzer.piece :refer :all])
+  (:require [clojure.string :refer (join)]))
 
 (defn empty-line
   ([] (empty-line 8))

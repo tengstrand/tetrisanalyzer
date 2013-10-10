@@ -1,9 +1,8 @@
 (ns tetrisanalyzer.board-test
-  (:require [expectations :refer :all]))
-
-(use '[tetrisanalyzer.board])
-(use '[tetrisanalyzer.piece])
-(use '[tetrisanalyzer.file])
+  (:require [expectations :refer :all])
+  (:require [tetrisanalyzer.board :refer :all])
+  (:require [tetrisanalyzer.piece :refer :all])
+  (:require [tetrisanalyzer.file :refer :all]))
 
 (def test-board (!! "#------#"
                     "#------#"
