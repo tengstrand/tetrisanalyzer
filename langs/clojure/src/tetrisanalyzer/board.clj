@@ -40,13 +40,6 @@
 (defn boardpiece [board-width x y p v]
   (vec (flatten (map (fn [[px py]] [(+ x px (* (+ y py) board-width)) p]) (piece-shape p v)))))
 
-(defn boardpiece-index [board-width x y p v]
-  (vec (flatten (map (fn [[px py]] (+ x px (* (+ y py) board-width))) (piece-shape p v)))))
-
-;; Returns true if a piece (p) with rotation v is not occupied in position (x,y).
-(defn is-piece-free [board-width board x y p v]
-  (every? zero? (map #(board %) (boardpiece-index board-width x y p v))))
-
 ;; Sets a piece (p) on the board at position (x,y) with the rotation v.
 (defn set-piece-on-board [board-width board x y p v]
   (apply assoc board (boardpiece board-width x y p v)))

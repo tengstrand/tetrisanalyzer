@@ -36,8 +36,3 @@
             "#------#"
             "########")
   (set-piece-on-board 8 (empty-board) 3 1 5 0))
-
-;;(expect is-piece-free
-
-;; set-piece-on-board 8 (empty-board) 2 2 6 1
-
