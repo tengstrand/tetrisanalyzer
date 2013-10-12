@@ -17,16 +17,15 @@
 
 ;; Converts from e.g. "#---L--TT#" to [9 0 0 0 5 0 0 6 6 9].
 (defn str->row [row]
-  (vec (map #(char->piece %) row)))
+  (vec (map char->piece row)))
 
 ;; Creates a board from a string representation.
-(defn str->board
-  ([rows]
-    (vec (flatten (map #(str->row %) rows)))))
+(defn str->board [rows]
+  (vec (flatten (map str->row rows))))
 
 ;; Converts from e.g. [9 0 0 0 5 0 0 6 6 9] to "#---L--TT#".
 (defn row->str [row]
-  (apply str (map #(piece->char %) row)))
+  (apply str (map piece->char row)))
 
 ;; Creates a board string representation from a board.
 (defn board->str [board width]
