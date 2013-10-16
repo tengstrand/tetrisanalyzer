@@ -44,4 +44,4 @@
 
 ;; Converts a list of board lines into a board
 ;; (convenient method to make the tests more readable).
-(defn !! [& str-board-rows] (str->board (vec str-board-rows)))
+(defn ++ [& str-board-rows] (str->board (vec str-board-rows)))

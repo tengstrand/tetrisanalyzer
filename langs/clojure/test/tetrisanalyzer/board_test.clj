@@ -4,7 +4,7 @@
   (:require [tetrisanalyzer.piece :refer :all])
   (:require [tetrisanalyzer.file :refer :all]))
 
-(def test-board (!! "#------#"
+(def test-board (++ "#------#"
                     "#------#"
                     "#------#"
                     "#--S---#"
@@ -28,7 +28,7 @@
 
 (expect [9 9 9 9 9 9 9 9] (bottom-line 8))
 
-(expect (!! "#------#"
+(expect (++ "#------#"
             "#--LLL-#"
             "#--L---#"
             "#------#"
