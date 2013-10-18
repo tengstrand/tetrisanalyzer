@@ -45,3 +45,31 @@
 ;; Converts a list of board lines into a board
 ;; (convenient method to make the tests more readable).
 (defn ++ [& str-board-rows] (str->board (vec str-board-rows)))
+
+
+;; ------- alternative solution using a two dimentional vector --------
+
+(def board2 [[9 0 0 0 0 0 0 9]
+             [9 0 0 0 0 0 0 9]
+             [9 0 0 0 0 0 0 9]
+             [9 0 0 0 0 0 0 9]
+             [9 0 0 0 0 0 0 9]
+             [9 9 9 9 9 9 9 9]])
+
+;; ok
+(defn prow->xprow [prow px p]
+  (reduce (fn [xp x] (conj xp (+ x px) p)) [] prow))
+
+
+;; ok
+(defn set-piece [board x y p piece]
+  (reduce (fn [new-board [py xprow]]
+          (assoc new-board py (apply assoc (new-board py) xprow))) board
+        (map #(vector %2 (prow->xprow % x p)) piece (iterate inc 0))))
+
+(def piece-z [[1 2][0 1]])
+
+(set-piece board2 3 1 5 piece-z)
+
+
+
