@@ -2,10 +2,6 @@
   (:require [expectations :refer :all])
   (:require [tetrisanalyzer.core :refer :all]))
 
-(defn write-file! [content]
-  (with-open [w (clojure.java.io/writer "C:/Clojure/tetris.txt")]
-    (.write w content)))
-
 ;; Convert from piece index to character.
 (expect \- (piece->char 0))
 (expect \I (piece->char 1))
