@@ -50,8 +50,7 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
-(defn move-piece
-  [p v x y]
+(defn move-piece [p v x y]
   (mapcat (fn [[px py]] [[(+ y py) (+ x px)] p]) ((pieces p) v)))
 
 ;; ===== board =====
