@@ -65,5 +65,5 @@
   ([rows] (mapcat #(str->row %1 %2) rows (range)))
   ([width height]
     (into {} (for [y (range height) x (range width)
-                   :let [wall? (or (= (- height 1) y) (zero? x) (= (- width 1) x))]]
+                   :let [wall? (or (zero? x) (= (- width 1) x) (= (- height 1) y))]]
                    [[y x] (if wall? 9 0)]))))
