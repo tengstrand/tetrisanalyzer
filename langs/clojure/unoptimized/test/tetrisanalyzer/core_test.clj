@@ -40,20 +40,20 @@
              "########")
         (board->str empty-board 8))
 
-(expect (new-board ["#-T--#"
-                    "#TT-Z#"
-                    "######"])
-        '([[0 0] 9] [[0 1] 0] [[0 2] 6] [[0 3] 0] [[0 4] 0] [[0 5] 9]
+(expect '([[0 0] 9] [[0 1] 0] [[0 2] 6] [[0 3] 0] [[0 4] 0] [[0 5] 9]
           [[1 0] 9] [[1 1] 6] [[1 2] 6] [[1 3] 0] [[1 4] 2] [[1 5] 9]
-          [[2 0] 9] [[2 1] 9] [[2 2] 9] [[2 3] 9] [[2 4] 9] [[2 5] 9]))
+          [[2 0] 9] [[2 1] 9] [[2 2] 9] [[2 3] 9] [[2 4] 9] [[2 5] 9])
+          (new-board ["#-T--#"
+                     "#TT-Z#"
+                     "######"]))
 
 ;; move-piece returns a list of pairs: [y x] p
 ;; that can be used by the function assoc
 ;; (via set-piece) to put a piece on a board.
 ;;
-;;              p v x y
-;;              - - - -
-;;  (move-piece 6 1 4 2)
+;;              p rotation x y
+;;              - -------- - -
+;;  (move-piece 6        1 4 2)
 ;;
 ;;        123456
 ;;    0  #------#   (6 = T)
@@ -63,17 +63,17 @@
 ;;    4  #---T--#   [4 4] 6
 ;;       ########
 (expect '([2 4] 6 [3 4] 6 [3 5] 6 [4 4] 6)
-        (move-piece 6 1 4 2))
+        (rotate-and-move-piece 6 1 4 2))
 
 ;; Returns a new board with a piece set, e.g.:
 ;;
-;;              board       p v x y
-;;              ----------- - - - -
-;;   (set-piece empty-board 2 0 3 1)
+;;              board       p rotation x y
+;;              ----------- - -------- - -
+;;   (set-piece empty-board 2        0 3 1)
 ;;
-;;    p = 2      piece Z
-;;    v = 0      no rotation
-;;    x,y = 3,1  position on the board
+;;    p = 2          piece Z
+;;    rotation = 0   no rotation
+;;    x,y = 3,1      position on the board
 ;;
 (expect (str "#------#\n"
              "#---ZZ-#\n"
