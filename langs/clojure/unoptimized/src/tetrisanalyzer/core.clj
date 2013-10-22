@@ -52,7 +52,11 @@
   (apply str (map (fn [[_ p]] (piece->char p)) row)))
 
 (defn board->str [board width]
-  (join "\n" (map row->str (partition width (sort board)))))
+  (->> board
+       sort
+       (partition width)
+       (map row->str)
+       (join "\n")))
 
 (defn set-piece [board p rotation x y]
   (apply assoc board (rotate-and-move-piece p rotation x y)))
