@@ -58,7 +58,7 @@
   (apply assoc board (rotate-and-move-piece p rotation x y)))
 
 (defn- str->row [row y]
-  (map #(vector [y %2] (char->piece %1)) row (range)))
+  (map-indexed #(vector [y %1] (char->piece %2)) row))
 
 (defn new-board
   ([] (new-board 12 21))
