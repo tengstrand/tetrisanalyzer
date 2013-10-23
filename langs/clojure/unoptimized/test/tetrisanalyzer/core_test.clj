@@ -53,7 +53,7 @@
 ;;
 ;;              p rotation x y
 ;;              - -------- - -
-;;  (move-piece 6        1 4 2)
+;;  (move-piece 6     1    4 2)
 ;;
 ;;        123456
 ;;    0  #------#   (6 = T)
@@ -69,7 +69,7 @@
 ;;
 ;;              board       p rotation x y
 ;;              ----------- - -------- - -
-;;   (set-piece empty-board 2        0 3 1)
+;;   (set-piece empty-board 2     0    3 1)
 ;;
 ;;    p = 2          piece Z
 ;;    rotation = 0   no rotation
