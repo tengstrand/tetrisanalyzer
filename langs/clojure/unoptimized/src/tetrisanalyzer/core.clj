@@ -1,5 +1,4 @@
-(ns tetrisanalyzer.core
-  (use [clojure.string :only (join)])  )
+(ns tetrisanalyzer.core)
 
 ;; ===== Pieces =====
 
@@ -56,7 +55,7 @@
        sort
        (partition width)
        (map row->str)
-       (join "\n")))
+       (clojure.string/join "\n")))
 
 (defn set-piece [board p rotation x y]
   (apply assoc board (rotate-and-move-piece p rotation x y)))
