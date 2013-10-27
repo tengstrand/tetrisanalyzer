@@ -8,7 +8,7 @@
 
 ;; Z (2)
 (def Z [[[1 0] [2 0] [0 1] [1 1]]
-        [[1 0] [0 1] [1 1] [0 2]]])
+        [[0 0] [0 1] [1 1] [1 2]]])
 
 ;; S (3)
 (def S [[[1 0] [2 0] [0 1] [1 1]]
@@ -70,3 +70,4 @@
     (into {} (for [y (range height) x (range width)
                    :let [wall? (or (zero? x) (= x (dec width)) (= y (dec height)))]]
                    [[y x] (if wall? 9 0)]))))
+
