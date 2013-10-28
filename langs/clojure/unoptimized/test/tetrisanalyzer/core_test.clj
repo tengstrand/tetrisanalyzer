@@ -51,9 +51,9 @@
 ;; that can be used by the function assoc
 ;; (via set-piece) to put a piece on a board.
 ;;
-;;              p rotation x y
-;;              - -------- - -
-;;  (move-piece 6     1    4 2)
+;;                         p rotation x y
+;;                         - -------- - -
+;;  (rotate-and-move-piece 6     1    4 2)
 ;;
 ;;        123456
 ;;    0  #------#   (6 = T)
