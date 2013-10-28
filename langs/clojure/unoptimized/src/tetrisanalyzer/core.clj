@@ -38,7 +38,7 @@
 ;; Represents the pieces with index 1..7.
 (def pieces [nil I Z S J L T O])
 
-(def char->piece {\- 0 \I 1 \Z 2 \S 3 \J 4 \L 5 \T 6 \O 7 \x 8 \# 9})
+(def char->piece { \- 0 \I 1 \Z 2 \S 3 \J 4 \L 5 \T 6 \O 7 \x 8 \# 9 })
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
@@ -70,4 +70,5 @@
     (into {} (for [y (range height) x (range width)
                    :let [wall? (or (zero? x) (= x (dec width)) (= y (dec height)))]]
                    [[y x] (if wall? 9 0)]))))
-
+
+
