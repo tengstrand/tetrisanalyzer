@@ -47,7 +47,7 @@
                      "#TT-Z#"
                      "######"]))
 
-;; This function returns a list of pairs: [y x] p
+;; This function returns a list of "pairs": [y x] p
 ;; that can be used by the function assoc
 ;; (via set-piece) to put a piece on a board.
 ;;
