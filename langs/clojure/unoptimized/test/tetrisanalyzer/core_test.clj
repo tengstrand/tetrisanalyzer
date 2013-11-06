@@ -62,7 +62,7 @@
 ;;    3  #---TT-#   [3 4] 6 [3 5] 6
 ;;    4  #---T--#   [4 4] 6
 ;;       ########
-(expect '([2 4] 6 [3 4] 6 [3 5] 6 [4 4] 6)
+(expect '([2 4] 6, [3 4] 6, [3 5] 6, [4 4] 6)
         (rotate-and-move-piece 6 1 4 2))
 
 ;; Returns a new board with a piece set, e.g.:
