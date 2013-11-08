@@ -47,16 +47,16 @@
                      "#TT-Z#"
                      "######"]))
 
-;; This function returns a list of "pairs": [y x] p
+;; This function returns a list of "pairs": [y x] piece
 ;; that can be used by the function assoc
 ;; (via set-piece) to put a piece on a board.
 ;;
-;;                         p rotation x y
-;;                         - -------- - -
-;;  (rotate-and-move-piece 6     1    4 2)
+;;                         piece rotation x y
+;;                         ----- -------- - -
+;;  (rotate-and-move-piece    6      1    4 2)
 ;;
-;;        123456
-;;    0  #------#   (6 = T)
+;;        123456           (6 = T)
+;;    0  #------#
 ;;    1  #------#
 ;;    2  #---T--#   [2 4] 6
 ;;    3  #---TT-#   [3 4] 6 [3 5] 6
@@ -67,17 +67,17 @@
 
 ;; Returns a new board with a piece set, e.g.:
 ;;
-;;              board       p rotation x y
-;;              ----------- - -------- - -
-;;   (set-piece empty-board 2     0    3 1)
+;;              board       piece rotation x y
+;;              ----------- ----- -------- - -
+;;   (set-piece empty-board    2      0    3 1)
 ;;
-;;    p = 2          piece Z
+;;    piece = 2      piece Z
 ;;    rotation = 0   no rotation
 ;;    x,y = 3,1      position on the board
 ;;
 (expect (str "#------#\n"
-             "#---ZZ-#\n"
              "#--ZZ--#\n"
+             "#---ZZ-#\n"
              "#------#\n"
              "#------#\n"
              "########")

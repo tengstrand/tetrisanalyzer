@@ -8,8 +8,8 @@
    [[0 0] [0 1] [0 2] [0 3]]]
 
   ;; Z (2)
-  [[[1 0] [2 0] [0 1] [1 1]]
-   [[0 0] [0 1] [1 1] [1 2]]]
+  [[[0 0] [1 0] [1 1] [2 1]]
+   [[1 0] [2 0] [0 1] [1 1]]]
 
   ;; S (3)
   [[[1 0] [2 0] [0 1] [1 1]]
@@ -40,8 +40,8 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
-(defn rotate-and-move-piece [p rotation x y]
-  (mapcat (fn [[px py]] [[(+ y py) (+ x px)] p]) ((pieces p) rotation)))
+(defn rotate-and-move-piece [piece rotation x y]
+  (mapcat (fn [[px py]] [[(+ y py) (+ x px)] piece]) ((pieces piece) rotation)))
 
 ;; ===== board =====
 
@@ -55,8 +55,8 @@
        (map row->str)
        (clojure.string/join "\n")))
 
-(defn set-piece [board p rotation x y]
-  (apply assoc board (rotate-and-move-piece p rotation x y)))
+(defn set-piece [board piece rotation x y]
+  (apply assoc board (rotate-and-move-piece piece rotation x y)))
 
 (defn- str->row [row y]
   (map-indexed #(vector [y %1] (char->piece %2)) row))
