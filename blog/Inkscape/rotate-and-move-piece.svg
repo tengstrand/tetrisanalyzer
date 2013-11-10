@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg3197"
+   version="1.1"
+   inkscape:version="0.48.1 "
+   sodipodi:docname="rotate-and-move-piece.svg"
+   inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\website\graphics\rotate-and-move-piece.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <defs
+     id="defs3199">
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4488"
+       is_visible="true"
+       pattern="M 0,0 0,10 10,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4484"
+       is_visible="true"
+       pattern="M 0,0 0,10 10,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4470">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4472" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4474" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4468"
+       is_visible="true"
+       pattern="M 0,0 0,10 10,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4464"
+       is_visible="true"
+       pattern="M 0,0 0,10 10,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect4462"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4458"
+       is_visible="true"
+       pattern="M 0,0 0,10 10,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect4454"
+       is_visible="true"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect4448"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect4444"
+       is_visible="true" />
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path6746"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path6749"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path6749-6"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4470"
+       id="linearGradient4476"
+       x1="260.11429"
+       y1="33.623341"
+       x2="280.31732"
+       y2="109.38478"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="278.20493"
+     inkscape:cy="951.33303"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1794"
+     inkscape:window-height="1058"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3202">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="33.840115"
+       y="27.057343"
+       id="text4116"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180"><tspan
+         sodipodi:role="line"
+         id="tspan4118"
+         x="33.840115"
+         y="27.057343">Defines a function</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow2Lend)"
+       d="M 57.572257,31.671603 40.917611,74.465953"
+       id="path6723"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="121.72337"
+       y="46.443123"
+       id="text4334"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180"><tspan
+         sodipodi:role="line"
+         id="tspan4336"
+         x="121.72337"
+         y="46.443123">Function name</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow2Lend)"
+       d="M 153.28422,49.422656 136.12449,79.590102"
+       id="path6723-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="243.44676"
+       y="48.270554"
+       id="text4362"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180"><tspan
+         sodipodi:role="line"
+         x="243.44676"
+         y="48.270554"
+         id="tspan4366">Parameters</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4370"
+       d="m 254.63323,50.864499 -13.6242,26.63191"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow2Lend)"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <text
+       xml:space="preserve"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="123.74368"
+       y="168.8949"
+       id="text4372"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180"><tspan
+         sodipodi:role="line"
+         x="123.74368"
+         y="168.8949"
+         id="tspan4376">Function body / &quot;return statement&quot;</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4382"
+       d="m 173.54053,157.02421 10.95123,-31.58492"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow2Lend)"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:5;stroke-opacity:1;stroke-dasharray:none"
+       d="m 32.694356,116.44911 c 5.56505,5.221 421.593444,7.05458 435.712384,0.31542"
+       id="path4492"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4545"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 22.429253,94.01384 c -0.679039,-0.85677 -1.253258,-1.85938 -1.722657,-3.00781 -0.469402,-1.14844 -0.704102,-2.33789 -0.704101,-3.56836 -1e-6,-1.08463 0.175455,-2.12369 0.526367,-3.11719 0.410154,-1.15299 1.043617,-2.30142 1.900391,-3.44531 l 0.881836,0 c -0.551436,0.94792 -0.916019,1.62468 -1.09375,2.03027 -0.277998,0.62892 -0.496748,1.28516 -0.65625,1.96875 -0.195966,0.85222 -0.293948,1.70899 -0.293946,2.57031 -2e-6,2.19206 0.681313,4.38184 2.043946,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4547"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 29.463432,91.06755 0,-0.91601 c -0.460291,0.72005 -1.137048,1.08007 -2.030273,1.08007 -0.578779,0 -1.110842,-0.1595 -1.596192,-0.47851 -0.485353,-0.31901 -0.861329,-0.76449 -1.127929,-1.33643 -0.266602,-0.57194 -0.399903,-1.22932 -0.399903,-1.97217 0,-0.7246 0.120768,-1.38199 0.362305,-1.97216 0.241536,-0.59017 0.60384,-1.04248 1.086914,-1.35694 0.483071,-0.31444 1.023109,-0.47167 1.620117,-0.47168 0.437496,1e-5 0.827144,0.0923 1.168946,0.27686 0.341792,0.18458 0.619786,0.42497 0.833984,0.72119 l 0,-3.5957 1.223633,0 0,10.02148 z M 25.573784,87.4445 c -2e-6,0.92969 0.195961,1.62468 0.58789,2.08496 0.391925,0.46029 0.85449,0.69044 1.387696,0.69043 0.537756,10e-6 0.994624,-0.21988 1.370605,-0.65966 0.375971,-0.43978 0.563959,-1.11084 0.563965,-2.01319 -6e-6,-0.99348 -0.191412,-1.72265 -0.574219,-2.1875 -0.382817,-0.46483 -0.854496,-0.69726 -1.415039,-0.69726 -0.546878,0 -1.003746,0.22331 -1.370605,0.66992 -0.366864,0.44662 -0.550295,1.15072 -0.550293,2.1123 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4549"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 37.516167,88.72966 1.271484,0.15723 c -0.200528,0.74284 -0.571947,1.31933 -1.114258,1.72949 -0.542323,0.41016 -1.235031,0.61523 -2.078125,0.61523 -1.061852,0 -1.90381,-0.32698 -2.525879,-0.98095 -0.622071,-0.65397 -0.933106,-1.57113 -0.933105,-2.75147 -1e-6,-1.22135 0.314452,-2.16926 0.943359,-2.84375 0.628904,-0.67447 1.444659,-1.01171 2.447266,-1.01172 0.970698,1e-5 1.763666,0.33041 2.378906,0.99121 0.615228,0.66082 0.922844,1.5905 0.922852,2.78907 -8e-6,0.0729 -0.0023,0.18229 -0.0068,0.32812 l -5.414063,0 c 0.04557,0.79753 0.271157,1.40821 0.676758,1.83203 0.405596,0.42383 0.911455,0.63575 1.517578,0.63574 0.451168,10e-6 0.836258,-0.11848 1.155274,-0.35546 0.319005,-0.23698 0.571934,-0.61524 0.758789,-1.13477 z m -4.040039,-1.98926 4.053711,0 c -0.05469,-0.61067 -0.209642,-1.06868 -0.464844,-1.37402 -0.391932,-0.47395 -0.90007,-0.71093 -1.524414,-0.71094 -0.565108,1e-5 -1.040205,0.18914 -1.425293,0.56738 -0.385093,0.37826 -0.598147,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4551"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 40.633354,91.06755 0,-6.30273 -1.086914,0 0,-0.95703 1.086914,0 0,-0.77247 c -10e-7,-0.48762 0.04329,-0.84992 0.129883,-1.08691 0.118488,-0.319 0.326984,-0.57763 0.625488,-0.77588 0.298501,-0.19823 0.716632,-0.29735 1.254395,-0.29736 0.34635,1e-5 0.729163,0.041 1.148437,0.12304 l -0.18457,1.07325 c -0.255212,-0.0456 -0.496748,-0.0684 -0.724609,-0.0684 -0.373701,10e-6 -0.638024,0.0798 -0.792969,0.23926 -0.154951,0.15951 -0.232424,0.45801 -0.232422,0.8955 l 0,0.66993 1.415039,0 0,0.95703 -1.415039,0 0,6.30273 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4553"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 44.222221,91.06755 0,-7.25976 1.107422,0 0,1.03222 c 0.533201,-0.79752 1.303382,-1.19628 2.310547,-1.19629 0.437495,1e-5 0.839676,0.0786 1.206543,0.23584 0.366856,0.15724 0.641433,0.36345 0.823731,0.61865 0.182285,0.25522 0.309889,0.55828 0.382812,0.90918 0.04557,0.22787 0.06835,0.62664 0.06836,1.19629 l 0,4.46387 -1.230468,0 0,-4.41601 c -6e-6,-0.5013 -0.04786,-0.87614 -0.143555,-1.12452 -0.09571,-0.24836 -0.265467,-0.44661 -0.509277,-0.59472 -0.24382,-0.14811 -0.52979,-0.22216 -0.857911,-0.22217 -0.524092,10e-6 -0.976402,0.16635 -1.356933,0.49902 -0.380536,0.33269 -0.570803,0.96387 -0.570801,1.89356 l 0,3.96484 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4555"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 55.88433,91.06755 0,-7.25976 1.10742,0 0,1.10058 c 0.28255,-0.51497 0.54346,-0.85448 0.78272,-1.01855 0.23925,-0.16406 0.50244,-0.24609 0.78955,-0.2461 0.41471,1e-5 0.83626,0.13217 1.26465,0.39649 l -0.42383,1.1416 c -0.30079,-0.17773 -0.60157,-0.2666 -0.90235,-0.2666 -0.26888,0 -0.51041,0.0809 -0.7246,0.24267 -0.2142,0.16179 -0.36687,0.38624 -0.45801,0.67334 -0.13672,0.43751 -0.20508,0.91602 -0.20508,1.43555 l 0,3.80078 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4557"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 60.11578,87.43767 c 0,-1.3444 0.37369,-2.34017 1.12109,-2.98731 0.62435,-0.53775 1.38541,-0.80663 2.2832,-0.80664 0.99804,1e-5 1.8138,0.327 2.44727,0.98096 0.63346,0.65398 0.95019,1.55746 0.95019,2.71045 0,0.93425 -0.14014,1.66911 -0.42041,2.20459 -0.28028,0.53548 -0.68815,0.95133 -1.22363,1.24756 -0.53549,0.29622 -1.11996,0.44433 -1.75342,0.44433 -1.01628,0 -1.83773,-0.32584 -2.46435,-0.97754 -0.62663,-0.65169 -0.93994,-1.59049 -0.93994,-2.8164 z m 1.26464,0 c 0,0.92969 0.2028,1.62581 0.6084,2.08838 0.4056,0.46256 0.91602,0.69385 1.53125,0.69384 0.61068,10e-6 1.11881,-0.23242 1.52442,-0.69726 0.40559,-0.46484 0.60839,-1.1735 0.6084,-2.12598 -1e-5,-0.89778 -0.20395,-1.57795 -0.61182,-2.04053 -0.40788,-0.46255 -0.91488,-0.69384 -1.521,-0.69384 -0.61523,0 -1.12565,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15527 -0.6084,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4559"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 71.05328,89.96696 0.17773,1.08692 c -0.34636,0.0729 -0.65625,0.10937 -0.92969,0.10937 -0.44661,0 -0.79297,-0.0706 -1.03906,-0.21191 -0.24609,-0.14128 -0.41927,-0.32699 -0.51953,-0.55713 -0.10026,-0.23014 -0.15039,-0.71435 -0.15039,-1.45264 l 0,-4.17675 -0.90235,0 0,-0.95703 0.90235,0 0,-1.79786 1.22363,-0.73828 0,2.53614 1.23731,0 0,0.95703 -1.23731,0 0,4.24511 c 0,0.35092 0.0217,0.5765 0.0649,0.67676 0.0433,0.10026 0.11393,0.18002 0.21192,0.23926 0.098,0.0592 0.23811,0.0889 0.42041,0.0889 0.13671,0 0.31673,-0.0159 0.54004,-0.0479 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4561"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 76.98687,90.17204 c -0.45573,0.38737 -0.89437,0.66081 -1.31592,0.82032 -0.42155,0.1595 -0.87386,0.23925 -1.35693,0.23925 -0.79753,0 -1.41049,-0.19482 -1.83887,-0.58447 -0.42839,-0.38965 -0.64258,-0.88753 -0.64258,-1.49365 0,-0.35547 0.0809,-0.68018 0.24268,-0.97412 0.16178,-0.29395 0.3737,-0.52978 0.63574,-0.70752 0.26204,-0.17773 0.55713,-0.31217 0.88525,-0.40332 0.24154,-0.0638 0.60612,-0.12532 1.09375,-0.18457 0.99349,-0.11849 1.72493,-0.25976 2.19434,-0.42383 0.005,-0.16862 0.007,-0.27571 0.007,-0.32129 -1e-5,-0.5013 -0.11622,-0.85449 -0.34864,-1.05957 -0.31445,-0.27799 -0.78158,-0.41699 -1.40136,-0.41699 -0.57878,0 -1.00603,0.1014 -1.28174,0.3042 -0.27572,0.2028 -0.47966,0.56169 -0.61182,1.07666 l -1.20312,-0.16407 c 0.10937,-0.51496 0.28938,-0.93082 0.54004,-1.24755 0.25065,-0.31673 0.61295,-0.56054 1.08691,-0.73145 0.47396,-0.17089 1.02311,-0.25634 1.64746,-0.25635 0.61979,1e-5 1.12337,0.0729 1.51074,0.21875 0.38737,0.14584 0.6722,0.32927 0.8545,0.5503 0.18228,0.22103 0.30988,0.50016 0.38281,0.8374 0.041,0.20964 0.0615,0.58789 0.0615,1.13476 l 0,1.64063 c -10e-6,1.14388 0.0262,1.86735 0.0786,2.17041 0.0524,0.30306 0.15608,0.59359 0.31104,0.87158 l -1.28516,0 C 77.10548,90.81234 77.02345,90.51384 76.987,90.17204 z M 76.88433,87.424 c -0.44662,0.18229 -1.11654,0.33724 -2.00976,0.46484 -0.50587,0.0729 -0.86361,0.15495 -1.07325,0.24609 -0.20963,0.0911 -0.37142,0.22445 -0.48535,0.39991 -0.11393,0.17545 -0.1709,0.37028 -0.1709,0.58447 0,0.32813 0.12419,0.60156 0.37256,0.82031 0.24837,0.21875 0.61182,0.32813 1.09033,0.32813 0.47396,0 0.89551,-0.10368 1.26465,-0.31104 0.36914,-0.20735 0.6403,-0.49105 0.81348,-0.85107 0.13215,-0.278 0.19824,-0.68815 0.19824,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4563"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 82.72906,89.96696 0.17773,1.08692 c -0.34636,0.0729 -0.65625,0.10937 -0.92969,0.10937 -0.44661,0 -0.79297,-0.0706 -1.03906,-0.21191 -0.24609,-0.14128 -0.41927,-0.32699 -0.51953,-0.55713 -0.10026,-0.23014 -0.15039,-0.71435 -0.15039,-1.45264 l 0,-4.17675 -0.90234,0 0,-0.95703 0.90234,0 0,-1.79786 1.22363,-0.73828 0,2.53614 1.23731,0 0,0.95703 -1.23731,0 0,4.24511 c 0,0.35092 0.0217,0.5765 0.0649,0.67676 0.0433,0.10026 0.11393,0.18002 0.21192,0.23926 0.098,0.0592 0.23811,0.0889 0.42041,0.0889 0.13671,0 0.31673,-0.0159 0.54004,-0.0479 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4565"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 88.89507,88.72966 1.27149,0.15723 c -0.20053,0.74284 -0.57195,1.31933 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61523 -2.07813,0.61523 -1.06185,0 -1.90381,-0.32698 -2.52587,-0.98095 -0.62208,-0.65397 -0.93311,-1.57113 -0.93311,-2.75147 0,-1.22135 0.31445,-2.16926 0.94336,-2.84375 0.6289,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.97069,1e-5 1.76366,0.33041 2.3789,0.99121 0.61523,0.66082 0.92285,1.5905 0.92285,2.78907 0,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41407,0 c 0.0456,0.79753 0.27116,1.40821 0.67676,1.83203 0.4056,0.42383 0.91146,0.63575 1.51758,0.63574 0.45117,10e-6 0.83626,-0.11848 1.15527,-0.35546 0.31901,-0.23698 0.57194,-0.61524 0.75879,-1.13477 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46484,-1.37402 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71094 -0.56511,1e-5 -1.04021,0.18914 -1.4253,0.56738 -0.38509,0.37826 -0.59814,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4567"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 91.2398,88.05974 0,-1.23731 3.78027,0 0,1.23731 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4569"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 101.1314,90.17204 c -0.45573,0.38737 -0.89437,0.66081 -1.31592,0.82032 -0.42155,0.1595 -0.87386,0.23925 -1.35693,0.23925 -0.79753,0 -1.41048,-0.19482 -1.83887,-0.58447 -0.42838,-0.38965 -0.64258,-0.88753 -0.64258,-1.49365 0,-0.35547 0.0809,-0.68018 0.24268,-0.97412 0.16178,-0.29395 0.3737,-0.52978 0.63574,-0.70752 0.26204,-0.17773 0.55713,-0.31217 0.88526,-0.40332 0.24153,-0.0638 0.60611,-0.12532 1.09375,-0.18457 0.99348,-0.11849 1.72493,-0.25976 2.19433,-0.42383 0.005,-0.16862 0.007,-0.27571 0.007,-0.32129 -1e-5,-0.5013 -0.11622,-0.85449 -0.34863,-1.05957 -0.31446,-0.27799 -0.78158,-0.41699 -1.40137,-0.41699 -0.57878,0 -1.00603,0.1014 -1.28174,0.3042 -0.27572,0.2028 -0.47966,0.56169 -0.61182,1.07666 l -1.20312,-0.16407 c 0.10937,-0.51496 0.28939,-0.93082 0.54004,-1.24755 0.25065,-0.31673 0.61295,-0.56054 1.08691,-0.73145 0.47396,-0.17089 1.02311,-0.25634 1.64746,-0.25635 0.61979,1e-5 1.12337,0.0729 1.51074,0.21875 0.38737,0.14584 0.6722,0.32927 0.8545,0.5503 0.18228,0.22103 0.30989,0.50016 0.38281,0.8374 0.041,0.20964 0.0615,0.58789 0.0615,1.13476 l 0,1.64063 c 0,1.14388 0.0262,1.86735 0.0786,2.17041 0.0524,0.30306 0.15608,0.59359 0.31103,0.87158 l -1.28516,0 C 101.25,90.81234 101.16797,90.51384 101.13152,90.17204 z M 101.02886,87.424 c -0.44662,0.18229 -1.11654,0.33724 -2.00976,0.46484 -0.50587,0.0729 -0.86361,0.15495 -1.07325,0.24609 -0.20963,0.0911 -0.37142,0.22445 -0.48535,0.39991 -0.11393,0.17545 -0.1709,0.37028 -0.1709,0.58447 0,0.32813 0.12419,0.60156 0.37256,0.82031 0.24837,0.21875 0.61182,0.32813 1.09033,0.32813 0.47396,0 0.89551,-0.10368 1.26465,-0.31104 0.36914,-0.20735 0.6403,-0.49105 0.81348,-0.85107 0.13216,-0.278 0.19824,-0.68815 0.19824,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4571"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 104.18707,91.06755 0,-7.25976 1.10742,0 0,1.03222 c 0.5332,-0.79752 1.30338,-1.19628 2.31054,-1.19629 0.4375,1e-5 0.83968,0.0786 1.20655,0.23584 0.36685,0.15724 0.64143,0.36345 0.82373,0.61865 0.18228,0.25522 0.30989,0.55828 0.38281,0.90918 0.0456,0.22787 0.0683,0.62664 0.0684,1.19629 l 0,4.46387 -1.23047,0 0,-4.41601 c -1e-5,-0.5013 -0.0479,-0.87614 -0.14355,-1.12452 -0.0957,-0.24836 -0.26547,-0.44661 -0.50928,-0.59472 -0.24382,-0.14811 -0.52979,-0.22216 -0.85791,-0.22217 -0.52409,10e-6 -0.9764,0.16635 -1.35694,0.49902 -0.38053,0.33269 -0.5708,0.96387 -0.5708,1.89356 l 0,3.96484 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4573"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 116.68999,91.06755 0,-0.91601 c -0.46029,0.72005 -1.13704,1.08007 -2.03027,1.08007 -0.57878,0 -1.11084,-0.1595 -1.59619,-0.47851 -0.48535,-0.31901 -0.86133,-0.76449 -1.12793,-1.33643 -0.2666,-0.57194 -0.3999,-1.22932 -0.3999,-1.97217 0,-0.7246 0.12077,-1.38199 0.3623,-1.97216 0.24154,-0.59017 0.60384,-1.04248 1.08692,-1.35694 0.48307,-0.31444 1.02311,-0.47167 1.62011,-0.47168 0.4375,1e-5 0.82715,0.0923 1.16895,0.27686 0.34179,0.18458 0.61979,0.42497 0.83398,0.72119 l 0,-3.5957 1.22364,0 0,10.02148 z m -3.88964,-3.62305 c -10e-6,0.92969 0.19596,1.62468 0.58789,2.08496 0.39192,0.46029 0.85449,0.69044 1.38769,0.69043 0.53776,10e-6 0.99463,-0.21988 1.37061,-0.65966 0.37597,-0.43978 0.56396,-1.11084 0.56396,-2.01319 0,-0.99348 -0.19141,-1.72265 -0.57422,-2.1875 -0.38281,-0.46483 -0.85449,-0.69726 -1.41504,-0.69726 -0.54687,0 -1.00374,0.22331 -1.3706,0.66992 -0.36686,0.44662 -0.5503,1.15072 -0.55029,2.1123 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4575"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 119.29449,88.05974 0,-1.23731 3.78027,0 0,1.23731 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4577"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 124.44878,91.06755 0,-7.25976 1.10059,0 0,1.01855 c 0.22786,-0.35546 0.53092,-0.64143 0.90918,-0.85791 0.37825,-0.21646 0.80892,-0.3247 1.29199,-0.32471 0.53776,1e-5 0.97867,0.11166 1.32276,0.33496 0.34407,0.22332 0.58674,0.53549 0.72802,0.93653 0.57421,-0.84765 1.32161,-1.27148 2.24219,-1.27149 0.72004,1e-5 1.27375,0.19939 1.66113,0.59815 0.38736,0.39877 0.58105,1.01286 0.58106,1.84228 l 0,4.9834 -1.22363,0 0,-4.57324 c -1e-5,-0.49218 -0.0399,-0.84651 -0.11963,-1.06299 -0.0798,-0.21647 -0.22446,-0.39078 -0.43409,-0.52295 -0.20964,-0.13215 -0.45573,-0.19823 -0.73828,-0.19824 -0.51042,10e-6 -0.93425,0.16976 -1.27148,0.50928 -0.33725,0.33952 -0.50587,0.88298 -0.50586,1.63037 l 0,4.21777 -1.23047,0 0,-4.7168 c 0,-0.54687 -0.10027,-0.95702 -0.30078,-1.23046 -0.20053,-0.27344 -0.52865,-0.41015 -0.98438,-0.41016 -0.34635,10e-6 -0.6665,0.0911 -0.96045,0.27344 -0.29394,0.18229 -0.507,0.4489 -0.63916,0.7998 -0.13216,0.35092 -0.19824,0.85678 -0.19824,1.51758 l 0,3.7666 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4579"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 135.66656,87.43767 c 0,-1.3444 0.37369,-2.34017 1.12109,-2.98731 0.62435,-0.53775 1.38541,-0.80663 2.2832,-0.80664 0.99805,1e-5 1.8138,0.327 2.44727,0.98096 0.63346,0.65398 0.95019,1.55746 0.9502,2.71045 -1e-5,0.93425 -0.14015,1.66911 -0.42042,2.20459 -0.28028,0.53548 -0.68815,0.95133 -1.22363,1.24756 -0.53548,0.29622 -1.11996,0.44433 -1.75342,0.44433 -1.01627,0 -1.83773,-0.32584 -2.46435,-0.97754 -0.62663,-0.65169 -0.93994,-1.59049 -0.93994,-2.8164 z m 1.26465,0 c -1e-5,0.92969 0.20279,1.62581 0.60839,2.08838 0.4056,0.46256 0.91602,0.69385 1.53125,0.69384 0.61068,10e-6 1.11881,-0.23242 1.52442,-0.69726 0.40559,-0.46484 0.60839,-1.1735 0.6084,-2.12598 -10e-6,-0.89778 -0.20395,-1.57795 -0.61182,-2.04053 -0.40788,-0.46255 -0.91488,-0.69384 -1.521,-0.69384 -0.61523,0 -1.12565,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15527 -0.60839,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4581"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 145.93414,91.06755 -2.76172,-7.25976 1.29882,0 1.5586,4.34765 c 0.16862,0.4694 0.32356,0.95703 0.46484,1.46289 0.10937,-0.38281 0.26204,-0.84309 0.45801,-1.38086 l 1.61328,-4.42968 1.26465,0 -2.74805,7.25976 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4583"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 155.88726,88.72966 1.27148,0.15723 c -0.20052,0.74284 -0.57194,1.31933 -1.11425,1.72949 -0.54233,0.41016 -1.23503,0.61523 -2.07813,0.61523 -1.06185,0 -1.90381,-0.32698 -2.52588,-0.98095 -0.62207,-0.65397 -0.9331,-1.57113 -0.9331,-2.75147 0,-1.22135 0.31445,-2.16926 0.94336,-2.84375 0.6289,-0.67447 1.44466,-1.01171 2.44726,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61523,0.66082 0.92284,1.5905 0.92285,2.78907 -1e-5,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41406,0 c 0.0456,0.79753 0.27116,1.40821 0.67676,1.83203 0.4056,0.42383 0.91145,0.63575 1.51758,0.63574 0.45117,10e-6 0.83626,-0.11848 1.15527,-0.35546 0.31901,-0.23698 0.57194,-0.61524 0.75879,-1.13477 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46484,-1.37402 -0.39193,-0.47395 -0.90007,-0.71093 -1.52442,-0.71094 -0.5651,1e-5 -1.0402,0.18914 -1.42529,0.56738 -0.38509,0.37826 -0.59814,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4585"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 158.23199,88.05974 0,-1.23731 3.78027,0 0,1.23731 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4587"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 163.38628,93.84978 0,-10.04199 1.1211,0 0,0.94335 c 0.26432,-0.36913 0.56282,-0.64598 0.89551,-0.83056 0.33267,-0.18456 0.73599,-0.27685 1.20996,-0.27686 0.61978,1e-5 1.16666,0.15952 1.64062,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -1e-5,0.74284 -0.13331,1.41162 -0.3999,2.00635 -0.26661,0.59473 -0.65398,1.05045 -1.16211,1.36719 -0.50815,0.31673 -1.04249,0.47509 -1.60303,0.47509 -0.41016,0 -0.77816,-0.0866 -1.104,-0.25976 -0.32585,-0.17318 -0.59359,-0.39193 -0.80323,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c 0,0.93425 0.18913,1.62468 0.56738,2.07129 0.37826,0.44662 0.83626,0.66993 1.37403,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40478,-0.69384 0.38965,-0.46257 0.58447,-1.1792 0.58448,-2.14991 -1e-5,-0.92512 -0.19028,-1.61783 -0.57081,-2.07812 -0.38053,-0.46028 -0.83512,-0.69042 -1.36376,-0.69043 -0.5241,1e-5 -0.9878,0.24496 -1.39112,0.73486 -0.40332,0.48992 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4589"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 171.18609,82.46111 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60644 0,-7.25976 1.23047,0 0,7.25976 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4591"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 179.26617,88.72966 1.27148,0.15723 c -0.20053,0.74284 -0.57195,1.31933 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61523 -2.07812,0.61523 -1.06185,0 -1.90381,-0.32698 -2.52588,-0.98095 -0.62207,-0.65397 -0.93311,-1.57113 -0.93311,-2.75147 0,-1.22135 0.31446,-2.16926 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61522,0.66082 0.92284,1.5905 0.92285,2.78907 -10e-6,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41406,0 c 0.0456,0.79753 0.27116,1.40821 0.67676,1.83203 0.40559,0.42383 0.91145,0.63575 1.51757,0.63574 0.45117,10e-6 0.83626,-0.11848 1.15528,-0.35546 0.319,-0.23698 0.57193,-0.61524 0.75879,-1.13477 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37402 -0.39193,-0.47395 -0.90006,-0.71093 -1.52441,-0.71094 -0.56511,1e-5 -1.0402,0.18914 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4593"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 186.82671,88.40837 1.20996,0.15723 c -0.13216,0.83398 -0.47054,1.48681 -1.01513,1.95849 -0.5446,0.47168 -1.21339,0.70752 -2.00635,0.70752 -0.99349,0 -1.79216,-0.3247 -2.396,-0.97412 -0.60384,-0.64941 -0.90576,-1.58024 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38965,-2.05762 0.25977,-0.58788 0.65511,-1.0288 1.18604,-1.32275 0.53092,-0.29394 1.10855,-0.44091 1.73291,-0.44092 0.7884,1e-5 1.43326,0.19939 1.93457,0.59815 0.50129,0.39877 0.82258,0.96501 0.96386,1.69873 l -1.19629,0.18457 c -0.11393,-0.48763 -0.31559,-0.85449 -0.60498,-1.10059 -0.28939,-0.24609 -0.63916,-0.36913 -1.04931,-0.36914 -0.6198,1e-5 -1.12338,0.22218 -1.51074,0.66651 -0.38738,0.44434 -0.58106,1.1473 -0.58106,2.10888 0,0.97526 0.18685,1.68392 0.56055,2.12598 0.37369,0.44206 0.86132,0.66309 1.46289,0.66308 0.48307,10e-6 0.88639,-0.14811 1.20996,-0.44433 0.32356,-0.29622 0.52864,-0.75195 0.61523,-1.36719 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4595"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 194.05914,88.72966 1.27148,0.15723 c -0.20053,0.74284 -0.57195,1.31933 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61523 -2.07812,0.61523 -1.06185,0 -1.90381,-0.32698 -2.52588,-0.98095 -0.62207,-0.65397 -0.93311,-1.57113 -0.93311,-2.75147 0,-1.22135 0.31445,-2.16926 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76366,0.33041 2.3789,0.99121 0.61523,0.66082 0.92285,1.5905 0.92286,2.78907 -1e-5,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41406,0 c 0.0456,0.79753 0.27115,1.40821 0.67675,1.83203 0.4056,0.42383 0.91146,0.63575 1.51758,0.63574 0.45117,10e-6 0.83626,-0.11848 1.15528,-0.35546 0.319,-0.23698 0.57193,-0.61524 0.75879,-1.13477 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37402 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71094 -0.56511,1e-5 -1.04021,0.18914 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4623"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 34.07769,111.51384 c -0.679039,-0.85677 -1.253257,-1.85938 -1.722656,-3.00781 -0.469402,-1.14844 -0.704103,-2.33789 -0.704102,-3.56836 -1e-6,-1.08463 0.175455,-2.12369 0.526367,-3.11719 0.410155,-1.15299 1.043618,-2.30142 1.900391,-3.44531 l 0.881836,0 c -0.551436,0.94792 -0.916019,1.62468 -1.09375,2.03027 -0.277998,0.62892 -0.496747,1.28516 -0.65625,1.96875 -0.195966,0.85222 -0.293947,1.70899 -0.293945,2.57031 -2e-6,2.19206 0.681312,4.38184 2.043945,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4625"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 36.401909,108.56755 0,-7.25976 1.100586,0 0,1.01855 c 0.227862,-0.35546 0.530922,-0.64143 0.909179,-0.85791 0.378252,-0.21646 0.808916,-0.3247 1.291993,-0.32471 0.537755,1e-5 0.978673,0.11166 1.322754,0.33496 0.344069,0.22332 0.586745,0.53549 0.728027,0.93653 0.574212,-0.84765 1.321607,-1.27148 2.242187,-1.27149 0.720043,1e-5 1.273754,0.19939 1.661133,0.59815 0.387359,0.39877 0.581044,1.01286 0.581055,1.84228 l 0,4.9834 -1.223633,0 0,-4.57324 c -9e-6,-0.49218 -0.03989,-0.84651 -0.119629,-1.06299 -0.07976,-0.21647 -0.224456,-0.39078 -0.434082,-0.52295 -0.209644,-0.13215 -0.455738,-0.19823 -0.738281,-0.19824 -0.510424,10e-6 -0.934252,0.16976 -1.271484,0.50928 -0.337247,0.33952 -0.505866,0.88298 -0.50586,1.63037 l 0,4.21777 -1.230469,0 0,-4.7168 c -5e-6,-0.54687 -0.100265,-0.95702 -0.300781,-1.23046 -0.200525,-0.27344 -0.52865,-0.41015 -0.984375,-0.41016 -0.346358,10e-6 -0.666507,0.0911 -0.960449,0.27344 -0.293948,0.18229 -0.507001,0.4489 -0.63916,0.7998 -0.132164,0.35092 -0.198245,0.85678 -0.198242,1.51758 l 0,3.7666 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4627"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 52.814995,107.67204 c -0.455735,0.38737 -0.894373,0.66081 -1.315918,0.82032 -0.421554,0.1595 -0.873864,0.23925 -1.356934,0.23925 -0.797528,0 -1.410483,-0.19482 -1.838867,-0.58447 -0.428386,-0.38965 -0.642579,-0.88753 -0.642578,-1.49365 -10e-7,-0.35547 0.08089,-0.68018 0.242676,-0.97412 0.161783,-0.29395 0.373697,-0.52978 0.635742,-0.70752 0.262043,-0.17773 0.557127,-0.31217 0.885254,-0.40332 0.241534,-0.0638 0.606117,-0.12532 1.09375,-0.18457 0.993485,-0.11849 1.72493,-0.25976 2.194336,-0.42383 0.0046,-0.16862 0.0068,-0.27571 0.0068,-0.32129 -6e-6,-0.5013 -0.116217,-0.85449 -0.348633,-1.05957 -0.314458,-0.27799 -0.78158,-0.41699 -1.401367,-0.41699 -0.57878,0 -1.006025,0.1014 -1.281739,0.3042 -0.275718,0.2028 -0.479657,0.56169 -0.611816,1.07666 l -1.203125,-0.16407 c 0.109374,-0.51496 0.289387,-0.93082 0.540039,-1.24755 0.25065,-0.31673 0.612954,-0.56054 1.086914,-0.73145 0.473956,-0.17089 1.023109,-0.25634 1.647461,-0.25635 0.619787,1e-5 1.123367,0.0729 1.510742,0.21875 0.387364,0.14584 0.672195,0.32927 0.854492,0.5503 0.182286,0.22103 0.30989,0.50016 0.382813,0.8374 0.04101,0.20964 0.06152,0.58789 0.06152,1.13476 l 0,1.64063 c -6e-6,1.14388 0.0262,1.86735 0.07861,2.17041 0.0524,0.30306 0.15608,0.59359 0.31103,0.87158 l -1.285196,0 c -0.12761,-0.25521 -0.209642,-0.55371 -0.246094,-0.89551 z M 52.712456,104.924 c -0.44662,0.18229 -1.116541,0.33724 -2.009766,0.46484 -0.505862,0.0729 -0.863609,0.15495 -1.073242,0.24609 -0.209638,0.0911 -0.371421,0.22445 -0.485352,0.39991 -0.113934,0.17545 -0.1709,0.37028 -0.170898,0.58447 -2e-6,0.32813 0.124184,0.60156 0.372559,0.82031 0.248369,0.21875 0.611813,0.32813 1.090332,0.32813 0.473954,0 0.895503,-0.10368 1.264648,-0.31104 0.369136,-0.20735 0.640294,-0.49105 0.813477,-0.85107 0.132156,-0.278 0.198236,-0.68815 0.198242,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4629"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 55.87066,111.34978 0,-10.04199 1.12109,0 0,0.94335 c 0.26432,-0.36913 0.56283,-0.64598 0.89551,-0.83056 0.33268,-0.18456 0.736,-0.27685 1.20996,-0.27686 0.61979,1e-5 1.16666,0.15952 1.64063,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.3623,1.91064 0,0.74284 -0.1333,1.41162 -0.3999,2.00635 -0.26661,0.59473 -0.65398,1.05045 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.47509 -1.60303,0.47509 -0.41016,0 -0.77816,-0.0866 -1.104,-0.25976 -0.32585,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c -1e-5,0.93425 0.18912,1.62468 0.56738,2.07129 0.37825,0.44662 0.83626,0.66993 1.37402,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40479,-0.69384 0.38964,-0.46257 0.58446,-1.1792 0.58447,-2.14991 -10e-6,-0.92512 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.9878,0.24496 -1.39111,0.73486 -0.40333,0.48992 -0.60499,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4631"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 68.40093,105.90837 1.20996,0.15723 c -0.13216,0.83398 -0.47054,1.48681 -1.01513,1.95849 -0.54461,0.47168 -1.21339,0.70752 -2.00635,0.70752 -0.99349,0 -1.79216,-0.3247 -2.396,-0.97412 -0.60384,-0.64941 -0.90576,-1.58024 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38965,-2.05762 0.25976,-0.58788 0.65511,-1.0288 1.18603,-1.32275 0.53093,-0.29394 1.10856,-0.44091 1.73291,-0.44092 0.78841,1e-5 1.43327,0.19939 1.93458,0.59815 0.50129,0.39877 0.82258,0.96501 0.96386,1.69873 l -1.19629,0.18457 c -0.11393,-0.48763 -0.31559,-0.85449 -0.60498,-1.10059 -0.28939,-0.24609 -0.63916,-0.36913 -1.04931,-0.36914 -0.6198,1e-5 -1.12338,0.22218 -1.51075,0.66651 -0.38737,0.44434 -0.58105,1.1473 -0.58105,2.10888 0,0.97526 0.18685,1.68392 0.56055,2.12598 0.37369,0.44206 0.86132,0.66309 1.46289,0.66308 0.48307,10e-6 0.88639,-0.14811 1.20996,-0.44433 0.32356,-0.29622 0.52864,-0.75195 0.61523,-1.36719 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4633"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 75.40093,107.67204 c -0.45573,0.38737 -0.89437,0.66081 -1.31592,0.82032 -0.42155,0.1595 -0.87386,0.23925 -1.35693,0.23925 -0.79753,0 -1.41048,-0.19482 -1.83887,-0.58447 -0.42838,-0.38965 -0.64258,-0.88753 -0.64257,-1.49365 -1e-5,-0.35547 0.0809,-0.68018 0.24267,-0.97412 0.16178,-0.29395 0.3737,-0.52978 0.63574,-0.70752 0.26205,-0.17773 0.55713,-0.31217 0.88526,-0.40332 0.24153,-0.0638 0.60611,-0.12532 1.09375,-0.18457 0.99348,-0.11849 1.72493,-0.25976 2.19433,-0.42383 0.005,-0.16862 0.007,-0.27571 0.007,-0.32129 -1e-5,-0.5013 -0.11622,-0.85449 -0.34863,-1.05957 -0.31446,-0.27799 -0.78158,-0.41699 -1.40137,-0.41699 -0.57878,0 -1.00603,0.1014 -1.28174,0.3042 -0.27572,0.2028 -0.47966,0.56169 -0.61182,1.07666 l -1.20312,-0.16407 c 0.10937,-0.51496 0.28939,-0.93082 0.54004,-1.24755 0.25065,-0.31673 0.61295,-0.56054 1.08691,-0.73145 0.47396,-0.17089 1.02311,-0.25634 1.64746,-0.25635 0.61979,1e-5 1.12337,0.0729 1.51075,0.21875 0.38736,0.14584 0.67219,0.32927 0.85449,0.5503 0.18228,0.22103 0.30989,0.50016 0.38281,0.8374 0.041,0.20964 0.0615,0.58789 0.0615,1.13476 l 0,1.64063 c 0,1.14388 0.0262,1.86735 0.0786,2.17041 0.0524,0.30306 0.15608,0.59359 0.31103,0.87158 l -1.28515,0 c -0.12761,-0.25521 -0.20965,-0.55371 -0.2461,-0.89551 z M 75.29839,104.924 c -0.44662,0.18229 -1.11654,0.33724 -2.00976,0.46484 -0.50586,0.0729 -0.86361,0.15495 -1.07324,0.24609 -0.20964,0.0911 -0.37143,0.22445 -0.48536,0.39991 -0.11393,0.17545 -0.1709,0.37028 -0.17089,0.58447 -1e-5,0.32813 0.12418,0.60156 0.37255,0.82031 0.24837,0.21875 0.61182,0.32813 1.09034,0.32813 0.47395,0 0.8955,-0.10368 1.26464,-0.31104 0.36914,-0.20735 0.6403,-0.49105 0.81348,-0.85107 0.13216,-0.278 0.19824,-0.68815 0.19824,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4635"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 81.14312,107.46696 0.17773,1.08692 c -0.34635,0.0729 -0.65625,0.10937 -0.92968,0.10937 -0.44662,0 -0.79297,-0.0706 -1.03907,-0.21191 -0.24609,-0.14128 -0.41927,-0.32699 -0.51953,-0.55713 -0.10026,-0.23014 -0.15039,-0.71435 -0.15039,-1.45264 l 0,-4.17675 -0.90234,0 0,-0.95703 0.90234,0 0,-1.79786 1.22364,-0.73828 0,2.53614 1.2373,0 0,0.95703 -1.2373,0 0,4.24511 c -1e-5,0.35092 0.0216,0.5765 0.0649,0.67676 0.0433,0.10026 0.11393,0.18002 0.21191,0.23926 0.098,0.0592 0.23812,0.0889 0.42041,0.0889 0.13672,0 0.31673,-0.0159 0.54004,-0.0479 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4637"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 88.57378,111.51384 c -0.67904,-0.85677 -1.25325,-1.85938 -1.72265,-3.00781 -0.4694,-1.14844 -0.7041,-2.33789 -0.7041,-3.56836 0,-1.08463 0.17545,-2.12369 0.52636,-3.11719 0.41016,-1.15299 1.04362,-2.30142 1.90039,-3.44531 l 0.88184,0 c -0.55144,0.94792 -0.91602,1.62468 -1.09375,2.03027 -0.278,0.62892 -0.49675,1.28516 -0.65625,1.96875 -0.19597,0.85222 -0.29395,1.70899 -0.29395,2.57031 0,2.19206 0.68132,4.38184 2.04395,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4639"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 91.19195,108.56755 0,-6.30273 -1.08692,0 0,-0.95703 1.08692,0 0,-0.77247 c 0,-0.48762 0.0433,-0.84992 0.12988,-1.08691 0.11849,-0.319 0.32698,-0.57763 0.62549,-0.77588 0.2985,-0.19823 0.71663,-0.29735 1.25439,-0.29736 0.34635,1e-5 0.72917,0.041 1.14844,0.12304 l -0.18457,1.07325 c -0.25521,-0.0456 -0.49675,-0.0684 -0.72461,-0.0684 -0.3737,10e-6 -0.63802,0.0798 -0.79297,0.23926 -0.15495,0.15951 -0.23242,0.45801 -0.23242,0.8955 l 0,0.66993 1.41504,0 0,0.95703 -1.41504,0 0,6.30273 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4641"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 94.78082,108.56755 0,-7.25976 1.10742,0 0,1.03222 c 0.5332,-0.79752 1.30338,-1.19628 2.31054,-1.19629 0.4375,1e-5 0.83968,0.0786 1.20655,0.23584 0.36685,0.15724 0.64143,0.36345 0.82373,0.61865 0.18228,0.25522 0.30989,0.55828 0.38281,0.90918 0.0456,0.22787 0.0683,0.62664 0.0684,1.19629 l 0,4.46387 -1.23047,0 0,-4.41601 c -1e-5,-0.5013 -0.0479,-0.87614 -0.14355,-1.12452 -0.0957,-0.24836 -0.26547,-0.44661 -0.50928,-0.59472 -0.24382,-0.14811 -0.52979,-0.22216 -0.85791,-0.22217 -0.52409,10e-6 -0.9764,0.16635 -1.35694,0.49902 -0.38053,0.33269 -0.5708,0.96387 -0.5708,1.89356 l 0,3.96484 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4643"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 106.48394,111.34978 0,-12.80371 2.71387,0 0,1.01855 -1.4834,0 0,10.7666 1.4834,0 0,1.01856 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4645"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 110.36675,111.34978 0,-12.80371 2.71387,0 0,1.01855 -1.4834,0 0,10.7666 1.4834,0 0,1.01856 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4647"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 114.22222,111.34978 0,-10.04199 1.1211,0 0,0.94335 c 0.26432,-0.36913 0.56282,-0.64598 0.8955,-0.83056 0.33268,-0.18456 0.736,-0.27685 1.20996,-0.27686 0.61979,1e-5 1.16667,0.15952 1.64063,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -10e-6,0.74284 -0.13331,1.41162 -0.39991,2.00635 -0.2666,0.59473 -0.65397,1.05045 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.47509 -1.60302,0.47509 -0.41016,0 -0.77816,-0.0866 -1.10401,-0.25976 -0.32585,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c 0,0.93425 0.18912,1.62468 0.56738,2.07129 0.37825,0.44662 0.83626,0.66993 1.37403,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40478,-0.69384 0.38964,-0.46257 0.58447,-1.1792 0.58447,-2.14991 0,-0.92512 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.98779,0.24496 -1.39111,0.73486 -0.40332,0.48992 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4649"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 121.19488,108.56755 2.65234,-3.77344 -2.4541,-3.48632 1.53809,0 1.11425,1.70214 c 0.20964,0.32358 0.37826,0.59473 0.50586,0.81348 0.20052,-0.30078 0.38509,-0.56738 0.55371,-0.7998 l 1.22364,-1.71582 1.46972,0 -2.50879,3.41796 2.7002,3.8418 -1.51074,0 -1.49024,-2.25586 -0.39648,-0.6084 -1.90723,2.86426 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4651"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 132.898,111.34978 0,-10.04199 1.1211,0 0,0.94335 c 0.26432,-0.36913 0.56282,-0.64598 0.8955,-0.83056 0.33268,-0.18456 0.736,-0.27685 1.20997,-0.27686 0.61978,1e-5 1.16666,0.15952 1.64062,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -1e-5,0.74284 -0.13331,1.41162 -0.39991,2.00635 -0.2666,0.59473 -0.65397,1.05045 -1.1621,1.36719 -0.50815,0.31673 -1.04249,0.47509 -1.60303,0.47509 -0.41016,0 -0.77816,-0.0866 -1.10401,-0.25976 -0.32584,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c 0,0.93425 0.18913,1.62468 0.56738,2.07129 0.37826,0.44662 0.83626,0.66993 1.37403,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40478,-0.69384 0.38964,-0.46257 0.58447,-1.1792 0.58447,-2.14991 0,-0.92512 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83512,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.98779,0.24496 -1.39111,0.73486 -0.40332,0.48992 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4653"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 140.63628,111.36345 -0.13671,-1.15527 c 0.26887,0.0729 0.50357,0.10937 0.7041,0.10937 0.27343,0 0.49218,-0.0456 0.65625,-0.13672 0.16406,-0.0911 0.2985,-0.21875 0.40332,-0.38281 0.0775,-0.12305 0.20279,-0.42839 0.37597,-0.91602 0.0228,-0.0684 0.0593,-0.16862 0.10938,-0.30078 l -2.75488,-7.27343 1.32617,0 1.51074,4.2041 c 0.19596,0.5332 0.37142,1.09375 0.52637,1.68164 0.14127,-0.56511 0.30989,-1.11654 0.50586,-1.6543 l 1.55175,-4.23144 1.23047,0 -2.76172,7.38281 c -0.29622,0.79752 -0.52637,1.34668 -0.69043,1.64746 -0.21875,0.4056 -0.4694,0.70296 -0.75195,0.89209 -0.28255,0.18912 -0.61979,0.28369 -1.01172,0.28369 -0.23698,0 -0.5013,-0.0501 -0.79297,-0.15039 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4655"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 149.74859,111.34978 -2.71387,0 0,-1.01856 1.4834,0 0,-10.7666 -1.4834,0 0,-1.01855 2.71387,0 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4657"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 153.6314,111.34978 -2.71387,0 0,-1.01856 1.4834,0 0,-10.7666 -1.4834,0 0,-1.01855 2.71387,0 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4659"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 159.36675,111.34978 0,-12.80371 2.71387,0 0,1.01855 -1.4834,0 0,10.7666 1.4834,0 0,1.01856 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4661"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 163.24957,111.34978 0,-12.80371 2.71386,0 0,1.01855 -1.4834,0 0,10.7666 1.4834,0 0,1.01856 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4663"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 169.4566,111.51384 c -0.67904,-0.85677 -1.25326,-1.85938 -1.72266,-3.00781 -0.4694,-1.14844 -0.7041,-2.33789 -0.7041,-3.56836 0,-1.08463 0.17545,-2.12369 0.52637,-3.11719 0.41015,-1.15299 1.04361,-2.30142 1.90039,-3.44531 l 0.88183,0 c -0.55143,0.94792 -0.91602,1.62468 -1.09375,2.03027 -0.278,0.62892 -0.49675,1.28516 -0.65625,1.96875 -0.19596,0.85222 -0.29395,1.70899 -0.29394,2.57031 -1e-5,2.19206 0.68131,4.38184 2.04394,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4665"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 174.3648,106.94743 0,-2.74804 -2.72754,0 0,-1.14844 2.72754,0 0,-2.72754 1.16211,0 0,2.72754 2.72754,0 0,1.14844 -2.72754,0 0,2.74804 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4667"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 183.78472,111.36345 -0.13672,-1.15527 c 0.26888,0.0729 0.50358,0.10937 0.7041,0.10937 0.27344,0 0.49219,-0.0456 0.65625,-0.13672 0.16406,-0.0911 0.2985,-0.21875 0.40332,-0.38281 0.0775,-0.12305 0.2028,-0.42839 0.37598,-0.91602 0.0228,-0.0684 0.0592,-0.16862 0.10938,-0.30078 l -2.75489,-7.27343 1.32618,0 1.51074,4.2041 c 0.19596,0.5332 0.37141,1.09375 0.52636,1.68164 0.14128,-0.56511 0.3099,-1.11654 0.50586,-1.6543 l 1.55176,-4.23144 1.23047,0 -2.76172,7.38281 c -0.29623,0.79752 -0.52637,1.34668 -0.69043,1.64746 -0.21875,0.4056 -0.4694,0.70296 -0.75195,0.89209 -0.28256,0.18912 -0.61979,0.28369 -1.01172,0.28369 -0.23698,0 -0.5013,-0.0501 -0.79297,-0.15039 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4669"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 194.72222,111.34978 0,-10.04199 1.1211,0 0,0.94335 c 0.26432,-0.36913 0.56282,-0.64598 0.8955,-0.83056 0.33268,-0.18456 0.736,-0.27685 1.20996,-0.27686 0.61979,1e-5 1.16667,0.15952 1.64063,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -1e-5,0.74284 -0.13331,1.41162 -0.39991,2.00635 -0.2666,0.59473 -0.65397,1.05045 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.47509 -1.60302,0.47509 -0.41016,0 -0.77816,-0.0866 -1.10401,-0.25976 -0.32585,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c 0,0.93425 0.18912,1.62468 0.56738,2.07129 0.37825,0.44662 0.83626,0.66993 1.37403,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40478,-0.69384 0.38964,-0.46257 0.58447,-1.1792 0.58447,-2.14991 0,-0.92512 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.98779,0.24496 -1.39111,0.73486 -0.40332,0.48992 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4671"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 202.4605,111.36345 -0.13672,-1.15527 c 0.26888,0.0729 0.50358,0.10937 0.70411,0.10937 0.27343,0 0.49218,-0.0456 0.65625,-0.13672 0.16406,-0.0911 0.2985,-0.21875 0.40332,-0.38281 0.0775,-0.12305 0.20279,-0.42839 0.37597,-0.91602 0.0228,-0.0684 0.0592,-0.16862 0.10938,-0.30078 l -2.75489,-7.27343 1.32618,0 1.51074,4.2041 c 0.19596,0.5332 0.37141,1.09375 0.52637,1.68164 0.14127,-0.56511 0.30989,-1.11654 0.50586,-1.6543 l 1.55175,-4.23144 1.23047,0 -2.76172,7.38281 c -0.29622,0.79752 -0.52637,1.34668 -0.69043,1.64746 -0.21875,0.4056 -0.4694,0.70296 -0.75195,0.89209 -0.28255,0.18912 -0.61979,0.28369 -1.01172,0.28369 -0.23698,0 -0.5013,-0.0501 -0.79297,-0.15039 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4673"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 210.32183,111.51384 -0.88184,0 c 1.36263,-2.1875 2.04395,-4.37728 2.04395,-6.56934 0,-0.85676 -0.098,-1.7067 -0.29395,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64941,-1.96875 -0.17774,-0.41015 -0.5446,-1.09374 -1.10059,-2.05078 l 0.88184,0 c 0.85677,1.14389 1.49023,2.29232 1.90039,3.44531 0.35091,0.9935 0.52636,2.03256 0.52637,3.11719 -1e-5,1.23047 -0.23585,2.41992 -0.70752,3.56836 -0.47168,1.14843 -1.04476,2.15104 -1.71924,3.00781 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4675"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 220.42535,111.51384 c -0.67904,-0.85677 -1.25326,-1.85938 -1.72266,-3.00781 -0.4694,-1.14844 -0.7041,-2.33789 -0.7041,-3.56836 0,-1.08463 0.17545,-2.12369 0.52637,-3.11719 0.41015,-1.15299 1.04361,-2.30142 1.90039,-3.44531 l 0.88183,0 c -0.55143,0.94792 -0.91602,1.62468 -1.09375,2.03027 -0.278,0.62892 -0.49675,1.28516 -0.65625,1.96875 -0.19596,0.85222 -0.29395,1.70899 -0.29394,2.57031 -1e-5,2.19206 0.68131,4.38184 2.04394,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4677"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 225.33355,106.94743 0,-2.74804 -2.72754,0 0,-1.14844 2.72754,0 0,-2.72754 1.16211,0 0,2.72754 2.72754,0 0,1.14844 -2.72754,0 0,2.74804 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4679"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 233.98785,108.56755 2.65234,-3.77344 -2.4541,-3.48632 1.53808,0 1.11426,1.70214 c 0.20963,0.32358 0.37825,0.59473 0.50586,0.81348 0.20052,-0.30078 0.38509,-0.56738 0.55371,-0.7998 l 1.22364,-1.71582 1.46972,0 -2.50879,3.41796 2.7002,3.8418 -1.51074,0 -1.49024,-2.25586 -0.39648,-0.6084 -1.90723,2.86426 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4681"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 245.69097,111.34978 0,-10.04199 1.1211,0 0,0.94335 c 0.26432,-0.36913 0.56282,-0.64598 0.8955,-0.83056 0.33268,-0.18456 0.736,-0.27685 1.20996,-0.27686 0.61979,1e-5 1.16667,0.15952 1.64063,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -1e-5,0.74284 -0.13331,1.41162 -0.39991,2.00635 -0.2666,0.59473 -0.65397,1.05045 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.47509 -1.60302,0.47509 -0.41016,0 -0.77816,-0.0866 -1.10401,-0.25976 -0.32585,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.3711 c 0,0.93425 0.18912,1.62468 0.56738,2.07129 0.37825,0.44662 0.83626,0.66993 1.37403,0.66992 0.54687,10e-6 1.01513,-0.23128 1.40478,-0.69384 0.38964,-0.46257 0.58447,-1.1792 0.58447,-2.14991 0,-0.92512 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.98779,0.24496 -1.39111,0.73486 -0.40332,0.48992 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4683"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 252.66363,108.56755 2.65234,-3.77344 -2.4541,-3.48632 1.53809,0 1.11425,1.70214 c 0.20964,0.32358 0.37826,0.59473 0.50586,0.81348 0.20052,-0.30078 0.38509,-0.56738 0.55371,-0.7998 l 1.22364,-1.71582 1.46972,0 -2.50879,3.41796 2.7002,3.8418 -1.51074,0 -1.49024,-2.25586 -0.39648,-0.6084 -1.90723,2.86426 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4685"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 261.29058,111.51384 -0.88184,0 c 1.36263,-2.1875 2.04395,-4.37728 2.04395,-6.56934 0,-0.85676 -0.098,-1.7067 -0.29395,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64941,-1.96875 -0.17774,-0.41015 -0.5446,-1.09374 -1.10059,-2.05078 l 0.88184,0 c 0.85677,1.14389 1.49023,2.29232 1.90039,3.44531 0.35091,0.9935 0.52636,2.03256 0.52637,3.11719 -10e-6,1.23047 -0.23585,2.41992 -0.70752,3.56836 -0.47168,1.14843 -1.04476,2.15104 -1.71924,3.00781 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4687"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 267.21734,111.34978 -2.71387,0 0,-1.01856 1.4834,0 0,-10.7666 -1.4834,0 0,-1.01855 2.71387,0 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4691"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 308.77593,111.34978 -2.71386,0 0,-1.01856 1.48339,0 0,-10.7666 -1.48339,0 0,-1.01855 2.71386,0 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4693"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 311.40777,111.51384 -0.88184,0 c 1.36263,-2.1875 2.04394,-4.37728 2.04395,-6.56934 -1e-5,-0.85676 -0.098,-1.7067 -0.29395,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64941,-1.96875 -0.17774,-0.41015 -0.5446,-1.09374 -1.10059,-2.05078 l 0.88184,0 c 0.85677,1.14389 1.49023,2.29232 1.90039,3.44531 0.35091,0.9935 0.52636,2.03256 0.52637,3.11719 -10e-6,1.23047 -0.23585,2.41992 -0.70752,3.56836 -0.47169,1.14843 -1.04476,2.15104 -1.71924,3.00781 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4733"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 466.94956,111.51384 -0.88183,0 c 1.36263,-2.1875 2.04394,-4.37728 2.04394,-6.56934 0,-0.85676 -0.098,-1.7067 -0.29394,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64942,-1.96875 -0.17773,-0.41015 -0.54459,-1.09374 -1.10058,-2.05078 l 0.88183,0 c 0.85677,1.14389 1.49023,2.29232 1.90039,3.44531 0.35091,0.9935 0.52637,2.03256 0.52637,3.11719 0,1.23047 -0.23584,2.41992 -0.70752,3.56836 -0.47168,1.14843 -1.04476,2.15104 -1.71924,3.00781 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4735"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 471.62534,111.51384 -0.88183,0 c 1.36263,-2.1875 2.04394,-4.37728 2.04394,-6.56934 0,-0.85676 -0.098,-1.7067 -0.29394,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64942,-1.96875 -0.17773,-0.41015 -0.54459,-1.09374 -1.10058,-2.05078 l 0.88183,0 c 0.85677,1.14389 1.49024,2.29232 1.9004,3.44531 0.3509,0.9935 0.52636,2.03256 0.52636,3.11719 0,1.23047 -0.23584,2.41992 -0.70752,3.56836 -0.47168,1.14843 -1.04476,2.15104 -1.71924,3.00781 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17111"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 200.83856,93.82061 0,-12.80371 2.71387,0 0,1.01855 -1.4834,0 0,10.7666 1.4834,0 0,1.01856 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17113"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 204.69403,93.82061 0,-10.04199 1.1211,0 0,0.94336 c 0.26432,-0.36914 0.56282,-0.64599 0.8955,-0.83057 0.33268,-0.18456 0.736,-0.27685 1.20996,-0.27686 0.61979,1e-5 1.16667,0.15952 1.64063,0.47852 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91064 -1e-5,0.74284 -0.13331,1.41163 -0.39991,2.00635 -0.2666,0.59473 -0.65397,1.05046 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.4751 -1.60302,0.4751 -0.41016,0 -0.77816,-0.0866 -1.10401,-0.25977 -0.32585,-0.17318 -0.59359,-0.39193 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.37109 c 0,0.93424 0.18913,1.62467 0.56738,2.07128 0.37825,0.44662 0.83626,0.66993 1.37403,0.66993 0.54687,0 1.01513,-0.23128 1.40478,-0.69385 0.38964,-0.46256 0.58447,-1.1792 0.58447,-2.1499 0,-0.92513 -0.19027,-1.61784 -0.5708,-2.07813 -0.38054,-0.46028 -0.83513,-0.69042 -1.36377,-0.69043 -0.52409,1e-5 -0.98779,0.24496 -1.39111,0.73487 -0.40332,0.48991 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17115"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 212.49384,82.43194 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60644 0,-7.25976 1.23047,0 0,7.25976 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17117"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 220.57391,88.70049 1.27149,0.15723 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06186,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57113 -0.93311,-2.75147 0,-1.22135 0.31445,-2.16926 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76366,0.33042 2.3789,0.99122 0.61523,0.66081 0.92285,1.5905 0.92285,2.78906 0,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41406,0 c 0.0456,0.79753 0.27115,1.40821 0.67675,1.83203 0.4056,0.42383 0.91146,0.63575 1.51758,0.63575 0.45117,0 0.83626,-0.11849 1.15528,-0.35547 0.319,-0.23698 0.57193,-0.61523 0.75878,-1.13477 z m -4.04003,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37402 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71094 -0.56511,10e-6 -1.04021,0.18914 -1.42529,0.56739 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51757 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17119"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 228.13446,88.3792 1.20996,0.15723 c -0.13217,0.83399 -0.47054,1.48682 -1.01513,1.9585 -0.54461,0.47168 -1.21339,0.70752 -2.00635,0.70752 -0.99349,0 -1.79216,-0.32471 -2.396,-0.97413 -0.60384,-0.64941 -0.90576,-1.58023 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38965,-2.05761 0.25976,-0.58789 0.65511,-1.02881 1.18603,-1.32276 0.53093,-0.29394 1.10856,-0.44091 1.73291,-0.44092 0.78841,1e-5 1.43327,0.19939 1.93457,0.59815 0.5013,0.39877 0.82259,0.96501 0.96387,1.69873 l -1.19629,0.18457 c -0.11394,-0.48762 -0.3156,-0.85449 -0.60498,-1.10059 -0.28939,-0.24608 -0.63916,-0.36913 -1.04931,-0.36914 -0.6198,10e-6 -1.12338,0.22218 -1.51075,0.66651 -0.38737,0.44434 -0.58105,1.1473 -0.58105,2.10888 0,0.97527 0.18685,1.68393 0.56055,2.12598 0.37369,0.44206 0.86132,0.66309 1.46289,0.66309 0.48306,0 0.88638,-0.14811 1.20996,-0.44434 0.32356,-0.29622 0.52864,-0.75195 0.61523,-1.36719 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17121"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 235.36688,88.70049 1.27149,0.15723 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06186,0 -1.90382,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57113 -0.93311,-2.75147 0,-1.22135 0.31445,-2.16926 0.94336,-2.84375 0.6289,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.97069,1e-5 1.76366,0.33042 2.3789,0.99122 0.61523,0.66081 0.92285,1.5905 0.92285,2.78906 0,0.0729 -0.002,0.18229 -0.007,0.32812 l -5.41406,0 c 0.0456,0.79753 0.27115,1.40821 0.67675,1.83203 0.4056,0.42383 0.91146,0.63575 1.51758,0.63575 0.45117,0 0.83626,-0.11849 1.15527,-0.35547 0.31901,-0.23698 0.57194,-0.61523 0.75879,-1.13477 z m -4.04004,-1.98926 4.05372,0 c -0.0547,-0.61067 -0.20965,-1.06868 -0.46485,-1.37402 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71094 -0.56511,10e-6 -1.04021,0.18914 -1.4253,0.56739 -0.38509,0.37826 -0.59814,0.88412 -0.63916,1.51757 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17123"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 242.05927,91.03838 0,-7.25976 1.10742,0 0,1.10058 c 0.28255,-0.51496 0.54345,-0.85448 0.78271,-1.01855 0.23926,-0.16406 0.50244,-0.24609 0.78955,-0.2461 0.41471,1e-5 0.83626,0.13217 1.26465,0.39649 l -0.42383,1.1416 c -0.30078,-0.17773 -0.60156,-0.26659 -0.90234,-0.2666 -0.26888,1e-5 -0.51042,0.0809 -0.72461,0.24267 -0.21419,0.16179 -0.36686,0.38624 -0.45801,0.67334 -0.13672,0.43751 -0.20508,0.91602 -0.20507,1.43555 l 0,3.80078 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17125"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 246.29071,87.4085 c 0,-1.3444 0.3737,-2.34016 1.1211,-2.9873 0.62434,-0.53776 1.38541,-0.80664 2.2832,-0.80665 0.99804,1e-5 1.81379,0.327 2.44726,0.98096 0.63346,0.65398 0.95019,1.55746 0.9502,2.71045 -1e-5,0.93425 -0.14014,1.66911 -0.42041,2.20459 -0.28028,0.53548 -0.68816,0.95134 -1.22363,1.24756 -0.53549,0.29622 -1.11996,0.44434 -1.75342,0.44434 -1.01628,0 -1.83773,-0.32585 -2.46436,-0.97754 -0.62663,-0.65169 -0.93994,-1.5905 -0.93994,-2.81641 z m 1.26465,0 c 0,0.92969 0.2028,1.62582 0.6084,2.08838 0.40559,0.46257 0.91601,0.69385 1.53125,0.69385 0.61067,0 1.11881,-0.23242 1.52441,-0.69727 0.4056,-0.46484 0.60839,-1.1735 0.6084,-2.12598 -1e-5,-0.89778 -0.20394,-1.57795 -0.61182,-2.04052 -0.40788,-0.46256 -0.91488,-0.69384 -1.52099,-0.69385 -0.61524,1e-5 -1.12566,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15528 -0.6084,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17127"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 257.22821,89.9378 0.17774,1.08691 c -0.34636,0.0729 -0.65626,0.10938 -0.92969,0.10938 -0.44662,0 -0.79297,-0.0706 -1.03906,-0.21192 -0.2461,-0.14127 -0.41928,-0.32698 -0.51954,-0.55713 -0.10026,-0.23014 -0.15039,-0.71435 -0.15039,-1.45263 l 0,-4.17676 -0.90234,0 0,-0.95703 0.90234,0 0,-1.79785 1.22364,-0.73829 0,2.53614 1.2373,0 0,0.95703 -1.2373,0 0,4.24512 c -1e-5,0.35091 0.0216,0.57649 0.0649,0.67675 0.0433,0.10027 0.11393,0.18002 0.21191,0.23926 0.098,0.0592 0.23812,0.0889 0.42041,0.0889 0.13672,0 0.31673,-0.016 0.54004,-0.0479 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17129"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 263.16181,90.14288 c -0.45574,0.38737 -0.89438,0.6608 -1.31592,0.82031 -0.42156,0.1595 -0.87387,0.23926 -1.35694,0.23926 -0.79752,0 -1.41048,-0.19483 -1.83886,-0.58448 -0.42839,-0.38964 -0.64258,-0.88753 -0.64258,-1.49365 0,-0.35547 0.0809,-0.68017 0.24267,-0.97412 0.16179,-0.29394 0.3737,-0.52978 0.63575,-0.70752 0.26204,-0.17773 0.55712,-0.31217 0.88525,-0.40332 0.24153,-0.0638 0.60612,-0.12532 1.09375,-0.18457 0.99349,-0.11849 1.72493,-0.25976 2.19434,-0.42383 0.005,-0.16861 0.007,-0.27571 0.007,-0.32129 0,-0.50129 -0.11621,-0.85448 -0.34863,-1.05957 -0.31446,-0.27799 -0.78158,-0.41698 -1.40137,-0.41699 -0.57878,1e-5 -1.00602,0.10141 -1.28174,0.3042 -0.27571,0.2028 -0.47965,0.56169 -0.61181,1.07666 l -1.20313,-0.16406 c 0.10938,-0.51497 0.28939,-0.93082 0.54004,-1.24756 0.25065,-0.31673 0.61296,-0.56054 1.08692,-0.73145 0.47395,-0.17089 1.0231,-0.25634 1.64746,-0.25635 0.61978,1e-5 1.12336,0.0729 1.51074,0.21875 0.38736,0.14585 0.67219,0.32928 0.85449,0.5503 0.18229,0.22103 0.30989,0.50017 0.38281,0.8374 0.041,0.20964 0.0615,0.5879 0.0615,1.13477 l 0,1.64062 c -10e-6,1.14388 0.0262,1.86735 0.0786,2.17041 0.0524,0.30306 0.15608,0.59359 0.31104,0.87158 l -1.28516,0 c -0.12761,-0.25521 -0.20964,-0.55371 -0.24609,-0.8955 z m -0.10254,-2.74805 c -0.44662,0.18229 -1.11654,0.33724 -2.00977,0.46484 -0.50586,0.0729 -0.86361,0.15495 -1.07324,0.2461 -0.20964,0.0911 -0.37142,0.22445 -0.48535,0.3999 -0.11394,0.17546 -0.1709,0.37028 -0.1709,0.58447 0,0.32813 0.12418,0.60156 0.37256,0.82031 0.24837,0.21875 0.61181,0.32813 1.09033,0.32813 0.47395,0 0.8955,-0.10368 1.26465,-0.31104 0.36913,-0.20735 0.64029,-0.49104 0.81347,-0.85107 0.13216,-0.27799 0.19824,-0.68815 0.19825,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17131"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 268.90399,89.9378 0.17774,1.08691 c -0.34636,0.0729 -0.65626,0.10938 -0.92969,0.10938 -0.44662,0 -0.79297,-0.0706 -1.03906,-0.21192 -0.2461,-0.14127 -0.41927,-0.32698 -0.51953,-0.55713 -0.10027,-0.23014 -0.1504,-0.71435 -0.15039,-1.45263 l 0,-4.17676 -0.90235,0 0,-0.95703 0.90235,0 0,-1.79785 1.22363,-0.73829 0,2.53614 1.2373,0 0,0.95703 -1.2373,0 0,4.24512 c 0,0.35091 0.0216,0.57649 0.0649,0.67675 0.0433,0.10027 0.11393,0.18002 0.21191,0.23926 0.098,0.0592 0.23812,0.0889 0.42041,0.0889 0.13672,0 0.31673,-0.016 0.54004,-0.0479 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17133"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 270.10712,82.43194 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60644 0,-7.25976 1.23047,0 0,7.25976 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17135"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 272.75946,87.4085 c 0,-1.3444 0.3737,-2.34016 1.1211,-2.9873 0.62434,-0.53776 1.38541,-0.80664 2.2832,-0.80665 0.99804,1e-5 1.81379,0.327 2.44726,0.98096 0.63346,0.65398 0.95019,1.55746 0.9502,2.71045 -10e-6,0.93425 -0.14014,1.66911 -0.42041,2.20459 -0.28028,0.53548 -0.68816,0.95134 -1.22363,1.24756 -0.53549,0.29622 -1.11996,0.44434 -1.75342,0.44434 -1.01628,0 -1.83773,-0.32585 -2.46436,-0.97754 -0.62663,-0.65169 -0.93994,-1.5905 -0.93994,-2.81641 z m 1.26465,0 c 0,0.92969 0.2028,1.62582 0.6084,2.08838 0.40559,0.46257 0.91601,0.69385 1.53125,0.69385 0.61067,0 1.11881,-0.23242 1.52441,-0.69727 0.4056,-0.46484 0.60839,-1.1735 0.6084,-2.12598 -10e-6,-0.89778 -0.20394,-1.57795 -0.61182,-2.04052 -0.40788,-0.46256 -0.91488,-0.69384 -1.52099,-0.69385 -0.61524,1e-5 -1.12566,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15528 -0.6084,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17137"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 281.01044,91.03838 0,-7.25976 1.10742,0 0,1.03222 c 0.5332,-0.79752 1.30338,-1.19628 2.31055,-1.19629 0.43749,1e-5 0.83967,0.0786 1.20654,0.23584 0.36686,0.15724 0.64143,0.36346 0.82373,0.61866 0.18229,0.25521 0.30989,0.55827 0.38281,0.90918 0.0456,0.22787 0.0684,0.62663 0.0684,1.19629 l 0,4.46386 -1.23047,0 0,-4.41601 c 0,-0.5013 -0.0478,-0.87614 -0.14355,-1.12451 -0.0957,-0.24837 -0.26547,-0.44661 -0.50928,-0.59473 -0.24382,-0.14811 -0.52979,-0.22216 -0.85791,-0.22217 -0.52409,1e-5 -0.9764,0.16635 -1.35693,0.49902 -0.38054,0.33269 -0.57081,0.96388 -0.5708,1.89356 l 0,3.96484 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17139"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 291.86591,91.03838 2.65234,-3.77343 -2.4541,-3.48633 1.53809,0 1.11425,1.70215 c 0.20964,0.32357 0.37825,0.59473 0.50586,0.81347 0.20052,-0.30077 0.38509,-0.56738 0.55371,-0.7998 l 1.22364,-1.71582 1.46972,0 -2.50879,3.41797 2.7002,3.84179 -1.51074,0 -1.49024,-2.25586 -0.39648,-0.60839 -1.90723,2.86425 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17141"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 303.51434,93.83428 -0.13671,-1.15527 c 0.26887,0.0729 0.50358,0.10937 0.7041,0.10937 0.27343,0 0.49218,-0.0456 0.65625,-0.13672 0.16406,-0.0911 0.2985,-0.21875 0.40332,-0.38281 0.0775,-0.12305 0.20279,-0.42838 0.37597,-0.91601 0.0228,-0.0684 0.0592,-0.16862 0.10938,-0.30079 l -2.75488,-7.27343 1.32617,0 1.51074,4.2041 c 0.19596,0.5332 0.37142,1.09375 0.52637,1.68164 0.14127,-0.5651 0.30989,-1.11653 0.50586,-1.6543 l 1.55175,-4.23144 1.23047,0 -2.76172,7.38281 c -0.29622,0.79752 -0.52637,1.34668 -0.69042,1.64746 -0.21876,0.4056 -0.46941,0.70296 -0.75196,0.89209 -0.28255,0.18913 -0.61979,0.28369 -1.01172,0.28369 -0.23698,0 -0.5013,-0.0501 -0.79297,-0.15039 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path17143"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 312.62665,93.82061 -2.71387,0 0,-1.01856 1.4834,0 0,-10.7666 -1.4834,0 0,-1.01855 2.71387,0 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16515"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 321.38614,111.59255 c -0.67904,-0.85678 -1.25326,-1.85938 -1.72266,-3.00782 -0.4694,-1.14843 -0.7041,-2.33788 -0.7041,-3.56836 0,-1.08463 0.17545,-2.12369 0.52637,-3.11718 0.41015,-1.15299 1.04361,-2.30143 1.90039,-3.44532 l 0.88183,0 c -0.55143,0.94793 -0.91602,1.62469 -1.09375,2.03028 -0.27799,0.62891 -0.49674,1.28516 -0.65625,1.96875 -0.19596,0.85222 -0.29394,1.70899 -0.29394,2.57031 0,2.19206 0.68131,4.38183 2.04394,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16517"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 326.06192,111.59255 c -0.67904,-0.85678 -1.25326,-1.85938 -1.72266,-3.00782 -0.4694,-1.14843 -0.7041,-2.33788 -0.7041,-3.56836 0,-1.08463 0.17546,-2.12369 0.52637,-3.11718 0.41015,-1.15299 1.04362,-2.30143 1.90039,-3.44532 l 0.88183,0 c -0.55143,0.94793 -0.91601,1.62469 -1.09375,2.03028 -0.27799,0.62891 -0.49674,1.28516 -0.65625,1.96875 -0.19596,0.85222 -0.29394,1.70899 -0.29394,2.57031 0,2.19206 0.68131,4.38183 2.04394,6.56934 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16519"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 328.38614,111.42848 0,-10.04199 1.12109,0 0,0.94336 c 0.26432,-0.36913 0.56282,-0.64599 0.89551,-0.83057 0.33268,-0.18456 0.736,-0.27684 1.20996,-0.27685 0.61979,1e-5 1.16666,0.15951 1.64063,0.47851 0.47395,0.31902 0.83169,0.76905 1.07324,1.3501 0.24153,0.58106 0.36229,1.21794 0.3623,1.91065 -1e-5,0.74284 -0.13331,1.41162 -0.3999,2.00634 -0.26661,0.59473 -0.65398,1.05046 -1.16211,1.36719 -0.50814,0.31673 -1.04248,0.4751 -1.60303,0.4751 -0.41016,0 -0.77816,-0.0866 -1.104,-0.25977 -0.32585,-0.17317 -0.59359,-0.39192 -0.80322,-0.65625 l 0,3.53418 z m 1.11426,-6.37109 c -1e-5,0.93425 0.18912,1.62468 0.56738,2.07129 0.37825,0.44661 0.83626,0.66992 1.37402,0.66992 0.54687,0 1.01513,-0.23128 1.40479,-0.69385 0.38964,-0.46256 0.58446,-1.17919 0.58447,-2.1499 -10e-6,-0.92513 -0.19027,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69043 -1.36377,-0.69043 -0.52409,0 -0.9878,0.24496 -1.39111,0.73486 -0.40333,0.48991 -0.60499,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16521"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 336.18594,100.03981 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60645 0,-7.25977 1.23047,0 0,7.25977 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16523"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 344.26602,106.30837 1.27148,0.15722 c -0.20052,0.74284 -0.57194,1.31934 -1.11425,1.72949 -0.54233,0.41016 -1.23503,0.61524 -2.07813,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.9331,-1.57112 -0.9331,-2.75146 0,-1.22135 0.31445,-2.16927 0.94336,-2.84375 0.6289,-0.67447 1.44466,-1.01171 2.44726,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61523,0.66081 0.92284,1.5905 0.92285,2.78906 -1e-5,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27116,1.4082 0.67676,1.83203 0.4056,0.42383 0.91145,0.63574 1.51758,0.63574 0.45117,0 0.83626,-0.11849 1.15527,-0.35547 0.31901,-0.23698 0.57194,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46484,-1.37403 -0.39193,-0.47395 -0.90007,-0.71093 -1.52442,-0.71093 -0.5651,0 -1.0402,0.18913 -1.42529,0.56738 -0.38509,0.37826 -0.59814,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16525"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 351.82657,105.98708 1.20996,0.15722 c -0.13217,0.83399 -0.47055,1.48682 -1.01514,1.9585 -0.5446,0.47168 -1.21338,0.70752 -2.00635,0.70752 -0.99349,0 -1.79215,-0.32471 -2.39599,-0.97412 -0.60384,-0.64941 -0.90576,-1.58024 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38964,-2.05762 0.25977,-0.58788 0.65511,-1.0288 1.18604,-1.32275 0.53092,-0.29394 1.10856,-0.44091 1.73291,-0.44092 0.78841,1e-5 1.43326,0.19939 1.93457,0.59814 0.5013,0.39877 0.82258,0.96502 0.96387,1.69873 l -1.19629,0.18457 c -0.11394,-0.48762 -0.3156,-0.85448 -0.60498,-1.10058 -0.28939,-0.24609 -0.63917,-0.36914 -1.04932,-0.36914 -0.61979,0 -1.12337,0.22217 -1.51074,0.6665 -0.38737,0.44434 -0.58106,1.1473 -0.58106,2.10889 0,0.97526 0.18685,1.68392 0.56055,2.12597 0.3737,0.44206 0.86133,0.66309 1.46289,0.66309 0.48307,0 0.88639,-0.14811 1.20996,-0.44434 0.32357,-0.29622 0.52864,-0.75195 0.61524,-1.36718 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16527"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 359.05899,106.30837 1.27148,0.15722 c -0.20052,0.74284 -0.57194,1.31934 -1.11425,1.72949 -0.54233,0.41016 -1.23503,0.61524 -2.07813,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.9331,-1.57112 -0.9331,-2.75146 0,-1.22135 0.31445,-2.16927 0.94336,-2.84375 0.6289,-0.67447 1.44465,-1.01171 2.44726,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61523,0.66081 0.92284,1.5905 0.92285,2.78906 -10e-6,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27116,1.4082 0.67676,1.83203 0.40559,0.42383 0.91145,0.63574 1.51758,0.63574 0.45116,0 0.83626,-0.11849 1.15527,-0.35547 0.31901,-0.23698 0.57193,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46484,-1.37403 -0.39193,-0.47395 -0.90007,-0.71093 -1.52442,-0.71093 -0.5651,0 -1.0402,0.18913 -1.42529,0.56738 -0.38509,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16529"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#be0059;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 361.39004,106.47926 1.2168,-0.1914 c 0.0684,0.48763 0.25863,0.86133 0.5708,1.12109 0.31217,0.25977 0.74853,0.38965 1.30908,0.38965 0.5651,0 0.98437,-0.11507 1.25782,-0.34521 0.27343,-0.23015 0.41015,-0.50017 0.41015,-0.81006 0,-0.278 -0.12077,-0.49675 -0.3623,-0.65625 -0.16863,-0.10938 -0.5879,-0.24837 -1.25781,-0.417 -0.90235,-0.22786 -1.52784,-0.42496 -1.87647,-0.5913 -0.34863,-0.16634 -0.61296,-0.39648 -0.79297,-0.69043 -0.18001,-0.29394 -0.27002,-0.61865 -0.27002,-0.97412 0,-0.32357 0.0741,-0.62321 0.22217,-0.89893 0.14811,-0.27571 0.34977,-0.50471 0.60498,-0.68701 0.19141,-0.14127 0.45231,-0.2609 0.78272,-0.35889 0.3304,-0.098 0.68473,-0.14696 1.06298,-0.14697 0.56966,1e-5 1.06982,0.082 1.50049,0.24609 0.43066,0.16407 0.74853,0.38624 0.95362,0.66651 0.20507,0.28028 0.34634,0.65511 0.42382,1.12451 l -1.20312,0.16406 c -0.0547,-0.37369 -0.21306,-0.66536 -0.4751,-0.875 -0.26205,-0.20963 -0.63233,-0.31445 -1.11084,-0.31445 -0.56511,0 -0.96843,0.0934 -1.20996,0.28027 -0.24154,0.18686 -0.36231,0.40561 -0.3623,0.65625 -1e-5,0.15951 0.0501,0.30307 0.15039,0.43066 0.10025,0.13217 0.25748,0.24155 0.47168,0.32813 0.12304,0.0456 0.48534,0.15039 1.08691,0.31445 0.87044,0.23243 1.4777,0.4227 1.82178,0.5708 0.34407,0.14812 0.61409,0.36345 0.81006,0.646 0.19595,0.28255 0.29393,0.63347 0.29394,1.05273 -10e-6,0.41016 -0.11963,0.79639 -0.35889,1.1587 -0.23926,0.3623 -0.58447,0.64257 -1.03564,0.84082 -0.45118,0.19824 -0.96159,0.29736 -1.53125,0.29736 -0.94336,0 -1.66227,-0.19596 -2.15674,-0.58789 -0.49447,-0.39193 -0.81006,-0.97298 -0.94678,-1.74317 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16531"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 372.76504,111.42848 0,-10.04199 1.1211,0 0,0.94336 c 0.26432,-0.36913 0.56282,-0.64599 0.89551,-0.83057 0.33267,-0.18456 0.73599,-0.27684 1.20996,-0.27685 0.61978,1e-5 1.16666,0.15951 1.64062,0.47851 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91065 -1e-5,0.74284 -0.13331,1.41162 -0.3999,2.00634 -0.26661,0.59473 -0.65398,1.05046 -1.16211,1.36719 -0.50815,0.31673 -1.04249,0.4751 -1.60303,0.4751 -0.41016,0 -0.77816,-0.0866 -1.104,-0.25977 -0.32585,-0.17317 -0.59359,-0.39192 -0.80323,-0.65625 l 0,3.53418 z m 1.11426,-6.37109 c 0,0.93425 0.18913,1.62468 0.56738,2.07129 0.37826,0.44661 0.83626,0.66992 1.37403,0.66992 0.54687,0 1.01513,-0.23128 1.40478,-0.69385 0.38965,-0.46256 0.58447,-1.17919 0.58448,-2.1499 -1e-5,-0.92513 -0.19028,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69043 -1.36377,-0.69043 -0.5241,0 -0.9878,0.24496 -1.39112,0.73486 -0.40332,0.48991 -0.60498,1.20199 -0.60498,2.13623 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16533"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 380.56485,100.03981 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60645 0,-7.25977 1.23047,0 0,7.25977 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16535"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 388.64493,106.30837 1.27148,0.15722 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57112 -0.93311,-2.75146 0,-1.22135 0.31446,-2.16927 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61522,0.66081 0.92284,1.5905 0.92285,2.78906 -10e-6,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27116,1.4082 0.67676,1.83203 0.40559,0.42383 0.91145,0.63574 1.51757,0.63574 0.45117,0 0.83626,-0.11849 1.15528,-0.35547 0.319,-0.23698 0.57193,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37403 -0.39193,-0.47395 -0.90006,-0.71093 -1.52441,-0.71093 -0.56511,0 -1.0402,0.18913 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16537"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 396.20547,105.98708 1.20996,0.15722 c -0.13216,0.83399 -0.47054,1.48682 -1.01513,1.9585 -0.5446,0.47168 -1.21339,0.70752 -2.00635,0.70752 -0.99349,0 -1.79216,-0.32471 -2.396,-0.97412 -0.60384,-0.64941 -0.90576,-1.58024 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38965,-2.05762 0.25977,-0.58788 0.65511,-1.0288 1.18604,-1.32275 0.53092,-0.29394 1.10855,-0.44091 1.73291,-0.44092 0.7884,1e-5 1.43326,0.19939 1.93457,0.59814 0.50129,0.39877 0.82258,0.96502 0.96386,1.69873 l -1.19629,0.18457 c -0.11393,-0.48762 -0.31559,-0.85448 -0.60498,-1.10058 -0.28939,-0.24609 -0.63916,-0.36914 -1.04931,-0.36914 -0.6198,0 -1.12338,0.22217 -1.51074,0.6665 -0.38738,0.44434 -0.58106,1.1473 -0.58106,2.10889 0,0.97526 0.18685,1.68392 0.56055,2.12597 0.37369,0.44206 0.86132,0.66309 1.46289,0.66309 0.48307,0 0.88639,-0.14811 1.20996,-0.44434 0.32356,-0.29622 0.52864,-0.75195 0.61523,-1.36718 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16539"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 403.4379,106.30837 1.27148,0.15722 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57112 -0.93311,-2.75146 0,-1.22135 0.31446,-2.16927 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76366,0.33041 2.3789,0.99121 0.61523,0.66081 0.92285,1.5905 0.92286,2.78906 -1e-5,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27115,1.4082 0.67675,1.83203 0.4056,0.42383 0.91146,0.63574 1.51758,0.63574 0.45117,0 0.83626,-0.11849 1.15528,-0.35547 0.319,-0.23698 0.57193,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37403 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71093 -0.56511,0 -1.04021,0.18913 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16541"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 407.06778,111.59255 -0.88184,0 c 1.36263,-2.18751 2.04394,-4.37728 2.04395,-6.56934 -1e-5,-0.85677 -0.098,-1.7067 -0.29395,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64941,-1.96875 -0.17774,-0.41015 -0.5446,-1.09375 -1.10059,-2.05079 l 0.88184,0 c 0.85677,1.14389 1.49023,2.29233 1.90039,3.44532 0.35091,0.99349 0.52636,2.03255 0.52637,3.11718 -10e-6,1.23048 -0.23585,2.41993 -0.70752,3.56836 -0.47169,1.14844 -1.04476,2.15104 -1.71924,3.00782 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16543"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 414.80606,108.64626 0,-7.25977 1.10742,0 0,1.10059 c 0.28255,-0.51497 0.54346,-0.85449 0.78272,-1.01856 0.23925,-0.16405 0.50243,-0.24608 0.78955,-0.24609 0.41471,1e-5 0.83626,0.13217 1.26465,0.39648 l -0.42383,1.1416 c -0.30079,-0.17772 -0.60157,-0.26659 -0.90235,-0.2666 -0.26888,1e-5 -0.51042,0.0809 -0.72461,0.24268 -0.21419,0.16179 -0.36686,0.38623 -0.458,0.67334 -0.13672,0.4375 -0.20508,0.91602 -0.20508,1.43555 l 0,3.80078 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16545"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 419.0375,105.01637 c 0,-1.34439 0.3737,-2.34016 1.1211,-2.9873 0.62435,-0.53775 1.38541,-0.80663 2.2832,-0.80664 0.99804,1e-5 1.8138,0.32699 2.44727,0.98096 0.63345,0.65397 0.95019,1.55745 0.95019,2.71044 0,0.93425 -0.14014,1.66911 -0.42041,2.20459 -0.28028,0.53549 -0.68815,0.95134 -1.22363,1.24756 -0.53549,0.29623 -1.11996,0.44434 -1.75342,0.44434 -1.01628,0 -1.83773,-0.32585 -2.46435,-0.97754 -0.62663,-0.65169 -0.93995,-1.59049 -0.93995,-2.81641 z m 1.26465,0 c 0,0.92969 0.2028,1.62582 0.6084,2.08838 0.4056,0.46257 0.91601,0.69385 1.53125,0.69385 0.61067,0 1.11881,-0.23242 1.52442,-0.69727 0.40559,-0.46484 0.60839,-1.1735 0.60839,-2.12597 0,-0.89778 -0.20394,-1.57796 -0.61181,-2.04053 -0.40788,-0.46256 -0.91488,-0.69384 -1.521,-0.69385 -0.61524,1e-5 -1.12565,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15528 -0.6084,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16547"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 429.975,107.54567 0.17774,1.08691 c -0.34636,0.0729 -0.65625,0.10938 -0.92969,0.10938 -0.44662,0 -0.79297,-0.0706 -1.03906,-0.21191 -0.2461,-0.14128 -0.41927,-0.32699 -0.51953,-0.55713 -0.10026,-0.23015 -0.15039,-0.71436 -0.15039,-1.45264 l 0,-4.17676 -0.90235,0 0,-0.95703 0.90235,0 0,-1.79785 1.22363,-0.73828 0,2.53613 1.2373,0 0,0.95703 -1.2373,0 0,4.24512 c 0,0.35091 0.0216,0.5765 0.0649,0.67676 0.0433,0.10026 0.11393,0.18001 0.21192,0.23926 0.098,0.0592 0.23811,0.0889 0.42041,0.0889 0.13671,0 0.31672,-0.0159 0.54003,-0.0478 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16549"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 435.9086,107.75075 c -0.45574,0.38737 -0.89437,0.66081 -1.31592,0.82031 -0.42155,0.15951 -0.87386,0.23926 -1.35693,0.23926 -0.79753,0 -1.41049,-0.19483 -1.83887,-0.58447 -0.42839,-0.38965 -0.64258,-0.88753 -0.64258,-1.49366 0,-0.35546 0.0809,-0.68017 0.24268,-0.97412 0.16178,-0.29394 0.37369,-0.52978 0.63574,-0.70752 0.26204,-0.17773 0.55713,-0.31217 0.88525,-0.40332 0.24154,-0.0638 0.60612,-0.12532 1.09375,-0.18457 0.99349,-0.11848 1.72493,-0.25976 2.19434,-0.42383 0.005,-0.16861 0.007,-0.27571 0.007,-0.32128 -1e-5,-0.5013 -0.11622,-0.85449 -0.34864,-1.05957 -0.31446,-0.27799 -0.78158,-0.41699 -1.40136,-0.417 -0.57878,1e-5 -1.00603,0.10141 -1.28174,0.3042 -0.27572,0.20281 -0.47966,0.56169 -0.61182,1.07666 l -1.20312,-0.16406 c 0.10937,-0.51497 0.28938,-0.93082 0.54003,-1.24756 0.25065,-0.31672 0.61296,-0.56054 1.08692,-0.73144 0.47395,-0.17089 1.02311,-0.25634 1.64746,-0.25635 0.61979,1e-5 1.12337,0.0729 1.51074,0.21875 0.38737,0.14584 0.6722,0.32927 0.85449,0.55029 0.18229,0.22104 0.30989,0.50017 0.38282,0.8374 0.041,0.20964 0.0615,0.5879 0.0615,1.13477 l 0,1.64062 c -1e-5,1.14389 0.0262,1.86736 0.0786,2.17041 0.0524,0.30307 0.15608,0.59359 0.31104,0.87159 l -1.28516,0 c -0.12761,-0.25521 -0.20964,-0.55371 -0.24609,-0.89551 z m -0.10254,-2.74805 c -0.44662,0.1823 -1.11654,0.33724 -2.00977,0.46485 -0.50586,0.0729 -0.86361,0.15495 -1.07324,0.24609 -0.20964,0.0911 -0.37142,0.22445 -0.48535,0.3999 -0.11393,0.17546 -0.1709,0.37028 -0.1709,0.58447 0,0.32813 0.12419,0.60157 0.37256,0.82032 0.24837,0.21875 0.61181,0.32812 1.09033,0.32812 0.47396,0 0.89551,-0.10368 1.26465,-0.31103 0.36914,-0.20736 0.6403,-0.49105 0.81348,-0.85108 0.13215,-0.27799 0.19823,-0.68815 0.19824,-1.23047 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16551"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 441.65079,107.54567 0.17773,1.08691 c -0.34636,0.0729 -0.65625,0.10938 -0.92969,0.10938 -0.44661,0 -0.79297,-0.0706 -1.03906,-0.21191 -0.24609,-0.14128 -0.41927,-0.32699 -0.51953,-0.55713 -0.10026,-0.23015 -0.15039,-0.71436 -0.15039,-1.45264 l 0,-4.17676 -0.90235,0 0,-0.95703 0.90235,0 0,-1.79785 1.22363,-0.73828 0,2.53613 1.23731,0 0,0.95703 -1.23731,0 0,4.24512 c 0,0.35091 0.0217,0.5765 0.0649,0.67676 0.0433,0.10026 0.11393,0.18001 0.21192,0.23926 0.098,0.0592 0.23811,0.0889 0.42041,0.0889 0.13671,0 0.31673,-0.0159 0.54004,-0.0478 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16553"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 442.85391,100.03981 0,-1.41504 1.23047,0 0,1.41504 z m 0,8.60645 0,-7.25977 1.23047,0 0,7.25977 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16555"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 445.50625,105.01637 c 0,-1.34439 0.3737,-2.34016 1.1211,-2.9873 0.62435,-0.53775 1.38541,-0.80663 2.2832,-0.80664 0.99804,1e-5 1.8138,0.32699 2.44727,0.98096 0.63345,0.65397 0.95019,1.55745 0.95019,2.71044 0,0.93425 -0.14014,1.66911 -0.42041,2.20459 -0.28028,0.53549 -0.68815,0.95134 -1.22363,1.24756 -0.53549,0.29623 -1.11996,0.44434 -1.75342,0.44434 -1.01628,0 -1.83773,-0.32585 -2.46435,-0.97754 -0.62663,-0.65169 -0.93995,-1.59049 -0.93995,-2.81641 z m 1.26465,0 c 0,0.92969 0.2028,1.62582 0.6084,2.08838 0.4056,0.46257 0.91601,0.69385 1.53125,0.69385 0.61067,0 1.11881,-0.23242 1.52442,-0.69727 0.40559,-0.46484 0.60839,-1.1735 0.60839,-2.12597 0,-0.89778 -0.20394,-1.57796 -0.61181,-2.04053 -0.40788,-0.46256 -0.91488,-0.69384 -1.521,-0.69385 -0.61524,1e-5 -1.12565,0.23015 -1.53125,0.69043 -0.4056,0.46029 -0.6084,1.15528 -0.6084,2.08496 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16557"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 453.75723,108.64626 0,-7.25977 1.10742,0 0,1.03223 c 0.5332,-0.79752 1.30339,-1.19628 2.31055,-1.19629 0.4375,1e-5 0.83968,0.0786 1.20654,0.23584 0.36686,0.15723 0.64144,0.36345 0.82373,0.61865 0.18229,0.25522 0.30989,0.55827 0.38282,0.90918 0.0456,0.22787 0.0684,0.62663 0.0684,1.19629 l 0,4.46387 -1.23047,0 0,-4.41602 c -10e-6,-0.5013 -0.0479,-0.87613 -0.14356,-1.12451 -0.0957,-0.24837 -0.26547,-0.44661 -0.50928,-0.59473 -0.24382,-0.1481 -0.52978,-0.22216 -0.85791,-0.22217 -0.52409,10e-6 -0.9764,0.16635 -1.35693,0.49903 -0.38054,0.33269 -0.5708,0.96387 -0.5708,1.89355 l 0,3.96485 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path16559"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       d="m 462.35684,111.59255 -0.88184,0 c 1.36263,-2.18751 2.04395,-4.37728 2.04395,-6.56934 0,-0.85677 -0.098,-1.7067 -0.29395,-2.5498 -0.15495,-0.68359 -0.37142,-1.33984 -0.64941,-1.96875 -0.17774,-0.41015 -0.5446,-1.09375 -1.10059,-2.05079 l 0.88184,0 c 0.85677,1.14389 1.49023,2.29233 1.90039,3.44532 0.35091,0.99349 0.52636,2.03255 0.52637,3.11718 -10e-6,1.23048 -0.23585,2.41993 -0.70752,3.56836 -0.47168,1.14844 -1.04476,2.15104 -1.71924,3.00782 z"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       d="m 272.95444,111.36535 0,-10.04199 1.1211,0 0,0.94336 c 0.26432,-0.36913 0.56282,-0.64599 0.89551,-0.83057 0.33267,-0.18456 0.73599,-0.27684 1.20996,-0.27685 0.61978,1e-5 1.16666,0.15951 1.64062,0.47851 0.47395,0.31902 0.8317,0.76905 1.07324,1.3501 0.24153,0.58106 0.3623,1.21794 0.36231,1.91065 -1e-5,0.74284 -0.13331,1.41162 -0.3999,2.00634 -0.26661,0.59473 -0.65398,1.05046 -1.16211,1.36719 -0.50815,0.31673 -1.04249,0.4751 -1.60303,0.4751 -0.41016,0 -0.77816,-0.0866 -1.104,-0.25977 -0.32585,-0.17317 -0.59359,-0.39192 -0.80323,-0.65625 l 0,3.53418 z m 1.11426,-6.37109 c 0,0.93425 0.18913,1.62468 0.56738,2.07129 0.37826,0.44661 0.83626,0.66992 1.37403,0.66992 0.54687,0 1.01513,-0.23128 1.40478,-0.69385 0.38965,-0.46256 0.58447,-1.17919 0.58448,-2.1499 -10e-6,-0.92513 -0.19028,-1.61783 -0.5708,-2.07812 -0.38054,-0.46028 -0.83513,-0.69043 -1.36377,-0.69043 -0.5241,0 -0.9878,0.24496 -1.39112,0.73486 -0.40332,0.48991 -0.60498,1.20199 -0.60498,2.13623 z"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       id="path17162"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       d="m 280.75425,99.97668 0,-1.41505 1.23047,0 0,1.41505 z m 0,8.60645 0,-7.25977 1.23047,0 0,7.25977 z"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       id="path17164"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       d="m 288.83433,106.24524 1.27148,0.15722 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57112 -0.93311,-2.75146 0,-1.22135 0.31446,-2.16927 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76367,0.33041 2.37891,0.99121 0.61522,0.66081 0.92284,1.5905 0.92285,2.78906 -1e-5,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27116,1.4082 0.67676,1.83203 0.40559,0.42383 0.91145,0.63574 1.51757,0.63574 0.45117,0 0.83626,-0.11849 1.15528,-0.35547 0.319,-0.23698 0.57193,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37403 -0.39193,-0.47395 -0.90006,-0.71093 -1.52441,-0.71093 -0.56511,0 -1.0402,0.18913 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       id="path17166"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       d="m 296.39487,105.92395 1.20996,0.15722 c -0.13216,0.83399 -0.47054,1.48682 -1.01513,1.9585 -0.5446,0.47168 -1.21339,0.70752 -2.00635,0.70752 -0.99349,0 -1.79216,-0.32471 -2.396,-0.97412 -0.60384,-0.64941 -0.90576,-1.58024 -0.90576,-2.79248 0,-0.78385 0.12988,-1.46972 0.38965,-2.05762 0.25977,-0.58788 0.65511,-1.0288 1.18604,-1.32275 0.53092,-0.29394 1.10855,-0.44091 1.73291,-0.44092 0.7884,1e-5 1.43326,0.19939 1.93457,0.59814 0.50129,0.39877 0.82258,0.96502 0.96386,1.69873 l -1.19629,0.18457 c -0.11393,-0.48762 -0.31559,-0.85448 -0.60498,-1.10058 -0.28939,-0.24609 -0.63916,-0.36914 -1.04931,-0.36914 -0.6198,0 -1.12338,0.22217 -1.51074,0.6665 -0.38738,0.44434 -0.58106,1.1473 -0.58106,2.10889 0,0.97526 0.18685,1.68392 0.56055,2.12597 0.37369,0.44206 0.86132,0.66309 1.46289,0.66309 0.48307,0 0.88639,-0.14811 1.20996,-0.44434 0.32356,-0.29622 0.52864,-0.75195 0.61523,-1.36718 z"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       id="path17168"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       d="m 303.6273,106.24524 1.27148,0.15722 c -0.20053,0.74284 -0.57195,1.31934 -1.11426,1.72949 -0.54232,0.41016 -1.23503,0.61524 -2.07812,0.61524 -1.06185,0 -1.90381,-0.32699 -2.52588,-0.98096 -0.62207,-0.65397 -0.93311,-1.57112 -0.93311,-2.75146 0,-1.22135 0.31446,-2.16927 0.94336,-2.84375 0.62891,-0.67447 1.44466,-1.01171 2.44727,-1.01172 0.9707,1e-5 1.76366,0.33041 2.3789,0.99121 0.61523,0.66081 0.92285,1.5905 0.92286,2.78906 -10e-6,0.0729 -0.002,0.1823 -0.007,0.32813 l -5.41406,0 c 0.0456,0.79753 0.27115,1.4082 0.67675,1.83203 0.4056,0.42383 0.91146,0.63574 1.51758,0.63574 0.45117,0 0.83626,-0.11849 1.15528,-0.35547 0.319,-0.23698 0.57193,-0.61523 0.75879,-1.13476 z m -4.04004,-1.98926 4.05371,0 c -0.0547,-0.61067 -0.20964,-1.06868 -0.46485,-1.37403 -0.39193,-0.47395 -0.90007,-0.71093 -1.52441,-0.71093 -0.56511,0 -1.04021,0.18913 -1.42529,0.56738 -0.3851,0.37826 -0.59815,0.88412 -0.63916,1.51758 z"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#af7512;fill-opacity:1;stroke:none;font-family:Sans"
+       id="path17170"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Source\IDEA\tetrisanalyzer\blog\graphics\rotate-and-move-piece.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+  </g>
+</svg>
