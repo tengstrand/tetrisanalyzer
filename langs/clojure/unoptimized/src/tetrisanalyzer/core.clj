@@ -46,7 +46,7 @@
 ;; ===== board =====
 
 (defn- row->str [row]
-  (apply str (map (fn [[_ p]] (piece->char p)) row)))
+  (apply str (map (fn [[_ piece]] (piece->char piece)) row)))
 
 (defn board->str [board width]
   (->> board
