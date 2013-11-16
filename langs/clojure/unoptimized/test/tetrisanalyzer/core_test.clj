@@ -44,8 +44,8 @@
           [[1 0] 9] [[1 1] 6] [[1 2] 6] [[1 3] 0] [[1 4] 2] [[1 5] 9]
           [[2 0] 9] [[2 1] 9] [[2 2] 9] [[2 3] 9] [[2 4] 9] [[2 5] 9])
           (new-board ["#-T--#"
-                     "#TT-Z#"
-                     "######"]))
+                      "#TT-Z#"
+                      "######"]))
 
 ;; This function returns a list of "pairs": [y x] piece
 ;; that can be used by the function assoc
