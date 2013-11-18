@@ -82,5 +82,3 @@
              "#------#\n"
              "########")
         (board->str (set-piece empty-board 2 0 3 1) 8))
-
-
