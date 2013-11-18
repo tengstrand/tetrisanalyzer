@@ -63,7 +63,7 @@
 
 (defn new-board
   ([] (new-board 12 21))
-  ([rows] (mapcat #(str->row %1 %2) rows (range)))
+  ([rows] (into {} (mapcat #(str->row %1 %2) rows (range))))
   ([width height]
     (into {} (for [y (range height) x (range width)
                    :let [wall? (or (zero? x) (= x (dec width)) (= y (dec height)))]]
