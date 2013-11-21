@@ -41,7 +41,7 @@
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
 (defn rotate-and-move-piece [piece rotation x y]
-  (mapcat (fn [[px py]] [[(+ y py) (+ x px)] piece]) ((pieces piece) rotation)))
+  (map (fn [[px py]] [(+ y py) (+ x px)]) ((pieces piece) rotation)))
 
 ;; ===== board =====
 
@@ -55,8 +55,11 @@
        (map row->str)
        (clojure.string/join "\n")))
 
-(defn set-piece [board piece rotation x y]
-  (apply assoc board (rotate-and-move-piece piece rotation x y)))
+(defn set-piece [board piece piece-shape]
+  (apply assoc board (interleave piece-shape (repeat piece))))
+
+(defn piece-free? [board piece-shape]
+  (every? zero? (map board piece-shape)))
 
 (defn- str->row [row y]
   (map-indexed #(vector [y %1] (char->piece %2)) row))
@@ -68,5 +71,3 @@
     (into {} (for [y (range height) x (range width)
                    :let [wall? (or (zero? x) (= x (dec width)) (= y (dec height)))]]
                    [[y x] (if wall? 9 0)]))))
-
-

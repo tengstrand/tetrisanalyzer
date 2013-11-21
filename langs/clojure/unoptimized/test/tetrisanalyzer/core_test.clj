@@ -58,27 +58,33 @@
 ;;        123456           (6 = T)
 ;;    0  #------#
 ;;    1  #------#
-;;    2  #---T--#   [2 4] 6
-;;    3  #---TT-#   [3 4] 6 [3 5] 6
-;;    4  #---T--#   [4 4] 6
+;;    2  #---T--#   [2 4]
+;;    3  #---TT-#   [3 4] [3 5]
+;;    4  #---T--#   [4 4]
 ;;       ########
-(expect '([2 4] 6, [3 4] 6, [3 5] 6, [4 4] 6)
+(expect '([2 4] [3 4] [3 5] [4 4])
         (rotate-and-move-piece 6 1 4 2))
 
 ;; Returns a new board with a piece set, e.g.:
 ;;
-;;              board       piece rotation x y
-;;              ----------- ----- -------- - -
-;;   (set-piece empty-board    2      0    3 1)
+;;              board       piece piece-shape
+;;              ----------- ----- -----------
+;;   (set-piece empty-board    2    z-piece
 ;;
 ;;    piece = 2      piece Z
+;;    piece-shape    the four squares that form the Z piece
 ;;    rotation = 0   no rotation
 ;;    x,y = 3,1      position on the board
 ;;
+(def z-piece (rotate-and-move-piece 2 0 3 1))
+(def z-board (set-piece empty-board 2 z-piece))
 (expect (str "#------#\n"
              "#--ZZ--#\n"
              "#---ZZ-#\n"
              "#------#\n"
              "#------#\n"
              "########")
-        (board->str (set-piece empty-board 2 0 3 1) 8))
+        (board->str z-board 8))
+
+(expect false (piece-free? z-board (rotate-and-move-piece 2 0 2 1)))
+(expect true (piece-free? z-board (rotate-and-move-piece 2 0 1 1)))
