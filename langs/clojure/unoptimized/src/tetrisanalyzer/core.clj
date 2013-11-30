@@ -1,6 +1,6 @@
 (ns tetrisanalyzer.core)
 
-;; ===== Pieces =====
+;; ===== Piece =====
 
 (def pieces [ nil
   ;; I (1)
@@ -40,10 +40,7 @@
 
 (defn piece->char [piece] (nth "-IZSJLTOx#" piece))
 
-(defn rotate-and-move-piece [piece rotation x y]
-  (map (fn [[px py]] [(+ y py) (+ x px)]) ((pieces piece) rotation)))
-
-;; ===== board =====
+;; ===== Board =====
 
 (defn- row->str [row]
   (apply str (map (fn [[_ piece]] (piece->char piece)) row)))
@@ -55,12 +52,6 @@
        (map row->str)
        (clojure.string/join "\n")))
 
-(defn set-piece [board piece piece-shape]
-  (apply assoc board (interleave piece-shape (repeat piece))))
-
-(defn piece-free? [board piece-shape]
-  (every? zero? (map board piece-shape)))
-
 (defn- str->row [row y]
   (map-indexed #(vector [y %1] (char->piece %2)) row))
 
@@ -71,3 +62,28 @@
     (into {} (for [y (range height) x (range width)
                    :let [wall? (or (zero? x) (= x (dec width)) (= y (dec height)))]]
                    [[y x] (if wall? 9 0)]))))
+
+;; ===== Move =====
+
+(defn set-piece [board piece piece-shape]
+  (apply assoc board (interleave piece-shape (repeat piece))))
+
+(defn rotate-and-move-piece [piece rotation x y]
+  (map (fn [[px py]] [(+ y py) (+ x px)]) ((pieces piece) rotation)))
+
+(defn piece-occupied? [board piece {:keys [rotation x y]}]
+  (not-every? zero? (map board (rotate-and-move-piece piece rotation x y))))
+
+(defn- left [move] (assoc move :x (dec (move :x))))
+(defn- right [move] (assoc move :x (inc (move :x))))
+(defn- down [move] (assoc move :y (inc (move :y))))
+(defn- rotate [move bit-mask] (assoc move :rotation (bit-and (inc (move :rotation)) bit-mask)))
+
+(defn valid-moves
+  [board piece bit-mask move visited valid-move]
+    (if (contains? visited move) nil
+      (if (piece-occupied? board piece move) valid-move
+          (into #{} (concat (valid-moves board piece bit-mask (left move) (conj visited move) #{})
+                            (valid-moves board piece bit-mask (right move) (conj visited move) #{})
+                            (valid-moves board piece bit-mask (rotate move bit-mask) (conj visited move) #{})
+                            (valid-moves board piece bit-mask (down move) #{} #{move}))))))

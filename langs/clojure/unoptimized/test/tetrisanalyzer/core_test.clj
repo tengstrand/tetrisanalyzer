@@ -2,6 +2,8 @@
   (:require [expectations :refer :all])
   (:require [tetrisanalyzer.core :refer :all]))
 
+;; ===== Piece =====
+
 ;; Convert from piece index to character.
 (expect \- (piece->char 0))
 (expect \I (piece->char 1))
@@ -26,6 +28,8 @@
 (expect 8 (char->piece \x))
 (expect 9 (char->piece \#))
 
+;; ===== Board =====
+
 ;; Default board size is 10x20.
 (expect (str (apply str (repeat 20 "#----------#\n")) "############")
         (board->str (new-board) 12))
@@ -46,6 +50,8 @@
          (new-board ["#-T--#"
                      "#TT-Z#"
                      "######"]))
+
+;; ===== Move =====
 
 ;; This function returns a list of "pairs": [y x] piece
 ;; that can be used by the function assoc
@@ -86,5 +92,24 @@
              "########")
         (board->str z-board 8))
 
-(expect false (piece-free? z-board (rotate-and-move-piece 2 0 2 1)))
-(expect true (piece-free? z-board (rotate-and-move-piece 2 0 1 1)))
+(expect true (piece-occupied? z-board 2 {:rotation 0, :x 2, :y 1}))
+(expect false (piece-occupied? z-board 2 {:rotation 0, :x 1, :y 1}))
+
+(def s-board (new-board ["#------#"
+                         "#------#"
+                         "#------#"
+                         "#------#"
+                         "#----S-#"
+                         "########"]))
+
+(expect #{{:rotation 0, :x 1, :y 3}
+          {:rotation 0, :x 2, :y 3}
+          {:rotation 0, :x 3, :y 2}
+          {:rotation 0, :x 4, :y 2}
+          {:rotation 1, :x 1, :y 2}
+          {:rotation 1, :x 2, :y 2}
+          {:rotation 1, :x 3, :y 2}
+          {:rotation 1, :x 4, :y 2}
+          {:rotation 1, :x 5, :y 1}}
+  (valid-moves s-board 2 1 {:rotation 0, :x 3, :y 0} #{} #{}))
+
