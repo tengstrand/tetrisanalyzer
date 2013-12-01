@@ -83,5 +83,5 @@
   ([board piece bit-mask move visited valid-move]
     (if (contains? visited move) nil
       (if (piece-occupied? board piece move) valid-move
-          (into #{} (mapcat (fn [[action valid-move]] (valid-moves board piece bit-mask (action move bit-mask) (conj visited move) valid-move))
-                            [[left #{}] [right #{}] [rotate #{}] [down #{move}]]))))))
+        (into #{} (mapcat (fn [[action valid-move]] (valid-moves board piece bit-mask (action move bit-mask) (conj visited move) valid-move))
+                          [[left #{}] [right #{}] [rotate #{}] [down #{move}]]))))))
