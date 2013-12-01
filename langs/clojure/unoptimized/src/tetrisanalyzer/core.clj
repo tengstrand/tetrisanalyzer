@@ -80,10 +80,11 @@
 (defn- rotate [move bit-mask] (assoc move :rotation (bit-and (inc (move :rotation)) bit-mask)))
 
 (defn valid-moves
-  [board piece bit-mask move visited valid-move]
+  ([board piece bit-mask move] (valid-moves board piece bit-mask move #{} #{}))
+  ([board piece bit-mask move visited valid-move]
     (if (contains? visited move) nil
       (if (piece-occupied? board piece move) valid-move
           (into #{} (concat (valid-moves board piece bit-mask (left move) (conj visited move) #{})
                             (valid-moves board piece bit-mask (right move) (conj visited move) #{})
                             (valid-moves board piece bit-mask (rotate move bit-mask) (conj visited move) #{})
-                            (valid-moves board piece bit-mask (down move) #{} #{move}))))))
+                            (valid-moves board piece bit-mask (down move) #{} #{move})))))))

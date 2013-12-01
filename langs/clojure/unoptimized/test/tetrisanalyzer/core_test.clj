@@ -111,5 +111,5 @@
           {:rotation 1, :x 3, :y 2}
           {:rotation 1, :x 4, :y 2}
           {:rotation 1, :x 5, :y 1}}
-  (valid-moves s-board 2 1 {:rotation 0, :x 3, :y 0} #{} #{}))
+  (valid-moves s-board 2 1 {:rotation 0, :x 3, :y 0}))
 
