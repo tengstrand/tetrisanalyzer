@@ -92,8 +92,8 @@
              "########")
         (board->str z-board 8))
 
-(expect true (piece-occupied? z-board 2 {:rotation 0, :x 2, :y 1}))
-(expect false (piece-occupied? z-board 2 {:rotation 0, :x 1, :y 1}))
+(expect true (piece-occupied? z-board {:piece 2, :rotation 0, :x 2, :y 1}))
+(expect false (piece-occupied? z-board {:piece 2, :rotation 0, :x 1, :y 1}))
 
 (def s-board (new-board ["#------#"
                          "#------#"
@@ -102,14 +102,13 @@
                          "#----S-#"
                          "########"]))
 
-(expect #{{:rotation 0, :x 1, :y 3}
-          {:rotation 0, :x 2, :y 3}
-          {:rotation 0, :x 3, :y 2}
-          {:rotation 0, :x 4, :y 2}
-          {:rotation 1, :x 1, :y 2}
-          {:rotation 1, :x 2, :y 2}
-          {:rotation 1, :x 3, :y 2}
-          {:rotation 1, :x 4, :y 2}
-          {:rotation 1, :x 5, :y 1}}
-  (valid-moves s-board 2 1 {:rotation 0, :x 3, :y 0} #{} #{}))
-
+(expect #{{:rotation 0, :x 1, :y 3, :piece 2, :bit-mask 1}
+          {:rotation 0, :x 2, :y 3, :piece 2, :bit-mask 1}
+          {:rotation 0, :x 3, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 0, :x 4, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 1, :x 1, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 1, :x 2, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 1, :x 3, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 1, :x 4, :y 2, :piece 2, :bit-mask 1}
+          {:rotation 1, :x 5, :y 1, :piece 2, :bit-mask 1}}
+  (valid-moves s-board {:piece 2, :bit-mask 1, :rotation 0, :x 3, :y 0} #{} #{}))

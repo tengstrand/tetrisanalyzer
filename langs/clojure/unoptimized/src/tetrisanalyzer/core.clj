@@ -71,17 +71,17 @@
 (defn rotate-and-move-piece [piece rotation x y]
   (map (fn [[px py]] [(+ y py) (+ x px)]) ((pieces piece) rotation)))
 
-(defn piece-occupied? [board piece {:keys [rotation x y]}]
+(defn piece-occupied? [board {:keys [piece rotation x y]}]
   (not-every? zero? (map board (rotate-and-move-piece piece rotation x y))))
 
-(defn- left [move bit-mask] (assoc move :x (dec (move :x))))
-(defn- right [move bit-mask] (assoc move :x (inc (move :x))))
-(defn- down [move bit-mask] (assoc move :y (inc (move :y))))
-(defn- rotate [move bit-mask] (assoc move :rotation (bit-and (inc (move :rotation)) bit-mask)))
+(defn- left [move] (assoc move :x (dec (move :x))))
+(defn- right [move] (assoc move :x (inc (move :x))))
+(defn- down [move] (assoc move :y (inc (move :y))))
+(defn- rotate [move] (assoc move :rotation (bit-and (inc (move :rotation)) (move :bit-mask))))
 
 (defn valid-moves
-  ([board piece bit-mask move visited valid-move]
+  [board move visited valid-move]
     (if (contains? visited move) nil
-      (if (piece-occupied? board piece move) valid-move
-        (into #{} (mapcat (fn [[action valid-move]] (valid-moves board piece bit-mask (action move bit-mask) (conj visited move) valid-move))
-                          [[left #{}] [right #{}] [rotate #{}] [down #{move}]]))))))
+      (if (piece-occupied? board move) valid-move
+        (into #{} (mapcat (fn [[action valid-move]] (valid-moves board (action move) (conj visited move) valid-move))
+                          [[left nil] [right nil] [rotate nil] [down #{move}]])))))
