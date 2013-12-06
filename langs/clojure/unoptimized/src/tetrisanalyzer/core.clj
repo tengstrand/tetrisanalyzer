@@ -79,9 +79,10 @@
 (defn- down [move] (assoc move :y (inc (move :y))))
 (defn- rotate [move] (assoc move :rotation (bit-and (inc (move :rotation)) (move :bit-mask))))
 
-(defn valid-moves [board move visited valid-move]
+(defn all-valid-moves [board move visited valid-move]
   (when-not (contains? visited move)
     (if (piece-occupied? board move) valid-move
-      (into #{} (mapcat (fn [[action valid-move]] (valid-moves board (action move) (conj visited move) valid-move))
+      (into #{} (mapcat (fn [[action valid-move]] (all-valid-moves board (action move) (conj visited move) valid-move))
                         [[left nil] [right nil] [rotate nil] [down #{move}]])))))
-
+
+

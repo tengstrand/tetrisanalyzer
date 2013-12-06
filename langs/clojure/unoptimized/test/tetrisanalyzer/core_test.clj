@@ -111,4 +111,4 @@
           {:rotation 1, :x 3, :y 2, :piece 2, :bit-mask 1}
           {:rotation 1, :x 4, :y 2, :piece 2, :bit-mask 1}
           {:rotation 1, :x 5, :y 1, :piece 2, :bit-mask 1}}
-  (valid-moves s-board {:piece 2, :bit-mask 1, :rotation 0, :x 3, :y 0} #{} #{}))
+  (all-valid-moves s-board {:piece 2, :bit-mask 1, :rotation 0, :x 3, :y 0} #{} #{}))
