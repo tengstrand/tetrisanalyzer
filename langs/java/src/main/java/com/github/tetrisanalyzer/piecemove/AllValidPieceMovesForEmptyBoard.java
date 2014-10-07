@@ -1,7 +1,15 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceI;
+import com.github.tetrisanalyzer.piece.PieceJ;
+import com.github.tetrisanalyzer.piece.PieceL;
+import com.github.tetrisanalyzer.piece.PieceO;
+import com.github.tetrisanalyzer.piece.PieceS;
+import com.github.tetrisanalyzer.piece.PieceT;
+import com.github.tetrisanalyzer.piece.PieceZ;
+import com.github.tetrisanalyzer.settings.GameSettings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +19,10 @@ import java.util.Map;
  */
 public class AllValidPieceMovesForEmptyBoard {
     private Board board;
-    private GameSettings settings;
     private Map<Piece, PieceMove> startPieces = new HashMap<Piece, PieceMove>();
 
     public AllValidPieceMovesForEmptyBoard(Board board, GameSettings settings) {
         this.board = board;
-        this.settings = settings;
 
         startPieces.put(new PieceI(), new ValidPieceMovesForEmptyBoard(board, new PieceI(), settings).getStartMove());
         startPieces.put(new PieceZ(), new ValidPieceMovesForEmptyBoard(board, new PieceZ(), settings).getStartMove());

@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.settings;
+package com.github.tetrisanalyzer.settings;
 
 public class GameSettingsSlidingOn extends DefaultGameSettings {
 

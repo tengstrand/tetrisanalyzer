@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
+import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import org.junit.Before;
 import org.junit.Test;
 

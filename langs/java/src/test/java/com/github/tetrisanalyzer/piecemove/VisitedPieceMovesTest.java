@@ -1,9 +1,9 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.move.Move;
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.piece.PieceS;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.move.Move;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceS;
 import org.junit.Before;
 import org.junit.Test;
 

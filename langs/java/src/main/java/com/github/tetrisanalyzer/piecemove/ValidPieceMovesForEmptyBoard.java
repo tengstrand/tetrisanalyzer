@@ -1,10 +1,10 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.move.Move;
-import nu.tengstrand.tetrisanalyzer.move.rotation.RotationDirection;
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.move.Move;
+import com.github.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.GameSettings;
 
 /**
  * Calculates all valid moves for a given piece on an empty board.

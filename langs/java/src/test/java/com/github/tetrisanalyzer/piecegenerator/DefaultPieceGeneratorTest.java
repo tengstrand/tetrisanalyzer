@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.piecegenerator;
+package com.github.tetrisanalyzer.piecegenerator;
 
 import org.junit.Test;
 

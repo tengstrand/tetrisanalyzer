@@ -1,14 +1,14 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import nu.tengstrand.tetrisanalyzer.boardevaluator.JTengstrandBoardEvaluator1;
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.piece.PieceS;
-import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
-import nu.tengstrand.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
-import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings;
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceS;
+import com.github.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class EvaluatedMovesTest {
         GameSettings settings = new DefaultGameSettings();
         PieceMove startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).getStartMove();
         List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
-        BoardEvaluator boardEvaluator = new JTengstrandBoardEvaluator1();
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
         return new EvaluatedMoves(validMoves, boardEvaluator);
     }
 

@@ -1,13 +1,13 @@
-package nu.tengstrand.tetrisanalyzer.game;
+package com.github.tetrisanalyzer.game;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import nu.tengstrand.tetrisanalyzer.move.EvaluatedMoves;
-import nu.tengstrand.tetrisanalyzer.move.ValidMoves;
-import nu.tengstrand.tetrisanalyzer.piecegenerator.PieceGenerator;
-import nu.tengstrand.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
-import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import com.github.tetrisanalyzer.move.EvaluatedMoves;
+import com.github.tetrisanalyzer.move.ValidMoves;
+import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.settings.GameSettings;
 
 import java.util.List;
 
@@ -21,13 +21,11 @@ public class Game {
     private Board board;
     private BoardEvaluator boardEvaluator;
     private PieceGenerator pieceGenerator;
-    private GameSettings settings;
 
     public Game(Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
         this.board = board;
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
-        this.settings = settings;
 
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }

@@ -1,7 +1,7 @@
-package nu.tengstrand.tetrisanalyzer.boardevaluator;
+package com.github.tetrisanalyzer.boardevaluator;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.board.BoardOutline;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.BoardOutline;
 
 public class TengstrandBoardEvaluator1 implements BoardEvaluator {
     private int boardWidth;

@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 
 /**
  * Holds a position (x,y) and rotation ("angle") for a piece on the board.

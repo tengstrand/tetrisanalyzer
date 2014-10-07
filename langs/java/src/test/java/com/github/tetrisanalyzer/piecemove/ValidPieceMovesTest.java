@@ -1,14 +1,16 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.move.Move;
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.piece.PieceO;
-import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.move.Move;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceO;
+import com.github.tetrisanalyzer.settings.DefaultGameSettings;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesTest {
 

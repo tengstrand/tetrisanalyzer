@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.piece;
+package com.github.tetrisanalyzer.piece;
 
 public class PieceI extends Piece {
     @Override public byte number() { return 1; }

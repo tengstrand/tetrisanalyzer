@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.piecemove.PieceMove;
 
 public class MoveEquity {
     public PieceMove pieceMove;

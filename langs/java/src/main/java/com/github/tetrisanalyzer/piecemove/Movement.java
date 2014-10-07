@@ -1,7 +1,7 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
-import nu.tengstrand.tetrisanalyzer.move.Move;
-import nu.tengstrand.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.move.Move;
+import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 
 /**
  * Used by the algorithm that calculates the tree of linked moves

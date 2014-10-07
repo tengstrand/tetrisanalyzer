@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.piecegenerator;
+package com.github.tetrisanalyzer.piecegenerator;
 
 /**
  * This piece generator mimics the behaviour of the C++ version,
@@ -7,10 +7,10 @@ package nu.tengstrand.tetrisanalyzer.piecegenerator;
 public class DefaultPieceGenerator extends PieceGenerator {
     private static long BIT_MASK = 0x00000000FFFFFFFFL;
 
-    private long seed = 0;
+    private long seed;
 
     public DefaultPieceGenerator() {
-        this.seed = seed;
+        this.seed = 0;
     }
 
     public DefaultPieceGenerator(long seed) {

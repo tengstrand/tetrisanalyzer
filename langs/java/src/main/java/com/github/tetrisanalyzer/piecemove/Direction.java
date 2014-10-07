@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.piecemove;
+package com.github.tetrisanalyzer.piecemove;
 
 /**
  * Type of piece move: Left, Right, Down and Rotate

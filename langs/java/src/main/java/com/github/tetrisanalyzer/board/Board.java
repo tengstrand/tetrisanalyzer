@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.board;
+package com.github.tetrisanalyzer.board;
 
 import java.util.Arrays;
 
@@ -44,7 +44,7 @@ public class Board {
      * Creates a board from a string representation.
      */
     public static Board create(String... lines) {
-        int width = ((String)lines[0]).length() - 2;
+        int width = (lines[0]).length() - 2;
         int height = lines.length - 1;
 
         if (!(lines[height]).equals(getBottomTextLine(width))) {

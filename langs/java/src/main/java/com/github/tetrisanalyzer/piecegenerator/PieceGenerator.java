@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.piecegenerator;
+package com.github.tetrisanalyzer.piecegenerator;
 
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.Piece;
 
 public abstract class PieceGenerator {
     public abstract int nextPieceNumber();

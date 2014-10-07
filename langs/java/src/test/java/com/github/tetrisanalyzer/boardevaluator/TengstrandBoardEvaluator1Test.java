@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.boardevaluator;
+package com.github.tetrisanalyzer.boardevaluator;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +9,7 @@ public class TengstrandBoardEvaluator1Test {
 
     @Test
     public void evaluateVersionOneDotOne() {
-        BoardEvaluator evaluator = new JTengstrandBoardEvaluator1(10, 5);
+        BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
 
         Board board = Board.create(
           "#----------#",

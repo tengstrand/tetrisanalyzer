@@ -1,5 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.board;
+package com.github.tetrisanalyzer.board;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +19,11 @@ public class BoardOutlineTest {
 
     @Test
     public void getOutline() {
-        assertEquals(new BoardOutline(0, 3,2,3,4,4,1,0,0), new BoardOutline(board));
+        Assert.assertEquals(new BoardOutline(0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board));
     }
 
     @Test
     public void minY() {
-        assertEquals(0, new BoardOutline(board).getMinY());
+        Assert.assertEquals(0, new BoardOutline(board).getMinY());
     }
 }

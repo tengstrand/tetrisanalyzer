@@ -1,6 +1,6 @@
-package nu.tengstrand.tetrisanalyzer.boardevaluator;
+package com.github.tetrisanalyzer.boardevaluator;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.Board;
 
 public interface BoardEvaluator {
 

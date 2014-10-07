@@ -1,19 +1,17 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.piecemove.PieceMove;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ValidMoves {
-    private Board board;
     private List<PieceMove> validMoves = new ArrayList<PieceMove>();
     private int[][] visitedMoves;
 
     public ValidMoves(Board board) {
-        this.board = board;
         visitedMoves = getEmptyVisitedMoves(board.getHeight(), board.getWidth());
     }
 

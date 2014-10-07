@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.board;
+package com.github.tetrisanalyzer.board;
 
 import java.util.Arrays;
 

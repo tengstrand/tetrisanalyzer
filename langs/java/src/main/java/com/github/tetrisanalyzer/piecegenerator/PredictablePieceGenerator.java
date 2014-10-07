@@ -1,7 +1,7 @@
-package nu.tengstrand.tetrisanalyzer.piecegenerator;
+package com.github.tetrisanalyzer.piecegenerator;
 
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.piece.PieceO;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceO;
 
 import java.util.Iterator;
 import java.util.List;

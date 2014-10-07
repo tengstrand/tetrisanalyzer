@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.piece;
+package com.github.tetrisanalyzer.piece;
 
 /**
  * Represents one of the pieces: I, Z, S, J, L, T or O.

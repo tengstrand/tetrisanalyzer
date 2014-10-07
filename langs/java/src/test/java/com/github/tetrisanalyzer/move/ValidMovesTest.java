@@ -1,17 +1,20 @@
-package nu.tengstrand.tetrisanalyzer.move;
+package com.github.tetrisanalyzer.move;
 
-import nu.tengstrand.tetrisanalyzer.board.Board;
-import nu.tengstrand.tetrisanalyzer.piece.Piece;
-import nu.tengstrand.tetrisanalyzer.piece.PieceS;
-import nu.tengstrand.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
-import nu.tengstrand.tetrisanalyzer.piecemove.PieceMove;
-import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings;
-import nu.tengstrand.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.PieceS;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class ValidMovesTest {
 
@@ -35,14 +38,13 @@ public class ValidMovesTest {
             }
         });
 
-        assertEquals(Arrays.asList(
-                new Move(0,0, 2),
-                new Move(1,0, 1),
-                new Move(0,1, 2),
-                new Move(1,1, 1),
-                new Move(0,2, 2),
-                new Move(1,2, 1),
-                new Move(1,3, 1)), moves);
+        assertTrue(moves.contains(new Move(0,0, 2)));
+        assertTrue(moves.contains(new Move(0,1, 2)));
+        assertTrue(moves.contains(new Move(0,2, 2)));
+        assertTrue(moves.contains(new Move(1,0, 1)));
+        assertTrue(moves.contains(new Move(1,1, 1)));
+        assertTrue(moves.contains(new Move(1,2, 1)));
+        assertTrue(moves.contains(new Move(1,3, 1)));
     }
 
     private PieceMove getStartPiece(Board board) {

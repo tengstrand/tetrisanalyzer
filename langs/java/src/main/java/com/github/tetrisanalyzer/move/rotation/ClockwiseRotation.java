@@ -1,4 +1,4 @@
-package nu.tengstrand.tetrisanalyzer.move.rotation;
+package com.github.tetrisanalyzer.move.rotation;
 
 public class ClockwiseRotation implements RotationDirection {
     public int getDirection() {
