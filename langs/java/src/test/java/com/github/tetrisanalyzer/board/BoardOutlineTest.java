@@ -24,6 +24,6 @@ public class BoardOutlineTest {
 
     @Test
     public void minY() {
-        Assert.assertEquals(0, new BoardOutline(board).getMinY());
+        Assert.assertEquals(0, new BoardOutline(board).minY);
     }
 }

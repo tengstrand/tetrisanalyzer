@@ -7,8 +7,8 @@ import com.github.tetrisanalyzer.board.BoardOutline;
  * This is version 1.1 of Tengstrand's Tetris AI
  */
 public class TengstrandBoardEvaluator1 implements BoardEvaluator {
-    private int boardWidth;
-    private int boardHeight;
+    private final int boardWidth;
+    private final int boardHeight;
 
     private double[] heightFactor = new double[] { 7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1 };
     private double[] blocksPerLineHollowFactor = new double[] { 0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553 };
@@ -46,7 +46,7 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
         double equity = 0;
         double[] hollowFactorForLine = new double[boardHeight + 1];
 
-        for (int y=outline.getMinY(); y<boardHeight; y++) {
+        for (int y=outline.minY; y<boardHeight; y++) {
             int numberOfBlocksPerLine = 0;
             int minOutlineForHole = boardHeight;
 
@@ -90,7 +90,7 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
             int previousAreaWidth = 0;
 
             int rightWallY = outline.get(x);
-            int startY = (x == boardWidth) ? outline.getMinY() : outline.get(x);
+            int startY = (x == boardWidth) ? outline.minY : outline.get(x);
 
             // Calculate the size of the closed area in the outline (areaWidth * areaHeight).
             for (int y=startY; y<=boardHeight; y++) {

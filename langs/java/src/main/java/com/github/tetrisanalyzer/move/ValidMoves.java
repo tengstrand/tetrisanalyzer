@@ -12,7 +12,7 @@ public class ValidMoves {
     private final int[][] visitedMoves;
 
     public ValidMoves(Board board) {
-        visitedMoves = getEmptyVisitedMoves(board.getHeight(), board.getWidth());
+        visitedMoves = getEmptyVisitedMoves(board.height, board.width);
     }
 
     private int[][] getEmptyVisitedMoves(int height, int width) {
@@ -42,14 +42,14 @@ public class ValidMoves {
      * every possible move needs to be checked (and returned by this method).
      */
     public List<PieceMove> getPieceMoves(PieceMove pieceMove) {
-        if (isUnvisited(pieceMove.getMove())) {
-            markAsVisited(pieceMove.getMove());
+        if (isUnvisited(pieceMove.move)) {
+            markAsVisited(pieceMove.move);
 
             for (PieceMove move: pieceMove.getFreeAsideAndRotateMoves()) {
                 getPieceMoves(move);
             }
             if (pieceMove.canMoveDown()) {
-                getPieceMoves(pieceMove.getDown());
+                getPieceMoves(pieceMove.down);
             } else {
                 validMoves.add(pieceMove);
             }

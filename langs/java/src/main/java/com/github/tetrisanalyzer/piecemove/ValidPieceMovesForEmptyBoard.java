@@ -24,8 +24,8 @@ public class ValidPieceMovesForEmptyBoard {
         this.board = board;
         this.piece = piece;
         this.settings = settings;
-        boardWidth = board.getWidth();
-        boardHeight = board.getHeight();
+        boardWidth = board.width;
+        boardHeight = board.height;
         visitedPieceMoves = new VisitedPieceMoves(board, piece);
         rotationDirection = settings.rotationDirection();
         isSlidingOn = settings.isSlidingEnabled();
@@ -54,10 +54,10 @@ public class ValidPieceMovesForEmptyBoard {
 
         calculateValidMoves(fromMovement, startMovement);
 
-        if (fromMovement.pieceMove.getDown() == null) {
+        if (fromMovement.pieceMove.down == null) {
             throw new IllegalStateException("Illegal start position for piece");
         }
-        return fromMovement.pieceMove.getDown();
+        return fromMovement.pieceMove.down;
     }
 
     private void calculateValidMoves(Movement fromMovement, Movement movement) {

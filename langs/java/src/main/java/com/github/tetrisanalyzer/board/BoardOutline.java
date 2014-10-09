@@ -3,14 +3,14 @@ package com.github.tetrisanalyzer.board;
 import java.util.Arrays;
 
 public class BoardOutline {
-    private int minY;
+    public int minY;
     private int[] outline;
 
     public BoardOutline(Board board) {
-        int[] outline = new int[board.getWidth() + 1];
+        int[] outline = new int[board.width + 1];
         int minY = Integer.MAX_VALUE;
 
-        for (int x = 0; x < board.getWidth(); x++) {
+        for (int x = 0; x < board.width; x++) {
             int y = 0;
             while (board.isFree(x, y)) {
                 y++;
@@ -21,7 +21,7 @@ public class BoardOutline {
                 minY = y;
             }
         }
-        outline[board.getWidth()] = 0;
+        outline[board.width] = 0;
 
         this.outline = outline;
         this.minY = minY;
@@ -30,10 +30,6 @@ public class BoardOutline {
     public BoardOutline(int minY, int... outline) {
         this.minY = minY;
         this.outline = outline;
-    }
-
-    public int getMinY() {
-        return minY;
     }
 
     public int get(int x) {

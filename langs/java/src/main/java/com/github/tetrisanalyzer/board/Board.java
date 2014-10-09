@@ -11,8 +11,8 @@ import java.util.Arrays;
  * This is a highly optimized version that does not follow best practice in object-orientation!
  */
 public class Board {
-    private int width;
-    private int height;
+    public int width;
+    public int height;
     private int completeLine;
     private int[] lines;
 
@@ -100,14 +100,6 @@ public class Board {
         this.height = height;
         this.lines = lines;
         completeLine = calculateCompleteLine(width);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     /**

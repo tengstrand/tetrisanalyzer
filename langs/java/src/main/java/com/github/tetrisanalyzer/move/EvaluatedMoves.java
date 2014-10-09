@@ -46,7 +46,7 @@ public class EvaluatedMoves {
     private List<MoveEquity> evaluateValidMoves() {
         List<MoveEquity> evaluatedMoves = new ArrayList<MoveEquity>();
         if (!pieceMoves.isEmpty()) {
-            Board boardCopy = pieceMoves.get(0).getBoardCopy();
+            Board boardCopy = pieceMoves.get(0).copyBoard();
 
             for (PieceMove pieceMove : pieceMoves) {
                 evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, boardCopy)));
@@ -57,12 +57,12 @@ public class EvaluatedMoves {
 
     private double evaluate(PieceMove pieceMove, Board boardCopy) {
         int clearedLines = pieceMove.setPiece();
-        double equity = boardEvaluator.evaluate(pieceMove.getBoard());
+        double equity = boardEvaluator.evaluate(pieceMove.board);
 
         if (clearedLines == 0) {
             pieceMove.clearPiece();
         } else {
-            pieceMove.getBoard().restore(boardCopy);
+            pieceMove.board.restore(boardCopy);
         }
         return equity;
     }

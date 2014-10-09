@@ -29,7 +29,7 @@ public class Movement {
     }
 
     public Move getMove() {
-        return pieceMove.getMove();
+        return pieceMove.move;
     }
 
     public int getDirectionIndex() {
@@ -37,19 +37,19 @@ public class Movement {
     }
 
     public Movement rotate(RotationDirection rotationType, int rotationModulus, VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.getMove().rotate(rotationType, rotationModulus)), Direction.ROTATE);
+        return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus)), Direction.ROTATE);
     }
 
     public Movement left(VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.getMove().left()), Direction.LEFT);
+        return new Movement(visitedPieceMoves.get(pieceMove.move.left()), Direction.LEFT);
     }
 
     public Movement right(VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.getMove().right()), Direction.RIGHT);
+        return new Movement(visitedPieceMoves.get(pieceMove.move.right()), Direction.RIGHT);
     }
 
     public Movement down(VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.getMove().down()), Direction.DOWN);
+        return new Movement(visitedPieceMoves.get(pieceMove.move.down()), Direction.DOWN);
     }
 
     @Override

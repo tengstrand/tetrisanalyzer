@@ -60,7 +60,7 @@ public class ValidPieceMovesForEmptyBoardTest {
             for (PieceMove move : pieceMove.getAsideAndRotateMoves()) {
                 addPieceMoves(move, pieceMoves);
             }
-            addPieceMoves(pieceMove.getDown(), pieceMoves);
+            addPieceMoves(pieceMove.down, pieceMoves);
         }
     }
 }

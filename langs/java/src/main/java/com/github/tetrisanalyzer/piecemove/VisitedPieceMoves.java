@@ -21,7 +21,7 @@ public class VisitedPieceMoves {
         this.board = board;
         this.piece = piece;
 
-        moves = getEmptyMoves(board.getHeight(), board.getWidth(), Direction.NUMBER_OF_DIRECTIONS);
+        moves = getEmptyMoves(board.height, board.width, Direction.NUMBER_OF_DIRECTIONS);
     }
 
     private int[][][] getEmptyMoves(int height, int width, int directions) {

@@ -25,7 +25,7 @@ public class ValidMovesTest {
         List<Move> moves = new ArrayList<Move>();
 
         for (PieceMove pieceMove : validMoves.getPieceMoves(startPiece)) {
-            moves.add(pieceMove.getMove());
+            moves.add(pieceMove.move);
         }
         Collections.sort(moves, new Comparator<Move>() {
             public int compare(Move m1, Move m2) {

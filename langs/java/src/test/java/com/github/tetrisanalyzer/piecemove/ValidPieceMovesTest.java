@@ -29,6 +29,6 @@ public class ValidPieceMovesTest {
 
         assertEquals(expectedMoves, startMove.getAsideAndRotateMoves());
 
-        assertEquals(new PieceMove(board, piece, new Move(0,1, 1)), startMove.getDown());
+        assertEquals(new PieceMove(board, piece, new Move(0,1, 1)), startMove.down);
     }
 }

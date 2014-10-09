@@ -15,11 +15,11 @@ import java.util.Set;
  */
 public class PieceMove {
     private int pieceHeight;
-    private Board board;
+    public Board board;
     private Piece piece;
-    private Move move;
+    public final Move move;
 
-    private PieceMove down;
+    public PieceMove down;
     private Set<PieceMove> asideAndRotate = new HashSet<PieceMove>();
 
     private int[] boardLineIndices;
@@ -52,20 +52,8 @@ public class PieceMove {
         }
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public Board getBoardCopy() {
+    public Board copyBoard() {
         return new Board(board);
-    }
-
-    public Move getMove() {
-        return move;
-    }
-
-    public PieceMove getDown() {
-        return down;
     }
 
     public void setDown(PieceMove down) {
