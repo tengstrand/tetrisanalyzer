@@ -166,7 +166,7 @@ public class Board {
 
     /**
      * Clears completed lines and returns which lines that was cleared.
-     * This method is be called after a piece has been placed on the board.
+     * This method is called after a piece has been placed on the board.
      *   pieceY: the y position of the piece.
      *   pieceHeight: height of the piece.
      */
@@ -210,6 +210,19 @@ public class Board {
         System.arraycopy(other.lines, 0, lines, 0, lines.length);
     }
 
+    /**
+     * Converts a board line into its string representation.
+     */
+    private String boardLineAsString(int boardLine) {
+        String result = "#";
+
+        for (int i=0; i<width; i++) {
+            result += (((boardLine >> i) & 1) == 0) ? "-" : "x";
+        }
+
+        return result + "#";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -239,18 +252,5 @@ public class Board {
             board += boardLineAsString(lines[y]) + "\n";
         }
         return board + getBottomTextLine(width);
-    }
-
-    /**
-     * Converts a board line into its string representation.
-     */
-    private String boardLineAsString(int boardLine) {
-      String result = "#";
-
-      for (int i=0; i<width; i++) {
-          result += (((boardLine >> i) & 1) == 0) ? "-" : "x";
-      }
-
-      return result + "#";
     }
 }

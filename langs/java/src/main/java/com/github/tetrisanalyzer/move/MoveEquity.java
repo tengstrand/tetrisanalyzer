@@ -3,8 +3,8 @@ package com.github.tetrisanalyzer.move;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 
 public class MoveEquity {
-    public PieceMove pieceMove;
-    public double equity;
+    public final PieceMove pieceMove;
+    public final double equity;
 
     public MoveEquity(PieceMove pieceMove, double equity) {
         this.pieceMove = pieceMove;

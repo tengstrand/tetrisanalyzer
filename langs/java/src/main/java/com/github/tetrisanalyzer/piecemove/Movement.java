@@ -8,8 +8,8 @@ import com.github.tetrisanalyzer.move.rotation.RotationDirection;
  * with all valid moves om an empty board.
  */
 public class Movement {
-    private PieceMove pieceMove;
-    private Direction direction;
+    public final PieceMove pieceMove;
+    public final Direction direction;
 
     public Movement(PieceMove pieceMove) {
         this(pieceMove, Direction.DOWN);
@@ -30,10 +30,6 @@ public class Movement {
 
     public Move getMove() {
         return pieceMove.getMove();
-    }
-
-    public PieceMove getPieceMove() {
-        return pieceMove;
     }
 
     public int getDirectionIndex() {

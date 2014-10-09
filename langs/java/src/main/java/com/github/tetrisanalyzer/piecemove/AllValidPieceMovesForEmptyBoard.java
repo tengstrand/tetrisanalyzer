@@ -18,8 +18,8 @@ import java.util.Map;
  * Is a holder for all valid moves on an empty board.
  */
 public class AllValidPieceMovesForEmptyBoard {
-    private Board board;
-    private Map<Piece, PieceMove> startPieces = new HashMap<Piece, PieceMove>();
+    private final Board board;
+    private final Map<Piece, PieceMove> startPieces = new HashMap<Piece, PieceMove>();
 
     public AllValidPieceMovesForEmptyBoard(Board board, GameSettings settings) {
         this.board = board;

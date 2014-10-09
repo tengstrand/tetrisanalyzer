@@ -57,7 +57,7 @@ public class VisitedPieceMoves {
         Move move = movement.getMove();
         moves[move.y][move.x][movement.getDirectionIndex()] |= (1 << move.rotation);
         moves[move.y][move.x][Direction.ROTATE.getIndex()] |= (1 << move.rotation);
-        validMoves.put(move, movement.getPieceMove());
+        validMoves.put(move, movement.pieceMove);
     }
 
     /**

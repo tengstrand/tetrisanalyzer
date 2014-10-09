@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ValidMoves {
-    private List<PieceMove> validMoves = new ArrayList<PieceMove>();
-    private int[][] visitedMoves;
+    private final List<PieceMove> validMoves = new ArrayList<PieceMove>();
+    private final int[][] visitedMoves;
 
     public ValidMoves(Board board) {
         visitedMoves = getEmptyVisitedMoves(board.getHeight(), board.getWidth());

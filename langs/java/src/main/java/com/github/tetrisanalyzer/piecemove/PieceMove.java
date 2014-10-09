@@ -45,10 +45,10 @@ public class PieceMove {
             boardLineIndices[y] = move.y + y;
         }
         for (Point point: piece.getShape(move.rotation).getPoints()) {
-            orLines[point.getY()] |= (1 << (move.x + point.getX()));
+            orLines[point.y] |= (1 << (move.x + point.x));
         }
         for (Point point: piece.getShape(move.rotation).getPoints()) {
-            andLines[point.getY()] &= ~(1 << (move.x + point.getX()));
+            andLines[point.y] &= ~(1 << (move.x + point.x));
         }
     }
 

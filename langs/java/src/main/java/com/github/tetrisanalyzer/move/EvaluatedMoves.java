@@ -11,9 +11,9 @@ import java.util.List;
  * Takes a list of piece moves and evaluates them using the given board evaluator.
  */
 public class EvaluatedMoves {
-    List<MoveEquity> moves;
-    private List<PieceMove> pieceMoves;
-    private BoardEvaluator boardEvaluator;
+    final List<MoveEquity> moves;
+    private final List<PieceMove> pieceMoves;
+    private final BoardEvaluator boardEvaluator;
 
     public EvaluatedMoves(List<PieceMove> pieceMoves, BoardEvaluator boardEvaluator) {
         this.pieceMoves = pieceMoves;

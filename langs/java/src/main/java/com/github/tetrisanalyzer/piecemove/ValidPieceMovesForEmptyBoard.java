@@ -54,10 +54,10 @@ public class ValidPieceMovesForEmptyBoard {
 
         calculateValidMoves(fromMovement, startMovement);
 
-        if (fromMovement.getPieceMove().getDown() == null) {
+        if (fromMovement.pieceMove.getDown() == null) {
             throw new IllegalStateException("Illegal start position for piece");
         }
-        return fromMovement.getPieceMove().getDown();
+        return fromMovement.pieceMove.getDown();
     }
 
     private void calculateValidMoves(Movement fromMovement, Movement movement) {
