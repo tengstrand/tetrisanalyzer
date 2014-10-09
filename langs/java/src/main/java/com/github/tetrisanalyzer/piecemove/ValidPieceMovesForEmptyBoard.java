@@ -39,8 +39,8 @@ public class ValidPieceMovesForEmptyBoard {
     private boolean isPieceInsideBoard(Movement movement) {
         Move move = movement.getMove();
 
-        return (move.getX() >= 0 && move.getX() + piece.width(move.getRotation()) <= boardWidth &&
-            move.getY() >= 0 && move.getY() + piece.height(move.getRotation()) <= boardHeight);
+        return (move.x >= 0 && move.x + piece.width(move.rotation) <= boardWidth &&
+            move.y >= 0 && move.y + piece.height(move.rotation) <= boardHeight);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ValidPieceMovesForEmptyBoard {
     private void calculateValidMoves(Movement fromMovement, Movement movement) {
         while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
             markAsVisited(fromMovement, movement);
-            if (isSlidingOn || movement.getMove().getY() == 0) {
+            if (isSlidingOn || movement.getMove().y == 0) {
                 calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), visitedPieceMoves));
                 calculateValidMoves(movement, movement.left(visitedPieceMoves));
                 calculateValidMoves(movement, movement.right(visitedPieceMoves));

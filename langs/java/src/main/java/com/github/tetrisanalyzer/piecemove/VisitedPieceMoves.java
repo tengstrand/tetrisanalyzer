@@ -55,8 +55,8 @@ public class VisitedPieceMoves {
      */
     public void visit(Movement movement) {
         Move move = movement.getMove();
-        moves[move.getY()][move.getX()][movement.getDirectionIndex()] |= (1 << move.getRotation());
-        moves[move.getY()][move.getX()][Direction.ROTATE.getIndex()] |= (1 << move.getRotation());
+        moves[move.y][move.x][movement.getDirectionIndex()] |= (1 << move.rotation);
+        moves[move.y][move.x][Direction.ROTATE.getIndex()] |= (1 << move.rotation);
         validMoves.put(move, movement.getPieceMove());
     }
 
@@ -66,7 +66,7 @@ public class VisitedPieceMoves {
     public boolean isUnvisited(Movement movement) {
         try {
             Move move = movement.getMove();
-            return (moves[move.getY()][move.getX()][movement.getDirectionIndex()] & (1 << move.getRotation())) == 0;
+            return (moves[move.y][move.x][movement.getDirectionIndex()] & (1 << move.rotation)) == 0;
         } catch (IndexOutOfBoundsException e) {
             return false;
         }

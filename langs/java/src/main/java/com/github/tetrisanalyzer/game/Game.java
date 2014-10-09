@@ -18,7 +18,7 @@ public class Game {
     private int clearedLines = 0;
     private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
 
-    private Board board;
+    public Board board;
     private BoardEvaluator boardEvaluator;
     private PieceGenerator pieceGenerator;
 

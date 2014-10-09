@@ -25,12 +25,12 @@ public class ValidMoves {
     }
 
     private void markAsVisited(Move move) {
-        visitedMoves[move.getY()][move.getX()] |= 1 << move.getRotation();
+        visitedMoves[move.y][move.x] |= 1 << move.rotation;
     }
 
     private boolean isUnvisited(Move move) {
         try {
-            return (visitedMoves[move.getY()][move.getX()] & (1 << move.getRotation())) == 0;
+            return (visitedMoves[move.y][move.x] & (1 << move.rotation)) == 0;
         } catch(IndexOutOfBoundsException e) {
             return false;
         }

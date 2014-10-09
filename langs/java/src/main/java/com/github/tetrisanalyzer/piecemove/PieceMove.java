@@ -34,7 +34,7 @@ public class PieceMove {
         this.piece = piece;
         this.move = move;
 
-        pieceHeight = piece.height(move.getRotation());
+        pieceHeight = piece.height(move.rotation);
         orLines = new int[pieceHeight];
         andLines = new int[pieceHeight];
         Arrays.fill(orLines, ALL_BITS_CLEARED);
@@ -42,13 +42,13 @@ public class PieceMove {
         boardLineIndices = new int[pieceHeight];
 
         for (int y=0; y<pieceHeight; y++) {
-            boardLineIndices[y] = move.getY() + y;
+            boardLineIndices[y] = move.y + y;
         }
-        for (Point point: piece.getShape(move.getRotation()).getPoints()) {
-            orLines[point.getY()] |= (1 << (move.getX() + point.getX()));
+        for (Point point: piece.getShape(move.rotation).getPoints()) {
+            orLines[point.getY()] |= (1 << (move.x + point.getX()));
         }
-        for (Point point: piece.getShape(move.getRotation()).getPoints()) {
-            andLines[point.getY()] &= ~(1 << (move.getX() + point.getX()));
+        for (Point point: piece.getShape(move.rotation).getPoints()) {
+            andLines[point.getY()] &= ~(1 << (move.x + point.getX()));
         }
     }
 
@@ -89,7 +89,7 @@ public class PieceMove {
         for (int y=0; y<pieceHeight; y++) {
             board.setBits(boardLineIndices[y], orLines[y]);
         }
-        return board.clearLines(move.getY(), pieceHeight);
+        return board.clearLines(move.y, pieceHeight);
     }
 
     /**

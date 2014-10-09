@@ -29,12 +29,12 @@ public class ValidMovesTest {
         }
         Collections.sort(moves, new Comparator<Move>() {
             public int compare(Move m1, Move m2) {
-                if (m1.getX() < m2.getX()) { return -1; }
-                if (m1.getX() > m2.getX()) { return 1; }
-                if (m1.getRotation() < m2.getRotation()) { return -1; }
-                if (m1.getRotation() < m2.getRotation()) { return 1; }
-                if (m1.getY() < m2.getY()) { return -1; }
-                return m1.getY() > m2.getY() ? 1 : 0;
+                if (m1.x < m2.x) { return -1; }
+                if (m1.x > m2.x) { return 1; }
+                if (m1.rotation < m2.rotation) { return -1; }
+                if (m1.rotation < m2.rotation) { return 1; }
+                if (m1.y < m2.y) { return -1; }
+                return m1.y > m2.y ? 1 : 0;
             }
         });
 

@@ -6,30 +6,14 @@ import com.github.tetrisanalyzer.move.rotation.RotationDirection;
  * Holds a position (x,y) and rotation ("angle") for a piece on the board.
  */
 public class Move {
-    private int rotation;
-    private int x;
-    private int y;
+    public final int rotation;
+    public final int x;
+    public final int y;
 
     public Move(int rotation, int x, int y) {
         this.rotation = rotation;
         this.x = x;
         this.y = y;
-    }
-
-    public int getRotation() {
-        return rotation;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
     }
 
     public Move up() { return new Move(rotation, x, y-1); }
