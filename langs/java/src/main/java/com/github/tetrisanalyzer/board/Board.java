@@ -204,7 +204,7 @@ public class Board {
     }
 
     /**
-     * Restores this (mutable) bard from a another board.
+     * Restores this (mutable) board from a another board.
      */
     public void restore(Board other) {
         System.arraycopy(other.lines, 0, lines, 0, lines.length);
