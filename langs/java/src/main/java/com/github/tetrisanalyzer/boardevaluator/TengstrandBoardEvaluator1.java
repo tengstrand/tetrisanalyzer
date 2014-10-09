@@ -3,6 +3,9 @@ package com.github.tetrisanalyzer.boardevaluator;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
 
+/**
+ * This is version 1.1 of Tengstrand's Tetris AI
+ */
 public class TengstrandBoardEvaluator1 implements BoardEvaluator {
     private int boardWidth;
     private int boardHeight;
