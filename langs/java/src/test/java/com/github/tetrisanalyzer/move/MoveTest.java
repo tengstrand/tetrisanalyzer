@@ -16,7 +16,7 @@ public class MoveTest {
 
     @Test
     public void rotate() {
-        assertEquals(new Move(1, 5, 5), move.rotate(new AnticlockwiseRotation(), 1));
+        assertEquals(new Move(1, 5, 5), move.rotate(new AnticlockwiseRotation(), 1, 0, 0));
     }
 
     @Test

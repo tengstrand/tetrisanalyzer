@@ -5,5 +5,7 @@ public class PieceEmpty extends Piece {
     @Override public char character() { return '-'; }
     @Override protected int[] widths() { return new int[0]; }
     @Override protected int[] heights() { return new int[0]; }
+    @Override protected int[] dx() { return new int[0]; }
+    @Override protected int[] dy() { return new int[0]; }
     @Override protected PieceShape[] shapes() { return new PieceShape[0]; }
 }

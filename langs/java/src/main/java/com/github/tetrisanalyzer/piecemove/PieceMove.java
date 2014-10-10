@@ -16,7 +16,7 @@ import java.util.Set;
 public class PieceMove {
     private int pieceHeight;
     public Board board;
-    private Piece piece;
+    public Piece piece;
     public final Move move;
 
     public PieceMove down;

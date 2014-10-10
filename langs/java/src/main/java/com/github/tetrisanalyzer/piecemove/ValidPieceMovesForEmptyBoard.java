@@ -63,8 +63,8 @@ public class ValidPieceMovesForEmptyBoard {
     private void calculateValidMoves(Movement fromMovement, Movement movement) {
         while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
             markAsVisited(fromMovement, movement);
-            if (isSlidingOn || movement.getMove().y == 0) {
-                calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), visitedPieceMoves));
+            if (isSlidingOn || movement.getMove().y ==  0 || movement.isAdjusted()) {
+                calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), movement.dx(), movement.dy(), visitedPieceMoves));
                 calculateValidMoves(movement, movement.left(visitedPieceMoves));
                 calculateValidMoves(movement, movement.right(visitedPieceMoves));
             }

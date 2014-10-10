@@ -20,8 +20,8 @@ public class Move {
     public Move down() { return new Move(rotation, x, y+1); }
     public Move left() { return new Move(rotation, x-1, y); }
     public Move right() { return new Move(rotation, x+1, y); }
-    public Move rotate(RotationDirection rotationType, int rotationModulus) {
-        return new Move((rotation + rotationType.getDirection()) & rotationModulus, x, y);
+    public Move rotate(RotationDirection rotationType, int rotationModulus, int dx, int dy) {
+        return new Move((rotation + rotationType.getDirection()) & rotationModulus, x + dx, y + dy);
     }
 
     @Override

@@ -32,12 +32,24 @@ public class Movement {
         return pieceMove.move;
     }
 
+    public boolean isAdjusted() {
+        return pieceMove.piece.isAdjusted(pieceMove.move.rotation);
+    }
+
+    public int dx() {
+        return pieceMove.piece.dx(pieceMove.move.rotation);
+    }
+
+    public int dy() {
+        return pieceMove.piece.dx(pieceMove.move.rotation);
+    }
+
     public int getDirectionIndex() {
         return direction.getIndex();
     }
 
-    public Movement rotate(RotationDirection rotationType, int rotationModulus, VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus)), Direction.ROTATE);
+    public Movement rotate(RotationDirection rotationType, int rotationModulus, int dx, int dy, VisitedPieceMoves visitedPieceMoves) {
+        return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus, dx, dy)), Direction.ROTATE);
     }
 
     public Movement left(VisitedPieceMoves visitedPieceMoves) {

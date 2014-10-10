@@ -19,6 +19,7 @@ public class DefaultGameSettings implements GameSettings {
     }
 
     public Move pieceStartMove(int boardWidth, Piece piece) {
-        return new Move(0, (boardWidth <= 4) ? 0 : (boardWidth - 2) / 2, 0);
+        int x = (boardWidth <= 4) ? 0 : (boardWidth - 2) / 2;
+        return new Move(0, x + piece.dx(0), 0 + piece.dy(0));
     }
 }

@@ -25,7 +25,7 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         Board board = new Board(10,15);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(Arrays.asList(new PieceO(), new PieceL(), new PieceI(), new PieceZ(), new PieceT()));
         GameSettings settings = new GameSettingsSlidingOn();
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
@@ -55,7 +55,7 @@ public class GameTest {
     @Test
     public void play() {
         Board board = new Board();
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.getWidth(), board.getHeight());
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new DefaultPieceGenerator();
         GameSettings settings = new DefaultGameSettings(); //GameSettingsSlidingOn();
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
