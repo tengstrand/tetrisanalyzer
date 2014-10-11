@@ -17,9 +17,9 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startMove() {
-        Board board = new Board(5,5);
+        GameSettings settings = new DefaultGameSettings(5, 5, 1);
+        Board board = new Board(settings.boardWidth(), settings.boardWidth());
         Piece piece = new PieceS();
-        GameSettings settings = new DefaultGameSettings();
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();

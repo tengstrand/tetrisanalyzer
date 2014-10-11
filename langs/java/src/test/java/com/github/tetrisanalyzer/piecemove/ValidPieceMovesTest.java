@@ -5,6 +5,7 @@ import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceO;
 import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -16,9 +17,10 @@ public class ValidPieceMovesTest {
 
     @Test
     public void getStartMove() {
-        Board board = new Board(5,5);
+        GameSettings settings = new DefaultGameSettings(5, 5, 1);
+        Board board = new Board(settings.boardWidth(), settings.boardHeight());
         Piece piece = new PieceO();
-        ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings());
+        ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();
 
         assertEquals(new PieceMove(board, piece, new Move(0,1, 0)), startMove);

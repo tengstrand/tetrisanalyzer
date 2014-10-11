@@ -19,9 +19,10 @@ import static junit.framework.Assert.assertTrue;
 public class ValidMovesTest {
 
     @Test public void pieceMoves() {
-        Board board = new Board(5,4);
+        GameSettings settings = new DefaultGameSettings(5, 4, 1);
+        Board board = new Board(settings.boardWidth(), settings.boardHeight());
         ValidMoves validMoves = new ValidMoves(board);
-        PieceMove startPiece = getStartPiece(board);
+        PieceMove startPiece = getStartPiece(board, settings);
         List<Move> moves = new ArrayList<Move>();
 
         for (PieceMove pieceMove : validMoves.getPieceMoves(startPiece)) {
@@ -47,9 +48,8 @@ public class ValidMovesTest {
         assertTrue(moves.contains(new Move(1,3, 1)));
     }
 
-    private PieceMove getStartPiece(Board board) {
+    private PieceMove getStartPiece(Board board, GameSettings settings) {
         Piece piece = new PieceS();
-        GameSettings settings = new DefaultGameSettings();
         AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
 
         return allValidPieceMoves.startMoveForPiece(piece);

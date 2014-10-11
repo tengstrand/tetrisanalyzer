@@ -1,14 +1,26 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
-import com.github.tetrisanalyzer.piece.Piece;
 
 /**
  * The default settings used by the Tetris engine.
  */
 public class DefaultGameSettings implements GameSettings {
+
+    private final int boardWidth;
+    private final int boardHeight;
+    private final int pieceStartX;
+
+    public DefaultGameSettings() {
+        this(10, 20, 4);
+    }
+
+    public DefaultGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.pieceStartX = pieceStartX;
+    }
 
     public boolean isSlidingEnabled() {
         return false;
@@ -18,8 +30,18 @@ public class DefaultGameSettings implements GameSettings {
         return new AnticlockwiseRotation();
     }
 
-    public Move pieceStartMove(int boardWidth, Piece piece) {
-        int x = (boardWidth <= 4) ? 0 : (boardWidth - 2) / 2;
-        return new Move(0, x + piece.dx(0), 0 + piece.dy(0));
+    @Override
+    public int pieceStartX() {
+        return pieceStartX;
+    }
+
+    @Override
+    public int boardWidth() {
+        return boardWidth;
+    }
+
+    @Override
+    public int boardHeight() {
+        return boardHeight;
     }
 }

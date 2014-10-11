@@ -48,7 +48,7 @@ public class ValidPieceMovesForEmptyBoard {
      * the starting piece move for the board.
      */
     public PieceMove getStartMove() {
-        Move startMove = settings.pieceStartMove(boardWidth, piece);
+        Move startMove = new Move(0, settings.pieceStartX() + piece.dx(0), piece.dy(0));
         Movement startMovement = new Movement(new PieceMove(board, piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(board, piece, startMove.up()));
 
