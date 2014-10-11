@@ -16,8 +16,6 @@ import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.GameSettingsSlidingOn;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static junit.framework.Assert.assertEquals;
 
 public class GameTest {
@@ -25,9 +23,9 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         Board board = new Board(10,15);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(Arrays.asList(new PieceO(), new PieceL(), new PieceI(), new PieceZ(), new PieceT()));
         GameSettings settings = new GameSettingsSlidingOn();
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceO(settings), new PieceL(settings), new PieceI(settings), new PieceZ(settings), new PieceT(settings));
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
         game.play(5);
 
@@ -56,8 +54,8 @@ public class GameTest {
     public void play() {
         Board board = new Board();
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
-        PieceGenerator pieceGenerator = new DefaultPieceGenerator();
         GameSettings settings = new DefaultGameSettings(); //GameSettingsSlidingOn();
+        PieceGenerator pieceGenerator = new DefaultPieceGenerator(settings);
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
 
         game.play(10);

@@ -19,7 +19,7 @@ public class ValidPieceMovesTest {
     public void getStartMove() {
         GameSettings settings = new DefaultGameSettings(5, 5, 1);
         Board board = new Board(settings.boardWidth(), settings.boardHeight());
-        Piece piece = new PieceO();
+        Piece piece = new PieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();
 

@@ -1,5 +1,7 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
+import com.github.tetrisanalyzer.settings.PieceSettings;
+
 /**
  * This piece generator mimics the behaviour of the C++ version,
  * that uses 32 bit unsigned integers.
@@ -9,11 +11,13 @@ public class DefaultPieceGenerator extends PieceGenerator {
 
     private long seed;
 
-    public DefaultPieceGenerator() {
+    public DefaultPieceGenerator(PieceSettings settings) {
+        super(settings);
         this.seed = 0;
     }
 
-    public DefaultPieceGenerator(long seed) {
+    public DefaultPieceGenerator(long seed, PieceSettings settings) {
+        super(settings);
         this.seed = seed;
     }
 

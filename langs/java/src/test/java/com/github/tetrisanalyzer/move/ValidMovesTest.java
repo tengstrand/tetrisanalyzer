@@ -40,7 +40,7 @@ public class ValidMovesTest {
     }
 
     private PieceMove getStartPiece(Board board, GameSettings settings) {
-        Piece piece = new PieceS();
+        Piece piece = new PieceS(settings);
         AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
 
         return allValidPieceMoves.startMoveForPiece(piece);

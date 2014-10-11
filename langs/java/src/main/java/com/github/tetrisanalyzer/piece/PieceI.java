@@ -1,12 +1,17 @@
 package com.github.tetrisanalyzer.piece;
 
+import com.github.tetrisanalyzer.settings.PieceSettings;
+
 public class PieceI extends Piece {
+
+    public PieceI(PieceSettings settings) {
+        super(settings);
+    }
+
     @Override public byte number() { return 1; }
     @Override public char character() { return 'I'; }
     @Override protected int[] widths() { return new int[] { 4, 1 }; }
     @Override protected int[] heights() { return new int[] { 1, 4 }; }
-    @Override protected int[] dx() { return new int[] { 0, 0 }; }
-    @Override protected int[] dy() { return new int[] { 0, 0 }; }
 
     @Override protected PieceShape[] shapes() {
         return new PieceShape[] {

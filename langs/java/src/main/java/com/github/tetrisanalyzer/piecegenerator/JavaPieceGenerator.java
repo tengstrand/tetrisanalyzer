@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
 import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.PieceSettings;
 
 import java.util.Random;
 
@@ -9,6 +10,10 @@ import java.util.Random;
  */
 public class JavaPieceGenerator extends PieceGenerator {
     private Random random = new Random();
+
+    protected JavaPieceGenerator(PieceSettings settings) {
+        super(settings);
+    }
 
     @Override
     public int nextPieceNumber() {

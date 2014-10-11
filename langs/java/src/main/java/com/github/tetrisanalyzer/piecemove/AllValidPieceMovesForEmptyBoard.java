@@ -24,13 +24,13 @@ public class AllValidPieceMovesForEmptyBoard {
     public AllValidPieceMovesForEmptyBoard(Board board, GameSettings settings) {
         this.board = board;
 
-        startPieces.put(new PieceI(), new ValidPieceMovesForEmptyBoard(board, new PieceI(), settings).getStartMove());
-        startPieces.put(new PieceZ(), new ValidPieceMovesForEmptyBoard(board, new PieceZ(), settings).getStartMove());
-        startPieces.put(new PieceS(), new ValidPieceMovesForEmptyBoard(board, new PieceS(), settings).getStartMove());
-        startPieces.put(new PieceJ(), new ValidPieceMovesForEmptyBoard(board, new PieceJ(), settings).getStartMove());
-        startPieces.put(new PieceL(), new ValidPieceMovesForEmptyBoard(board, new PieceL(), settings).getStartMove());
-        startPieces.put(new PieceT(), new ValidPieceMovesForEmptyBoard(board, new PieceT(), settings).getStartMove());
-        startPieces.put(new PieceO(), new ValidPieceMovesForEmptyBoard(board, new PieceO(), settings).getStartMove());
+        startPieces.put(new PieceI(settings), new ValidPieceMovesForEmptyBoard(board, new PieceI(settings), settings).getStartMove());
+        startPieces.put(new PieceZ(settings), new ValidPieceMovesForEmptyBoard(board, new PieceZ(settings), settings).getStartMove());
+        startPieces.put(new PieceS(settings), new ValidPieceMovesForEmptyBoard(board, new PieceS(settings), settings).getStartMove());
+        startPieces.put(new PieceJ(settings), new ValidPieceMovesForEmptyBoard(board, new PieceJ(settings), settings).getStartMove());
+        startPieces.put(new PieceL(settings), new ValidPieceMovesForEmptyBoard(board, new PieceL(settings), settings).getStartMove());
+        startPieces.put(new PieceT(settings), new ValidPieceMovesForEmptyBoard(board, new PieceT(settings), settings).getStartMove());
+        startPieces.put(new PieceO(settings), new ValidPieceMovesForEmptyBoard(board, new PieceO(settings), settings).getStartMove());
     }
 
     public PieceMove startMoveForPiece(Piece piece) {

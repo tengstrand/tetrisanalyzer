@@ -1,10 +1,11 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceI;
 import com.github.tetrisanalyzer.piece.PieceO;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piece.PieceZ;
+import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -16,21 +17,23 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void nextPieceNumber() {
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(Arrays.asList(new PieceS(), new PieceZ(), new PieceI()));
+        PieceSettings settings = new DefaultGameSettings();
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceS(settings), new PieceZ(settings), new PieceI(settings));
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber());
 
-        assertEquals(Arrays.asList((int)new PieceS().number(), (int)new PieceZ().number(), (int)new PieceI().number()), result);
+        assertEquals(Arrays.asList((int)new PieceS(settings).number(), (int)new PieceZ(settings).number(), (int)new PieceI(settings).number()), result);
     }
 
     @Test
     public void runOutOfPieces() {
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(Arrays.asList((Piece)new PieceI()));
+        PieceSettings settings = new DefaultGameSettings();
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceI(settings));
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber());
 
-        assertEquals(Arrays.asList((int)new PieceI().number(), (int)new PieceO().number(), (int)new PieceO().number()), result);
+        assertEquals(Arrays.asList((int)new PieceI(settings).number(), (int)new PieceO(settings).number(), (int)new PieceO(settings).number()), result);
     }
 }

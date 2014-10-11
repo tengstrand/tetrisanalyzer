@@ -19,8 +19,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
-    private Board board = new Board();
-    private Piece piece = new PieceS();
+    Board board = new Board();
+    Piece piece = new PieceS(new DefaultGameSettings());
 
     @Test
     public void bestMove() {
