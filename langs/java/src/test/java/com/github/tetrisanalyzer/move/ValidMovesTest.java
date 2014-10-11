@@ -10,10 +10,9 @@ import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 public class ValidMovesTest {
@@ -28,17 +27,8 @@ public class ValidMovesTest {
         for (PieceMove pieceMove : validMoves.getPieceMoves(startPiece)) {
             moves.add(pieceMove.move);
         }
-        Collections.sort(moves, new Comparator<Move>() {
-            public int compare(Move m1, Move m2) {
-                if (m1.x < m2.x) { return -1; }
-                if (m1.x > m2.x) { return 1; }
-                if (m1.rotation < m2.rotation) { return -1; }
-                if (m1.rotation < m2.rotation) { return 1; }
-                if (m1.y < m2.y) { return -1; }
-                return m1.y > m2.y ? 1 : 0;
-            }
-        });
 
+        assertEquals(7, moves.size());
         assertTrue(moves.contains(new Move(0,0, 2)));
         assertTrue(moves.contains(new Move(0,1, 2)));
         assertTrue(moves.contains(new Move(0,2, 2)));
