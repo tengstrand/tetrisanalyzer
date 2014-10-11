@@ -17,7 +17,8 @@ import static junit.framework.Assert.assertTrue;
 
 public class ValidMovesTest {
 
-    @Test public void pieceMoves() {
+    @Test
+    public void pieceMoves() {
         GameSettings settings = new DefaultGameSettings(5, 4, 1);
         Board board = new Board(settings.boardWidth(), settings.boardHeight());
         ValidMoves validMoves = new ValidMoves(board);
