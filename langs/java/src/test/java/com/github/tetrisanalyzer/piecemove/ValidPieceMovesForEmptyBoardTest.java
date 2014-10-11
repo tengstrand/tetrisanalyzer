@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.settings.DefaultGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.StandardTetrisGameSettings;
 import org.junit.Test;
 
 import java.util.LinkedHashSet;
@@ -50,6 +51,41 @@ public class ValidPieceMovesForEmptyBoardTest {
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 1)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 2)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 3)));
+
+        assertEquals(expectedMoves, pieceMoves);
+    }
+
+    @Test
+    public void startMoveStandardTetris() {
+        GameSettings settings = new StandardTetrisGameSettings(5, 5, 0);
+        Board board = new Board(settings.boardWidth(), settings.boardWidth());
+        Piece piece = new PieceS(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+
+        Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();
+        addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
+
+        Set<PieceMove> expectedMoves = new LinkedHashSet<PieceMove>();
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 3)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 3)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 3)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 0)));
 
         assertEquals(expectedMoves, pieceMoves);
     }
