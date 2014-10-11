@@ -6,7 +6,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.settings.DefaultGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
-import com.github.tetrisanalyzer.settings.StandardTetrisGameSettings;
+import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import org.junit.Test;
 
 import java.util.LinkedHashSet;
@@ -57,7 +57,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startMoveStandardTetris() {
-        GameSettings settings = new StandardTetrisGameSettings(5, 5, 0);
+        GameSettings settings = new StandardGameSettings(5, 5, 0);
         Board board = new Board(settings.boardWidth(), settings.boardWidth());
         Piece piece = new PieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);

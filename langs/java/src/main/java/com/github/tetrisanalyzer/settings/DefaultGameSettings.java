@@ -14,19 +14,29 @@ public class DefaultGameSettings implements GameSettings {
     private final int boardWidth;
     private final int boardHeight;
     private final int pieceStartX;
+    private final boolean sliding;
 
     public DefaultGameSettings() {
         this(10, 20, 4);
     }
 
+    public DefaultGameSettings(boolean sliding) {
+        this(10, 20, 4, sliding);
+    }
+
     public DefaultGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
+        this(boardWidth, boardHeight, pieceStartX, false);
+    }
+
+    public DefaultGameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean sliding) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.pieceStartX = pieceStartX;
+        this.sliding = sliding;
     }
 
     public boolean isSlidingEnabled() {
-        return false;
+        return sliding;
     }
 
     public RotationDirection rotationDirection() {

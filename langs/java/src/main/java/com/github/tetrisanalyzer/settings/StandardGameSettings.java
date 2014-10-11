@@ -9,14 +9,22 @@ import static com.github.tetrisanalyzer.piece.Piece.O;
  * Settings introduced by Colin Fahey:
  *   http://colinfahey.com/tetris/tetris.html
  */
-public class StandardTetrisGameSettings extends DefaultGameSettings {
+public class StandardGameSettings extends DefaultGameSettings {
 
-    public StandardTetrisGameSettings() {
+    public StandardGameSettings() {
         this(10, 20, 3);
     }
 
-    public StandardTetrisGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
+    public StandardGameSettings(boolean sliding) {
+        super(sliding);
+    }
+
+    public StandardGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
         super(boardWidth, boardHeight, pieceStartX);
+    }
+
+    public StandardGameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean sliding) {
+        super(boardWidth, boardHeight, pieceStartX, sliding);
     }
 
     @Override
