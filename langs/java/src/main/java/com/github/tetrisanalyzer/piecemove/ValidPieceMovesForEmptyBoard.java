@@ -52,7 +52,7 @@ public class ValidPieceMovesForEmptyBoard {
         Movement startMovement = new Movement(new PieceMove(board, piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(board, piece, startMove.up()));
 
-        calculateValidMoves(fromMovement, startMovement);
+        calculateValidMoves(fromMovement, startMovement, true);
 
         if (fromMovement.pieceMove.down == null) {
             throw new IllegalStateException("Illegal start position for piece");
@@ -60,15 +60,15 @@ public class ValidPieceMovesForEmptyBoard {
         return fromMovement.pieceMove.down;
     }
 
-    private void calculateValidMoves(Movement fromMovement, Movement movement) {
+    private void calculateValidMoves(Movement fromMovement, Movement movement, boolean isFirstRow) {
         while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
             markAsVisited(fromMovement, movement);
-            if (isSlidingOn || movement.getMove().y ==  0 || movement.isAdjusted()) {
-                calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), movement.dx(), movement.dy(), visitedPieceMoves));
-                calculateValidMoves(movement, movement.left(visitedPieceMoves));
-                calculateValidMoves(movement, movement.right(visitedPieceMoves));
+            if (isSlidingOn || isFirstRow || movement.isAdjusted()) {
+                calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), movement.dx(), movement.dy(), visitedPieceMoves), isFirstRow);
+                calculateValidMoves(movement, movement.left(visitedPieceMoves), isFirstRow);
+                calculateValidMoves(movement, movement.right(visitedPieceMoves), isFirstRow);
             }
-            calculateValidMoves(movement, movement.down(visitedPieceMoves));
+            calculateValidMoves(movement, movement.down(visitedPieceMoves), false);
         }
     }
 }
