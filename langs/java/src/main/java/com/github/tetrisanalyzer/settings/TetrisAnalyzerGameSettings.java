@@ -34,7 +34,7 @@ public class TetrisAnalyzerGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public int[] startPieceDx() {
+    public int[] pieceStartDx() {
         return new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 

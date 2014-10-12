@@ -2,10 +2,9 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.piece.Piece;
 
 import static com.github.tetrisanalyzer.piece.Piece.*;
-import static com.github.tetrisanalyzer.piece.Piece.O;
-import static com.github.tetrisanalyzer.piece.Piece.T;
 
 public abstract class AbstractGameSettings implements GameSettings {
 
@@ -40,6 +39,7 @@ public abstract class AbstractGameSettings implements GameSettings {
                 "Sliding: " + isSlidingEnabled() +  "\n" +
                 "Rotation: " + rotationDirection() + "\n" +
                 "Piece start position x: " + pieceStartX() + "\n" +
+                "Piece start position dx: " + positionDx() + "\n" +
                 "Delta I: " + (delta(pieceDx()[I], pieceDy()[I])) + "\n" +
                 "Delta Z: " + (delta(pieceDx()[Z], pieceDy()[Z])) + "\n" +
                 "Delta S: " + (delta(pieceDx()[S], pieceDy()[S])) + "\n" +
@@ -47,6 +47,17 @@ public abstract class AbstractGameSettings implements GameSettings {
                 "Delta L: " + (delta(pieceDx()[L], pieceDy()[L])) + "\n" +
                 "Delta T: " + (delta(pieceDx()[T], pieceDy()[T])) + "\n" +
                 "Delta O: " + (delta(pieceDx()[O], pieceDy()[O])) + "\n" ;
+    }
+
+    private String positionDx() {
+        Piece[] p = Piece.pieces(this);
+        return "I: " + p[I].startDx + ", " +
+                "Z: " + p[Z].startDx + ", " +
+                "S: " + p[S].startDx + ", " +
+                "J: " + p[J].startDx + ", " +
+                "L: " + p[L].startDx + ", " +
+                "T: " + p[T].startDx + ", " +
+                "O: " + p[O].startDx;
     }
 
     private String delta(int[] dx, int[] dy) {

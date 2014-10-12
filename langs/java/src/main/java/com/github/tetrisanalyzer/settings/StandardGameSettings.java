@@ -37,7 +37,7 @@ public class StandardGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public int[] startPieceDx() {
+    public int[] pieceStartDx() {
         return new int[] { 0, 0, 1, 1, 1, 1, 1, 1, 0 };
     }
 

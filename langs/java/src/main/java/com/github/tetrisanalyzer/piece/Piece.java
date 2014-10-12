@@ -34,7 +34,7 @@ public abstract class Piece {
     }
 
     public Piece(PieceSettings settings) {
-        startDx = settings.startPieceDx()[number()];
+        startDx = settings.pieceStartDx()[number()];
         dx = settings.pieceDx()[number()];
         dy = settings.pieceDy()[number()];
     }
