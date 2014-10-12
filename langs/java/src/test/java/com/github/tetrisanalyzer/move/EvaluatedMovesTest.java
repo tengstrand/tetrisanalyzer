@@ -7,7 +7,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
     Board board = new Board();
-    Piece piece = new PieceS(new DefaultGameSettings());
+    Piece piece = new PieceS(new TetrisAnalyzerGameSettings());
 
     @Test
     public void bestMove() {
@@ -28,7 +28,7 @@ public class EvaluatedMovesTest {
     }
 
     private EvaluatedMoves getEvaluatedMoves() {
-        GameSettings settings = new DefaultGameSettings();
+        GameSettings settings = new TetrisAnalyzerGameSettings();
         PieceMove startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).getStartMove();
         List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();

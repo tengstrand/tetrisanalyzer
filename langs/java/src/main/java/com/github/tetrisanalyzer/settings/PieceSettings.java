@@ -6,7 +6,6 @@ public interface PieceSettings {
     RotationDirection rotationDirection();
     int pieceStartX();
     int[] startPieceDx();
-    int[] startPieceDy();
     int[][] pieceDx();
     int[][] pieceDy();
 }

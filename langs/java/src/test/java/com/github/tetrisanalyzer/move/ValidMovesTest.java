@@ -5,7 +5,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class ValidMovesTest {
 
     @Test
     public void pieceMoves() {
-        GameSettings settings = new DefaultGameSettings(5, 4, 1);
+        GameSettings settings = new TetrisAnalyzerGameSettings(5, 4, 1);
         Board board = new Board(settings.boardWidth(), settings.boardHeight());
         ValidMoves validMoves = new ValidMoves(board);
         PieceMove startPiece = getStartPiece(board, settings);

@@ -1,6 +1,6 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +9,7 @@ public class DefaultPieceGeneratorTest {
 
     @Test
     public void nextPiece() {
-        PieceGenerator pieceGenerator = new DefaultPieceGenerator(5, new DefaultGameSettings());
+        PieceGenerator pieceGenerator = new DefaultPieceGenerator(5, new TetrisAnalyzerGameSettings());
 
         String result = "";
 

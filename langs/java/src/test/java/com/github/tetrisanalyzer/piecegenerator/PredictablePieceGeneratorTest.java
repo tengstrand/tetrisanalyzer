@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.piece.PieceI;
 import com.github.tetrisanalyzer.piece.PieceO;
 import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piece.PieceZ;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void nextPieceNumber() {
-        PieceSettings settings = new DefaultGameSettings();
+        PieceSettings settings = new TetrisAnalyzerGameSettings();
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceS(settings), new PieceZ(settings), new PieceI(settings));
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber(),
@@ -28,7 +28,7 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void runOutOfPieces() {
-        PieceSettings settings = new DefaultGameSettings();
+        PieceSettings settings = new TetrisAnalyzerGameSettings();
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceI(settings));
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
             pieceGenerator.nextPieceNumber(),

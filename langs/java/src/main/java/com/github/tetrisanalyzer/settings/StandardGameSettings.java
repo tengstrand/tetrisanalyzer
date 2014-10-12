@@ -9,14 +9,18 @@ import static com.github.tetrisanalyzer.piece.Piece.O;
  * Settings introduced by Colin Fahey:
  *   http://colinfahey.com/tetris/tetris.html
  */
-public class StandardGameSettings extends DefaultGameSettings {
+public class StandardGameSettings extends AbstractGameSettings {
 
     public StandardGameSettings() {
-        this(10, 20, 3);
+        super();
     }
 
     public StandardGameSettings(boolean sliding) {
         super(sliding);
+    }
+
+    public StandardGameSettings(int boardWidth, int boardHeight) {
+        this(boardWidth, boardHeight, StartPieceCalculator.startX(boardWidth, 3), false);
     }
 
     public StandardGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
@@ -28,13 +32,13 @@ public class StandardGameSettings extends DefaultGameSettings {
     }
 
     @Override
-    public int[] startPieceDx() {
-        return new int[] { 0, 0, 1, 1, 1, 1, 1, 1, 0 };
+    public String name() {
+        return "Standard Tetris (Colin Fahey)";
     }
 
     @Override
-    public int[] startPieceDy() {
-        return new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int[] startPieceDx() {
+        return new int[] { 0, 0, 1, 1, 1, 1, 1, 1, 0 };
     }
 
     @Override

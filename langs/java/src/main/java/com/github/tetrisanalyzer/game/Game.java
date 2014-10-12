@@ -35,13 +35,20 @@ public class Game {
     }
 
     /**
-     * Plays the specified number of pieces.
+     * Play infinite number of pieces.
+     */
+    public void play() {
+        play(0);
+    }
+
+    /**
+     * Play specified number of pieces.
      */
     public void play(long maxMoves) {
         long moves = 0;
         PieceMove bestMove = evaluateBestMove();
 
-        while (moves < maxMoves && bestMove != null) {
+        while ((maxMoves == 0 || moves < maxMoves) && bestMove != null) {
             moves++;
             clearedLines += bestMove.setPiece();
             bestMove = evaluateBestMove();

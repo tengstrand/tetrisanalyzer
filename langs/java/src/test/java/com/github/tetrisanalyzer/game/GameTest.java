@@ -10,7 +10,7 @@ import com.github.tetrisanalyzer.piece.PieceT;
 import com.github.tetrisanalyzer.piece.PieceZ;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         Board board = new Board(10,15);
-        GameSettings settings = new DefaultGameSettings(true);
+        GameSettings settings = new TetrisAnalyzerGameSettings(true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceO(settings), new PieceL(settings), new PieceI(settings), new PieceZ(settings), new PieceT(settings));
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);

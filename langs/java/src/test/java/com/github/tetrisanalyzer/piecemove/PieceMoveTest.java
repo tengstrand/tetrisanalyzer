@@ -5,7 +5,7 @@ import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceI;
 import com.github.tetrisanalyzer.piece.PieceS;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PieceMoveTest {
-    PieceSettings settings = new DefaultGameSettings();
+    PieceSettings settings = new TetrisAnalyzerGameSettings();
 
     @Test
     public void setPiece() {

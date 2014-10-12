@@ -35,13 +35,11 @@ public abstract class Piece {
 
     public Piece(PieceSettings settings) {
         startDx = settings.startPieceDx()[number()];
-        startDy = settings.startPieceDy()[number()];
         dx = settings.pieceDx()[number()];
         dy = settings.pieceDy()[number()];
     }
 
     public final int startDx;
-    public final int startDy;
     public final int[] dx;
     public final int[] dy;
 

@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.PieceS;
-import com.github.tetrisanalyzer.settings.DefaultGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class VisitedPieceMovesTest {
     @Before
     public void setUp() {
         board = new Board(6,6);
-        piece = new PieceS(new DefaultGameSettings());
+        piece = new PieceS(new TetrisAnalyzerGameSettings());
     }
 
     @Test

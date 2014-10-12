@@ -42,10 +42,10 @@ public class ValidMoves {
      * every possible move needs to be checked (and returned by this method).
      */
     public List<PieceMove> getPieceMoves(PieceMove pieceMove) {
-        if (isUnvisited(pieceMove.move)) {
+        if (isUnvisited(pieceMove.move) && pieceMove.isFree()) {
             markAsVisited(pieceMove.move);
 
-            for (PieceMove move: pieceMove.getFreeAsideAndRotateMoves()) {
+            for (PieceMove move: pieceMove.asideAndRotate) {
                 getPieceMoves(move);
             }
             if (pieceMove.canMoveDown()) {

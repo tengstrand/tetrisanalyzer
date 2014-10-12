@@ -20,7 +20,7 @@ public class PieceMove {
     public final Move move;
 
     public PieceMove down;
-    private Set<PieceMove> asideAndRotate = new HashSet<PieceMove>();
+    public Set<PieceMove> asideAndRotate = new HashSet<PieceMove>();
 
     private int[] boardLineIndices;
     private int[] orLines;
@@ -107,17 +107,6 @@ public class PieceMove {
      */
     public boolean canMoveDown() {
         return down != null && down.isFree();
-    }
-
-    public Set<PieceMove> getFreeAsideAndRotateMoves() {
-        Set<PieceMove> freeMoves = new HashSet<PieceMove>();
-
-        for (PieceMove pieceMove : asideAndRotate) {
-            if (pieceMove.isFree()) {
-                freeMoves.add(pieceMove);
-            }
-        }
-        return freeMoves;
     }
 
     @Override
