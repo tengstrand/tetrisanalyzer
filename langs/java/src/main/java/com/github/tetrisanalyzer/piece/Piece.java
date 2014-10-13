@@ -3,31 +3,31 @@ package com.github.tetrisanalyzer.piece;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
 /**
- * Represents one of the pieces: I, Z, S, J, L, T or O.
+ * Represents one of the pieces: O, I, S, Z, L, J, T
  */
 public abstract class Piece {
     private static final int[] ROTATION_MODULUS = { 0, 1, 0, 3 };
 
     public static final int NUMBER_OF_PIECE_TYPES = 7;
 
-    public static final int I = 1;
-    public static final int Z = 2;
+    public static final int O = 1;
+    public static final int I = 2;
     public static final int S = 3;
-    public static final int J = 4;
+    public static final int Z = 4;
     public static final int L = 5;
-    public static final int T = 6;
-    public static final int O = 7;
+    public static final int J = 6;
+    public static final int T = 7;
 
     public static Piece[] pieces(PieceSettings settings) {
         Piece[] pieces = new Piece[] {
                 new PieceEmpty(settings),
-                new PieceI(settings),
-                new PieceZ(settings),
-                new PieceS(settings),
-                new PieceJ(settings),
-                new PieceL(settings),
-                new PieceT(settings),
                 new PieceO(settings),
+                new PieceI(settings),
+                new PieceS(settings),
+                new PieceZ(settings),
+                new PieceL(settings),
+                new PieceJ(settings),
+                new PieceT(settings),
                 new PieceAny(settings)
         };
         return pieces;

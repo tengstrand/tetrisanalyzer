@@ -19,4 +19,10 @@ public class JavaPieceGenerator extends PieceGenerator {
     public int nextPieceNumber() {
         return random.nextInt(Piece.NUMBER_OF_PIECE_TYPES) + 1;
     }
+
+    @Override
+    public String exportFormat() {
+        // TODO: Implement!
+        return null;
+    }
 }

@@ -15,50 +15,63 @@ import java.util.List;
  * Plays a game of Tetris using specified board, board evaluator and settings.
  */
 public class Game {
-    private int clearedLines = 0;
+    int dots;
+    public int rows;
     private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
 
     public Board board;
+    private Board startBoard;
     private BoardEvaluator boardEvaluator;
     private PieceGenerator pieceGenerator;
+    private GameSettings settings;
 
     public Game(Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
         this.board = board;
+        this.startBoard = new Board(board);
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
+        this.settings = settings;
 
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }
 
-    public int getClearedLines() {
-        return clearedLines;
-    }
-
     /**
-     * Play infinite number of pieces.
+     * Play specified number of pieces (movesLeft).
      */
-    public void play() {
-        play(0);
-    }
-
-    /**
-     * Play specified number of pieces.
-     */
-    public void play(long maxMoves) {
-        long moves = 0;
-        PieceMove bestMove = evaluateBestMove();
-
-        while ((maxMoves == 0 || moves < maxMoves) && bestMove != null) {
-            moves++;
-            clearedLines += bestMove.setPiece();
-            bestMove = evaluateBestMove();
+    public void play(GameResult result) {
+        while (result.movesLeft > 0) {
+            PieceMove bestMove = evaluateBestMove(result);
+            result.moves++;
+            result.movesLeft--;
+            int clearedRows = bestMove.setPiece();
+            rows += clearedRows;
+            dots += 4 - clearedRows * board.width;
+            result.dots += dots;
+            result.dotDist[dots]++;
         }
     }
 
-    private PieceMove evaluateBestMove() {
+    private PieceMove evaluateBestMove(GameResult result) {
+        PieceMove bestMove = evaluateNextPiece();
+
+        if (bestMove == null) {
+            dots = 0;
+            result.games++;
+            result.rows += rows;
+            rows = 0;
+            board = new Board(startBoard);
+            allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
+            bestMove = evaluateNextPiece();
+            if (bestMove == null) {
+                throw new IllegalStateException("The starting position is occupied!");
+            }
+        }
+        return bestMove;
+    }
+
+    private PieceMove evaluateNextPiece() {
         PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece());
         List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
         return new EvaluatedMoves(validMoves, boardEvaluator).bestMove();
     }
 }
-

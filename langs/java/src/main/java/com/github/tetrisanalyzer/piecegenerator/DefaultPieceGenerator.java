@@ -33,4 +33,14 @@ public class DefaultPieceGenerator extends PieceGenerator {
       long div = seed / 7;
       return (int)(seed - div * 7);
     }
+
+    @Override
+    public String exportFormat() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return exportFormat();
+    }
 }

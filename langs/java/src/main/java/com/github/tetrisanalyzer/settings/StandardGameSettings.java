@@ -38,32 +38,32 @@ public class StandardGameSettings extends AbstractGameSettings {
 
     @Override
     public int[] pieceStartDx() {
-        return new int[] { 0, 0, 1, 1, 1, 1, 1, 1, 0 };
+        return new int[] { 0, 1, 0, 1, 1, 1, 1, 1, 0 };
     }
 
     @Override
     public int[][] pieceDx() {
         int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[I] = new int[] { 2, -2 };
-        result[Z] = new int[] { 1, -1 };
-        result[S] = new int[] { 1, -1 };
-        result[J] = new int[] { 1, -1, 0, 0 };
-        result[L] = new int[] { 1, -1, 0, 0 };
-        result[T] = new int[] { 1, -1, 0, 0 };
         result[O] = new int[] { 0 };
+        result[I] = new int[] { 2, -2 };
+        result[S] = new int[] { 1, -1 };
+        result[Z] = new int[] { 1, -1 };
+        result[L] = new int[] { 1, -1, 0, 0 };
+        result[J] = new int[] { 1, -1, 0, 0 };
+        result[T] = new int[] { 1, -1, 0, 0 };
         return result;
     }
 
     @Override
     public int[][] pieceDy() {
         int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[I] = new int[] { -1, 1 };
-        result[Z] = new int[] { -1, 1 };
-        result[S] = new int[] { -1, 1 };
-        result[J] = new int[] { -1, 0, 0, 1 };
-        result[L] = new int[] { -1, 0, 0, 1 };
-        result[T] = new int[] { -1, 0, 0, 1 };
         result[O] = new int[] { 0 };
+        result[I] = new int[] { -1, 1 };
+        result[S] = new int[] { -1, 1 };
+        result[Z] = new int[] { -1, 1 };
+        result[L] = new int[] { -1, 0, 0, 1 };
+        result[J] = new int[] { -1, 0, 0, 1 };
+        result[T] = new int[] { -1, 0, 0, 1 };
         return result;
     }
 }

@@ -25,9 +25,10 @@ public class GameTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceO(settings), new PieceL(settings), new PieceI(settings), new PieceZ(settings), new PieceT(settings));
         Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
-        game.play(5);
+        GameResult result = new GameResult(board.width, board.height, 5);
+        game.play(result);
 
-        assertEquals(1, game.getClearedLines());
+        assertEquals(1, game.rows);
 
         assertEquals(Board.create(
                 "#----------#",

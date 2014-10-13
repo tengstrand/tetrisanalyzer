@@ -17,6 +17,6 @@ public class DefaultPieceGeneratorTest {
             result += pieceGenerator.nextPiece();
         }
 
-        assertEquals("OLIZTTSZTTZIJTJJOLJO", result);
+        assertEquals("TLOIJJSIJJIOZJZZTLZT", result);
     }
 }

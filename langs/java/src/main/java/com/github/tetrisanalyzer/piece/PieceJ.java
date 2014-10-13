@@ -8,7 +8,7 @@ public class PieceJ extends Piece {
         super(settings);
     }
 
-    @Override public byte number() { return 4; }
+    @Override public byte number() { return 6; }
     @Override public char character() { return 'J'; }
     @Override protected int[] widths() { return new int[] { 3, 2, 3, 2 }; }
     @Override protected int[] heights() { return new int[] { 2, 3, 2, 3 }; }

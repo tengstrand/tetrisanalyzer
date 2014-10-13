@@ -8,7 +8,7 @@ public class PieceO extends Piece {
         super(settings);
     }
 
-    @Override public byte number() { return 7; }
+    @Override public byte number() { return 1; }
     @Override public char character() { return 'O'; }
     @Override protected int[] widths() { return new int[] { 2 }; }
     @Override protected int[] heights() { return new int[] { 2 }; }
