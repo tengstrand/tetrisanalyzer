@@ -1,11 +1,10 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 public interface PieceSettings {
     RotationDirection rotationDirection();
     int pieceStartX();
-    int[] pieceStartDx();
-    int[][] pieceDx();
-    int[][] pieceDy();
+    Adjustments[] pieceAdjustments();
 }

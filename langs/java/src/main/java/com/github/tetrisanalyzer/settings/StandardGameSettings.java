@@ -1,9 +1,8 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
-import static com.github.tetrisanalyzer.piece.Piece.*;
-import static com.github.tetrisanalyzer.piece.Piece.O;
+import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
  * Settings introduced by Colin Fahey:
@@ -37,33 +36,17 @@ public class StandardGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public int[] pieceStartDx() {
-        return new int[] { 0, 1, 0, 1, 1, 1, 1, 1, 0 };
-    }
-
-    @Override
-    public int[][] pieceDx() {
-        int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[O] = new int[] { 0 };
-        result[I] = new int[] { 2, -2 };
-        result[S] = new int[] { 1, -1 };
-        result[Z] = new int[] { 1, -1 };
-        result[L] = new int[] { 1, -1, 0, 0 };
-        result[J] = new int[] { 1, -1, 0, 0 };
-        result[T] = new int[] { 1, -1, 0, 0 };
-        return result;
-    }
-
-    @Override
-    public int[][] pieceDy() {
-        int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[O] = new int[] { 0 };
-        result[I] = new int[] { -1, 1 };
-        result[S] = new int[] { -1, 1 };
-        result[Z] = new int[] { -1, 1 };
-        result[L] = new int[] { -1, 0, 0, 1 };
-        result[J] = new int[] { -1, 0, 0, 1 };
-        result[T] = new int[] { -1, 0, 0, 1 };
-        return result;
+    public Adjustments[] pieceAdjustments() {
+        return new Adjustments[] {
+                calculate("-", dxdy(0,0)),
+                calculate("O", dxdy(1,1)),
+                calculate("I", dxdy(0,1), dxdy(2,0)),
+                calculate("S", dxdy(1,1), dxdy(2,0)),
+                calculate("Z", dxdy(1,1), dxdy(2,0)),
+                calculate("L", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                calculate("J", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                calculate("T", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                calculate("x", dxdy(0,0))
+        };
     }
 }

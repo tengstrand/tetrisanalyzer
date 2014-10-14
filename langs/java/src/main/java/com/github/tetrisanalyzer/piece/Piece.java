@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.piece;
 
 import com.github.tetrisanalyzer.settings.PieceSettings;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 /**
  * Represents one of the pieces: O, I, S, Z, L, J, T
@@ -34,14 +35,10 @@ public abstract class Piece {
     }
 
     public Piece(PieceSettings settings) {
-        startDx = settings.pieceStartDx()[number()];
-        dx = settings.pieceDx()[number()];
-        dy = settings.pieceDy()[number()];
+        adjustments = settings.pieceAdjustments()[number()];
     }
 
-    public final int startDx;
-    public final int[] dx;
-    public final int[] dy;
+    public final Adjustments adjustments;
 
     public abstract byte number();
     public abstract char character();
@@ -49,8 +46,9 @@ public abstract class Piece {
     public int rotationModulus() { return ROTATION_MODULUS[rotationsEndIndex()]; }
     public int width(int rotation) { return widths()[rotation]; }
     public int height(int rotation) { return heights()[rotation]; }
-    public int dx(int rotation) { return dx[rotation]; };
-    public int dy(int rotation) { return dy[rotation]; };
+    public int startX() { return adjustments.startX; }
+    public int dx(int rotation) { return adjustments.dx.get(rotation); };
+    public int dy(int rotation) { return adjustments.dy.get(rotation); };
     public boolean isAdjusted(int rotation) { return dx(rotation) != 0 || dy(rotation) != 0; }
     public PieceShape getShape(int rotation) { return shapes()[rotation]; }
     protected abstract int[] widths();

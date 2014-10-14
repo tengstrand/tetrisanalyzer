@@ -12,6 +12,21 @@ import static junit.framework.Assert.assertEquals;
 public class AdjustmentCalculatorTest {
 
     /**
+     * ----
+     * -xx-
+     * -xx-
+     * ----
+     * (1,1) (2,0)
+     */
+    @Test
+    public void adjustO() {
+        AdjustmentDxDy adjustment = new AdjustmentDxDy(1, 1);
+        Adjustments result = AdjustmentCalculator.calculate("O", adjustment);
+
+        assertEquals(new Adjustments("O", 1, Arrays.asList(0), Arrays.asList(0), Arrays.asList(adjustment)), result);
+    }
+
+    /**
      * ----  ---x
      * -xx-  --xx
      * --xx  --x-

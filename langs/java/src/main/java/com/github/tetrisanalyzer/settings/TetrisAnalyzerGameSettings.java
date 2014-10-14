@@ -1,8 +1,8 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
-import static com.github.tetrisanalyzer.piece.Piece.*;
+import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
  * The default settings used by Tetris Analyzer.
@@ -34,33 +34,17 @@ public class TetrisAnalyzerGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public int[] pieceStartDx() {
-        return new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    }
-
-    @Override
-    public int[][] pieceDx() {
-        int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[O] = new int[] { 0 };
-        result[I] = new int[] { 0, 0 };
-        result[S] = new int[] { 0, 0 };
-        result[Z] = new int[] { 0, 0 };
-        result[L] = new int[] { 0, 0, 0, 0 };
-        result[J] = new int[] { 0, 0, 0, 0 };
-        result[T] = new int[] { 0, 0, 0, 0 };
-        return result;
-    }
-
-    @Override
-    public int[][] pieceDy() {
-        int[][] result = new int[Piece.NUMBER_OF_PIECE_TYPES + 2][];
-        result[O] = new int[] { 0 };
-        result[I] = new int[] { 0, 0 };
-        result[S] = new int[] { 0, 0 };
-        result[Z] = new int[] { 0, 0 };
-        result[L] = new int[] { 0, 0, 0, 0 };
-        result[J] = new int[] { 0, 0, 0, 0 };
-        result[T] = new int[] { 0, 0, 0, 0 };
-        return result;
+    public Adjustments[] pieceAdjustments() {
+        return new Adjustments[] {
+                calculate("-", dxdy(0,0)),
+                calculate("O", dxdy(0,0)),
+                calculate("I", dxdy(0,0), dxdy(0,0)),
+                calculate("S", dxdy(0,0), dxdy(0,0)),
+                calculate("Z", dxdy(0,0), dxdy(0,0)),
+                calculate("L", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
+                calculate("J", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
+                calculate("T", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
+                calculate("x", dxdy(0,0))
+        };
     }
 }

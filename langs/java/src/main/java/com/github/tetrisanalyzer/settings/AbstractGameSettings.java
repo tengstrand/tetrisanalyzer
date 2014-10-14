@@ -3,8 +3,7 @@ package com.github.tetrisanalyzer.settings;
 import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 import com.github.tetrisanalyzer.piece.Piece;
-
-import static com.github.tetrisanalyzer.piece.Piece.*;
+import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 
 public abstract class AbstractGameSettings implements GameSettings {
 
@@ -36,9 +35,9 @@ public abstract class AbstractGameSettings implements GameSettings {
     public String export() {
         Piece[] pieces = Piece.pieces(this);
 
-        delta2(I);
+        return "";
 
-        return "Game-settings {" +
+/*        return "Game-settings {" +
                 "\n  Name: " + name() +
                 "\n  Board: " + boardWidth + " x " + boardHeight +
                 "\n  Sliding: " + isSlidingEnabled() +
@@ -52,43 +51,7 @@ public abstract class AbstractGameSettings implements GameSettings {
                 "\n  Delta L: " + (delta(pieceDx()[L], pieceDy()[L], pieces)) +
                 "\n  Delta T: " + (delta(pieceDx()[T], pieceDy()[T], pieces)) +
                 "\n  Delta O: " + (delta(pieceDx()[O], pieceDy()[O], pieces));
-    }
-// p[I].startDx
-    private String positionDx() {
-        Piece[] p = Piece.pieces(this);
-        return "I: " + p[I].startDx + ", " +
-                "Z: " + p[Z].startDx + ", " +
-                "S: " + p[S].startDx + ", " +
-                "J: " + p[J].startDx + ", " +
-                "L: " + p[L].startDx + ", " +
-                "T: " + p[T].startDx + ", " +
-                "O: " + p[O].startDx;
-    }
-
-//    Delta I: [0 [2,-1] [-2,1]]
-
-    protected String delta2(int piece) {
-        Piece[] pieces = Piece.pieces(this);
-        int[] dxs = pieceDx()[piece];
-        int[] dys = pieceDy()[piece];
-
-        String result = "Delta " + pieces[piece].character() + ": [" ;
-
-        for (int i=0; i<dxs.length; i++) {
-
-        }
-        return "";
-    }
-
-    private String delta(int[] dx, int[] dy, Piece[] pieces) {
-        String result = "";
-        String separator = "";
-
-        for (int i=0; i<dx.length; i++) {
-            result += separator + "(" + dx[i] + "," + dy[i] + ")";
-            separator = " ";
-        }
-        return result;
+    */
     }
 
     public boolean isSlidingEnabled() {
@@ -112,6 +75,10 @@ public abstract class AbstractGameSettings implements GameSettings {
 
     public RotationDirection rotationDirection() {
         return new AnticlockwiseRotation();
+    }
+
+    public AdjustmentDxDy dxdy(int dx, int dy) {
+        return new AdjustmentDxDy(dx, dy);
     }
 
     @Override
