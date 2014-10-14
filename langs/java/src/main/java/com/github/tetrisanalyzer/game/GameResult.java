@@ -1,5 +1,7 @@
 package com.github.tetrisanalyzer.game;
 
+import static java.lang.String.format;
+
 public class GameResult {
     public int boardWidth;
     public int boardHeight;
@@ -22,14 +24,14 @@ public class GameResult {
     }
 
     public String export() {
-        String result = "Game-result {" +
+        String result = "Game result {" +
                 "\n  Board: [" + boardWidth + "," + boardHeight + "]" +
-                "\n  Moves: " + moves +
-                "\n  Moves-left: " + movesLeft +
-                "\n  Games: " + games +
-                "\n  Rows: " + rows +
-                "\n  Dots: " + dots +
-                "\n  Dots-distribution: [";
+                "\n  Moves: " + format("%,d", moves) +
+                "\n  Moves left: " + format("%,d", movesLeft) +
+                "\n  Games: " + format("%,d", games) +
+                "\n  Rows: " + format("%,d", rows) +
+                "\n  Dots: " + format("%,d", dots) +
+                "\n  Dots distribution: [";
 
         String separator = "";
         int dotstep = 2 - (boardWidth & 1);

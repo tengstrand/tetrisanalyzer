@@ -5,8 +5,9 @@ import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 
-public abstract class AbstractGameSettings implements GameSettings {
+import static com.github.tetrisanalyzer.piece.Piece.*;
 
+public abstract class AbstractGameSettings implements GameSettings {
     private final int boardWidth;
     private final int boardHeight;
     private final int pieceStartX;
@@ -17,29 +18,6 @@ public abstract class AbstractGameSettings implements GameSettings {
         this.boardHeight = boardHeight;
         this.pieceStartX = pieceStartX;
         this.sliding = sliding;
-    }
-
-    @Override
-    public String export() {
-        Piece[] pieces = Piece.pieces(this);
-
-        return "";
-
-/*        return "Game-settings {" +
-                "\n  Name: " + name() +
-                "\n  Board: " + boardWidth + " x " + boardHeight +
-                "\n  Sliding: " + isSlidingEnabled() +
-                "\n  Rotation: " + rotationDirection() +
-                "\n  Piece start position x: " + pieceStartX() +
-//                "\n  Piece start position dx: " + positionDx() +
-                "\n  Delta I: " + (delta(pieceDx()[I], pieceDy()[I], pieces)) +
-                "\n  Delta Z: " + (delta(pieceDx()[Z], pieceDy()[Z], pieces)) +
-                "\n  Delta S: " + (delta(pieceDx()[S], pieceDy()[S], pieces)) +
-                "\n  Delta J: " + (delta(pieceDx()[J], pieceDy()[J], pieces)) +
-                "\n  Delta L: " + (delta(pieceDx()[L], pieceDy()[L], pieces)) +
-                "\n  Delta T: " + (delta(pieceDx()[T], pieceDy()[T], pieces)) +
-                "\n  Delta O: " + (delta(pieceDx()[O], pieceDy()[O], pieces));
-    */
     }
 
     public boolean isSlidingEnabled() {
@@ -67,6 +45,27 @@ public abstract class AbstractGameSettings implements GameSettings {
 
     public AdjustmentDxDy dxdy(int dx, int dy) {
         return new AdjustmentDxDy(dx, dy);
+    }
+
+    @Override
+    public String export() {
+        return "Game settings {" +
+                "\n  Name: " + name() +
+                "\n  Sliding: " + sliding +
+                "\n  Rotation: " + rotationDirection() +
+                "\n  Piece start x: " + pieceStartX +
+                "\n  " + adjustment(O) +
+                "\n  " + adjustment(I) +
+                "\n  " + adjustment(S) +
+                "\n  " + adjustment(Z) +
+                "\n  " + adjustment(L) +
+                "\n  " + adjustment(J) +
+                "\n  " + adjustment(T) +
+                "\n}";
+    }
+
+    private String adjustment(int piece) {
+        return Piece.pieces(this)[piece].adjustments.export();
     }
 
     @Override
