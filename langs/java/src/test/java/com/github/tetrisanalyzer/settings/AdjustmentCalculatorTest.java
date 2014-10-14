@@ -16,7 +16,7 @@ public class AdjustmentCalculatorTest {
      * -xx-
      * -xx-
      * ----
-     * (1,1) (2,0)
+     * (1,1)
      */
     @Test
     public void adjustO() {
@@ -27,19 +27,20 @@ public class AdjustmentCalculatorTest {
     }
 
     /**
-     * ----  ---x
-     * -xx-  --xx
-     * --xx  --x-
      * ----  ----
-     * (1,1) (2,0)
+     * -xx-  ----
+     * --xx  ---x
+     * ----  --xx
+     * ----  --x-
+     * (1,1) (2,2)
      */
     @Test
     public void adjustZ() {
         AdjustmentDxDy adjustment1 = new AdjustmentDxDy(1, 1);
-        AdjustmentDxDy adjustment2 = new AdjustmentDxDy(2, 0);
+        AdjustmentDxDy adjustment2 = new AdjustmentDxDy(2, 2);
         Adjustments result = AdjustmentCalculator.calculate("Z", adjustment1, adjustment2);
 
-        assertEquals(new Adjustments("Z", 1, Arrays.asList(1, -1), Arrays.asList(-1, 1), Arrays.asList(adjustment1, adjustment2)), result);
+        assertEquals(new Adjustments("Z", 1, Arrays.asList(1, -1), Arrays.asList(1, -1), Arrays.asList(adjustment1, adjustment2)), result);
     }
 
     /**
