@@ -12,18 +12,6 @@ public abstract class AbstractGameSettings implements GameSettings {
     private final int pieceStartX;
     private final boolean sliding;
 
-    public AbstractGameSettings() {
-        this(10, 20, 4);
-    }
-
-    public AbstractGameSettings(boolean sliding) {
-        this(10, 20, 4, sliding);
-    }
-
-    public AbstractGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
-        this(boardWidth, boardHeight, pieceStartX, false);
-    }
-
     public AbstractGameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean sliding) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;

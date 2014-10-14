@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
+import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
@@ -10,24 +11,12 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
  */
 public class StandardGameSettings extends AbstractGameSettings {
 
-    public StandardGameSettings() {
-        super();
-    }
-
-    public StandardGameSettings(boolean sliding) {
-        super(sliding);
-    }
-
     public StandardGameSettings(int boardWidth, int boardHeight) {
-        this(boardWidth, boardHeight, StartPieceCalculator.startX(boardWidth, 3), false);
+        this(boardWidth, boardHeight, false);
     }
 
-    public StandardGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
-        super(boardWidth, boardHeight, pieceStartX);
-    }
-
-    public StandardGameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean sliding) {
-        super(boardWidth, boardHeight, pieceStartX, sliding);
+    public StandardGameSettings(int boardWidth, int boardHeight, boolean sliding) {
+        super(boardWidth, boardHeight, startX(boardWidth, 3), sliding);
     }
 
     @Override
@@ -45,7 +34,7 @@ public class StandardGameSettings extends AbstractGameSettings {
                 calculate("Z", dxdy(1,1), dxdy(2,0)),
                 calculate("L", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                 calculate("J", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
-                calculate("T", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                calculate("T", dxdy(1, 1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                 calculate("x", dxdy(0,0))
         };
     }

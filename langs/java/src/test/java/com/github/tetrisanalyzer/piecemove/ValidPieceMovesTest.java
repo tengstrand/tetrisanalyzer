@@ -17,7 +17,7 @@ public class ValidPieceMovesTest {
 
     @Test
     public void getStartMove() {
-        GameSettings settings = new TetrisAnalyzerGameSettings(5, 5, 1);
+        GameSettings settings = new TetrisAnalyzerGameSettings(6, 5);
         Board board = new Board(settings.boardWidth(), settings.boardHeight());
         Piece piece = new PieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);

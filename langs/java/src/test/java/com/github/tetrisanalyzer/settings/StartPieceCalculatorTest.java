@@ -17,7 +17,7 @@ public class StartPieceCalculatorTest {
     public void calc() {
         assertEquals(7, StartPieceCalculator.startX(15, 4));
         assertEquals(6, StartPieceCalculator.startX(14, 4));
-        assertEquals(5, StartPieceCalculator.startX(13, 4));
+        assertEquals(6, StartPieceCalculator.startX(13, 4));
         assertEquals(5, StartPieceCalculator.startX(12, 4));
         assertEquals(4, StartPieceCalculator.startX(11, 4));
         assertEquals(4, StartPieceCalculator.startX(10, 4));

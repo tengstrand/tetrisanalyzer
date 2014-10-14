@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
+import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
@@ -10,22 +11,19 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
 public class TetrisAnalyzerGameSettings extends AbstractGameSettings {
 
     public TetrisAnalyzerGameSettings() {
+        this(10, 20);
     }
 
     public TetrisAnalyzerGameSettings(boolean sliding) {
-        super(sliding);
+        this(10, 20, sliding);
     }
 
     public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight) {
-        this(boardWidth, boardHeight, StartPieceCalculator.startX(boardWidth, 4), false);
+        this(boardWidth, boardHeight, false);
     }
 
-    public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight, int pieceStartX) {
-        super(boardWidth, boardHeight, pieceStartX);
-    }
-
-    public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean sliding) {
-        super(boardWidth, boardHeight, pieceStartX, sliding);
+    public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight, boolean sliding) {
+        super(boardWidth, boardHeight, startX(boardWidth, 4), sliding);
     }
 
     @Override

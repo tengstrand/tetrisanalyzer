@@ -19,10 +19,10 @@ public class ValidMovesTest {
 
     @Test
     public void pieceMoves() {
-        GameSettings settings = new TetrisAnalyzerGameSettings(5, 4, 1);
+        GameSettings settings = new TetrisAnalyzerGameSettings(5, 4);
         Board board = new Board(settings.boardWidth(), settings.boardHeight());
         ValidMoves validMoves = new ValidMoves(board);
-        PieceMove startPiece = getStartPiece(board, settings);
+        PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<Move>();
 
         for (PieceMove pieceMove : validMoves.getPieceMoves(startPiece)) {
@@ -39,7 +39,7 @@ public class ValidMovesTest {
         assertTrue(moves.contains(new Move(1,3, 1)));
     }
 
-    private PieceMove getStartPiece(Board board, GameSettings settings) {
+    private PieceMove getStartPieceS(Board board, GameSettings settings) {
         Piece piece = new PieceS(settings);
         AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
 
