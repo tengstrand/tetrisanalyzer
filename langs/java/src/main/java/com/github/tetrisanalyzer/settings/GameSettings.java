@@ -5,7 +5,7 @@ package com.github.tetrisanalyzer.settings;
  */
 public interface GameSettings extends PieceSettings {
     String name();
-    String info();
+    String export();
     boolean isSlidingEnabled();
     int boardWidth();
     int boardHeight();

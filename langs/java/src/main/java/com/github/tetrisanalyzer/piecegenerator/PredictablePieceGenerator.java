@@ -26,7 +26,7 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     @Override
-    public String exportFormat() {
+    public String export() {
         return null;
     }
 }

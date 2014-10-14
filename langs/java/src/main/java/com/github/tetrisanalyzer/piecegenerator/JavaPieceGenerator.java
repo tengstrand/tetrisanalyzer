@@ -21,7 +21,7 @@ public class JavaPieceGenerator extends PieceGenerator {
     }
 
     @Override
-    public String exportFormat() {
+    public String export() {
         // TODO: Implement!
         return null;
     }

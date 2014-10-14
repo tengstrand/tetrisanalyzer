@@ -35,12 +35,12 @@ public class DefaultPieceGenerator extends PieceGenerator {
     }
 
     @Override
-    public String exportFormat() {
+    public String export() {
         return null;
     }
 
     @Override
     public String toString() {
-        return exportFormat();
+        return export();
     }
 }

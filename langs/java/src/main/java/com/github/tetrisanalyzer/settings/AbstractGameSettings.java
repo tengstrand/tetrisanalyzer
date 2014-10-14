@@ -33,22 +33,27 @@ public abstract class AbstractGameSettings implements GameSettings {
     }
 
     @Override
-    public String info() {
-        return name() + "\n" +
-                "Board: " + boardWidth + " x " + boardHeight + "\n" +
-                "Sliding: " + isSlidingEnabled() +  "\n" +
-                "Rotation: " + rotationDirection() + "\n" +
-                "Piece start position x: " + pieceStartX() + "\n" +
-                "Piece start position dx: " + positionDx() + "\n" +
-                "Delta I: " + (delta(pieceDx()[I], pieceDy()[I])) + "\n" +
-                "Delta Z: " + (delta(pieceDx()[Z], pieceDy()[Z])) + "\n" +
-                "Delta S: " + (delta(pieceDx()[S], pieceDy()[S])) + "\n" +
-                "Delta J: " + (delta(pieceDx()[J], pieceDy()[J])) + "\n" +
-                "Delta L: " + (delta(pieceDx()[L], pieceDy()[L])) + "\n" +
-                "Delta T: " + (delta(pieceDx()[T], pieceDy()[T])) + "\n" +
-                "Delta O: " + (delta(pieceDx()[O], pieceDy()[O])) + "\n" ;
-    }
+    public String export() {
+        Piece[] pieces = Piece.pieces(this);
 
+        delta2(I);
+
+        return "Game-settings {" +
+                "\n  Name: " + name() +
+                "\n  Board: " + boardWidth + " x " + boardHeight +
+                "\n  Sliding: " + isSlidingEnabled() +
+                "\n  Rotation: " + rotationDirection() +
+                "\n  Piece start position x: " + pieceStartX() +
+//                "\n  Piece start position dx: " + positionDx() +
+                "\n  Delta I: " + (delta(pieceDx()[I], pieceDy()[I], pieces)) +
+                "\n  Delta Z: " + (delta(pieceDx()[Z], pieceDy()[Z], pieces)) +
+                "\n  Delta S: " + (delta(pieceDx()[S], pieceDy()[S], pieces)) +
+                "\n  Delta J: " + (delta(pieceDx()[J], pieceDy()[J], pieces)) +
+                "\n  Delta L: " + (delta(pieceDx()[L], pieceDy()[L], pieces)) +
+                "\n  Delta T: " + (delta(pieceDx()[T], pieceDy()[T], pieces)) +
+                "\n  Delta O: " + (delta(pieceDx()[O], pieceDy()[O], pieces));
+    }
+// p[I].startDx
     private String positionDx() {
         Piece[] p = Piece.pieces(this);
         return "I: " + p[I].startDx + ", " +
@@ -60,7 +65,22 @@ public abstract class AbstractGameSettings implements GameSettings {
                 "O: " + p[O].startDx;
     }
 
-    private String delta(int[] dx, int[] dy) {
+//    Delta I: [0 [2,-1] [-2,1]]
+
+    protected String delta2(int piece) {
+        Piece[] pieces = Piece.pieces(this);
+        int[] dxs = pieceDx()[piece];
+        int[] dys = pieceDy()[piece];
+
+        String result = "Delta " + pieces[piece].character() + ": [" ;
+
+        for (int i=0; i<dxs.length; i++) {
+
+        }
+        return "";
+    }
+
+    private String delta(int[] dx, int[] dy, Piece[] pieces) {
         String result = "";
         String separator = "";
 
@@ -92,5 +112,10 @@ public abstract class AbstractGameSettings implements GameSettings {
 
     public RotationDirection rotationDirection() {
         return new AnticlockwiseRotation();
+    }
+
+    @Override
+    public String toString() {
+        return export();
     }
 }

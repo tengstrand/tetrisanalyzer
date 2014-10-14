@@ -21,7 +21,7 @@ public class GameResult {
         return ((double) dots) / moves;
     }
 
-    public String exportFormat() {
+    public String export() {
         String result = "Game-result {" +
                 "\n  Board: [" + boardWidth + "," + boardHeight + "]" +
                 "\n  Moves: " + moves +
@@ -43,6 +43,6 @@ public class GameResult {
 
     @Override
     public String toString() {
-        return exportFormat();
+        return export();
     }
 }

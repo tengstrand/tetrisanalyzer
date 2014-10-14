@@ -7,7 +7,7 @@ public abstract class PieceGenerator {
     private Piece[] pieces;
 
     public abstract int nextPieceNumber();
-    public abstract String exportFormat();
+    public abstract String export();
 
     protected PieceGenerator(PieceSettings settings) {
          pieces = Piece.pieces(settings);
