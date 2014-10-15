@@ -32,7 +32,7 @@ public class PieceMoveTest {
     }
 
     @Test
-    public void setPiece_clearTwoLines() {
+    public void setPiece_clearTwoRows() {
         Board board = Board.create(
                 "#----------#",
                 "#----x-----#",

@@ -81,7 +81,7 @@ public class BoardTest {
     }
 
     @Test
-    public void clearLines() {
+    public void clearRows() {
         Board board = Board.create(
                 "#----------#",
                 "#----x-----#",

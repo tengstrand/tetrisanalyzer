@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.settings;
 
+import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
@@ -9,6 +10,10 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
  * The default settings used by Tetris Analyzer.
  */
 public class TetrisAnalyzerGameSettings extends AbstractGameSettings {
+
+    public TetrisAnalyzerGameSettings(Board board) {
+        this(board.width, board.height);
+    }
 
     public TetrisAnalyzerGameSettings() {
         this(10, 20);

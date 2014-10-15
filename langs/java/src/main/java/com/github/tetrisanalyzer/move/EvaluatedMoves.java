@@ -56,10 +56,10 @@ public class EvaluatedMoves {
     }
 
     private double evaluate(PieceMove pieceMove, Board boardCopy) {
-        int clearedLines = pieceMove.setPiece();
+        int clearedRows = pieceMove.setPiece();
         double equity = boardEvaluator.evaluate(pieceMove.board);
 
-        if (clearedLines == 0) {
+        if (clearedRows == 0) {
             pieceMove.clearPiece();
         } else {
             pieceMove.board.restore(boardCopy);

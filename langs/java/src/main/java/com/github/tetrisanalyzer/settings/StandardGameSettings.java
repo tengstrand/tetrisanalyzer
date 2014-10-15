@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.settings;
 
+import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
@@ -10,6 +11,10 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
  *   http://colinfahey.com/tetris/tetris.html
  */
 public class StandardGameSettings extends AbstractGameSettings {
+
+    public StandardGameSettings(Board board) {
+        this(board.width, board.height);
+    }
 
     public StandardGameSettings(int boardWidth, int boardHeight) {
         this(boardWidth, boardHeight, false);

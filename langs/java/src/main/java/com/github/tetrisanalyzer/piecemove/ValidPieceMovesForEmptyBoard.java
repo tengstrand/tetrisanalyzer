@@ -52,6 +52,10 @@ public class ValidPieceMovesForEmptyBoard {
         Movement startMovement = new Movement(new PieceMove(board, piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(board, piece, startMove.up()));
 
+        if (startMove.x + piece.width(startMove.rotation) > board.width) {
+            throw new IllegalStateException("Illegal start x position, probably because board.width and settings.boardWidth differ");
+        }
+
         calculateValidMoves(fromMovement, startMovement, true);
 
         return startMovement.pieceMove;

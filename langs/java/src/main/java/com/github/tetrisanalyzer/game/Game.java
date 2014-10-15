@@ -31,6 +31,7 @@ public class Game {
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.settings = settings;
+        this.dots = board.numberOfDots();
 
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }
@@ -55,11 +56,11 @@ public class Game {
         PieceMove bestMove = evaluateNextPiece();
 
         if (bestMove == null) {
-            dots = 0;
             result.games++;
             result.rows += rows;
             rows = 0;
             board = new Board(startBoard);
+            dots = board.numberOfDots();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
             bestMove = evaluateNextPiece();
             if (bestMove == null) {

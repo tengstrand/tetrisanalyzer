@@ -242,7 +242,7 @@ public class Board {
                 "  Size: [" + width + "," + height + "]";
 
         if (!isBoardEmpty()) {
-            result += "\n";
+            result += "\n\n";
 
             for (int y=0; y<height; y++) {
                 result += "  " + boardRowAsString(rows[y]) + "\n";
@@ -268,5 +268,18 @@ public class Board {
             board += boardRowAsString(rows[y]) + "\n";
         }
         return board + getBottomTextRow(width);
+    }
+
+    public int numberOfDots() {
+        int cnt = 0;
+
+        for (int y=0; y<height; y++) {
+            for (int x=0; x<width; x++) {
+                if (!isFree(x, y)) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
     }
 }
