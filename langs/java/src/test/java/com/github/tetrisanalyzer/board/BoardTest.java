@@ -91,7 +91,7 @@ public class BoardTest {
                 "#xxxxxxxxxx#",
                 "############");
 
-        assertEquals(3, board.clearLines(2, 4));
+        assertEquals(3, board.clearRows(2, 4));
 
         assertEquals(Board.create(
                 "#----------#",

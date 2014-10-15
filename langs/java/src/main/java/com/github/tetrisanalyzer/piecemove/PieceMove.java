@@ -77,7 +77,7 @@ public class PieceMove {
         for (int y=0; y<pieceHeight; y++) {
             board.setBits(boardLineIndices[y], orLines[y]);
         }
-        return board.clearLines(move.y, pieceHeight);
+        return board.clearRows(move.y, pieceHeight);
     }
 
     /**

@@ -24,14 +24,14 @@ public class GameResult {
     }
 
     public String export() {
-        String result = "Game result {" +
+        String result = "GameResult {" +
                 "\n  Board: [" + boardWidth + "," + boardHeight + "]" +
                 "\n  Moves: " + format("%,d", moves) +
                 "\n  Moves left: " + format("%,d", movesLeft) +
                 "\n  Games: " + format("%,d", games) +
                 "\n  Rows: " + format("%,d", rows) +
                 "\n  Dots: " + format("%,d", dots) +
-                "\n  Dots distribution: [";
+                "\n  Distribution: [";
 
         String separator = "";
         int dotstep = 2 - (boardWidth & 1);
