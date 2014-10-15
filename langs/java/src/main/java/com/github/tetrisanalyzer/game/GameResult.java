@@ -24,7 +24,7 @@ public class GameResult {
     }
 
     public String export() {
-        String result = "GameResult {" +
+        String result = "Game result {" +
                 "\n  Board: [" + boardWidth + "," + boardHeight + "]" +
                 "\n  Moves: " + format("%,d", moves) +
                 "\n  Moves left: " + format("%,d", movesLeft) +

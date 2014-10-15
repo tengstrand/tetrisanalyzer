@@ -126,4 +126,35 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
         }
         return equity;
     }
+
+    @Override
+    public String export() {
+        return "AI {" +
+                "\n  Author: Joakim Tengstrand" +
+                "\n  URL: http://hem.bredband.net/joakimtengstrand" +
+                "\n  Class: " + this.getClass().getCanonicalName() +
+                "\n  Supported board size: [4,4]-[10,20]" +
+                "\n  Height factor: " + asList(heightFactor) +
+                "\n  Hollow factory: " + asList(blocksPerRowHollowFactor) +
+                "\n  Width factor: " + asList(areaWidthFactor) +
+                "\n  Height factor: " + asList(areaHeightFactor) +
+                "\n  Height factor2: " + asList(areaHeightFactorEqualWallHeight) +
+                "\n}";
+    }
+
+    private String asList(double[] array) {
+        String result = "[";
+        String separator = "";
+
+        for (double value : array) {
+            result += separator + value;
+            separator = ", ";
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return export();
+    }
 }

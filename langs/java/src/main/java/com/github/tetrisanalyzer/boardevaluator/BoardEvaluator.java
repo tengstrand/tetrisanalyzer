@@ -8,4 +8,6 @@ public interface BoardEvaluator {
      * Evaluates the board, less is better.
      */
     double evaluate(Board board);
+
+    String export();
 }

@@ -36,7 +36,7 @@ public class DefaultPieceGenerator extends PieceGenerator {
 
     @Override
     public String export() {
-        return "PieceGenerator {" +
+        return "Piece generator {" +
                 "\n  Description: Linear congruential generator, 1664525 : 1013904223" +
                 "\n  Class: " + this.getClass().getCanonicalName() +
                 "\n  Seed: " + seed +
