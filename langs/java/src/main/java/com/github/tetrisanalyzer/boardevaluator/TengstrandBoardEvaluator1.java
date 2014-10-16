@@ -136,10 +136,10 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
                 "\n  Min board size: [4,4]" +
                 "\n  Max board size: [10,20]" +
                 "\n  Height factor: " + asList(heightFactor) +
-                "\n  Hollow factory: " + asList(blocksPerRowHollowFactor) +
-                "\n  Width factor: " + asList(areaWidthFactor) +
-                "\n  Height factor: " + asList(areaHeightFactor) +
-                "\n  Height factor2: " + asList(areaHeightFactorEqualWallHeight) +
+                "\n  Hollow factor: " + asList(blocksPerRowHollowFactor) +
+                "\n  Area width factor: " + asList(areaWidthFactor) +
+                "\n  Area height factor: " + asList(areaHeightFactor) +
+                "\n  Area height factor2: " + asList(areaHeightFactorEqualWallHeight) +
                 "\n}";
     }
 
@@ -151,7 +151,7 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
             result += separator + value;
             separator = ", ";
         }
-        return result;
+        return result + "]";
     }
 
     @Override

@@ -31,7 +31,7 @@ public class GameResult {
                 "\n  Games: " + format("%,d", games) +
                 "\n  Rows: " + format("%,d", rows) +
                 "\n  Dots: " + format("%,d", dots) +
-                "\n  Distribution: [";
+                "\n  Dots distribution: [";
 
         String separator = "";
         int dotstep = 2 - (boardWidth & 1);
