@@ -129,11 +129,12 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
 
     @Override
     public String export() {
-        return "AI {" +
+        return "Board evaluator {" +
                 "\n  Author: Joakim Tengstrand" +
                 "\n  URL: http://hem.bredband.net/joakimtengstrand" +
                 "\n  Class: " + this.getClass().getCanonicalName() +
-                "\n  Supported board size: [4,4]-[10,20]" +
+                "\n  Min board size: [4,4]" +
+                "\n  Max board size: [10,20]" +
                 "\n  Height factor: " + asList(heightFactor) +
                 "\n  Hollow factory: " + asList(blocksPerRowHollowFactor) +
                 "\n  Width factor: " + asList(areaWidthFactor) +
