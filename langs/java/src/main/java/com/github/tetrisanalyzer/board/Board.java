@@ -32,12 +32,8 @@ public class Board {
         return newRows;
     }
 
-    private static String getBottomTextRow(int width) {
-        String boardRow = "";
-        for (int x=0; x<width+2; x++) {
-            boardRow += "¯";
-        }
-        return boardRow;
+    public static String getBottomTextRow(int width) {
+        return new String(new char[width + 2]).replace("\0", "¯");
     }
 
     /**
