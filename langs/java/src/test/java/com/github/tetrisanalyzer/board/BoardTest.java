@@ -32,16 +32,16 @@ public class BoardTest {
 
     @Test
     public void testToString() {
-        String[] boardArray = new String[]{
+        String[] expectedBoard = new String[]{
                 "|----------|",
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯"};
 
-        Board board = Board.create(boardArray);
+        Board board = Board.create(expectedBoard);
 
-        assertEquals(board.toString(), asBoard(boardArray));
+        assertEquals(asBoard(expectedBoard), board.toString());
     }
 
     private String asBoard(String[] boardArray) {
@@ -105,7 +105,7 @@ public class BoardTest {
 
     @Test
     public void copy() {
-        Board board = getBoard();
+        Board board = board();
 
         assertEquals(board, board.copy());
     }
@@ -113,13 +113,13 @@ public class BoardTest {
     @Test
     public void restore() {
         Board empty = new Board(8, 4);
-        Board copy = getBoard();
+        Board copy = board();
         empty.restore(copy);
 
         assertEquals(copy, empty);
     }
 
-    private Board getBoard() {
+    private Board board() {
         return Board.create(
                 "|x-------|",
                 "|x-------|",

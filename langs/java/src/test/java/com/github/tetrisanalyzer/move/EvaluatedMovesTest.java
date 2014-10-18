@@ -68,6 +68,7 @@ public class EvaluatedMovesTest {
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(1,7, 17)), 8.319));
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(1,3, 17)), 9.075));
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(1,1, 17)), 10.824));
+
         assertEquals(expectedMoves, moves);
     }
 
