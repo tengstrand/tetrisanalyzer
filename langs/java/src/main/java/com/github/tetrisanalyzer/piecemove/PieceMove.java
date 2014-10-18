@@ -52,8 +52,8 @@ public class PieceMove {
         }
     }
 
-    public Board copyBoard() {
-        return new Board(board);
+    public Board boardCopy() {
+        return board.copy();
     }
 
     public void setDown(PieceMove down) {

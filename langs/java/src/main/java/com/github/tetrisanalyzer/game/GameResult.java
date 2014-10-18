@@ -1,9 +1,11 @@
 package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.ColoredBoard;
 
 public class GameResult {
     public Board board;
+    public ColoredBoard coloredBoard;
     public long moves;
     public long movesLeft;
     public long games;
@@ -12,10 +14,11 @@ public class GameResult {
     public long dots;
     public long[] dotDist;
 
-    public GameResult(Board board, int movesLeft) {
+    public GameResult(ColoredBoard coloredBoard, int movesLeft) {
+        this.board = coloredBoard.asBoard();
         dotDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
-        this.board = new Board(board);
+        this.coloredBoard = coloredBoard;
     }
 
     public String export() {
@@ -35,7 +38,7 @@ public class GameResult {
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {
-            result += board.export("start board", "    ");
+            result += coloredBoard.export("start board", "    ");
         }
         return result + "\n";
     }

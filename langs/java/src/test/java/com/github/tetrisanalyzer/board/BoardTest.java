@@ -104,10 +104,10 @@ public class BoardTest {
     }
 
     @Test
-    public void copyConstructor() {
+    public void copy() {
         Board board = getBoard();
 
-        assertEquals(board, new Board(board));
+        assertEquals(board, board.copy());
     }
 
     @Test

@@ -46,7 +46,7 @@ public class EvaluatedMoves {
     private List<MoveEquity> evaluateValidMoves() {
         List<MoveEquity> evaluatedMoves = new ArrayList<MoveEquity>();
         if (!pieceMoves.isEmpty()) {
-            Board boardCopy = pieceMoves.get(0).copyBoard();
+            Board boardCopy = pieceMoves.get(0).boardCopy();
 
             for (PieceMove pieceMove : pieceMoves) {
                 evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, boardCopy)));

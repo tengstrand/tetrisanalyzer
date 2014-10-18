@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.PieceI;
@@ -20,7 +21,7 @@ public class GameTest {
 
     @Test
     public void playFivePieces() {
-        Board board = new Board(10,15);
+        ColoredBoard board = ColoredBoard.create(10,15);
         GameSettings settings = new TetrisAnalyzerGameSettings(true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceO(settings), new PieceL(settings), new PieceI(settings), new PieceZ(settings), new PieceT(settings));

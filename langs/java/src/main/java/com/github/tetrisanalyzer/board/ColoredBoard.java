@@ -2,13 +2,15 @@ package com.github.tetrisanalyzer.board;
 
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piece.Point;
 
 public class ColoredBoard {
-    final int width;
-    final int height;
+    public final int width;
+    public final int height;
     final char[][] board;
 
     private final char EMPTY_DOT = '-';
+    private final String WALL_DOT = "|";
 
     private ColoredBoard(int width, int height) {
         this.width = width;
@@ -43,18 +45,26 @@ public class ColoredBoard {
         return board;
     }
 
+    public ColoredBoard copy() {
+        ColoredBoard copy = new ColoredBoard(width, height);
+
+        for (int y=0; y<height; y++) {
+            for (int x=0; x<width; x++) {
+                copy.board[y][x] = board[y][x];
+            }
+        }
+        return copy;
+    }
+
     public Board asBoard() {
-        return Board.create(asStringRows());
+        return Board.create(asStringRows(WALL_DOT, true));
     }
 
     public void setPiece(Piece piece, Move move) {
         int pieceHeight = piece.height(move.rotation);
-        int pieceWidth = piece.width(move.rotation);
 
-        for (int y=0; y<pieceHeight; y++) {
-            for (int x=0; x<pieceWidth; x++) {
-                board[move.y + y][move.x + x] = piece.character();
-            }
+        for (Point point : piece.getShape(move.rotation).getPoints()) {
+            board[move.y + point.y][move.x + point.x] = piece.character();
         }
         clearRows(move.y, pieceHeight);
     }
@@ -116,17 +126,30 @@ public class ColoredBoard {
         return true;
     }
 
-    private String[] asStringRows() {
-        String[] result = new String[height + 1];
+    public String export(String title, String tab) {
+        String result = "\n  " + title + ": \n" + tab + "[";
+        String separator = "";
+
+        for (String row : asStringRows("", false)) {
+            result += separator + "[" + row + "]";
+            separator = "\n" + tab + " ";
+        }
+        return result + "]";
+    }
+
+    private String[] asStringRows(String wall, boolean withBottomRow) {
+        String[] result = new String[height + (withBottomRow ? 1 : 0)];
 
         for (int y=0; y<height; y++) {
-            String row = "|";
+            result[y] = wall;
             for (int x=0; x<width; x++) {
-                row += board[y][x];
+                result[y] += board[y][x];
             }
-            result[y] = row + "|";
+            result[y] += wall;
         }
-        result[height] = Board.getBottomTextRow(width);
+        if (withBottomRow) {
+            result[height] = Board.getBottomTextRow(width);
+        }
 
         return result;
     }
@@ -136,7 +159,7 @@ public class ColoredBoard {
         String result = "";
         String separator = "";
 
-        for (String row : asStringRows()) {
+        for (String row : asStringRows(WALL_DOT, true)) {
             result += separator + row;
             separator = "\n";
         }

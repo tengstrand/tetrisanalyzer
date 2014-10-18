@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class Board {
     public int width;
     public int height;
-    private int completerOW;
+    private int completeRow;
     private int[] rows;
 
     private static int EMPTY_ROW = 0;
@@ -53,6 +53,10 @@ public class Board {
         return new Board(width,  height, boardRows);
     }
 
+    public Board copy() {
+        return new Board(width, height, copy(rows));
+    }
+
     private static int getRowsFromText(int width, String textRow) {
         int row = EMPTY_ROW;
         for (int x=width; x>=1; x--) {
@@ -76,15 +80,6 @@ public class Board {
         this(width, height, getEmptyBoard(height));
     }
 
-    /**
-     * Copy constructor
-     *
-     * @param board to copy
-     */
-    public Board(Board board) {
-        this(board.width, board.height, copy(board.rows));
-    }
-
     private Board(int width, int height, int[] rows) {
         if (width < 4 || width > 32) {
             throw new IllegalArgumentException("The board width must be in the range 4 to 32");
@@ -95,7 +90,7 @@ public class Board {
         this.width = width;
         this.height = height;
         this.rows = rows;
-        completerOW = calculateCompleteRow(width);
+        completeRow = calculateCompleteRow(width);
     }
 
     /**
@@ -165,7 +160,7 @@ public class Board {
         // Find first row to clear
         do {
             y1--;
-            if (rows[y1] == completerOW) {
+            if (rows[y1] == completeRow) {
                 clearedRows++;
             }
         } while (clearedRows == 0 && y1 > pieceY);
@@ -176,7 +171,7 @@ public class Board {
 
             while (y1 >= 0) {
                 y2--;
-                while (y2 >= pieceY && rows[y2] == completerOW) {
+                while (y2 >= pieceY && rows[y2] == completeRow) {
                     clearedRows++;
                     y2--;
                 }
