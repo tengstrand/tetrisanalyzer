@@ -26,7 +26,7 @@ public class Game {
     private GameResult gameResult;
 
     public Game(GameResult gameResult, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
-        this.board = new Board(gameResult.startBoard);
+        this.board = new Board(gameResult.board);
         this.gameResult = gameResult;
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
@@ -63,7 +63,7 @@ public class Game {
             result.totalRows += rows;
             rows = 0;
             result.rows = 0;
-            board = new Board(gameResult.startBoard);
+            board = new Board(gameResult.board);
             dots = board.numberOfDots();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
             bestMove = evaluateNextPiece();

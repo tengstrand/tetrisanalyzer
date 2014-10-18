@@ -237,33 +237,18 @@ public class Board {
         return result;
     }
 
-    /*
-   [[--------]
-    [--------]
-    [--------]
-    [--------]
-    [x------x]
-    [x----xxx]]
+    public String export(String title, String tab) {
+        String result = "\n  " + title + ": \n" + tab + "[";
+        String separator = "";
 
-     */
-    public String export() {
-        String result = "start board:" +
-                "\n  size: [" + width + "," + height + "]";
-
-        if (!isBoardEmpty()) {
-            result += "\n  board: \n   [";
-            String separator = "";
-
-            for (int y=0; y<height; y++) {
-                result += separator + "[" + boardRowAsString(rows[y]) + "]";
-                separator = "\n    ";
-            }
-            result += "]";
+        for (int y=0; y<height; y++) {
+            result += separator + "[" + boardRowAsString(rows[y]) + "]";
+            separator = "\n" + tab + " ";
         }
-        return result + "\n";
+        return result += "]";
     }
 
-    private boolean isBoardEmpty() {
+    public boolean isBoardEmpty() {
         for (int y=0; y<height; y++) {
             if (rows[y] != EMPTY_ROW) {
                 return false;
