@@ -64,7 +64,7 @@ public abstract class AbstractGameSettings implements GameSettings {
     }
 
     private String adjustment(int piece) {
-        return Piece.pieces(this)[piece].adjustments.export();
+        return Piece.validPieces(this)[piece].adjustments.export();
     }
 
     @Override

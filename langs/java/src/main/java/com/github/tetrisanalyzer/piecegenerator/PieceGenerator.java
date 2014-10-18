@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
 public abstract class PieceGenerator {
-    private Piece[] pieces;
+    private Piece[] validPieces;
     public final PieceSettings settings;
 
     public abstract int nextPieceNumber();
@@ -13,7 +13,7 @@ public abstract class PieceGenerator {
 
     protected PieceGenerator(PieceSettings settings) {
         this.settings = settings;
-         pieces = Piece.pieces(settings);
+         validPieces = Piece.validPieces(settings);
     }
 
     public Piece nextPiece() {
@@ -22,6 +22,6 @@ public abstract class PieceGenerator {
         if (pieceNumber < 1 || pieceNumber > 7) {
             throw new IllegalArgumentException("Piece number must be in the range 1..7, found: " + pieceNumber);
         }
-        return pieces[pieceNumber];
+        return validPieces[pieceNumber];
     }
 }

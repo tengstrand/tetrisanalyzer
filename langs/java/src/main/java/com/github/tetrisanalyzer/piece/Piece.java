@@ -3,6 +3,9 @@ package com.github.tetrisanalyzer.piece;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Represents one of the pieces: O, I, S, Z, L, J, T
  */
@@ -19,7 +22,7 @@ public abstract class Piece {
     public static final int J = 6;
     public static final int T = 7;
 
-    public static Piece[] pieces(PieceSettings settings) {
+    public static Piece[] validPieces(PieceSettings settings) {
         Piece[] pieces = new Piece[] {
                 new PieceEmpty(settings),
                 new PieceO(settings),
@@ -32,6 +35,24 @@ public abstract class Piece {
                 new PieceAny(settings)
         };
         return pieces;
+    }
+
+    private static final Map<Character,Integer> indexMap = new HashMap<>();
+
+    static {
+        indexMap.put('-', 0);
+        indexMap.put('O', 1);
+        indexMap.put('I', 2);
+        indexMap.put('S', 3);
+        indexMap.put('Z', 4);
+        indexMap.put('L', 5);
+        indexMap.put('J', 6);
+        indexMap.put('T', 7);
+        indexMap.put('x', 8);
+    }
+
+    public static int indexOf(char piece) {
+        return indexMap.get(piece);
     }
 
     public Piece(PieceSettings settings) {

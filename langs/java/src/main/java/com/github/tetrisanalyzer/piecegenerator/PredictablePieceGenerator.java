@@ -1,22 +1,15 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceO;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
     public class PredictablePieceGenerator extends PieceGenerator {
-    private final int pieceO;
-    private final Piece[] pieces;
-    private final Iterator<Piece> pieceSequenceIterator;
+    private int pieceIndex = 0;
+    private final String pieces;
 
-    public PredictablePieceGenerator(PieceSettings settings, Piece... pieces) {
+    public PredictablePieceGenerator(PieceSettings settings, String pieces) {
         super(settings);
         this.pieces = pieces;
-        this.pieceO = new PieceO(settings).number();
-        this.pieceSequenceIterator = Arrays.asList(pieces).iterator();
     }
 
     @Override
@@ -26,10 +19,10 @@ import java.util.Iterator;
 
     @Override
     public int nextPieceNumber() {
-        if (pieceSequenceIterator.hasNext()) {
-            return pieceSequenceIterator.next().number();
+        if (pieceIndex < pieces.length()) {
+            return Piece.indexOf(pieces.charAt(pieceIndex++));
         }
-        return pieceO;
+        return Piece.O;
     }
 
     @Override
