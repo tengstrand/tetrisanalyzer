@@ -6,6 +6,8 @@ import com.github.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
+
 public class ColoredBoard {
     public final int width;
     public final int height;
@@ -57,7 +59,7 @@ public class ColoredBoard {
     }
 
     public Board asBoard() {
-        return Board.create(asStringRows(WALL_DOT, true));
+        return createBoard(asStringRows(WALL_DOT, true));
     }
 
     public void setPiece(Piece piece, Move move) {

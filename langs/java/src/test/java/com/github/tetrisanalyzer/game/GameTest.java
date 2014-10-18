@@ -1,6 +1,5 @@
 package com.github.tetrisanalyzer.game;
 
-import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
@@ -10,6 +9,7 @@ import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static junit.framework.Assert.assertEquals;
 
 public class GameTest {
@@ -26,7 +26,7 @@ public class GameTest {
 
         assertEquals(1, result.rows);
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|----------|",
                 "|----------|",
                 "|----------|",

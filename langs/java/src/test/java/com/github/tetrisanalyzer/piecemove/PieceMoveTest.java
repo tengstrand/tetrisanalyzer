@@ -9,6 +9,7 @@ import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -17,13 +18,13 @@ public class PieceMoveTest {
 
     @Test
     public void setPiece() {
-        Board board = new Board(8,4);
+        Board board = createBoard(8, 4);
         Piece piece = new PieceS(settings);
         Move move = new Move(0,3, 1);
 
         new PieceMove(board, piece, move).setPiece();
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|--------|",
                 "|----xx--|",
                 "|---xx---|",
@@ -33,7 +34,7 @@ public class PieceMoveTest {
 
     @Test
     public void setPiece_clearTwoRows() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|----------|",
                 "|----x-----|",
                 "|xxxxxxxxxx|",
@@ -45,7 +46,7 @@ public class PieceMoveTest {
 
         assertEquals(2, new PieceMove(board, piece, move).setPiece());
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -56,7 +57,7 @@ public class PieceMoveTest {
 
     @Test
     public void clearPiece() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|xxxxxxxx|",
                 "|xxxxxxxx|",
                 "|xxxxxxxx|",
@@ -67,7 +68,7 @@ public class PieceMoveTest {
 
         new PieceMove(board, piece, move).clearPiece();
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|xxxxxxxx|",
                 "|xxxx--xx|",
                 "xxxx--xxx|",
@@ -77,7 +78,7 @@ public class PieceMoveTest {
 
     @Test
     public void isFree() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|-xxxxxxx|",
                 "|-xxxxxxx|",
                 "|xxxx--xx|",

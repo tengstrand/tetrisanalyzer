@@ -17,8 +17,55 @@ public class Board {
     private int[] rows;
 
     private static int EMPTY_ROW = 0;
-    private static int DEFAULT_WIDTH = 10;
-    private static int DEFAULT_HEIGHT = 20;
+
+    public static Board createBoard() {
+        return new Board(10, 20);
+    }
+
+    public static Board createBoard(int width, int height) {
+        return new Board(width, height);
+    }
+
+    /**
+     * Creates a board from a string representation.
+     */
+    public static Board createBoard(String... rows) {
+        int width = (rows[0]).length() - 2;
+        int height = rows.length - 1;
+
+        if (!(rows[height]).equals(getBottomTextRow(width))) {
+            throw new IllegalArgumentException(("The bottom text row does not match the board width"));
+        }
+        int[] boardRows = new int[height];
+        for (int y=0; y<height; y++) {
+            boardRows[y] = getRowsFromText(width, rows[y]);
+        }
+        return new Board(width,  height, boardRows);
+    }
+
+    /**
+     * Creates an empty board
+     */
+    private Board(int width, int height) {
+        this(width, height, getEmptyBoard(height));
+    }
+
+    private Board(int width, int height, int[] rows) {
+        if (width < 4 || width > 32) {
+            throw new IllegalArgumentException("The board width must be in the range 4 to 32");
+        }
+        if (height < 4) {
+            throw new IllegalArgumentException("Minimum board height is 4");
+        }
+        this.width = width;
+        this.height = height;
+        this.rows = rows;
+        completeRow = calculateCompleteRow(width);
+    }
+
+    public Board copy() {
+        return new Board(width, height, copy(rows));
+    }
 
     private static int[] getEmptyBoard(int height) {
         int[] rows = new int[height];
@@ -36,27 +83,6 @@ public class Board {
         return new String(new char[width + 2]).replace("\0", "¯");
     }
 
-    /**
-     * Creates a board from a string representation.
-     */
-    public static Board create(String... rows) {
-        int width = (rows[0]).length() - 2;
-        int height = rows.length - 1;
-
-        if (!(rows[height]).equals(getBottomTextRow(width))) {
-            throw new IllegalArgumentException(("The bottom text row does not match the board width"));
-        }
-        int[] boardRows = new int[height];
-        for (int y=0; y<height; y++) {
-            boardRows[y] = getRowsFromText(width, rows[y]);
-        }
-        return new Board(width,  height, boardRows);
-    }
-
-    public Board copy() {
-        return new Board(width, height, copy(rows));
-    }
-
     private static int getRowsFromText(int width, String textRow) {
         int row = EMPTY_ROW;
         for (int x=width; x>=1; x--) {
@@ -64,33 +90,6 @@ public class Board {
             row |= textRow.charAt(x) == '-' ? 0 : 1;
         }
         return row;
-    }
-
-    /**
-     * Creates an empty board with default size 10 x 20..
-     */
-    public Board() {
-        this(DEFAULT_WIDTH, DEFAULT_HEIGHT, getEmptyBoard(DEFAULT_HEIGHT));
-    }
-
-    /**
-     * Creates an empty board
-     */
-    public Board(int width, int height) {
-        this(width, height, getEmptyBoard(height));
-    }
-
-    private Board(int width, int height, int[] rows) {
-        if (width < 4 || width > 32) {
-            throw new IllegalArgumentException("The board width must be in the range 4 to 32");
-        }
-        if (height < 4) {
-            throw new IllegalArgumentException("Minimum board height is 4");
-        }
-        this.width = width;
-        this.height = height;
-        this.rows = rows;
-        completeRow = calculateCompleteRow(width);
     }
 
     /**

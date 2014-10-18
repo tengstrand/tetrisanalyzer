@@ -8,6 +8,7 @@ import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -17,7 +18,7 @@ public class VisitedPieceMovesTest {
 
     @Before
     public void setUp() {
-        board = new Board(6,6);
+        board = createBoard(6, 6);
         piece = new PieceS(new TetrisAnalyzerGameSettings());
     }
 

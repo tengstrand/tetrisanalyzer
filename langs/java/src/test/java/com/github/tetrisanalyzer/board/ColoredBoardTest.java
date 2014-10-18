@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.PieceL;
 import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import org.junit.Test;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.board.ColoredBoard.create;
 import static junit.framework.Assert.assertEquals;
 
@@ -54,7 +55,7 @@ public class ColoredBoardTest {
                 "¯¯¯¯¯¯¯¯¯¯");
         Board board = coloredBoard.asBoard();
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|--------|",
                 "|--------|",
                 "|--------|",

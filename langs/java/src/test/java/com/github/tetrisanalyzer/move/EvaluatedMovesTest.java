@@ -16,10 +16,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
-    Board board = new Board();
+    Board board = createBoard();
     Piece piece = new PieceS(new TetrisAnalyzerGameSettings());
 
     @Test

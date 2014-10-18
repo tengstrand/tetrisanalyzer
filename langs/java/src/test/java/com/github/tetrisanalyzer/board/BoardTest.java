@@ -2,13 +2,14 @@ package com.github.tetrisanalyzer.board;
 
 import org.junit.Test;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.*;
 
 public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooLow() {
-        Board.create(
+        createBoard(
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
@@ -17,7 +18,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooNarrow() {
-        Board.create(
+        createBoard(
                 "|---|",
                 "|---|",
                 "|---|",
@@ -27,7 +28,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooWide() {
-        new Board(33, 10);
+        createBoard(33, 10);
     }
 
     @Test
@@ -39,7 +40,7 @@ public class BoardTest {
                 "|-x--x----x|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯"};
 
-        Board board = Board.create(expectedBoard);
+        Board board = createBoard(expectedBoard);
 
         assertEquals(asBoard(expectedBoard), board.toString());
     }
@@ -56,7 +57,7 @@ public class BoardTest {
 
     @Test
     public void isFree_occupied() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -69,7 +70,7 @@ public class BoardTest {
 
     @Test
     public void isFree() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|xxxxxxxxxx|",
                 "|xxxxxxxxxx|",
                 "|xxxxxxxxxx|",
@@ -82,7 +83,7 @@ public class BoardTest {
 
     @Test
     public void clearRows() {
-        Board board = Board.create(
+        Board board = createBoard(
                 "|----------|",
                 "|----x-----|",
                 "|xxxxxxxxxx|",
@@ -93,7 +94,7 @@ public class BoardTest {
 
         assertEquals(3, board.clearRows(2, 4));
 
-        assertEquals(Board.create(
+        assertEquals(createBoard(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -112,7 +113,7 @@ public class BoardTest {
 
     @Test
     public void restore() {
-        Board empty = new Board(8, 4);
+        Board empty = createBoard(8, 4);
         Board copy = board();
         empty.restore(copy);
 
@@ -120,7 +121,7 @@ public class BoardTest {
     }
 
     private Board board() {
-        return Board.create(
+        return createBoard(
                 "|x-------|",
                 "|x-------|",
                 "|xxx----x|",

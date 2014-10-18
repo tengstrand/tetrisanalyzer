@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesTest {
@@ -18,7 +19,7 @@ public class ValidPieceMovesTest {
     @Test
     public void getStartMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(6, 5);
-        Board board = new Board(settings.boardWidth(), settings.boardHeight());
+        Board board = createBoard(settings.boardWidth(), settings.boardHeight());
         Piece piece = new PieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();

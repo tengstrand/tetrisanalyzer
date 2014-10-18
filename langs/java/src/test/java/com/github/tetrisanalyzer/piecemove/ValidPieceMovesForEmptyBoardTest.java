@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesForEmptyBoardTest {
@@ -19,7 +20,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     @Test
     public void startMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(5, 5);
-        Board board = new Board(settings.boardWidth(), settings.boardWidth());
+        Board board = createBoard(settings.boardWidth(), settings.boardWidth());
         Piece piece = new PieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
@@ -58,7 +59,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     @Test
     public void startMoveStandardTetris() {
         GameSettings settings = new StandardGameSettings(5, 5);
-        Board board = new Board(settings.boardWidth(), settings.boardWidth());
+        Board board = createBoard(settings.boardWidth(), settings.boardWidth());
         Piece piece = new PieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
