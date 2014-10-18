@@ -77,7 +77,7 @@ public class Game {
 
     private PieceMove evaluateNextPiece() {
         PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece());
-        List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
+        List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove);
         return new EvaluatedMoves(validMoves, boardEvaluator).bestMove();
     }
 }

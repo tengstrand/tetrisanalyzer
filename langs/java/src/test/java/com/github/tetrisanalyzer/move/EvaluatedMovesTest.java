@@ -31,7 +31,7 @@ public class EvaluatedMovesTest {
     private EvaluatedMoves getEvaluatedMoves() {
         GameSettings settings = new TetrisAnalyzerGameSettings();
         PieceMove startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).getStartMove();
-        List<PieceMove> validMoves = new ValidMoves(board).getPieceMoves(startPieceMove);
+        List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
         return new EvaluatedMoves(validMoves, boardEvaluator);
     }

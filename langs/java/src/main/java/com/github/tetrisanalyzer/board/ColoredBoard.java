@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
 
+import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
 import static com.github.tetrisanalyzer.board.Board.createBoard;
 
 public class ColoredBoard {
@@ -35,7 +36,7 @@ public class ColoredBoard {
         int width = (rows[0]).length() - 2;
         int height = rows.length - 1;
 
-        if (!(rows[height]).equals(Board.getBottomTextRow(width))) {
+        if (!(rows[height]).equals(bottomTextRow(width))) {
             throw new IllegalArgumentException(("The bottom text row does not match the board width"));
         }
 
@@ -150,7 +151,7 @@ public class ColoredBoard {
             result[y] += wall;
         }
         if (withBottomRow) {
-            result[height] = Board.getBottomTextRow(width);
+            result[height] = bottomTextRow(width);
         }
 
         return result;

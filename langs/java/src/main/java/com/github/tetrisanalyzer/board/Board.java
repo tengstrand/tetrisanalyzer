@@ -33,12 +33,12 @@ public class Board {
         int width = (rows[0]).length() - 2;
         int height = rows.length - 1;
 
-        if (!(rows[height]).equals(getBottomTextRow(width))) {
+        if (!(rows[height]).equals(bottomTextRow(width))) {
             throw new IllegalArgumentException(("The bottom text row does not match the board width"));
         }
         int[] boardRows = new int[height];
         for (int y=0; y<height; y++) {
-            boardRows[y] = getRowsFromText(width, rows[y]);
+            boardRows[y] = rowsFromText(width, rows[y]);
         }
         return new Board(width,  height, boardRows);
     }
@@ -47,7 +47,7 @@ public class Board {
      * Creates an empty board
      */
     private Board(int width, int height) {
-        this(width, height, getEmptyBoard(height));
+        this(width, height, emptyBoard(height));
     }
 
     private Board(int width, int height, int[] rows) {
@@ -67,7 +67,7 @@ public class Board {
         return new Board(width, height, copy(rows));
     }
 
-    private static int[] getEmptyBoard(int height) {
+    private static int[] emptyBoard(int height) {
         int[] rows = new int[height];
         Arrays.fill(rows, 0);
         return rows;
@@ -79,11 +79,11 @@ public class Board {
         return newRows;
     }
 
-    public static String getBottomTextRow(int width) {
+    public static String bottomTextRow(int width) {
         return new String(new char[width + 2]).replace("\0", "¯");
     }
 
-    private static int getRowsFromText(int width, String textRow) {
+    private static int rowsFromText(int width, String textRow) {
         int row = EMPTY_ROW;
         for (int x=width; x>=1; x--) {
             row <<= 1;
@@ -267,6 +267,6 @@ public class Board {
         for (int y=0; y<height; y++) {
             board += "|" + boardRowAsString(rows[y]) + "|" + "\n";
         }
-        return board + getBottomTextRow(width);
+        return board + bottomTextRow(width);
     }
 }

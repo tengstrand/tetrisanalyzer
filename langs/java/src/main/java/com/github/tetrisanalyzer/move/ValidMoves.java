@@ -12,10 +12,10 @@ public class ValidMoves {
     private final int[][] visitedMoves;
 
     public ValidMoves(Board board) {
-        visitedMoves = getEmptyVisitedMoves(board.height, board.width);
+        visitedMoves = emptyVisitedMoves(board.height, board.width);
     }
 
-    private int[][] getEmptyVisitedMoves(int height, int width) {
+    private int[][] emptyVisitedMoves(int height, int width) {
         int[][] visitedMoves = new int[height][];
         for (int h=0; h<height; h++) {
             visitedMoves[h] = new int[width];
@@ -41,15 +41,15 @@ public class ValidMoves {
      * links to all possible moves on an empty board. Because the board is probably not empty,
      * every possible move needs to be checked (and returned by this method).
      */
-    public List<PieceMove> getPieceMoves(PieceMove pieceMove) {
+    public List<PieceMove> pieceMoves(PieceMove pieceMove) {
         if (isUnvisited(pieceMove.move) && pieceMove.isFree()) {
             markAsVisited(pieceMove.move);
 
             for (PieceMove move: pieceMove.asideAndRotate) {
-                getPieceMoves(move);
+                pieceMoves(move);
             }
             if (pieceMove.canMoveDown()) {
-                getPieceMoves(pieceMove.down);
+                pieceMoves(pieceMove.down);
             } else {
                 validMoves.add(pieceMove);
             }

@@ -26,7 +26,7 @@ public class ValidMovesTest {
         PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<Move>();
 
-        for (PieceMove pieceMove : validMoves.getPieceMoves(startPiece)) {
+        for (PieceMove pieceMove : validMoves.pieceMoves(startPiece)) {
             moves.add(pieceMove.move);
         }
 
