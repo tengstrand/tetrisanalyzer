@@ -5,11 +5,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DefaultPieceGeneratorTest {
+public class LinearCongrentialPieceGeneratorTest {
 
     @Test
     public void nextPiece() {
-        PieceGenerator pieceGenerator = new DefaultPieceGenerator(5, new TetrisAnalyzerGameSettings());
+        PieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(5, new TetrisAnalyzerGameSettings());
 
         String result = "";
 
