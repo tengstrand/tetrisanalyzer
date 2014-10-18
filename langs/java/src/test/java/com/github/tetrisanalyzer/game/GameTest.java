@@ -46,7 +46,7 @@ public class GameTest {
                 "|---------Z|",
                 "|--------ZZ|",
                 "|OO---TTTZL|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), board);
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.board);
     }
 
     // 1 000 000 = 200 sec = 5 000 pieces/sec (sliding on)
