@@ -28,7 +28,7 @@ public class GameTest {
         Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
         game.play();
 
-        assertEquals(1, game.rows);
+        assertEquals(1, result.rows);
 
         assertEquals(Board.create(
                 "|----------|",

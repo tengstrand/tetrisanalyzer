@@ -48,7 +48,7 @@ public class Board {
         int height = rows.length - 1;
 
         if (!(rows[height]).equals(getBottomTextRow(width))) {
-            throw new IllegalArgumentException(("The bottom text row does not match the board length"));
+            throw new IllegalArgumentException(("The bottom text row does not match the board width"));
         }
         int[] boardRows = new int[height];
         for (int y=0; y<height; y++) {

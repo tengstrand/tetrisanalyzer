@@ -19,15 +19,14 @@ public class GameResult {
     }
 
     public String export() {
-        long rowsPerGame = games == 0 ? 0 : (rows + totalRows) / games;
-
+        long rowsPerGame = games == 0 ? 0 : totalRows / games;
 
         return "game result:" +
                 board() +
                 "\n  moves: " + format(moves) +
                 "\n  games: " + format(games) +
-                "\n  rows: " + format(rows) +
-                "\n  rows total: " + format(totalRows) +
+                "\n  rows current game: " + format(rows) +
+                "\n  rows finished games: " + format(totalRows) +
                 "\n  rows/game: " + format(rowsPerGame) +
                 "\n  dots total: " + format(dots) +
                 "\n  dots distribution: [" + dots() + "]\n";
@@ -36,7 +35,7 @@ public class GameResult {
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {
-            result += board.export("start board", "   ");
+            result += board.export("start board", "    ");
         }
         return result + "\n";
     }

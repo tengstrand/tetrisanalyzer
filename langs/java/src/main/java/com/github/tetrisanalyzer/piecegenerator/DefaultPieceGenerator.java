@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.settings.PieceSettings;
 
 /**
  * This piece generator mimics the behaviour of the C++ version,
- * that uses 32 bit unsigned integers.
+ * of TetrisAnalyzer that uses 32 bit unsigned integers.
  */
 public class DefaultPieceGenerator extends PieceGenerator {
     private static long BIT_MASK = 0x00000000FFFFFFFFL;
@@ -19,6 +19,10 @@ public class DefaultPieceGenerator extends PieceGenerator {
     public DefaultPieceGenerator(long seed, PieceSettings settings) {
         super(settings);
         this.seed = seed;
+    }
+
+    public DefaultPieceGenerator copy() {
+        return new DefaultPieceGenerator(seed, settings);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class DefaultPieceGenerator extends PieceGenerator {
     @Override
     public String export() {
         return "piece generator:" +
-                "\n  description: Linear congruential generator (1664525/1013904223)" +
+                "\n  description: Linear congruential generator (1664525,1013904223)" +
                 "\n  class: " + this.getClass().getCanonicalName() +
                 "\n  seed: " + seed + "\n";
     }

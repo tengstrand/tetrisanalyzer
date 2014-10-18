@@ -5,11 +5,14 @@ import com.github.tetrisanalyzer.settings.PieceSettings;
 
 public abstract class PieceGenerator {
     private Piece[] pieces;
+    public final PieceSettings settings;
 
     public abstract int nextPieceNumber();
     public abstract String export();
+    public abstract PieceGenerator copy();
 
     protected PieceGenerator(PieceSettings settings) {
+        this.settings = settings;
          pieces = Piece.pieces(settings);
     }
 
