@@ -129,18 +129,18 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
 
     @Override
     public String export() {
-        return "Board evaluator {" +
-                "\n  Author: Joakim Tengstrand" +
-                "\n  URL: http://hem.bredband.net/joakimtengstrand" +
-                "\n  Class: " + this.getClass().getCanonicalName() +
-                "\n  Min board size: [4,4]" +
-                "\n  Max board size: [10,20]" +
-                "\n  Height factor: " + asList(heightFactor) +
-                "\n  Hollow factor: " + asList(blocksPerRowHollowFactor) +
-                "\n  Area width factor: " + asList(areaWidthFactor) +
-                "\n  Area height factor: " + asList(areaHeightFactor) +
-                "\n  Area height factor2: " + asList(areaHeightFactorEqualWallHeight) +
-                "\n}";
+        return "board evaluator:" +
+                "\n  name: Tengstrand 1.1" +
+                "\n  author: Joakim Tengstrand" +
+                "\n  url: http://hem.bredband.net/joakimtengstrand" +
+                "\n  class: " + this.getClass().getCanonicalName() +
+                "\n  min board size: [4,4]" +
+                "\n  max board size: [10,20]" +
+                "\n  height factor: " + asList(heightFactor) +
+                "\n  hollow factor: " + asList(blocksPerRowHollowFactor) +
+                "\n  area width factor: " + asList(areaWidthFactor) +
+                "\n  area height factor: " + asList(areaHeightFactor) +
+                "\n  area height factor2: " + asList(areaHeightFactorEqualWallHeight) + "\n";
     }
 
     private String asList(double[] array) {

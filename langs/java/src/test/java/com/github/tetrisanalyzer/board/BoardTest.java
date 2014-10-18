@@ -9,20 +9,20 @@ public class BoardTest {
     @Test(expected = IllegalArgumentException.class)
     public void tooLow() {
         Board.create(
-                "#----------#",
-                "#----x-----#",
-                "#-x--x----x#",
-                "############");
+                "|----------|",
+                "|----x-----|",
+                "|-x--x----x|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void tooNarrow() {
         Board.create(
-                "#---#",
-                "#---#",
-                "#---#",
-                "#-x-#",
-                "#####");
+                "|---|",
+                "|---|",
+                "|---|",
+                "|-x-|",
+                "¯¯¯¯¯");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -33,11 +33,11 @@ public class BoardTest {
     @Test
     public void testToString() {
         String[] boardArray = new String[]{
-                "#----------#",
-                "#----------#",
-                "#----x-----#",
-                "#-x--x----x#",
-                "############"};
+                "|----------|",
+                "|----------|",
+                "|----x-----|",
+                "|-x--x----x|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"};
 
         Board board = Board.create(boardArray);
 
@@ -57,12 +57,12 @@ public class BoardTest {
     @Test
     public void isFree_occupied() {
         Board board = Board.create(
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#-x--------#",
-                "############");
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|-x--------|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
 
         assertFalse(board.isFree(1, 4));
     }
@@ -70,12 +70,12 @@ public class BoardTest {
     @Test
     public void isFree() {
         Board board = Board.create(
-                "#xxxxxxxxxx#",
-                "#xxxxxxxxxx#",
-                "#xxxxxxxxxx#",
-                "#xxxxxxxxxx#",
-                "#x-xxxxxxxx#",
-                "############");
+                "|xxxxxxxxxx|",
+                "|xxxxxxxxxx|",
+                "|xxxxxxxxxx|",
+                "|xxxxxxxxxx|",
+                "|x-xxxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
 
         assertTrue(board.isFree(1, 4));
     }
@@ -83,24 +83,24 @@ public class BoardTest {
     @Test
     public void clearRows() {
         Board board = Board.create(
-                "#----------#",
-                "#----x-----#",
-                "#xxxxxxxxxx#",
-                "#xxxxxxxxxx#",
-                "#-x--x----x#",
-                "#xxxxxxxxxx#",
-                "############");
+                "|----------|",
+                "|----x-----|",
+                "|xxxxxxxxxx|",
+                "|xxxxxxxxxx|",
+                "|-x--x----x|",
+                "|xxxxxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
 
         assertEquals(3, board.clearRows(2, 4));
 
         assertEquals(Board.create(
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----x-----#",
-                "#-x--x----x#",
-                "############"), board);
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----x-----|",
+                "|-x--x----x|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), board);
     }
 
     @Test
@@ -121,10 +121,10 @@ public class BoardTest {
 
     private Board getBoard() {
         return Board.create(
-                "#x-------#",
-                "#x-------#",
-                "#xxx----x#",
-                "#xxx-x-xx#",
-                "##########");
+                "|x-------|",
+                "|x-------|",
+                "|xxx----x|",
+                "|xxx-x-xx|",
+                "¯¯¯¯¯¯¯¯¯¯");
     }
 }

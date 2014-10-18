@@ -24,65 +24,65 @@ public class PieceMoveTest {
         new PieceMove(board, piece, move).setPiece();
 
         assertEquals(Board.create(
-                "#--------#",
-                "#----xx--#",
-                "#---xx---#",
-                "#--------#",
-                "##########"), board);
+                "|--------|",
+                "|----xx--|",
+                "|---xx---|",
+                "|--------|",
+                "¯¯¯¯¯¯¯¯¯¯"), board);
     }
 
     @Test
     public void setPiece_clearTwoRows() {
         Board board = Board.create(
-                "#----------#",
-                "#----x-----#",
-                "#xxxxxxxxxx#",
-                "#-x--x----x#",
-                "#xxxxxxxxxx#",
-                "############");
+                "|----------|",
+                "|----x-----|",
+                "|xxxxxxxxxx|",
+                "|-x--x----x|",
+                "|xxxxxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
         Piece piece = new PieceI(settings);
         Move move = new Move(1,4, 1);
 
         assertEquals(2, new PieceMove(board, piece, move).setPiece());
 
         assertEquals(Board.create(
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----x-----#",
-                "#-x--x----x#",
-                "############"), board);
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----x-----|",
+                "|-x--x----x|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), board);
     }
 
     @Test
     public void clearPiece() {
         Board board = Board.create(
-                "#xxxxxxxx#",
-                "#xxxxxxxx#",
-                "#xxxxxxxx#",
-                "#xxxxxxxx#",
-                "##########");
+                "|xxxxxxxx|",
+                "|xxxxxxxx|",
+                "|xxxxxxxx|",
+                "|xxxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯");
         Piece piece = new PieceS(settings);
         Move move = new Move(0,3, 1);
 
         new PieceMove(board, piece, move).clearPiece();
 
         assertEquals(Board.create(
-                "#xxxxxxxx#",
-                "#xxxx--xx#",
-                "xxxx--xxx#",
-                "#xxxxxxxx#",
-                "##########"), board);
+                "|xxxxxxxx|",
+                "|xxxx--xx|",
+                "xxxx--xxx|",
+                "|xxxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯"), board);
     }
 
     @Test
     public void isFree() {
         Board board = Board.create(
-                "#-xxxxxxx#",
-                "#-xxxxxxx#",
-                "#xxxx--xx#",
-                "#xxx--xxx#",
-                "##########");
+                "|-xxxxxxx|",
+                "|-xxxxxxx|",
+                "|xxxx--xx|",
+                "|xxx--xxx|",
+                "¯¯¯¯¯¯¯¯¯¯");
         Piece piece = new PieceS(settings);
         Move move = new Move(0,3, 2);
 

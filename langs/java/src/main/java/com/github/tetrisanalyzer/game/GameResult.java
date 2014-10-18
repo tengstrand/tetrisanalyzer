@@ -1,46 +1,52 @@
 package com.github.tetrisanalyzer.game;
 
-import static java.lang.String.format;
+import com.github.tetrisanalyzer.board.Board;
 
 public class GameResult {
-    public int boardWidth;
-    public int boardHeight;
+    public Board startBoard;
     public long moves;
     public long movesLeft;
-    public int games;
+    public long games;
     public long rows;
+    public long totalRows;
     public long dots;
     public long[] dotDist;
 
-    public GameResult(int boardWidth, int boardHeight, int movesLeft) {
-        dotDist = new long[(boardWidth - 1) * boardHeight];
+    public GameResult(Board board, int movesLeft) {
+        dotDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-    }
-
-    public double average() {
-        return ((double) dots) / moves;
+        this.startBoard = new Board(board);
     }
 
     public String export() {
-        String result = "Game result {" +
-                "\n  Board: [" + boardWidth + "," + boardHeight + "]" +
-                "\n  Moves: " + format("%,d", moves) +
-                "\n  Moves left: " + format("%,d", movesLeft) +
-                "\n  Games: " + format("%,d", games) +
-                "\n  Rows: " + format("%,d", rows) +
-                "\n  Dots: " + format("%,d", dots) +
-                "\n  Dots distribution: [";
+        long rowsPerGame = games == 0 ? 0 : (rows + totalRows) / games;
 
+        return "game result:" +
+                "\n  board: [" + startBoard.width + "," + startBoard.height + "]" +
+                "\n  moves: " + format(moves) +
+                "\n  games: " + format(games) +
+                "\n  rows: " + format(rows) +
+                "\n  rows total: " + format(totalRows) +
+                "\n  rows/game: " + format(rowsPerGame) +
+                "\n  dots total: " + format(dots) +
+                "\n  dots distribution: [" + dots() + "]\n";
+    }
+
+    private String dots() {
+        String result = "";
         String separator = "";
-        int dotstep = 2 - (boardWidth & 1);
 
-        for (int i = 0; i< dotDist.length; i+=dotstep) {
+        int dotstep = 2 - (startBoard.width & 1);
+
+        for (int i = 0; i<dotDist.length; i+=dotstep) {
             result += separator + dotDist[i];
             separator = ",";
         }
-        return result + "]\n}";
+        return result;
+    }
+
+    private String format(long value) {
+        return String.format("%,d", value);
     }
 
     @Override

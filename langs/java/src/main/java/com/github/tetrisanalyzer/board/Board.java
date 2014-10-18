@@ -35,7 +35,7 @@ public class Board {
     private static String getBottomTextRow(int width) {
         String boardRow = "";
         for (int x=0; x<width+2; x++) {
-            boardRow += "#";
+            boardRow += "¯";
         }
         return boardRow;
     }
@@ -48,7 +48,7 @@ public class Board {
         int height = rows.length - 1;
 
         if (!(rows[height]).equals(getBottomTextRow(width))) {
-            throw new IllegalArgumentException(("Missing bottom text row"));
+            throw new IllegalArgumentException(("The bottom text row does not match the board length"));
         }
         int[] boardRows = new int[height];
         for (int y=0; y<height; y++) {
@@ -206,13 +206,13 @@ public class Board {
      * Converts a board row into its string representation.
      */
     private String boardRowAsString(int boardRow) {
-        String result = "#";
+        String result = "";
 
         for (int i=0; i<width; i++) {
             result += (((boardRow >> i) & 1) == 0) ? "-" : "x";
         }
 
-        return result + "#";
+        return result;
     }
 
     @Override
@@ -237,19 +237,30 @@ public class Board {
         return result;
     }
 
+    /*
+   [[--------]
+    [--------]
+    [--------]
+    [--------]
+    [x------x]
+    [x----xxx]]
+
+     */
     public String export() {
-        String result = "Board {\n" +
-                "  Size: [" + width + "," + height + "]";
+        String result = "start board:" +
+                "\n  size: [" + width + "," + height + "]";
 
         if (!isBoardEmpty()) {
-            result += "\n\n";
+            result += "\n  board: \n   [";
+            String separator = "";
 
             for (int y=0; y<height; y++) {
-                result += "  " + boardRowAsString(rows[y]) + "\n";
+                result += separator + "[" + boardRowAsString(rows[y]) + "]";
+                separator = "\n    ";
             }
-            result += "  " + getBottomTextRow(width);
+            result += "]";
         }
-        return result + "\n}";
+        return result + "\n";
     }
 
     private boolean isBoardEmpty() {
@@ -259,15 +270,6 @@ public class Board {
             }
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        String board = "";
-        for (int y=0; y<height; y++) {
-            board += boardRowAsString(rows[y]) + "\n";
-        }
-        return board + getBottomTextRow(width);
     }
 
     public int numberOfDots() {
@@ -281,5 +283,14 @@ public class Board {
             }
         }
         return cnt;
+    }
+
+    @Override
+    public String toString() {
+        String board = "";
+        for (int y=0; y<height; y++) {
+            board += "|" + boardRowAsString(rows[y]) + "|" + "\n";
+        }
+        return board + getBottomTextRow(width);
     }
 }

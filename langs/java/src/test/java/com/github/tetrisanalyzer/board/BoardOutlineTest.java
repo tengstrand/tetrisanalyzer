@@ -10,11 +10,11 @@ public class BoardOutlineTest {
     @Before
     public void setUp() {
         board = Board.create(
-                "#------x#",
-                "#-----xx#",
-                "#-x---xx#",
-                "#x-x--xx#",
-                "#########");
+                "|------x|",
+                "|-----xx|",
+                "|-x---xx|",
+                "|x-x--xx|",
+                "¯¯¯¯¯¯¯¯¯");
     }
 
     @Test

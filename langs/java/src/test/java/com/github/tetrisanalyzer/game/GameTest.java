@@ -24,29 +24,29 @@ public class GameTest {
         GameSettings settings = new TetrisAnalyzerGameSettings(true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, new PieceO(settings), new PieceL(settings), new PieceI(settings), new PieceZ(settings), new PieceT(settings));
-        Game game = new Game(board, boardEvaluator, pieceGenerator, settings);
-        GameResult result = new GameResult(board.width, board.height, 5);
-        game.play(result);
+        GameResult result = new GameResult(board, 5);
+        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        game.play();
 
         assertEquals(1, game.rows);
 
         assertEquals(Board.create(
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#----------#",
-                "#---------Z#",
-                "#--------ZZ#",
-                "#OO---TTTZL#",
-                "############"), board);
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|---------Z|",
+                "|--------ZZ|",
+                "|OO---TTTZL|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), board);
     }
 
     // 1 000 000 = 200 sec = 5 000 pieces/sec (sliding on)

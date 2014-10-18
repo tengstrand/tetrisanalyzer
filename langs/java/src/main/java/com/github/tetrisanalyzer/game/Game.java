@@ -20,14 +20,14 @@ public class Game {
     private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
 
     public Board board;
-    private Board startBoard;
     private BoardEvaluator boardEvaluator;
     private PieceGenerator pieceGenerator;
     private GameSettings settings;
+    private GameResult gameResult;
 
-    public Game(Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
-        this.board = board;
-        this.startBoard = new Board(board);
+    public Game(GameResult gameResult, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
+        this.board = new Board(gameResult.startBoard);
+        this.gameResult = gameResult;
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.settings = settings;
@@ -37,18 +37,19 @@ public class Game {
     }
 
     /**
-     * Play specified number of pieces (movesLeft).
+     * Play specified number of pieces (result.movesLeft).
      */
-    public void play(GameResult result) {
-        while (result.movesLeft > 0) {
-            PieceMove bestMove = evaluateBestMove(result);
-            result.moves++;
-            result.movesLeft--;
+    public void play() {
+        while (gameResult.movesLeft > 0) {
+            PieceMove bestMove = evaluateBestMove(gameResult);
+            gameResult.moves++;
+            gameResult.movesLeft--;
             int clearedRows = bestMove.setPiece();
             rows += clearedRows;
             dots += 4 - clearedRows * board.width;
-            result.dots += dots;
-            result.dotDist[dots]++;
+            gameResult.dots += dots;
+
+            gameResult.dotDist[dots]++;
         }
     }
 
@@ -56,10 +57,13 @@ public class Game {
         PieceMove bestMove = evaluateNextPiece();
 
         if (bestMove == null) {
+//            System.out.println(board + "\n");
+
             result.games++;
-            result.rows += rows;
+            result.totalRows += rows;
             rows = 0;
-            board = new Board(startBoard);
+            result.rows = 0;
+            board = new Board(gameResult.startBoard);
             dots = board.numberOfDots();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
             bestMove = evaluateNextPiece();

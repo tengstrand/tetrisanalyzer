@@ -49,19 +49,18 @@ public abstract class AbstractGameSettings implements GameSettings {
 
     @Override
     public String export() {
-        return "Game settings {" +
-                "\n  Description: " + name() +
-                "\n  Sliding: " + sliding +
-                "\n  Rotation: " + rotationDirection() +
-                "\n  Piece start x on standard board: " + pieceStartX +
+        return "game rules:" +
+                "\n  description: " + name() +
+                "\n  sliding: " + sliding +
+                "\n  rotation: " + rotationDirection() +
+                "\n  piece start x on standard board: " + pieceStartX +
                 "\n  " + adjustment(O) +
                 "\n  " + adjustment(I) +
                 "\n  " + adjustment(S) +
                 "\n  " + adjustment(Z) +
                 "\n  " + adjustment(L) +
                 "\n  " + adjustment(J) +
-                "\n  " + adjustment(T) +
-                "\n}";
+                "\n  " + adjustment(T) + "\n";
     }
 
     private String adjustment(int piece) {

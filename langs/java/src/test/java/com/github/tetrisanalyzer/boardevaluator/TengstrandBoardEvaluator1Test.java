@@ -12,12 +12,12 @@ public class TengstrandBoardEvaluator1Test {
         BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
 
         Board board = Board.create(
-          "#----------#",
-          "#----------#",
-          "#-x---xx---#",
-          "#-xx-xx-x--#",
-          "#xxxx-xxx--#",
-          "############");
+          "|----------|",
+          "|----------|",
+          "|-x---xx---|",
+          "|-xx-xx-x--|",
+          "|xxxx-xxx--|",
+          "¯¯¯¯¯¯¯¯¯¯¯¯");
 
         assertEquals(51.0386, evaluator.evaluate(board), 0.0001);
     }
