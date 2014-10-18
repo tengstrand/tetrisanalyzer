@@ -94,7 +94,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     private void addPieceMoves(PieceMove pieceMove, Set<PieceMove> pieceMoves) {
         if (pieceMove != null && !pieceMoves.contains(pieceMove)) {
             pieceMoves.add(pieceMove);
-            for (PieceMove move : pieceMove.getAsideAndRotateMoves()) {
+            for (PieceMove move : pieceMove.asideAndRotateMoves()) {
                 addPieceMoves(move, pieceMoves);
             }
             addPieceMoves(pieceMove.down, pieceMoves);

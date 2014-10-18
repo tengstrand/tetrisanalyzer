@@ -30,7 +30,7 @@ public class ValidPieceMovesTest {
         expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 0)));
 
-        assertEquals(expectedMoves, startMove.getAsideAndRotateMoves());
+        assertEquals(expectedMoves, startMove.asideAndRotateMoves());
 
         assertEquals(new PieceMove(board, piece, new Move(0,1, 1)), startMove.down);
     }

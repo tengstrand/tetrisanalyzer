@@ -64,7 +64,7 @@ public class PieceMove {
         asideAndRotate.add(pieceMove);
     }
 
-    public Set<PieceMove> getAsideAndRotateMoves() {
+    public Set<PieceMove> asideAndRotateMoves() {
         return asideAndRotate;
     }
 

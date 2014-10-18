@@ -12,8 +12,6 @@ import java.util.Map;
 public abstract class Piece {
     private static final int[] ROTATION_MODULUS = { 0, 1, 0, 3 };
 
-    public static final int NUMBER_OF_PIECE_TYPES = 7;
-
     public static final int O = 1;
     public static final int I = 2;
     public static final int S = 3;
