@@ -60,6 +60,9 @@ public abstract class Piece {
     }
 
     public static int indexOf(char piece) {
+        if (!indexMap.containsKey(piece)) {
+            throw new IllegalArgumentException("Illegal board character '" + piece + "', expected: -OISZLJTx");
+        }
         return indexMap.get(piece);
     }
 

@@ -12,6 +12,7 @@ import static com.github.tetrisanalyzer.piece.Piece.Z;
 import static com.github.tetrisanalyzer.piece.Piece.I;
 import static com.github.tetrisanalyzer.piece.Piece.O;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PredictablePieceGeneratorTest {
 
@@ -38,5 +39,19 @@ public class PredictablePieceGeneratorTest {
             pieceGenerator.nextPieceNumber());
 
         assertEquals(Arrays.asList(I, O, O, O, O), result);
+    }
+
+    @Test
+    public void illegalPiece() {
+        PieceSettings settings = new TetrisAnalyzerGameSettings();
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "Sq");
+        try {
+            Arrays.asList(pieceGenerator.nextPieceNumber(),
+                    pieceGenerator.nextPieceNumber(),
+                    pieceGenerator.nextPieceNumber());
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Illegal board character 'q', expected: -OISZLJTx", e.getMessage());
+        }
     }
 }
