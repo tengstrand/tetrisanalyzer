@@ -153,7 +153,7 @@ public class Board {
     }
 
     /**
-     * Clears completed rows and returns which rows that was cleared.
+     * Clear all completed rows and return number of cleared rows.
      * This method is called after a piece has been placed on the board.
      *   pieceY: the y position of the piece.
      *   pieceHeight: height of the piece.
