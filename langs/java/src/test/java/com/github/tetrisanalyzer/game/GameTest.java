@@ -45,6 +45,56 @@ public class GameTest {
                 "¯¯¯¯¯¯¯¯¯¯¯¯"), game.board);
     }
 
+    @Test
+    public void slidePiece() {
+        ColoredBoard board = ColoredBoard.create(
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|--------OO|",
+                "|S--------Z|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
+        GameSettings settings = new TetrisAnalyzerGameSettings(true);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
+        GameResult result = new GameResult(board, 1);
+        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        game.play();
+
+        assertEquals(ColoredBoard.create(
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|-------TOO|",
+                "|S-----TTTZ|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.coloredBoard);
+    }
+
+    @Test
+    public void dropPieceWhenSlidingIsDisabled() {
+        ColoredBoard board = ColoredBoard.create(
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|--------OO|",
+                "|S--------Z|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯");
+        GameSettings settings = new TetrisAnalyzerGameSettings();
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
+        GameResult result = new GameResult(board, 1);
+        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        game.play();
+
+        assertEquals(ColoredBoard.create(
+                "|----------|",
+                "|----------|",
+                "|----------|",
+                "|TTT-----OO|",
+                "|ST-------Z|",
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.coloredBoard);
+    }
+
     // 1 000 000 = 200 sec = 5 000 validPieces/sec (sliding on)
     // 1 000 000 = 63 sec = 15 800 validPieces/sec (sliding off)
 }

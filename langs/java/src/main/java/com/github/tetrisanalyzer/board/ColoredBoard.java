@@ -4,6 +4,8 @@ import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.Point;
 
+import java.util.Arrays;
+
 public class ColoredBoard {
     public final int width;
     public final int height;
@@ -152,6 +154,34 @@ public class ColoredBoard {
         }
 
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = width;
+        result = 31 * result + height;
+
+        for (int y=0; y<height; y++) {
+            result = 31 * result + Arrays.hashCode(board[y]);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) return true;
+        if (that == null || getClass() != that.getClass()) return false;
+
+        ColoredBoard board = (ColoredBoard) that;
+
+        if (height != board.height) return false;
+        if (width != board.width) return false;
+
+        for (int y=0; y<height; y++) {
+            if (!Arrays.equals(this.board[y], board.board[y]))
+                return false;
+        }
+        return true;
     }
 
     @Override

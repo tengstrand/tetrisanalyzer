@@ -206,28 +206,6 @@ public class Board {
         return result;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Board board = (Board) o;
-
-        if (height != board.height) return false;
-        if (width != board.width) return false;
-        if (!Arrays.equals(rows, board.rows)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = width;
-        result = 31 * result + height;
-        result = 31 * result + (rows != null ? Arrays.hashCode(rows) : 0);
-        return result;
-    }
-
     public String export(String title, String tab) {
         String result = "\n  " + title + ": \n" + tab + "[";
         String separator = "";
@@ -259,6 +237,29 @@ public class Board {
             }
         }
         return cnt;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = width;
+        result = 31 * result + height;
+        result = 31 * result + (rows != null ? Arrays.hashCode(rows) : 0);
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) return true;
+        if (that == null || getClass() != that.getClass()) return false;
+
+        Board board = (Board) that;
+
+        if (height != board.height) return false;
+        if (width != board.width) return false;
+        if (!Arrays.equals(rows, board.rows)) return false;
+
+        return true;
     }
 
     @Override
