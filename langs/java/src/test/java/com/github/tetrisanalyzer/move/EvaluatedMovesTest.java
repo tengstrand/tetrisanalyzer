@@ -4,11 +4,10 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,11 +16,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
     Board board = createBoard();
-    Piece piece = new PieceS(new TetrisAnalyzerGameSettings());
+    Piece piece = createPieceS(new TetrisAnalyzerGameSettings());
 
     @Test
     public void bestMove() {

@@ -3,16 +3,16 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceS;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.StandardGameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesForEmptyBoardTest {
@@ -21,7 +21,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     public void startMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(5, 5);
         Board board = createBoard(settings.boardWidth(), settings.boardWidth());
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();
@@ -60,7 +60,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     public void startMoveStandardTetris() {
         GameSettings settings = new StandardGameSettings(5, 5);
         Board board = createBoard(settings.boardWidth(), settings.boardWidth());
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();

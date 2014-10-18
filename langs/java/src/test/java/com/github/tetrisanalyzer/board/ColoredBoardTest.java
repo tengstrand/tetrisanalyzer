@@ -2,12 +2,12 @@ package com.github.tetrisanalyzer.board;
 
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceL;
 import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import org.junit.Test;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.board.ColoredBoard.create;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceL;
 import static junit.framework.Assert.assertEquals;
 
 public class ColoredBoardTest {
@@ -74,7 +74,7 @@ public class ColoredBoardTest {
                 "|JZZOO-OO|",
                 "|JJJOO-OO|",
                 "¯¯¯¯¯¯¯¯¯¯");
-        Piece piece = new PieceL(new StandardGameSettings(coloredBoard.asBoard()));
+        Piece piece = createPieceL(new StandardGameSettings(coloredBoard.asBoard()));
         Move move = new Move(3,4, 2);
         coloredBoard.setPiece(piece, move);
 

@@ -3,13 +3,13 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceI;
-import com.github.tetrisanalyzer.piece.PieceS;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceI;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +19,7 @@ public class PieceMoveTest {
     @Test
     public void setPiece() {
         Board board = createBoard(8, 4);
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         Move move = new Move(0,3, 1);
 
         new PieceMove(board, piece, move).setPiece();
@@ -41,7 +41,7 @@ public class PieceMoveTest {
                 "|-x--x----x|",
                 "|xxxxxxxxxx|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        Piece piece = new PieceI(settings);
+        Piece piece = createPieceI(settings);
         Move move = new Move(1,4, 1);
 
         assertEquals(2, new PieceMove(board, piece, move).setPiece());
@@ -63,7 +63,7 @@ public class PieceMoveTest {
                 "|xxxxxxxx|",
                 "|xxxxxxxx|",
                 "¯¯¯¯¯¯¯¯¯¯");
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         Move move = new Move(0,3, 1);
 
         new PieceMove(board, piece, move).clearPiece();
@@ -84,7 +84,7 @@ public class PieceMoveTest {
                 "|xxxx--xx|",
                 "|xxx--xxx|",
                 "¯¯¯¯¯¯¯¯¯¯");
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         Move move = new Move(0,3, 2);
 
         assertTrue(new PieceMove(board, piece, move).isFree());

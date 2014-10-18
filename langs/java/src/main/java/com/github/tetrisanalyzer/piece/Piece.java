@@ -22,17 +22,27 @@ public abstract class Piece {
     public static final int J = 6;
     public static final int T = 7;
 
+    public static PieceEmpty createPieceEmpty(PieceSettings settings) { return new PieceEmpty(settings); }
+    public static PieceO createPieceO(PieceSettings settings) { return new PieceO(settings); }
+    public static PieceI createPieceI(PieceSettings settings) { return new PieceI(settings); }
+    public static PieceS createPieceS(PieceSettings settings) { return new PieceS(settings); }
+    public static PieceZ createPieceZ(PieceSettings settings) { return new PieceZ(settings); }
+    public static PieceL createPieceL(PieceSettings settings) { return new PieceL(settings); }
+    public static PieceJ createPieceJ(PieceSettings settings) { return new PieceJ(settings); }
+    public static PieceT createPieceT(PieceSettings settings) { return new PieceT(settings); }
+    public static PieceAny createPieceAny(PieceSettings settings) { return new PieceAny(settings); }
+
     public static Piece[] validPieces(PieceSettings settings) {
         Piece[] pieces = new Piece[] {
-                new PieceEmpty(settings),
-                new PieceO(settings),
-                new PieceI(settings),
-                new PieceS(settings),
-                new PieceZ(settings),
-                new PieceL(settings),
-                new PieceJ(settings),
-                new PieceT(settings),
-                new PieceAny(settings)
+                createPieceEmpty(settings),
+                createPieceO(settings),
+                createPieceI(settings),
+                createPieceS(settings),
+                createPieceZ(settings),
+                createPieceL(settings),
+                createPieceJ(settings),
+                createPieceT(settings),
+                createPieceAny(settings)
         };
         return pieces;
     }

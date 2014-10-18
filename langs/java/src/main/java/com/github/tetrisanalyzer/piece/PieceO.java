@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.settings.PieceSettings;
 
 public class PieceO extends Piece {
 
-    public PieceO(PieceSettings settings) {
+    PieceO(PieceSettings settings) {
         super(settings);
     }
 

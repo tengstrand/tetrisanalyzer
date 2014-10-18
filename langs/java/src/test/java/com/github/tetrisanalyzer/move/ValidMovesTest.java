@@ -2,17 +2,17 @@ package com.github.tetrisanalyzer.move;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceS;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -41,7 +41,7 @@ public class ValidMovesTest {
     }
 
     private PieceMove getStartPieceS(Board board, GameSettings settings) {
-        Piece piece = new PieceS(settings);
+        Piece piece = createPieceS(settings);
         AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
 
         return allValidPieceMoves.startMoveForPiece(piece);

@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.settings.PieceSettings;
 
 public class PieceEmpty extends Piece {
 
-    public PieceEmpty(PieceSettings settings) {
+    PieceEmpty(PieceSettings settings) {
         super(settings);
     }
 

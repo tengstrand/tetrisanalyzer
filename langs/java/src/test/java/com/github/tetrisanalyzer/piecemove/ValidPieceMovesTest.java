@@ -3,15 +3,15 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piece.PieceO;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceO;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesTest {
@@ -20,7 +20,7 @@ public class ValidPieceMovesTest {
     public void getStartMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(6, 5);
         Board board = createBoard(settings.boardWidth(), settings.boardHeight());
-        Piece piece = new PieceO(settings);
+        Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();
 
