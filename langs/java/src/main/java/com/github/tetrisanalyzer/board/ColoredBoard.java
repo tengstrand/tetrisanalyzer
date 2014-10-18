@@ -51,9 +51,7 @@ public class ColoredBoard {
         ColoredBoard copy = new ColoredBoard(width, height);
 
         for (int y=0; y<height; y++) {
-            for (int x=0; x<width; x++) {
-                copy.board[y][x] = board[y][x];
-            }
+            System.arraycopy(board[y], 0, copy.board[y], 0, width);
         }
         return copy;
     }
