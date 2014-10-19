@@ -25,10 +25,13 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     @Override
+    public String description() {
+        return "Predetermined sequence of pieces. Returns 'O' if exceeded";
+    }
+
+    @Override
     public PieceGeneratorSettings settings() {
         return new PieceGeneratorSettings(
-                setting("description", "Predetermined sequence of pieces or 'O' if exceeded"),
-                setting("class", this.getClass().getCanonicalName()),
                 setting("next piece index", nextPieceIndex),
                 setting("pieces", pieces));
     }

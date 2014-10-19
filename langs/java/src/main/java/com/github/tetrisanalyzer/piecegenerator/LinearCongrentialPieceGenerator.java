@@ -35,10 +35,13 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     }
 
     @Override
+    public String description() {
+        return "Linear congruential generator";
+    }
+
+    @Override
     public PieceGeneratorSettings settings() {
         return new PieceGeneratorSettings(
-                setting("description", "Linear congruential generator"),
-                setting("class", this.getClass().getCanonicalName()),
                 setting("constant 1", constant1),
                 setting("constant 2", constant2),
                 setting("seed", seed));

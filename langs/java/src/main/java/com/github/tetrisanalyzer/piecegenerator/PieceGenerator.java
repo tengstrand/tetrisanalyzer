@@ -3,6 +3,8 @@ package com.github.tetrisanalyzer.piecegenerator;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
+import static com.github.tetrisanalyzer.settings.Setting.setting;
+
 public abstract class PieceGenerator {
     private Piece[] validPieces;
     public final PieceSettings settings;
@@ -10,6 +12,8 @@ public abstract class PieceGenerator {
     public abstract PieceGenerator copy();
     public abstract PieceGeneratorSettings settings();
     public abstract int nextPieceNumber();
+
+    public abstract String description();
 
     protected PieceGenerator(PieceSettings settings) {
         this.settings = settings;
@@ -26,7 +30,9 @@ public abstract class PieceGenerator {
     }
 
     public String export() {
-        return settings().export();
+        return new PieceGeneratorSettings(
+                setting("description", description()),
+                setting("class", this.getClass().getCanonicalName())).add(settings()).export();
     }
 
     @Override
