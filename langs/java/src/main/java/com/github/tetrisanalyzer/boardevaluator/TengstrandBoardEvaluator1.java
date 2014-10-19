@@ -3,10 +3,12 @@ package com.github.tetrisanalyzer.boardevaluator;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
 
+import static com.github.tetrisanalyzer.settings.Setting.setting;
+
 /**
- * This is version 1.1 of Tengstrand's Tetris AI
+ * Joakim Tengstrand's Tetris AI, version 1.1
  */
-public class TengstrandBoardEvaluator1 implements BoardEvaluator {
+public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardWidth;
     private final int boardHeight;
 
@@ -31,6 +33,7 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
         this.boardHeight = boardHeight;
     }
 
+    @Override
     public double evaluate(Board board)  {
         if (boardWidth > boardWidth) {
             throw new IllegalArgumentException("Can not evaluate board width > " + boardWidth);
@@ -127,20 +130,23 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
         return equity;
     }
 
+    @Override public String description() { return "Tengstrand 1.1"; }
+    @Override public String author() { return "Joakim Tengstrand"; }
+    @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
+    @Override public int minBoardX() { return 4; }
+    @Override public int maxBoardX() { return 10; }
+    @Override public int minBoardY() { return 4; }
+    @Override public int maxBoardY() { return 20; }
+    @Override public EvaluationType evaluationType() { return EvaluationType.LESS_IS_BETTER; }
+
     @Override
-    public String export() {
-        return "board evaluator:" +
-                "\n  description: Tengstrand 1.1" +
-                "\n  author: Joakim Tengstrand" +
-                "\n  url: http://hem.bredband.net/joakimtengstrand" +
-                "\n  class: " + this.getClass().getCanonicalName() +
-                "\n  min board size: [4,4]" +
-                "\n  max board size: [10,20]" +
-                "\n  height factor: " + asList(heightFactor) +
-                "\n  hollow factor: " + asList(blocksPerRowHollowFactor) +
-                "\n  area width factor: " + asList(areaWidthFactor) +
-                "\n  area height factor: " + asList(areaHeightFactor) +
-                "\n  area height factor2: " + asList(areaHeightFactorEqualWallHeight) + "\n";
+    public BoardEvaluatorSettings settings() {
+        return new BoardEvaluatorSettings(
+                setting("height factor", asList(heightFactor)),
+                setting("hollow factor", asList(blocksPerRowHollowFactor)),
+                setting("area width factor", asList(areaWidthFactor)),
+                setting("area height factor", asList(areaHeightFactor)),
+                setting("area height factor2", asList(areaHeightFactorEqualWallHeight)));
     }
 
     private String asList(double[] array) {
@@ -152,10 +158,5 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
             separator = ", ";
         }
         return result + "]";
-    }
-
-    @Override
-    public String toString() {
-        return export();
     }
 }

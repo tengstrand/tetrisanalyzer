@@ -21,7 +21,7 @@ public class ValidMovesTest {
     @Test
     public void pieceMoves() {
         GameSettings settings = new TetrisAnalyzerGameSettings(5, 4);
-        Board board = createBoard(settings.boardWidth(), settings.boardHeight());
+        Board board = createBoard(settings.boardWidth, settings.boardHeight);
         ValidMoves validMoves = new ValidMoves(board);
         PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<Move>();

@@ -19,14 +19,14 @@ public class ValidPieceMovesTest {
     @Test
     public void getStartMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(6, 5);
-        Board board = createBoard(settings.boardWidth(), settings.boardHeight());
+        Board board = createBoard(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();
 
         assertEquals(new PieceMove(board, piece, new Move(0,1, 0)), startMove);
 
-        Set<PieceMove> expectedMoves = new HashSet<PieceMove>();
+        Set<PieceMove> expectedMoves = new HashSet<>();
         expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 0)));
 

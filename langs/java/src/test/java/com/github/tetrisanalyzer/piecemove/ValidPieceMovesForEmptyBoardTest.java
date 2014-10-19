@@ -20,14 +20,14 @@ public class ValidPieceMovesForEmptyBoardTest {
     @Test
     public void startMove() {
         GameSettings settings = new TetrisAnalyzerGameSettings(5, 5);
-        Board board = createBoard(settings.boardWidth(), settings.boardWidth());
+        Board board = createBoard(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
-        Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();
+        Set<PieceMove> pieceMoves = new LinkedHashSet<>();
         addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
 
-        Set<PieceMove> expectedMoves = new LinkedHashSet<PieceMove>();
+        Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 0)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 1)));
@@ -59,14 +59,14 @@ public class ValidPieceMovesForEmptyBoardTest {
     @Test
     public void startMoveStandardTetris() {
         GameSettings settings = new StandardGameSettings(5, 5);
-        Board board = createBoard(settings.boardWidth(), settings.boardWidth());
+        Board board = createBoard(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
-        Set<PieceMove> pieceMoves = new LinkedHashSet<PieceMove>();
+        Set<PieceMove> pieceMoves = new LinkedHashSet<>();
         addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
 
-        Set<PieceMove> expectedMoves = new LinkedHashSet<PieceMove>();
+        Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 0)));
         expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 1)));
         expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 1)));

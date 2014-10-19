@@ -130,7 +130,7 @@ public class ColoredBoard {
     }
 
     public String export(String title, String tab) {
-        String result = "\n  " + title + ": \n" + tab + "[";
+        String result = "\n  " + title + ":\n" + tab + "[";
         String separator = "";
 
         for (String row : asStringRows("", false)) {
