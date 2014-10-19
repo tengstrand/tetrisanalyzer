@@ -48,14 +48,14 @@ public class ValidPieceMovesForEmptyBoardTest {
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
 
-        assertEquals(new Move(0,4, 0), startMove.move);
+        assertEquals(new Move(0,4, 1), startMove.move);
     }
 
     @Test
     public void tetrisAnalyzerTetrisStartPieceS() {
         Board board = createBoard(10, 20);
         GameSettings settings = new TetrisAnalyzerGameSettings(board);
-        Piece piece = createPieceI(settings);
+        Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
 
