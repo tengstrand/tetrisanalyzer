@@ -68,6 +68,6 @@ public class AdjustmentCalculatorTest {
         AdjustmentDxDy adjustment2 = new AdjustmentDxDy(2, 0);
         String result = AdjustmentCalculator.calculate("Z", adjustment1, adjustment2).export();
 
-        assertEquals("Z: [[1,1] [2,0]]", result);
+        assertEquals("[[1,1] [2,0]]", result);
     }
 }

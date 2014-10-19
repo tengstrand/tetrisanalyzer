@@ -36,7 +36,6 @@ public class TetrisAnalyzerGameSettings extends GameSettings {
     @Override public String id() { return "Atari-0"; }
     @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
     @Override public String description() { return "Tetris Analyzer 2 (Joakim Tengstrand)"; }
-    @Override public int pieceStartX() { return 4; }
     @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }
 
     @Override

@@ -26,6 +26,12 @@ public abstract class GameSettings implements PieceSettings {
         this.slidingEnabled = slidingEnabled;
     }
 
+    @Override
+    public int pieceStartX() {
+        return pieceStartX;
+    }
+
+    @Override
     public boolean isSlidingEnabled() {
         return slidingEnabled;
     }

@@ -29,7 +29,6 @@ public class StandardGameSettings extends GameSettings {
     @Override public String id() { return "Standard"; }
     @Override public String url() { return "http://colinfahey.com/tetris/tetris.html"; }
     @Override public String description() { return "Standard Tetris 2007 June 4 (Colin Fahey)"; }
-    @Override public int pieceStartX() { return 3; }
     @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }
 
     @Override
