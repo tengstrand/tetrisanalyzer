@@ -52,8 +52,13 @@ public class ValidPieceMovesForEmptyBoard {
         Movement startMovement = new Movement(new PieceMove(board, piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(board, piece, startMove.up()));
 
-        if (startMove.x + piece.width(startMove.rotation) > board.width) {
-            throw new IllegalStateException("Illegal start x position, probably because board.width and settings.boardWidth differ");
+        if (startMove.x < 0 || startMove.y < 0 ||
+                startMove.x + piece.width(startMove.rotation) > board.width ||
+                startMove.y + piece.height(startMove.rotation) > board.height) {
+            throw new IllegalStateException("The start piece position is outside the board, " +
+                    "start piece settings: [" + settings.pieceStartX + "," + settings.pieceStartY + "]" +
+                    ", piece: " + piece +
+                    ", piece adjustment (rotation,x, y): " + startMove);
         }
 
         calculateValidMoves(fromMovement, startMovement, true);

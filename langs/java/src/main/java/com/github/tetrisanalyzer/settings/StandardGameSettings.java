@@ -23,7 +23,7 @@ public class StandardGameSettings extends GameSettings {
     }
 
     public StandardGameSettings(int boardWidth, int boardHeight, boolean sliding) {
-        super(boardWidth, boardHeight, startX(boardWidth, 3), sliding);
+        super(boardWidth, boardHeight, startX(boardWidth, 3), -1, sliding);
     }
 
     @Override public String id() { return "Standard"; }

@@ -23,7 +23,7 @@ public class AdjustmentCalculatorTest {
         AdjustmentDxDy adjustment = new AdjustmentDxDy(1, 1);
         Adjustments result = AdjustmentCalculator.calculate("O", adjustment);
 
-        assertEquals(new Adjustments("O", 1, Arrays.asList(0), Arrays.asList(0), Arrays.asList(adjustment)), result);
+        assertEquals(new Adjustments("O", 1, 1, Arrays.asList(0), Arrays.asList(0), Arrays.asList(adjustment)), result);
     }
 
     /**
@@ -40,7 +40,7 @@ public class AdjustmentCalculatorTest {
         AdjustmentDxDy adjustment2 = new AdjustmentDxDy(2, 2);
         Adjustments result = AdjustmentCalculator.calculate("Z", adjustment1, adjustment2);
 
-        assertEquals(new Adjustments("Z", 1, Arrays.asList(1, -1), Arrays.asList(1, -1), Arrays.asList(adjustment1, adjustment2)), result);
+        assertEquals(new Adjustments("Z", 1, 1, Arrays.asList(1, -1), Arrays.asList(1, -1), Arrays.asList(adjustment1, adjustment2)), result);
     }
 
     /**
@@ -58,7 +58,7 @@ public class AdjustmentCalculatorTest {
         AdjustmentDxDy adjustment4 = new AdjustmentDxDy(1, 0);
         Adjustments result = AdjustmentCalculator.calculate("T", adjustment1, adjustment2, adjustment3, adjustment4);
 
-        assertEquals(new Adjustments("T", 1, Arrays.asList(1, -1, 0, 0), Arrays.asList(-1, 0, 0, 1),
+        assertEquals(new Adjustments("T", 1, 1, Arrays.asList(1, -1, 0, 0), Arrays.asList(-1, 0, 0, 1),
                 Arrays.asList(adjustment1, adjustment2, adjustment3, adjustment4)), result);
     }
 

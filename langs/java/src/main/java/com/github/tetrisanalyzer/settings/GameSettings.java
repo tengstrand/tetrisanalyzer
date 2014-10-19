@@ -13,22 +13,29 @@ public abstract class GameSettings implements PieceSettings {
     public final int boardWidth;
     public final int boardHeight;
     public final int pieceStartX;
+    public final int pieceStartY;
     public final boolean slidingEnabled;
 
     public abstract String id();
     public abstract String url();
     public abstract String description();
 
-    public GameSettings(int boardWidth, int boardHeight, int pieceStartX, boolean slidingEnabled) {
+    public GameSettings(int boardWidth, int boardHeight, int pieceStartX, int pieceStartY, boolean slidingEnabled) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.pieceStartX = pieceStartX;
+        this.pieceStartY = pieceStartY;
         this.slidingEnabled = slidingEnabled;
     }
 
     @Override
     public int pieceStartX() {
         return pieceStartX;
+    }
+
+    @Override
+    public int pieceStartY() {
+        return pieceStartY;
     }
 
     @Override

@@ -7,5 +7,6 @@ public interface PieceSettings {
     RotationDirection rotationDirection();
     boolean isSlidingEnabled();
     int pieceStartX();
+    int pieceStartY();
     Adjustments[] pieceAdjustments();
 }

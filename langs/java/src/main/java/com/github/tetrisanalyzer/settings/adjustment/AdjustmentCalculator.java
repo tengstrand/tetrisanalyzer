@@ -28,7 +28,6 @@ public class AdjustmentCalculator {
             dx.add(next.dx - current.dx);
             dy.add(next.dy - current.dy);
         }
-
-        return new Adjustments(piece, dxdyList.get(0).dx, dx, dy, dxdyList);
+        return new Adjustments(piece, dxdyList.get(0).dx, dxdyList.get(0).dy, dx, dy, dxdyList);
     }
 }

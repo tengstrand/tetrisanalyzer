@@ -30,7 +30,7 @@ public class TetrisAnalyzerGameSettings extends GameSettings {
     }
 
     public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight, boolean sliding) {
-        super(boardWidth, boardHeight, startX(boardWidth, 4), sliding);
+        super(boardWidth, boardHeight, startX(boardWidth, 4), 0, sliding);
     }
 
     @Override public String id() { return "Atari-0"; }

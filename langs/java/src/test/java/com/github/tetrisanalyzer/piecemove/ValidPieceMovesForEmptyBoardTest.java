@@ -12,15 +12,60 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceI;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
-    public void startMove() {
-        GameSettings settings = new TetrisAnalyzerGameSettings(5, 5);
-        Board board = createBoard(settings.boardWidth, settings.boardHeight);
+    public void standardTetrisStartPieceI() {
+        Board board = createBoard(10, 20);
+        GameSettings settings = new StandardGameSettings(board);
+        Piece piece = createPieceI(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+
+        assertEquals(new Move(0, 3, 0), startMove.move);
+    }
+
+    @Test
+    public void standardTetrisStartPieceS() {
+        Board board = createBoard(10, 20);
+        GameSettings settings = new StandardGameSettings(board);
+        Piece piece = createPieceS(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+
+        assertEquals(new Move(0,4, 0), startMove.move);
+    }
+
+    @Test
+    public void tetrisAnalyzerTetrisStartPieceI() {
+        Board board = createBoard(10, 20);
+        GameSettings settings = new TetrisAnalyzerGameSettings(board);
+        Piece piece = createPieceI(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+
+        assertEquals(new Move(0,4, 0), startMove.move);
+    }
+
+    @Test
+    public void tetrisAnalyzerTetrisStartPieceS() {
+        Board board = createBoard(10, 20);
+        GameSettings settings = new TetrisAnalyzerGameSettings(board);
+        Piece piece = createPieceI(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+
+        assertEquals(new Move(0,4, 0), startMove.move);
+    }
+
+    @Test
+    public void vlaidMovesTetrisAnalyzer() {
+        Board board = createBoard(5, 5);
+        GameSettings settings = new TetrisAnalyzerGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
@@ -57,9 +102,9 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void startMoveStandardTetris() {
-        GameSettings settings = new StandardGameSettings(5, 5);
-        Board board = createBoard(settings.boardWidth, settings.boardHeight);
+    public void validMovesStandardTetris() {
+        Board board = createBoard(5, 5);
+        GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
