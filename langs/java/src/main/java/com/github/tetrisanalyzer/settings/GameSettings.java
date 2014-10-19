@@ -54,7 +54,7 @@ public abstract class GameSettings implements PieceSettings {
                 setting("description", description()),
                 setting("sliding", (slidingEnabled ? "on" : "off")),
                 setting("rotation", rotationDirection()),
-                setting("piece start x on standard board", pieceStartX),
+                setting("piece start position on standard board", "[" + pieceStartX + "," + pieceStartY + "]"),
                 setting("O", adjustment(O)),
                 setting("I", adjustment(I)),
                 setting("S", adjustment(S)),
