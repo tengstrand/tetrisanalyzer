@@ -27,7 +27,7 @@ public class Adjustments {
     }
 
     public String export() {
-        String result = piece + ": [";
+        String result = "[";
         String separator = "";
 
         for (AdjustmentDxDy adjustment : source) {

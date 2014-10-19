@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 
 import static com.github.tetrisanalyzer.piece.Piece.*;
+import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 public abstract class AbstractGameSettings implements GameSettings {
     private final int boardWidth;
@@ -49,20 +50,20 @@ public abstract class AbstractGameSettings implements GameSettings {
 
     @Override
     public String export() {
-        return "game rules:" +
-                "\n  id: " + id() +
-                "\n  url: " + url() +
-                "\n  description: " + description() +
-                "\n  sliding: " + sliding +
-                "\n  rotation: " + rotationDirection() +
-                "\n  piece start x on standard board: " + pieceStartX +
-                "\n  " + adjustment(O) +
-                "\n  " + adjustment(I) +
-                "\n  " + adjustment(S) +
-                "\n  " + adjustment(Z) +
-                "\n  " + adjustment(L) +
-                "\n  " + adjustment(J) +
-                "\n  " + adjustment(T) + "\n";
+        return new Settings("game rules",
+                setting("id", id()),
+                setting("url", url()),
+                setting("description", description()),
+                setting("sliding", sliding),
+                setting("rotation", rotationDirection()),
+                setting("piece start x on standard board", pieceStartX),
+                setting("O", adjustment(O)),
+                setting("I", adjustment(I)),
+                setting("S", adjustment(S)),
+                setting("Z", adjustment(Z)),
+                setting("L", adjustment(L)),
+                setting("J", adjustment(J)),
+                setting("T", adjustment(T))).export();
     }
 
     private String adjustment(int piece) {
