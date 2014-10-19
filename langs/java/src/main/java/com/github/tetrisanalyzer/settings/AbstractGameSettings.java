@@ -50,7 +50,9 @@ public abstract class AbstractGameSettings implements GameSettings {
     @Override
     public String export() {
         return "game rules:" +
-                "\n  description: " + name() +
+                "\n  id: " + id() +
+                "\n  url: " + url() +
+                "\n  description: " + description() +
                 "\n  sliding: " + sliding +
                 "\n  rotation: " + rotationDirection() +
                 "\n  piece start x on standard board: " + pieceStartX +

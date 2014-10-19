@@ -7,9 +7,9 @@ public abstract class PieceGenerator {
     private Piece[] validPieces;
     public final PieceSettings settings;
 
-    public abstract int nextPieceNumber();
-    public abstract String export();
     public abstract PieceGenerator copy();
+    public abstract PieceGeneratorSettings settings();
+    public abstract int nextPieceNumber();
 
     protected PieceGenerator(PieceSettings settings) {
         this.settings = settings;
@@ -23,5 +23,14 @@ public abstract class PieceGenerator {
             throw new IllegalArgumentException("Piece number must be in the range 1..7, found: " + pieceNumber);
         }
         return validPieces[pieceNumber];
+    }
+
+    public String export() {
+        return settings().export();
+    }
+
+    @Override
+    public String toString() {
+        return export();
     }
 }

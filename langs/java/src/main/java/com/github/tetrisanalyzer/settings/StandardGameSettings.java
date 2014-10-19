@@ -25,8 +25,18 @@ public class StandardGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public String name() {
-        return "Standard Tetris (Colin Fahey)";
+    public String id() {
+        return "Standard";
+    }
+
+    @Override
+    public String url() {
+        return "http://colinfahey.com/tetris/tetris.html";
+    }
+
+    @Override
+    public String description() {
+        return "Standard Tetris 2007 June 4 (Colin Fahey)";
     }
 
     @Override

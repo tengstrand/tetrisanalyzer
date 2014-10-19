@@ -4,15 +4,15 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 
 public class GameResult {
-    public Board board;
-    public ColoredBoard coloredBoard;
+    public final Board board;
+    public final ColoredBoard coloredBoard;
     public long moves;
     public long movesLeft;
     public long games;
     public long rows;
     public long totalRows;
     public long dots;
-    public long[] dotDist;
+    public final long[] dotDist;
 
     public GameResult(ColoredBoard coloredBoard, int movesLeft) {
         this.board = coloredBoard.asBoard();
@@ -40,7 +40,7 @@ public class GameResult {
         if (!board.isBoardEmpty()) {
             result += coloredBoard.export("start board", "    ");
         }
-        return result + "\n";
+        return result;
     }
 
     private String dots() {

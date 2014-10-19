@@ -32,8 +32,18 @@ public class TetrisAnalyzerGameSettings extends AbstractGameSettings {
     }
 
     @Override
-    public String name() {
-        return "Tetris Analyzer (Joakim Tengstrand)";
+    public String id() {
+        return "Atari-0";
+    }
+
+    @Override
+    public String url() {
+        return "http://hem.bredband.net/joakimtengstrand";
+    }
+
+    @Override
+    public String description() {
+        return "Tetris Analyzer 2 (Joakim Tengstrand)";
     }
 
     @Override

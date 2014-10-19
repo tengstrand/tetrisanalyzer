@@ -130,7 +130,7 @@ public class TengstrandBoardEvaluator1 implements BoardEvaluator {
     @Override
     public String export() {
         return "board evaluator:" +
-                "\n  name: Tengstrand 1.1" +
+                "\n  description: Tengstrand 1.1" +
                 "\n  author: Joakim Tengstrand" +
                 "\n  url: http://hem.bredband.net/joakimtengstrand" +
                 "\n  class: " + this.getClass().getCanonicalName() +

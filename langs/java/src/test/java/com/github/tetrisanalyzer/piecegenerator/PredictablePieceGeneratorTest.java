@@ -21,8 +21,8 @@ public class PredictablePieceGeneratorTest {
         PieceSettings settings = new TetrisAnalyzerGameSettings();
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "SZI");
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber());
+                pieceGenerator.nextPieceNumber(),
+                pieceGenerator.nextPieceNumber());
 
         assertEquals(Arrays.asList(S, Z, I), result);
     }
@@ -32,11 +32,11 @@ public class PredictablePieceGeneratorTest {
         PieceSettings settings = new TetrisAnalyzerGameSettings();
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "I");
         List<Integer> result = Arrays.asList(
-            pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber(),
-            pieceGenerator.nextPieceNumber());
+                pieceGenerator.nextPieceNumber(),
+                pieceGenerator.nextPieceNumber(),
+                pieceGenerator.nextPieceNumber(),
+                pieceGenerator.nextPieceNumber(),
+                pieceGenerator.nextPieceNumber());
 
         assertEquals(Arrays.asList(I, O, O, O, O), result);
     }

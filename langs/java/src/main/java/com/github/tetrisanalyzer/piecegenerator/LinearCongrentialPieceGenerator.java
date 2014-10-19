@@ -2,16 +2,18 @@ package com.github.tetrisanalyzer.piecegenerator;
 
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
+import static com.github.tetrisanalyzer.settings.Setting.setting;
+
 /**
- * This piece generator mimics the behaviour of the C++ version,
- * of TetrisAnalyzer that uses 32 bit unsigned integers.
+ * This piece generator mimics the behaviour of the C++ version
+ * of Tetris Analyzer that uses 32 bit unsigned integers.
  */
 public class LinearCongrentialPieceGenerator extends PieceGenerator {
     private static long BIT_MASK = 0x00000000FFFFFFFFL;
 
     private long seed;
-    private final long a;
-    private final long b;
+    private final long constant1;
+    private final long constant2;
 
     public LinearCongrentialPieceGenerator(PieceSettings settings) {
         this(0, settings);
@@ -21,11 +23,11 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
         this(seed, 1664525, 1013904223, settings);
     }
 
-    public LinearCongrentialPieceGenerator(long seed, long a, long b, PieceSettings settings) {
+    public LinearCongrentialPieceGenerator(long seed, long constant1, long constant2, PieceSettings settings) {
         super(settings);
         this.seed = seed;
-        this.a = a;
-        this.b = b;
+        this.constant1 = constant1;
+        this.constant2 = constant2;
     }
 
     public LinearCongrentialPieceGenerator copy() {
@@ -33,9 +35,19 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     }
 
     @Override
+    public PieceGeneratorSettings settings() {
+        return new PieceGeneratorSettings(
+                setting("description", "Linear congruential generator"),
+                setting("class", this.getClass().getCanonicalName()),
+                setting("constant 1", constant1),
+                setting("constant 2", constant2),
+                setting("seed", seed));
+    }
+
+    @Override
     public int nextPieceNumber() {
-        seed = (seed * a) & BIT_MASK;
-        seed = (seed + b) & BIT_MASK;
+        seed = (seed * constant1) & BIT_MASK;
+        seed = (seed + constant2) & BIT_MASK;
 
         return modulus7() + 1;
     }
@@ -43,16 +55,6 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     private int modulus7() {
       long div = seed / 7;
       return (int)(seed - div * 7);
-    }
-
-    @Override
-    public String export() {
-        return "piece generator:" +
-                "\n  description: Linear congruential generator" +
-                "\n  class: " + this.getClass().getCanonicalName() +
-                "\n  a: " + a +
-                "\n  b: " + b +
-                "\n  seed: " + seed + "\n";
     }
 
     @Override
