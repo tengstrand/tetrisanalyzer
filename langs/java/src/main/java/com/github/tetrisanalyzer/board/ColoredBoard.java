@@ -141,6 +141,19 @@ public class ColoredBoard {
         return result + "]";
     }
 
+    /**
+     * Show where on the boar a piece is placed.
+     *
+     *   I: 1,10
+     *  |----------|
+     *  |----------|
+     *  |----------|<
+     *  |LL--------|
+     *  |LL--------|
+     *  |LLIIIIOOT-|
+     *  |IJS-TTTLLL|
+     *  ¯¯¯¯¯¯¯¯¯¯^¯
+     */
     public String asString(Piece piece, Move move) {
         String board = "";
 
@@ -154,7 +167,7 @@ public class ColoredBoard {
         }
         board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
-        return " " + piece.character() + " (" + move.rotation + "," + (move.x + 1)  + ")\n" + board;
+        return " " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
     }
 
     private String[] asStringRows(String wall, boolean withBottomRow) {
