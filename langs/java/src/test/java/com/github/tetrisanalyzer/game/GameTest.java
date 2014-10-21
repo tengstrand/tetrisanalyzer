@@ -20,8 +20,8 @@ public class GameTest {
         GameSettings settings = new TetrisAnalyzerGameSettings(true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
-        GameResult result = new GameResult(board, 5);
-        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        GameResult result = new GameResult(board, pieceGenerator, 5);
+        Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
         assertEquals(1, result.rows);
@@ -57,8 +57,8 @@ public class GameTest {
         GameSettings settings = new TetrisAnalyzerGameSettings(true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
-        GameResult result = new GameResult(board, 1);
-        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        GameResult result = new GameResult(board, pieceGenerator, 1);
+        Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
         assertEquals(ColoredBoard.create(
@@ -82,8 +82,8 @@ public class GameTest {
         GameSettings settings = new TetrisAnalyzerGameSettings();
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
-        GameResult result = new GameResult(board, 1);
-        Game game = new Game(result, boardEvaluator, pieceGenerator, settings);
+        GameResult result = new GameResult(board, pieceGenerator, 1);
+        Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
         assertEquals(ColoredBoard.create(

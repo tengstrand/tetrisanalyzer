@@ -13,11 +13,12 @@ public abstract class PieceGenerator {
     public abstract PieceGeneratorSettings settings();
     public abstract int nextPieceNumber();
 
+    public abstract String state();
     public abstract String description();
 
     protected PieceGenerator(PieceSettings settings) {
         this.settings = settings;
-         validPieces = Piece.validPieces(settings);
+        validPieces = Piece.validPieces(settings);
     }
 
     public Piece nextPiece() {

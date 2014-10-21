@@ -11,9 +11,9 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
 public class LinearCongrentialPieceGenerator extends PieceGenerator {
     private static long BIT_MASK = 0x00000000FFFFFFFFL;
 
-    private long seed;
-    private final long constant1;
-    private final long constant2;
+    public long seed;
+    public final long constant1;
+    public final long constant2;
 
     public LinearCongrentialPieceGenerator(PieceSettings settings) {
         this(0, settings);
@@ -37,6 +37,11 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     @Override
     public String description() {
         return "Linear congruential generator";
+    }
+
+    @Override
+    public String state() {
+        return String.valueOf(seed);
     }
 
     @Override

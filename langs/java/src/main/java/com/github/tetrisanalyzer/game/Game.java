@@ -27,12 +27,12 @@ public class Game {
     private GameSettings settings;
     private GameResult result;
 
-    public Game(GameResult gameResult, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, GameSettings settings) {
+    public Game(GameResult gameResult, BoardEvaluator boardEvaluator, GameSettings settings) {
         this.board = gameResult.board.copy();
         this.coloredBoard = gameResult.coloredBoard.copy();
         this.result = gameResult;
         this.boardEvaluator = boardEvaluator;
-        this.pieceGenerator = pieceGenerator;
+        this.pieceGenerator = result.pieceGenerator;
         this.settings = settings;
         this.cells = board.numberOfFilledCells();
 

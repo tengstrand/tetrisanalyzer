@@ -30,6 +30,11 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     @Override
+    public String state() {
+        return null;
+    }
+
+    @Override
     public PieceGeneratorSettings settings() {
         return new PieceGeneratorSettings(
                 setting("next piece index", nextPieceIndex),

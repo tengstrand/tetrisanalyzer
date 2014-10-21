@@ -2,10 +2,12 @@ package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
+import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 public class GameResult {
     public final Board board;
     public final ColoredBoard coloredBoard;
+    public final PieceGenerator pieceGenerator;
     public long moves;
     public long movesLeft;
     public long games;
@@ -14,8 +16,9 @@ public class GameResult {
     public long cells;
     public final long[] cellDist;
 
-    public GameResult(ColoredBoard coloredBoard, int movesLeft) {
+    public GameResult(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
         this.board = coloredBoard.asBoard();
+        this.pieceGenerator = pieceGenerator;
         cellDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
         this.coloredBoard = coloredBoard;
@@ -26,9 +29,10 @@ public class GameResult {
 
         return "game result:" +
                 board() +
+                "\n  piece generator: " + pieceGenerator.state() +
                 "\n  moves: " + format(moves) +
+                "\n  rows: " + format(rows) +
                 "\n  games: " + format(games) +
-                "\n  rows current game: " + format(rows) +
                 "\n  rows finished games: " + format(totalRows) +
                 "\n  rows/game: " + format(rowsPerGame) +
                 "\n  filled cells total: " + format(cells) +
