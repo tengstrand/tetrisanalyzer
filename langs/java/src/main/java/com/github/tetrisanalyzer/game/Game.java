@@ -22,10 +22,10 @@ public class Game {
     private int cells;
     public Board board;
     public ColoredBoard coloredBoard;
-    private BoardEvaluator boardEvaluator;
-    public PieceGenerator pieceGenerator;
-    private GameSettings settings;
-    private GameResult result;
+    private final BoardEvaluator boardEvaluator;
+    public final PieceGenerator pieceGenerator;
+    private final GameSettings settings;
+    private final GameResult result;
 
     public Game(GameResult gameResult, BoardEvaluator boardEvaluator, GameSettings settings) {
         this.board = gameResult.board.copy();
@@ -43,6 +43,8 @@ public class Game {
      * Plays a specified number of pieces (result.movesLeft).
      */
     public void play() {
+        result.startTime = Duration.currentTime();
+
         while (result.movesLeft > 0) {
             Piece piece = pieceGenerator.nextPiece();
             PieceMove bestMove = evaluateBestMove(piece);
@@ -56,6 +58,7 @@ public class Game {
             result.cells += cells;
             result.cellDist[cells]++;
         }
+        result.endTime = Duration.currentTime();
     }
 
     private PieceMove evaluateBestMove(Piece piece) {
