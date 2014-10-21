@@ -48,6 +48,7 @@ public class Game {
             PieceMove bestMove = evaluateBestMove(piece);
             result.moves++;
             result.movesLeft--;
+            //System.out.println("\n" + coloredBoard.asString(piece, bestMove.move));
             int clearedRows = bestMove.setPiece();
             coloredBoard.setPiece(bestMove.piece, bestMove.move);
             result.rows += clearedRows;

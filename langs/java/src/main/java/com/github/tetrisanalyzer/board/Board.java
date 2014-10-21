@@ -85,8 +85,12 @@ public class Board {
         return newRows;
     }
 
+    public static String bottomString(int chars) {
+        return new String(new char[chars]).replace("\0", "¯");
+    }
+
     public static String bottomTextRow(int width) {
-        return new String(new char[width + 2]).replace("\0", "¯");
+        return bottomString(width + 2);
     }
 
     private static int rowsFromText(int width, String textRow) {

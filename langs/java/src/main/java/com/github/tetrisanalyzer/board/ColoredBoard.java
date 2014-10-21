@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
 
+import static com.github.tetrisanalyzer.board.Board.bottomString;
 import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
 import static com.github.tetrisanalyzer.board.Board.createBoard;
 
@@ -138,6 +139,22 @@ public class ColoredBoard {
             separator = "\n" + tab + " ";
         }
         return result + "]";
+    }
+
+    public String asString(Piece piece, Move move) {
+        String board = "";
+
+        int y = 0;
+        for (String row : asStringRows(WALL_CELL, false)) {
+            board += row;
+            if (y++ == move.y) {
+                board += "<";
+            }
+            board += "\n";
+        }
+        board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+
+        return " " + piece.character() + " (" + move.rotation + "," + (move.x + 1)  + ")\n" + board;
     }
 
     private String[] asStringRows(String wall, boolean withBottomRow) {
