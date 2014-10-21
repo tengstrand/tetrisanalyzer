@@ -17,9 +17,9 @@ public class TengstrandBoardEvaluator1Test {
                 "|----------|",
                 "|-x---xx---|",
                 "|-xx-xx-x--|",
-                "|xxxx-xxx--|",
+                "|xxxx-xxxx-|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
 
-        assertEquals(51.0386, evaluator.evaluate(board), 0.0001);
+        assertEquals(51.7145, evaluator.evaluate(board), 0.0001);
     }
 }

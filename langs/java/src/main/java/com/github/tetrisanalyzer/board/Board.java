@@ -40,7 +40,13 @@ public class Board {
         for (int y=0; y<height; y++) {
             boardRows[y] = rowsFromText(width, rows[y]);
         }
-        return new Board(width,  height, boardRows);
+        Board result = new Board(width,  height, boardRows);
+
+        int squares = result.numberOfSquares();
+        if ((width & 1) == 0 && (squares & 1) == 1) {
+            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of squares (" + squares + ")");
+        }
+        return result;
     }
 
     /**
@@ -225,7 +231,7 @@ public class Board {
         return true;
     }
 
-    public int numberOfDots() {
+    public int numberOfSquares() {
         int cnt = 0;
 
         for (int y=0; y<height; y++) {

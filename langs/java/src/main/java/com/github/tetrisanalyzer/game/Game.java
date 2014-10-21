@@ -5,6 +5,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.move.EvaluatedMoves;
 import com.github.tetrisanalyzer.move.ValidMoves;
+import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
@@ -33,7 +34,7 @@ public class Game {
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.settings = settings;
-        this.dots = board.numberOfDots();
+        this.dots = board.numberOfSquares();
 
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }
@@ -43,21 +44,21 @@ public class Game {
      */
     public void play() {
         while (result.movesLeft > 0) {
-            PieceMove bestMove = evaluateBestMove();
+            Piece piece = pieceGenerator.nextPiece();
+            PieceMove bestMove = evaluateBestMove(piece);
             result.moves++;
             result.movesLeft--;
             int clearedRows = bestMove.setPiece();
+            coloredBoard.setPiece(bestMove.piece, bestMove.move);
             result.rows += clearedRows;
             dots += 4 - clearedRows * board.width;
             result.dots += dots;
             result.dotDist[dots]++;
-
-            coloredBoard.setPiece(bestMove.piece, bestMove.move);
         }
     }
 
-    private PieceMove evaluateBestMove() {
-        PieceMove bestMove = evaluateNextPiece();
+    private PieceMove evaluateBestMove(Piece piece) {
+        PieceMove bestMove = evaluatePiece(piece);
 
         if (bestMove == null) {
             result.games++;
@@ -65,9 +66,9 @@ public class Game {
             result.rows = 0;
             board = result.board.copy();
             coloredBoard = result.coloredBoard.copy();
-            dots = board.numberOfDots();
+            dots = board.numberOfSquares();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
-            bestMove = evaluateNextPiece();
+            bestMove = evaluatePiece(piece);
             if (bestMove == null) {
                 throw new IllegalStateException("The starting position is occupied!");
             }
@@ -75,8 +76,8 @@ public class Game {
         return bestMove;
     }
 
-    private PieceMove evaluateNextPiece() {
-        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(pieceGenerator.nextPiece());
+    private PieceMove evaluatePiece(Piece piece) {
+        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece);
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove);
         return new EvaluatedMoves(validMoves, boardEvaluator).bestMove();
     }

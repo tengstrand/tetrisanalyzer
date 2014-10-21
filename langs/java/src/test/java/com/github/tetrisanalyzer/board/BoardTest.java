@@ -58,12 +58,12 @@ public class BoardTest {
     @Test
     public void isFree_occupied() {
         Board board = createBoard(
-                "|----------|",
-                "|----------|",
-                "|----------|",
-                "|----------|",
-                "|-x--------|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "|---------|",
+                "|---------|",
+                "|---------|",
+                "|---------|",
+                "|-x-------|",
+                "¯¯¯¯¯¯¯¯¯¯¯");
 
         assertFalse(board.isFree(1, 4));
     }
@@ -71,12 +71,12 @@ public class BoardTest {
     @Test
     public void isFree() {
         Board board = createBoard(
-                "|xxxxxxxxxx|",
-                "|xxxxxxxxxx|",
-                "|xxxxxxxxxx|",
-                "|xxxxxxxxxx|",
-                "|x-xxxxxxxx|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "|xxxxxxxxx|",
+                "|xxxxxxxxx|",
+                "|xxxxxxxxx|",
+                "|xxxxxxxxx|",
+                "|x-xxxxxxx|",
+                "¯¯¯¯¯¯¯¯¯¯¯");
 
         assertTrue(board.isFree(1, 4));
     }
@@ -118,6 +118,30 @@ public class BoardTest {
         empty.restore(copy);
 
         assertEquals(copy, empty);
+    }
+
+    @Test
+    public void cantHaveOddNumberOfDotsOnAnEvenBoardWidth() {
+        try {
+            createBoard(
+                    "|------|",
+                    "|------|",
+                    "|x-----|",
+                    "|xx----|",
+                    "¯¯¯¯¯¯¯¯");
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Test
+    public void canHaveOddNumberOfDotsOnAnOddBoardWidth() {
+        createBoard(
+                "|-----|",
+                "|-----|",
+                "|x----|",
+                "|xx---|",
+                "¯¯¯¯¯¯¯");
     }
 
     private Board board() {
