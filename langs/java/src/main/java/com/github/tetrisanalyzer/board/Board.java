@@ -42,9 +42,9 @@ public class Board {
         }
         Board result = new Board(width,  height, boardRows);
 
-        int squares = result.numberOfSquares();
-        if ((width & 1) == 0 && (squares & 1) == 1) {
-            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of squares (" + squares + ")");
+        int cells = result.numberOfFilledCells();
+        if ((width & 1) == 0 && (cells & 1) == 1) {
+            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of filled cells (" + cells + ")");
         }
         return result;
     }
@@ -102,29 +102,29 @@ public class Board {
      * Sets part of a piece on the board.
      *
      * @param y board row
-     * @param pieceRowDots dots of a piece row for a specific piece row
+     * @param pieceRowCells filled cells of a specific piece row
      */
-    public void setBits(int y, int pieceRowDots) {
-        rows[y] |= pieceRowDots;
+    public void setBits(int y, int pieceRowCells) {
+        rows[y] |= pieceRowCells;
     }
 
     /**
      * Cleares part of a piece on the board.
      *
      * @param y board row
-     * @param inversePieceRowDots dots of a piece row for a specific piece row
+     * @param inversePieceRowCells filled cells of a specific piece row
      */
-    public void clearBits(int y, int inversePieceRowDots) {
-        rows[y] &= inversePieceRowDots;
+    public void clearBits(int y, int inversePieceRowCells) {
+        rows[y] &= inversePieceRowCells;
     }
 
     /**
      * @param y board row
-     * @param pieceRowDots dots of a piece row for a specific piece row
-     * @return true if the piece row dots are not occupied on the board
+     * @param pieceRowCells filled cells of a specific piece row
+     * @return true if the piece row cells are not occupied on the board
      */
-    public boolean isBitsFree(int y, int pieceRowDots) {
-        return (rows[y] & pieceRowDots) == 0;
+    public boolean isBitsFree(int y, int pieceRowCells) {
+        return (rows[y] & pieceRowCells) == 0;
     }
 
     public void setWidth(int width) {
@@ -142,7 +142,7 @@ public class Board {
     }
 
     /**
-     * True if the specified dot is not occupied.
+     * True if the specified cell is not occupied.
      */
     public boolean isFree(int x, int y) {
         try {
@@ -231,7 +231,7 @@ public class Board {
         return true;
     }
 
-    public int numberOfSquares() {
+    public int numberOfFilledCells() {
         int cnt = 0;
 
         for (int y=0; y<height; y++) {

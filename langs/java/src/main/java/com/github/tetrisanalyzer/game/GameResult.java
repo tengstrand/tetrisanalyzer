@@ -11,12 +11,12 @@ public class GameResult {
     public long games;
     public long rows;
     public long totalRows;
-    public long dots;
-    public final long[] dotDist;
+    public long cells;
+    public final long[] cellDist;
 
     public GameResult(ColoredBoard coloredBoard, int movesLeft) {
         this.board = coloredBoard.asBoard();
-        dotDist = new long[(board.width - 1) * board.height + 1];
+        cellDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
         this.coloredBoard = coloredBoard;
     }
@@ -31,8 +31,8 @@ public class GameResult {
                 "\n  rows current game: " + format(rows) +
                 "\n  rows finished games: " + format(totalRows) +
                 "\n  rows/game: " + format(rowsPerGame) +
-                "\n  dots total: " + format(dots) +
-                "\n  dots distribution: [" + dots() + "]\n";
+                "\n  filled cells total: " + format(cells) +
+                "\n  filled cells distribution: [" + cells() + "]\n";
     }
 
     private String board() {
@@ -43,14 +43,14 @@ public class GameResult {
         return result;
     }
 
-    private String dots() {
+    private String cells() {
         String result = "";
         String separator = "";
 
-        int dotstep = 2 - (board.width & 1);
+        int step = 2 - (board.width & 1);
 
-        for (int i = 0; i<dotDist.length; i+=dotstep) {
-            result += separator + dotDist[i];
+        for (int i = 0; i< cellDist.length; i+=step) {
+            result += separator + cellDist[i];
             separator = ",";
         }
         return result;

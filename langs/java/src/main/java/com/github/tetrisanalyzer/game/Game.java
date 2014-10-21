@@ -19,7 +19,7 @@ import java.util.List;
 public class Game {
     private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
 
-    private int dots;
+    private int cells;
     public Board board;
     public ColoredBoard coloredBoard;
     private BoardEvaluator boardEvaluator;
@@ -34,13 +34,13 @@ public class Game {
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.settings = settings;
-        this.dots = board.numberOfSquares();
+        this.cells = board.numberOfFilledCells();
 
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }
 
     /**
-     * Play specified number of pieces (result.movesLeft).
+     * Plays a specified number of pieces (result.movesLeft).
      */
     public void play() {
         while (result.movesLeft > 0) {
@@ -51,9 +51,9 @@ public class Game {
             int clearedRows = bestMove.setPiece();
             coloredBoard.setPiece(bestMove.piece, bestMove.move);
             result.rows += clearedRows;
-            dots += 4 - clearedRows * board.width;
-            result.dots += dots;
-            result.dotDist[dots]++;
+            cells += 4 - clearedRows * board.width;
+            result.cells += cells;
+            result.cellDist[cells]++;
         }
     }
 
@@ -66,7 +66,7 @@ public class Game {
             result.rows = 0;
             board = result.board.copy();
             coloredBoard = result.coloredBoard.copy();
-            dots = board.numberOfSquares();
+            cells = board.numberOfFilledCells();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
             bestMove = evaluatePiece(piece);
             if (bestMove == null) {

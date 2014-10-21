@@ -103,7 +103,7 @@ public class PieceMove {
 
     /**
      * True if this piece hasn't reached the bottom (down == null) and the move down
-     * (current position where y is increased by one) is not occupied with "dots" (rest of pieces).
+     * (current position where y is increased by one) is not occupied with filled cells.
      */
     public boolean canMoveDown() {
         return down != null && down.isFree();

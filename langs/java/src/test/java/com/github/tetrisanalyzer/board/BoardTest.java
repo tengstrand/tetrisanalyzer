@@ -121,7 +121,7 @@ public class BoardTest {
     }
 
     @Test
-    public void cantHaveOddNumberOfDotsOnAnEvenBoardWidth() {
+    public void cantHaveOddNumberOfCellsOnAnEvenBoardWidth() {
         try {
             createBoard(
                     "|------|",
@@ -135,7 +135,7 @@ public class BoardTest {
     }
 
     @Test
-    public void canHaveOddNumberOfDotsOnAnOddBoardWidth() {
+    public void canHaveOddNumberOfCellsOnAnOddBoardWidth() {
         createBoard(
                 "|-----|",
                 "|-----|",

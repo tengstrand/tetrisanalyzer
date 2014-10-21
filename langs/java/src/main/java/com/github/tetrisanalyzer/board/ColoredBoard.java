@@ -14,8 +14,8 @@ public class ColoredBoard {
     public final int height;
     final char[][] board;
 
-    private final char EMPTY_DOT = '-';
-    private final String WALL_DOT = "|";
+    private final char EMPTY_CELL = '-';
+    private final String WALL_CELL = "|";
 
     private ColoredBoard(int width, int height) {
         this.width = width;
@@ -60,7 +60,7 @@ public class ColoredBoard {
     }
 
     public Board asBoard() {
-        return createBoard(asStringRows(WALL_DOT, true));
+        return createBoard(asStringRows(WALL_CELL, true));
     }
 
     public void setPiece(Piece piece, Move move) {
@@ -116,13 +116,13 @@ public class ColoredBoard {
 
     private void clearRow(int y) {
         for (int x=0; x<width; x++) {
-            board[y][x] = EMPTY_DOT;
+            board[y][x] = EMPTY_CELL;
         }
     }
 
     private boolean isRowComplete(int y) {
         for (int x=0; x<width; x++) {
-            if (board[y][x] == EMPTY_DOT) {
+            if (board[y][x] == EMPTY_CELL) {
                 return false;
             }
         }
@@ -190,7 +190,7 @@ public class ColoredBoard {
         String result = "";
         String separator = "";
 
-        for (String row : asStringRows(WALL_DOT, true)) {
+        for (String row : asStringRows(WALL_CELL, true)) {
             result += separator + row;
             separator = "\n";
         }
