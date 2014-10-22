@@ -1,25 +1,25 @@
 package com.github.tetrisanalyzer.game;
 
+import java.util.Locale;
+
 public class Duration {
-    final int days;
-    final int hours;
-    final int minutes;
-    final int seconds;
-    final int millis;
+    public final long startMillis;
+    public final long endMillis;
 
-    public Duration(int days, int hours, int minutes, int seconds, int millis) {
-        this.days = days;
-        this.hours = hours;
-        this.minutes = minutes;
-        this.seconds = seconds;
-        this.millis = millis;
-    }
+    public final int days;
+    public final int hours;
+    public final int minutes;
+    public final int seconds;
+    public final int millis;
 
-    public static long currentTime() {
-        return System.currentTimeMillis();
-    }
+    public Duration(long startMillis, long endMillis) {
+        if (endMillis < startMillis) {
+            throw new IllegalArgumentException("End time is before start time");
+        }
 
-    public static Duration duration(long startMillis, long endMillis) {
+        this.startMillis = startMillis;
+        this.endMillis = endMillis;
+
         final long millisPerDay = 86400000;
         final long millisPerHour = 3600000;
         final long millisPerMinute = 60000;
@@ -27,16 +27,40 @@ public class Duration {
 
         long duration = endMillis - startMillis;
 
-        int days = (int) (duration / millisPerDay);
+        days = (int) (duration / millisPerDay);
         duration = (duration % millisPerDay);
-        int hours = (int)(duration / millisPerHour);
+        hours = (int)(duration / millisPerHour);
         duration = (duration % millisPerHour);
-        int minutes = (int)(duration / millisPerMinute);
+        minutes = (int)(duration / millisPerMinute);
         duration = (duration % millisPerMinute);
-        int seconds = (int)(duration / millisPerSecond);
-        int millis = (int)(duration % millisPerSecond);
+        seconds = (int)(duration / millisPerSecond);
+        millis = (int)(duration % millisPerSecond);
+    }
 
-        return new Duration(days, hours, minutes, seconds, millis);
+    public static long currentTime() {
+        return System.currentTimeMillis();
+    }
+
+    public static Duration create(long startMillis) {
+        return new Duration(startMillis, System.currentTimeMillis());
+    }
+
+    public static Duration create(long startMillis, long endMillis) {
+        return new Duration(startMillis, endMillis);
+    }
+
+    public double seconds() {
+        return (endMillis - startMillis) / 1000.0;
+    }
+
+    private String round(double value) {
+        return String.format(Locale.ENGLISH, "%.2f", value);
+    }
+
+    public String xPerSeconds(long x) {
+        double seconds = seconds();
+
+        return seconds == 0 ? "0" : round(x / seconds);
     }
 
     @Override

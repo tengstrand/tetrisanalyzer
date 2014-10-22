@@ -5,8 +5,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 public class GameResult {
-    public long startTime;
-    public long endTime;
+    public Duration duration;
     public final Board board;
     public final ColoredBoard coloredBoard;
     public final PieceGenerator pieceGenerator;
@@ -26,17 +25,14 @@ public class GameResult {
         this.coloredBoard = coloredBoard;
     }
 
-    private String duration() {
-        return Duration.duration(startTime, endTime).asString();
-    }
-
     public String export() {
         long rowsPerGame = games == 0 ? 0 : totalRows / games;
 
         return "game result:" +
                 board() +
-                "\n  duration: " + duration() +
                 "\n  piece generator: " + pieceGenerator.state() +
+                "\n  duration: " + duration +
+                "\n  pieces/s: " + duration.xPerSeconds(moves) +
                 "\n  pieces: " + format(moves) +
                 "\n  rows: " + format(rows) +
                 "\n  games: " + format(games) +

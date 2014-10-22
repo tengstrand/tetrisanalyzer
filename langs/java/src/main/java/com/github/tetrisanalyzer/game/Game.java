@@ -43,7 +43,7 @@ public class Game {
      * Plays a specified number of pieces (result.movesLeft).
      */
     public void play() {
-        result.startTime = Duration.currentTime();
+        long startTime = Duration.currentTime();
 
         while (result.movesLeft > 0) {
             Piece piece = pieceGenerator.nextPiece();
@@ -58,7 +58,7 @@ public class Game {
             result.cells += cells;
             result.cellDist[cells]++;
         }
-        result.endTime = Duration.currentTime();
+        result.duration = Duration.create(startTime);
     }
 
     private PieceMove evaluateBestMove(Piece piece) {
