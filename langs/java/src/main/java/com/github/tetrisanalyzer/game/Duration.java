@@ -60,7 +60,13 @@ public class Duration {
     public String xPerSeconds(long x) {
         double seconds = seconds();
 
-        return seconds == 0 ? "0" : round(x / seconds);
+        double xPerSec = x / seconds;
+
+        if (xPerSec >= 1000) {
+            return StringUtils.format((long)xPerSec);
+        }
+
+        return seconds == 0 ? "0" : round(xPerSec);
     }
 
     @Override
