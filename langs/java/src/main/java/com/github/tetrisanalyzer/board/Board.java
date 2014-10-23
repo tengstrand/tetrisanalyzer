@@ -1,6 +1,11 @@
 package com.github.tetrisanalyzer.board;
 
+import com.github.tetrisanalyzer.move.Move;
+import com.github.tetrisanalyzer.piece.Piece;
+
 import java.util.Arrays;
+
+import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 /**
  * Represents a Tetris board. Default size is 10x20.
@@ -29,7 +34,7 @@ public class Board {
     /**
      * Creates a board from a string representation.
      */
-    public static Board createBoard(String... rows) {
+    public static Board create(String... rows) {
         int width = (rows[0]).length() - 2;
         int height = rows.length - 1;
 
@@ -42,7 +47,7 @@ public class Board {
         }
         Board result = new Board(width,  height, boardRows);
 
-        int cells = result.numberOfFilledCells();
+        int cells = result.numberOfOccupiedCells();
         if ((width & 1) == 0 && (cells & 1) == 1) {
             throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of filled cells (" + cells + ")");
         }
@@ -235,7 +240,7 @@ public class Board {
         return true;
     }
 
-    public int numberOfFilledCells() {
+    public int numberOfOccupiedCells() {
         int cnt = 0;
 
         for (int y=0; y<height; y++) {
@@ -246,6 +251,35 @@ public class Board {
             }
         }
         return cnt;
+    }
+
+    /**
+     * Returns the board as string ans views
+     * where on the boar next piece is placed.
+     *
+     *   1. I: 1,10
+     *  |----------|
+     *  |----------|
+     *  |----------|<
+     *  |LL--------|
+     *  |LL--------|
+     *  |LLIIIIOOT-|
+     *  |IJS-TTTLLL|
+     *  ¯¯¯¯¯¯¯¯¯¯^¯
+     */
+    public String asString(long moveNo, Piece piece, Move move) {
+        String board = "";
+
+        for (int y=0; y<height; y++) {
+            board += boardRowAsString(rows[y]);
+            if (y == move.y) {
+                board += "<";
+            }
+            board += "\n";
+        }
+        board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+
+        return " " + format(moveNo) + ".\n " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
     }
 
     @Override

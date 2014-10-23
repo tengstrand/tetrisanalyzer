@@ -4,14 +4,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
-
 public class BoardOutlineTest {
     private Board board;
 
     @Before
     public void setUp() {
-        board = createBoard(
+        board = Board.create(
                 "|------x|",
                 "|-----xx|",
                 "|-x---xx|",

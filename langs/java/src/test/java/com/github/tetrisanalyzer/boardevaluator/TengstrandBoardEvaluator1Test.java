@@ -3,7 +3,6 @@ package com.github.tetrisanalyzer.boardevaluator;
 import com.github.tetrisanalyzer.board.Board;
 import org.junit.Test;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.assertEquals;
 
 public class TengstrandBoardEvaluator1Test {
@@ -12,7 +11,7 @@ public class TengstrandBoardEvaluator1Test {
     public void evaluateVersionOneDotOne() {
         BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
 
-        Board board = createBoard(
+        Board board = Board.create(
                 "|----------|",
                 "|----------|",
                 "|-x---xx---|",

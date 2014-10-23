@@ -24,7 +24,7 @@ public class PieceMoveTest {
 
         new PieceMove(board, piece, move).setPiece();
 
-        assertEquals(createBoard(
+        assertEquals(Board.create(
                 "|--------|",
                 "|----xx--|",
                 "|---xx---|",
@@ -34,7 +34,7 @@ public class PieceMoveTest {
 
     @Test
     public void setPiece_clearTwoRows() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|----------|",
                 "|----x-----|",
                 "|xxxxxxxxxx|",
@@ -46,7 +46,7 @@ public class PieceMoveTest {
 
         assertEquals(2, new PieceMove(board, piece, move).setPiece());
 
-        assertEquals(createBoard(
+        assertEquals(Board.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -57,7 +57,7 @@ public class PieceMoveTest {
 
     @Test
     public void clearPiece() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|xxxxxxxx|",
                 "|xxxxxxxx|",
                 "|xxxxxxxx|",
@@ -68,7 +68,7 @@ public class PieceMoveTest {
 
         new PieceMove(board, piece, move).clearPiece();
 
-        assertEquals(createBoard(
+        assertEquals(Board.create(
                 "|xxxxxxxx|",
                 "|xxxx--xx|",
                 "xxxx--xxx|",
@@ -78,7 +78,7 @@ public class PieceMoveTest {
 
     @Test
     public void isFree() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|-xxxxxxx|",
                 "|-xxxxxxx|",
                 "|xxxx--xx|",

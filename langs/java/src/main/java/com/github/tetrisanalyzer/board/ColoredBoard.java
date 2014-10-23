@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static com.github.tetrisanalyzer.board.Board.bottomString;
 import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
-import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 public class ColoredBoard {
     public final int width;
@@ -61,7 +61,7 @@ public class ColoredBoard {
     }
 
     public Board asBoard() {
-        return createBoard(asStringRows(WALL_CELL, true));
+        return Board.create(asStringRows(WALL_CELL, true));
     }
 
     public void setPiece(Piece piece, Move move) {
@@ -142,9 +142,10 @@ public class ColoredBoard {
     }
 
     /**
-     * Show where on the boar a piece is placed.
+     * Returns the board as string ans views
+     * where on the boar next piece is placed.
      *
-     *   I: 1,10
+     *   1. I: 1,10
      *  |----------|
      *  |----------|
      *  |----------|<
@@ -154,7 +155,7 @@ public class ColoredBoard {
      *  |IJS-TTTLLL|
      *  ¯¯¯¯¯¯¯¯¯¯^¯
      */
-    public String asString(Piece piece, Move move) {
+    public String asString(long moveNo, Piece piece, Move move) {
         String board = "";
 
         int y = 0;
@@ -167,7 +168,7 @@ public class ColoredBoard {
         }
         board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
-        return " " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
+        return " " + format(moveNo) + ".\n " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
     }
 
     private String[] asStringRows(String wall, boolean withBottomRow) {

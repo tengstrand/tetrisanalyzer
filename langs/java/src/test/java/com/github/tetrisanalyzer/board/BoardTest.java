@@ -9,7 +9,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooLow() {
-        createBoard(
+        Board.create(
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
@@ -18,7 +18,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooNarrow() {
-        createBoard(
+        Board.create(
                 "|---|",
                 "|---|",
                 "|---|",
@@ -40,7 +40,7 @@ public class BoardTest {
                 "|-x--x----x|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯"};
 
-        Board board = createBoard(expectedBoard);
+        Board board = Board.create(expectedBoard);
 
         assertEquals(asBoard(expectedBoard), board.toString());
     }
@@ -57,7 +57,7 @@ public class BoardTest {
 
     @Test
     public void isFree_occupied() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|---------|",
                 "|---------|",
                 "|---------|",
@@ -70,7 +70,7 @@ public class BoardTest {
 
     @Test
     public void isFree() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|xxxxxxxxx|",
                 "|xxxxxxxxx|",
                 "|xxxxxxxxx|",
@@ -83,7 +83,7 @@ public class BoardTest {
 
     @Test
     public void clearRows() {
-        Board board = createBoard(
+        Board board = Board.create(
                 "|----------|",
                 "|----x-----|",
                 "|xxxxxxxxxx|",
@@ -94,7 +94,7 @@ public class BoardTest {
 
         assertEquals(3, board.clearRows(2, 4));
 
-        assertEquals(createBoard(
+        assertEquals(Board.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -123,7 +123,7 @@ public class BoardTest {
     @Test
     public void cantHaveOddNumberOfCellsOnAnEvenBoardWidth() {
         try {
-            createBoard(
+            Board.create(
                     "|------|",
                     "|------|",
                     "|x-----|",
@@ -136,7 +136,7 @@ public class BoardTest {
 
     @Test
     public void canHaveOddNumberOfCellsOnAnOddBoardWidth() {
-        createBoard(
+        Board.create(
                 "|-----|",
                 "|-----|",
                 "|x----|",
@@ -145,7 +145,7 @@ public class BoardTest {
     }
 
     private Board board() {
-        return createBoard(
+        return Board.create(
                 "|x-------|",
                 "|x-------|",
                 "|xxx----x|",

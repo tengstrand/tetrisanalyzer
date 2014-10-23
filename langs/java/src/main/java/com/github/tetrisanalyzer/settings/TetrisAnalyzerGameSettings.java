@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
@@ -17,7 +18,15 @@ public class TetrisAnalyzerGameSettings extends GameSettings {
         this(board.width, board.height);
     }
 
+    public TetrisAnalyzerGameSettings(ColoredBoard board) {
+        this(board.width, board.height);
+    }
+
     public TetrisAnalyzerGameSettings(Board board, boolean sliding) {
+        this(board.width, board.height, sliding);
+    }
+
+    public TetrisAnalyzerGameSettings(ColoredBoard board, boolean sliding) {
         this(board.width, board.height, sliding);
     }
 

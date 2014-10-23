@@ -4,10 +4,12 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import static com.github.tetrisanalyzer.game.StringUtils.format;
+
 public class GameResult {
     public Duration duration;
     public final Board board;
-    public final ColoredBoard coloredBoard;
+    public ColoredBoard coloredBoard;
     public final PieceGenerator pieceGenerator;
     public long moves;
     public long movesLeft;
@@ -18,11 +20,15 @@ public class GameResult {
     public final long[] cellDist;
 
     public GameResult(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
-        this.board = coloredBoard.asBoard();
+        this(coloredBoard.asBoard(), pieceGenerator, movesLeft);
+        this.coloredBoard = coloredBoard;
+    }
+
+    public GameResult(Board board, PieceGenerator pieceGenerator, int movesLeft) {
+        this.board = board;
         this.pieceGenerator = pieceGenerator;
         cellDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
-        this.coloredBoard = coloredBoard;
     }
 
     public String export() {
@@ -46,7 +52,11 @@ public class GameResult {
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {
-            result += coloredBoard.export("start board", "    ");
+            if (coloredBoard == null) {
+                result += board.export("start board", "    ");
+            } else {
+                result += coloredBoard.export("start board", "    ");
+            }
         }
         return result;
     }
@@ -66,10 +76,6 @@ public class GameResult {
             separator = ",";
         }
         return result;
-    }
-
-    private String format(long value) {
-        return String.format("%,d", value);
     }
 
     @Override

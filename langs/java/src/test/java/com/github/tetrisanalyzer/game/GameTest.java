@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.game;
 
+import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
@@ -9,7 +10,6 @@ import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static junit.framework.Assert.assertEquals;
 
 public class GameTest {
@@ -17,7 +17,7 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
-        GameSettings settings = new TetrisAnalyzerGameSettings(true);
+        GameSettings settings = new TetrisAnalyzerGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
         GameResult result = new GameResult(board, pieceGenerator, 5);
@@ -26,7 +26,7 @@ public class GameTest {
 
         assertEquals(1, result.rows);
 
-        assertEquals(createBoard(
+        assertEquals(Board.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -47,27 +47,27 @@ public class GameTest {
 
     @Test
     public void slidePiece() {
-        ColoredBoard board = ColoredBoard.create(
+        Board board = Board.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new TetrisAnalyzerGameSettings(true);
+        GameSettings settings = new TetrisAnalyzerGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameResult result = new GameResult(board, pieceGenerator, 1);
         Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
-        assertEquals(ColoredBoard.create(
+        assertEquals(Board.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
                 "|-------TOO|",
                 "|S-----TTTZ|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.coloredBoard);
+                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.board);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new TetrisAnalyzerGameSettings();
+        GameSettings settings = new TetrisAnalyzerGameSettings(board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameResult result = new GameResult(board, pieceGenerator, 1);
