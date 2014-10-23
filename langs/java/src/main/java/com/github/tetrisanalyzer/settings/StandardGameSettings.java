@@ -18,6 +18,10 @@ public class StandardGameSettings extends GameSettings {
         this(board.width, board.height);
     }
 
+    public StandardGameSettings(Board board, boolean sliding) {
+        this(board.width, board.height, sliding);
+    }
+
     public StandardGameSettings(int boardWidth, int boardHeight) {
         this(boardWidth, boardHeight, false);
     }

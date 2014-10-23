@@ -17,6 +17,10 @@ public class TetrisAnalyzerGameSettings extends GameSettings {
         this(board.width, board.height);
     }
 
+    public TetrisAnalyzerGameSettings(Board board, boolean sliding) {
+        this(board.width, board.height, sliding);
+    }
+
     public TetrisAnalyzerGameSettings() {
         this(10, 20);
     }
