@@ -18,29 +18,29 @@ import static org.junit.Assert.assertEquals;
 public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
-    public void startPieceIUsingStandardSettings() {
+    public void startPieceI_StandardSettings() {
         Board board = Board.create(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
 
-        assertEquals(new Move(0, 3, 0), startMove.move);
+        assertEquals(new Move(0, 3, 1), startMove.move);
     }
 
     @Test
-    public void startPieceSUsingStandardSettings() {
+    public void startPieceS_StandardSettings() {
         Board board = Board.create(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
 
-        assertEquals(new Move(0,4, 0), startMove.move);
+        assertEquals(new Move(0,4, 1), startMove.move);
     }
 
     @Test
-    public void startPieceIUsingAtariSettings() {
+    public void startPieceI_AtariSettings() {
         Board board = Board.create(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceI(settings);
@@ -51,7 +51,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void startPieceSUsingAtariSettings() {
+    public void startPieceS_AtariSettings() {
         Board board = Board.create(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
@@ -62,7 +62,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void validMovesUsingAtariSettingsSlidingOff() {
+    public void validMoves_AtariSettings_slidingOff() {
         Board board = Board.create(5, 5);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
@@ -100,8 +100,35 @@ public class ValidPieceMovesForEmptyBoardTest {
         assertEquals(expectedMoves, pieceMoves);
     }
 
+/**
+ * Standard Tetris starts one row down.
+ *
+ *  |-----|
+ *  |--SS-|
+ *  |-SS--|
+ *  |-----|
+ *  |-----|
+ *  ¯¯¯¯¯¯¯
+ *
+ *
+ (0,1, 1),
+ (1,2, 2),
+ (1,3, 2),
+ (1,1, 2),
+ (1,0, 2),
+ (0,0, 1),
+ (0,0, 2),
+ (0,0, 3),
+ (0,2, 1),
+ (0,2, 2),
+ (0,2, 3),
+ (0,1, 2),
+ (0,1, 3)
+
+ */
+
     @Test
-    public void validMovesStandardTetris() {
+    public void validMoves_StandardTetris_slidingOff() {
         Board board = Board.create(5, 5);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
@@ -111,26 +138,27 @@ public class ValidPieceMovesForEmptyBoardTest {
         addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
 
         Set<PieceMove> expectedMoves = new LinkedHashSet<>();
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 0)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 1)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 1)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 2)));
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 1)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 1)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 2)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 3)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 3)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 3)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 1)));
         expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 1)));
         expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 1)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,2, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,3, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,1, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(1,0, 0)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 3)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 1)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 3)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 2)));
+        expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 3)));
 
         assertEquals(expectedMoves, pieceMoves);
     }

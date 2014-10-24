@@ -37,7 +37,7 @@ public class Movement {
     }
 
     public int dy() {
-        return pieceMove.piece.dx(pieceMove.move.rotation);
+        return pieceMove.piece.dy(pieceMove.move.rotation);
     }
 
     public int directionIndex() {
@@ -60,7 +60,6 @@ public class Movement {
     }
 
     public Movement rotate(RotationDirection rotationType, VisitedPieceMoves visitedPieceMoves) {
-
         return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus(), dx(), dy())), Direction.ROTATE);
     }
 

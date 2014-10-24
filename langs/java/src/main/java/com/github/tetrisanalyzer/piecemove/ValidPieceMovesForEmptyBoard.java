@@ -56,6 +56,7 @@ public class ValidPieceMovesForEmptyBoard {
     }
 
     /**
+     * Calculate all valid moves on an empty board recursively.
      *
      * @param fromMovement the position and orientation we are coming from
      * @param movement position and orientation of current piece
