@@ -10,7 +10,8 @@ import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
- * The default settings used by Tetris Analyzer.
+ * Settings of the Atari arcade game:
+ *   http://www.arcade-museum.com/game_detail.php?game_id=10081
  */
 public class AtariGameSettings extends GameSettings {
 
