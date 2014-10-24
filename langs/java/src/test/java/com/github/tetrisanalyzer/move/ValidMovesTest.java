@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -21,7 +20,7 @@ public class ValidMovesTest {
     @Test
     public void pieceMoves() {
         GameSettings settings = new AtariGameSettings(5, 4);
-        Board board = createBoard(settings.boardWidth, settings.boardHeight);
+        Board board = Board.create(settings.boardWidth, settings.boardHeight);
         ValidMoves validMoves = new ValidMoves(board);
         PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<>();

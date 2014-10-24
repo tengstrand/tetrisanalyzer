@@ -15,12 +15,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
+import static com.github.tetrisanalyzer.board.Board.create;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
-    Board board = createBoard();
+    Board board = create();
     Piece piece = createPieceS(new AtariGameSettings());
 
     @Test

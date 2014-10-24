@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceO;
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +18,7 @@ public class ValidPieceMovesTest {
     @Test
     public void getStartMove() {
         GameSettings settings = new AtariGameSettings(6, 5);
-        Board board = createBoard(settings.boardWidth, settings.boardHeight);
+        Board board = Board.create(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
         PieceMove startMove = validPieceMoves.getStartMove();

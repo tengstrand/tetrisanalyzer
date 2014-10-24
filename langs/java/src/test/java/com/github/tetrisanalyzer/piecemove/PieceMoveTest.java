@@ -7,7 +7,6 @@ import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceI;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
@@ -18,7 +17,7 @@ public class PieceMoveTest {
 
     @Test
     public void setPiece() {
-        Board board = createBoard(8, 4);
+        Board board = Board.create(8, 4);
         Piece piece = createPieceS(settings);
         Move move = new Move(0,3, 1);
 

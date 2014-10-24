@@ -23,11 +23,11 @@ public class Board {
 
     private static int EMPTY_ROW = 0;
 
-    public static Board createBoard() {
+    public static Board create() {
         return new Board(10, 20);
     }
 
-    public static Board createBoard(int width, int height) {
+    public static Board create(int width, int height) {
         return new Board(width, height);
     }
 

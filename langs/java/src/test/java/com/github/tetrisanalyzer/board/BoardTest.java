@@ -2,7 +2,6 @@ package com.github.tetrisanalyzer.board;
 
 import org.junit.Test;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static org.junit.Assert.*;
 
 public class BoardTest {
@@ -28,7 +27,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooWide() {
-        createBoard(33, 10);
+        Board.create(33, 10);
     }
 
     @Test
@@ -113,7 +112,7 @@ public class BoardTest {
 
     @Test
     public void restore() {
-        Board empty = createBoard(8, 4);
+        Board empty = Board.create(8, 4);
         Board copy = board();
         empty.restore(copy);
 

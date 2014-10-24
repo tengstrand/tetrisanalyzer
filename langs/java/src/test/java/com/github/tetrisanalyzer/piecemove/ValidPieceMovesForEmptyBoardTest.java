@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static com.github.tetrisanalyzer.board.Board.createBoard;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceI;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
 import static org.junit.Assert.assertEquals;
@@ -20,7 +19,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startPieceIUsingStandardSettings() {
-        Board board = createBoard(10, 20);
+        Board board = Board.create(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
@@ -31,7 +30,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startPieceSUsingStandardSettings() {
-        Board board = createBoard(10, 20);
+        Board board = Board.create(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
@@ -42,7 +41,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startPieceIUsingAtariSettings() {
-        Board board = createBoard(10, 20);
+        Board board = Board.create(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
@@ -53,7 +52,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void startPieceSUsingAtariSettings() {
-        Board board = createBoard(10, 20);
+        Board board = Board.create(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
@@ -64,7 +63,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void validMovesUsingAtariSettingsSlidingOff() {
-        Board board = createBoard(5, 5);
+        Board board = Board.create(5, 5);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
@@ -103,7 +102,7 @@ public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
     public void validMovesStandardTetris() {
-        Board board = createBoard(5, 5);
+        Board board = Board.create(5, 5);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
