@@ -36,7 +36,7 @@ public class GameResult {
 
         return "game result:" +
                 board() +
-                "\n  piece generator: " + pieceGenerator.state() +
+                "\n  seed: " + pieceGenerator.state() +
                 "\n  duration: " + duration +
                 "\n  pieces/s: " + duration.xPerSeconds(moves) +
                 "\n  pieces: " + format(moves) +
@@ -44,11 +44,10 @@ public class GameResult {
                 "\n  games: " + format(games) +
                 "\n  rows (finished games): " + format(totalRows) +
                 "\n  rows/game: " + format(rowsPerGame) +
-                "\n  filled cells step: " + cellStep() +
+                "\n  cell step: " + cellStep() +
                 "\n  filled cells total: " + format(cells) +
                 "\n  filled cells distribution: [" + cells() + "]\n";
     }
-
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {

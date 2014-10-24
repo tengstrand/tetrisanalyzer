@@ -4,8 +4,8 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class ValidMovesTest {
 
     @Test
     public void pieceMoves() {
-        GameSettings settings = new TetrisAnalyzerGameSettings(5, 4);
+        GameSettings settings = new AtariGameSettings(5, 4);
         Board board = createBoard(settings.boardWidth, settings.boardHeight);
         ValidMoves validMoves = new ValidMoves(board);
         PieceMove startPiece = getStartPieceS(board, settings);
-        List<Move> moves = new ArrayList<Move>();
+        List<Move> moves = new ArrayList<>();
 
         for (PieceMove pieceMove : validMoves.pieceMoves(startPiece)) {
             moves.add(pieceMove.move);

@@ -3,8 +3,8 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import static com.github.tetrisanalyzer.board.Board.createBoard;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PieceMoveTest {
-    PieceSettings settings = new TetrisAnalyzerGameSettings();
+    PieceSettings settings = new AtariGameSettings();
 
     @Test
     public void setPiece() {

@@ -12,37 +12,37 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
 /**
  * The default settings used by Tetris Analyzer.
  */
-public class TetrisAnalyzerGameSettings extends GameSettings {
+public class AtariGameSettings extends GameSettings {
 
-    public TetrisAnalyzerGameSettings(Board board) {
+    public AtariGameSettings(Board board) {
         this(board.width, board.height);
     }
 
-    public TetrisAnalyzerGameSettings(ColoredBoard board) {
+    public AtariGameSettings(ColoredBoard board) {
         this(board.width, board.height);
     }
 
-    public TetrisAnalyzerGameSettings(Board board, boolean sliding) {
+    public AtariGameSettings(Board board, boolean sliding) {
         this(board.width, board.height, sliding);
     }
 
-    public TetrisAnalyzerGameSettings(ColoredBoard board, boolean sliding) {
+    public AtariGameSettings(ColoredBoard board, boolean sliding) {
         this(board.width, board.height, sliding);
     }
 
-    public TetrisAnalyzerGameSettings() {
+    public AtariGameSettings() {
         this(10, 20);
     }
 
-    public TetrisAnalyzerGameSettings(boolean sliding) {
+    public AtariGameSettings(boolean sliding) {
         this(10, 20, sliding);
     }
 
-    public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight) {
+    public AtariGameSettings(int boardWidth, int boardHeight) {
         this(boardWidth, boardHeight, false);
     }
 
-    public TetrisAnalyzerGameSettings(int boardWidth, int boardHeight, boolean sliding) {
+    public AtariGameSettings(int boardWidth, int boardHeight, boolean sliding) {
         super(boardWidth, boardHeight, startX(boardWidth, 4), 0, sliding);
     }
 

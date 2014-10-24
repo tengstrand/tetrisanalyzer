@@ -3,8 +3,8 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class ValidPieceMovesTest {
 
     @Test
     public void getStartMove() {
-        GameSettings settings = new TetrisAnalyzerGameSettings(6, 5);
+        GameSettings settings = new AtariGameSettings(6, 5);
         Board board = createBoard(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);

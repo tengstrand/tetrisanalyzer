@@ -6,8 +6,8 @@ import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -17,7 +17,7 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
-        GameSettings settings = new TetrisAnalyzerGameSettings(board, true);
+        GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
         GameResult result = new GameResult(board, pieceGenerator, 5);
@@ -54,7 +54,7 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new TetrisAnalyzerGameSettings(board, true);
+        GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameResult result = new GameResult(board, pieceGenerator, 1);
@@ -79,7 +79,7 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new TetrisAnalyzerGameSettings(board);
+        GameSettings settings = new AtariGameSettings(board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameResult result = new GameResult(board, pieceGenerator, 1);

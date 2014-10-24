@@ -3,7 +3,7 @@ package com.github.tetrisanalyzer.piecemove;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class VisitedPieceMovesTest {
     @Before
     public void setUp() {
         board = createBoard(6, 6);
-        piece = createPieceS(new TetrisAnalyzerGameSettings());
+        piece = createPieceS(new AtariGameSettings());
     }
 
     @Test

@@ -6,8 +6,8 @@ import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.piecemove.ValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class EvaluatedMovesTest {
     Board board = createBoard();
-    Piece piece = createPieceS(new TetrisAnalyzerGameSettings());
+    Piece piece = createPieceS(new AtariGameSettings());
 
     @Test
     public void bestMove() {
@@ -29,7 +29,7 @@ public class EvaluatedMovesTest {
     }
 
     private EvaluatedMoves getEvaluatedMoves() {
-        GameSettings settings = new TetrisAnalyzerGameSettings();
+        GameSettings settings = new AtariGameSettings();
         PieceMove startPieceMove = new ValidPieceMovesForEmptyBoard(board, piece, settings).getStartMove();
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
@@ -47,11 +47,11 @@ public class EvaluatedMovesTest {
                 return m1.equity > m2.equity ? 1 : 0;
             }
         });
-        List<MoveEquity> moves = new ArrayList<MoveEquity>();
+        List<MoveEquity> moves = new ArrayList<>();
         for (MoveEquity moveEquity : evaluatedMoves) {
             moves.add(roundThreeDecimals(moveEquity));
         }
-        List<MoveEquity> expectedMoves = new ArrayList<MoveEquity>();
+        List<MoveEquity> expectedMoves = new ArrayList<>();
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(0,7, 18)), 0.000));
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(1,0, 17)), 0.755));
         expectedMoves.add(new MoveEquity(new PieceMove(board, piece, new Move(0,0, 18)), 2.504));

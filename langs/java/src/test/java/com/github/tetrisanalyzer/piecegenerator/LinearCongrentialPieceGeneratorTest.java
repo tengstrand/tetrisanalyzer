@@ -1,6 +1,6 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.settings.TetrisAnalyzerGameSettings;
+import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +9,7 @@ public class LinearCongrentialPieceGeneratorTest {
 
     @Test
     public void nextPiece() {
-        PieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(5, new TetrisAnalyzerGameSettings());
+        PieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(5, new AtariGameSettings());
 
         String result = "";
 
