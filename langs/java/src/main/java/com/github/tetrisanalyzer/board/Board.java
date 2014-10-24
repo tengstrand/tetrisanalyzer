@@ -271,7 +271,7 @@ public class Board {
         String board = "";
 
         for (int y=0; y<height; y++) {
-            board += boardRowAsString(rows[y]);
+            board += "|" + boardRowAsString(rows[y]) + "|";
             if (y == move.y) {
                 board += "<";
             }
