@@ -82,7 +82,6 @@ public abstract class Piece {
     public int startY() { return adjustments.startY; }
     public int dx(int rotation) { return adjustments.dx.get(rotation); }
     public int dy(int rotation) { return adjustments.dy.get(rotation); }
-    public boolean isAdjusted(int rotation) { return dx(rotation) != 0 || dy(rotation) != 0; }
     public PieceShape getShape(int rotation) { return shapes()[rotation]; }
     protected abstract int[] widths();
     protected abstract int[] heights();

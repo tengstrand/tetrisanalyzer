@@ -32,10 +32,6 @@ public class Movement {
         return pieceMove.move;
     }
 
-    public boolean isAdjusted() {
-        return pieceMove.piece.isAdjusted(pieceMove.move.rotation);
-    }
-
     public int dx() {
         return pieceMove.piece.dx(pieceMove.move.rotation);
     }
@@ -44,12 +40,28 @@ public class Movement {
         return pieceMove.piece.dx(pieceMove.move.rotation);
     }
 
-    public int getDirectionIndex() {
+    public int directionIndex() {
         return direction.getIndex();
     }
 
-    public Movement rotate(RotationDirection rotationType, int rotationModulus, int dx, int dy, VisitedPieceMoves visitedPieceMoves) {
-        return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus, dx, dy)), Direction.ROTATE);
+    private int rotationModulus() {
+        return pieceMove.piece.rotationModulus();
+    }
+
+    public boolean canRotate(RotationDirection rotationType, VisitedPieceMoves visitedPieceMoves) {
+        return rotate(rotationType, visitedPieceMoves).isPieceInsideBoard();
+    }
+
+    public boolean isPieceInsideBoard() {
+        Move move = pieceMove.move;
+
+        return (move.x >= 0 && move.x + pieceMove.piece.width(move.rotation) <= pieceMove.board.width &&
+                move.y >= 0 && move.y + pieceMove.piece.height(move.rotation) <= pieceMove.board.height);
+    }
+
+    public Movement rotate(RotationDirection rotationType, VisitedPieceMoves visitedPieceMoves) {
+
+        return new Movement(visitedPieceMoves.get(pieceMove.move.rotate(rotationType, rotationModulus(), dx(), dy())), Direction.ROTATE);
     }
 
     public Movement left(VisitedPieceMoves visitedPieceMoves) {

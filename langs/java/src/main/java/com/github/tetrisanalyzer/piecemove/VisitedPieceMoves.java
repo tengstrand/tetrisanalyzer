@@ -49,13 +49,13 @@ public class VisitedPieceMoves {
     }
 
     /**
-     * Marks a move as visited. The attribute 'movement.direction' says the manner in which the
+     * Marks a move as visited. The attribute 'movement.direction' is the manner in which the
      * transfer to this location has occurred. We also add the direction 'Rotate' because
      * we don't need to rotate the piece a full circle (to the position we just have).
      */
     public void visit(Movement movement) {
         Move move = movement.getMove();
-        moves[move.y][move.x][movement.getDirectionIndex()] |= (1 << move.rotation);
+        moves[move.y][move.x][movement.directionIndex()] |= (1 << move.rotation);
         moves[move.y][move.x][Direction.ROTATE.getIndex()] |= (1 << move.rotation);
         validMoves.put(move, movement.pieceMove);
     }
@@ -66,7 +66,7 @@ public class VisitedPieceMoves {
     public boolean isUnvisited(Movement movement) {
         try {
             Move move = movement.getMove();
-            return (moves[move.y][move.x][movement.getDirectionIndex()] & (1 << move.rotation)) == 0;
+            return (moves[move.y][move.x][movement.directionIndex()] & (1 << move.rotation)) == 0;
         } catch (IndexOutOfBoundsException e) {
             return false;
         }

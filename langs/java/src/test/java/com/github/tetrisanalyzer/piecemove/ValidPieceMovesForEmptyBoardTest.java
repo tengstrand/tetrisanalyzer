@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class ValidPieceMovesForEmptyBoardTest {
 
     @Test
-    public void standardTetrisStartPieceI() {
+    public void startPieceIUsingStandardSettings() {
         Board board = createBoard(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceI(settings);
@@ -30,7 +30,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void standardTetrisStartPieceS() {
+    public void startPieceSUsingStandardSettings() {
         Board board = createBoard(10, 20);
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
@@ -41,7 +41,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void tetrisAnalyzerTetrisStartPieceI() {
+    public void startPieceIUsingAtariSettings() {
         Board board = createBoard(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceI(settings);
@@ -52,7 +52,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void tetrisAnalyzerTetrisStartPieceS() {
+    public void startPieceSUsingAtariSettings() {
         Board board = createBoard(10, 20);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
@@ -63,7 +63,7 @@ public class ValidPieceMovesForEmptyBoardTest {
     }
 
     @Test
-    public void vlaidMovesTetrisAnalyzer() {
+    public void validMovesUsingAtariSettingsSlidingOff() {
         Board board = createBoard(5, 5);
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);

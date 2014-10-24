@@ -11,8 +11,6 @@ import com.github.tetrisanalyzer.settings.GameSettings;
  * If sliding is on, rotations and lateral movements can only occur in the top row.
  */
 public class ValidPieceMovesForEmptyBoard {
-    private int boardWidth;
-    private int boardHeight;
     private boolean isSlidingOn;
     private Board board;
     private Piece piece;
@@ -24,8 +22,6 @@ public class ValidPieceMovesForEmptyBoard {
         this.board = board;
         this.piece = piece;
         this.settings = settings;
-        boardWidth = board.width;
-        boardHeight = board.height;
         visitedPieceMoves = new VisitedPieceMoves(board, piece);
         rotationDirection = settings.rotationDirection();
         isSlidingOn = settings.isSlidingEnabled();
@@ -34,13 +30,6 @@ public class ValidPieceMovesForEmptyBoard {
     private void markAsVisited(Movement fromMovement, Movement movement) {
         visitedPieceMoves.visit(movement);
         movement.linkTo(fromMovement);
-    }
-
-    private boolean isPieceInsideBoard(Movement movement) {
-        Move move = movement.getMove();
-
-        return (move.x >= 0 && move.x + piece.width(move.rotation) <= boardWidth &&
-            move.y >= 0 && move.y + piece.height(move.rotation) <= boardHeight);
     }
 
     /**
@@ -61,20 +50,29 @@ public class ValidPieceMovesForEmptyBoard {
                     ", piece adjustment (rotation,x, y): " + startMove);
         }
 
-        calculateValidMoves(fromMovement, startMovement, true);
+        calculateValidMoves(fromMovement, startMovement, false);
 
         return startMovement.pieceMove;
     }
 
-    private void calculateValidMoves(Movement fromMovement, Movement movement, boolean isFirstRow) {
-        while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
+    /**
+     *
+     * @param fromMovement the position and orientation we are coming from
+     * @param movement position and orientation of current piece
+     * @param startDrop true if the action "drop piece" has started
+     */
+    private void calculateValidMoves(Movement fromMovement, Movement movement, boolean startDrop) {
+        while (visitedPieceMoves.isUnvisited(movement) && movement.isPieceInsideBoard()) {
             markAsVisited(fromMovement, movement);
-            if (isSlidingOn || isFirstRow || movement.isAdjusted()) {
-                calculateValidMoves(movement, movement.rotate(rotationDirection, piece.rotationModulus(), movement.dx(), movement.dy(), visitedPieceMoves), isFirstRow);
-                calculateValidMoves(movement, movement.left(visitedPieceMoves), isFirstRow);
-                calculateValidMoves(movement, movement.right(visitedPieceMoves), isFirstRow);
+            if (isSlidingOn || !startDrop) {
+                calculateValidMoves(movement, movement.rotate(rotationDirection, visitedPieceMoves), startDrop);
+                calculateValidMoves(movement, movement.left(visitedPieceMoves), startDrop);
+                calculateValidMoves(movement, movement.right(visitedPieceMoves), startDrop);
             }
-            calculateValidMoves(movement, movement.down(visitedPieceMoves), false);
+            if (!isSlidingOn && !startDrop) {
+                startDrop = movement.canRotate(rotationDirection, visitedPieceMoves);
+            }
+            calculateValidMoves(movement, movement.down(visitedPieceMoves), startDrop);
         }
     }
 }
