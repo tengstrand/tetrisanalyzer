@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.StandardGameSettings;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 import org.junit.Test;
 
 import java.util.LinkedHashSet;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 import static com.github.tetrisanalyzer.piece.Piece.createPieceI;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceS;
+import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPieceMovesForEmptyBoardTest {
@@ -23,7 +25,7 @@ public class ValidPieceMovesForEmptyBoardTest {
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+        PieceMove startMove = validPieceMovesForEmptyBoard.calculateStartMove();
 
         assertEquals(new Move(0, 3, 1), startMove.move);
     }
@@ -34,9 +36,20 @@ public class ValidPieceMovesForEmptyBoardTest {
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+        PieceMove startMove = validPieceMovesForEmptyBoard.calculateStartMove();
 
         assertEquals(new Move(0,4, 1), startMove.move);
+    }
+
+    @Test
+    public void starPieceS_adjustPieceStartYOneStepDown() {
+        Board board = Board.create(10, 20);
+        GameSettings settings = new TestGameSettings(board);
+        Piece piece = createPieceS(settings);
+        ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
+        PieceMove startMove = validPieceMovesForEmptyBoard.calculateStartMove();
+
+        assertEquals(new Move(0,4, 2), startMove.move);
     }
 
     @Test
@@ -45,7 +58,7 @@ public class ValidPieceMovesForEmptyBoardTest {
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+        PieceMove startMove = validPieceMovesForEmptyBoard.calculateStartMove();
 
         assertEquals(new Move(0,4, 1), startMove.move);
     }
@@ -56,7 +69,7 @@ public class ValidPieceMovesForEmptyBoardTest {
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMovesForEmptyBoard.getStartMove();
+        PieceMove startMove = validPieceMovesForEmptyBoard.calculateStartMove();
 
         assertEquals(new Move(0,4, 0), startMove.move);
     }
@@ -69,7 +82,7 @@ public class ValidPieceMovesForEmptyBoardTest {
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<>();
-        addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
+        addPieceMoves(validPieceMovesForEmptyBoard.calculateStartMove(), pieceMoves);
 
         Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 0)));
@@ -135,7 +148,7 @@ public class ValidPieceMovesForEmptyBoardTest {
         ValidPieceMovesForEmptyBoard validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<>();
-        addPieceMoves(validPieceMovesForEmptyBoard.getStartMove(), pieceMoves);
+        addPieceMoves(validPieceMovesForEmptyBoard.calculateStartMove(), pieceMoves);
 
         Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(board, piece, new Move(0,1, 1)));
@@ -170,6 +183,34 @@ public class ValidPieceMovesForEmptyBoardTest {
                 addPieceMoves(move, pieceMoves);
             }
             addPieceMoves(pieceMove.down, pieceMoves);
+        }
+    }
+
+    public static class TestGameSettings extends StandardGameSettings {
+
+        public TestGameSettings(Board board) {
+            super(board);
+        }
+
+        @Override
+        public int pieceStartY() {
+            return pieceStartY;
+        }
+
+        @Override
+        public Adjustments[] pieceAdjustments() {
+            return new Adjustments[] {
+                    calculate("-", dxdy(0,0)),
+                    calculate("O", dxdy(1,1)),
+                    calculate("I", dxdy(0,1), dxdy(2,0)),
+                    // "standing" S has its starting y = -1
+                    calculate("S", dxdy(1,1), dxdy(2,-1)),
+                    calculate("Z", dxdy(1,1), dxdy(2,0)),
+                    calculate("L", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                    calculate("J", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                    calculate("T", dxdy(1, 1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
+                    calculate("x", dxdy(0,0))
+            };
         }
     }
 }

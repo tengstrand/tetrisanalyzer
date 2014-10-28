@@ -33,24 +33,24 @@ public class ValidPieceMovesForEmptyBoard {
     }
 
     /**
-     * Calculates all valid moves as a linked list of moves by returning
-     * the starting piece move for the board.
+     * Calculates all valid moves as a linked list of moves by returning the starting piece move for the board.
      */
-    public PieceMove getStartMove() {
+    public PieceMove calculateStartMove() {
         Move startMove = new Move(0, settings.pieceStartX() + piece.startX(), settings.pieceStartY + piece.startY());
         Movement startMovement = new Movement(new PieceMove(board, piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(board, piece, startMove.up()));
 
-        if (startMove.x < 0 || startMove.y < 0 ||
-                startMove.x + piece.width(startMove.rotation) > board.width ||
-                startMove.y + piece.height(startMove.rotation) > board.height) {
-            throw new IllegalStateException("The start piece position is outside the board, " +
-                    "start piece settings: [" + settings.pieceStartX + "," + settings.pieceStartY + "]" +
-                    ", piece: " + piece +
-                    ", piece adjustment (rotation,x, y): " + startMove);
+        if (!isSlidingOn) {
+            // When sliding is off, ensure that the piece can perform all valid rotations in its starting position.
+            while (startMovement.pieceMove.isFree() && !isAllRotationsFree(startMovement)) {
+                fromMovement = startMovement;
+                startMovement = startMovement.down(visitedPieceMoves);
+                markAsVisited(fromMovement, startMovement);
+            }
         }
 
-        calculateValidMoves(fromMovement, startMovement, false);
+        ensureStartingPositionIsInsideBoard(startMovement);
+        calculateValidMoves(fromMovement, startMovement, true);
 
         return startMovement.pieceMove;
     }
@@ -60,20 +60,36 @@ public class ValidPieceMovesForEmptyBoard {
      *
      * @param fromMovement the position and orientation we are coming from
      * @param movement position and orientation of current piece
-     * @param startDrop true if the action "drop piece" has started
+     * @param firstRow true if the action "drop piece" has started
      */
-    private void calculateValidMoves(Movement fromMovement, Movement movement, boolean startDrop) {
+    private void calculateValidMoves(Movement fromMovement, Movement movement, boolean firstRow) {
         while (visitedPieceMoves.isUnvisited(movement) && movement.isPieceInsideBoard()) {
             markAsVisited(fromMovement, movement);
-            if (isSlidingOn || !startDrop) {
-                calculateValidMoves(movement, movement.rotate(rotationDirection, visitedPieceMoves), startDrop);
-                calculateValidMoves(movement, movement.left(visitedPieceMoves), startDrop);
-                calculateValidMoves(movement, movement.right(visitedPieceMoves), startDrop);
+            if (isSlidingOn || firstRow) {
+                calculateValidMoves(movement, movement.rotate(rotationDirection, visitedPieceMoves), firstRow);
+                calculateValidMoves(movement, movement.left(visitedPieceMoves), firstRow);
+                calculateValidMoves(movement, movement.right(visitedPieceMoves), firstRow);
             }
-            if (!isSlidingOn && !startDrop) {
-                startDrop = movement.canRotate(rotationDirection, visitedPieceMoves);
+            calculateValidMoves(movement, movement.down(visitedPieceMoves), false);
+        }
+    }
+
+    private boolean isAllRotationsFree(Movement movement) {
+        for (int i=0; i<=piece.rotationsEndIndex(); i++) {
+            if (!movement.isPieceInsideBoard() || !movement.pieceMove.isFree()) {
+                return false;
             }
-            calculateValidMoves(movement, movement.down(visitedPieceMoves), startDrop);
+            movement = movement.rotate(rotationDirection, visitedPieceMoves);
+        }
+        return true;
+    }
+
+    private void ensureStartingPositionIsInsideBoard(Movement startMovement) {
+        if (!startMovement.isPieceInsideBoard()) {
+            throw new IllegalStateException("The start piece position is outside the board, " +
+                    "start piece settings: [" + settings.pieceStartX + "," + settings.pieceStartY + "]" +
+                    ", piece: " + piece +
+                    ", piece adjustment (rotation,x, y): " + startMovement.pieceMove.move);
         }
     }
 }

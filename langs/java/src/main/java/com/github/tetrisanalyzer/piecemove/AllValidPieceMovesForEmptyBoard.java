@@ -19,13 +19,13 @@ public class AllValidPieceMovesForEmptyBoard {
     public AllValidPieceMovesForEmptyBoard(Board board, GameSettings settings) {
         this.board = board;
 
-        startPieces.put(createPieceO(settings), new ValidPieceMovesForEmptyBoard(board, createPieceO(settings), settings).getStartMove());
-        startPieces.put(createPieceI(settings), new ValidPieceMovesForEmptyBoard(board, createPieceI(settings), settings).getStartMove());
-        startPieces.put(createPieceS(settings), new ValidPieceMovesForEmptyBoard(board, createPieceS(settings), settings).getStartMove());
-        startPieces.put(createPieceZ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceZ(settings), settings).getStartMove());
-        startPieces.put(createPieceL(settings), new ValidPieceMovesForEmptyBoard(board, createPieceL(settings), settings).getStartMove());
-        startPieces.put(createPieceJ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceJ(settings), settings).getStartMove());
-        startPieces.put(createPieceT(settings), new ValidPieceMovesForEmptyBoard(board, createPieceT(settings), settings).getStartMove());
+        startPieces.put(createPieceO(settings), new ValidPieceMovesForEmptyBoard(board, createPieceO(settings), settings).calculateStartMove());
+        startPieces.put(createPieceI(settings), new ValidPieceMovesForEmptyBoard(board, createPieceI(settings), settings).calculateStartMove());
+        startPieces.put(createPieceS(settings), new ValidPieceMovesForEmptyBoard(board, createPieceS(settings), settings).calculateStartMove());
+        startPieces.put(createPieceZ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceZ(settings), settings).calculateStartMove());
+        startPieces.put(createPieceL(settings), new ValidPieceMovesForEmptyBoard(board, createPieceL(settings), settings).calculateStartMove());
+        startPieces.put(createPieceJ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceJ(settings), settings).calculateStartMove());
+        startPieces.put(createPieceT(settings), new ValidPieceMovesForEmptyBoard(board, createPieceT(settings), settings).calculateStartMove());
     }
 
     public PieceMove startMoveForPiece(Piece piece) {

@@ -21,7 +21,7 @@ public class ValidPieceMovesTest {
         Board board = Board.create(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMoves.getStartMove();
+        PieceMove startMove = validPieceMoves.calculateStartMove();
 
         assertEquals(new PieceMove(board, piece, new Move(0,1, 0)), startMove);
 
