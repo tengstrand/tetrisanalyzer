@@ -46,7 +46,7 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
 
     @Override
     public String id() {
-        return "Linear congrential";
+        return "Linear";
     }
 
     @Override
