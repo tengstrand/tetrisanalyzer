@@ -130,14 +130,15 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         return equity;
     }
 
-    @Override public String description() { return "Tengstrand 1.1"; }
+    @Override public String id() { return "Tengstrand 1.1"; }
+    @Override public String description() { return "A first version was created 2001"; }
     @Override public String author() { return "Joakim Tengstrand"; }
     @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
     @Override public int minBoardX() { return 4; }
     @Override public int maxBoardX() { return 10; }
     @Override public int minBoardY() { return 4; }
     @Override public int maxBoardY() { return 20; }
-    @Override public EvaluationType evaluationType() { return EvaluationType.LESS_IS_BETTER; }
+    @Override public LessIs lessIs() { return LessIs.BETTER; }
 
     @Override
     public BoardEvaluatorSettings settings() {
