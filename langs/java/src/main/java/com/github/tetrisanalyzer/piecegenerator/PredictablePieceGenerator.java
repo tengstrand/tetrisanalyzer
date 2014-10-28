@@ -25,6 +25,11 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     @Override
+    public String id() {
+        return "Predictable";
+    }
+
+    @Override
     public String description() {
         return "Predetermined sequence of pieces. Returns 'O' if exceeded";
     }

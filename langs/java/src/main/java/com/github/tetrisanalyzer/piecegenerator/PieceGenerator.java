@@ -13,6 +13,7 @@ public abstract class PieceGenerator {
     public abstract PieceGeneratorSettings settings();
     public abstract int nextPieceNumber();
 
+    public abstract String id();
     public abstract String state();
     public abstract String description();
 
@@ -32,6 +33,7 @@ public abstract class PieceGenerator {
 
     public String export() {
         return new PieceGeneratorSettings(
+                setting("id", id()),
                 setting("description", description()),
                 setting("class", this.getClass().getCanonicalName())).add(settings()).export();
     }

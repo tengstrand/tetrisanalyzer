@@ -36,12 +36,17 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
 
     @Override
     public String description() {
-        return "Linear congruential generator";
+        return "Linear congruential piece generator";
     }
 
     @Override
     public String state() {
         return String.valueOf(seed);
+    }
+
+    @Override
+    public String id() {
+        return "Linear congrential";
     }
 
     @Override
