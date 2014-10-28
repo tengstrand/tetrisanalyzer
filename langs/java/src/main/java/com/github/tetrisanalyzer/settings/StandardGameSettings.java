@@ -39,7 +39,7 @@ public class StandardGameSettings extends GameSettings {
         super(boardWidth, boardHeight, startX(boardWidth, 3), 0, sliding);
     }
 
-    @Override public String id() { return "Standard"; }
+    @Override public String id() { return "standard"; }
     @Override public String url() { return "http://colinfahey.com/tetris/tetris.html"; }
     @Override public String description() { return "Standard Tetris 2007 June 4 (Colin Fahey)"; }
     @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }

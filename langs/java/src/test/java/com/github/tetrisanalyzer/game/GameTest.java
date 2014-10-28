@@ -20,7 +20,7 @@ public class GameTest {
         GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
-        GameResult result = new GameResult(board, pieceGenerator, 5);
+        GameState result = new GameState(board, pieceGenerator, 5);
         Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
@@ -57,7 +57,7 @@ public class GameTest {
         GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
-        GameResult result = new GameResult(board, pieceGenerator, 1);
+        GameState result = new GameState(board, pieceGenerator, 1);
         Game game = new Game(result, boardEvaluator, settings);
         game.play();
 
@@ -82,7 +82,7 @@ public class GameTest {
         GameSettings settings = new AtariGameSettings(board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
-        GameResult result = new GameResult(board, pieceGenerator, 1);
+        GameState result = new GameState(board, pieceGenerator, 1);
         Game game = new Game(result, boardEvaluator, settings);
         game.play();
 

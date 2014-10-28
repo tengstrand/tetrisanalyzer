@@ -96,7 +96,7 @@ public class Duration {
     }
 
     public String asString() {
-        return String.format("%dd %dh %dm %d.%02ds", days, hours, minutes, seconds, millis / 10);
+        return String.format("%dd %dh %dm %d.%03ds", days, hours, minutes, seconds, millis);
     }
 
     @Override

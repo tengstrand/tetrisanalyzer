@@ -26,14 +26,14 @@ public class Game {
     private final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
     private final GameSettings settings;
-    private final GameResult result;
+    private final GameState result;
 
-    public Game(GameResult gameResult, BoardEvaluator boardEvaluator, GameSettings settings) {
-        this.board = gameResult.board.copy();
-        if (gameResult.coloredBoard != null) {
-            this.coloredBoard = gameResult.coloredBoard.copy();
+    public Game(GameState gameState, BoardEvaluator boardEvaluator, GameSettings settings) {
+        this.board = gameState.board.copy();
+        if (gameState.coloredBoard != null) {
+            this.coloredBoard = gameState.coloredBoard.copy();
         }
-        this.result = gameResult;
+        this.result = gameState;
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = result.pieceGenerator;
         this.settings = settings;

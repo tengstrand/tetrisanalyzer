@@ -6,7 +6,7 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
-public class GameResult {
+public class GameState {
     public Duration duration;
     public final Board board;
     public ColoredBoard coloredBoard;
@@ -19,12 +19,12 @@ public class GameResult {
     public long cells;
     public final long[] cellDist;
 
-    public GameResult(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
+    public GameState(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
         this(coloredBoard.asBoard(), pieceGenerator, movesLeft);
         this.coloredBoard = coloredBoard;
     }
 
-    public GameResult(Board board, PieceGenerator pieceGenerator, int movesLeft) {
+    public GameState(Board board, PieceGenerator pieceGenerator, int movesLeft) {
         this.board = board;
         this.pieceGenerator = pieceGenerator;
         cellDist = new long[(board.width - 1) * board.height + 1];
@@ -34,19 +34,19 @@ public class GameResult {
     public String export() {
         long rowsPerGame = games == 0 ? 0 : totalRows / games;
 
-        return "game result:" +
+        return "game state:" +
                 board() +
                 "\n  seed: " + pieceGenerator.state() +
                 "\n  duration: " + duration +
-                "\n  pieces/s: " + duration.xPerSeconds(moves) +
                 "\n  pieces: " + format(moves) +
                 "\n  rows: " + format(rows) +
                 "\n  games: " + format(games) +
                 "\n  rows (finished games): " + format(totalRows) +
-                "\n  rows/game: " + format(rowsPerGame) +
                 "\n  cell step: " + cellStep() +
                 "\n  filled cells total: " + format(cells) +
-                "\n  filled cells distribution: [" + cells() + "]\n";
+                "\n  filled cells distribution: [" + cells() + "]\n" +
+                "\n  pieces/s: " + duration.xPerSeconds(moves) +
+                "\n  rows/game: " + format(rowsPerGame);
     }
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
