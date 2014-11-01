@@ -1,6 +1,6 @@
 package com.github.tetrisanalyzer.gui;
 
-import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.game.Game;
@@ -34,13 +34,13 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game).start();
 
         frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(400, 300);
+        frame.setSize(400, 500);
         frame.setLocation(300, 300);
         frame.setVisible(true);
     }
 
     private static Game newGame() {
-        Board board = Board.create(10, 20);
+        ColoredBoard board = ColoredBoard.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
@@ -105,11 +105,21 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String rowsPerGame = "Rows/game: " + state.rowsPerGame();
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, piecesPerSec);
-        //state.coloredBoard.ass
+        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, piecesPerSec);
+        paintTexts(g, 9, messenger.board);
 
         repaint();
         sleep(20);
+    }
+
+    private void paintTexts(Graphics g, int startRow, String... texts) {
+        for (int row=0; row < texts.length; row++) {
+            paintText(texts[row], startRow + row, g);
+        }
+    }
+
+    private void paintText(String text, int row, Graphics g) {
+        g.drawChars(text.toCharArray(), 0, text.length(), 20, 30 + 16 * row);
     }
 
     private void sleep(int ms) {
@@ -117,15 +127,5 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
         }
-    }
-
-    private void paintTexts(Graphics g, String... texts) {
-        for (int row=0; row < texts.length; row++) {
-            paintText(texts[row], row, g);
-        }
-    }
-
-    private void paintText(String text, int row, Graphics g) {
-        g.drawChars(text.toCharArray(), 0, text.length(), 20, 30 + 16 * row);
     }
 }

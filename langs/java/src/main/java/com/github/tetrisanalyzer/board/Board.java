@@ -5,8 +5,6 @@ import com.github.tetrisanalyzer.piece.Piece;
 
 import java.util.Arrays;
 
-import static com.github.tetrisanalyzer.game.StringUtils.format;
-
 /**
  * Represents a Tetris board. Default size is 10x20.
  *
@@ -15,7 +13,7 @@ import static com.github.tetrisanalyzer.game.StringUtils.format;
  *
  * This is a highly optimized version that does not follow best practice in object-orientation!
  */
-public class Board {
+public class Board implements TextBoard {
     public int width;
     public int height;
     private int completeRow;
@@ -210,7 +208,7 @@ public class Board {
     /**
      * Converts a board row into its string representation.
      */
-    private String boardRowAsString(int boardRow) {
+    public String boardRowAsString(int boardRow) {
         String result = "";
 
         for (int i=0; i<width; i++) {
@@ -254,10 +252,10 @@ public class Board {
     }
 
     /**
-     * Returns the board as string ans views
-     * where on the boar next piece is placed.
+     * Returns the board as string and marks where
+     * on the board the next piece will be placed.
      *
-     *   1. I: 1,10
+     *   I: 1,10
      *  |----------|
      *  |----------|
      *  |----------|<
@@ -267,19 +265,28 @@ public class Board {
      *  |IJS-TTTLLL|
      *  ¯¯¯¯¯¯¯¯¯¯^¯
      */
-    public String asString(long moveNo, Piece piece, Move move) {
-        String board = "";
+    public String[] asStringRows(Piece piece, Move move) {
+        String[] board = new String[height + 2];
+
+        board[0] = piece.character() + ": " + move.rotation + "," + (move.x + 1);
 
         for (int y=0; y<height; y++) {
-            board += "|" + boardRowAsString(rows[y]) + "|";
-            if (y == move.y) {
-                board += "<";
-            }
-            board += "\n";
+            board[y+1] = "|" + boardRowAsString(rows[y]) + "|" + (y == move.y ? "<" : "");
         }
-        board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+        board[height+1] = bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
-        return " " + format(moveNo) + ".\n " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
+        return board;
+    }
+
+    public String asString(Piece piece, Move move) {
+        String result = "";
+        String separator = "";
+
+        for (String row : asStringRows(piece, move)) {
+            result += separator + row;
+            separator = "\n";
+        }
+        return result;
     }
 
     @Override

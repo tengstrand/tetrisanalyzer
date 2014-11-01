@@ -8,9 +8,8 @@ import java.util.Arrays;
 
 import static com.github.tetrisanalyzer.board.Board.bottomString;
 import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
-import static com.github.tetrisanalyzer.game.StringUtils.format;
 
-public class ColoredBoard {
+public class ColoredBoard implements TextBoard {
     public final int width;
     public final int height;
     final char[][] board;
@@ -145,7 +144,7 @@ public class ColoredBoard {
      * Returns the board as string ans views
      * where on the boar next piece is placed.
      *
-     *   1. I: 1,10
+     *   I: 1,10
      *  |----------|
      *  |----------|
      *  |----------|<
@@ -155,23 +154,33 @@ public class ColoredBoard {
      *  |IJS-TTTLLL|
      *  ¯¯¯¯¯¯¯¯¯¯^¯
      */
-    public String asString(long moveNo, Piece piece, Move move) {
-        String board = "";
+    public String[] asStringRows(Piece piece, Move move) {
+        String[] board = new String[height + 2];
+
+        board[0] = piece.character() + ": " + move.rotation + "," + (move.x + 1);
 
         int y = 0;
         for (String row : asStringRows(WALL_CELL, false)) {
-            board += row;
-            if (y++ == move.y) {
-                board += "<";
-            }
-            board += "\n";
+            board[y + 1] = row + (y == move.y ? "<" : "");
+            y++;
         }
-        board += bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+        board[height+1] = bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
-        return " " + format(moveNo) + ".\n " + piece.character() + ": " + move.rotation + "," + (move.x + 1)  + "\n" + board;
+        return board;
     }
 
-    private String[] asStringRows(String wall, boolean withBottomRow) {
+    public String asString(Piece piece, Move move) {
+        String result = "";
+        String separator = "";
+
+        for (String row : asStringRows(piece, move)) {
+            result += separator + row;
+            separator = "\n";
+        }
+        return result;
+    }
+
+    public String[] asStringRows(String wall, boolean withBottomRow) {
         String[] result = new String[height + (withBottomRow ? 1 : 0)];
 
         for (int y=0; y<height; y++) {

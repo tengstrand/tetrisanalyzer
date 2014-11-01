@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
+import com.github.tetrisanalyzer.board.TextBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.move.EvaluatedMoves;
 import com.github.tetrisanalyzer.move.Move;
@@ -44,11 +45,11 @@ public class Game implements Runnable {
         allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
     }
 
-    private String board(long moveNo, Piece piece, Move move) {
+    private String board(Piece piece, Move move) {
         if (coloredBoard != null) {
-            return coloredBoard.asString(moveNo, piece, move);
+            return coloredBoard.asString(piece, move);
         }
-        return board.asString(moveNo, piece, move);
+        return board.asString(piece, move);
     }
 
     /**
@@ -62,7 +63,6 @@ public class Game implements Runnable {
         while (state.nonstop || state.movesLeft > 0) {
             Piece piece = pieceGenerator.nextPiece();
             bestMove = evaluateBestMove(piece);
-            printBoardEvery10000Piece(state.moves + 1, piece, bestMove.move);
             state.moves++;
 
             if (!state.nonstop) {
@@ -74,14 +74,18 @@ public class Game implements Runnable {
             cells += 4 - clearedRows * board.width;
             state.cells += cells;
             state.cellDist[cells]++;
-            message.setStateIfNeeded(state);
+            message.setStateIfNeeded(state, textBoard(), piece, bestMove.move);
         }
         state.duration = state.duration.stop();
 
         if (bestMove != null) {
-            System.out.println("\n" + board(state.moves + 1, pieceGenerator.copy().nextPiece(), bestMove.move));
+            System.out.println("\n" + board(pieceGenerator.copy().nextPiece(), bestMove.move));
         }
         System.out.println();
+    }
+
+    private TextBoard textBoard() {
+        return coloredBoard == null ? board : coloredBoard;
     }
 
     private PieceMove evaluateBestMove(Piece piece) {
@@ -101,12 +105,6 @@ public class Game implements Runnable {
             }
         }
         return bestMove;
-    }
-
-    private void printBoardEvery10000Piece(long moveNo, Piece piece, Move move) {
-        if ((state.moves % 10000) == 0) {
-            System.out.println("\n" + board(moveNo, piece, move));
-        }
     }
 
     private void setPieceOnColoredBoard(Piece piece, Move move) {
