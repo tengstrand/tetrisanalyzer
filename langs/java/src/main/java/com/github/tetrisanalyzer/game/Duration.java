@@ -41,12 +41,20 @@ public class Duration {
         return System.currentTimeMillis();
     }
 
+    public static Duration create() {
+        return create(System.currentTimeMillis());
+    }
+
     public static Duration create(long startMillis) {
         return new Duration(startMillis, System.currentTimeMillis());
     }
 
     public static Duration create(long startMillis, long endMillis) {
         return new Duration(startMillis, endMillis);
+    }
+
+    public Duration stop() {
+        return new Duration(startMillis, currentTime());
     }
 
     public double seconds() {

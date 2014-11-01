@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Plays a game of Tetris using specified board, board evaluator, piece generator and settings.
  */
-public class Game {
+public class Game implements Runnable {
     private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
 
     private int cells;
@@ -26,16 +26,18 @@ public class Game {
     private final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
     private final GameSettings settings;
-    private final GameState result;
+    private final GameState state;
+    public final GameMessenger message;
 
     public Game(GameState gameState, BoardEvaluator boardEvaluator, GameSettings settings) {
         this.board = gameState.board.copy();
         if (gameState.coloredBoard != null) {
             this.coloredBoard = gameState.coloredBoard.copy();
         }
-        this.result = gameState;
+        this.state = gameState;
+        this.message = new GameMessenger(gameState);
         this.boardEvaluator = boardEvaluator;
-        this.pieceGenerator = result.pieceGenerator;
+        this.pieceGenerator = state.pieceGenerator;
         this.settings = settings;
         this.cells = board.numberOfOccupiedCells();
 
@@ -50,30 +52,34 @@ public class Game {
     }
 
     /**
-     * Plays a specified number of pieces (result.movesLeft).
+     * Plays a specified number of pieces (state.movesLeft).
      */
-    public void play() {
-        long startTime = Duration.currentTime();
+    @Override
+    public void run() {
+        state.duration = Duration.create();
         PieceMove bestMove = null;
 
-        while (result.movesLeft > 0) {
+        while (state.nonstop || state.movesLeft > 0) {
             Piece piece = pieceGenerator.nextPiece();
             bestMove = evaluateBestMove(piece);
-            printBoardEvery10000Piece(result.moves + 1, piece, bestMove.move);
-            result.moves++;
-            result.movesLeft--;
+            printBoardEvery10000Piece(state.moves + 1, piece, bestMove.move);
+            state.moves++;
 
+            if (!state.nonstop) {
+                state.movesLeft--;
+            }
             int clearedRows = bestMove.setPiece();
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
-            result.rows += clearedRows;
+            state.rows += clearedRows;
             cells += 4 - clearedRows * board.width;
-            result.cells += cells;
-            result.cellDist[cells]++;
+            state.cells += cells;
+            state.cellDist[cells]++;
+            message.setStateIfNeeded(state);
         }
-        result.duration = Duration.create(startTime);
+        state.duration = state.duration.stop();
 
         if (bestMove != null) {
-            System.out.println("\n" + board(result.moves + 1, pieceGenerator.copy().nextPiece(), bestMove.move));
+            System.out.println("\n" + board(state.moves + 1, pieceGenerator.copy().nextPiece(), bestMove.move));
         }
         System.out.println();
     }
@@ -82,10 +88,10 @@ public class Game {
         PieceMove bestMove = evaluatePiece(piece);
 
         if (bestMove == null) {
-            result.games++;
-            result.totalRows += result.rows;
-            result.rows = 0;
-            board = result.board.copy();
+            state.games++;
+            state.totalRows += state.rows;
+            state.rows = 0;
+            board = state.board.copy();
             initColoredBoard();
             cells = board.numberOfOccupiedCells();
             allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
@@ -98,7 +104,7 @@ public class Game {
     }
 
     private void printBoardEvery10000Piece(long moveNo, Piece piece, Move move) {
-        if ((result.moves % 10000) == 0) {
+        if ((state.moves % 10000) == 0) {
             System.out.println("\n" + board(moveNo, piece, move));
         }
     }
@@ -111,7 +117,7 @@ public class Game {
 
     private void initColoredBoard() {
         if (coloredBoard != null) {
-            coloredBoard = result.coloredBoard.copy();
+            coloredBoard = state.coloredBoard.copy();
         }
     }
 

@@ -22,7 +22,7 @@ public class GameTest {
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
         GameState result = new GameState(board, pieceGenerator, 5);
         Game game = new Game(result, boardEvaluator, settings);
-        game.play();
+        game.run();
 
         assertEquals(1, result.rows);
 
@@ -59,7 +59,7 @@ public class GameTest {
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameState result = new GameState(board, pieceGenerator, 1);
         Game game = new Game(result, boardEvaluator, settings);
-        game.play();
+        game.run();
 
         assertEquals(Board.create(
                 "|----------|",
@@ -84,7 +84,7 @@ public class GameTest {
         PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
         GameState result = new GameState(board, pieceGenerator, 1);
         Game game = new Game(result, boardEvaluator, settings);
-        game.play();
+        game.run();
 
         assertEquals(ColoredBoard.create(
                 "|----------|",
