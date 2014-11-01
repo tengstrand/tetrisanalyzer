@@ -91,22 +91,6 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         }
     }
 
-/*
-    public String export() {
-        long rowsPerGame = games == 0 ? 0 : totalRows / games;
-
-        return "game state:" +
-                board() +
-                "\n  seed: " + pieceGenerator.state() +
-
-                "\n  cell step: " + cellStep() +
-                "\n  filled cells total: " + format(cells) +
-                "\n  filled cells distribution: [" + cells() + "]\n" +
-                "\n  pieces/s: " + duration.xPerSeconds(moves);
-    }
-
-     */
-
     public void paintOffscreen(Graphics g) {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
