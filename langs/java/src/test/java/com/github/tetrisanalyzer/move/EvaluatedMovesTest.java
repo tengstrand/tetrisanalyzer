@@ -32,7 +32,7 @@ public class EvaluatedMovesTest {
 
     private EvaluatedMoves getEvaluatedMoves() {
         GameSettings settings = new AtariGameSettings();
-        PieceMove startPieceMove = new ValidPieceMoves(board, piece, settings).calculateStartMove(board);
+        PieceMove startPieceMove = new ValidPieceMoves(board, piece, settings).calculateStartMove(board.width, board.height);
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new StandardGameSettings(board));

@@ -1,6 +1,5 @@
 package com.github.tetrisanalyzer.piecemove;
 
-import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 
@@ -49,11 +48,11 @@ public class Movement {
         return pieceMove.piece.rotationModulus();
     }
 
-    public boolean isPieceInsideBoard(Board board) {
+    public boolean isPieceInsideBoard(int boardWidth, int boardHeight) {
         Move move = pieceMove.move;
 
-        return (move.x >= 0 && move.x + pieceMove.piece.width(move.rotation) <= board.width &&
-                move.y >= 0 && move.y + pieceMove.piece.height(move.rotation) <= board.height);
+        return (move.x >= 0 && move.x + pieceMove.piece.width(move.rotation) <= boardWidth &&
+                move.y >= 0 && move.y + pieceMove.piece.height(move.rotation) <= boardHeight);
     }
 
     public Movement rotate(RotationDirection rotationType, VisitedPieceMoves visitedPieceMoves) {

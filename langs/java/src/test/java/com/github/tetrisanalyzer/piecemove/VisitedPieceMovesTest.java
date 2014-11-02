@@ -24,7 +24,7 @@ public class VisitedPieceMovesTest {
     @Test
     public void visitLeft() {
         Move move = new Move(0,0,0);
-        VisitedPieceMoves visitedMoves = new VisitedPieceMoves(board, piece);
+        VisitedPieceMoves visitedMoves = new VisitedPieceMoves(board.width, board.height, piece);
         visitedMoves.visit(getMovement(move, Direction.LEFT));
 
         assertFalse(visitedMoves.isUnvisited(getMovement(move, Direction.LEFT)));

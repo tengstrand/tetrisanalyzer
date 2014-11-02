@@ -29,6 +29,6 @@ public class AllValidPieceMovesTest {
         GameSettings settings = new AtariGameSettings(board);
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, settings);
 
-        assertEquals(71.78114285714285, allValidPieceMoves.adjustEquityIfOccupiedStartPiece(1.234, 100.0, board));
+        assertEquals(43.562285714285714, allValidPieceMoves.adjustEquityIfOccupiedStartPiece(1.234, 100.0, board));
     }
 }

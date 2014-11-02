@@ -17,13 +17,17 @@ public class AllValidPieceMoves {
     private final PieceMove[] pieceMoves = new PieceMove[7];
 
     public AllValidPieceMoves(Board board, GameSettings settings) {
-        startPieces.put(createPieceO(settings), pieceMoves[0] = new ValidPieceMoves(board, createPieceO(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceI(settings), pieceMoves[1] = new ValidPieceMoves(board, createPieceI(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceS(settings), pieceMoves[2] = new ValidPieceMoves(board, createPieceS(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceZ(settings), pieceMoves[3] = new ValidPieceMoves(board, createPieceZ(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceL(settings), pieceMoves[4] = new ValidPieceMoves(board, createPieceL(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceJ(settings), pieceMoves[5] = new ValidPieceMoves(board, createPieceJ(settings), settings).calculateStartMove(board));
-        startPieces.put(createPieceT(settings), pieceMoves[6] = new ValidPieceMoves(board, createPieceT(settings), settings).calculateStartMove(board));
+        this(board.width, board.height, settings);
+    }
+
+    public AllValidPieceMoves(int boardWidth, int boardHeight, GameSettings settings) {
+        startPieces.put(createPieceO(settings), pieceMoves[0] = new ValidPieceMoves(boardWidth, boardHeight, createPieceO(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceI(settings), pieceMoves[1] = new ValidPieceMoves(boardWidth, boardHeight, createPieceI(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceS(settings), pieceMoves[2] = new ValidPieceMoves(boardWidth, boardHeight, createPieceS(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceZ(settings), pieceMoves[3] = new ValidPieceMoves(boardWidth, boardHeight, createPieceZ(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceL(settings), pieceMoves[4] = new ValidPieceMoves(boardWidth, boardHeight, createPieceL(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceJ(settings), pieceMoves[5] = new ValidPieceMoves(boardWidth, boardHeight, createPieceJ(settings), settings).calculateStartMove(boardWidth, boardHeight));
+        startPieces.put(createPieceT(settings), pieceMoves[6] = new ValidPieceMoves(boardWidth, boardHeight, createPieceT(settings), settings).calculateStartMove(boardWidth, boardHeight));
     }
 
     public PieceMove startMoveForPiece(Piece piece) {

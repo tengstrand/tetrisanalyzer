@@ -27,7 +27,7 @@ public class ValidPieceMovesTest {
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new Move(0, 3, 1), startMove.move);
     }
@@ -38,7 +38,7 @@ public class ValidPieceMovesTest {
         GameSettings settings = new StandardGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new Move(0,4, 1), startMove.move);
     }
@@ -49,7 +49,7 @@ public class ValidPieceMovesTest {
         GameSettings settings = new TestGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new Move(0,4, 2), startMove.move);
     }
@@ -60,7 +60,7 @@ public class ValidPieceMovesTest {
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceI(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new Move(0,4, 1), startMove.move);
     }
@@ -71,7 +71,7 @@ public class ValidPieceMovesTest {
         GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceS(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new Move(0,4, 0), startMove.move);
     }
@@ -84,7 +84,7 @@ public class ValidPieceMovesTest {
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<>();
-        addPieceMoves(validPieceMoves.calculateStartMove(board), pieceMoves);
+        addPieceMoves(validPieceMoves.calculateStartMove(board.width, board.height), pieceMoves);
 
         Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(piece, new Move(0,1, 0)));
@@ -123,7 +123,7 @@ public class ValidPieceMovesTest {
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
 
         Set<PieceMove> pieceMoves = new LinkedHashSet<>();
-        addPieceMoves(validPieceMoves.calculateStartMove(board), pieceMoves);
+        addPieceMoves(validPieceMoves.calculateStartMove(board.width, board.height), pieceMoves);
 
         Set<PieceMove> expectedMoves = new LinkedHashSet<>();
         expectedMoves.add(new PieceMove(piece, new Move(0,1, 1)));
@@ -195,7 +195,7 @@ public class ValidPieceMovesTest {
         Board board = Board.create(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove(board);
+        PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
 
         assertEquals(new PieceMove(piece, new Move(0,1, 0)), startMove);
 

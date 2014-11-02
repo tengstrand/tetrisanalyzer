@@ -1,6 +1,5 @@
 package com.github.tetrisanalyzer.piecemove;
 
-import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 
@@ -12,19 +11,17 @@ import java.util.Map;
  * Helper class for the calculation of valid moves on an empty board.
  */
 public class VisitedPieceMoves {
-    private Board board;
     private Piece piece;
     private int[][][] moves;
     private Map<Move, PieceMove> validMoves = new HashMap<Move, PieceMove>();
 
-    public VisitedPieceMoves(Board board, Piece piece) {
-        this.board = board;
+    public VisitedPieceMoves(int boardWidth, int boardHeight, Piece piece) {
         this.piece = piece;
 
-        moves = getEmptyMoves(board.height, board.width, Direction.NUMBER_OF_DIRECTIONS);
+        moves = getEmptyMoves(boardWidth, boardHeight, Direction.NUMBER_OF_DIRECTIONS);
     }
 
-    private int[][][] getEmptyMoves(int height, int width, int directions) {
+    private int[][][] getEmptyMoves(int width, int height, int directions) {
         int[][][] moves = new int[height][][];
 
         for (int h=0; h<height; h++) {
