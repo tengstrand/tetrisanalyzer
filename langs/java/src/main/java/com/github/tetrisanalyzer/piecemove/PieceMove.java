@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Has responsible of setting and clearing a piece on the board and can tell which
- * moves are valid on the (none empty) board.
+ * Holds the valid moves of a piece + supports setting and clearing a piece.
  */
 public class PieceMove {
     private int pieceHeight;
