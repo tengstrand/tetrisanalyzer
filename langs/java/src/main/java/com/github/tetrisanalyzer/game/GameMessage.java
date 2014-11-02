@@ -4,12 +4,12 @@ import com.github.tetrisanalyzer.board.TextBoard;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 
-public class GameMessenger {
+public class GameMessage {
     public boolean hasUnreceivedData;
     private GameState gameState;
     public String[] board = new String[0];
 
-    public GameMessenger(GameState gameState) {
+    public GameMessage(GameState gameState) {
         this.gameState = gameState;
         hasUnreceivedData = true;
     }

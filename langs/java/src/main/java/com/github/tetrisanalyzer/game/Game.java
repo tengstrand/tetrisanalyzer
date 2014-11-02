@@ -27,7 +27,7 @@ public class Game implements Runnable {
     private final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
     private final GameState state;
-    public final GameMessenger message;
+    public final GameMessage message;
 
     public Game(GameState gameState, BoardEvaluator boardEvaluator, GameSettings settings) {
         this.board = gameState.board.copy();
@@ -35,7 +35,7 @@ public class Game implements Runnable {
             this.coloredBoard = gameState.coloredBoard.copy();
         }
         this.state = gameState;
-        this.message = new GameMessenger(gameState);
+        this.message = new GameMessage(gameState);
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = state.pieceGenerator;
         this.cells = board.numberOfOccupiedCells();
