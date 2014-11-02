@@ -5,17 +5,17 @@ public class CellDistribution {
     public final int step;
     public final long[] cells;
 
-    public CellDistribution(long numberOfcells, int step, long[] cells) {
-        this.numberOfcells = numberOfcells;
-        this.step = step;
-        this.cells = new long[cells.length];
-        System.arraycopy(this.cells, 0, cells, 0, cells.length);
-    }
-
     public CellDistribution(int boardWidth, int boardHeight) {
         numberOfcells = 0;
         step = 2 - (boardWidth & 1);
         cells = new long[(boardWidth - 1) * boardHeight + 1];
+    }
+
+    public CellDistribution(CellDistribution that) {
+        numberOfcells = that.numberOfcells;
+        step = that.step;
+        cells = new long[that.cells.length];
+        System.arraycopy(that.cells, 0, cells, 0, cells.length);
     }
 
     public String distribution() {
@@ -29,23 +29,19 @@ public class CellDistribution {
         return result;
     }
 
-    public double[] fillDistribution() {
-        int length = cells.length / step;
-        double max = Long.MIN_VALUE;
-
-        for (int i = 0; i< cells.length; i+=step) {
+    public double maxValue() {
+        long max = 0;
+        for (int i = 0; i<cells.length; i+=step) {
             long squares = cells[i] * i;
+
             if (squares > max) {
                 max = squares;
             }
         }
+        return max;
+    }
 
-        int j = 0;
-        double[] result = new double[length];
-
-        for (int i = 0; i< cells.length; i+=step) {
-            result[j++] = (cells[i] * i) / max;
-        }
-        return result;
+    public int y(double maxValue, long amount, int height) {
+        return height - (int)((amount / maxValue) * height);
     }
 }

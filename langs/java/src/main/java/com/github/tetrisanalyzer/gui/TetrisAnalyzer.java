@@ -21,7 +21,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
     private long paintedFrames;
     private Image offscreenImage;
-    private final GameMessage messenger;
+    private final GameMessage message;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -34,14 +34,14 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game).start();
 
         frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(400, 570);
+        frame.setSize(700, 570);
         frame.setLocation(300, 300);
         frame.setVisible(true);
     }
 
     private static Game newGame() {
 //        ColoredBoard board = ColoredBoard.create(10, 20);
-        ColoredBoard board = ColoredBoard.create(8, 8);
+        ColoredBoard board = ColoredBoard.create(10, 12);
         //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, true);
 //        GameSettings settings = new AtariGameSettings(board, true);
@@ -52,8 +52,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         return new Game(result, boardEvaluator, settings);
     }
 
-    public TetrisAnalyzer(GameMessage messenger) {
-        this.messenger = messenger;
+    public TetrisAnalyzer(GameMessage message) {
+        this.message = message;
         addMouseMotionListener(this);
         setVisible(true);
     }
@@ -97,21 +97,29 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
 
-        GameState state = messenger.getGameState();
+        GameState state = message.getGameState();
         String duration = "Duration: " + state.duration.asString();
+        String size = "Board: " + state.board.width + " x " + state.board.height;
         String framesPerSec = "Frames/s: " + state.duration.xPerSeconds(paintedFrames++);
         String pieces = "Pieces: " + format(state.moves);
 
         String games = "Games: " + format(state.games);
         String rows = "Rows: " + format(state.rows);
         String rowsPerGame = "Rows/game: " + state.rowsPerGame();
+        String squaresPerPos = "Squares/pos: " + round(state.cellDist.numberOfcells / (double)state.moves);
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, piecesPerSec);
-        paintTexts(g, 9, messenger.board);
+        paintTexts(g, 0, framesPerSec, duration, size, pieces, rows, "", games, rowsPerGame, squaresPerPos, piecesPerSec);
+        paintTexts(g, 11, message.board);
+
+        DistributionPainter.paint(g, 130, 205, 500, 200, message.getGameState().cellDist);
 
         repaint();
         sleep(20);
+    }
+
+    double round(double value) {
+        return ((int)(value * 10000)) / 10000.0;
     }
 
     private void paintTexts(Graphics g, int startRow, String... texts) {

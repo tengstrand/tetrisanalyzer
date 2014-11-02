@@ -48,7 +48,7 @@ public class GameState {
         this.games = games;
         this.rows = rows;
         this.totalRows = totalRows;
-        this.cellDist = new CellDistribution(board.width, board.height);
+        this.cellDist = new CellDistribution(cellDist);
     }
 
     public String rowsPerGame() {
