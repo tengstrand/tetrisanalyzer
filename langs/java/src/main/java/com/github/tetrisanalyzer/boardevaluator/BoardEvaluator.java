@@ -1,13 +1,14 @@
 package com.github.tetrisanalyzer.boardevaluator;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 public abstract class BoardEvaluator {
 
     public abstract LessIs lessIs();
-    public abstract double evaluate(Board board);
+    public abstract double evaluate(Board board, AllValidPieceMoves allValidPieceMoves);
     public abstract BoardEvaluatorSettings settings();
 
     public abstract String id();

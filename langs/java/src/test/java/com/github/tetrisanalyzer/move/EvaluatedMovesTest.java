@@ -4,10 +4,12 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.piece.Piece;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.piecemove.ValidPieceMoves;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class EvaluatedMovesTest {
         PieceMove startPieceMove = new ValidPieceMoves(board, piece, settings).calculateStartMove(board);
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1();
-        return new EvaluatedMoves(validMoves, boardEvaluator, board);
+        AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new StandardGameSettings(board));
+        return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board);
     }
 
     @Test

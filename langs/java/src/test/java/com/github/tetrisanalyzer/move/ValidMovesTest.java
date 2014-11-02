@@ -43,6 +43,6 @@ public class ValidMovesTest {
         Piece piece = createPieceS(settings);
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, settings);
 
-        return allValidPieceMoves.startMoveForPiece(piece, board);
+        return allValidPieceMoves.startMoveForPiece(piece);
     }
 }

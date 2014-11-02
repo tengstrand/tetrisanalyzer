@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.boardevaluator;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
@@ -11,6 +12,7 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
 public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardWidth;
     private final int boardHeight;
+    private final double maxEquity;
 
     private double[] heightFactor = new double[] { 7, 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1 };
     private double[] blocksPerRowHollowFactor = new double[] { 0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553 };
@@ -31,18 +33,24 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         }
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
+
+        maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
     }
 
     @Override
+    public double evaluate(Board board, AllValidPieceMoves allValidPieceMoves)  {
+        return allValidPieceMoves.adjustEquityIfOccupiedStartPiece(evaluate(board), maxEquity, board);
+    }
+
     public double evaluate(Board board)  {
-        if (boardWidth > boardWidth) {
+        if (board.width > boardWidth) {
             throw new IllegalArgumentException("Can not evaluate board width > " + boardWidth);
         }
         BoardOutline outline = new BoardOutline(board);
 
         return evaluateBasedOnHollows(board, outline) +
-            evaluateBasedOnOutlineHeight(outline) +
-            evaluateBasedOnOutlineStructure(outline);
+                evaluateBasedOnOutlineHeight(outline) +
+                evaluateBasedOnOutlineStructure(outline);
     }
 
     private double evaluateBasedOnHollows(Board board, BoardOutline outline) {

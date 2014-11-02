@@ -26,7 +26,6 @@ public class Game implements Runnable {
     public ColoredBoard coloredBoard;
     private final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
-    private final GameSettings settings;
     private final GameState state;
     public final GameMessenger message;
 
@@ -39,7 +38,6 @@ public class Game implements Runnable {
         this.message = new GameMessenger(gameState);
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = state.pieceGenerator;
-        this.settings = settings;
         this.cells = board.numberOfOccupiedCells();
 
         allValidPieceMoves = new AllValidPieceMoves(board, settings);
@@ -115,8 +113,8 @@ public class Game implements Runnable {
     }
 
     private PieceMove evaluatePiece(Piece piece, Board board) {
-        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece, board);
+        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece);
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
-        return new EvaluatedMoves(validMoves, boardEvaluator, board).bestMove();
+        return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board).bestMove();
     }
 }

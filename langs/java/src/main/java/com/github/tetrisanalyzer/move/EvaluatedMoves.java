@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.move;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ public class EvaluatedMoves {
     private final List<PieceMove> pieceMoves;
     private final BoardEvaluator boardEvaluator;
 
-    public EvaluatedMoves(List<PieceMove> pieceMoves, BoardEvaluator boardEvaluator, Board board) {
+    public EvaluatedMoves(AllValidPieceMoves allValidPieceMoves, List<PieceMove> pieceMoves, BoardEvaluator boardEvaluator, Board board) {
         this.pieceMoves = pieceMoves;
         this.boardEvaluator = boardEvaluator;
-        moves = evaluateValidMoves(board);
+        moves = evaluateValidMoves(board, allValidPieceMoves);
     }
 
     /**
@@ -43,21 +44,21 @@ public class EvaluatedMoves {
     /**
      * Evaluates the equity of all valid moves for a given position.
      */
-    private List<MoveEquity> evaluateValidMoves(Board board) {
+    private List<MoveEquity> evaluateValidMoves(Board board, AllValidPieceMoves allValidPieceMoves) {
         List<MoveEquity> evaluatedMoves = new ArrayList<MoveEquity>();
         if (!pieceMoves.isEmpty()) {
             Board boardCopy = board.copy();
 
             for (PieceMove pieceMove : pieceMoves) {
-                evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, board, boardCopy)));
+                evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, board, boardCopy, allValidPieceMoves)));
             }
         }
         return evaluatedMoves;
     }
 
-    private double evaluate(PieceMove pieceMove, Board board, Board boardCopy) {
+    private double evaluate(PieceMove pieceMove, Board board, Board boardCopy, AllValidPieceMoves allValidPieceMoves) {
         int clearedRows = pieceMove.setPiece(board);
-        double equity = boardEvaluator.evaluate(board);
+        double equity = boardEvaluator.evaluate(board, allValidPieceMoves);
 
         if (clearedRows == 0) {
             pieceMove.clearPiece(board);

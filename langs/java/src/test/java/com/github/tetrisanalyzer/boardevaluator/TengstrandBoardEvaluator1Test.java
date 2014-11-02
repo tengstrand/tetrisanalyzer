@@ -1,6 +1,8 @@
 package com.github.tetrisanalyzer.boardevaluator;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
+import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -19,6 +21,7 @@ public class TengstrandBoardEvaluator1Test {
                 "|xxxx-xxxx-|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
 
-        assertEquals(51.7145, evaluator.evaluate(board), 0.0001);
+        AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new StandardGameSettings(board));
+        assertEquals(51.7145, evaluator.evaluate(board, allValidPieceMoves), 0.0001);
     }
 }
