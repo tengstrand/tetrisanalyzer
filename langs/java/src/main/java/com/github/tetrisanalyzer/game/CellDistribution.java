@@ -31,7 +31,7 @@ public class CellDistribution {
 
     public double[] fillDistribution() {
         int length = cells.length / step;
-        long max = Long.MIN_VALUE;
+        double max = Long.MIN_VALUE;
 
         for (int i = 0; i< cells.length; i+=step) {
             long squares = cells[i] * i;
