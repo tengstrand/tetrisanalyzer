@@ -36,9 +36,6 @@ public class Board implements TextBoard {
         int width = (rows[0]).length() - 2;
         int height = rows.length - 1;
 
-        if (!(rows[height]).equals(bottomTextRow(width))) {
-            throw new IllegalArgumentException(("The bottom text row does not match the board width"));
-        }
         int[] boardRows = new int[height];
         for (int y=0; y<height; y++) {
             boardRows[y] = rowsFromText(width, rows[y]);
@@ -258,7 +255,7 @@ public class Board implements TextBoard {
      *   I: 1,10
      *  |----------|
      *  |----------|
-     *  |----------|<
+     *  |----------<
      *  |LL--------|
      *  |LL--------|
      *  |LLIIIIOOT-|
@@ -267,13 +264,14 @@ public class Board implements TextBoard {
      */
     public String[] asStringRows(Piece piece, Move move) {
         String[] board = new String[height + 2];
+        int movey = move == null ? -1 : move.y;
 
-        board[0] = piece.character() + ": " + move.rotation + "," + (move.x + 1);
+        board[0] = piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
 
         for (int y=0; y<height; y++) {
-            board[y+1] = "|" + boardRowAsString(rows[y]) + "|" + (y == move.y ? "<" : "");
+            board[y+1] = "|" + boardRowAsString(rows[y]) + (y == movey ? "<" : "|");
         }
-        board[height+1] = bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+        board[height+1] = move == null ? bottomString(width + 2) : bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
         return board;
     }

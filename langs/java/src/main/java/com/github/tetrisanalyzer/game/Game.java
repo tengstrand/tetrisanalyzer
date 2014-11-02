@@ -68,20 +68,16 @@ public class Game implements Runnable {
             if (!state.nonstop) {
                 state.movesLeft--;
             }
+            message.setStateIfNeeded(state, textBoard(), piece, bestMove == null ? null : bestMove.move);
+
             int clearedRows = bestMove.setPiece();
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
             state.rows += clearedRows;
             cells += 4 - clearedRows * board.width;
             state.cells += cells;
             state.cellDist[cells]++;
-            message.setStateIfNeeded(state, textBoard(), piece, bestMove.move);
         }
         state.duration = state.duration.stop();
-
-        if (bestMove != null) {
-            System.out.println("\n" + board(pieceGenerator.copy().nextPiece(), bestMove.move));
-        }
-        System.out.println();
     }
 
     private TextBoard textBoard() {

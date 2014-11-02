@@ -7,13 +7,14 @@ import org.junit.Test;
 
 import static com.github.tetrisanalyzer.board.ColoredBoard.create;
 import static com.github.tetrisanalyzer.piece.Piece.createPieceL;
+import static com.github.tetrisanalyzer.piece.Piece.createPieceZ;
 import static junit.framework.Assert.assertEquals;
 
 public class ColoredBoardTest {
 
     @Test
     public void emptyBoard() {
-        ColoredBoard coloredBoard = create(6, 5);
+        ColoredBoard board = create(6, 5);
 
         assertEquals(board(
                 "|------|",
@@ -21,12 +22,12 @@ public class ColoredBoardTest {
                 "|------|",
                 "|------|",
                 "|------|",
-                "¯¯¯¯¯¯¯¯"), coloredBoard.toString());
+                "¯¯¯¯¯¯¯¯"), board.toString());
     }
 
     @Test
     public void boardWithPieces() {
-        ColoredBoard coloredBoard = create(
+        ColoredBoard board = create(
                 "|--------|",
                 "|--------|",
                 "|--------|",
@@ -40,7 +41,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|J-----OO|",
                 "|JJJ---OO|",
-                "¯¯¯¯¯¯¯¯¯¯"), coloredBoard.toString());
+                "¯¯¯¯¯¯¯¯¯¯"), board.toString());
     }
 
     @Test
@@ -66,16 +67,16 @@ public class ColoredBoardTest {
 
     @Test
     public void setPiece() {
-        ColoredBoard coloredBoard = create(
+        ColoredBoard board = create(
                 "|--------|",
                 "|--------|",
                 "|ZZ------|",
                 "|JZZOO-OO|",
                 "|JJJOO-OO|",
                 "¯¯¯¯¯¯¯¯¯¯");
-        Piece piece = createPieceL(new StandardGameSettings(coloredBoard));
+        Piece piece = createPieceL(new StandardGameSettings(board));
         Move move = new Move(3,4, 2);
-        coloredBoard.setPiece(piece, move);
+        board.setPiece(piece, move);
 
         assertEquals(board(
                 "|--------|",
@@ -83,7 +84,51 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|--------|",
                 "|ZZ--LL--|",
-                "¯¯¯¯¯¯¯¯¯¯"), coloredBoard.toString());
+                "¯¯¯¯¯¯¯¯¯¯"), board.toString());
+    }
+
+    @Test
+    public void asString() {
+        ColoredBoard board = create(
+                "|--------|",
+                "|--------|",
+                "|--------|",
+                "|--------|",
+                "|x------x|",
+                "¯¯¯¯¯¯¯¯¯¯");
+
+        Piece piece = createPieceZ(new StandardGameSettings(board));
+        Move move = new Move(0,0, 3);
+
+        assertEquals("Z: 0,1\n" + board(
+                "|--------|",
+                "|--------|",
+                "|--------|",
+                "|--------<",
+                "|x------x|",
+                "¯^¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+    }
+
+    @Test
+    public void asString_noValidMove() {
+        ColoredBoard board = create(
+                "|--------|",
+                "|--xxx---|",
+                "|xxxxx-xx|",
+                "|xx-xxxxx|",
+                "|xxxxxx-x|",
+                "¯¯¯¯¯¯¯¯¯¯");
+
+        Piece piece = createPieceZ(new StandardGameSettings(board));
+        Move move = null;
+
+        assertEquals("Z: -\n" + board(
+                "|--------|",
+                "|--xxx---|",
+                "|xxxxx-xx|",
+                "|xx-xxxxx|",
+                "|xxxxxx-x|",
+                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
     }
 
     private String board(String... rows) {

@@ -60,7 +60,7 @@ public class ColoredBoard implements TextBoard {
     }
 
     public Board asBoard() {
-        return Board.create(asStringRows(WALL_CELL, true));
+        return Board.create(asStringRows(WALL_CELL, true, -1));
     }
 
     public void setPiece(Piece piece, Move move) {
@@ -133,7 +133,7 @@ public class ColoredBoard implements TextBoard {
         String result = "\n  " + title + ":\n" + tab + "[";
         String separator = "";
 
-        for (String row : asStringRows("", false)) {
+        for (String row : asStringRows("", false, -1)) {
             result += separator + "[" + row + "]";
             separator = "\n" + tab + " ";
         }
@@ -147,7 +147,7 @@ public class ColoredBoard implements TextBoard {
      *   I: 1,10
      *  |----------|
      *  |----------|
-     *  |----------|<
+     *  |----------<
      *  |LL--------|
      *  |LL--------|
      *  |LLIIIIOOT-|
@@ -156,15 +156,16 @@ public class ColoredBoard implements TextBoard {
      */
     public String[] asStringRows(Piece piece, Move move) {
         String[] board = new String[height + 2];
+        int movey = move == null ? -1 : move.y;
 
-        board[0] = piece.character() + ": " + move.rotation + "," + (move.x + 1);
+        board[0] = piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
 
         int y = 0;
-        for (String row : asStringRows(WALL_CELL, false)) {
-            board[y + 1] = row + (y == move.y ? "<" : "");
+        for (String row : asStringRows(WALL_CELL, false, movey)) {
+            board[y + 1] = row;
             y++;
         }
-        board[height+1] = bottomString(move.x + 1) + "^" + bottomString(width - move.x);
+        board[height+1] = move == null ? bottomString(width + 2) : bottomString(move.x + 1) + "^" + bottomString(width - move.x);
 
         return board;
     }
@@ -180,7 +181,7 @@ public class ColoredBoard implements TextBoard {
         return result;
     }
 
-    public String[] asStringRows(String wall, boolean withBottomRow) {
+    public String[] asStringRows(String wall, boolean withBottomRow, int pieceY) {
         String[] result = new String[height + (withBottomRow ? 1 : 0)];
 
         for (int y=0; y<height; y++) {
@@ -188,7 +189,7 @@ public class ColoredBoard implements TextBoard {
             for (int x=0; x<width; x++) {
                 result[y] += board[y][x];
             }
-            result[y] += wall;
+            result[y] +=  (y == pieceY ? "<" : wall);
         }
         if (withBottomRow) {
             result[height] = bottomTextRow(width);
@@ -230,7 +231,7 @@ public class ColoredBoard implements TextBoard {
         String result = "";
         String separator = "";
 
-        for (String row : asStringRows(WALL_CELL, true)) {
+        for (String row : asStringRows(WALL_CELL, true, -1)) {
             result += separator + row;
             separator = "\n";
         }

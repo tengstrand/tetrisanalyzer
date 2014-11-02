@@ -40,14 +40,15 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
     }
 
     private static Game newGame() {
-        ColoredBoard board = ColoredBoard.create(10, 15);
+//        ColoredBoard board = ColoredBoard.create(10, 15);
+        ColoredBoard board = ColoredBoard.create(5, 5);
+        //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
 
         GameState result = new GameState(board, pieceGenerator, 0);
         return new Game(result, boardEvaluator, settings);
-
     }
 
     public TetrisAnalyzer(GameMessenger messenger) {
