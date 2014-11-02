@@ -34,14 +34,14 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game).start();
 
         frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(400, 500);
+        frame.setSize(400, 570);
         frame.setLocation(300, 300);
         frame.setVisible(true);
     }
 
     private static Game newGame() {
-//        ColoredBoard board = ColoredBoard.create(10, 15);
-        ColoredBoard board = ColoredBoard.create(5, 5);
+        ColoredBoard board = ColoredBoard.create(10, 15);
+//        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);

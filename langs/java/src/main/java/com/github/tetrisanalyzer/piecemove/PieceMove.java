@@ -15,7 +15,6 @@ import java.util.Set;
  */
 public class PieceMove {
     private int pieceHeight;
-    public Board board;
     public Piece piece;
     public final Move move;
 
@@ -29,8 +28,7 @@ public class PieceMove {
     private static final int ALL_BITS_CLEARED = 0;
     private static final int ALL_BITS_SET = -1;
 
-    public PieceMove(Board board, Piece piece, Move move) {
-        this.board = board;
+    public PieceMove(Piece piece, Move move) {
         this.piece = piece;
         this.move = move;
 
@@ -52,10 +50,6 @@ public class PieceMove {
         }
     }
 
-    public Board boardCopy() {
-        return board.copy();
-    }
-
     public void setDown(PieceMove down) {
         this.down = down;
     }
@@ -73,7 +67,7 @@ public class PieceMove {
      *
      * @return number of cleared lines
      */
-    public int setPiece() {
+    public int setPiece(Board board) {
         for (int y=0; y<pieceHeight; y++) {
             board.setBits(boardLineIndices[y], orLines[y]);
         }
@@ -83,7 +77,7 @@ public class PieceMove {
     /**
      * Removes a piece from the board.
      */
-    public void clearPiece() {
+    public void clearPiece(Board board) {
         for (int y =0; y<pieceHeight; y++) {
             board.clearBits(boardLineIndices[y], andLines[y]);
         }
@@ -92,7 +86,7 @@ public class PieceMove {
     /**
      * True if the piece position is not occupied.
      */
-    public boolean isFree() {
+    public boolean isFree(Board board) {
         for (int y=0; y<pieceHeight; y++) {
             if (!board.isBitsFree(boardLineIndices[y], orLines[y])) {
                 return false;
@@ -105,8 +99,8 @@ public class PieceMove {
      * True if this piece hasn't reached the bottom (down == null) and the move down
      * (current position where y is increased by one) is not occupied with filled cells.
      */
-    public boolean canMoveDown() {
-        return down != null && down.isFree();
+    public boolean canMoveDown(Board board) {
+        return down != null && down.isFree(board);
     }
 
     @Override

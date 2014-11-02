@@ -21,16 +21,16 @@ public class ValidPieceMovesTest {
         Board board = Board.create(settings.boardWidth, settings.boardHeight);
         Piece piece = createPieceO(settings);
         ValidPieceMovesForEmptyBoard validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, settings);
-        PieceMove startMove = validPieceMoves.calculateStartMove();
+        PieceMove startMove = validPieceMoves.calculateStartMove(board);
 
-        assertEquals(new PieceMove(board, piece, new Move(0,1, 0)), startMove);
+        assertEquals(new PieceMove(piece, new Move(0,1, 0)), startMove);
 
         Set<PieceMove> expectedMoves = new HashSet<>();
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,0, 0)));
-        expectedMoves.add(new PieceMove(board, piece, new Move(0,2, 0)));
+        expectedMoves.add(new PieceMove(piece, new Move(0,0, 0)));
+        expectedMoves.add(new PieceMove(piece, new Move(0,2, 0)));
 
         assertEquals(expectedMoves, startMove.asideAndRotateMoves());
 
-        assertEquals(new PieceMove(board, piece, new Move(0,1, 1)), startMove.down);
+        assertEquals(new PieceMove(piece, new Move(0,1, 1)), startMove.down);
     }
 }

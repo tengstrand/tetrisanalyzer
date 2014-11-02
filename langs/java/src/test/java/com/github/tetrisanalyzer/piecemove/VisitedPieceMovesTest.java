@@ -34,7 +34,7 @@ public class VisitedPieceMovesTest {
     }
 
     private Movement getMovement(Move move, Direction direction) {
-        PieceMove pieceMove = new PieceMove(board, piece, move);
+        PieceMove pieceMove = new PieceMove(piece, move);
         return new Movement(pieceMove, direction);
     }
 }

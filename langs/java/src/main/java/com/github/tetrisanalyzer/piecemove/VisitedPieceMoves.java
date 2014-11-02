@@ -44,7 +44,7 @@ public class VisitedPieceMoves {
         if (validMoves.containsKey(move)) {
             return validMoves.get(move);
         } else {
-            return new PieceMove(board, piece, move);
+            return new PieceMove(piece, move);
         }
     }
 

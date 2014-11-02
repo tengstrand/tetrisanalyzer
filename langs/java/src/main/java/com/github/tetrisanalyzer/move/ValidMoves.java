@@ -41,15 +41,15 @@ public class ValidMoves {
      * links to all possible moves on an empty board. Because the board is probably not empty,
      * every possible move needs to be checked (and returned by this method).
      */
-    public List<PieceMove> pieceMoves(PieceMove pieceMove) {
-        if (isUnvisited(pieceMove.move) && pieceMove.isFree()) {
+    public List<PieceMove> pieceMoves(PieceMove pieceMove, Board board) {
+        if (isUnvisited(pieceMove.move) && pieceMove.isFree(board)) {
             markAsVisited(pieceMove.move);
 
             for (PieceMove move: pieceMove.asideAndRotate) {
-                pieceMoves(move);
+                pieceMoves(move, board);
             }
-            if (pieceMove.canMoveDown()) {
-                pieceMoves(pieceMove.down);
+            if (pieceMove.canMoveDown(board)) {
+                pieceMoves(pieceMove.down, board);
             } else {
                 validMoves.add(pieceMove);
             }

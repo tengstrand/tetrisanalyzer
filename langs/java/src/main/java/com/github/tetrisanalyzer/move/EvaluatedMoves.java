@@ -15,10 +15,10 @@ public class EvaluatedMoves {
     private final List<PieceMove> pieceMoves;
     private final BoardEvaluator boardEvaluator;
 
-    public EvaluatedMoves(List<PieceMove> pieceMoves, BoardEvaluator boardEvaluator) {
+    public EvaluatedMoves(List<PieceMove> pieceMoves, BoardEvaluator boardEvaluator, Board board) {
         this.pieceMoves = pieceMoves;
         this.boardEvaluator = boardEvaluator;
-        moves = evaluateValidMoves();
+        moves = evaluateValidMoves(board);
     }
 
     /**
@@ -43,26 +43,26 @@ public class EvaluatedMoves {
     /**
      * Evaluates the equity of all valid moves for a given position.
      */
-    private List<MoveEquity> evaluateValidMoves() {
+    private List<MoveEquity> evaluateValidMoves(Board board) {
         List<MoveEquity> evaluatedMoves = new ArrayList<MoveEquity>();
         if (!pieceMoves.isEmpty()) {
-            Board boardCopy = pieceMoves.get(0).boardCopy();
+            Board boardCopy = board.copy();
 
             for (PieceMove pieceMove : pieceMoves) {
-                evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, boardCopy)));
+                evaluatedMoves.add(new MoveEquity(pieceMove, evaluate(pieceMove, board, boardCopy)));
             }
         }
         return evaluatedMoves;
     }
 
-    private double evaluate(PieceMove pieceMove, Board boardCopy) {
-        int clearedRows = pieceMove.setPiece();
-        double equity = boardEvaluator.evaluate(pieceMove.board);
+    private double evaluate(PieceMove pieceMove, Board board, Board boardCopy) {
+        int clearedRows = pieceMove.setPiece(board);
+        double equity = boardEvaluator.evaluate(board);
 
         if (clearedRows == 0) {
-            pieceMove.clearPiece();
+            pieceMove.clearPiece(board);
         } else {
-            pieceMove.board.restore(boardCopy);
+            board.restore(boardCopy);
         }
         return equity;
     }

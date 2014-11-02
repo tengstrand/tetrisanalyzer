@@ -25,7 +25,7 @@ public class ValidMovesTest {
         PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<>();
 
-        for (PieceMove pieceMove : validMoves.pieceMoves(startPiece)) {
+        for (PieceMove pieceMove : validMoves.pieceMoves(startPiece, board)) {
             moves.add(pieceMove.move);
         }
 
@@ -43,6 +43,6 @@ public class ValidMovesTest {
         Piece piece = createPieceS(settings);
         AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
 
-        return allValidPieceMoves.startMoveForPiece(piece);
+        return allValidPieceMoves.startMoveForPiece(piece, board);
     }
 }

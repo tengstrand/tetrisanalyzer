@@ -70,7 +70,7 @@ public class Game implements Runnable {
             }
             message.setStateIfNeeded(state, textBoard(), piece, bestMove == null ? null : bestMove.move);
 
-            int clearedRows = bestMove.setPiece();
+            int clearedRows = bestMove.setPiece(board);
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
             state.rows += clearedRows;
             cells += 4 - clearedRows * board.width;
@@ -85,7 +85,7 @@ public class Game implements Runnable {
     }
 
     private PieceMove evaluateBestMove(Piece piece) {
-        PieceMove bestMove = evaluatePiece(piece);
+        PieceMove bestMove = evaluatePiece(piece, board);
 
         if (bestMove == null) {
             state.games++;
@@ -94,8 +94,7 @@ public class Game implements Runnable {
             board = state.board.copy();
             initColoredBoard();
             cells = board.numberOfOccupiedCells();
-            allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
-            bestMove = evaluatePiece(piece);
+            bestMove = evaluatePiece(piece, board);
             if (bestMove == null) {
                 throw new IllegalStateException("The starting position is occupied!");
             }
@@ -115,9 +114,9 @@ public class Game implements Runnable {
         }
     }
 
-    private PieceMove evaluatePiece(Piece piece) {
-        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece);
-        List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove);
-        return new EvaluatedMoves(validMoves, boardEvaluator).bestMove();
+    private PieceMove evaluatePiece(Piece piece, Board board) {
+        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece, board);
+        List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
+        return new EvaluatedMoves(validMoves, boardEvaluator, board).bestMove();
     }
 }

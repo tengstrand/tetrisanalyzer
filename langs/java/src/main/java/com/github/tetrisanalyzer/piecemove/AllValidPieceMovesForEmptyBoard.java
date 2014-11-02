@@ -13,22 +13,19 @@ import static com.github.tetrisanalyzer.piece.Piece.*;
  * Is a holder for all valid moves on an empty board.
  */
 public class AllValidPieceMovesForEmptyBoard {
-    private final Board board;
     private final Map<Piece, PieceMove> startPieces = new HashMap<Piece, PieceMove>();
 
     public AllValidPieceMovesForEmptyBoard(Board board, GameSettings settings) {
-        this.board = board;
-
-        startPieces.put(createPieceO(settings), new ValidPieceMovesForEmptyBoard(board, createPieceO(settings), settings).calculateStartMove());
-        startPieces.put(createPieceI(settings), new ValidPieceMovesForEmptyBoard(board, createPieceI(settings), settings).calculateStartMove());
-        startPieces.put(createPieceS(settings), new ValidPieceMovesForEmptyBoard(board, createPieceS(settings), settings).calculateStartMove());
-        startPieces.put(createPieceZ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceZ(settings), settings).calculateStartMove());
-        startPieces.put(createPieceL(settings), new ValidPieceMovesForEmptyBoard(board, createPieceL(settings), settings).calculateStartMove());
-        startPieces.put(createPieceJ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceJ(settings), settings).calculateStartMove());
-        startPieces.put(createPieceT(settings), new ValidPieceMovesForEmptyBoard(board, createPieceT(settings), settings).calculateStartMove());
+        startPieces.put(createPieceO(settings), new ValidPieceMovesForEmptyBoard(board, createPieceO(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceI(settings), new ValidPieceMovesForEmptyBoard(board, createPieceI(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceS(settings), new ValidPieceMovesForEmptyBoard(board, createPieceS(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceZ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceZ(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceL(settings), new ValidPieceMovesForEmptyBoard(board, createPieceL(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceJ(settings), new ValidPieceMovesForEmptyBoard(board, createPieceJ(settings), settings).calculateStartMove(board));
+        startPieces.put(createPieceT(settings), new ValidPieceMovesForEmptyBoard(board, createPieceT(settings), settings).calculateStartMove(board));
     }
 
-    public PieceMove startMoveForPiece(Piece piece) {
+    public PieceMove startMoveForPiece(Piece piece, Board board) {
         if (!startPieces.containsKey(piece)) {
             throw new IllegalStateException("Could not find a start move for piece " + piece + " on board " + board);
         }
