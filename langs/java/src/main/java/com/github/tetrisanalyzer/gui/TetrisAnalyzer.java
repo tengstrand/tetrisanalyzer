@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
 import com.github.tetrisanalyzer.game.Game;
-import com.github.tetrisanalyzer.game.GameMessenger;
+import com.github.tetrisanalyzer.game.GameMessage;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator;
 import com.github.tetrisanalyzer.settings.GameSettings;
@@ -21,7 +21,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
     private long paintedFrames;
     private Image offscreenImage;
-    private final GameMessenger messenger;
+    private final GameMessage messenger;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -40,10 +40,11 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
     }
 
     private static Game newGame() {
-        ColoredBoard board = ColoredBoard.create(10, 15);
-//        ColoredBoard board = ColoredBoard.create(5, 5);
+//        ColoredBoard board = ColoredBoard.create(10, 20);
+        ColoredBoard board = ColoredBoard.create(8, 8);
         //Board board = Board.create(10, 15);
-        GameSettings settings = new StandardGameSettings(board, false);
+        GameSettings settings = new StandardGameSettings(board, true);
+//        GameSettings settings = new AtariGameSettings(board, true);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
 
@@ -51,7 +52,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         return new Game(result, boardEvaluator, settings);
     }
 
-    public TetrisAnalyzer(GameMessenger messenger) {
+    public TetrisAnalyzer(GameMessage messenger) {
         this.messenger = messenger;
         addMouseMotionListener(this);
         setVisible(true);

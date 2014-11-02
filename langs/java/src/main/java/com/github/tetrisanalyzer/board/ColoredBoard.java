@@ -158,7 +158,7 @@ public class ColoredBoard implements TextBoard {
         String[] board = new String[height + 2];
         int movey = move == null ? -1 : move.y;
 
-        board[0] = piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
+        board[0] = " " + piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
 
         int y = 0;
         for (String row : asStringRows(WALL_CELL, false, movey)) {

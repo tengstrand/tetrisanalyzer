@@ -21,7 +21,7 @@ import java.util.List;
 public class Game implements Runnable {
     private AllValidPieceMoves allValidPieceMoves;
 
-    private int cells;
+    private int numberOfCells;
     public Board board;
     public ColoredBoard coloredBoard;
     private final BoardEvaluator boardEvaluator;
@@ -38,7 +38,7 @@ public class Game implements Runnable {
         this.message = new GameMessage(gameState);
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = state.pieceGenerator;
-        this.cells = board.numberOfOccupiedCells();
+        this.numberOfCells = board.numberOfOccupiedCells();
 
         allValidPieceMoves = new AllValidPieceMoves(board, settings);
     }
@@ -71,9 +71,9 @@ public class Game implements Runnable {
             int clearedRows = bestMove.setPiece(board);
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
             state.rows += clearedRows;
-            cells += 4 - clearedRows * board.width;
-            state.cells += cells;
-            state.cellDist[cells]++;
+            numberOfCells += 4 - clearedRows * board.width;
+            state.cellDist.numberOfcells += numberOfCells;
+            state.cellDist.cells[numberOfCells]++;
         }
         state.duration = state.duration.stop();
     }
@@ -91,7 +91,7 @@ public class Game implements Runnable {
             state.rows = 0;
             board = state.board.copy();
             initColoredBoard();
-            cells = board.numberOfOccupiedCells();
+            numberOfCells = board.numberOfOccupiedCells();
             bestMove = evaluatePiece(piece, board);
             if (bestMove == null) {
                 throw new IllegalStateException("The starting position is occupied!");

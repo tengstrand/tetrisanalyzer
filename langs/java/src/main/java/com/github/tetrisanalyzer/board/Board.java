@@ -44,7 +44,7 @@ public class Board implements TextBoard {
 
         int cells = result.numberOfOccupiedCells();
         if ((width & 1) == 0 && (cells & 1) == 1) {
-            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of filled cells (" + cells + ")");
+            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of filled numberOfcells (" + cells + ")");
         }
         return result;
     }
@@ -303,7 +303,7 @@ public class Board implements TextBoard {
         String[] board = new String[height + 2];
         int movey = move == null ? -1 : move.y;
 
-        board[0] = piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
+        board[0] = " " + piece.character() + ": " + (move == null ? "-" : move.rotation + "," + (move.x + 1));
 
         for (int y=0; y<height; y++) {
             board[y+1] = "|" + boardRowAsString(rows[y]) + (y == movey ? "<" : "|");
