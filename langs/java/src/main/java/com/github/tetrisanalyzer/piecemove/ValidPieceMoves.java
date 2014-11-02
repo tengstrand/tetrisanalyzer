@@ -7,17 +7,17 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.GameSettings;
 
 /**
- * Calculates all valid moves for a given piece on an empty board.
- * If sliding is on, rotations and lateral movements can only occur in the top row.
+ * Calculates all valid moves for a given piece and board.
+ * If sliding is off (free drop), rotations and lateral movements can only occur at the first row.
  */
-public class ValidPieceMovesForEmptyBoard {
+public class ValidPieceMoves {
     private boolean isSlidingOn;
     private Piece piece;
     private GameSettings settings;
     private VisitedPieceMoves visitedPieceMoves;
     private RotationDirection rotationDirection;
 
-    public ValidPieceMovesForEmptyBoard(Board board, Piece piece, GameSettings settings) {
+    public ValidPieceMoves(Board board, Piece piece, GameSettings settings) {
         this.piece = piece;
         this.settings = settings;
         visitedPieceMoves = new VisitedPieceMoves(board, piece);

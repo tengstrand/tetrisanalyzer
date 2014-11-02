@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.move;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
@@ -41,7 +41,7 @@ public class ValidMovesTest {
 
     private PieceMove getStartPieceS(Board board, GameSettings settings) {
         Piece piece = createPieceS(settings);
-        AllValidPieceMovesForEmptyBoard allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
+        AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, settings);
 
         return allValidPieceMoves.startMoveForPiece(piece, board);
     }

@@ -9,7 +9,7 @@ import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.move.ValidMoves;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
-import com.github.tetrisanalyzer.piecemove.AllValidPieceMovesForEmptyBoard;
+import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.settings.GameSettings;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Plays a game of Tetris using specified board, board evaluator, piece generator and settings.
  */
 public class Game implements Runnable {
-    private AllValidPieceMovesForEmptyBoard allValidPieceMoves;
+    private AllValidPieceMoves allValidPieceMoves;
 
     private int cells;
     public Board board;
@@ -42,7 +42,7 @@ public class Game implements Runnable {
         this.settings = settings;
         this.cells = board.numberOfOccupiedCells();
 
-        allValidPieceMoves = new AllValidPieceMovesForEmptyBoard(board, settings);
+        allValidPieceMoves = new AllValidPieceMoves(board, settings);
     }
 
     private String board(Piece piece, Move move) {
