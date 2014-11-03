@@ -104,13 +104,18 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String games = "Games: " + format(state.games);
         String rows = "Rows: " + format(state.rows);
         String rowsPerGame = "Rows/game: " + state.rowsPerGame();
+        String cellsPerPos = "Cells/pos: " + round(state.numberOfCells / (double)state.moves);
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, piecesPerSec);
-        paintTexts(g, 9, message.board);
+        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, cellsPerPos, piecesPerSec);
+        paintTexts(g, 10, message.board);
 
         repaint();
         sleep(20);
+    }
+
+    double round(double value) {
+        return ((int)(value * 10000)) / 10000.0;
     }
 
     private void paintTexts(Graphics g, int startRow, String... texts) {
