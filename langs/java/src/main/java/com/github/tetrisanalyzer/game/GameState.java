@@ -17,8 +17,8 @@ public class GameState {
     public long games;
     public long rows;
     public long totalRows;
-    public long cells;
-    public final long[] cellDist;
+    public long numberOfCells;
+    public final long[] cells;
 
     public GameState(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
         this(coloredBoard.asBoard(), pieceGenerator, movesLeft);
@@ -28,17 +28,17 @@ public class GameState {
     public GameState(Board board, PieceGenerator pieceGenerator, int movesLeft) {
         this.board = board;
         this.pieceGenerator = pieceGenerator;
-        cellDist = new long[(board.width - 1) * board.height + 1];
+        cells = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
         this.nonstop = movesLeft <= 0;
     }
 
     public GameState copy() {
-        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows, totalRows, cells, cellDist);
+        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows, totalRows, numberOfCells, cells);
     }
 
     private GameState(Duration duration, Board board, ColoredBoard coloredBoard, PieceGenerator pieceGenerator,
-                      long moves, boolean nonstop, long movesLeft, long games, long rows, long totalRows, long cells, long[] cellDist) {
+                      long moves, boolean nonstop, long movesLeft, long games, long rows, long totalRows, long numberOfCells, long[] cells) {
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
@@ -49,9 +49,9 @@ public class GameState {
         this.games = games;
         this.rows = rows;
         this.totalRows = totalRows;
-        this.cells = cells;
-        this.cellDist = new long[cellDist.length];
-        System.arraycopy(this.cellDist, 0, cellDist, 0, cellDist.length);
+        this.numberOfCells = numberOfCells;
+        this.cells = new long[cells.length];
+        System.arraycopy(this.cells, 0, cells, 0, cells.length);
     }
 
     public String rowsPerGame() {
@@ -70,7 +70,7 @@ public class GameState {
                 "\n  games: " + format(games) +
                 "\n  rows (finished games): " + format(totalRows) +
                 "\n  cell step: " + cellStep() +
-                "\n  filled cells total: " + format(cells) +
+                "\n  filled cells total: " + format(numberOfCells) +
                 "\n  filled cells distribution: [" + cells() + "]\n" +
                 "\n  rows/game: " + rowsPerGame() +
                 "\n  pieces/s: " + duration.xPerSeconds(moves);
@@ -98,8 +98,8 @@ public class GameState {
 
         int step = cellStep();
 
-        for (int i = 0; i< cellDist.length; i+=step) {
-            result += separator + cellDist[i];
+        for (int i = 0; i< cells.length; i+=step) {
+            result += separator + cells[i];
             separator = ",";
         }
         return result;
