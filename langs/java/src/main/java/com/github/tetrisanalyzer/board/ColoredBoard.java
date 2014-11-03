@@ -13,7 +13,6 @@ public class ColoredBoard implements TextBoard {
     public final int width;
     public final int height;
     final char[][] board;
-
     private final char EMPTY_CELL = '-';
     private final String WALL_CELL = "|";
 
@@ -70,6 +69,12 @@ public class ColoredBoard implements TextBoard {
             board[move.y + point.y][move.x + point.x] = piece.character();
         }
         clearRows(move.y, pieceHeight);
+    }
+
+    public void setShadow(Piece piece, Move move) {
+        for (Point point : piece.getShape(move.rotation).getPoints()) {
+            board[move.y + point.y][move.x + point.x] = '+';
+        }
     }
 
     /**

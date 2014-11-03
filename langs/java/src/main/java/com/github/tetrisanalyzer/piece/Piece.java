@@ -29,9 +29,10 @@ public abstract class Piece {
     public static PieceJ createPieceJ(PieceSettings settings) { return new PieceJ(settings); }
     public static PieceT createPieceT(PieceSettings settings) { return new PieceT(settings); }
     public static PieceAny createPieceAny(PieceSettings settings) { return new PieceAny(settings); }
+    public static PieceShadow createPieceShadow(PieceSettings settings) { return new PieceShadow(settings); }
 
     public static Piece[] validPieces(PieceSettings settings) {
-        Piece[] pieces = new Piece[] {
+        return new Piece[] {
                 createPieceEmpty(settings),
                 createPieceO(settings),
                 createPieceI(settings),
@@ -40,9 +41,9 @@ public abstract class Piece {
                 createPieceL(settings),
                 createPieceJ(settings),
                 createPieceT(settings),
-                createPieceAny(settings)
+                createPieceAny(settings),
+                createPieceShadow(settings)
         };
-        return pieces;
     }
 
     private static final Map<Character,Integer> indexMap = new HashMap<>();
@@ -57,11 +58,12 @@ public abstract class Piece {
         indexMap.put('J', 6);
         indexMap.put('T', 7);
         indexMap.put('x', 8);
+        indexMap.put('+', 9);
     }
 
     public static int indexOf(char piece) {
         if (!indexMap.containsKey(piece)) {
-            throw new IllegalArgumentException("Illegal board character '" + piece + "', expected: -OISZLJTx");
+            throw new IllegalArgumentException("Illegal board character '" + piece + "', expected: -OISZLJTx:");
         }
         return indexMap.get(piece);
     }

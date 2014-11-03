@@ -184,7 +184,8 @@ public class ValidPieceMovesTest {
                     calculate("L", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                     calculate("J", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                     calculate("T", dxdy(1, 1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
-                    calculate("x", dxdy(0,0))
+                    calculate("x", dxdy(0,0)),
+                    calculate("+", dxdy(0,0))
             };
         }
     }

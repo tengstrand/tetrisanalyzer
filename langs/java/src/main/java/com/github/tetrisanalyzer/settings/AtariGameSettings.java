@@ -63,7 +63,8 @@ public class AtariGameSettings extends GameSettings {
                 calculate("L", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
                 calculate("J", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
                 calculate("T", dxdy(0,0), dxdy(0,0), dxdy(0,0), dxdy(0,0)),
-                calculate("x", dxdy(0,0))
+                calculate("x", dxdy(0,0)),
+                calculate("+", dxdy(0,0))
         };
     }
 }

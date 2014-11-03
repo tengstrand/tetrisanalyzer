@@ -66,6 +66,7 @@ public class Game implements Runnable {
             if (!state.nonstop) {
                 state.movesLeft--;
             }
+            setShadowOnColoredBoard(bestMove.piece, bestMove.move);
             message.setStateIfNeeded(state, textBoard(), piece, bestMove == null ? null : bestMove.move);
 
             int clearedRows = bestMove.setPiece(board);
@@ -103,6 +104,12 @@ public class Game implements Runnable {
     private void setPieceOnColoredBoard(Piece piece, Move move) {
         if (coloredBoard != null) {
             coloredBoard.setPiece(piece, move);
+        }
+    }
+
+    private void setShadowOnColoredBoard(Piece piece, Move move) {
+        if (coloredBoard != null) {
+            coloredBoard.setShadow(piece, move);
         }
     }
 
