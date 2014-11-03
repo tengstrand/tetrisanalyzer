@@ -51,7 +51,7 @@ public class GameState {
         this.totalRows = totalRows;
         this.numberOfCells = numberOfCells;
         this.cells = new long[cells.length];
-        System.arraycopy(this.cells, 0, cells, 0, cells.length);
+        System.arraycopy(cells, 0, this.cells, 0, cells.length);
     }
 
     public String rowsPerGame() {

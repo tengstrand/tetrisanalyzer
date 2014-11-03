@@ -34,7 +34,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game).start();
 
         frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(400, 570);
+        frame.setSize(800, 600);
         frame.setLocation(300, 300);
         frame.setVisible(true);
     }
@@ -109,6 +109,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
         paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, cellsPerPos, piecesPerSec);
         paintTexts(g, 10, message.board);
+
+        DistributionPainter.paint(g, 130, 250, 600, 200, state.cells);
 
         repaint();
         sleep(20);
