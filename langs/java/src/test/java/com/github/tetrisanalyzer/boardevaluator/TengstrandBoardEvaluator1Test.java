@@ -22,6 +22,6 @@ public class TengstrandBoardEvaluator1Test {
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
 
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new AtariGameSettings(board));
-        assertEquals(51.7145, evaluator.evaluate(board, allValidPieceMoves), 0.0001);
+        assertEquals(47.8145, evaluator.evaluate(board, allValidPieceMoves), 0.0001);
     }
 }
