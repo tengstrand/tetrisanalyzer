@@ -100,7 +100,7 @@ public class ColoredBoardTest {
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = new Move(0,0, 3);
 
-        assertEquals(" Z: 0,1\n" + board(
+        assertEquals("Z: 0,1\n" + board(
                 "|--------|",
                 "|--------|",
                 "|--------|",
@@ -122,7 +122,7 @@ public class ColoredBoardTest {
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = null;
 
-        assertEquals(" Z: -\n" + board(
+        assertEquals("Z: -\n" + board(
                 "|--------|",
                 "|--xxx---|",
                 "|xxxxx-xx|",

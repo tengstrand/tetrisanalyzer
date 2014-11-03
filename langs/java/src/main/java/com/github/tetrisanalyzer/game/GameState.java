@@ -17,7 +17,8 @@ public class GameState {
     public long games;
     public long rows;
     public long totalRows;
-    public final CellDistribution cellDist;
+    public long cells;
+    public final long[] cellDist;
 
     public GameState(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
         this(coloredBoard.asBoard(), pieceGenerator, movesLeft);
@@ -27,17 +28,17 @@ public class GameState {
     public GameState(Board board, PieceGenerator pieceGenerator, int movesLeft) {
         this.board = board;
         this.pieceGenerator = pieceGenerator;
-        cellDist = new CellDistribution(board.width, board.height);
+        cellDist = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
         this.nonstop = movesLeft <= 0;
     }
 
     public GameState copy() {
-        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows, totalRows, cellDist);
+        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows, totalRows, cells, cellDist);
     }
 
     private GameState(Duration duration, Board board, ColoredBoard coloredBoard, PieceGenerator pieceGenerator,
-                      long moves, boolean nonstop, long movesLeft, long games, long rows, long totalRows, CellDistribution cellDist) {
+                      long moves, boolean nonstop, long movesLeft, long games, long rows, long totalRows, long cells, long[] cellDist) {
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
@@ -48,7 +49,9 @@ public class GameState {
         this.games = games;
         this.rows = rows;
         this.totalRows = totalRows;
-        this.cellDist = new CellDistribution(cellDist);
+        this.cells = cells;
+        this.cellDist = new long[cellDist.length];
+        System.arraycopy(this.cellDist, 0, cellDist, 0, cellDist.length);
     }
 
     public String rowsPerGame() {
@@ -66,9 +69,9 @@ public class GameState {
                 "\n  rows: " + format(rows) +
                 "\n  games: " + format(games) +
                 "\n  rows (finished games): " + format(totalRows) +
-                "\n  cell step: " + cellDist.step +
-                "\n  filled numberOfcells total: " + format(cellDist.numberOfcells) +
-                "\n  filled distribution distribution: [" + cellDist.distribution() + "]\n" +
+                "\n  cell step: " + cellStep() +
+                "\n  filled cells total: " + format(cells) +
+                "\n  filled cells distribution: [" + cells() + "]\n" +
                 "\n  rows/game: " + rowsPerGame() +
                 "\n  pieces/s: " + duration.xPerSeconds(moves);
     }
@@ -81,6 +84,23 @@ public class GameState {
             } else {
                 result += coloredBoard.export("start board", "    ");
             }
+        }
+        return result;
+    }
+
+    private int cellStep() {
+        return 2 - (board.width & 1);
+    }
+
+    private String cells() {
+        String result = "";
+        String separator = "";
+
+        int step = cellStep();
+
+        for (int i = 0; i< cellDist.length; i+=step) {
+            result += separator + cellDist[i];
+            separator = ",";
         }
         return result;
     }

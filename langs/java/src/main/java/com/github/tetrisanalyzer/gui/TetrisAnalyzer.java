@@ -34,17 +34,16 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game).start();
 
         frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(700, 570);
+        frame.setSize(400, 570);
         frame.setLocation(300, 300);
         frame.setVisible(true);
     }
 
     private static Game newGame() {
-//        ColoredBoard board = ColoredBoard.create(10, 20);
-        ColoredBoard board = ColoredBoard.create(10, 12);
+        ColoredBoard board = ColoredBoard.create(10, 20);
+//        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
-        GameSettings settings = new StandardGameSettings(board, true);
-//        GameSettings settings = new AtariGameSettings(board, true);
+        GameSettings settings = new StandardGameSettings(board, false);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
 
@@ -99,27 +98,19 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
         GameState state = message.getGameState();
         String duration = "Duration: " + state.duration.asString();
-        String size = "Board: " + state.board.width + " x " + state.board.height;
         String framesPerSec = "Frames/s: " + state.duration.xPerSeconds(paintedFrames++);
         String pieces = "Pieces: " + format(state.moves);
 
         String games = "Games: " + format(state.games);
         String rows = "Rows: " + format(state.rows);
         String rowsPerGame = "Rows/game: " + state.rowsPerGame();
-        String squaresPerPos = "Squares/pos: " + round(state.cellDist.numberOfcells / (double)state.moves);
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, 0, framesPerSec, duration, size, pieces, rows, "", games, rowsPerGame, squaresPerPos, piecesPerSec);
-        paintTexts(g, 11, message.board);
-
-        DistributionPainter.paint(g, 130, 205, 500, 200, message.getGameState().cellDist);
+        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, piecesPerSec);
+        paintTexts(g, 9, message.board);
 
         repaint();
         sleep(20);
-    }
-
-    double round(double value) {
-        return ((int)(value * 10000)) / 10000.0;
     }
 
     private void paintTexts(Graphics g, int startRow, String... texts) {
