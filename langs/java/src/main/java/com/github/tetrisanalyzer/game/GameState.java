@@ -8,7 +8,7 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 public class GameState {
-    public String id;
+    public final double parameter;
     public Duration duration;
     public final Board board;
     public ColoredBoard coloredBoard;
@@ -23,13 +23,13 @@ public class GameState {
     public long totalRows;
     public long numberOfCells;
 
-    public GameState(String id, ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
-        this(id, coloredBoard.asBoard(), pieceGenerator, movesLeft);
+    public GameState(double parameter, ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
+        this(parameter, coloredBoard.asBoard(), pieceGenerator, movesLeft);
         this.coloredBoard = coloredBoard;
     }
 
-    public GameState(String id, Board board, PieceGenerator pieceGenerator, int movesLeft) {
-        this.id = id;
+    public GameState(double parameter, Board board, PieceGenerator pieceGenerator, int movesLeft) {
+        this.parameter = parameter;
         this.board = board;
         this.pieceGenerator = pieceGenerator;
         this.movesLeft = movesLeft;
@@ -45,13 +45,14 @@ public class GameState {
     }
 
     public GameState copy() {
-        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows,
+        return new GameState(parameter, duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows,
                 minRows, maxRows, totalRows, numberOfCells);
     }
 
-    private GameState(Duration duration, Board board, ColoredBoard coloredBoard, PieceGenerator pieceGenerator,
+    private GameState(double parameter, Duration duration, Board board, ColoredBoard coloredBoard, PieceGenerator pieceGenerator,
                       long moves, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows, long numberOfCells) {
+        this.parameter = parameter;
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
@@ -74,7 +75,7 @@ public class GameState {
 
     public String export() {
         return "game state:" +
-                "  id: " + id + "\n" +
+                "  parameter: " + parameter + "\n" +
                 board() +
                 "\n  seed: " + pieceGenerator.state() +
                 "\n  duration: " + duration +

@@ -31,16 +31,16 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
 
-        Game game1 = newGame("1", 1);
-        Game game2 = newGame("2", 2);
-        Game game3 = newGame("3", 3);
-        Game game4 = newGame("4", 4);
+        Game game1 = newGame(1, 1);
+        Game game2 = newGame(2, 2);
+        Game game3 = newGame(3, 3);
+        Game game4 = newGame(4, 4);
 
         frame.getContentPane().add(new TetrisAnalyzer(game1.message));
         frame.getContentPane().add(new TetrisAnalyzer(game2.message));
         frame.getContentPane().add(new TetrisAnalyzer(game3.message));
         frame.getContentPane().add(new TetrisAnalyzer(game4.message));
-        frame.setSize(900, 620);
+        frame.setSize(900, 650);
         frame.setLocation(300, 300);
         frame.setVisible(true);
 
@@ -50,7 +50,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game4).start();
     }
 
-    private static Game newGame(String id, long seed) {
+    private static Game newGame(double parameter, long seed) {
         ColoredBoard board = ColoredBoard.create(10, 20);
 //        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
@@ -58,7 +58,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(seed, settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
 
-        GameState result = new GameState(id, board, pieceGenerator, 0);
+        GameState result = new GameState(parameter, board, pieceGenerator, 0);
         return new Game(result, boardEvaluator, settings);
     }
 
@@ -112,6 +112,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         GameState state = message.getGameState();
         String duration = "Duration: " + state.duration.asString();
         String framesPerSec = "Frames/s: " + state.duration.xPerSeconds(paintedFrames++);
+        String size = "Board: " + state.board.width + " x " + state.board.height;
+        String parameter = "Parameter: " + state.parameter;
         String pieces = "Pieces: " + format(state.moves);
 
         String games = "Games: " + format(state.games);
@@ -122,8 +124,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String cellsPerPos = "Cells/pos: " + round(state.numberOfCells / (double) state.moves);
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, 0, framesPerSec, duration, pieces, rows, rowsPerGame, minRows, maxRows, "", games, cellsPerPos, piecesPerSec);
-        paintTexts(g, 12, message.board);
+        paintTexts(g, 0, duration, framesPerSec, size, parameter, pieces, rows, rowsPerGame, minRows, maxRows, "", games, cellsPerPos, piecesPerSec);
+        paintTexts(g, 14, message.board);
 
         repaint();
         sleep(20);
