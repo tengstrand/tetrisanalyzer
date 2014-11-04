@@ -4,6 +4,9 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 
+import java.util.List;
+import java.util.Map;
+
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 /**
@@ -35,6 +38,76 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         this.boardHeight = boardHeight;
 
         maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
+    }
+
+    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight, Map<String,Object> parameters) {
+        this(boardWidth, boardHeight);
+
+        List heightfactor = (List)parameters.get("height factor");
+        List hollowfactor = (List)parameters.get("hollow factor");
+        List areawidthfactor = (List)parameters.get("area width factor");
+        List areaheightfactor = (List)parameters.get("area height factor");
+        List areaheightfactor2 = (List)parameters.get("area height factor2");
+
+        if (parameters.containsKey("height factor")) {
+            heightfactor = (List)parameters.get("height factor");
+            if (!(heightfactor.size() == heightFactor.length)) throw new IllegalArgumentException("Expected " + heightFactor.length + " elements in 'height factor'");
+            populatet(heightfactor, heightFactor);
+        }
+        if (parameters.containsKey("hollow factor")) {
+            hollowfactor = (List)parameters.get("hollow factor");
+            if (!(hollowfactor.size() == blocksPerRowHollowFactor.length)) throw new IllegalArgumentException("Expected " + blocksPerRowHollowFactor.length + " elements in 'hollow factor'");
+            populatet(hollowfactor, blocksPerRowHollowFactor);
+        }
+        if (parameters.containsKey("area width factor")) {
+            areawidthfactor = (List)parameters.get("area width factor");
+            if (!(areawidthfactor.size() == areaWidthFactor.length)) throw new IllegalArgumentException("Expected " + areaWidthFactor.length + " elements in 'area width factor'");
+            populatet(areawidthfactor, areaWidthFactor);
+        }
+        if (parameters.containsKey("area height factor")) {
+            areaheightfactor = (List)parameters.get("area height factor");
+            if (!(areaheightfactor.size() == areaHeightFactor.length)) throw new IllegalArgumentException("Expected " + areaHeightFactor.length + " elements in 'area height factor'");
+            populatet(areaheightfactor, areaHeightFactor);
+        }
+        if (parameters.containsKey("area height factor2")) {
+            areaheightfactor2 = (List)parameters.get("area height factor2");
+            if (!(areaheightfactor2.size() == areaHeightFactorEqualWallHeight.length)) throw new IllegalArgumentException("Expected " + areaHeightFactorEqualWallHeight.length + " elements in 'area height factor2'");
+            populatet(areaheightfactor2, areaHeightFactorEqualWallHeight);
+        }
+        for (Map.Entry<String,Object> parameter : parameters.entrySet()) {
+            setValue(parameter, "height factor", heightFactor);
+            setValue(parameter, "hollow factor", blocksPerRowHollowFactor);
+            setValue(parameter, "area width factor", areaWidthFactor);
+            setValue(parameter, "area height factor", areaHeightFactor);
+            setValue(parameter, "area height factor2", areaHeightFactorEqualWallHeight);
+        }
+    }
+
+    private void setValue(Map.Entry<String,Object> entry, String key, double[] array) {
+        if (entry.getKey().startsWith(key + "[")) {
+            String squaredIndex = entry.getKey().substring(key.length());
+            if (!squaredIndex.startsWith("[") || !squaredIndex.endsWith("]")) {
+                throw new IllegalArgumentException("Expected a value enclosed with [], but was: " + squaredIndex);
+            }
+            int index = Integer.valueOf(squaredIndex.substring(1, squaredIndex.length() - 1));
+            if (!(entry.getValue() instanceof Number)) {
+                throw new IllegalArgumentException("Expected a value, but was: " + entry.getValue());
+            }
+            if (index < 0 || index >= array.length) {
+                throw new IllegalArgumentException("Index was outside valid range 0-" + array.length + ", but was: " + array.length);
+            }
+            array[index] = ((Number)entry.getValue()).doubleValue();
+        }
+    }
+
+    private static void populatet(List source, double[] target) {
+        int i = 0;
+        for (Object value : source) {
+            if (!(value instanceof Number)) {
+                throw new IllegalArgumentException("Expected a number, but was a: " + value.getClass().getSimpleName() + "(" + value + ")");
+            }
+            target[i++] = ((Number) value).doubleValue();
+        }
     }
 
     @Override
