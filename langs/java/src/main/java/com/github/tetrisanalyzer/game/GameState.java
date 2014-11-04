@@ -1,3 +1,4 @@
+
 package com.github.tetrisanalyzer.game;
 
 import com.github.tetrisanalyzer.board.Board;
@@ -7,6 +8,7 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 public class GameState {
+    public String id;
     public Duration duration;
     public final Board board;
     public ColoredBoard coloredBoard;
@@ -16,29 +18,40 @@ public class GameState {
     public long movesLeft;
     public long games;
     public long rows;
+    public long minRows = Long.MAX_VALUE;
+    public long maxRows = Long.MIN_VALUE;
     public long totalRows;
     public long numberOfCells;
-    public final long[] cells;
 
-    public GameState(ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
-        this(coloredBoard.asBoard(), pieceGenerator, movesLeft);
+    public GameState(String id, ColoredBoard coloredBoard, PieceGenerator pieceGenerator, int movesLeft) {
+        this(id, coloredBoard.asBoard(), pieceGenerator, movesLeft);
         this.coloredBoard = coloredBoard;
     }
 
-    public GameState(Board board, PieceGenerator pieceGenerator, int movesLeft) {
+    public GameState(String id, Board board, PieceGenerator pieceGenerator, int movesLeft) {
+        this.id = id;
         this.board = board;
         this.pieceGenerator = pieceGenerator;
-        cells = new long[(board.width - 1) * board.height + 1];
         this.movesLeft = movesLeft;
         this.nonstop = movesLeft <= 0;
     }
 
+    public String minRows() {
+        return minRows == Long.MAX_VALUE ? "" : format(minRows);
+    }
+
+    public String maxRows() {
+        return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
+    }
+
     public GameState copy() {
-        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows, totalRows, numberOfCells, cells);
+        return new GameState(duration, board, coloredBoard, pieceGenerator, moves, nonstop, movesLeft, games, rows,
+                minRows, maxRows, totalRows, numberOfCells);
     }
 
     private GameState(Duration duration, Board board, ColoredBoard coloredBoard, PieceGenerator pieceGenerator,
-                      long moves, boolean nonstop, long movesLeft, long games, long rows, long totalRows, long numberOfCells, long[] cells) {
+                      long moves, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
+                      long totalRows, long numberOfCells) {
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
@@ -48,10 +61,10 @@ public class GameState {
         this.movesLeft = movesLeft;
         this.games = games;
         this.rows = rows;
+        this.minRows = minRows;
+        this.maxRows = maxRows;
         this.totalRows = totalRows;
         this.numberOfCells = numberOfCells;
-        this.cells = new long[cells.length];
-        System.arraycopy(cells, 0, this.cells, 0, cells.length);
     }
 
     public String rowsPerGame() {
@@ -60,8 +73,8 @@ public class GameState {
     }
 
     public String export() {
-
         return "game state:" +
+                "  id: " + id + "\n" +
                 board() +
                 "\n  seed: " + pieceGenerator.state() +
                 "\n  duration: " + duration +
@@ -71,7 +84,6 @@ public class GameState {
                 "\n  rows (finished games): " + format(totalRows) +
                 "\n  cell step: " + cellStep() +
                 "\n  filled cells total: " + format(numberOfCells) +
-                "\n  filled cells distribution: [" + cells() + "]\n" +
                 "\n  rows/game: " + rowsPerGame() +
                 "\n  pieces/s: " + duration.xPerSeconds(moves);
     }
@@ -90,19 +102,6 @@ public class GameState {
 
     private int cellStep() {
         return 2 - (board.width & 1);
-    }
-
-    private String cells() {
-        String result = "";
-        String separator = "";
-
-        int step = cellStep();
-
-        for (int i = 0; i< cells.length; i+=step) {
-            result += separator + cells[i];
-            separator = ",";
-        }
-        return result;
     }
 
     @Override

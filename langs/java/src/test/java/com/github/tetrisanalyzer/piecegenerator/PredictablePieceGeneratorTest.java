@@ -7,10 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.tetrisanalyzer.piece.Piece.S;
-import static com.github.tetrisanalyzer.piece.Piece.Z;
-import static com.github.tetrisanalyzer.piece.Piece.I;
-import static com.github.tetrisanalyzer.piece.Piece.O;
+import static com.github.tetrisanalyzer.piece.Piece.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -51,7 +48,7 @@ public class PredictablePieceGeneratorTest {
                     pieceGenerator.nextPieceNumber());
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Illegal board character 'q', expected: -OISZLJTx", e.getMessage());
+            assertEquals("Illegal board character 'q', expected: -OISZLJTx+", e.getMessage());
         }
     }
 }

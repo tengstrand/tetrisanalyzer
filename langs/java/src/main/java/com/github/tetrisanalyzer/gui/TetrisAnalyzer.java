@@ -29,25 +29,36 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
+        frame.setLayout(new GridLayout());
 
-        Game game = newGame();
-        new Thread(game).start();
+        Game game1 = newGame("1", 1);
+        Game game2 = newGame("2", 2);
+        Game game3 = newGame("3", 3);
+        Game game4 = newGame("4", 4);
 
-        frame.getContentPane().add(new TetrisAnalyzer(game.message));
-        frame.setSize(800, 600);
+        frame.getContentPane().add(new TetrisAnalyzer(game1.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game2.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game3.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game4.message));
+        frame.setSize(900, 620);
         frame.setLocation(300, 300);
         frame.setVisible(true);
+
+        new Thread(game1).start();
+        new Thread(game2).start();
+        new Thread(game3).start();
+        new Thread(game4).start();
     }
 
-    private static Game newGame() {
+    private static Game newGame(String id, long seed) {
         ColoredBoard board = ColoredBoard.create(10, 20);
 //        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
-        LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(settings);
+        LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(seed, settings);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
 
-        GameState result = new GameState(board, pieceGenerator, 0);
+        GameState result = new GameState(id, board, pieceGenerator, 0);
         return new Game(result, boardEvaluator, settings);
     }
 
@@ -55,6 +66,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         this.message = message;
         addMouseMotionListener(this);
         setVisible(true);
+
+        setPreferredSize(new Dimension(300, 300));
     }
 
     public void mouseMoved(MouseEvent me) {
@@ -104,13 +117,13 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String games = "Games: " + format(state.games);
         String rows = "Rows: " + format(state.rows);
         String rowsPerGame = "Rows/game: " + state.rowsPerGame();
-        String cellsPerPos = "Cells/pos: " + round(state.numberOfCells / (double)state.moves);
+        String minRows = "Min rows: " + state.minRows();
+        String maxRows = "Max rows: " + state.maxRows();
+        String cellsPerPos = "Cells/pos: " + round(state.numberOfCells / (double) state.moves);
         String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
 
-        paintTexts(g, 0, framesPerSec, duration, pieces, rows, "", games, rowsPerGame, cellsPerPos, piecesPerSec);
-        paintTexts(g, 10, message.board);
-
-        DistributionPainter.paint(g, 130, 250, 600, 200, state.cells);
+        paintTexts(g, 0, framesPerSec, duration, pieces, rows, rowsPerGame, minRows, maxRows, "", games, cellsPerPos, piecesPerSec);
+        paintTexts(g, 12, message.board);
 
         repaint();
         sleep(20);

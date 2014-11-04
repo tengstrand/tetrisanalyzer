@@ -74,7 +74,6 @@ public class Game implements Runnable {
             state.rows += clearedRows;
             numberOfCells += 4 - clearedRows * board.width;
             state.numberOfCells += numberOfCells;
-            state.cells[numberOfCells] += numberOfCells;
         }
         state.duration = state.duration.stop();
     }
@@ -89,6 +88,8 @@ public class Game implements Runnable {
         if (bestMove == null) {
             state.games++;
             state.totalRows += state.rows;
+            setMinRows();
+            setMaxRows();
             state.rows = 0;
             board = state.board.copy();
             initColoredBoard();
@@ -99,6 +100,18 @@ public class Game implements Runnable {
             }
         }
         return bestMove;
+    }
+
+    private void setMinRows() {
+        if (state.rows < state.minRows) {
+            state.minRows = state.rows;
+        }
+    }
+
+    private void setMaxRows() {
+        if (state.rows > state.maxRows) {
+            state.maxRows = state.rows;
+        }
     }
 
     private void setPieceOnColoredBoard(Piece piece, Move move) {

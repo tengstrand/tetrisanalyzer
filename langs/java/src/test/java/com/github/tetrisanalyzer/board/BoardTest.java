@@ -165,9 +165,9 @@ public class BoardTest {
                 "|--------|",
                 "|--------|",
                 "|--------|",
-                "|--------<",
+                "|--------|",
                 "|x------x|",
-                "¯^¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
     }
 
     @Test
