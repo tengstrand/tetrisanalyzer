@@ -40,7 +40,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
     }
 
-    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight, Map<String,Object> parameters) {
+    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight, Map<String,Number> parameters) {
         this(boardWidth, boardHeight);
 
         List heightfactor = (List)parameters.get("height factor");
@@ -74,7 +74,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
             if (!(areaheightfactor2.size() == areaHeightFactorEqualWallHeight.length)) throw new IllegalArgumentException("Expected " + areaHeightFactorEqualWallHeight.length + " elements in 'area height factor2'");
             populatet(areaheightfactor2, areaHeightFactorEqualWallHeight);
         }
-        for (Map.Entry<String,Object> parameter : parameters.entrySet()) {
+        for (Map.Entry<String,Number> parameter : parameters.entrySet()) {
             setValue(parameter, "height factor", heightFactor);
             setValue(parameter, "hollow factor", blocksPerRowHollowFactor);
             setValue(parameter, "area width factor", areaWidthFactor);
@@ -83,7 +83,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         }
     }
 
-    private void setValue(Map.Entry<String,Object> entry, String key, double[] array) {
+    private void setValue(Map.Entry<String,Number> entry, String key, double[] array) {
         if (entry.getKey().startsWith(key + "[")) {
             String squaredIndex = entry.getKey().substring(key.length());
             if (!squaredIndex.startsWith("[") || !squaredIndex.endsWith("]")) {

@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
@@ -31,15 +33,42 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
 
-        Game game1 = newGame(1, 1);
-        Game game2 = newGame(2, 2);
-        Game game3 = newGame(3, 3);
-        Game game4 = newGame(4, 4);
+        Map<String,Number> parameters1 = new HashMap<>();
+        parameters1.put("area width factor[1]", 4.1);
+
+        Map<String,Number> parameters2 = new HashMap<>();
+        parameters2.put("area width factor[1]", 4.15);
+
+        Map<String,Number> parameters3 = new HashMap<>();
+        parameters3.put("area width factor[1]", 4.2);
+
+        Map<String,Number> parameters4 = new HashMap<>();
+        parameters4.put("area width factor[1]", 4.25);
+
+        Map<String,Number> parameters5 = new HashMap<>();
+        parameters5.put("area width factor[1]", 4.3);
+
+        Map<String,Number> parameters6 = new HashMap<>();
+        parameters6.put("area width factor[1]", 4.35);
+
+        Map<String,Number> parameters7 = new HashMap<>();
+        parameters7.put("area width factor[1]", 4.4);
+
+        Game game1 = newGame(4.1, parameters1, 1);
+        Game game2 = newGame(4.15, parameters2, 1);
+        Game game3 = newGame(4.2, parameters3, 1);
+        Game game4 = newGame(4.25, parameters4, 1);
+        Game game5 = newGame(4.3, parameters5, 1);
+        Game game6 = newGame(4.35, parameters6, 1);
+        Game game7 = newGame(4.4, parameters7, 1);
 
         frame.getContentPane().add(new TetrisAnalyzer(game1.message));
         frame.getContentPane().add(new TetrisAnalyzer(game2.message));
         frame.getContentPane().add(new TetrisAnalyzer(game3.message));
         frame.getContentPane().add(new TetrisAnalyzer(game4.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game5.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game6.message));
+        frame.getContentPane().add(new TetrisAnalyzer(game7.message));
         frame.setSize(900, 650);
         frame.setLocation(300, 300);
         frame.setVisible(true);
@@ -48,15 +77,18 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         new Thread(game2).start();
         new Thread(game3).start();
         new Thread(game4).start();
+        new Thread(game5).start();
+        new Thread(game6).start();
+        new Thread(game7).start();
     }
 
-    private static Game newGame(double parameter, long seed) {
-        ColoredBoard board = ColoredBoard.create(10, 20);
+    private static Game newGame(double parameter, Map<String,Number> parameters, long seed) {
+        ColoredBoard board = ColoredBoard.create(10, 12);
 //        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
         LinearCongrentialPieceGenerator pieceGenerator = new LinearCongrentialPieceGenerator(seed, settings);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height, parameters);
 
         GameState result = new GameState(parameter, board, pieceGenerator, 0);
         return new Game(result, boardEvaluator, settings);
@@ -132,7 +164,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
     }
 
     double round(double value) {
-        return ((int)(value * 10000)) / 10000.0;
+        return ((int)(value * 1000000)) / 1000000.0;
     }
 
     private void paintTexts(Graphics g, int startRow, String... texts) {
