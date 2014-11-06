@@ -192,8 +192,8 @@ public class ValidPieceMovesTest {
 
     @Test
     public void getStartMove() {
-        GameSettings settings = new AtariGameSettings(6, 5);
-        Board board = Board.create(settings.boardWidth, settings.boardHeight);
+        GameSettings settings = new AtariGameSettings();
+        Board board = Board.create(6, 5);
         Piece piece = createPieceO(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
         PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);

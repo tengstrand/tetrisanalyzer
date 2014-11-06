@@ -8,50 +8,50 @@ import java.io.FileReader;
 import java.util.Map;
 import java.util.List;
 
-public class RaceMap implements Race {
+public class CustomcRace implements Race {
     private Map settings;
 
     private Duration duration;
     private int boardWidth;
     private int boardHeight;
 
-    public static RaceMap fromString(String string) {
+    public static CustomcRace fromString(String settings) {
         try {
-            return new RaceMap((Map) new YamlReader(string).read());
+            return new CustomcRace((Map) new YamlReader(settings).read());
         } catch (YamlException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    public static RaceMap fromFile(String filename) {
+    public static CustomcRace fromFile(String filename) {
         try {
-            return new RaceMap((Map) new YamlReader(new FileReader(filename)).read());
+            return new CustomcRace((Map) new YamlReader(new FileReader(filename)).read());
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private RaceMap(Map settings) {
+    private CustomcRace(Map settings) {
         this.settings = settings;
 
         duration = new Duration((String)settings.get("duration"));
         setBoardSize(settings, this);
     }
 
-    private static void setBoardSize(Map settings, RaceMap raceMap) {
+    private static void setBoardSize(Map settings, CustomcRace customcRace) {
         if (!settings.containsKey("board")) {
             System.out.println("Missing 'board' attribute, set to default [10,20]");
-            raceMap.boardWidth = 10;
-            raceMap.boardHeight = 20;
+            customcRace.boardWidth = 10;
+            customcRace.boardHeight = 20;
             return;
         }
-        Object b = settings.get("board");
-        if (!(b instanceof List) || ((List)b).size() != 2) {
+        Object objBoard = settings.get("board");
+        if (!(objBoard instanceof List) || ((List)objBoard).size() != 2) {
             throw new IllegalArgumentException("Attribute 'board' must be in the format: [width,height]");
         }
-        List board = (List)b;
-        raceMap.boardWidth = Integer.valueOf(board.get(0).toString());
-        raceMap.boardHeight = Integer.valueOf(board.get(1).toString());
+        List board = (List)objBoard;
+        customcRace.boardWidth = Integer.valueOf(board.get(0).toString());
+        customcRace.boardHeight = Integer.valueOf(board.get(1).toString());
     }
 
     @Override

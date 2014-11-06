@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
+import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import static com.github.tetrisanalyzer.piece.Piece.*;
 import static com.github.tetrisanalyzer.settings.Setting.setting;
@@ -10,22 +11,27 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
  * This interface defines the API of the game settings used by the Tetris engine.
  */
 public abstract class GameSettings implements PieceSettings {
-    public final int boardWidth;
-    public final int boardHeight;
     public final int pieceStartX;
     public final int pieceStartY;
     public final boolean slidingEnabled;
+    public final Class clazz;
+    public final Adjustments[] pieceAdjustments;
 
     public abstract String id();
     public abstract String url();
     public abstract String description();
 
-    public GameSettings(int boardWidth, int boardHeight, int pieceStartX, int pieceStartY, boolean slidingEnabled) {
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
+    public GameSettings(int pieceStartX, int pieceStartY, boolean slidingEnabled, Class clazz, Adjustments[] pieceAdjustments) {
         this.pieceStartX = pieceStartX;
         this.pieceStartY = pieceStartY;
         this.slidingEnabled = slidingEnabled;
+        this.clazz = clazz;
+        this.pieceAdjustments = pieceAdjustments;
+    }
+
+    @Override
+    public Adjustments[] pieceAdjustments() {
+        return pieceAdjustments;
     }
 
     @Override
@@ -43,7 +49,7 @@ public abstract class GameSettings implements PieceSettings {
         return slidingEnabled;
     }
 
-    public AdjustmentDxDy dxdy(int dx, int dy) {
+    public static AdjustmentDxDy dxdy(int dx, int dy) {
         return new AdjustmentDxDy(dx, dy);
     }
 

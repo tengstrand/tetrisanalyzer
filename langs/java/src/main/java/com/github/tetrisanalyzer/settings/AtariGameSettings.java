@@ -16,35 +16,35 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
 public class AtariGameSettings extends GameSettings {
 
     public AtariGameSettings(Board board) {
-        this(board.width, board.height);
+        this(board.width);
     }
 
     public AtariGameSettings(ColoredBoard board) {
-        this(board.width, board.height);
+        this(board.width);
     }
 
     public AtariGameSettings(Board board, boolean sliding) {
-        this(board.width, board.height, sliding);
+        this(board.width, sliding);
     }
 
     public AtariGameSettings(ColoredBoard board, boolean sliding) {
-        this(board.width, board.height, sliding);
+        this(board.width, sliding);
     }
 
     public AtariGameSettings() {
-        this(10, 20);
+        this(10);
     }
 
     public AtariGameSettings(boolean sliding) {
-        this(10, 20, sliding);
+        this(10, sliding);
     }
 
-    public AtariGameSettings(int boardWidth, int boardHeight) {
-        this(boardWidth, boardHeight, false);
+    public AtariGameSettings(int boardWidth) {
+        this(boardWidth, false);
     }
 
-    public AtariGameSettings(int boardWidth, int boardHeight, boolean sliding) {
-        super(boardWidth, boardHeight, startX(boardWidth, 4), 0, sliding);
+    public AtariGameSettings(int boardWidth, boolean sliding) {
+        super(startX(boardWidth, 4), 0, sliding, AtariGameSettings.class, adjustments());
     }
 
     @Override public String id() { return "Atari"; }
@@ -52,8 +52,7 @@ public class AtariGameSettings extends GameSettings {
     @Override public String description() { return "Tetris Analyzer 2 (Joakim Tengstrand)"; }
     @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }
 
-    @Override
-    public Adjustments[] pieceAdjustments() {
+    public static Adjustments[] adjustments() {
         return new Adjustments[] {
                 calculate("-", dxdy(0,0)),
                 calculate("O", dxdy(0,0)),

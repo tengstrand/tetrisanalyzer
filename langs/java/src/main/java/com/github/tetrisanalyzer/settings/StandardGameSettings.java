@@ -16,27 +16,27 @@ import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator
 public class StandardGameSettings extends GameSettings {
 
     public StandardGameSettings(Board board) {
-        this(board.width, board.height);
+        this(board.width);
     }
 
     public StandardGameSettings(ColoredBoard board) {
-        this(board.width, board.height);
+        this(board.width);
     }
 
     public StandardGameSettings(Board board, boolean sliding) {
-        this(board.width, board.height, sliding);
+        this(board.width, sliding);
     }
 
     public StandardGameSettings(ColoredBoard board, boolean sliding) {
-        this(board.width, board.height, sliding);
+        this(board.width, sliding);
     }
 
-    public StandardGameSettings(int boardWidth, int boardHeight) {
-        this(boardWidth, boardHeight, false);
+    public StandardGameSettings(int boardWidth) {
+        this(boardWidth, false);
     }
 
-    public StandardGameSettings(int boardWidth, int boardHeight, boolean sliding) {
-        super(boardWidth, boardHeight, startX(boardWidth, 3), 0, sliding);
+    public StandardGameSettings(int boardWidth, boolean sliding) {
+        super(startX(boardWidth, 3), 0, sliding, StandardGameSettings.class, adjustments());
     }
 
     @Override public String id() { return "standard"; }
@@ -44,8 +44,7 @@ public class StandardGameSettings extends GameSettings {
     @Override public String description() { return "Standard Tetris 2007 June 4 (Colin Fahey)"; }
     @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }
 
-    @Override
-    public Adjustments[] pieceAdjustments() {
+    private static Adjustments[] adjustments() {
         return new Adjustments[] {
                 calculate("-", dxdy(0,0)),
                 calculate("O", dxdy(1,1)),

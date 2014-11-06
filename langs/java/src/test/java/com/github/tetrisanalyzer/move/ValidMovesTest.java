@@ -19,8 +19,8 @@ public class ValidMovesTest {
 
     @Test
     public void pieceMoves() {
-        GameSettings settings = new AtariGameSettings(5, 4);
-        Board board = Board.create(settings.boardWidth, settings.boardHeight);
+        GameSettings settings = new AtariGameSettings();
+        Board board = Board.create(5, 4);
         ValidMoves validMoves = new ValidMoves(board);
         PieceMove startPiece = getStartPieceS(board, settings);
         List<Move> moves = new ArrayList<>();

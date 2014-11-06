@@ -19,7 +19,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
 
     private double[] heightFactor = new double[] { 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
     private double[] blocksPerRowHollowFactor = new double[] { 0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553 };
-    private double[] areaWidthFactor = new double[] { 0, 4.25, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0 };
+    private double[] areaWidthFactor = new double[] { 0, 4.95, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0 };
     private double[] areaHeightFactor = new double[] { 0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
     private double[] areaHeightFactorEqualWallHeight = new double[] { 0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
 

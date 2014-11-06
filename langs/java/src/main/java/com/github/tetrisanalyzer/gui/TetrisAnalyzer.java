@@ -33,34 +33,44 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
 
+        String param = "area width factor";
+        int index = 2;
+        double f1 = 2.33;
+        double f2 = 2.35;
+        double f3 = 2.37;
+        double f4 = 2.39;
+        double f5 = 2.41;
+        double f6 = 2.43;
+        double f7 = 2.45;
+
         Map<String,Number> parameters1 = new HashMap<>();
-        parameters1.put("area width factor[1]", 4.1);
+        parameters1.put(param + "[" + index + "]", f1);
 
         Map<String,Number> parameters2 = new HashMap<>();
-        parameters2.put("area width factor[1]", 4.15);
+        parameters2.put(param + "[" + index + "]", f2);
 
         Map<String,Number> parameters3 = new HashMap<>();
-        parameters3.put("area width factor[1]", 4.2);
+        parameters3.put(param + "[" + index + "]", f3);
 
         Map<String,Number> parameters4 = new HashMap<>();
-        parameters4.put("area width factor[1]", 4.25);
+        parameters4.put(param + "[" + index + "]", f4);
 
         Map<String,Number> parameters5 = new HashMap<>();
-        parameters5.put("area width factor[1]", 4.3);
+        parameters5.put(param + "[" + index + "]", f5);
 
         Map<String,Number> parameters6 = new HashMap<>();
-        parameters6.put("area width factor[1]", 4.35);
+        parameters6.put(param + "[" + index + "]", f6);
 
         Map<String,Number> parameters7 = new HashMap<>();
-        parameters7.put("area width factor[1]", 4.4);
+        parameters7.put(param + "[" + index + "]", f7);
 
-        Game game1 = newGame(4.1, parameters1, 1);
-        Game game2 = newGame(4.15, parameters2, 1);
-        Game game3 = newGame(4.2, parameters3, 1);
-        Game game4 = newGame(4.25, parameters4, 1);
-        Game game5 = newGame(4.3, parameters5, 1);
-        Game game6 = newGame(4.35, parameters6, 1);
-        Game game7 = newGame(4.4, parameters7, 1);
+        Game game1 = newGame(f1, parameters1, 1);
+        Game game2 = newGame(f2, parameters2, 1);
+        Game game3 = newGame(f3, parameters3, 1);
+        Game game4 = newGame(f4, parameters4, 1);
+        Game game5 = newGame(f5, parameters5, 1);
+        Game game6 = newGame(f6, parameters6, 1);
+        Game game7 = newGame(f7, parameters7, 1);
 
         frame.getContentPane().add(new TetrisAnalyzer(game1.message));
         frame.getContentPane().add(new TetrisAnalyzer(game2.message));
@@ -83,7 +93,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
     }
 
     private static Game newGame(double parameter, Map<String,Number> parameters, long seed) {
-        ColoredBoard board = ColoredBoard.create(10, 12);
+        ColoredBoard board = ColoredBoard.create(10, 20);
 //        ColoredBoard board = ColoredBoard.create(5, 5);
         //Board board = Board.create(10, 15);
         GameSettings settings = new StandardGameSettings(board, false);
