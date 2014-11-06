@@ -34,20 +34,20 @@ public class CustomGameSettingsTest {
 
         CustomGameSettings gameSettings = CustomGameSettings.fromMap(map);
 
-        assertEquals("Standard", gameSettings.id());
-        assertEquals("anticlockwise", gameSettings.rotationDirection().toString());
-        assertEquals("Standard Tetris 2007 June 4 (Colin Fahey)", gameSettings.description());
+        assertEquals("Standard", gameSettings.id);
+        assertEquals("anticlockwise", gameSettings.rotationDirection.toString());
+        assertEquals("Standard Tetris 2007 June 4 (Colin Fahey)", gameSettings.description);
         assertEquals("com.github.tetrisanalyzer.settings.StandardGameSettings", gameSettings.clazz.getCanonicalName());
         assertEquals(3, gameSettings.pieceStartX);
         assertEquals(0, gameSettings.pieceStartY);
         assertTrue(gameSettings.slidingEnabled);
-        assertEquals(gameSettings.pieceAdjustments()[1], AdjustmentCalculator.calculate("O", dxdy(1, 1)));
-        assertEquals(gameSettings.pieceAdjustments()[2], AdjustmentCalculator.calculate("I", dxdy(0, 1), dxdy(2, 0)));
-        assertEquals(gameSettings.pieceAdjustments()[3], AdjustmentCalculator.calculate("S", dxdy(1, 1), dxdy(2, 0)));
-        assertEquals(gameSettings.pieceAdjustments()[4], AdjustmentCalculator.calculate("Z", dxdy(1, 1), dxdy(2, 0)));
-        assertEquals(gameSettings.pieceAdjustments()[5], AdjustmentCalculator.calculate("L", dxdy(1, 1), dxdy(2, 0), dxdy(1, 0), dxdy(1, 0)));
-        assertEquals(gameSettings.pieceAdjustments()[6], AdjustmentCalculator.calculate("J", dxdy(1, 1), dxdy(2, 0), dxdy(1, 0), dxdy(1, 0)));
-        assertEquals(gameSettings.pieceAdjustments()[7], AdjustmentCalculator.calculate("T", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)));
+        assertEquals(gameSettings.pieceAdjustments[1], AdjustmentCalculator.calculate("O", dxdy(1, 1)));
+        assertEquals(gameSettings.pieceAdjustments[2], AdjustmentCalculator.calculate("I", dxdy(0, 1), dxdy(2, 0)));
+        assertEquals(gameSettings.pieceAdjustments[3], AdjustmentCalculator.calculate("S", dxdy(1, 1), dxdy(2, 0)));
+        assertEquals(gameSettings.pieceAdjustments[4], AdjustmentCalculator.calculate("Z", dxdy(1, 1), dxdy(2, 0)));
+        assertEquals(gameSettings.pieceAdjustments[5], AdjustmentCalculator.calculate("L", dxdy(1, 1), dxdy(2, 0), dxdy(1, 0), dxdy(1, 0)));
+        assertEquals(gameSettings.pieceAdjustments[6], AdjustmentCalculator.calculate("J", dxdy(1, 1), dxdy(2, 0), dxdy(1, 0), dxdy(1, 0)));
+        assertEquals(gameSettings.pieceAdjustments[7], AdjustmentCalculator.calculate("T", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)));
     }
 
     private AdjustmentDxDy dxdy(int dx, int dy) {

@@ -69,7 +69,7 @@ public abstract class Piece {
     }
 
     public Piece(PieceSettings settings) {
-        adjustments = settings.pieceAdjustments()[number()];
+        adjustments = settings.pieceAdjustments[number()];
     }
 
     public final Adjustments adjustments;

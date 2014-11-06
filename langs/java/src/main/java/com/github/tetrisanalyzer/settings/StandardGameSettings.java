@@ -2,8 +2,6 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
-import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
-import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
@@ -24,25 +22,21 @@ public class StandardGameSettings extends GameSettings {
     }
 
     public StandardGameSettings(Board board, boolean sliding) {
-        this(board.width, sliding);
+        this(board.width, sliding, false);
     }
 
     public StandardGameSettings(ColoredBoard board, boolean sliding) {
-        this(board.width, sliding);
+        this(board.width, sliding, false);
     }
 
     public StandardGameSettings(int boardWidth) {
-        this(boardWidth, false);
+        this(boardWidth, false, false);
     }
 
-    public StandardGameSettings(int boardWidth, boolean sliding) {
-        super(startX(boardWidth, 3), 0, sliding, StandardGameSettings.class, adjustments());
+    public StandardGameSettings(int boardWidth, boolean sliding, boolean clockwise) {
+        super("Standard", "http://colinfahey.com/tetris/tetris.html",
+                "Standard Tetris 2007 June 4 (Colin Fahey)", startX(boardWidth, 3), 0, sliding, clockwise, StandardGameSettings.class, adjustments());
     }
-
-    @Override public String id() { return "standard"; }
-    @Override public String url() { return "http://colinfahey.com/tetris/tetris.html"; }
-    @Override public String description() { return "Standard Tetris 2007 June 4 (Colin Fahey)"; }
-    @Override public RotationDirection rotationDirection() { return new AnticlockwiseRotation(); }
 
     private static Adjustments[] adjustments() {
         return new Adjustments[] {

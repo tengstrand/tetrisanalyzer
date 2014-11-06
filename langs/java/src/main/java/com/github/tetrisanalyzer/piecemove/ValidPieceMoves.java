@@ -25,8 +25,8 @@ public class ValidPieceMoves {
         this.piece = piece;
         this.settings = settings;
         visitedPieceMoves = new VisitedPieceMoves(boardWidth, boardHeight, piece);
-        rotationDirection = settings.rotationDirection();
-        isSlidingOn = settings.isSlidingEnabled();
+        rotationDirection = settings.rotationDirection;
+        isSlidingOn = settings.isSlidingOn;
     }
 
     private void markAsVisited(Movement fromMovement, Movement movement) {
@@ -38,7 +38,7 @@ public class ValidPieceMoves {
      * Calculates all valid moves as a linked list of moves by returning the starting piece move for the board.
      */
     public PieceMove calculateStartMove(int boardWidth, int boardHeight) {
-        Move startMove = new Move(0, settings.pieceStartX() + piece.startX(), settings.pieceStartY + piece.startY());
+        Move startMove = new Move(0, settings.pieceStartX + piece.startX(), settings.pieceStartY + piece.startY());
         Movement startMovement = new Movement(new PieceMove(piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(piece, startMove.up()));
 

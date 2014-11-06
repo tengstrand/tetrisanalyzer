@@ -1,25 +1,20 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
-import com.github.tetrisanalyzer.move.rotation.ClockwiseRotation;
-import com.github.tetrisanalyzer.move.rotation.RotationDirection;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.tetrisanalyzer.settings.SettingsFunctions.*;
+
 public class CustomGameSettings extends GameSettings {
-    private final String id;
-    private final RotationDirection rotationDirection;
-    private final String description;
-    public final Class clazz;
 
     public static CustomGameSettings fromMap(Map settings) {
         String id = id(settings);
+        String url = url(settings);
         String description = description(settings);
         boolean sliding = sliding(settings);
         boolean clockwise = clockwise(settings);
@@ -36,43 +31,24 @@ public class CustomGameSettings extends GameSettings {
 
         Adjustments[] pieceAdjustments = new Adjustments[] { null, O, I, S, Z, L, J, T };
 
-        return new CustomGameSettings(id, description, pieceStartPos.x, pieceStartPos.y, sliding, clockwise, clazz, pieceAdjustments);
-    }
-
-    private static Adjustments adjustments(String piece, Map settings) {
-        checkKey(piece, settings);
-
-        List<List> rotations = (List)settings.get(piece);
-
-        List<AdjustmentDxDy> adjustments = new ArrayList<>();
-
-        for (List<String> rotation : rotations) {
-            int dx = Integer.parseInt(rotation.get(0));
-            int dy = Integer.parseInt(rotation.get(1));
-            adjustments.add(new AdjustmentDxDy(dx, dy));
-        }
-        return AdjustmentCalculator.calculate(piece, adjustments);
-    }
-
-    private static Class classname(Map settings) {
-        if (!settings.containsKey("class")) {
-            return null;
-        }
-        try {
-            return Class.forName((String)settings.get("class"));
-        } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    private static String description(Map settings) {
-        checkKey("description", settings);
-        return (String)settings.get("description");
+        return new CustomGameSettings(id, url, description, pieceStartPos.x, pieceStartPos.y, sliding, clockwise, clazz, pieceAdjustments);
     }
 
     private static String id(Map settings) {
         checkKey("id", settings);
         return (String)settings.get("id");
+    }
+
+    private static String url(Map settings) {
+        if (!settings.containsKey("url")) {
+            return "";
+        }
+        return (String)settings.get("url");
+    }
+
+    private static String description(Map settings) {
+        checkKey("description", settings);
+        return (String)settings.get("description");
     }
 
     private static boolean sliding(Map settings) {
@@ -93,22 +69,19 @@ public class CustomGameSettings extends GameSettings {
         return new PieceStartPos(Integer.parseInt(pos.get(0).toString()), Integer.parseInt(pos.get(1).toString()));
     }
 
-    private static void checkKey(String key, Map settings) {
-        if (!settings.containsKey(key)) {
-            throw new IllegalArgumentException("Expected attribute '" + key + "' in game rules");
-        }
-    }
+    private static Adjustments adjustments(String piece, Map settings) {
+        checkKey(piece, settings);
 
-    private static void checkValues(Map settings, String key, String... validValues) {
-        checkKey(key, settings);
-        Object value = settings.get(key);
+        List<List> rotations = (List)settings.get(piece);
 
-        for (String validValue : validValues) {
-            if (value.equals(validValue)) {
-                return;
-            }
+        List<AdjustmentDxDy> adjustments = new ArrayList<>();
+
+        for (List<String> rotation : rotations) {
+            int dx = Integer.parseInt(rotation.get(0));
+            int dy = Integer.parseInt(rotation.get(1));
+            adjustments.add(new AdjustmentDxDy(dx, dy));
         }
-        throw new IllegalArgumentException("Valid values for key '" + key + "' are: " + Arrays.asList(validValues) + ", but was: " + value);
+        return AdjustmentCalculator.calculate(piece, adjustments);
     }
 
     private static class PieceStartPos {
@@ -121,18 +94,8 @@ public class CustomGameSettings extends GameSettings {
         }
     }
 
-    private CustomGameSettings(String id, String description, int pieceStartX, int pieceStartY,
-                               boolean slidingEnabled, boolean clockwise, Class clazz, Adjustments[] pieceAdjustments) {
-        super(pieceStartX, pieceStartY, slidingEnabled, clazz, pieceAdjustments);
-
-        this.id = id;
-        this.description = description;
-        rotationDirection = clockwise ? new ClockwiseRotation() : new AnticlockwiseRotation();
-        this.clazz = clazz;
+    public CustomGameSettings(String id, String url, String description, int pieceStartX, int pieceStartY,
+                               boolean sliding, boolean clockwise, Class clazz, Adjustments[] pieceAdjustments) {
+        super(id, url, description, pieceStartX, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
     }
-
-    @Override public String id() { return id; }
-    @Override public String url() { return null; }
-    @Override public String description() { return description; }
-    @Override public RotationDirection rotationDirection() { return rotationDirection; }
 }

@@ -4,6 +4,7 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.move.Move;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
+import com.github.tetrisanalyzer.settings.CustomGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.StandardGameSettings;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
@@ -161,20 +162,10 @@ public class ValidPieceMovesTest {
         }
     }
 
-    public static class TestGameSettings extends StandardGameSettings {
+    public static class TestGameSettings extends CustomGameSettings {
 
         public TestGameSettings(Board board) {
-            super(board);
-        }
-
-        @Override
-        public int pieceStartY() {
-            return pieceStartY;
-        }
-
-        @Override
-        public Adjustments[] pieceAdjustments() {
-            return new Adjustments[] {
+            super("", "", "", 3, 0, false, false, null, new Adjustments[] {
                     calculate("-", dxdy(0,0)),
                     calculate("O", dxdy(1,1)),
                     calculate("I", dxdy(0,1), dxdy(2,0)),
@@ -185,15 +176,20 @@ public class ValidPieceMovesTest {
                     calculate("J", dxdy(1,1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                     calculate("T", dxdy(1, 1), dxdy(2,0), dxdy(1,0), dxdy(1,0)),
                     calculate("x", dxdy(0,0)),
-                    calculate("+", dxdy(0,0))
-            };
+                    calculate("+", dxdy(0,0))});
         }
+/*
+        @Override
+        public int pieceStartY() {
+            return pieceStartY;
+        }
+*/
     }
 
     @Test
     public void getStartMove() {
-        GameSettings settings = new AtariGameSettings();
         Board board = Board.create(6, 5);
+        GameSettings settings = new AtariGameSettings(board);
         Piece piece = createPieceO(settings);
         ValidPieceMoves validPieceMoves = new ValidPieceMoves(board, piece, settings);
         PieceMove startMove = validPieceMoves.calculateStartMove(board.width, board.height);
