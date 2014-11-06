@@ -12,6 +12,69 @@ public class Duration {
     public final int seconds;
     public final int millis;
 
+    private final long millisPerDay = 86400000;
+    private final long millisPerHour = 3600000;
+    private final long millisPerMinute = 60000;
+    private final long millisPerSecond = 1000;
+
+    /**
+     * Example: 1d 3h 52m 10.760s
+     */
+    public Duration(String stringFormat) {
+        String[] times = stringFormat.split(" ");
+
+        if (times.length != 4) {
+            throw new IllegalArgumentException("Illegal format, expected something like: 1d 3h 52m 10.760s");
+        }
+
+        String d = times[0];
+        String h = times[1];
+        String m = times[2];
+        String s = times[3];
+
+        if (!d.endsWith("d")) throwException(d);
+        if (!h.endsWith("h")) throwException(h);
+        if (!m.endsWith("m")) throwException(m);
+        if (!s.endsWith("s")) throwException(s);
+
+        days = (int)time(d);
+        hours = (int)time(h);
+        minutes = (int)time(m);
+        seconds = (int)time(s);
+        millis = (int)((time(s) - seconds + .00001) * 1000);
+
+        long duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
+
+        endMillis = System.currentTimeMillis();
+        startMillis = endMillis - duration;
+    }
+
+    private double time(String time) {
+        try {
+            return Double.parseDouble(time.substring(0, time.length() - 1));
+        } catch (Exception e) {
+            throwException(time);
+            return 0;
+        }
+    }
+
+    private void throwException(String time) {
+        throw new IllegalArgumentException("Illegal format, expected something like: 1d 3h 52m 10.760s, but was: '" + time + "'");
+    }
+
+    public Duration(int days, int hours, int minutes, int seconds, int millis) {
+        this.days = days;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.millis = millis;
+
+        long duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
+
+        endMillis = System.currentTimeMillis();
+        startMillis = endMillis - duration;
+    }
+
     public Duration(long startMillis, long endMillis) {
         if (endMillis < startMillis) {
             throw new IllegalArgumentException("End time is before start time");
@@ -19,11 +82,6 @@ public class Duration {
 
         this.startMillis = startMillis;
         this.endMillis = endMillis;
-
-        final long millisPerDay = 86400000;
-        final long millisPerHour = 3600000;
-        final long millisPerMinute = 60000;
-        final long millisPerSecond = 1000;
 
         long duration = endMillis - startMillis;
 

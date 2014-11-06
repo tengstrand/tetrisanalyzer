@@ -73,7 +73,10 @@ public class Game implements Runnable {
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
             state.rows += clearedRows;
             numberOfCells += 4 - clearedRows * board.width;
-            state.numberOfCells += numberOfCells;
+            // TODO: parameterize this
+            if (numberOfCells > 50) {
+                state.numberOfCells += numberOfCells;
+            }
         }
         state.duration = state.duration.stop();
     }
