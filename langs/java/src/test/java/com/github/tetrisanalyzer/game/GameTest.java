@@ -17,10 +17,10 @@ public class GameTest {
     @Test
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
-        GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "OLIZT");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         GameState result = new GameState(0, board, pieceGenerator, 5);
+        GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, boardEvaluator, settings);
         game.run();
 
@@ -54,10 +54,10 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         GameState result = new GameState(0, board, pieceGenerator, 1);
+        GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, boardEvaluator, settings);
         game.run();
 
@@ -79,10 +79,10 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        GameSettings settings = new AtariGameSettings(board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "T");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         GameState result = new GameState(0, board, pieceGenerator, 1);
+        GameSettings settings = new AtariGameSettings(board);
         Game game = new Game(result, boardEvaluator, settings);
         game.run();
 

@@ -4,6 +4,10 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
+import java.util.Map;
+
+import static com.github.tetrisanalyzer.settings.SettingsFunctions.rotation;
+import static com.github.tetrisanalyzer.settings.SettingsFunctions.sliding;
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
@@ -31,6 +35,10 @@ public class StandardGameSettings extends GameSettings {
 
     public StandardGameSettings(int boardWidth) {
         this(boardWidth, false, false);
+    }
+
+    public StandardGameSettings(int boardWidth, Map settings) {
+        this(boardWidth, sliding(settings), rotation(settings));
     }
 
     public StandardGameSettings(int boardWidth, boolean sliding, boolean clockwise) {

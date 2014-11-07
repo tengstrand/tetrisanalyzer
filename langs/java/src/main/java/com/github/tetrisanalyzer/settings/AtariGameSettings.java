@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.Map;
 
+import static com.github.tetrisanalyzer.settings.SettingsFunctions.rotation;
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
@@ -43,9 +44,8 @@ public class AtariGameSettings extends GameSettings {
         this(boardWidth, false, false);
     }
 
-    public AtariGameSettings(Map parameters) {
-        // TODO: implement
-        this(10, false, false);
+    public AtariGameSettings(int boardWidth, Map settings) {
+        this(boardWidth, SettingsFunctions.sliding(settings), rotation(settings));
     }
 
     public AtariGameSettings(int boardWidth, boolean sliding, boolean clockwise) {

@@ -1,7 +1,6 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
 import com.github.tetrisanalyzer.piece.Piece;
-import com.github.tetrisanalyzer.settings.PieceSettings;
 
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
@@ -9,34 +8,19 @@ public class PredictablePieceGenerator extends PieceGenerator {
     private int nextPieceIndex;
     private final String pieces;
 
-    public PredictablePieceGenerator(PieceSettings settings, String pieces) {
-        this(settings, pieces, 0);
+    public PredictablePieceGenerator(String pieces) {
+        this(pieces, 0);
     }
 
-    public PredictablePieceGenerator(PieceSettings settings, String pieces, int nextPieceIndex) {
-        super(settings);
+    public PredictablePieceGenerator(String pieces, int nextPieceIndex) {
+        super("predictable", "Predetermined sequence of pieces. Returns 'O' when the sequence is exceeded");
         this.pieces = pieces;
         this.nextPieceIndex = nextPieceIndex;
     }
 
     @Override
     public PredictablePieceGenerator copy() {
-        return new PredictablePieceGenerator(settings, pieces, nextPieceIndex);
-    }
-
-    @Override
-    public String id() {
-        return "Predictable";
-    }
-
-    @Override
-    public String description() {
-        return "Predetermined sequence of pieces. Returns 'O' if exceeded";
-    }
-
-    @Override
-    public String state() {
-        return null;
+        return new PredictablePieceGenerator(pieces, nextPieceIndex);
     }
 
     @Override

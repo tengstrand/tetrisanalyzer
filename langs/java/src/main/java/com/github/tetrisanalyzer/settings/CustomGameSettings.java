@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.github.tetrisanalyzer.settings.SettingsFunctions.*;
+import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 public class CustomGameSettings extends GameSettings {
 
@@ -21,6 +22,7 @@ public class CustomGameSettings extends GameSettings {
         PieceStartPos pieceStartPos = pieceStartPos(settings);
         Class clazz = classname(settings);
 
+        Adjustments empty = calculate("-", dxdy(0,0));
         Adjustments O = adjustments("O", settings);
         Adjustments I = adjustments("I", settings);
         Adjustments S = adjustments("S", settings);
@@ -28,8 +30,10 @@ public class CustomGameSettings extends GameSettings {
         Adjustments L = adjustments("L", settings);
         Adjustments J = adjustments("J", settings);
         Adjustments T = adjustments("T", settings);
+        Adjustments any = calculate("-", dxdy(0,0));
+        Adjustments shadow = calculate("-", dxdy(0,0));
 
-        Adjustments[] pieceAdjustments = new Adjustments[] { null, O, I, S, Z, L, J, T };
+        Adjustments[] pieceAdjustments = new Adjustments[] { empty, O, I, S, Z, L, J, T, any, shadow };
 
         return new CustomGameSettings(id, url, description, pieceStartPos.x, pieceStartPos.y, sliding, clockwise, clazz, pieceAdjustments);
     }

@@ -1,5 +1,8 @@
 package com.github.tetrisanalyzer.settings;
 
+import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
+
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -30,6 +33,25 @@ public class SettingsFunctions {
         try {
             return Class.forName((String)settings.get("class"));
         } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static boolean rotation(Map settings) {
+        checkValues(settings, "rotation", "clockwise", "anticlockwise");
+        return settings.get("rotation").equals("clockwise");
+    }
+
+    public static boolean sliding(Map settings) {
+        checkValues(settings, "sliding", "on", "off");
+        return settings.get("sliding").equals("on");
+    }
+
+    public static PieceGenerator createPieceGenerator(Class clazz, Map settings) {
+        try {
+            Constructor constructor = clazz.getConstructor(Map.class);
+            return (PieceGenerator)constructor.newInstance(settings);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static com.github.tetrisanalyzer.settings.SettingsFunctions.checkKey;
 import static com.github.tetrisanalyzer.settings.SettingsFunctions.classname;
+import static com.github.tetrisanalyzer.settings.SettingsFunctions.createPieceGenerator;
 
 public class CustomSystemSettings implements SystemSettings {
     private Map settings;
@@ -47,13 +48,14 @@ public class CustomSystemSettings implements SystemSettings {
 
         List<Map> pieceGenerators = (List)settings.get("piece generators");
 
-        for (Map pieceGenerator : pieceGenerators) {
-            checkKey("id", pieceGenerator);
-            Class clazz = classname(pieceGenerator);
+        for (Map settings : pieceGenerators) {
+            checkKey("id", settings);
+            Class clazz = classname(settings);
             if (clazz == null) {
                 throw new IllegalArgumentException("Expected parameter 'class' in map 'piece generators'");
             }
-
+            String id = (String)settings.get("id");
+            this.pieceGenerators.put(id, createPieceGenerator(clazz, settings));
         }
 
         int xx = 1;

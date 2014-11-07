@@ -6,35 +6,31 @@ import com.github.tetrisanalyzer.settings.PieceSettings;
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 public abstract class PieceGenerator {
-    private Piece[] validPieces;
-    public final PieceSettings settings;
+    public final String id;
+    public final String description;
 
     public abstract PieceGenerator copy();
     public abstract PieceGeneratorSettings settings();
     public abstract int nextPieceNumber();
 
-    public abstract String id();
-    public abstract String state();
-    public abstract String description();
-
-    protected PieceGenerator(PieceSettings settings) {
-        this.settings = settings;
-        validPieces = Piece.validPieces(settings);
+    protected PieceGenerator(String id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
-    public Piece nextPiece() {
+    public Piece nextPiece(PieceSettings settings) {
         int pieceNumber = nextPieceNumber();
 
         if (pieceNumber < 1 || pieceNumber > 7) {
             throw new IllegalArgumentException("Piece number must be in the range 1..7, found: " + pieceNumber);
         }
-        return validPieces[pieceNumber];
+        return settings.piece(pieceNumber);
     }
 
     public String export() {
         return new PieceGeneratorSettings(
-                setting("id", id()),
-                setting("description", description()),
+                setting("id", id),
+                setting("description", description),
                 setting("class", this.getClass().getCanonicalName())).add(settings()).export();
     }
 

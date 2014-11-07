@@ -72,7 +72,7 @@ public class GameState {
         long rowsPerGame = games == 0 ? 0 : totalRows / games;
         return format(rowsPerGame);
     }
-
+/*
     public String export() {
         return "game state:" +
                 "  parameter: " + parameter + "\n" +
@@ -88,7 +88,7 @@ public class GameState {
                 "\n  rows/game: " + rowsPerGame() +
                 "\n  pieces/s: " + duration.xPerSeconds(moves);
     }
-
+*/
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {
@@ -107,6 +107,6 @@ public class GameState {
 
     @Override
     public String toString() {
-        return export();
+        return "Not implemented!";
     }
 }

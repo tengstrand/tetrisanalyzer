@@ -12,6 +12,7 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import com.github.tetrisanalyzer.settings.PieceSettings;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Game implements Runnable {
     public final PieceGenerator pieceGenerator;
     private final GameState state;
     public final GameMessage message;
+    public final PieceSettings settings;
 
     public Game(GameState gameState, BoardEvaluator boardEvaluator, GameSettings settings) {
         this.board = gameState.board.copy();
@@ -37,6 +39,7 @@ public class Game implements Runnable {
         this.state = gameState;
         this.message = new GameMessage(gameState);
         this.boardEvaluator = boardEvaluator;
+        this.settings = settings;
         this.pieceGenerator = state.pieceGenerator;
         this.numberOfCells = board.numberOfOccupiedCells();
 
@@ -59,7 +62,7 @@ public class Game implements Runnable {
         PieceMove bestMove = null;
 
         while (state.nonstop || state.movesLeft > 0) {
-            Piece piece = pieceGenerator.nextPiece();
+            Piece piece = pieceGenerator.nextPiece(settings);
             bestMove = evaluateBestMove(piece);
             state.moves++;
 

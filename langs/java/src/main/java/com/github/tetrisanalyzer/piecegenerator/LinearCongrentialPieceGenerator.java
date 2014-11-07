@@ -1,6 +1,8 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.settings.PieceSettings;
+import com.github.tetrisanalyzer.settings.SettingsFunctions;
+
+import java.util.Map;
 
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
@@ -15,38 +17,49 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     public final long constant1;
     public final long constant2;
 
-    public LinearCongrentialPieceGenerator(PieceSettings settings) {
-        this(0, settings);
+    public LinearCongrentialPieceGenerator() {
+        this(0);
     }
 
-    public LinearCongrentialPieceGenerator(long seed, PieceSettings settings) {
-        this(seed, 1664525, 1013904223, settings);
+    public LinearCongrentialPieceGenerator(long seed) {
+        this(seed, 1664525, 1013904223);
     }
 
-    public LinearCongrentialPieceGenerator(long seed, long constant1, long constant2, PieceSettings settings) {
-        super(settings);
+    /**
+     * Called via reflection.
+     */
+    public LinearCongrentialPieceGenerator(Map map) {
+        this(seed(map), constant1(map), constant2(map));
+    }
+
+    public static long seed(Map settings) {
+        SettingsFunctions.checkKey("seed", settings);
+        return Long.parseLong(settings.get("seed").toString());
+    }
+
+    public static long constant1(Map settings) {
+        if (!settings.containsKey("constant1")) {
+            return 1664525;
+        }
+        return Long.parseLong(settings.get("constant1").toString());
+    }
+
+    public static long constant2(Map settings) {
+        if (!settings.containsKey("constant2")) {
+            return 1013904223;
+        }
+        return Long.parseLong(settings.get("constant2").toString());
+    }
+
+    public LinearCongrentialPieceGenerator(long seed, long constant1, long constant2) {
+        super("lenear", "Linear congruential piece generator");
         this.seed = seed;
         this.constant1 = constant1;
         this.constant2 = constant2;
     }
 
     public LinearCongrentialPieceGenerator copy() {
-        return new LinearCongrentialPieceGenerator(seed, settings);
-    }
-
-    @Override
-    public String description() {
-        return "Linear congruential piece generator";
-    }
-
-    @Override
-    public String state() {
-        return String.valueOf(seed);
-    }
-
-    @Override
-    public String id() {
-        return "linear";
+        return new LinearCongrentialPieceGenerator(seed);
     }
 
     @Override

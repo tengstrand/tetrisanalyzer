@@ -42,6 +42,7 @@ public class CustomSystemSettingsTest {
                 "    class: com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator\n" +
                 "    constant 1: 1664525\n" +
                 "    constant 2: 1013904223\n" +
+                "    seed: 1" +
                 "\n" +
                 "board evaluators:\n" +
                 "  - id: Tengstrand1\n" +

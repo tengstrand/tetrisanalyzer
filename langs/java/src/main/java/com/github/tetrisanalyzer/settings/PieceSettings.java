@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.settings;
 import com.github.tetrisanalyzer.move.rotation.AnticlockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.ClockwiseRotation;
 import com.github.tetrisanalyzer.move.rotation.RotationDirection;
+import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 public class PieceSettings {
@@ -11,6 +12,7 @@ public class PieceSettings {
     public final int pieceStartX;
     public final int pieceStartY;
     public final Adjustments[] pieceAdjustments;
+    private final Piece[] validPieces;
 
     public PieceSettings(boolean clockwise, boolean slidingOn, int pieceStartX, int pieceStartY, Adjustments[] pieceAdjustments) {
         this.rotationDirection = clockwise ? new ClockwiseRotation() : new AnticlockwiseRotation();
@@ -18,5 +20,10 @@ public class PieceSettings {
         this.pieceStartX = pieceStartX;
         this.pieceStartY = pieceStartY;
         this.pieceAdjustments = pieceAdjustments;
+        this.validPieces = Piece.validPieces(this);
+    }
+
+    public Piece piece(int piece) {
+        return validPieces[piece];
     }
 }

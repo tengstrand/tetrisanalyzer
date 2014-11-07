@@ -1,7 +1,5 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.settings.AtariGameSettings;
-import com.github.tetrisanalyzer.settings.PieceSettings;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,8 +13,7 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void nextPieceNumber() {
-        PieceSettings settings = new AtariGameSettings();
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "SZI");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("SZI");
         List<Integer> result = Arrays.asList(pieceGenerator.nextPieceNumber(),
                 pieceGenerator.nextPieceNumber(),
                 pieceGenerator.nextPieceNumber());
@@ -26,8 +23,7 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void runOutOfPieces() {
-        PieceSettings settings = new AtariGameSettings();
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "I");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("I");
         List<Integer> result = Arrays.asList(
                 pieceGenerator.nextPieceNumber(),
                 pieceGenerator.nextPieceNumber(),
@@ -40,8 +36,7 @@ public class PredictablePieceGeneratorTest {
 
     @Test
     public void illegalPiece() {
-        PieceSettings settings = new AtariGameSettings();
-        PieceGenerator pieceGenerator = new PredictablePieceGenerator(settings, "Sq");
+        PieceGenerator pieceGenerator = new PredictablePieceGenerator("Sq");
         try {
             Arrays.asList(pieceGenerator.nextPieceNumber(),
                     pieceGenerator.nextPieceNumber(),
