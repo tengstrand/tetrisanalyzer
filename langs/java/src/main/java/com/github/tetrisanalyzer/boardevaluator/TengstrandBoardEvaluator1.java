@@ -17,7 +17,11 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardHeight;
     private final double maxEquity;
 
-    private double[] heightFactor = new double[] { 7, 2.5, 2.2, 1.8, 1.3, 1.0, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 };
+    private double heightFactor0 = 7;
+    private double heightFactor1 = 2.5;
+    private double heightFactorDelta = 0.86;
+
+    private double[] heightFactor = new double[21];
     private double[] blocksPerRowHollowFactor = new double[] { 0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553 };
     private double[] areaWidthFactor = new double[] { 0, 4.95, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0 };
     private double[] areaHeightFactor = new double[] { 0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
@@ -27,6 +31,11 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         this(10, 20);
     }
 
+/*
+    public TengstrandBoardEvaluator1(Map settings) {
+
+    }
+*/
     public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
         if (boardWidth > 10) {
             throw new IllegalArgumentException("Only board widths between 4 and 10 is supported at the moment, but was: " + boardWidth);
@@ -38,6 +47,19 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         this.boardHeight = boardHeight;
 
         maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
+
+        initHeightFactor();
+    }
+
+    private void initHeightFactor() {
+        heightFactor[0] = heightFactor0;
+        heightFactor[1] = heightFactor1;
+        double height = heightFactor1;
+
+        for (int i=2; i<heightFactor.length; i++) {
+            height *= heightFactorDelta;
+            heightFactor[i] = height;
+        }
     }
 
     public TengstrandBoardEvaluator1(int boardWidth, int boardHeight, Map<String,Number> parameters) {
