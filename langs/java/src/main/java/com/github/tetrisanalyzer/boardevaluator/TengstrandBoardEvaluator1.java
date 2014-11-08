@@ -16,7 +16,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardWidth;
     private final int boardHeight;
     private final double maxEquity;
-    private final double maxEquityFactor = 1.0945;
+    private final double maxEquityFactor = 1.204;
 
     private double heightFactor0 = 7;
     private double heightFactor1 = 2.5;
@@ -37,11 +37,18 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private double areaWidthFactor8 = 1.34;
     private double areaWidthFactor9 = 1.18;
 
+    private double areaHeightFactor1 = 0.5;
+    private double areaHeightFactor2 = 1.19;
+    private double areaHeightFactor3 = 2.3;
+    private double areaHeightFactor4 = 3.1;
+    private double areaHeightFactor5 = 4.6;
+    private double areaHeightFactorDelta = 1;
+
     private double[] heightFactors = new double[21];
     private double[] hollowFactors = new double[10];
     private double[] areaWidthFactors = new double[10];
+    private double[] areaHeightFactors = new double[21];
 
-    private double[] areaHeightFactor = new double[] { 0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
     private double[] areaHeightFactorEqualWallHeight = new double[] { 0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
 
     public TengstrandBoardEvaluator1() {
@@ -63,29 +70,26 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
-        maxEquity = (boardHeight - 1) * boardWidth * maxEquityFactor;
+        maxEquity = (boardHeight - 2) * boardWidth * maxEquityFactor;
 
         initHeightFactor();
         initHollowFactors();
         initAreaWidthFactors();
+        initAreaHeightFactors();
     }
 
-    private void initAreaWidthFactors() {
-        areaWidthFactors[1] = areaWidthFactor1;
-        areaWidthFactors[2] = areaWidthFactor2;
-        areaWidthFactors[3] = areaWidthFactor3;
-        areaWidthFactors[4] = areaWidthFactor4;
-        areaWidthFactors[5] = areaWidthFactor5;
-        areaWidthFactors[6] = areaWidthFactor6;
-        areaWidthFactors[7] = areaWidthFactor7;
-        areaWidthFactors[8] = areaWidthFactor8;
-        areaWidthFactors[9] = areaWidthFactor9;
-        double factor = areaWidthFactor9;
-        double delta = areaWidthFactor8 - areaWidthFactor9;
+    private void initAreaHeightFactors() {
+        areaHeightFactors[1] = areaHeightFactor1;
+        areaHeightFactors[2] = areaHeightFactor2;
+        areaHeightFactors[3] = areaHeightFactor3;
+        areaHeightFactors[4] = areaHeightFactor4;
+        areaHeightFactors[5] = areaHeightFactor5;
 
-        for (int i=10; i<areaWidthFactors.length; i++) {
-            factor -= delta;
-            areaWidthFactors[i] = factor;
+        double factor = areaHeightFactor5;
+
+        for (int i=6; i<areaHeightFactors.length; i++) {
+            factor += areaHeightFactorDelta;
+            areaHeightFactors[i] = factor;
         }
     }
 
@@ -110,6 +114,25 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
             factor *= (1 - delta);
             delta *= hollowFactorDeltaDelta;
             hollowFactors[i] = factor;
+        }
+    }
+
+    private void initAreaWidthFactors() {
+        areaWidthFactors[1] = areaWidthFactor1;
+        areaWidthFactors[2] = areaWidthFactor2;
+        areaWidthFactors[3] = areaWidthFactor3;
+        areaWidthFactors[4] = areaWidthFactor4;
+        areaWidthFactors[5] = areaWidthFactor5;
+        areaWidthFactors[6] = areaWidthFactor6;
+        areaWidthFactors[7] = areaWidthFactor7;
+        areaWidthFactors[8] = areaWidthFactor8;
+        areaWidthFactors[9] = areaWidthFactor9;
+        double factor = areaWidthFactor9;
+        double delta = areaWidthFactor8 - areaWidthFactor9;
+
+        for (int i=10; i<areaWidthFactors.length; i++) {
+            factor -= delta;
+            areaWidthFactors[i] = factor;
         }
     }
 
@@ -139,8 +162,8 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         }
         if (parameters.containsKey("area height factor")) {
             areaheightfactor = (List)parameters.get("area height factor");
-            if (!(areaheightfactor.size() == areaHeightFactor.length)) throw new IllegalArgumentException("Expected " + areaHeightFactor.length + " elements in 'area height factor'");
-            populatet(areaheightfactor, areaHeightFactor);
+            if (!(areaheightfactor.size() == areaHeightFactors.length)) throw new IllegalArgumentException("Expected " + areaHeightFactors.length + " elements in 'area height factor'");
+            populatet(areaheightfactor, areaHeightFactors);
         }
         if (parameters.containsKey("area height factor2")) {
             areaheightfactor2 = (List)parameters.get("area height factor2");
@@ -151,7 +174,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
             setValue(parameter, "height factor", heightFactors);
             setValue(parameter, "hollow factor", hollowFactors);
             setValue(parameter, "area width factor", areaWidthFactors);
-            setValue(parameter, "area height factor", areaHeightFactor);
+            setValue(parameter, "area height factor", areaHeightFactors);
             setValue(parameter, "area height factor2", areaHeightFactorEqualWallHeight);
         }
     }
@@ -273,7 +296,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
                         if (hasAreaWallsSameHeight) {
                             equity += areaWidthFactors[previousAreaWidth] * areaHeightFactorEqualWallHeight[areaHeight];
                         } else {
-                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactor[areaHeight];
+                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactors[areaHeight];
                         }
                         areaHeight = 1;
                         isAreaWallsSameHeightNotInitialized = true;
@@ -301,7 +324,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
                 setting("height factor", asList(heightFactors)),
                 setting("hollow factor", asList(hollowFactors)),
                 setting("area width factor", asList(areaWidthFactors)),
-                setting("area height factor", asList(areaHeightFactor)),
+                setting("area height factor", asList(areaHeightFactors)),
                 setting("area height factor2", asList(areaHeightFactorEqualWallHeight)));
     }
 
