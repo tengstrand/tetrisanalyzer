@@ -64,14 +64,14 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     }
 */
     public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
-        if (boardWidth > 10) {
-            throw new IllegalArgumentException("Only board widths between 4 and 10 is supported at the moment, but was: " + boardWidth);
-        }
-        if (boardHeight > 20) {
-            throw new IllegalArgumentException("Only board heights between 4 and 20 is supported at the moment, but was: " + boardHeight);
-        }
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
+
+        heightFactors = new double[boardHeight + 1];
+        hollowFactors = new double[boardWidth];
+        areaWidthFactors = new double[boardWidth];
+        areaHeightFactors = new double[boardHeight + 1];
+        areaHeightEqFactors = new double[boardHeight + 1];
 
         maxEquity = boardWidth * (boardHeight - 1) * Math.pow(maxEquityFactor, (boardHeight - 1));
 
