@@ -10,12 +10,13 @@ import java.util.Map;
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 /**
- * Joakim Tengstrand's Tetris AI, version 1.1
+ * Joakim Tengstrand's Tetris AI, version 1.2
  */
 public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardWidth;
     private final int boardHeight;
     private final double maxEquity;
+    private final double maxEquityFactor = 1.0945;
 
     private double heightFactor0 = 7;
     private double heightFactor1 = 2.5;
@@ -26,10 +27,20 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private double hollowFactorDelta = 0.85;
     private double hollowFactorDeltaDelta = 0.95;
 
+    private double areaWidthFactor1 = 4.95;
+    private double areaWidthFactor2 = 2.39;
+    private double areaWidthFactor3 = 3.1;
+    private double areaWidthFactor4 = 2.21;
+    private double areaWidthFactor5 = 2.05;
+    private double areaWidthFactor6 = 1.87;
+    private double areaWidthFactor7 = 1.52;
+    private double areaWidthFactor8 = 1.34;
+    private double areaWidthFactor9 = 1.18;
+
     private double[] heightFactors = new double[21];
     private double[] hollowFactors = new double[10];
+    private double[] areaWidthFactors = new double[10];
 
-    private double[] areaWidthFactor = new double[] { 0, 4.95, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0 };
     private double[] areaHeightFactor = new double[] { 0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
     private double[] areaHeightFactorEqualWallHeight = new double[] { 0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
 
@@ -52,20 +63,40 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
-        maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
+        maxEquity = (boardHeight - 1) * boardWidth * maxEquityFactor;
 
         initHeightFactor();
         initHollowFactors();
+        initAreaWidthFactors();
+    }
+
+    private void initAreaWidthFactors() {
+        areaWidthFactors[1] = areaWidthFactor1;
+        areaWidthFactors[2] = areaWidthFactor2;
+        areaWidthFactors[3] = areaWidthFactor3;
+        areaWidthFactors[4] = areaWidthFactor4;
+        areaWidthFactors[5] = areaWidthFactor5;
+        areaWidthFactors[6] = areaWidthFactor6;
+        areaWidthFactors[7] = areaWidthFactor7;
+        areaWidthFactors[8] = areaWidthFactor8;
+        areaWidthFactors[9] = areaWidthFactor9;
+        double factor = areaWidthFactor9;
+        double delta = areaWidthFactor8 - areaWidthFactor9;
+
+        for (int i=10; i<areaWidthFactors.length; i++) {
+            factor -= delta;
+            areaWidthFactors[i] = factor;
+        }
     }
 
     private void initHeightFactor() {
         heightFactors[0] = heightFactor0;
         heightFactors[1] = heightFactor1;
-        double height = heightFactor1;
+        double factor = heightFactor1;
 
         for (int i=2; i< heightFactors.length; i++) {
-            height *= heightFactorDelta;
-            heightFactors[i] = height;
+            factor *= heightFactorDelta;
+            heightFactors[i] = factor;
         }
     }
 
@@ -103,8 +134,8 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         }
         if (parameters.containsKey("area width factor")) {
             areawidthfactor = (List)parameters.get("area width factor");
-            if (!(areawidthfactor.size() == areaWidthFactor.length)) throw new IllegalArgumentException("Expected " + areaWidthFactor.length + " elements in 'area width factor'");
-            populatet(areawidthfactor, areaWidthFactor);
+            if (!(areawidthfactor.size() == areaWidthFactors.length)) throw new IllegalArgumentException("Expected " + areaWidthFactors.length + " elements in 'area width factor'");
+            populatet(areawidthfactor, areaWidthFactors);
         }
         if (parameters.containsKey("area height factor")) {
             areaheightfactor = (List)parameters.get("area height factor");
@@ -119,7 +150,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         for (Map.Entry<String,Number> parameter : parameters.entrySet()) {
             setValue(parameter, "height factor", heightFactors);
             setValue(parameter, "hollow factor", hollowFactors);
-            setValue(parameter, "area width factor", areaWidthFactor);
+            setValue(parameter, "area width factor", areaWidthFactors);
             setValue(parameter, "area height factor", areaHeightFactor);
             setValue(parameter, "area height factor2", areaHeightFactorEqualWallHeight);
         }
@@ -240,9 +271,9 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
                         areaHeight++;
                     } else {
                         if (hasAreaWallsSameHeight) {
-                            equity += areaWidthFactor[previousAreaWidth] * areaHeightFactorEqualWallHeight[areaHeight];
+                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactorEqualWallHeight[areaHeight];
                         } else {
-                            equity += areaWidthFactor[previousAreaWidth] * areaHeightFactor[areaHeight];
+                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactor[areaHeight];
                         }
                         areaHeight = 1;
                         isAreaWallsSameHeightNotInitialized = true;
@@ -269,7 +300,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         return new BoardEvaluatorSettings(
                 setting("height factor", asList(heightFactors)),
                 setting("hollow factor", asList(hollowFactors)),
-                setting("area width factor", asList(areaWidthFactor)),
+                setting("area width factor", asList(areaWidthFactors)),
                 setting("area height factor", asList(areaHeightFactor)),
                 setting("area height factor2", asList(areaHeightFactorEqualWallHeight)));
     }
