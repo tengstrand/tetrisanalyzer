@@ -50,39 +50,6 @@ public class Board implements TextBoard {
     }
 
     /**
-     * Creates a "junk board", e.g.:
-     *
-     * |-x-x-x-x-x|
-     * |x-x-x-x-x-|
-     * |-x-x-x-x-x|
-     * |x-x-x-x-x-|
-     * |-x-x-x-x-x|
-     * |x-x-x-x-x-|
-     * |-x-x-x-x-x|
-     * |x-x-x-x-x-|
-     * |-x-x-x-x-x|
-     * |x-x-x-x-x-|
-     * ¯¯¯¯¯¯¯¯¯¯¯¯
-     */
-    public static Board createChessBoard(int width, int height) {
-        int[] rows = new int[height];
-
-        for (int y=0; y<height; y++) {
-            rows[y] = junkRow(y, width);
-        }
-        return new Board(width, height, rows);
-    }
-
-    private static int junkRow(int y, int width) {
-        int row = 0;
-
-        for (int x=0; x<(width + 1)/2; x++) {
-            row = (row << 2) | 1;
-        }
-        return (width & 1) == 0 ? row << (y & 1) : row >> (y & 1);
-    }
-
-    /**
      * Creates an empty board
      */
     private Board(int width, int height) {

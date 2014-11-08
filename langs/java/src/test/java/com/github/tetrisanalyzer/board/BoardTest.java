@@ -192,30 +192,6 @@ public class BoardTest {
                 "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
     }
 
-    @Test
-    public void createJunkBoard_oddWidth() {
-        assertEquals(Board.create(
-                "|x-x-x-x|",
-                "|-x-x-x-|",
-                "|x-x-x-x|",
-                "|-x-x-x-|",
-                "|x-x-x-x|",
-                "|-x-x-x-|",
-                "¯¯¯¯¯¯¯¯¯"), Board.createChessBoard(7, 6));
-    }
-
-    @Test
-    public void createJunkBoard_evenWidth() {
-        assertEquals(Board.create(
-                "|x-x-x-x-|",
-                "|-x-x-x-x|",
-                "|x-x-x-x-|",
-                "|-x-x-x-x|",
-                "|x-x-x-x-|",
-                "|-x-x-x-x|",
-                "¯¯¯¯¯¯¯¯¯¯"), Board.createChessBoard(8, 6));
-    }
-
     private Board board() {
         return Board.create(
                 "|x-------|",
