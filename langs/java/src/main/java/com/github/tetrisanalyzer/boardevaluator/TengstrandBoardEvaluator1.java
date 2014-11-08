@@ -21,8 +21,14 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private double heightFactor1 = 2.5;
     private double heightFactorDelta = 0.86;
 
-    private double[] heightFactor = new double[21];
-    private double[] blocksPerRowHollowFactor = new double[] { 0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.553 };
+    private double hollowFactor1 = 0.533;
+    private double hollowFactor2 = 0.6;
+    private double hollowFactorDelta = 0.85;
+    private double hollowFactorDeltaDelta = 0.95;
+
+    private double[] heightFactors = new double[21];
+    private double[] hollowFactors = new double[10];
+
     private double[] areaWidthFactor = new double[] { 0, 4.95, 2.39, 3.1, 2.21, 2.05, 1.87, 1.52, 1.34, 1.18, 0 };
     private double[] areaHeightFactor = new double[] { 0, .5, 1.19, 2.3, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
     private double[] areaHeightFactorEqualWallHeight = new double[] { 0, .42, 1.05, 2.2, 3.1, 4.6, 5.6, 6.6, 7.6, 8.6, 9.6, 10.6, 11.6, 12.6, 13.6, 14.6, 15.6, 16.6, 17.6, 18.6, 19.6 };
@@ -49,16 +55,30 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         maxEquity = evaluate(Board.createChessBoard(boardWidth, boardHeight));
 
         initHeightFactor();
+        initHollowFactors();
     }
 
     private void initHeightFactor() {
-        heightFactor[0] = heightFactor0;
-        heightFactor[1] = heightFactor1;
+        heightFactors[0] = heightFactor0;
+        heightFactors[1] = heightFactor1;
         double height = heightFactor1;
 
-        for (int i=2; i<heightFactor.length; i++) {
+        for (int i=2; i< heightFactors.length; i++) {
             height *= heightFactorDelta;
-            heightFactor[i] = height;
+            heightFactors[i] = height;
+        }
+    }
+
+    private void initHollowFactors() {
+        hollowFactors[1] = hollowFactor1;
+        hollowFactors[2] = hollowFactor2;
+        double factor = hollowFactor2;
+        double delta = 1 - hollowFactorDelta;
+
+        for (int i=3; i<hollowFactors.length; i++) {
+            factor *= (1 - delta);
+            delta *= hollowFactorDeltaDelta;
+            hollowFactors[i] = factor;
         }
     }
 
@@ -73,13 +93,13 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
 
         if (parameters.containsKey("height factor")) {
             heightfactor = (List)parameters.get("height factor");
-            if (!(heightfactor.size() == heightFactor.length)) throw new IllegalArgumentException("Expected " + heightFactor.length + " elements in 'height factor'");
-            populatet(heightfactor, heightFactor);
+            if (!(heightfactor.size() == heightFactors.length)) throw new IllegalArgumentException("Expected " + heightFactors.length + " elements in 'height factor'");
+            populatet(heightfactor, heightFactors);
         }
         if (parameters.containsKey("hollow factor")) {
             hollowfactor = (List)parameters.get("hollow factor");
-            if (!(hollowfactor.size() == blocksPerRowHollowFactor.length)) throw new IllegalArgumentException("Expected " + blocksPerRowHollowFactor.length + " elements in 'hollow factor'");
-            populatet(hollowfactor, blocksPerRowHollowFactor);
+            if (!(hollowfactor.size() == hollowFactors.length)) throw new IllegalArgumentException("Expected " + hollowFactors.length + " elements in 'hollow factor'");
+            populatet(hollowfactor, hollowFactors);
         }
         if (parameters.containsKey("area width factor")) {
             areawidthfactor = (List)parameters.get("area width factor");
@@ -97,8 +117,8 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
             populatet(areaheightfactor2, areaHeightFactorEqualWallHeight);
         }
         for (Map.Entry<String,Number> parameter : parameters.entrySet()) {
-            setValue(parameter, "height factor", heightFactor);
-            setValue(parameter, "hollow factor", blocksPerRowHollowFactor);
+            setValue(parameter, "height factor", heightFactors);
+            setValue(parameter, "hollow factor", hollowFactors);
             setValue(parameter, "area width factor", areaWidthFactor);
             setValue(parameter, "area height factor", areaHeightFactor);
             setValue(parameter, "area height factor2", areaHeightFactorEqualWallHeight);
@@ -153,17 +173,18 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         double[] hollowFactorForRow = new double[boardHeight + 1];
 
         for (int y=outline.minY; y<boardHeight; y++) {
-            int numberOfBlocksPerRow = 0;
+            int numberOfEmptySquaresPerRow = 0;
             int minOutlineForHole = boardHeight;
 
             for (int x=0; x<boardWidth; x++) {
-                if (!board.isFree(x, y)) {
-                    numberOfBlocksPerRow++;
-                } else if (outline.get(x) < minOutlineForHole && outline.get(x) < y) {
-                    minOutlineForHole = outline.get(x);
+                if (board.isFree(x, y)) {
+                    numberOfEmptySquaresPerRow++;
+                    if (outline.get(x) < minOutlineForHole && outline.get(x) < y) {
+                        minOutlineForHole = outline.get(x);
+                    }
                 }
             }
-            hollowFactorForRow[y] = blocksPerRowHollowFactor[numberOfBlocksPerRow];
+            hollowFactorForRow[y] = hollowFactors[numberOfEmptySquaresPerRow];
 
             if (minOutlineForHole < boardHeight) {
                 double hollowFactor = 1;
@@ -181,7 +202,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         double sum = 0;
 
         for (int x=0; x<boardWidth; x++) {
-            sum += heightFactor[outline.get(x)];
+            sum += heightFactors[outline.get(x)];
         }
         return sum;
     }
@@ -246,8 +267,8 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     @Override
     public BoardEvaluatorSettings settings() {
         return new BoardEvaluatorSettings(
-                setting("height factor", asList(heightFactor)),
-                setting("hollow factor", asList(blocksPerRowHollowFactor)),
+                setting("height factor", asList(heightFactors)),
+                setting("hollow factor", asList(hollowFactors)),
                 setting("area width factor", asList(areaWidthFactor)),
                 setting("area height factor", asList(areaHeightFactor)),
                 setting("area height factor2", asList(areaHeightFactorEqualWallHeight)));
