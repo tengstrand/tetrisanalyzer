@@ -239,6 +239,52 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     }
 
     @Override
+    public void setParameter(String name, Object value) {
+        double number = parseDouble(value);
+
+        switch (name) {
+            case "boardWidth": boardWidth = (int)number; break;
+            case "boardHeight": boardHeight = (int)number; break;
+            case "maxEquity": maxEquity = number; break;
+            case "maxEquityFactor": maxEquityFactor = number; break;
+            case "heightFactor0": heightFactor0 = number; break;
+            case "heightFactor1": heightFactor1 = number; break;
+            case "heightFactorDelta": heightFactorDelta = number; break;
+            case "hollowFactor1": hollowFactor1 = number; break;
+            case "hollowFactor2": hollowFactor2 = number; break;
+            case "hollowFactorDelta": hollowFactorDelta = number; break;
+            case "hollowFactorDeltaDelta": hollowFactorDeltaDelta = number; break;
+            case "areaWidthFactor1": areaWidthFactor1 = number; break;
+            case "areaWidthFactor2": areaWidthFactor2 = number; break;
+            case "areaWidthFactor3": areaWidthFactor3 = number; break;
+            case "areaWidthFactor4": areaWidthFactor4 = number; break;
+            case "areaWidthFactor5": areaWidthFactor5 = number; break;
+            case "areaWidthFactor6": areaWidthFactor6 = number; break;
+            case "areaWidthFactor7": areaWidthFactor7 = number; break;
+            case "areaWidthFactor8": areaWidthFactor8 = number; break;
+            case "areaWidthFactor9": areaWidthFactor9 = number; break;
+            case "areaHeightFactor1": areaHeightFactor1 = number; break;
+            case "areaHeightFactor2": areaHeightFactor2 = number; break;
+            case "areaHeightFactor3": areaHeightFactor3 = number; break;
+            case "areaHeightFactor4": areaHeightFactor4 = number; break;
+            case "areaHeightFactor5": areaHeightFactor5 = number; break;
+            case "areaHeightEqFactor1": areaHeightEqFactor1 = number; break;
+            case "areaHeightEqFactor2": areaHeightEqFactor2 = number; break;
+            case "areaHeightEqFactor3": areaHeightEqFactor3 = number; break;
+            case "areaHeightFactorDelta": areaHeightFactorDelta = number; break;
+            default: throw new IllegalArgumentException("Unknown parameter '" + name + "'");
+        }
+    }
+
+    private double parseDouble(Object value) {
+        try {
+            return Double.parseDouble(value.toString());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Expected a number as parameter, but was: '" + value + "'");
+        }
+    }
+
+    @Override
     public double evaluate(Board board, AllValidPieceMoves allValidPieceMoves)  {
         return allValidPieceMoves.adjustEquityIfOccupiedStartPiece(evaluate(board), maxEquity, board);
     }

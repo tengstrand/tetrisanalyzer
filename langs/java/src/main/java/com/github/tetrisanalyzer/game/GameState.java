@@ -44,7 +44,8 @@ public class GameState {
         this.parameterValue = parameterValue;
         this.duration = duration;
         this.board = board;
-        this.boardEvaluator = boardEvaluator;
+        this.boardEvaluator = boardEvaluator.copy();
+        this.boardEvaluator.setParameter(parameterName, parameterValue);
         this.pieceGenerator = pieceGenerator;
         this.movesLeft = movesLeft;
         this.nonstop = movesLeft <= 0;
