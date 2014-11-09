@@ -2,20 +2,20 @@ package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
+import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.checkKey;
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.classname;
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.createPieceGenerator;
-
 public class CustomSystemSettings implements SystemSettings {
-    private Map settings;
-    private Map<String, GameSettings> gameSettings = new HashMap<>();
-    private Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
+    public SettingsReader reader;
+    public Map<String, GameSettings> gameSettings = new HashMap<>();
+    public Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
+    public Map<String, BoardEvaluator> boardEvaluators = new HashMap<>();
 
     public static CustomSystemSettings fromString(String settings) {
         try {
@@ -26,38 +26,62 @@ public class CustomSystemSettings implements SystemSettings {
     }
 
     private CustomSystemSettings(Map settings) {
-        this.settings = settings;
+        this.reader = new SettingsReader(settings, "system settings");
         setGameRules();
         setPieceGenerators();
-
-        int xx = 1;
+        setBoardEvaluators();
     }
 
     private void setGameRules() {
-        checkKey("game rules", settings);
-        List<Map> gameRules = (List) settings.get("game rules");
+        List<Map> gameRules = reader.readMaps("game rules");
 
         for (Map map : gameRules) {
-            checkKey("id", map);
-            gameSettings.put((String) map.get("id"), CustomGameSettings.fromMap(map));
+            String id = new SettingsReader(map, "system settings").readString("id");
+            gameSettings.put(id, CustomGameSettings.fromMap(map));
         }
     }
 
     private void setPieceGenerators() {
-        checkKey("piece generators", settings);
-
-        List<Map> pieceGenerators = (List)settings.get("piece generators");
+        List<Map> pieceGenerators = reader.readMaps("piece generators");
 
         for (Map settings : pieceGenerators) {
-            checkKey("id", settings);
-            Class clazz = classname(settings);
-            if (clazz == null) {
-                throw new IllegalArgumentException("Expected parameter 'class' in map 'piece generators'");
-            }
-            String id = (String)settings.get("id");
+            SettingsReader mapReader = new SettingsReader(settings, "piece generator");
+            String id = mapReader.readString("id");
+            Class clazz = mapReader.readClass("class");
             this.pieceGenerators.put(id, createPieceGenerator(clazz, settings));
         }
-
-        int xx = 1;
     }
+
+    private void setBoardEvaluators() {
+        List<Map> boardEvaluators = reader.readMaps("board evaluators");
+
+        for (Map settings : boardEvaluators) {
+            SettingsReader mapReader = new SettingsReader(settings, "piece generator");
+            String id = mapReader.readString("id");
+            Class clazz = mapReader.readClass("class");
+            this.boardEvaluators.put(id, createBoardEvaluator(clazz, settings));
+        }
+    }
+
+    private PieceGenerator createPieceGenerator(Class clazz, Map settings) {
+        try {
+            Constructor constructor = clazz.getConstructor(Map.class);
+            return (PieceGenerator)constructor.newInstance(settings);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    private BoardEvaluator createBoardEvaluator(Class clazz, Map settings) {
+        try {
+            Constructor constructor = clazz.getConstructor(Map.class);
+            return (BoardEvaluator)constructor.newInstance(settings);
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException(e.getTargetException());
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
 }

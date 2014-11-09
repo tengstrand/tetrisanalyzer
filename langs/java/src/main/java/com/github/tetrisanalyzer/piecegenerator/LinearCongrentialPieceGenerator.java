@@ -1,6 +1,6 @@
 package com.github.tetrisanalyzer.piecegenerator;
 
-import com.github.tetrisanalyzer.settings.SettingsFunctions;
+import com.github.tetrisanalyzer.settings.SettingsReader;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     private static long BIT_MASK = 0x00000000FFFFFFFFL;
 
     public long seed;
-    public final long constant1;
-    public final long constant2;
+    public long constant1;
+    public long constant2;
 
     public LinearCongrentialPieceGenerator() {
         this(0);
@@ -28,27 +28,16 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     /**
      * Called via reflection.
      */
-    public LinearCongrentialPieceGenerator(Map map) {
-        this(seed(map), constant1(map), constant2(map));
+    public LinearCongrentialPieceGenerator(Map settings) {
+        super(readString(settings, "id"), readString(settings, "description"));
+
+        SettingsReader reader = new SettingsReader(settings, "piece generators");
+        constant1 = reader.readLong("constant 1", 1664525);
+        constant2 = reader.readLong("constant 2", 1013904223);
     }
 
-    public static long seed(Map settings) {
-        SettingsFunctions.checkKey("seed", settings);
-        return Long.parseLong(settings.get("seed").toString());
-    }
-
-    public static long constant1(Map settings) {
-        if (!settings.containsKey("constant1")) {
-            return 1664525;
-        }
-        return Long.parseLong(settings.get("constant1").toString());
-    }
-
-    public static long constant2(Map settings) {
-        if (!settings.containsKey("constant2")) {
-            return 1013904223;
-        }
-        return Long.parseLong(settings.get("constant2").toString());
+    private static String readString(Map settings, String key) {
+        return new SettingsReader(settings, "piece generators").readString(key);
     }
 
     public LinearCongrentialPieceGenerator(long seed, long constant1, long constant2) {

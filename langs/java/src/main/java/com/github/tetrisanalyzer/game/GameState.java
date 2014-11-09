@@ -72,23 +72,7 @@ public class GameState {
         long rowsPerGame = games == 0 ? 0 : totalRows / games;
         return format(rowsPerGame);
     }
-/*
-    public String export() {
-        return "game state:" +
-                "  parameter: " + parameter + "\n" +
-                board() +
-                "\n  seed: " + pieceGenerator.state() +
-                "\n  duration: " + duration +
-                "\n  pieces: " + format(moves) +
-                "\n  rows: " + format(rows) +
-                "\n  games: " + format(games) +
-                "\n  rows (finished games): " + format(totalRows) +
-                "\n  cell step: " + cellStep() +
-                "\n  filled cells total: " + format(numberOfCells) +
-                "\n  rows/game: " + rowsPerGame() +
-                "\n  pieces/s: " + duration.xPerSeconds(moves);
-    }
-*/
+
     private String board() {
         String result = "\n  board size: [" + board.width + "," + board.height + "]";
         if (!board.isBoardEmpty()) {
@@ -107,6 +91,13 @@ public class GameState {
 
     @Override
     public String toString() {
-        return "Not implemented!";
+        return "GameState{" +
+                "\nrows=" + rows +
+                "\nmoves=" + moves +
+                "\ngames=" + games +
+                "\nminRows=" + minRows +
+                "\nmaxRows=" + maxRows +
+                "\ntotalRows=" + totalRows +
+                '}';
     }
 }

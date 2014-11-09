@@ -6,8 +6,6 @@ import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.rotation;
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.sliding;
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
@@ -26,24 +24,24 @@ public class StandardGameSettings extends GameSettings {
     }
 
     public StandardGameSettings(Board board, boolean sliding) {
-        this(board.width, sliding, false);
+        this(board.width, sliding);
     }
 
     public StandardGameSettings(ColoredBoard board, boolean sliding) {
-        this(board.width, sliding, false);
+        this(board.width, sliding);
     }
 
     public StandardGameSettings(int boardWidth) {
-        this(boardWidth, false, false);
+        this(boardWidth, false);
     }
 
-    public StandardGameSettings(int boardWidth, Map settings) {
-        this(boardWidth, sliding(settings), rotation(settings));
+    public StandardGameSettings(Map settings) {
+        this(boardWidth(settings), sliding(settings));
     }
 
-    public StandardGameSettings(int boardWidth, boolean sliding, boolean clockwise) {
+    public StandardGameSettings(int boardWidth, boolean sliding) {
         super("Standard", "http://colinfahey.com/tetris/tetris.html",
-                "Standard Tetris 2007 June 4 (Colin Fahey)", startX(boardWidth, 3), 0, sliding, clockwise, StandardGameSettings.class, adjustments());
+                "Standard Tetris 2007 June 4 (Colin Fahey)", startX(boardWidth, 3), 0, sliding, false, StandardGameSettings.class, adjustments());
     }
 
     private static Adjustments[] adjustments() {

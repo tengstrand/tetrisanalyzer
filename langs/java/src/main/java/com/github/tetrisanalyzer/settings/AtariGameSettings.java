@@ -6,7 +6,6 @@ import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.SettingsFunctions.rotation;
 import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
@@ -25,11 +24,11 @@ public class AtariGameSettings extends GameSettings {
     }
 
     public AtariGameSettings(Board board, boolean sliding) {
-        this(board.width, sliding, false);
+        this(board.width, sliding);
     }
 
     public AtariGameSettings(ColoredBoard board, boolean sliding) {
-        this(board.width, sliding, false);
+        this(board.width, sliding);
     }
 
     public AtariGameSettings() {
@@ -37,20 +36,20 @@ public class AtariGameSettings extends GameSettings {
     }
 
     public AtariGameSettings(boolean sliding) {
-        this(10, sliding, false);
+        this(10, sliding);
     }
 
     public AtariGameSettings(int boardWidth) {
-        this(boardWidth, false, false);
+        this(boardWidth, false);
     }
 
-    public AtariGameSettings(int boardWidth, Map settings) {
-        this(boardWidth, SettingsFunctions.sliding(settings), rotation(settings));
+    public AtariGameSettings(Map settings) {
+        this(boardWidth(settings), sliding(settings));
     }
 
-    public AtariGameSettings(int boardWidth, boolean sliding, boolean clockwise) {
+    public AtariGameSettings(int boardWidth, boolean sliding) {
         super("Atari", "http://www.arcade-museum.com/game_detail.php?game_id=10081",
-                "Rules of the original Tetris arcade game", startX(boardWidth, 4), 0, sliding, clockwise, AtariGameSettings.class, adjustments());
+                "Rules of the original Tetris arcade game", startX(boardWidth, 4), 0, sliding, false, AtariGameSettings.class, adjustments());
     }
 
     public static Adjustments[] adjustments() {

@@ -8,6 +8,7 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
 import com.github.tetrisanalyzer.settings.GameSettings;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -15,6 +16,7 @@ import static junit.framework.Assert.assertEquals;
 public class GameTest {
 
     @Test
+    @Ignore
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);

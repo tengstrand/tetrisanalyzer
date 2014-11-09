@@ -15,10 +15,8 @@ public abstract class BoardEvaluator {
     public abstract String description();
     public abstract String author();
     public abstract String url();
-    public abstract int minBoardX();
-    public abstract int maxBoardX();
-    public abstract int minBoardY();
-    public abstract int maxBoardY();
+    public abstract int boardWidth();
+    public abstract int boardHeight();
 
     public String export() {
         return new BoardEvaluatorSettings(
@@ -27,9 +25,7 @@ public abstract class BoardEvaluator {
                 setting("author", author()),
                 setting("url", url()),
                 setting("class", this.getClass().getCanonicalName()),
-                setting("less is", lessIs().message),
-                setting("min board size", "[" + minBoardX() + "," + minBoardY() + "]"),
-                setting("max board size", "[" + maxBoardX() + "," + maxBoardY() + "]")).add(settings()).export();
+                setting("less is", lessIs().message)).add(settings()).export();
     }
 
     @Override

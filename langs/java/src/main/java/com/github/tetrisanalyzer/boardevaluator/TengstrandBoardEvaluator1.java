@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.boardevaluator;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
+import com.github.tetrisanalyzer.settings.SettingsReader;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,8 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
 public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private final int boardWidth;
     private final int boardHeight;
-    private final double maxEquity;
-    private final double maxEquityFactor = 1.01;
+    private double maxEquity;
+    private double maxEquityFactor = 1.01;
 
     private double heightFactor0 = 7;
     private double heightFactor1 = 2.5;
@@ -48,21 +49,50 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     private double areaHeightEqFactor2 = 1.05;
     private double areaHeightEqFactor3 = 2.2;
 
-    private double[] heightFactors = new double[21];
-    private double[] hollowFactors = new double[10];
-    private double[] areaWidthFactors = new double[10];
-    private double[] areaHeightFactors = new double[21];
-    private double[] areaHeightEqFactors = new double[21];
+    private double[] heightFactors;
+    private double[] hollowFactors;
+    private double[] areaWidthFactors;
+    private double[] areaHeightFactors;
+    private double[] areaHeightEqFactors;
 
     public TengstrandBoardEvaluator1() {
         this(10, 20);
     }
 
-/*
     public TengstrandBoardEvaluator1(Map settings) {
+        SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
+        List<Integer> boardSize = reader.readIntegers("board", 2);
+        boardWidth = boardSize.get(0);
+        boardHeight = boardSize.get(1);
+        maxEquityFactor = reader.readDouble("maxEquityFactor");
+        heightFactor0 = reader.readDouble("heightFactor0");
+        heightFactor1 = reader.readDouble("heightFactor1");
+        heightFactorDelta = reader.readDouble("heightFactorDelta");
+        hollowFactor1 = reader.readDouble("hollowFactor1");
+        hollowFactor2 = reader.readDouble("hollowFactor2");
+        hollowFactorDelta = reader.readDouble("hollowFactorDelta");
+        hollowFactorDeltaDelta = reader.readDouble("hollowFactorDeltaDelta");
+        areaWidthFactor1 = reader.readDouble("areaWidthFactor1");
+        areaWidthFactor2 = reader.readDouble("areaWidthFactor2");
+        areaWidthFactor3 = reader.readDouble("areaWidthFactor3");
+        areaWidthFactor4 = reader.readDouble("areaWidthFactor4");
+        areaWidthFactor5 = reader.readDouble("areaWidthFactor5");
+        areaWidthFactor6 = reader.readDouble("areaWidthFactor6");
+        areaWidthFactor7 = reader.readDouble("areaWidthFactor7");
+        areaWidthFactor8 = reader.readDouble("areaWidthFactor8");
+        areaWidthFactor9 = reader.readDouble("areaWidthFactor9");
+        areaHeightFactor1 = reader.readDouble("areaHeightFactor1");
+        areaHeightEqFactor1 = reader.readDouble("areaHeightEqFactor1");
+        areaHeightFactor2 = reader.readDouble("areaHeightFactor2");
+        areaHeightEqFactor2 = reader.readDouble("areaHeightEqFactor2");
+        areaHeightFactor3 = reader.readDouble("areaHeightFactor3");
+        areaHeightEqFactor3 = reader.readDouble("areaHeightEqFactor3");
+        areaHeightFactor4 = reader.readDouble("areaHeightFactor4");
+        areaHeightFactor5 = reader.readDouble("areaHeightFactor5");
+        areaHeightFactorDelta = reader.readDouble("areaHeightFactorDelta");
     }
-*/
+
     public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
@@ -152,76 +182,6 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         for (int i=6; i<areaHeightEqFactors.length; i++) {
             factor += areaHeightFactorDelta;
             areaHeightEqFactors[i] = factor;
-        }
-    }
-
-    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight, Map<String,Number> parameters) {
-        this(boardWidth, boardHeight);
-
-        List heightfactor = (List)parameters.get("height factor");
-        List hollowfactor = (List)parameters.get("hollow factor");
-        List areawidthfactor = (List)parameters.get("area width factor");
-        List areaheightfactor = (List)parameters.get("area height factor");
-        List areaheightfactor2 = (List)parameters.get("area height factor2");
-
-        if (parameters.containsKey("height factor")) {
-            heightfactor = (List)parameters.get("height factor");
-            if (!(heightfactor.size() == heightFactors.length)) throw new IllegalArgumentException("Expected " + heightFactors.length + " elements in 'height factor'");
-            populatet(heightfactor, heightFactors);
-        }
-        if (parameters.containsKey("hollow factor")) {
-            hollowfactor = (List)parameters.get("hollow factor");
-            if (!(hollowfactor.size() == hollowFactors.length)) throw new IllegalArgumentException("Expected " + hollowFactors.length + " elements in 'hollow factor'");
-            populatet(hollowfactor, hollowFactors);
-        }
-        if (parameters.containsKey("area width factor")) {
-            areawidthfactor = (List)parameters.get("area width factor");
-            if (!(areawidthfactor.size() == areaWidthFactors.length)) throw new IllegalArgumentException("Expected " + areaWidthFactors.length + " elements in 'area width factor'");
-            populatet(areawidthfactor, areaWidthFactors);
-        }
-        if (parameters.containsKey("area height factor")) {
-            areaheightfactor = (List)parameters.get("area height factor");
-            if (!(areaheightfactor.size() == areaHeightFactors.length)) throw new IllegalArgumentException("Expected " + areaHeightFactors.length + " elements in 'area height factor'");
-            populatet(areaheightfactor, areaHeightFactors);
-        }
-        if (parameters.containsKey("area height factor2")) {
-            areaheightfactor2 = (List)parameters.get("area height factor2");
-            if (!(areaheightfactor2.size() == areaHeightEqFactors.length)) throw new IllegalArgumentException("Expected " + areaHeightEqFactors.length + " elements in 'area height factor2'");
-            populatet(areaheightfactor2, areaHeightEqFactors);
-        }
-        for (Map.Entry<String,Number> parameter : parameters.entrySet()) {
-            setValue(parameter, "height factor", heightFactors);
-            setValue(parameter, "hollow factor", hollowFactors);
-            setValue(parameter, "area width factor", areaWidthFactors);
-            setValue(parameter, "area height factor", areaHeightFactors);
-            setValue(parameter, "area height factor2", areaHeightEqFactors);
-        }
-    }
-
-    private void setValue(Map.Entry<String,Number> entry, String key, double[] array) {
-        if (entry.getKey().startsWith(key + "[")) {
-            String squaredIndex = entry.getKey().substring(key.length());
-            if (!squaredIndex.startsWith("[") || !squaredIndex.endsWith("]")) {
-                throw new IllegalArgumentException("Expected a value enclosed with [], but was: " + squaredIndex);
-            }
-            int index = Integer.valueOf(squaredIndex.substring(1, squaredIndex.length() - 1));
-            if (!(entry.getValue() instanceof Number)) {
-                throw new IllegalArgumentException("Expected a value, but was: " + entry.getValue());
-            }
-            if (index < 0 || index >= array.length) {
-                throw new IllegalArgumentException("Index was outside valid range 0-" + array.length + ", but was: " + array.length);
-            }
-            array[index] = ((Number)entry.getValue()).doubleValue();
-        }
-    }
-
-    private static void populatet(List source, double[] target) {
-        int i = 0;
-        for (Object value : source) {
-            if (!(value instanceof Number)) {
-                throw new IllegalArgumentException("Expected a number, but was a: " + value.getClass().getSimpleName() + "(" + value + ")");
-            }
-            target[i++] = ((Number) value).doubleValue();
         }
     }
 
@@ -327,14 +287,12 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         return equity;
     }
 
-    @Override public String id() { return "Tengstrand 1.1"; }
+    @Override public String id() { return "Tengstrand 1.2"; }
     @Override public String description() { return "A first version was created 2001"; }
     @Override public String author() { return "Joakim Tengstrand"; }
     @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
-    @Override public int minBoardX() { return 4; }
-    @Override public int maxBoardX() { return 10; }
-    @Override public int minBoardY() { return 4; }
-    @Override public int maxBoardY() { return 20; }
+    @Override public int boardWidth() { return boardWidth; }
+    @Override public int boardHeight() { return boardHeight; }
     @Override public LessIs lessIs() { return LessIs.BETTER; }
 
     @Override

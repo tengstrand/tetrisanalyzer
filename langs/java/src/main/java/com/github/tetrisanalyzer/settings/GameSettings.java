@@ -4,6 +4,9 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
+import java.util.List;
+import java.util.Map;
+
 import static com.github.tetrisanalyzer.piece.Piece.*;
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
@@ -49,6 +52,22 @@ public class GameSettings extends PieceSettings {
                 setting("L", adjustment(L)),
                 setting("J", adjustment(J)),
                 setting("T", adjustment(T))).export();
+    }
+
+    public static int boardWidth(Map settings) {
+        return boardSize(settings, "game rule").get(0);
+    }
+
+    public static boolean sliding(Map settings) {
+        return reader(settings, "game rule").readString("sliding", "on", "off").equals("on");
+    }
+
+    private static SettingsReader reader(Map settings, String group) {
+        return new SettingsReader(settings, group);
+    }
+
+    private static List<Integer> boardSize(Map settings, String group) {
+        return reader(settings, group).readIntegers("board");
     }
 
     private String adjustment(int piece) {
