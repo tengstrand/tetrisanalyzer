@@ -21,9 +21,9 @@ public class GameTest {
         ColoredBoard board = ColoredBoard.create(10, 15);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
-        GameState result = new GameState(board, pieceGenerator, 5);
+        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 5);
         GameSettings settings = new AtariGameSettings(board, true);
-        Game game = new Game(result, boardEvaluator, settings);
+        Game game = new Game(result, settings);
         game.run();
 
         assertEquals(1, result.rows);
@@ -58,9 +58,9 @@ public class GameTest {
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
-        GameState result = new GameState(board, pieceGenerator, 1);
+        GameState result = new GameState(Duration.create(), board, pieceGenerator, boardEvaluator, 1);
         GameSettings settings = new AtariGameSettings(board, true);
-        Game game = new Game(result, boardEvaluator, settings);
+        Game game = new Game(result, settings);
         game.run();
 
         assertEquals(Board.create(
@@ -83,9 +83,9 @@ public class GameTest {
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
-        GameState result = new GameState(board, pieceGenerator, 1);
+        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 1);
         GameSettings settings = new AtariGameSettings(board);
-        Game game = new Game(result, boardEvaluator, settings);
+        Game game = new Game(result, settings);
         game.run();
 
         assertEquals(ColoredBoard.create(

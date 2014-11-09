@@ -1,6 +1,8 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.ColoredBoard;
+import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
@@ -26,17 +28,25 @@ public class RaceGameSettings {
 
      */
 
-    public RaceGameSettings(String parameterName, Map settings, PieceGenerator pieceGenerator, ColoredBoard mainBoard) {
+    public RaceGameSettings(String parameterName, Map settings, BoardEvaluator boardEvaluator,
+                            PieceGenerator pieceGenerator, Duration mainDuration, ColoredBoard mainBoard) {
         reader = new SettingsReader(settings, "game");
 
         Object parameterValue = reader.get("parameter value");
+
+        Duration duration = reader.readDuration();
+
+        if (duration == null && mainDuration == null) {
+            duration = Duration.create();
+        }
 
         ColoredBoard board = reader.readBoard();
         int movesLeft = 0; // TODO: Set value
 
         if (board == null && mainBoard == null) {
-            throw new IllegalArgumentException("Expected to find attribute 'board' in 'race'");
+            board = ColoredBoard.create(10, 20);
         }
-        game = new GameState(parameterName, parameterValue, board != null ? board : mainBoard, pieceGenerator, movesLeft);
+        game = new GameState(parameterName, parameterValue, duration != null ? duration : mainDuration,
+                board != null ? board : mainBoard, boardEvaluator, pieceGenerator, movesLeft);
     }
 }

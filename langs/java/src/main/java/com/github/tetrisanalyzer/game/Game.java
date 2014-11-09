@@ -31,14 +31,14 @@ public class Game implements Runnable {
     public final GameMessage message;
     public final PieceSettings settings;
 
-    public Game(GameState gameState, BoardEvaluator boardEvaluator, GameSettings settings) {
+    public Game(GameState gameState, GameSettings settings) {
         this.board = gameState.board.copy();
         if (gameState.coloredBoard != null) {
             this.coloredBoard = gameState.coloredBoard.copy();
         }
         this.state = gameState;
         this.message = new GameMessage(gameState);
-        this.boardEvaluator = boardEvaluator;
+        this.boardEvaluator = gameState.boardEvaluator;
         this.settings = settings;
         this.pieceGenerator = state.pieceGenerator;
         this.numberOfCells = board.numberOfOccupiedCells();

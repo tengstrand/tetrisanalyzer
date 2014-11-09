@@ -22,6 +22,8 @@ public abstract class BoardEvaluator {
     public abstract int boardWidth();
     public abstract int boardHeight();
 
+    public abstract BoardEvaluator copy();
+
     public String export() {
         return new BoardEvaluatorSettings(
                 setting("id", id()),

@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.ColoredBoard;
+import com.github.tetrisanalyzer.game.Duration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -196,6 +197,13 @@ public class SettingsReader {
             throw new IllegalArgumentException("Attribute '" + key + "' in '" + group + "' must be of type " + clazz.getCanonicalName() +
                 "', but was: " + get(key));
         }
+    }
+
+    public Duration readDuration() {
+        if (!exists("duration")) {
+            return null;
+        }
+        return new Duration(readString("duration"));
     }
 
     public ColoredBoard readBoard() {
