@@ -84,4 +84,17 @@ public class CustomSystemSettings implements SystemSettings {
         }
     }
 
+    public GameSettings findGameRules(String id) {
+        if (!gameSettings.containsKey(id)) {
+            throw new IllegalArgumentException("Could not find game rule id '" + id + "' in " + gameSettings);
+        }
+        return gameSettings.get(id);
+    }
+
+    public BoardEvaluator findBoardEvaluator(String id) {
+        if (!boardEvaluators.containsKey(id)) {
+            throw new IllegalArgumentException("Could not find board evaluato id '" + id + "' in " + gameSettings);
+        }
+        return boardEvaluators.get(id);
+    }
 }

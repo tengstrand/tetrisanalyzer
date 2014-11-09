@@ -190,4 +190,9 @@ public class SettingsReader {
                 "', but was: " + get(key));
         }
     }
+
+    @Override
+    public String toString() {
+        return settings.toString();
+    }
 }

@@ -1,12 +1,9 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
-import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -30,9 +27,7 @@ public class CustomGameSettingsTest {
                 "J: [[1,1] [2,0] [1,0] [1,0]]\n" +
                 "T: [[1,1] [2,0] [1,0] [1,0]]";
 
-        Map map = (Map)new YamlReader(settings).read();
-
-        CustomGameSettings gameSettings = CustomGameSettings.fromMap(map);
+        CustomGameSettings gameSettings = CustomGameSettings.fromString(settings);
 
         assertEquals("Standard", gameSettings.id);
         assertEquals("anticlockwise", gameSettings.rotationDirection.toString());

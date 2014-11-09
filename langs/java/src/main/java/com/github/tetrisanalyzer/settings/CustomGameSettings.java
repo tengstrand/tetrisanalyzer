@@ -1,5 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
+import com.esotericsoftware.yamlbeans.YamlException;
+import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
@@ -11,6 +13,14 @@ import java.util.Map;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 public class CustomGameSettings extends GameSettings {
+
+    public static CustomGameSettings fromString(String settings) {
+        try {
+            return fromMap((Map)new YamlReader(settings).read());
+        } catch (YamlException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
     public static CustomGameSettings fromMap(Map settings) {
         SettingsReader reader = new SettingsReader(settings, "game rule");
@@ -27,13 +37,13 @@ public class CustomGameSettings extends GameSettings {
         Class clazz = reader.readClass("class");
 
         Adjustments empty = calculate("-", dxdy(0,0));
-        Adjustments O = adjustments(reader, "O", settings);
-        Adjustments I = adjustments(reader, "I", settings);
-        Adjustments S = adjustments(reader, "S", settings);
-        Adjustments Z = adjustments(reader, "Z", settings);
-        Adjustments L = adjustments(reader, "L", settings);
-        Adjustments J = adjustments(reader, "J", settings);
-        Adjustments T = adjustments(reader, "T", settings);
+        Adjustments O = adjustments(reader, "O");
+        Adjustments I = adjustments(reader, "I");
+        Adjustments S = adjustments(reader, "S");
+        Adjustments Z = adjustments(reader, "Z");
+        Adjustments L = adjustments(reader, "L");
+        Adjustments J = adjustments(reader, "J");
+        Adjustments T = adjustments(reader, "T");
         Adjustments any = calculate("-", dxdy(0,0));
         Adjustments shadow = calculate("-", dxdy(0,0));
 
@@ -42,7 +52,7 @@ public class CustomGameSettings extends GameSettings {
         return new CustomGameSettings(id, url, description, pieceStartX, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
     }
 
-    private static Adjustments adjustments(SettingsReader reader, String piece, Map settings) {
+    private static Adjustments adjustments(SettingsReader reader, String piece) {
         List<List> rotations = reader.readLists(piece);
 
         List<AdjustmentDxDy> adjustments = new ArrayList<>();

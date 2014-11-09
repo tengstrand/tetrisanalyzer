@@ -5,7 +5,6 @@ import com.github.tetrisanalyzer.board.BoardOutline;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.settings.SettingsReader;
 
-import java.util.List;
 import java.util.Map;
 
 import static com.github.tetrisanalyzer.settings.Setting.setting;
@@ -14,8 +13,8 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
  * Joakim Tengstrand's Tetris AI, version 1.2
  */
 public class TengstrandBoardEvaluator1 extends BoardEvaluator {
-    private final int boardWidth;
-    private final int boardHeight;
+    private int boardWidth;
+    private int boardHeight;
     private double maxEquity;
     private double maxEquityFactor = 1.01;
 
@@ -60,11 +59,12 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     }
 
     public TengstrandBoardEvaluator1(Map settings) {
+        this(boardWidth(settings), boardHeight(settings));
+
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
-        List<Integer> boardSize = reader.readIntegers("board", 2);
-        boardWidth = boardSize.get(0);
-        boardHeight = boardSize.get(1);
+        boardWidth = boardWidth(settings);
+        boardHeight = boardHeight(settings);
         maxEquityFactor = reader.readDouble("maxEquityFactor");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
@@ -99,9 +99,9 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
 
         heightFactors = new double[boardHeight + 1];
         hollowFactors = new double[boardWidth];
-        areaWidthFactors = new double[boardWidth];
-        areaHeightFactors = new double[boardHeight + 1];
-        areaHeightEqFactors = new double[boardHeight + 1];
+        areaWidthFactors = new double[boardWidth < 10 ? 10 : boardWidth];
+        areaHeightFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
+        areaHeightEqFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
 
         maxEquity = boardWidth * (boardHeight - 1) * Math.pow(maxEquityFactor, (boardHeight - 1));
 
