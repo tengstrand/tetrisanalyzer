@@ -43,7 +43,6 @@ public class RaceSettingsTest {
                 "   piece generator settings: {seed: 3242353412342}\n" +
                 "   distribution: [1,3,5,9,21,31,11,4,1,1,1]";
 
-
         CustomSystemSettings systemSettings = CustomSystemSettings.fromString(SYSTEM_SETTINGS);
 
         RaceSettings race = RaceSettings.fromString(settings, systemSettings);

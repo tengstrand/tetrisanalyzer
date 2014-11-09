@@ -4,7 +4,6 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
-import java.util.List;
 import java.util.Map;
 
 public class RaceGameSettings {
@@ -27,18 +26,17 @@ public class RaceGameSettings {
 
      */
 
-    public RaceGameSettings(String parameterName, Map settings, PieceGenerator pieceGenerator) {
+    public RaceGameSettings(String parameterName, Map settings, PieceGenerator pieceGenerator, ColoredBoard mainBoard) {
         reader = new SettingsReader(settings, "game");
 
         Object parameterValue = reader.get("parameter value");
-        List<Integer> boardList = reader.readIntegers("board", 2);
-        int boardWidth = boardList.get(0);
-        int boardHeight = boardList.get(1);
-        ColoredBoard board = ColoredBoard.create(boardWidth, boardHeight);
-        int movesLeft = 0; // TODO: Set correct value
 
-        game = new GameState(parameterName, parameterValue, board, pieceGenerator, movesLeft);
+        ColoredBoard board = reader.readBoard();
+        int movesLeft = 0; // TODO: Set value
+
+        if (board == null && mainBoard == null) {
+            throw new IllegalArgumentException("Expected to find attribute 'board' in 'race'");
+        }
+        game = new GameState(parameterName, parameterValue, board != null ? board : mainBoard, pieceGenerator, movesLeft);
     }
-
-    // TODO: Implement!
 }

@@ -5,6 +5,7 @@ import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.io.FileReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -21,6 +22,15 @@ public class CustomSystemSettings implements SystemSettings {
         try {
             return new CustomSystemSettings((Map) new YamlReader(settings).read());
         } catch (YamlException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static CustomSystemSettings fromFile(String filename) {
+        try {
+            Map content = (Map)new YamlReader(new FileReader(filename)).read();
+            return new CustomSystemSettings(content);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }

@@ -2,11 +2,14 @@ package com.github.tetrisanalyzer.gui;
 
 import com.github.tetrisanalyzer.game.GameMessage;
 import com.github.tetrisanalyzer.game.GameState;
+import com.github.tetrisanalyzer.settings.CustomSystemSettings;
+import com.github.tetrisanalyzer.settings.RaceSettings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.FileNotFoundException;
 
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
@@ -18,11 +21,19 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
+
+        String systemFilename = "C:/TetrisAnalyzer/settings/system.yaml";
+        CustomSystemSettings systemSettings = CustomSystemSettings.fromFile(systemFilename);
+
+        String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
+        RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
+
+        int xx = 1;
 /*
         Game game = newGame(1);
         frame.getContentPane().add(new TetrisAnalyzer(game.message));

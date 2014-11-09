@@ -1,5 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
+import com.github.tetrisanalyzer.board.ColoredBoard;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -158,7 +160,7 @@ public class SettingsReader {
         return settings.get(key);
     }
 
-    private boolean exists(String key) {
+    public boolean exists(String key) {
         return settings.containsKey(key);
     }
 
@@ -175,7 +177,7 @@ public class SettingsReader {
         throw new IllegalArgumentException("Valid values for key '" + key + "' in '" + group + "' are: " + Arrays.asList(validValues) + ", but was: " + value);
     }
 
-    private void ensureExists(String key) {
+    public void ensureExists(String key) {
         if (!settings.containsKey(key)) {
             throw new IllegalArgumentException("Expected to find attribute '" + key + "' in '" + group + "'");
         }
@@ -194,6 +196,14 @@ public class SettingsReader {
             throw new IllegalArgumentException("Attribute '" + key + "' in '" + group + "' must be of type " + clazz.getCanonicalName() +
                 "', but was: " + get(key));
         }
+    }
+
+    public ColoredBoard readBoard() {
+        if (!exists("board")) {
+            return null;
+        }
+        List<Integer> board = readIntegers("board", 2);
+        return ColoredBoard.create(board.get(0), board.get(1));
     }
 
     @Override
