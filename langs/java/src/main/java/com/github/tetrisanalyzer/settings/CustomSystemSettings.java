@@ -93,8 +93,15 @@ public class CustomSystemSettings implements SystemSettings {
 
     public BoardEvaluator findBoardEvaluator(String id) {
         if (!boardEvaluators.containsKey(id)) {
-            throw new IllegalArgumentException("Could not find board evaluato id '" + id + "' in " + gameSettings);
+            throw new IllegalArgumentException("Could not find board evaluator id '" + id + "' in " + gameSettings);
         }
         return boardEvaluators.get(id);
+    }
+
+    public PieceGenerator findPieceGenerator(String id) {
+        if (!pieceGenerators.containsKey(id)) {
+            throw new IllegalArgumentException("Could not find board piece generator id '" + id + "' in " + gameSettings);
+        }
+        return pieceGenerators.get(id);
     }
 }

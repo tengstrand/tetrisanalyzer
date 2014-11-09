@@ -1,7 +1,6 @@
-package com.github.tetrisanalyzer.race;
+package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
-import com.github.tetrisanalyzer.settings.CustomSystemSettings;
 import org.junit.Test;
 
 import static com.github.tetrisanalyzer.settings.CustomSystemSettingsTest.SYSTEM_SETTINGS;
@@ -9,7 +8,7 @@ import static com.github.tetrisanalyzer.settings.CustomSystemSettingsTest.SYSTEM
 public class RaceSettingsTest {
 
     @Test
-    public void test() throws YamlException {
+    public void readRaceSettings() throws YamlException {
         String settings = "game rules id: Standard\n" +
                 "piece generator id: linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
@@ -48,6 +47,8 @@ public class RaceSettingsTest {
         CustomSystemSettings systemSettings = CustomSystemSettings.fromString(SYSTEM_SETTINGS);
 
         RaceSettings race = RaceSettings.fromString(settings, systemSettings);
+
+        int xx = 1;
 
 //        assertEquals(new Duration(1, 3, 52, 10, 760), race.duration);
     }

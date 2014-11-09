@@ -58,6 +58,11 @@ public class SettingsReader {
         return get(key).toString();
     }
 
+    public Object readObject(String key) {
+        ensureExists(key);
+        return get(key);
+    }
+
     public String readString(String key, String... validValues) {
         String result = readString(key);
 
@@ -149,7 +154,7 @@ public class SettingsReader {
         return (Map)value;
     }
 
-    private Object get(String key) {
+    public Object get(String key) {
         return settings.get(key);
     }
 
