@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomSystemSettings implements SystemSettings {
+public class CustomSystemSettings {
     public SettingsReader reader;
     public Map<String, GameSettings> gameSettings = new HashMap<>();
     public Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
