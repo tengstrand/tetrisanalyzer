@@ -11,7 +11,7 @@ import static com.github.tetrisanalyzer.piece.Piece.*;
 import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 /**
- * This interface defines the API of the game settings used by the Tetris engine.
+ * Defines the API of the game settings used by the Tetris engine.
  */
 public class GameSettings extends PieceSettings {
     public final String id;
