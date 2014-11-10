@@ -16,7 +16,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     public int boardWidth;
     public int boardHeight;
     public double maxEquity;
-    public double maxEquityFactor = 1.01;
+    public double maxEquityFactor = 1.21;
 
     public double heightFactor0 = 7;
     public double heightFactor1 = 2.5;
@@ -103,7 +103,7 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         areaHeightFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
         areaHeightEqFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
 
-        maxEquity = boardWidth * (boardHeight - 1) * Math.pow(maxEquityFactor, (boardHeight - 1));
+        maxEquity = boardWidth * (boardHeight - 1) * maxEquityFactor;
 
         initHeightFactor();
         initHollowFactors();
