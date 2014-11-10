@@ -13,46 +13,46 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
  * Joakim Tengstrand's Tetris AI, version 1.2
  */
 public class TengstrandBoardEvaluator1 extends BoardEvaluator {
-    private int boardWidth;
-    private int boardHeight;
-    private double maxEquity;
-    private double maxEquityFactor = 1.01;
+    public int boardWidth;
+    public int boardHeight;
+    public double maxEquity;
+    public double maxEquityFactor = 1.01;
 
-    private double heightFactor0 = 7;
-    private double heightFactor1 = 2.5;
-    private double heightFactorDelta = 0.86;
+    public double heightFactor0 = 7;
+    public double heightFactor1 = 2.5;
+    public double heightFactorDelta = 0.86;
 
-    private double hollowFactor1 = 0.533;
-    private double hollowFactor2 = 0.6;
-    private double hollowFactorDelta = 0.85;
-    private double hollowFactorDeltaDelta = 0.95;
+    public double hollowFactor1 = 0.533;
+    public double hollowFactor2 = 0.6;
+    public double hollowFactorDelta = 0.85;
+    public double hollowFactorDeltaDelta = 0.95;
 
-    private double areaWidthFactor1 = 4.95;
-    private double areaWidthFactor2 = 2.39;
-    private double areaWidthFactor3 = 3.1;
-    private double areaWidthFactor4 = 2.21;
-    private double areaWidthFactor5 = 2.05;
-    private double areaWidthFactor6 = 1.87;
-    private double areaWidthFactor7 = 1.52;
-    private double areaWidthFactor8 = 1.34;
-    private double areaWidthFactor9 = 1.18;
+    public double areaWidthFactor1 = 4.95;
+    public double areaWidthFactor2 = 2.39;
+    public double areaWidthFactor3 = 3.1;
+    public double areaWidthFactor4 = 2.21;
+    public double areaWidthFactor5 = 2.05;
+    public double areaWidthFactor6 = 1.87;
+    public double areaWidthFactor7 = 1.52;
+    public double areaWidthFactor8 = 1.34;
+    public double areaWidthFactor9 = 1.18;
 
-    private double areaHeightFactor1 = 0.5;
-    private double areaHeightFactor2 = 1.19;
-    private double areaHeightFactor3 = 2.3;
-    private double areaHeightFactor4 = 3.1;
-    private double areaHeightFactor5 = 4.6;
-    private double areaHeightFactorDelta = 1;
+    public double areaHeightFactor1 = 0.5;
+    public double areaHeightFactor2 = 1.19;
+    public double areaHeightFactor3 = 2.3;
+    public double areaHeightFactor4 = 3.1;
+    public double areaHeightFactor5 = 4.6;
+    public double areaHeightFactorDelta = 1;
 
-    private double areaHeightEqFactor1 = 0.42;
-    private double areaHeightEqFactor2 = 1.05;
-    private double areaHeightEqFactor3 = 2.2;
+    public double areaHeightEqFactor1 = 0.42;
+    public double areaHeightEqFactor2 = 1.05;
+    public double areaHeightEqFactor3 = 2.2;
 
-    private double[] heightFactors;
-    private double[] hollowFactors;
-    private double[] areaWidthFactors;
-    private double[] areaHeightFactors;
-    private double[] areaHeightEqFactors;
+    public double[] heightFactors;
+    public double[] hollowFactors;
+    public double[] areaWidthFactors;
+    public double[] areaHeightFactors;
+    public double[] areaHeightEqFactors;
 
     public TengstrandBoardEvaluator1() {
         this(10, 20);

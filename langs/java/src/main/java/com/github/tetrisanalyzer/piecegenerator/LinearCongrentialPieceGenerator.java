@@ -32,8 +32,9 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
         super(readString(settings, "id"), readString(settings, "description"));
 
         SettingsReader reader = new SettingsReader(settings, "piece generators");
-        constant1 = reader.readLong("constant 1", 1664525);
-        constant2 = reader.readLong("constant 2", 1013904223);
+        seed = reader.readLong("seed");
+        constant1 = reader.readLong("constant1", 1664525);
+        constant2 = reader.readLong("constant2", 1013904223);
     }
 
     private static String readString(Map settings, String key) {
@@ -54,8 +55,8 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     @Override
     public PieceGeneratorSettings settings() {
         return new PieceGeneratorSettings(
-                setting("constant 1", constant1),
-                setting("constant 2", constant2),
+                setting("constant1", constant1),
+                setting("constant2", constant2),
                 setting("seed", seed));
     }
 

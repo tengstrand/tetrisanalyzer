@@ -1,7 +1,9 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -40,11 +42,11 @@ public class SystemSettingsTest {
             "   T: [[0,0] [0,0] [0,0] [0,0]]\n" +
             "   \n" +
             "piece generators:\n" +
-            "  - id: linear\n" +
+            "  - id: Linear\n" +
             "    description: Standard Linear congruential piece generator\n" +
             "    class: com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator\n" +
-            "    constant 1: 1234567\n" +
-            "    constant 2: 1013904223\n" +
+            "    constant1: 1234567\n" +
+            "    constant2: 555555555\n" +
             "    seed: 1" +
             "\n" +
             "board evaluators:\n" +
@@ -53,7 +55,6 @@ public class SystemSettingsTest {
             "    author: Joakim Tengstrand\n" +
             "    url: http://hem.bredband.net/joakimtengstrand\n" +
             "    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1\n" +
-            "    board: [8,18]\n" +
             "    maxEquityFactor: 1.01\n" +
             "    heightFactor0: 7\n" +
             "    heightFactor1: 2.5\n" +
@@ -86,15 +87,15 @@ public class SystemSettingsTest {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
 
         assertEquals(2, systemSettings.gameSettings.size());
-        assertEquals(1, systemSettings.pieceGenerators.size());
+        assertEquals(1, systemSettings.pieceGeneratorSettings.size());
         assertEquals(1, systemSettings.boardEvaluatorSettings.size());
 
         assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX);
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);
 
-        LinearCongrentialPieceGenerator pieceGenerator = (LinearCongrentialPieceGenerator) systemSettings.pieceGenerators.get("linear");
-        assertEquals(1234567, pieceGenerator.constant1);
+        Map pieceGeneratorSettings = systemSettings.pieceGeneratorSettings.get("linear");
+        assertEquals("1234567", pieceGeneratorSettings.get("constant 1"));
 
-        assertEquals("[8,18]", systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("board"));
+        assertEquals(Arrays.asList("8", "18"), systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("board"));
     }
 }

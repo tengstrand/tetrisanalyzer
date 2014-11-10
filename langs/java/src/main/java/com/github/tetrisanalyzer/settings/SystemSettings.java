@@ -13,7 +13,7 @@ import java.util.Map;
 public class SystemSettings {
     public SettingsReader reader;
     public Map<String, GameSettings> gameSettings = new HashMap<>();
-    public Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
+    public Map<String, Map> pieceGeneratorSettings = new HashMap<>();
     public Map<String, Map> boardEvaluatorSettings = new HashMap<>();
 
     public static SystemSettings fromString(String settings) {
@@ -56,7 +56,7 @@ public class SystemSettings {
             SettingsReader mapReader = new SettingsReader(settings, "piece generator");
             String id = mapReader.readString("id");
             Class clazz = mapReader.readClass("class");
-            this.pieceGenerators.put(id, createPieceGenerator(clazz, settings));
+            this.pieceGeneratorSettings.put(id, settings);
         }
     }
 
@@ -86,17 +86,17 @@ public class SystemSettings {
         return gameSettings.get(id);
     }
 
-    public Map findBoardEvaluatoSettings(String id) {
+    public Map findBoardEvaluatorSettings(String id) {
         if (!boardEvaluatorSettings.containsKey(id)) {
             throw new IllegalArgumentException("Could not find board evaluator id '" + id + "' in " + gameSettings);
         }
         return boardEvaluatorSettings.get(id);
     }
 
-    public PieceGenerator findPieceGenerator(String id) {
-        if (!pieceGenerators.containsKey(id)) {
+    public Map findPieceGeneratorSettings(String id) {
+        if (!pieceGeneratorSettings.containsKey(id)) {
             throw new IllegalArgumentException("Could not find board piece generator id '" + id + "' in " + gameSettings);
         }
-        return pieceGenerators.get(id);
+        return pieceGeneratorSettings.get(id);
     }
 }

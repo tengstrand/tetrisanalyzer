@@ -4,10 +4,10 @@ import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Duration;
-import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class RaceSettings {
 
     public GameSettings gameRules;
     public Map boardEvaluatorSettings;
-    public PieceGenerator pieceGenerator;
+    public Map pieceGeneratorSettings;
     public String parameterName;
     public int cellAreaRangeFrom;
     public int cellAreaRangeTo;
@@ -50,8 +50,8 @@ public class RaceSettings {
         String pieceGeneratorId = reader.readString("piece generator id");
 
         gameRules = systemSettings.findGameRules(gameRulesId);
-        boardEvaluatorSettings = systemSettings.findBoardEvaluatoSettings(boardEvaluatorId);
-        pieceGenerator = systemSettings.findPieceGenerator(pieceGeneratorId);
+        boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
+        pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(pieceGeneratorId);
 
         parameterName = reader.readString("parameter name");
         List<Integer> range = reader.readIntegers("cell area range", 2);
@@ -61,9 +61,22 @@ public class RaceSettings {
         List<Map> games = reader.readMaps("games");
 
         for (Map gameMap : games) {
-            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, boardEvaluatorSettings, pieceGenerator, duration, board);
+            Map evaluatorSettings = boardEvaluatorSettings(gameMap);
+            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, evaluatorSettings, pieceGeneratorSettings, duration, board);
             this.games.add(game);
         }
+    }
+
+    /**
+     * Add the 'board' attribute to board evaluator settings.
+     */
+    private Map boardEvaluatorSettings(Map gameMap) {
+        Map result = new HashMap();
+        result.putAll(boardEvaluatorSettings);
+        if (gameMap.containsKey("board")) {
+            result.put("board", gameMap.get("board"));
+        }
+        return result;
     }
 
     @Override

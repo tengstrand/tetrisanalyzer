@@ -15,33 +15,37 @@ public class RaceGameSettings {
     private final SettingsReader reader;
     private final GameState game;
 
-/*
-                "   duration: 1d 3h 52m 10.760s\n" +
-                "   board: [10,12]\n" +
-                "   games: 19308\n" +
-                "   pieces: 153065282\n" +
-                "   rows: 2666\n" +
-                "   min rows: 2\n" +
-                "   max rows: 27478\n" +
-                "   rows/game: 23100\n" +
-                "   cell area: 1.2342342\n" +
-                "   pieces/s: 10987\n" +
-                "   piece generator settings: {seed: 2345342142}\n" +
-                "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
+    public Duration duration;
+    public long numberOfGames;
+    public long numberOfPieces;
+    public long totalNumberOfRows;
+    public int minRows;
+    public int maxRows;
 
-     */
+    public PieceGenerator pieceGenerator;
+    public BoardEvaluator boardEvaluator;
 
     public RaceGameSettings(String parameterName, Map settings, Map boardEvaluatorSettings,
-                            PieceGenerator pieceGenerator, Duration mainDuration, ColoredBoard mainBoard) {
+                            Map pieceGeneratorSettings, Duration mainDuration, ColoredBoard mainBoard) {
         reader = new SettingsReader(settings, "game");
 
         Object parameterValue = reader.get("parameter value");
 
-        Duration duration = reader.readDuration();
+        duration = reader.readDuration();
 
         if (duration == null && mainDuration == null) {
             duration = Duration.create();
         }
+
+        numberOfGames = reader.readLong("games");
+        numberOfPieces = reader.readLong("pieces");
+        totalNumberOfRows = reader.readLong("rows");
+
+        minRows = reader.readInteger("min rows", Integer.MAX_VALUE);
+        maxRows = reader.readInteger("max rows", Integer.MIN_VALUE);
+
+        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator settings"));
+        pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard board = reader.readBoard();
         int movesLeft = 0; // TODO: Set value
@@ -51,24 +55,43 @@ public class RaceGameSettings {
         }
 
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
-        BoardEvaluator boardEvaluator = createBoardEvaluator(evaluatorSettings);
+        boardEvaluator = createBoardEvaluator(evaluatorSettings);
 
         game = new GameState(duration != null ? duration : mainDuration,
                 board != null ? board : mainBoard, boardEvaluator, pieceGenerator, movesLeft);
     }
 
+    private Map pieceGeneratorSettings(Map pieceGeneratorSettings, Map parameters) {
+        Map result = new HashMap();
+        result.putAll(pieceGeneratorSettings);
+        if (parameters != null) {
+            result.putAll(parameters);
+        }
+        return result;
+    }
+
+    private PieceGenerator createPieceGenerator(Map settings) {
+        Class clazz = classAttribute(settings);
+
+        try {
+            Constructor constructor = clazz.getConstructor(Map.class);
+            return (PieceGenerator)constructor.newInstance(settings);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Object parameterValue) {
         Map result = new HashMap();
         result.putAll(boardEvaluatorSettings);
-        if (parameterName != null) {
+        if (parameterName != null && parameterValue != null) {
             result.put(parameterName, parameterValue);
         }
         return result;
     }
 
     private BoardEvaluator createBoardEvaluator(Map settings) {
-        SettingsReader mapReader = new SettingsReader(settings, "piece generator");
-        Class clazz = mapReader.readClass("class");
+        Class clazz = classAttribute(settings);
 
         try {
             Constructor constructor = clazz.getConstructor(Map.class);
@@ -81,5 +104,8 @@ public class RaceGameSettings {
         }
     }
 
-
+    private Class classAttribute(Map settings) {
+        SettingsReader mapReader = new SettingsReader(settings, "piece generator");
+        return mapReader.readClass("class");
+    }
 }
