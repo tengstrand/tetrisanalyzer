@@ -3,7 +3,6 @@ package com.github.tetrisanalyzer.settings;
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.board.ColoredBoard;
-import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
@@ -16,7 +15,7 @@ public class RaceSettings {
     private final SettingsReader reader;
 
     public GameSettings gameRules;
-    public BoardEvaluator boardEvaluator;
+    public Map boardEvaluatorSettings;
     public PieceGenerator pieceGenerator;
     public String parameterName;
     public int cellAreaRangeFrom;
@@ -51,7 +50,7 @@ public class RaceSettings {
         String pieceGeneratorId = reader.readString("piece generator id");
 
         gameRules = systemSettings.findGameRules(gameRulesId);
-        boardEvaluator = systemSettings.findBoardEvaluator(boardEvaluatorId);
+        boardEvaluatorSettings = systemSettings.findBoardEvaluatoSettings(boardEvaluatorId);
         pieceGenerator = systemSettings.findPieceGenerator(pieceGeneratorId);
 
         parameterName = reader.readString("parameter name");
@@ -62,7 +61,7 @@ public class RaceSettings {
         List<Map> games = reader.readMaps("games");
 
         for (Map gameMap : games) {
-            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, boardEvaluator, pieceGenerator, duration, board);
+            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, boardEvaluatorSettings, pieceGenerator, duration, board);
             this.games.add(game);
         }
     }

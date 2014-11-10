@@ -12,7 +12,7 @@ public class RaceSettingsTest {
         String settings = "game rules id: Standard\n" +
                 "piece generator id: linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
-                "parameter name: aw2\n" +
+                "parameter name: areaWidthFactor2\n" +
                 "cell area range: [0,380]\n" +
                 "games:\n" +
                 " - parameter value: 4.5\n" +

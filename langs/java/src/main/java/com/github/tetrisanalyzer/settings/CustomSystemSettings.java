@@ -2,12 +2,10 @@ package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
-import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +14,7 @@ public class CustomSystemSettings implements SystemSettings {
     public SettingsReader reader;
     public Map<String, GameSettings> gameSettings = new HashMap<>();
     public Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
-    public Map<String, BoardEvaluator> boardEvaluators = new HashMap<>();
+    public Map<String, Map> boardEvaluatorSettings = new HashMap<>();
 
     public static CustomSystemSettings fromString(String settings) {
         try {
@@ -68,8 +66,7 @@ public class CustomSystemSettings implements SystemSettings {
         for (Map settings : boardEvaluators) {
             SettingsReader mapReader = new SettingsReader(settings, "piece generator");
             String id = mapReader.readString("id");
-            Class clazz = mapReader.readClass("class");
-            this.boardEvaluators.put(id, createBoardEvaluator(clazz, settings));
+            boardEvaluatorSettings.put(id, settings);
         }
     }
 
@@ -82,18 +79,6 @@ public class CustomSystemSettings implements SystemSettings {
         }
     }
 
-    private BoardEvaluator createBoardEvaluator(Class clazz, Map settings) {
-        try {
-            Constructor constructor = clazz.getConstructor(Map.class);
-            return (BoardEvaluator)constructor.newInstance(settings);
-        } catch (InvocationTargetException e) {
-            throw new IllegalArgumentException(e.getTargetException());
-        }
-        catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
     public GameSettings findGameRules(String id) {
         if (!gameSettings.containsKey(id)) {
             throw new IllegalArgumentException("Could not find game rule id '" + id + "' in " + gameSettings);
@@ -101,11 +86,11 @@ public class CustomSystemSettings implements SystemSettings {
         return gameSettings.get(id);
     }
 
-    public BoardEvaluator findBoardEvaluator(String id) {
-        if (!boardEvaluators.containsKey(id)) {
+    public Map findBoardEvaluatoSettings(String id) {
+        if (!boardEvaluatorSettings.containsKey(id)) {
             throw new IllegalArgumentException("Could not find board evaluator id '" + id + "' in " + gameSettings);
         }
-        return boardEvaluators.get(id);
+        return boardEvaluatorSettings.get(id);
     }
 
     public PieceGenerator findPieceGenerator(String id) {

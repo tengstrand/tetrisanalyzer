@@ -87,7 +87,7 @@ public class CustomSystemSettingsTest {
 
         assertEquals(2, systemSettings.gameSettings.size());
         assertEquals(1, systemSettings.pieceGenerators.size());
-        assertEquals(1, systemSettings.boardEvaluators.size());
+        assertEquals(1, systemSettings.boardEvaluatorSettings.size());
 
         assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX);
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);
@@ -95,7 +95,6 @@ public class CustomSystemSettingsTest {
         LinearCongrentialPieceGenerator pieceGenerator = (LinearCongrentialPieceGenerator) systemSettings.pieceGenerators.get("linear");
         assertEquals(1234567, pieceGenerator.constant1);
 
-        assertEquals(8, systemSettings.boardEvaluators.get("Tengstrand 1.2").boardWidth());
-        assertEquals(18, systemSettings.boardEvaluators.get("Tengstrand 1.2").boardHeight());
+        assertEquals("[8,18]", systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("board"));
     }
 }

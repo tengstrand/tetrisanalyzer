@@ -9,8 +9,6 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 public class GameState {
-    public final String parameterName;
-    public final Object parameterValue;
     public Duration duration;
     public final Board board;
     public ColoredBoard coloredBoard;
@@ -27,25 +25,18 @@ public class GameState {
     public long numberOfCells;
 
     public GameState(Duration duration, ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
-        this(null, null, duration, coloredBoard, boardEvaluator, pieceGenerator, movesLeft);
-    }
-
-    public GameState(String parameterName, Object parameterValue, Duration duration, ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
-        this(parameterName, parameterValue, duration, coloredBoard.asBoard(), boardEvaluator, pieceGenerator, movesLeft);
+        this(duration, coloredBoard.asBoard(), boardEvaluator, pieceGenerator, movesLeft);
         this.coloredBoard = coloredBoard;
     }
 
     public GameState(Duration duration, Board board, PieceGenerator pieceGenerator, BoardEvaluator boardEvaluator, int movesLeft) {
-        this(null, null, duration, board, boardEvaluator, pieceGenerator, movesLeft);
+        this(duration, board, boardEvaluator, pieceGenerator, movesLeft);
     }
 
-    public GameState(String parameterName, Object parameterValue, Duration duration, Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
-        this.parameterName = parameterName;
-        this.parameterValue = parameterValue;
+    public GameState(Duration duration, Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
         this.duration = duration;
         this.board = board;
-        this.boardEvaluator = boardEvaluator.copy();
-        this.boardEvaluator.setParameter(parameterName, parameterValue);
+        this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.movesLeft = movesLeft;
         this.nonstop = movesLeft <= 0;
@@ -60,20 +51,18 @@ public class GameState {
     }
 
     public GameState copy() {
-        return new GameState(parameterName, parameterValue, duration, board, coloredBoard, boardEvaluator, pieceGenerator,
+        return new GameState(duration, board, coloredBoard, boardEvaluator, pieceGenerator,
                 moves, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows, numberOfCells);
     }
 
-    private GameState(String parameterName, Object parameterValue, Duration duration, Board board,
+    private GameState(Duration duration, Board board,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                       long moves, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows, long numberOfCells) {
-        this.parameterName = parameterName;
-        this.parameterValue = parameterValue;
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
-        this.boardEvaluator = boardEvaluator.copy();
+        this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
         this.moves = moves;
         this.nonstop = nonstop;

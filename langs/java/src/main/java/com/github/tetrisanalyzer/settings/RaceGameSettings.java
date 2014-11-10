@@ -6,6 +6,9 @@ import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class RaceGameSettings {
@@ -28,7 +31,7 @@ public class RaceGameSettings {
 
      */
 
-    public RaceGameSettings(String parameterName, Map settings, BoardEvaluator boardEvaluator,
+    public RaceGameSettings(String parameterName, Map settings, Map boardEvaluatorSettings,
                             PieceGenerator pieceGenerator, Duration mainDuration, ColoredBoard mainBoard) {
         reader = new SettingsReader(settings, "game");
 
@@ -46,7 +49,37 @@ public class RaceGameSettings {
         if (board == null && mainBoard == null) {
             board = ColoredBoard.create(10, 20);
         }
-        game = new GameState(parameterName, parameterValue, duration != null ? duration : mainDuration,
+
+        Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
+        BoardEvaluator boardEvaluator = createBoardEvaluator(evaluatorSettings);
+
+        game = new GameState(duration != null ? duration : mainDuration,
                 board != null ? board : mainBoard, boardEvaluator, pieceGenerator, movesLeft);
     }
+
+    private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Object parameterValue) {
+        Map result = new HashMap();
+        result.putAll(boardEvaluatorSettings);
+        if (parameterName != null) {
+            result.put(parameterName, parameterValue);
+        }
+        return result;
+    }
+
+    private BoardEvaluator createBoardEvaluator(Map settings) {
+        SettingsReader mapReader = new SettingsReader(settings, "piece generator");
+        Class clazz = mapReader.readClass("class");
+
+        try {
+            Constructor constructor = clazz.getConstructor(Map.class);
+            return (BoardEvaluator)constructor.newInstance(settings);
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException(e.getTargetException());
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+
 }
