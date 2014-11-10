@@ -10,30 +10,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomSystemSettings {
+public class SystemSettings {
     public SettingsReader reader;
     public Map<String, GameSettings> gameSettings = new HashMap<>();
     public Map<String, PieceGenerator> pieceGenerators = new HashMap<>();
     public Map<String, Map> boardEvaluatorSettings = new HashMap<>();
 
-    public static CustomSystemSettings fromString(String settings) {
+    public static SystemSettings fromString(String settings) {
         try {
-            return new CustomSystemSettings((Map) new YamlReader(settings).read());
+            return new SystemSettings((Map) new YamlReader(settings).read());
         } catch (YamlException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    public static CustomSystemSettings fromFile(String filename) {
+    public static SystemSettings fromFile(String filename) {
         try {
             Map content = (Map)new YamlReader(new FileReader(filename)).read();
-            return new CustomSystemSettings(content);
+            return new SystemSettings(content);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private CustomSystemSettings(Map settings) {
+    private SystemSettings(Map settings) {
         this.reader = new SettingsReader(settings, "system settings");
         setGameRules();
         setPieceGenerators();

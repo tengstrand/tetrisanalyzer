@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.gui;
 
 import com.github.tetrisanalyzer.game.GameMessage;
 import com.github.tetrisanalyzer.game.GameState;
-import com.github.tetrisanalyzer.settings.CustomSystemSettings;
+import com.github.tetrisanalyzer.settings.SystemSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         frame.setLayout(new GridLayout());
 
         String systemFilename = "C:/TetrisAnalyzer/settings/system.yaml";
-        CustomSystemSettings systemSettings = CustomSystemSettings.fromFile(systemFilename);
+        SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
 
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);

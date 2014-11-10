@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 
-public class CustomSystemSettingsTest {
+public class SystemSettingsTest {
 
     public static String SYSTEM_SETTINGS = "\n" +
             "game rules:\n" +
@@ -83,7 +83,7 @@ public class CustomSystemSettingsTest {
 
     @Test
     public void readSystemSettings() {
-        CustomSystemSettings systemSettings = CustomSystemSettings.fromString(SYSTEM_SETTINGS);
+        SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
 
         assertEquals(2, systemSettings.gameSettings.size());
         assertEquals(1, systemSettings.pieceGenerators.size());

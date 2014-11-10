@@ -23,7 +23,7 @@ public class RaceSettings {
 
     public List<RaceGameSettings> games = new ArrayList<>();
 
-    public static RaceSettings fromString(String settings, CustomSystemSettings systemSettings) {
+    public static RaceSettings fromString(String settings, SystemSettings systemSettings) {
         try {
             return new RaceSettings((Map) new YamlReader(settings).read(), systemSettings);
         } catch (YamlException e) {
@@ -31,7 +31,7 @@ public class RaceSettings {
         }
     }
 
-    public static RaceSettings fromFile(String filename, CustomSystemSettings systemSettings) {
+    public static RaceSettings fromFile(String filename, SystemSettings systemSettings) {
         try {
             return new RaceSettings((Map) new YamlReader(new FileReader(filename)).read(), systemSettings);
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class RaceSettings {
         }
     }
 
-    private RaceSettings(Map settings, CustomSystemSettings systemSettings) {
+    private RaceSettings(Map settings, SystemSettings systemSettings) {
         reader = new SettingsReader(settings, "race");
 
         Duration duration = reader.readDuration();
