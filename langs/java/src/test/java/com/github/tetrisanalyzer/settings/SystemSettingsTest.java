@@ -2,7 +2,6 @@ package com.github.tetrisanalyzer.settings;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -93,9 +92,9 @@ public class SystemSettingsTest {
         assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX);
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);
 
-        Map pieceGeneratorSettings = systemSettings.pieceGeneratorSettings.get("linear");
-        assertEquals("1234567", pieceGeneratorSettings.get("constant 1"));
+        Map pieceGeneratorSettings = systemSettings.pieceGeneratorSettings.get("Linear");
+        assertEquals("1234567", pieceGeneratorSettings.get("constant1"));
 
-        assertEquals(Arrays.asList("8", "18"), systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("board"));
+        assertEquals("0.86", systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("heightFactorDelta"));
     }
 }
