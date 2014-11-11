@@ -44,7 +44,7 @@ public class RaceGameSettings {
         minRows = reader.readInteger("min rows", Integer.MAX_VALUE);
         maxRows = reader.readInteger("max rows", Integer.MIN_VALUE);
 
-        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator settings"));
+        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state"));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard board = reader.readBoard();

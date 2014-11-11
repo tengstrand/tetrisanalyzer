@@ -29,7 +29,7 @@ public class RaceSettingsTest {
                 "   rows/game: 23100\n" +
                 "   cell area: 1.2342342\n" +
                 "   pieces/s: 10987\n" +
-                "   piece generator settings: {seed: 11, constant2: 4444}\n" +
+                "   piece generator state: {seed: 11, constant2: 4444}\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
                 "\n" +
                 " - parameter value: 3.55\n" +
@@ -43,7 +43,7 @@ public class RaceSettingsTest {
                 "   rows/game: 33333\n" +
                 "   cells/pos: 1.4142342\n" +
                 "   pieces/s: 10123\n" +
-                "   piece generator settings: {seed: 12}\n" +
+                "   piece generator state: {seed: 12}\n" +
                 "   distribution: [1,3,5,9,21,31,11,4,1,1,1]";
 
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
