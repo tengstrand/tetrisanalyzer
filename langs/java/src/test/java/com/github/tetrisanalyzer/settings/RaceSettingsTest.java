@@ -20,7 +20,8 @@ public class RaceSettingsTest {
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19308\n" +
-            "   pieces: 153065282\n" +
+            "   pieces: 63332\n" +
+            "   pieces total: 153065282\n" +
             "   rows: 2666\n" +
             "   min rows: 2\n" +
             "   max rows: 27478\n" +
@@ -34,7 +35,8 @@ public class RaceSettingsTest {
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19488\n" +
-            "   pieces: 155367231\n" +
+            "   pieces: 54343\n" +
+            "   pieces total: 155367231\n" +
             "   rows: 6466\n" +
             "   min rows: 2\n" +
             "   max rows: 29919\n" +

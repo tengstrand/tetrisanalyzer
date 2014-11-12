@@ -172,6 +172,10 @@ public class Duration {
         return String.format("%dd %dh %dm %d.%03ds", days, hours, minutes, seconds, millis);
     }
 
+    public String asDaysHoursMinutes() {
+        return String.format("%dd %dh %dm", days, hours, minutes, seconds);
+    }
+
     @Override
     public String toString() {
         return asString();

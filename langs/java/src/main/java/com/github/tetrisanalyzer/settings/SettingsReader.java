@@ -214,6 +214,20 @@ public class SettingsReader {
         return new Duration(readString("duration"));
     }
 
+    public int readBoardWidth() {
+        if (!exists("board")) {
+            return 10;
+        }
+        return readIntegers("board", 2).get(0);
+    }
+
+    public int readBoardHeight() {
+        if (!exists("board")) {
+            return 20;
+        }
+        return readIntegers("board", 2).get(1);
+    }
+
     public ColoredBoard readBoard() {
         if (!exists("board")) {
             return null;

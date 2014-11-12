@@ -13,26 +13,25 @@ public class ParametersTest {
 
     @Test
     public void parameterValuesAsString() {
-        String[] strings = parameters().rows();
+        String[] rows = parameters().rows();
 
         String result = "";
         String separator = "";
-        for (String string : strings) {
+        for (String string : rows) {
             result += separator + string;
             separator = "\n";
         }
 
         String expected =
-                "parameter value:               3.33               3.55\n" +
-                "----------------  -----------------  -----------------\n" +
-                "duration:         1d 3h 52m 10.760s  1d 3h 52m 10.760s\n" +
-                "games:                            2             19 488\n" +
-                "pieces:                   4 000 000        155 367 231\n" +
-                "rows:                     1 000 000              6 466\n" +
-                "min rows:                         2                  2\n" +
-                "max rows:                    27 478             29 919\n" +
-                "pieces/s:                     39.87              1 548\n" +
-                "rows/game:                  500 000                  0";
+                "parameter value:       3.33       3.55\n" +
+                "----------------  ---------  ---------\n" +
+                "duration:         1d 3h 52m  1d 3h 52m\n" +
+                "games:                    2     19 488\n" +
+                "rows:                     0          0\n" +
+                "min rows:                 2          2\n" +
+                "max rows:            27 478     29 919\n" +
+                "pieces/s:             39.87      1 548\n" +
+                "rows/game:          500 000          0";
 
         assertEquals(expected, result);
     }

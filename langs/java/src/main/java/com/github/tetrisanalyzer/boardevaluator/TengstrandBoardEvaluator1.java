@@ -54,17 +54,15 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     public double[] areaHeightFactors;
     public double[] areaHeightEqFactors;
 
-    public TengstrandBoardEvaluator1() {
-        this(10, 20);
+    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
+        init(boardWidth, boardHeight);
     }
 
     public TengstrandBoardEvaluator1(Map settings) {
-        this(boardWidth(settings), boardHeight(settings));
-
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
-        boardWidth = boardWidth(settings);
-        boardHeight = boardHeight(settings);
+        boardWidth = reader.readBoardWidth();
+        boardHeight = reader.readBoardHeight();
         maxEquityFactor = reader.readDouble("maxEquityFactor");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
@@ -91,9 +89,11 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         areaHeightFactor4 = reader.readDouble("areaHeightFactor4");
         areaHeightFactor5 = reader.readDouble("areaHeightFactor5");
         areaHeightFactorDelta = reader.readDouble("areaHeightFactorDelta");
+
+        init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
+    private void init(int boardWidth, int boardHeight) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
@@ -105,14 +105,14 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
 
         maxEquity = boardWidth * (boardHeight - 1) * maxEquityFactor;
 
-        initHeightFactor();
+        initHeightFactors();
         initHollowFactors();
         initAreaWidthFactors();
         initAreaHeightFactors();
         initAreaHeightEqFactors();
     }
 
-    private void initHeightFactor() {
+    private void initHeightFactors() {
         heightFactors[0] = heightFactor0;
         heightFactors[1] = heightFactor1;
         double factor = heightFactor1;
