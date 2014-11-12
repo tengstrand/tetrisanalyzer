@@ -11,12 +11,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
-    private long paintedFrames;
     private Image offscreenImage;
-    private RaceInfo raceInfo;
+    private final RaceInfo raceInfo;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -32,16 +33,18 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
-        RaceInfo raceInfo = new RaceInfo(race.games);
-
-        frame.getContentPane().add(new TetrisAnalyzer(raceInfo));
-
         frame.setSize(900, 650);
         frame.setLocation(300, 300);
         frame.setVisible(true);
 
+        RaceInfo raceInfo = new RaceInfo(race.games);
+        frame.getContentPane().add(new TetrisAnalyzer(raceInfo));
+
+        List<Game> games = new ArrayList<>();
+
         for (RaceGameSettings settings : race.games) {
-            Game game = new Game(settings.gameState, race.tetrisRules);
+            Game game = settings.createGame(race.tetrisRules);
+            games.add(game);
             new Thread(game).start();
         }
     }
@@ -68,16 +71,13 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
     }
 
     public void paint(Graphics g) {
-        // Clear the offscreen image.
         Dimension d = getSize();
         checkOffscreenImage();
         Graphics offG = offscreenImage.getGraphics();
         offG.setColor(Color.white);
         offG.fillRect(0, 0, d.width, d.height);
 
-        // Draw into the offscreen image.
         paintOffscreen(offscreenImage.getGraphics());
-        // Put the offscreen image on the screen.
         g.drawImage(offscreenImage, 0, 0, null);
     }
 

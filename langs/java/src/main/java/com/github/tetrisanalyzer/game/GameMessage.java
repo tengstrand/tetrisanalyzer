@@ -16,7 +16,6 @@ public class GameMessage {
     
     public void setStateIfNeeded(GameState state, TextBoard textBoard, Piece piece, Move move) {
         if (!hasUnreceivedData) {
-            state.duration = state.duration.stop();
             this.gameState = state.copy();
             board = textBoard.asStringRows(piece, move);
             hasUnreceivedData = true;

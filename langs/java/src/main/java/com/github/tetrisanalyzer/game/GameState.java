@@ -29,13 +29,13 @@ public class GameState {
                      PieceGenerator pieceGenerator, long numberOfGames, long numberOfPieces,
                      long totalNumberOfPieces, long totalNumberOfRows, long minRows, long maxRows,
                      long piecesLeft) {
-        //this(duration, coloredBoard.asBoard(), boardEvaluator, pieceGenerator, movesLeft);
         this.duration = duration;
         this.coloredBoard = coloredBoard;
         this.board = coloredBoard.asBoard();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
         this.games = numberOfGames;
+        this.pieces = numberOfPieces;
         this.totalPieces = totalNumberOfPieces;
         this.totalRows = totalNumberOfRows;
         this.minRows = minRows;
@@ -98,19 +98,24 @@ public class GameState {
         return result;
     }
 
-    private int cellStep() {
-        return 2 - (board.width & 1);
-    }
-
     @Override
     public String toString() {
         return "GameState{" +
-                "\nrows=" + rows +
-                "\ntotalPieces=" + totalPieces +
-                "\ngames=" + games +
-                "\nminRows=" + minRows +
-                "\nmaxRows=" + maxRows +
-                "\ntotalRows=" + totalRows +
+                "duration=" + duration +
+                ", board=" + board +
+                ", coloredBoard=" + coloredBoard +
+                ", boardEvaluator=" + boardEvaluator +
+                ", pieceGenerator=" + pieceGenerator +
+                ", pieces=" + pieces +
+                ", totalPieces=" + totalPieces +
+                ", nonstop=" + nonstop +
+                ", movesLeft=" + movesLeft +
+                ", games=" + games +
+                ", rows=" + rows +
+                ", minRows=" + minRows +
+                ", maxRows=" + maxRows +
+                ", totalRows=" + totalRows +
+                ", numberOfCells=" + numberOfCells +
                 '}';
     }
 }

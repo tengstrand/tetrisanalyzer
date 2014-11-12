@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.settings;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.game.Duration;
+import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 
 public class RaceGameSettings {
     private final SettingsReader reader;
+    public Game game;
     public final GameState gameState;
 
     public Object parameterValue;
@@ -108,5 +110,10 @@ public class RaceGameSettings {
     private Class classAttribute(Map settings) {
         SettingsReader mapReader = new SettingsReader(settings, "piece generator");
         return mapReader.readClass("class");
+    }
+
+    public Game createGame(GameSettings tetrisRules) {
+        game = new Game(gameState, tetrisRules);
+        return game;
     }
 }
