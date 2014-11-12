@@ -4,10 +4,10 @@ import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.util.List;
 
-public class Parameters {
+public class RaceInfo {
     private final List<RaceGameSettings> raceGameSettingsList;
 
-    public Parameters(List<RaceGameSettings> raceGameSettingsList) {
+    public RaceInfo(List<RaceGameSettings> raceGameSettingsList) {
         this.raceGameSettingsList = raceGameSettingsList;
     }
 
@@ -19,22 +19,22 @@ public class Parameters {
         rows[2] = rpad("duration:", 16);
         rows[3] = rpad("games:", 16);
         rows[4] = rpad("rows:", 16);
-        rows[5] = rpad("min rows:", 16);
-        rows[6] = rpad("max rows:", 16);
-        rows[7] = rpad("pieces/s:", 16);
-        rows[8] = rpad("rows/game:", 16);
+        rows[5] = rpad("rows/game:", 16);
+        rows[6] = rpad("min rows:", 16);
+        rows[7] = rpad("max rows:", 16);
+        rows[8] = rpad("pieces/s:", 16);
 
         String[] values = new String[8];
 
         for (RaceGameSettings settings : raceGameSettingsList) {
             values[0] = settings.parameterValue.toString();
-            values[1] = settings.gameState.duration.asDaysHoursMinutes();
+            values[1] = settings.gameState.duration.asDaysHoursMinutesSecs();
             values[2] = format(settings.gameState.games);
             values[3] = format(settings.gameState.rows);
-            values[4] = settings.gameState.minRows();
-            values[5] = settings.gameState.maxRows();
-            values[6] = settings.gameState.piecesPerSecond();
-            values[7] = settings.gameState.rowsPerGame();
+            values[4] = settings.gameState.rowsPerGame();
+            values[5] = settings.gameState.minRows();
+            values[6] = settings.gameState.maxRows();
+            values[7] = settings.gameState.piecesPerSecond();
 
             int max = maxValueLength(values);
             rows[0] += "  " + lpad(values[0], max);

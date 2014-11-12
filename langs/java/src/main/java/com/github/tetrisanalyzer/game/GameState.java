@@ -49,11 +49,11 @@ public class GameState {
     }
 
     public String minRows() {
-        return minRows == Long.MAX_VALUE ? "" : format(minRows);
+        return minRows == Long.MAX_VALUE ? "-" : format(minRows);
     }
 
     public String maxRows() {
-        return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
+        return maxRows == Long.MIN_VALUE ? "-" : format(maxRows);
     }
 
     public GameState copy() {

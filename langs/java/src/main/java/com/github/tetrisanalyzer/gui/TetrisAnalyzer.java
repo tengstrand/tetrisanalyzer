@@ -4,7 +4,7 @@ import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
-import com.github.tetrisanalyzer.text.Parameters;
+import com.github.tetrisanalyzer.text.RaceInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
     private long paintedFrames;
     private Image offscreenImage;
-    private Parameters parameters;
+    private RaceInfo raceInfo;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -32,9 +32,9 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
-        Parameters parameters = new Parameters(race.games);
+        RaceInfo raceInfo = new RaceInfo(race.games);
 
-        frame.getContentPane().add(new TetrisAnalyzer(parameters));
+        frame.getContentPane().add(new TetrisAnalyzer(raceInfo));
 
         frame.setSize(900, 650);
         frame.setLocation(300, 300);
@@ -46,8 +46,8 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         }
     }
 
-    public TetrisAnalyzer(Parameters parameters) {
-        this.parameters = parameters;
+    public TetrisAnalyzer(RaceInfo raceInfo) {
+        this.raceInfo = raceInfo;
         addMouseMotionListener(this);
         setVisible(true);
 
@@ -93,7 +93,7 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
 
-        paintTexts(g, 0, parameters.rows());
+        paintTexts(g, 0, raceInfo.rows());
  //       paintTexts(g, 13, message.board);
 
         repaint();

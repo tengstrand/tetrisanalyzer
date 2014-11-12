@@ -172,8 +172,8 @@ public class Duration {
         return String.format("%dd %dh %dm %d.%03ds", days, hours, minutes, seconds, millis);
     }
 
-    public String asDaysHoursMinutes() {
-        return String.format("%dd %dh %dm", days, hours, minutes, seconds);
+    public String asDaysHoursMinutesSecs() {
+        return String.format("%dd %dh %dm %2ds", days, hours, minutes, seconds);
     }
 
     @Override
