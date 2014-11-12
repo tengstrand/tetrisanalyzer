@@ -53,7 +53,7 @@ public class Moves {
     @Override
     public String toString() {
         return "Moves{" +
-                "moves=" + moves +
+                "totalPieces=" + moves +
                 '}';
     }
 }

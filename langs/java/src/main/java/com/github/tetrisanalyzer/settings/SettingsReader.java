@@ -18,7 +18,7 @@ public class SettingsReader {
     }
 
     public int readInteger(String key, int defaultValue) {
-        return exists(key) ? readInteger(key) : defaultValue;
+        return hasValue(key) && !readString(key).isEmpty() ? readInteger(key) : defaultValue;
     }
 
     public int readInteger(String key) {
@@ -31,7 +31,7 @@ public class SettingsReader {
     }
 
     public long readLong(String key, long defaultValue) {
-        return exists(key) ? readLong(key) : defaultValue;
+        return hasValue(key) ? readLong(key) : defaultValue;
     }
 
     public long readLong(String key) {
@@ -44,7 +44,7 @@ public class SettingsReader {
     }
 
     public double readDouble(String key, double defaultValue) {
-        return exists(key) ? readDouble(key) : defaultValue;
+        return hasValue(key) ? readDouble(key) : defaultValue;
     }
 
     public double readDouble(String key) {
@@ -161,8 +161,16 @@ public class SettingsReader {
         return settings.get(key);
     }
 
+    public boolean isEmpty(String key) {
+        return readString(key).isEmpty();
+    }
+
     public boolean exists(String key) {
         return settings.containsKey(key);
+    }
+
+    public boolean hasValue(String key) {
+        return exists(key) && !isEmpty(key);
     }
 
     public void ensureValues(String key, String... validValues) {

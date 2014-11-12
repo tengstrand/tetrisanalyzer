@@ -58,13 +58,13 @@ public class Game implements Runnable {
      */
     @Override
     public void run() {
-        state.duration = Duration.create();
-        PieceMove bestMove = null;
+        PieceMove bestMove;
 
         while (state.nonstop || state.movesLeft > 0) {
             Piece piece = pieceGenerator.nextPiece(settings);
             bestMove = evaluateBestMove(piece);
-            state.moves++;
+            state.totalPieces++;
+            state.pieces++;
 
             if (!state.nonstop) {
                 state.movesLeft--;
@@ -80,8 +80,8 @@ public class Game implements Runnable {
             if (numberOfCells > 50) {
                 state.numberOfCells += numberOfCells;
             }
+            state.duration.setEndTime();
         }
-        state.duration = state.duration.stop();
     }
 
     private TextBoard textBoard() {
@@ -96,6 +96,7 @@ public class Game implements Runnable {
             state.totalRows += state.rows;
             setMinRows();
             setMaxRows();
+            state.pieces = 0;
             state.rows = 0;
             board = state.board.copy();
             initColoredBoard();

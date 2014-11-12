@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertEquals;
 public class SystemSettingsTest {
 
     public static String SYSTEM_SETTINGS = "\n" +
-            "game rules:\n" +
+            "tetris rules:\n" +
             " - id: Standard\n" +
             "   description: Standard Tetris 2007 June 4 (Colin Fahey)\n" +
             "   url: http://colinfahey.com/tetris/tetris.html\n" +

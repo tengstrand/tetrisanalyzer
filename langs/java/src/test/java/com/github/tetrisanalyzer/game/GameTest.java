@@ -21,7 +21,7 @@ public class GameTest {
         ColoredBoard board = ColoredBoard.create(10, 15);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
-        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 5);
+        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 5, 0, 0, 0, 0, 0, 0);
         GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, settings);
         game.run();
@@ -49,7 +49,7 @@ public class GameTest {
 
     @Test
     public void slidePiece() {
-        Board board = Board.create(
+        ColoredBoard board = ColoredBoard.create(
                 "|----------|",
                 "|----------|",
                 "|----------|",
@@ -58,7 +58,7 @@ public class GameTest {
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
-        GameState result = new GameState(Duration.create(), board, pieceGenerator, boardEvaluator, 1);
+        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 1);
         GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, settings);
         game.run();
@@ -83,7 +83,7 @@ public class GameTest {
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
-        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 1);
+        GameState result = new GameState(Duration.create(), board, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 1);
         GameSettings settings = new AtariGameSettings(board);
         Game game = new Game(result, settings);
         game.run();

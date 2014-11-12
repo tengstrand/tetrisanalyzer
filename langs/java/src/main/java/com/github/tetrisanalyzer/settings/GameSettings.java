@@ -38,7 +38,7 @@ public class GameSettings extends PieceSettings {
     }
 
     public String export() {
-        return new Settings("game rules",
+        return new Settings("tetris rules",
                 setting("id", id),
                 setting("url", url),
                 setting("description", description),

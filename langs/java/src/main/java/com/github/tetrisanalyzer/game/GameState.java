@@ -14,32 +14,38 @@ public class GameState {
     public ColoredBoard coloredBoard;
     public final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
-    public long moves;
+    public long pieces;
+    public long totalPieces;
     public boolean nonstop;
     public long movesLeft;
     public long games;
     public long rows;
-    public long minRows = Long.MAX_VALUE;
-    public long maxRows = Long.MIN_VALUE;
+    public long minRows;
+    public long maxRows;
     public long totalRows;
     public long numberOfCells;
 
-    public GameState(Duration duration, ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
-        this(duration, coloredBoard.asBoard(), boardEvaluator, pieceGenerator, movesLeft);
-        this.coloredBoard = coloredBoard;
-    }
-
-    public GameState(Duration duration, Board board, PieceGenerator pieceGenerator, BoardEvaluator boardEvaluator, int movesLeft) {
-        this(duration, board, boardEvaluator, pieceGenerator, movesLeft);
-    }
-
-    public GameState(Duration duration, Board board, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator, int movesLeft) {
+    public GameState(Duration duration, ColoredBoard coloredBoard, BoardEvaluator boardEvaluator,
+                     PieceGenerator pieceGenerator, long numberOfGames, long numberOfPieces,
+                     long totalNumberOfPieces, long totalNumberOfRows, long minRows, long maxRows,
+                     long piecesLeft) {
+        //this(duration, coloredBoard.asBoard(), boardEvaluator, pieceGenerator, movesLeft);
         this.duration = duration;
-        this.board = board;
+        this.coloredBoard = coloredBoard;
+        this.board = coloredBoard.asBoard();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
-        this.movesLeft = movesLeft;
-        this.nonstop = movesLeft <= 0;
+        this.games = numberOfGames;
+        this.totalPieces = totalNumberOfPieces;
+        this.totalRows = totalNumberOfRows;
+        this.minRows = minRows;
+        this.maxRows = maxRows;
+        this.movesLeft = piecesLeft;
+        this.nonstop = piecesLeft <= 0;
+    }
+
+    public String piecesPerSecond() {
+        return duration.xPerSeconds(totalPieces);
     }
 
     public String minRows() {
@@ -52,19 +58,19 @@ public class GameState {
 
     public GameState copy() {
         return new GameState(duration, board, coloredBoard, boardEvaluator, pieceGenerator,
-                moves, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows, numberOfCells);
+                totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows, numberOfCells);
     }
 
     private GameState(Duration duration, Board board,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
-                      long moves, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
+                      long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows, long numberOfCells) {
         this.duration = duration;
         this.board = board.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
-        this.moves = moves;
+        this.totalPieces = totalPieces;
         this.nonstop = nonstop;
         this.movesLeft = movesLeft;
         this.games = games;
@@ -100,7 +106,7 @@ public class GameState {
     public String toString() {
         return "GameState{" +
                 "\nrows=" + rows +
-                "\nmoves=" + moves +
+                "\ntotalPieces=" + totalPieces +
                 "\ngames=" + games +
                 "\nminRows=" + minRows +
                 "\nmaxRows=" + maxRows +

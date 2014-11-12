@@ -3,19 +3,20 @@ package com.github.tetrisanalyzer.game;
 import java.util.Locale;
 
 public class Duration {
-    public final long startMillis;
-    public final long endMillis;
+    public long startMillis;
+    public long endMillis;
+    public long duration;
 
-    public final int days;
-    public final int hours;
-    public final int minutes;
-    public final int seconds;
-    public final int millis;
+    public int days;
+    public int hours;
+    public int minutes;
+    public int seconds;
+    public int millis;
 
-    private final long millisPerDay = 86400000;
-    private final long millisPerHour = 3600000;
-    private final long millisPerMinute = 60000;
-    private final long millisPerSecond = 1000;
+    private long millisPerDay = 86400000;
+    private long millisPerHour = 3600000;
+    private long millisPerMinute = 60000;
+    private long millisPerSecond = 1000;
 
     /**
      * Example: 1d 3h 52m 10.760s
@@ -43,7 +44,7 @@ public class Duration {
         seconds = (int)time(s);
         millis = (int)((time(s) - seconds + .00001) * 1000);
 
-        long duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
+        duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
 
         endMillis = System.currentTimeMillis();
         startMillis = endMillis - duration;
@@ -69,7 +70,7 @@ public class Duration {
         this.seconds = seconds;
         this.millis = millis;
 
-        long duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
+        duration = days * millisPerDay + hours * millisPerHour + minutes * millisPerMinute + seconds * millisPerSecond;
 
         endMillis = System.currentTimeMillis();
         startMillis = endMillis - duration;
@@ -79,11 +80,13 @@ public class Duration {
         if (endMillis < startMillis) {
             throw new IllegalArgumentException("End time is before start time");
         }
-
         this.startMillis = startMillis;
-        this.endMillis = endMillis;
+        initTime(endMillis);
+    }
 
-        long duration = endMillis - startMillis;
+    private void initTime(long endMillis) {
+        this.endMillis = endMillis;
+        duration = endMillis - startMillis;
 
         days = (int) (duration / millisPerDay);
         duration = (duration % millisPerDay);
@@ -93,6 +96,10 @@ public class Duration {
         duration = (duration % millisPerMinute);
         seconds = (int)(duration / millisPerSecond);
         millis = (int)(duration % millisPerSecond);
+    }
+
+    public void setEndTime() {
+        initTime(System.currentTimeMillis());
     }
 
     public static long currentTime() {

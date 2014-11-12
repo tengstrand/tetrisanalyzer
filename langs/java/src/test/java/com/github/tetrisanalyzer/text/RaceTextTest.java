@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class RaceTextTest {
 
-    private final String RACE_SETTINGS = "game rules id: Standard\n" +
+    private final String RACE_SETTINGS = "tetris rules id: Standard\n" +
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
@@ -70,6 +70,7 @@ public class RaceTextTest {
         RaceText raceText = new RaceText(race.games);
 
         List<String> expectedResult = Arrays.asList(
+                "duration: 0d 0h 5m 22.0s",
                 "board: 10 x 12",
                 "piece gen. state: { seed: 12 }",
                 "",

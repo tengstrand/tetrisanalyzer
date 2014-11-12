@@ -13,14 +13,10 @@ import java.util.Map;
 
 public class RaceGameSettings {
     private final SettingsReader reader;
-    private final GameState game;
+    public final GameState gameState;
 
+    public Object parameterValue;
     public Duration duration;
-    public long numberOfGames;
-    public long numberOfPieces;
-    public long totalNumberOfRows;
-    public int minRows;
-    public int maxRows;
 
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
@@ -29,26 +25,30 @@ public class RaceGameSettings {
                             Map pieceGeneratorSettings, Duration mainDuration, ColoredBoard mainBoard) {
         reader = new SettingsReader(settings, "game");
 
-        Object parameterValue = reader.get("parameter value");
-
+        parameterValue = reader.get("parameter value");
         duration = reader.readDuration();
 
-        if (duration == null && mainDuration == null) {
-            duration = Duration.create();
+        if (duration == null) {
+            if (mainDuration != null) {
+                duration = mainDuration;
+            } else {
+                duration = Duration.create();
+            }
         }
 
-        numberOfGames = reader.readLong("games");
-        numberOfPieces = reader.readLong("pieces");
-        totalNumberOfRows = reader.readLong("rows");
+        long numberOfGames = reader.readLong("games");
+        long numberOfPieces = reader.readLong("pieces");
+        long totalNumberOfPieces = reader.readLong("pieces total");
+        long totalNumberOfRows = reader.readLong("rows");
 
-        minRows = reader.readInteger("min rows", Integer.MAX_VALUE);
-        maxRows = reader.readInteger("max rows", Integer.MIN_VALUE);
+        long minRows = reader.readLong("min rows", Long.MAX_VALUE);
+        long maxRows = reader.readLong("max rows", Long.MIN_VALUE);
 
         Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state"));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard board = reader.readBoard();
-        int movesLeft = 0; // TODO: Set value
+        int piecesLeft = 0; // TODO: Set value
 
         if (board == null && mainBoard == null) {
             board = ColoredBoard.create(10, 20);
@@ -57,8 +57,9 @@ public class RaceGameSettings {
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
         boardEvaluator = createBoardEvaluator(evaluatorSettings);
 
-        game = new GameState(duration != null ? duration : mainDuration,
-                board != null ? board : mainBoard, boardEvaluator, pieceGenerator, movesLeft);
+        gameState = new GameState(duration, board != null ? board : mainBoard,
+                boardEvaluator, pieceGenerator, numberOfGames, numberOfPieces,
+                totalNumberOfPieces, totalNumberOfRows, minRows, maxRows, piecesLeft);
     }
 
     private Map pieceGeneratorSettings(Map pieceGeneratorSettings, Map parameters) {

@@ -1,9 +1,10 @@
 package com.github.tetrisanalyzer.gui;
 
-import com.github.tetrisanalyzer.game.GameMessage;
-import com.github.tetrisanalyzer.game.GameState;
-import com.github.tetrisanalyzer.settings.SystemSettings;
+import com.github.tetrisanalyzer.game.Game;
+import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
+import com.github.tetrisanalyzer.settings.SystemSettings;
+import com.github.tetrisanalyzer.text.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +12,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.FileNotFoundException;
 
-import static com.github.tetrisanalyzer.game.StringUtils.format;
-
 public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
 
     private long paintedFrames;
     private Image offscreenImage;
-    private final GameMessage message;
+    private Parameters parameters;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -33,30 +32,22 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
-        int xx = 1;
-/*
-        Game game = newGame(1);
-        frame.getContentPane().add(new TetrisAnalyzer(game.message));
+        Parameters parameters = new Parameters(race.games);
+
+        frame.getContentPane().add(new TetrisAnalyzer(parameters));
 
         frame.setSize(900, 650);
         frame.setLocation(300, 300);
         frame.setVisible(true);
 
-        new Thread(game).start();
-*/
-/*
-        new Thread(game1).start();
-        new Thread(game2).start();
-        new Thread(game3).start();
-        new Thread(game4).start();
-        new Thread(game5).start();
-        new Thread(game6).start();
-        new Thread(game7).start();
-*/
+        for (RaceGameSettings settings : race.games) {
+            Game game = new Game(settings.gameState, race.tetrisRules);
+            new Thread(game).start();
+        }
     }
 
-    public TetrisAnalyzer(GameMessage message) {
-        this.message = message;
+    public TetrisAnalyzer(Parameters parameters) {
+        this.parameters = parameters;
         addMouseMotionListener(this);
         setVisible(true);
 
@@ -102,29 +93,11 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
 
-        GameState state = message.getGameState();
-        String duration = "Duration: " + state.duration.asString();
-        String framesPerSec = "Frames/s: " + state.duration.xPerSeconds(paintedFrames++);
-        String size = "Board: " + state.board.width + " x " + state.board.height;
-        String pieces = "Pieces: " + format(state.moves);
-
-        String games = "Games: " + format(state.games);
-        String rows = "Rows: " + format(state.rows);
-        String rowsPerGame = "Rows/game: " + state.rowsPerGame();
-        String minRows = "Min rows: " + state.minRows();
-        String maxRows = "Max rows: " + state.maxRows();
-        String cellsPerPos = "Cells/pos: " + round(state.numberOfCells / (double) state.moves);
-        String piecesPerSec = "Pieces/s: " + state.duration.xPerSeconds(state.moves);
-
-        paintTexts(g, 0, duration, framesPerSec, size, pieces, rows, rowsPerGame, minRows, maxRows, "", games, cellsPerPos, piecesPerSec);
-        paintTexts(g, 13, message.board);
+        paintTexts(g, 0, parameters.rows());
+ //       paintTexts(g, 13, message.board);
 
         repaint();
         sleep(20);
-    }
-
-    double round(double value) {
-        return ((int)(value * 1000000)) / 1000000.0;
     }
 
     private void paintTexts(Graphics g, int startRow, String... texts) {

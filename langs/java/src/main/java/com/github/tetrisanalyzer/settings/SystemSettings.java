@@ -2,10 +2,8 @@ package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
-import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 import java.io.FileReader;
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,15 +33,15 @@ public class SystemSettings {
 
     private SystemSettings(Map settings) {
         this.reader = new SettingsReader(settings, "system settings");
-        setGameRules();
+        setTetrisRules();
         setPieceGenerators();
         setBoardEvaluators();
     }
 
-    private void setGameRules() {
-        List<Map> gameRules = reader.readMaps("game rules");
+    private void setTetrisRules() {
+        List<Map> tetrisRules = reader.readMaps("tetris rules");
 
-        for (Map map : gameRules) {
+        for (Map map : tetrisRules) {
             String id = new SettingsReader(map, "system settings").readString("id");
             gameSettings.put(id, CustomGameSettings.fromMap(map));
         }
@@ -55,7 +53,6 @@ public class SystemSettings {
         for (Map settings : pieceGenerators) {
             SettingsReader mapReader = new SettingsReader(settings, "piece generator");
             String id = mapReader.readString("id");
-            Class clazz = mapReader.readClass("class");
             this.pieceGeneratorSettings.put(id, settings);
         }
     }
@@ -70,16 +67,7 @@ public class SystemSettings {
         }
     }
 
-    private PieceGenerator createPieceGenerator(Class clazz, Map settings) {
-        try {
-            Constructor constructor = clazz.getConstructor(Map.class);
-            return (PieceGenerator)constructor.newInstance(settings);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    public GameSettings findGameRules(String id) {
+    public GameSettings findTetrisRules(String id) {
         if (!gameSettings.containsKey(id)) {
             throw new IllegalArgumentException("Could not find game rule id '" + id + "' in " + gameSettings);
         }

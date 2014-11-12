@@ -14,7 +14,7 @@ import java.util.Map;
 public class RaceSettings {
     private final SettingsReader reader;
 
-    public GameSettings gameRules;
+    public GameSettings tetrisRules;
     public Map boardEvaluatorSettings;
     public Map pieceGeneratorSettings;
     public String parameterName;
@@ -45,11 +45,11 @@ public class RaceSettings {
         Duration duration = reader.readDuration();
         ColoredBoard board = reader.readBoard();
 
-        String gameRulesId = reader.readString("game rules id");
+        String tetrisRulesId = reader.readString("tetris rules id");
         String boardEvaluatorId = reader.readString("board evaluator id");
         String pieceGeneratorId = reader.readString("piece generator id");
 
-        gameRules = systemSettings.findGameRules(gameRulesId);
+        tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
         boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
         pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(pieceGeneratorId);
 
