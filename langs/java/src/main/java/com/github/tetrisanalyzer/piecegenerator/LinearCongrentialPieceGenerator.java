@@ -32,7 +32,7 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
         super(readString(settings, "id"), readString(settings, "description"));
 
         SettingsReader reader = new SettingsReader(settings, "piece generators");
-        seed = reader.readLong("seed");
+        seed = reader.readLong("seed", 1);
         constant1 = reader.readLong("constant1", 1664525);
         constant2 = reader.readLong("constant2", 1013904223);
     }

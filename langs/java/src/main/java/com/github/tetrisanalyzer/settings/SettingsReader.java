@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.ColoredBoard;
+import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
 
 import java.util.ArrayList;
@@ -76,6 +77,14 @@ public class SettingsReader {
 
     public Map readMap(String key) {
         ensureExists(key);
+        ensureType(key, Map.class);
+        return (Map)get(key);
+    }
+
+    public Map readMap(String key, Map defaultMap) {
+        if (!exists(key)) {
+            return defaultMap;
+        }
         ensureType(key, Map.class);
         return (Map)get(key);
     }
@@ -212,6 +221,14 @@ public class SettingsReader {
             return null;
         }
         return new Duration(readString("duration"));
+    }
+
+    public Distribution readDistribution(int boardWidth, int boardHeight) {
+        if (!exists("distribution")) {
+            return new Distribution(boardWidth, boardHeight);
+        }
+        List<Integer> squares = (List)get("distribution");
+        return new Distribution(squares);
     }
 
     public int readBoardWidth() {

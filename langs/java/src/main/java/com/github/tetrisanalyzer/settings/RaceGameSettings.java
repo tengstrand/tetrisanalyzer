@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.settings;
 
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
+import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.game.GameState;
@@ -19,6 +20,7 @@ public class RaceGameSettings {
 
     public Object parameterValue;
     public Duration duration;
+    public Distribution distribution;
 
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
@@ -38,15 +40,15 @@ public class RaceGameSettings {
             }
         }
 
-        long numberOfGames = reader.readLong("games");
-        long numberOfPieces = reader.readLong("pieces");
-        long totalNumberOfPieces = reader.readLong("pieces total");
-        long totalNumberOfRows = reader.readLong("rows");
+        long numberOfGames = reader.readLong("games", 0);
+        long numberOfPieces = reader.readLong("pieces", 0);
+        long totalNumberOfPieces = reader.readLong("pieces total", 0);
+        long totalNumberOfRows = reader.readLong("rows", 0);
 
         long minRows = reader.readLong("min rows", Long.MAX_VALUE);
         long maxRows = reader.readLong("max rows", Long.MIN_VALUE);
 
-        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state"));
+        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state", new HashMap<>()));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard board = reader.readBoard();
@@ -55,11 +57,14 @@ public class RaceGameSettings {
         if (board == null && mainBoard == null) {
             board = ColoredBoard.create(10, 20);
         }
+        ColoredBoard theBoard = board != null ? board : mainBoard;
+
+        distribution = reader.readDistribution(theBoard.width, theBoard.height);
 
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
         boardEvaluator = createBoardEvaluator(evaluatorSettings);
 
-        gameState = new GameState(duration, board != null ? board : mainBoard,
+        gameState = new GameState(duration, theBoard, distribution,
                 boardEvaluator, pieceGenerator, numberOfGames, numberOfPieces,
                 totalNumberOfPieces, totalNumberOfRows, minRows, maxRows, piecesLeft);
     }
@@ -80,7 +85,7 @@ public class RaceGameSettings {
             Constructor constructor = clazz.getConstructor(Map.class);
             return (PieceGenerator)constructor.newInstance(settings);
         } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException(e.getCause());
         }
     }
 
