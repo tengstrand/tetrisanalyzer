@@ -38,15 +38,15 @@ public class RaceGameSettings {
             }
         }
 
-        long numberOfGames = reader.readLong("games");
-        long numberOfPieces = reader.readLong("pieces");
-        long totalNumberOfPieces = reader.readLong("pieces total");
-        long totalNumberOfRows = reader.readLong("rows");
+        long numberOfGames = reader.readLong("games", 0);
+        long numberOfPieces = reader.readLong("pieces", 0);
+        long totalNumberOfPieces = reader.readLong("pieces total", 0);
+        long totalNumberOfRows = reader.readLong("rows", 0);
 
         long minRows = reader.readLong("min rows", Long.MAX_VALUE);
         long maxRows = reader.readLong("max rows", Long.MIN_VALUE);
 
-        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state"));
+        Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMapOrEmptyIfNotExists("piece generator state"));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard board = reader.readBoard();

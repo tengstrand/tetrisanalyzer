@@ -5,6 +5,7 @@ import com.github.tetrisanalyzer.game.Duration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,10 +76,17 @@ public class SettingsReader {
     }
 
     public Map readMap(String key) {
-        ensureExists(key);
+		ensureExists(key);
         ensureType(key, Map.class);
         return (Map)get(key);
     }
+
+	public Map readMapOrEmptyIfNotExists(String key) {
+		if (!settings.containsKey(key)) {
+			return new HashMap();
+		}
+		return readMap(key);
+	}
 
     public Class readClass(String key) {
         ensureExists(key);
