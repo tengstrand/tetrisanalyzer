@@ -223,14 +223,6 @@ public class SettingsReader {
         return new Duration(readString("duration"));
     }
 
-    public Distribution readDistribution(int boardWidth, int boardHeight) {
-        if (!exists("distribution")) {
-            return new Distribution(boardWidth, boardHeight);
-        }
-        List<Integer> squares = (List)get("distribution");
-        return new Distribution(squares);
-    }
-
     public int readBoardWidth() {
         if (!exists("board")) {
             return 10;
