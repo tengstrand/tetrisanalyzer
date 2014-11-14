@@ -77,12 +77,7 @@ public class Game implements Runnable {
             state.rows += clearedRows;
             numberOfCells += 4 - clearedRows * board.width;
 
-            state.distribution.squares[numberOfCells >> 1] += numberOfCells;
-
-            // TODO: parameterize this
-            if (numberOfCells > 50) {
-                state.numberOfCells += numberOfCells;
-            }
+            state.distribution.addCells(numberOfCells);
             state.duration.setEndTime();
         }
     }

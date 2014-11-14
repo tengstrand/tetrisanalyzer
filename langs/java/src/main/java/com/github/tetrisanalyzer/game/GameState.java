@@ -25,7 +25,6 @@ public class GameState {
     public long minRows;
     public long maxRows;
     public long totalRows;
-    public long numberOfCells;
 
     public GameState(Duration duration, ColoredBoard coloredBoard, Distribution distribution,
                      BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
@@ -61,16 +60,16 @@ public class GameState {
 
     public GameState copy() {
         return new GameState(duration, board, distribution, coloredBoard, boardEvaluator, pieceGenerator,
-                totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows, numberOfCells);
+                totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
     }
 
     private GameState(Duration duration, Board board, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                       long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
-                      long totalRows, long numberOfCells) {
+                      long totalRows) {
         this.duration = duration;
         this.board = board.copy();
-        this.distribution = distribution;
+        this.distribution = distribution.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
@@ -82,7 +81,6 @@ public class GameState {
         this.minRows = minRows;
         this.maxRows = maxRows;
         this.totalRows = totalRows;
-        this.numberOfCells = numberOfCells;
     }
 
     public String rowsPerGame() {
@@ -119,7 +117,6 @@ public class GameState {
                 ", minRows=" + minRows +
                 ", maxRows=" + maxRows +
                 ", totalRows=" + totalRows +
-                ", numberOfCells=" + numberOfCells +
                 '}';
     }
 }

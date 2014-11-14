@@ -12,29 +12,31 @@ public class RaceInfo {
     }
 
     public String[] rows() {
-        String[] rows = new String[9];
+        String[] rows = new String[10];
 
         rows[0] = "parameter value:";
         rows[1] = "----------------";
         rows[2] = rpad("duration:", 16);
         rows[3] = rpad("games:", 16);
         rows[4] = rpad("rows:", 16);
-        rows[5] = rpad("rows/game:", 16);
-        rows[6] = rpad("min rows:", 16);
-        rows[7] = rpad("max rows:", 16);
-        rows[8] = rpad("pieces/s:", 16);
+        rows[5] = rpad("", 16);
+        rows[6] = rpad("rows/game:", 16);
+        rows[7] = rpad("min rows:", 16);
+        rows[8] = rpad("max rows:", 16);
+        rows[9] = rpad("pieces/s:", 16);
 
-        String[] values = new String[8];
+        String[] values = new String[9];
 
         for (RaceGameSettings settings : raceGameSettingsList) {
             values[0] = settings.parameterValue.toString();
             values[1] = settings.gameState.duration.asDaysHoursMinutesSecs();
             values[2] = format(settings.gameState.games);
             values[3] = format(settings.gameState.rows);
-            values[4] = settings.gameState.rowsPerGame();
-            values[5] = settings.gameState.minRows();
-            values[6] = settings.gameState.maxRows();
-            values[7] = settings.gameState.piecesPerSecond();
+            values[4] = "";
+            values[5] = settings.gameState.rowsPerGame();
+            values[6] = settings.gameState.minRows();
+            values[7] = settings.gameState.maxRows();
+            values[8] = settings.gameState.piecesPerSecond();
 
             int max = maxValueLength(values);
             rows[0] += "  " + lpad(values[0], max);
@@ -46,6 +48,7 @@ public class RaceInfo {
             rows[6] += "  " + lpad(values[5], max);
             rows[7] += "  " + lpad(values[6], max);
             rows[8] += "  " + lpad(values[7], max);
+            rows[9] += "  " + lpad(values[8], max);
         }
         return rows;
     }
