@@ -8,10 +8,13 @@ import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class RaceGameSettings {
     private final SettingsReader reader;
@@ -19,6 +22,7 @@ public class RaceGameSettings {
     public final GameState gameState;
 
     public Object parameterValue;
+    public Color color;
     public Duration duration;
     public Distribution distribution;
 
@@ -30,6 +34,9 @@ public class RaceGameSettings {
         reader = new SettingsReader(settings, "game");
 
         parameterValue = reader.get("parameter value");
+        List<Integer> rgb = reader.readIntegers("color", 3, Arrays.asList(0,0,0));
+        color = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+
         duration = reader.readDuration();
 
         if (duration == null) {

@@ -77,7 +77,7 @@ public class Game implements Runnable {
             state.rows += clearedRows;
             numberOfCells += 4 - clearedRows * board.width;
 
-            state.distribution.addCells(numberOfCells);
+            state.distribution.increaseArea(numberOfCells);
             state.duration.setEndTime();
         }
     }

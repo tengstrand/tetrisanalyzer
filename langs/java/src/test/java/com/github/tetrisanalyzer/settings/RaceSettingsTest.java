@@ -17,6 +17,7 @@ public class RaceSettingsTest {
             "cell area range: [0,380]\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +
+            "   color: [255,0,0]\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19308\n" +
@@ -26,12 +27,13 @@ public class RaceSettingsTest {
             "   min rows: 2\n" +
             "   max rows: 27478\n" +
             "   rows/game: 23100\n" +
-            "   cell area: 1.2342342\n" +
+            "   cell area%: 1.2342342\n" +
             "   pieces/s: 10987\n" +
             "   piece generator state: {seed: 11, constant2: 4444}\n" +
             "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
             "\n" +
             " - parameter value: 3.55\n" +
+            "   color: [0,255,0]\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19488\n" +

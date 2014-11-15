@@ -112,6 +112,20 @@ public class SettingsReader {
         return result;
     }
 
+    public List<Integer> readIntegers(String key, int expectedSize, List<Integer> defaultValues) {
+        if (!exists(key)) {
+            return defaultValues;
+        }
+        return readIntegers(key, expectedSize);
+    }
+
+    public List<Integer> readIntegers(String key, int expectedSize) {
+        List<Integer> numbers = readIntegers(key);
+        ensureSize(key, numbers, expectedSize);
+
+        return numbers;
+    }
+
     public List<List> readLists(String key) {
         ensureExists(key);
         ensureType(key, List.class);
@@ -124,7 +138,6 @@ public class SettingsReader {
         return result;
     }
 
-
     public List<Map> readMaps(String key) {
         ensureExists(key);
         ensureType(key, List.class);
@@ -135,13 +148,6 @@ public class SettingsReader {
             result.add(toMap(key, value));
         }
         return result;
-    }
-
-    public List<Integer> readIntegers(String key, int expectedSize) {
-        List<Integer> numbers = readIntegers(key);
-        ensureSize(key, numbers, expectedSize);
-
-        return numbers;
     }
 
     private int toInt(String key, Object value) {
@@ -227,9 +233,12 @@ public class SettingsReader {
         if (!exists("distribution")) {
             return new Distribution(boardWidth, boardHeight);
         }
-        Object obj = get("distribution");
-        int xx = 1;
-        return (Distribution)get("distribution");
+        List<String> list = (List)get("distribution");
+        List<Integer> cells = new ArrayList<>();
+        for (String value : list) {
+            cells.add(Integer.parseInt(value));
+        }
+        return new Distribution(cells);
     }
 
     public int readBoardWidth() {

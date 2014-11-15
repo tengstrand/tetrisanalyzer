@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.text;
 
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RaceInfo {
@@ -11,8 +12,17 @@ public class RaceInfo {
         this.raceGameSettingsList = raceGameSettingsList;
     }
 
+    public List<String> parameters() {
+        List<String> result = new ArrayList<>();
+
+        for (RaceGameSettings settings : raceGameSettingsList) {
+            result.add(settings.parameterValue.toString());
+        }
+        return result;
+    }
+
     public String[] rows() {
-        String[] rows = new String[10];
+        String[] rows = new String[11];
 
         rows[0] = "parameter value:";
         rows[1] = "----------------";
@@ -21,11 +31,12 @@ public class RaceInfo {
         rows[4] = rpad("rows:", 16);
         rows[5] = rpad("", 16);
         rows[6] = rpad("rows/game:", 16);
-        rows[7] = rpad("min rows:", 16);
-        rows[8] = rpad("max rows:", 16);
-        rows[9] = rpad("pieces/s:", 16);
+        rows[7] = rpad("cell area%:", 16);
+        rows[8] = rpad("min rows:", 16);
+        rows[9] = rpad("max rows:", 16);
+        rows[10] = rpad("pieces/s:", 16);
 
-        String[] values = new String[9];
+        String[] values = new String[10];
 
         for (RaceGameSettings settings : raceGameSettingsList) {
             values[0] = settings.parameterValue.toString();
@@ -34,9 +45,10 @@ public class RaceInfo {
             values[3] = format(settings.gameState.rows);
             values[4] = "";
             values[5] = settings.gameState.rowsPerGame();
-            values[6] = settings.gameState.minRows();
-            values[7] = settings.gameState.maxRows();
-            values[8] = settings.gameState.piecesPerSecond();
+            values[6] = settings.gameState.distribution.percentArea();
+            values[7] = settings.gameState.minRows();
+            values[8] = settings.gameState.maxRows();
+            values[9] = settings.gameState.piecesPerSecond();
 
             int max = maxValueLength(values);
             rows[0] += "  " + lpad(values[0], max);
@@ -49,6 +61,7 @@ public class RaceInfo {
             rows[7] += "  " + lpad(values[6], max);
             rows[8] += "  " + lpad(values[7], max);
             rows[9] += "  " + lpad(values[8], max);
+            rows[10] += "  " + lpad(values[9], max);
         }
         return rows;
     }

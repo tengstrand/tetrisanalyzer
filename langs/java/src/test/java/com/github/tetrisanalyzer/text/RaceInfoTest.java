@@ -24,14 +24,16 @@ public class RaceInfoTest {
 
         String expected =
                 "parameter value:           3.33           3.55\n" +
-                "----------------  -------------  -------------\n" +
-                "duration:         1d 3h 52m 10s  1d 3h 52m 10s\n" +
-                "games:                        2         19 488\n" +
-                "rows:                         0              0\n" +
-                "rows/game:              500 000              0\n" +
-                "min rows:                     2              2\n" +
-                "max rows:                27 478         29 919\n" +
-                "pieces/s:                 39.87          1 548";
+                        "----------------  -------------  -------------\n" +
+                        "duration:         1d 3h 52m 10s  1d 3h 52m 10s\n" +
+                        "games:                        2         19 488\n" +
+                        "rows:                         0              0\n" +
+                        "                                              \n" +
+                        "rows/game:              500 000              0\n" +
+                        "cell area%:            100.0000       100.0000\n" +
+                        "min rows:                     2              2\n" +
+                        "max rows:                27 478         29 919\n" +
+                        "pieces/s:                 39.87          1 548";
 
         assertEquals(expected, result);
     }

@@ -9,15 +9,25 @@ import com.github.tetrisanalyzer.text.RaceInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
+public class TetrisAnalyzer extends JPanel implements MouseListener {
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
+    private List<RaceGameSettings> games;
+    private List<Color> colors;
+
+    private final int DIST_X0 = 100;
+    private final int DIST_Y0 = 250;
+    private final int DIST_WIDTH = 600;
+    private final int DIST_HEIGHT = 300;
+    private final int DIST_X1 = DIST_X0 + DIST_WIDTH - 1;
+    private final int DIST_Y1 = DIST_Y0 + DIST_HEIGHT - 1;
+    private final int DIST_X_MID = (DIST_X0 + DIST_X1) / 2;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -37,8 +47,14 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         frame.setLocation(300, 300);
         frame.setVisible(true);
 
+        List<Color> colors = new ArrayList<>();
+        for (RaceGameSettings settings : race.games) {
+            colors.add(settings.color);
+        }
+
         RaceInfo raceInfo = new RaceInfo(race.games);
-        frame.getContentPane().add(new TetrisAnalyzer(raceInfo));
+
+        frame.getContentPane().add(new TetrisAnalyzer(raceInfo, race.games, colors));
 
         List<Game> games = new ArrayList<>();
 
@@ -49,22 +65,59 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         }
     }
 
-    public TetrisAnalyzer(RaceInfo raceInfo) {
+    public TetrisAnalyzer(RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
         this.raceInfo = raceInfo;
-        addMouseMotionListener(this);
+        this.games = games;
+        this.colors = colors;
+        addMouseListener(this);
         setVisible(true);
 
         setPreferredSize(new Dimension(300, 300));
     }
 
-    public void mouseMoved(MouseEvent me) {
-        int x = (int) me.getPoint().getX();
-        int y = (int) me.getPoint().getY();
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+
+        if (y < DIST_Y0 || y > DIST_Y1) {
+            return;
+        }
+        int dx1 = 0;
+        int dx2 = 0;
+        if (x < DIST_X0) {
+            dx1 = -1;
+        } else if (x < DIST_X_MID) {
+            dx1 = 1;
+        } else if (x > DIST_X1) {
+            dx2 = 1;
+        } else {
+            dx2 = -1;
+        }
+
+        for (RaceGameSettings game : games) {
+            int startIdx = game.distribution.startIdx + dx1;
+            int endIdx = game.distribution.endIdx + dx2;
+            int maxIdx = game.distribution.cells.length - 1;
+            if (startIdx < 0) { startIdx = 0; }
+            if (endIdx < 0) { endIdx = 0; }
+            if (startIdx > maxIdx) { startIdx = maxIdx; }
+            if (endIdx > maxIdx) { endIdx = maxIdx; }
+            if (startIdx > endIdx) {
+                int idx = startIdx;
+                startIdx = endIdx;
+                endIdx = idx;
+            }
+            game.distribution.startIdx = startIdx;
+            game.distribution.endIdx = endIdx;
+            game.distribution.initArea();
+        }
     }
 
-    public void mouseDragged(MouseEvent me) {
-        mouseMoved(me);
-    }
+    @Override public void mouseClicked(MouseEvent me) {}
+    @Override public void mouseReleased(MouseEvent e) {}
+    @Override public void mouseEntered(MouseEvent e) {}
+    @Override public void mouseExited(MouseEvent e) {}
 
     public void update(Graphics g) {
         paint(g);
@@ -94,8 +147,11 @@ public class TetrisAnalyzer extends JPanel implements MouseMotionListener {
         g.setFont(monospacedFont);
 
         paintTexts(g, 0, raceInfo.rows());
- //       paintTexts(g, 13, message.board);
 
+        for (RaceGameSettings game : games) {
+            g.setColor(game.color);
+            Diagram.draw(game.distribution.coordinates(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT), g);
+        }
         repaint();
         sleep(20);
     }
