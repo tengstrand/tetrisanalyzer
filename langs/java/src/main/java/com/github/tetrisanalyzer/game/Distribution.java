@@ -15,8 +15,8 @@ public class Distribution {
 
     public Distribution(int boardWidth, int boardHeight) {
         cells = new int[((boardWidth-1) * boardHeight) / 2 + 1];
-        startIdx = 0;
-        endIdx = (int)(cells.length * 0.6);
+        startIdx = (int)(cells.length * 0.1);
+        endIdx = (int)(cells.length * 0.15);
     }
 
     public Distribution(List<Integer> cells) {
