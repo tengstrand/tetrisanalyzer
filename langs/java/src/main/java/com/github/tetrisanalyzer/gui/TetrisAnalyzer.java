@@ -146,7 +146,7 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
 
-        paintTexts(g, 0, raceInfo.rows());
+        raceInfo.paintTexts(g, 0, colors);
 
         for (RaceGameSettings game : games) {
             g.setColor(game.color);
@@ -154,16 +154,6 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         }
         repaint();
         sleep(20);
-    }
-
-    private void paintTexts(Graphics g, int startRow, String... texts) {
-        for (int row=0; row < texts.length; row++) {
-            paintText(texts[row], startRow + row, g);
-        }
-    }
-
-    private void paintText(String text, int row, Graphics g) {
-        g.drawChars(text.toCharArray(), 0, text.length(), 20, 30 + 16 * row);
     }
 
     private void sleep(int ms) {

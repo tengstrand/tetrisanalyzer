@@ -5,6 +5,8 @@ import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static com.github.tetrisanalyzer.settings.RaceSettingsTest.RACE_SETTINGS;
 import static com.github.tetrisanalyzer.settings.SystemSettingsTest.SYSTEM_SETTINGS;
 import static junit.framework.Assert.assertEquals;
@@ -13,7 +15,8 @@ public class RaceInfoTest {
 
     @Test
     public void parameterValuesAsString() {
-        String[] rows = parameters().rows();
+        String[] rows = parameters().rows().rows;
+        String[] parameters = parameters().rows().parameters;
 
         String result = "";
         String separator = "";
@@ -23,7 +26,7 @@ public class RaceInfoTest {
         }
 
         String expected =
-                "parameter value:           3.33           3.55\n" +
+                "parameter value:                              \n" +
                         "----------------  -------------  -------------\n" +
                         "duration:         1d 3h 52m 10s  1d 3h 52m 10s\n" +
                         "games:                        2         19 488\n" +
@@ -36,6 +39,10 @@ public class RaceInfoTest {
                         "pieces/s:                 39.87          1 548";
 
         assertEquals(expected, result);
+        assertEquals(Arrays.asList(
+                "                           3.33",
+                "                                          3.55"),
+                Arrays.asList(parameters));
     }
 
     private RaceInfo parameters() {
