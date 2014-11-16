@@ -13,6 +13,7 @@ public class Graph {
 
     public int startIdx;
     public int endIdx;
+    private int maxIdx;
 
     public int startSelectionIdx;
     public int endSelectionIdx;
@@ -34,6 +35,25 @@ public class Graph {
         this.startSelectionIdx = startSelectionIdx;
         this.endSelectionIdx = endSelectionIdx;
         this.games = games;
+        maxIdx = games.get(0).distribution.cells.length - 1;
+    }
+
+    public void adjustStartIndex(int dx) {
+        int index = startIdx + dx;
+        if (startIdx > endIdx) {
+            startIdx = endIdx;
+        } else {
+            startIdx = index >= 0 ? index : 0;
+        }
+    }
+
+    public void adjustEndIndex(int dx) {
+        int index = endIdx + dx;
+        if (index < startIdx) {
+            endIdx = startIdx;
+        } else {
+            endIdx = index > maxIdx ? maxIdx : index;
+        }
     }
 
     public void draw(Graphics g) {
@@ -44,8 +64,7 @@ public class Graph {
                 lines.drawLines(x, y, g);
             } else {
                 lines.drawLines(x, y, g);
-                lines.drawSelection(x, y, startSelectionIdx, endSelectionIdx, height, g);
-
+                lines.drawSelection(x, y, startSelectionIdx, endSelectionIdx, g);
             }
         }
     }

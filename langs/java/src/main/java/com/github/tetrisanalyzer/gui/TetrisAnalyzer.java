@@ -126,23 +126,10 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
             dx2 = -1;
         }
 
-        RaceGameSettings game = games.get(0);
-        int startIdx = multiGraph.startIdx + dx1;
-        int endIdx = multiGraph.endIdx + dx2;
-        int maxIdx = game.distribution.cells.length - 1;
-        if (startIdx < 0) { startIdx = 0; }
-        if (endIdx < 0) { endIdx = 0; }
-        if (startIdx > maxIdx) { startIdx = maxIdx; }
-        if (endIdx > maxIdx) { endIdx = maxIdx; }
-        if (startIdx > endIdx) {
-            int idx = startIdx;
-            startIdx = endIdx;
-            endIdx = idx;
-        }
-        multiGraph.startIdx = startIdx;
-        multiGraph.endIdx = endIdx;
-
-        System.out.println("[" + x + "," + y + "]");
+        multiGraph.adjustStartIndex(dx1);
+        multiGraph.adjustEndIndex(dx2);
+        overviewGraph.startSelectionIdx = multiGraph.startIdx;
+        overviewGraph.endSelectionIdx = multiGraph.endIdx;
     }
 
     @Override public void mouseClicked(MouseEvent me) {}

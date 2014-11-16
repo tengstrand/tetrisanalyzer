@@ -42,11 +42,25 @@ public class Lines implements Iterable<Line> {
         }
     }
 
-    public void drawSelection(int x, int y, int startIdx, int endIdx, int height, Graphics g) {
+    public void drawSelection(int x, int y, int startIdx, int endIdx, Graphics g) {
+        int height = maxHeight(startIdx, endIdx);
+
         for (int i=startIdx; i < endIdx; i++) {
             g.fillPolygon(polygon(x, y, height, lines.get(i)));
         }
     }
+
+    private int maxHeight(int startIdx, int endIdx) {
+        int height = Integer.MIN_VALUE;
+
+        for (int i=startIdx; i < endIdx; i++) {
+            if (lines.get(i).maxY() > height) {
+                height = lines.get(i).maxY();
+            }
+        }
+        return height;
+    }
+
 
     private Polygon polygon(int x, int y, int height, Line line) {
         int[] xpoints = new int[4];

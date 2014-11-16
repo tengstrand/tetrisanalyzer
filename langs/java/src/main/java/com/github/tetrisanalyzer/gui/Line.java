@@ -13,6 +13,10 @@ public class Line {
         this.vertex2 = vertex2;
     }
 
+    public int maxY() {
+        return vertex1.y > vertex2.y ? vertex1.y : vertex2.y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
