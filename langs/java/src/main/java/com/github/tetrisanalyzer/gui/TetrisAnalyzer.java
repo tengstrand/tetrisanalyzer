@@ -21,6 +21,12 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
     private List<RaceGameSettings> games;
     private List<Color> colors;
 
+    private int startIdx1;
+    private int endIdx1;
+
+    private int startIdx2;
+    private int endIdx2;
+
     private final int DIST_X0 = 50;
     private final int DIST_Y0 = 250;
     private final int DIST_WIDTH = 600;
@@ -43,6 +49,10 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
+        if (race.games.size() == 0) {
+            throw new IllegalArgumentException("Could not find any games for the race");
+        }
+
         frame.setSize(1300, 650);
         frame.setLocation(100, 300);
         frame.setVisible(true);
@@ -53,8 +63,13 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         }
 
         RaceInfo raceInfo = new RaceInfo(race.games);
+        int numberOfCells = race.games.get(0).distribution.cells.length;
+        int startIdx1 = (int)(numberOfCells * 0.1);
+        int endIdx1 =  (int)(numberOfCells * 0.15);
+        int startIdx2 = 0;
+        int endIdx2 = (int)((numberOfCells - 1) * 0.5);
 
-        frame.getContentPane().add(new TetrisAnalyzer(raceInfo, race.games, colors));
+        frame.getContentPane().add(new TetrisAnalyzer(startIdx1, endIdx1, startIdx2, endIdx2, raceInfo, race.games, colors));
 
         List<Game> games = new ArrayList<>();
 
@@ -65,7 +80,11 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         }
     }
 
-    public TetrisAnalyzer(RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+    public TetrisAnalyzer(int startIdx1, int endIdx1, int startIdx2, int endIdx2, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+        this.startIdx1 = startIdx1;
+        this.endIdx1 = endIdx1;
+        this.startIdx2 = startIdx2;
+        this.endIdx2 = endIdx2;
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
@@ -96,22 +115,21 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
             dx2 = -1;
         }
 
-        for (RaceGameSettings game : games) {
-            int startIdx = game.distribution.startIdx + dx1;
-            int endIdx = game.distribution.endIdx + dx2;
-            int maxIdx = game.distribution.cells.length - 1;
-            if (startIdx < 0) { startIdx = 0; }
-            if (endIdx < 0) { endIdx = 0; }
-            if (startIdx > maxIdx) { startIdx = maxIdx; }
-            if (endIdx > maxIdx) { endIdx = maxIdx; }
-            if (startIdx > endIdx) {
-                int idx = startIdx;
-                startIdx = endIdx;
-                endIdx = idx;
-            }
-            game.distribution.startIdx = startIdx;
-            game.distribution.endIdx = endIdx;
+        RaceGameSettings game = games.get(0);
+        int startIdx = this.startIdx1 + dx1;
+        int endIdx = this.endIdx1 + dx2;
+        int maxIdx = game.distribution.cells.length - 1;
+        if (startIdx < 0) { startIdx = 0; }
+        if (endIdx < 0) { endIdx = 0; }
+        if (startIdx > maxIdx) { startIdx = maxIdx; }
+        if (endIdx > maxIdx) { endIdx = maxIdx; }
+        if (startIdx > endIdx) {
+            int idx = startIdx;
+            startIdx = endIdx;
+            endIdx = idx;
         }
+        this.startIdx1 = startIdx;
+        this.endIdx1 = endIdx;
     }
 
     @Override public void mouseClicked(MouseEvent me) {}
@@ -151,12 +169,14 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         int index = games.size() / 2;
         for (RaceGameSettings game : games) {
             g.setColor(game.color);
-            game.distribution.lines(DIST_WIDTH, DIST_HEIGHT).draw(DIST_X0, DIST_Y0, g);
+            game.distribution.lines(startIdx1, endIdx1, DIST_WIDTH, DIST_HEIGHT).draw(DIST_X0, DIST_Y0, g);
 
             if (index-- == 0) {
-                game.distribution.lines((int)(DIST_WIDTH * 0.7), (int)(DIST_HEIGHT * 0.7)).draw(750, DIST_Y0 + 50, g);
+                g.setColor(Color.gray);
+                int width = (int)(DIST_WIDTH * 0.7);
+                int height = (int)(DIST_HEIGHT * 0.7);
+                game.distribution.lines(startIdx2, endIdx2, width, height).draw(750, DIST_Y0 + 50, startIdx1, endIdx1, height, g);
             }
-
         }
         repaint();
         sleep(20);

@@ -10,13 +10,9 @@ import static com.github.tetrisanalyzer.gui.Vertex.Vertex;
 
 public class Distribution {
     public int[] cells;
-    public int startIdx;
-    public int endIdx;
 
     public Distribution(int boardWidth, int boardHeight) {
         cells = new int[((boardWidth-1) * boardHeight) / 2 + 1];
-        startIdx = (int)(cells.length * 0.1);
-        endIdx = (int)(cells.length * 0.15);
     }
 
     public Distribution(List<Integer> cells) {
@@ -29,8 +25,6 @@ public class Distribution {
             }
             this.cells[i++] = square;
         }
-        startIdx = 0;
-        endIdx = this.cells.length - 1;
     }
 
     public void increaseArea(int numberOfCells) {
@@ -38,7 +32,7 @@ public class Distribution {
         cells[index] += numberOfCells;
     }
 
-    private long min() {
+    private long min(int startIdx, int endIdx) {
         long min = Long.MAX_VALUE;
         for (int i=startIdx; i<= endIdx; i++) {
             if (cells[i] < min) {
@@ -48,7 +42,7 @@ public class Distribution {
         return min;
     }
 
-    private long max() {
+    private long max(int startIdx, int endIdx) {
         long max = Long.MIN_VALUE;
         for (int i=startIdx; i<= endIdx; i++) {
             if (cells[i] > max) {
@@ -58,13 +52,13 @@ public class Distribution {
         return max;
     }
 
-    public Lines lines(int width, int height) {
-        return Lines.fromVertices(vertices(width, height));
+    public Lines lines(int startIdx, int endIdx, int width, int height) {
+        return Lines.fromVertices(vertices(startIdx, endIdx, width, height));
     }
 
-    public List<Vertex> vertices(int width, int height) {
-        long min = min();
-        long max = max();
+    public List<Vertex> vertices(int startIdx, int endIdx, int width, int height) {
+        long min = min(startIdx, endIdx);
+        long max = max(startIdx, endIdx);
 
         List<Vertex> result = new ArrayList<>(cells.length);
 

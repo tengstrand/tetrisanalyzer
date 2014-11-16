@@ -41,4 +41,33 @@ public class Lines implements Iterable<Line> {
             g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
         }
     }
+
+    public void draw(int x, int y, int startIdx, int endIdx, int height, Graphics g) {
+        int idx = 0;
+        for (Line line : lines) {
+            if (idx >= startIdx && idx <= endIdx) {
+                g.fillPolygon(polygon(x, y, height, lines.get(idx)));
+            } else {
+                g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
+            }
+            idx++;
+        }
+    }
+
+    private Polygon polygon(int x, int y, int height, Line line) {
+        int[] xpoints = new int[4];
+        int[] ypoints = new int[4];
+
+        xpoints[0] = line.vertex1.x + x;
+        xpoints[1] = line.vertex2.x + x;
+        xpoints[2] = line.vertex2.x + x;
+        xpoints[3] = line.vertex1.x + x;
+
+        ypoints[0] = line.vertex1.y + y;
+        ypoints[1] = line.vertex2.y + y;
+        ypoints[2] = height + y;
+        ypoints[3] = height + y;
+
+        return new Polygon(xpoints, ypoints, 4);
+    }
 }

@@ -15,7 +15,7 @@ public class DistributionTest {
     public void vertices() {
         List<Integer> cells = Arrays.asList(50, 100, 120, 70);
         Distribution distribution = new Distribution(cells);
-        List<Vertex> lines = distribution.vertices(200, 100);
+        List<Vertex> lines = distribution.vertices(0, 3, 200, 100);
         List<Vertex> expected = Arrays.asList(Vertex(0, 100), Vertex(66, 29), Vertex(133, 0), Vertex(200, 72));
 
         assertEquals(expected, lines);
