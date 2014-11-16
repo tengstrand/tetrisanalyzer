@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TetrisAnalyzer extends JPanel implements MouseListener {
@@ -20,20 +21,16 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
     private final RaceInfo raceInfo;
     private List<RaceGameSettings> games;
     private List<Color> colors;
+    private Graph multiGraph;
+    private Graph overviewGraph;
 
-    private int startIdx1;
-    private int endIdx1;
-
-    private int startIdx2;
-    private int endIdx2;
-
-    private final int DIST_X0 = 50;
-    private final int DIST_Y0 = 250;
-    private final int DIST_WIDTH = 600;
-    private final int DIST_HEIGHT = 300;
-    private final int DIST_X1 = DIST_X0 + DIST_WIDTH - 1;
-    private final int DIST_Y1 = DIST_Y0 + DIST_HEIGHT - 1;
-    private final int DIST_X_MID = (DIST_X0 + DIST_X1) / 2;
+    private static final int DIST_X0 = 50;
+    private static final int DIST_Y0 = 250;
+    private static final int DIST_WIDTH = 600;
+    private static final int DIST_HEIGHT = 300;
+    private static final int DIST_X1 = DIST_X0 + DIST_WIDTH - 1;
+    private static final int DIST_Y1 = DIST_Y0 + DIST_HEIGHT - 1;
+    private static final int DIST_X_MID = (DIST_X0 + DIST_X1) / 2;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -64,12 +61,13 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
         RaceInfo raceInfo = new RaceInfo(race.games);
         int numberOfCells = race.games.get(0).distribution.cells.length;
-        int startIdx1 = (int)(numberOfCells * 0.1);
-        int endIdx1 =  (int)(numberOfCells * 0.15);
-        int startIdx2 = 0;
-        int endIdx2 = (int)((numberOfCells - 1) * 0.5);
+        int startIdx = (int)(numberOfCells * 0.1);
+        int endIdx =  (int)(numberOfCells * 0.15);
 
-        frame.getContentPane().add(new TetrisAnalyzer(startIdx1, endIdx1, startIdx2, endIdx2, raceInfo, race.games, colors));
+        Graph multiGraph = multiGraph(startIdx, endIdx, race.games);
+        Graph overviewGraph = overviewGraph(numberOfCells, startIdx, endIdx, race.games);
+
+        frame.getContentPane().add(new TetrisAnalyzer(multiGraph, overviewGraph, raceInfo, race.games, colors));
 
         List<Game> games = new ArrayList<>();
 
@@ -80,11 +78,24 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         }
     }
 
-    public TetrisAnalyzer(int startIdx1, int endIdx1, int startIdx2, int endIdx2, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
-        this.startIdx1 = startIdx1;
-        this.endIdx1 = endIdx1;
-        this.startIdx2 = startIdx2;
-        this.endIdx2 = endIdx2;
+    private static Graph multiGraph(int startIdx, int endIdx, List<RaceGameSettings> games) {
+        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, startIdx, endIdx, games);
+    }
+
+    private static Graph overviewGraph(int numberOfCells, int startSelectionIdx, int endSelectionIdx, List<RaceGameSettings> games) {
+        int index = games.size() / 2;
+        List<RaceGameSettings> game = Arrays.asList(games.get(index));
+
+        int width = (int)(DIST_WIDTH * 0.7);
+        int height = (int)(DIST_HEIGHT * 0.7);
+        int endIdx = (int)((numberOfCells - 1) * 0.5);
+
+        return new Graph(750, DIST_Y0 + 50, width, height, 0, endIdx, startSelectionIdx, endSelectionIdx, game);
+    }
+
+    public TetrisAnalyzer(Graph multiGraph, Graph overviewGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+        this.multiGraph = multiGraph;
+        this.overviewGraph = overviewGraph;
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
@@ -116,8 +127,8 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         }
 
         RaceGameSettings game = games.get(0);
-        int startIdx = this.startIdx1 + dx1;
-        int endIdx = this.endIdx1 + dx2;
+        int startIdx = multiGraph.startIdx + dx1;
+        int endIdx = multiGraph.endIdx + dx2;
         int maxIdx = game.distribution.cells.length - 1;
         if (startIdx < 0) { startIdx = 0; }
         if (endIdx < 0) { endIdx = 0; }
@@ -128,8 +139,10 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
             startIdx = endIdx;
             endIdx = idx;
         }
-        this.startIdx1 = startIdx;
-        this.endIdx1 = endIdx;
+        multiGraph.startIdx = startIdx;
+        multiGraph.endIdx = endIdx;
+
+        System.out.println("[" + x + "," + y + "]");
     }
 
     @Override public void mouseClicked(MouseEvent me) {}
@@ -165,19 +178,10 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         g.setFont(monospacedFont);
 
         raceInfo.paintTexts(g, 0, colors);
+        multiGraph.draw(g);
+        g.setColor(Color.gray);
+        overviewGraph.draw(g);
 
-        int index = games.size() / 2;
-        for (RaceGameSettings game : games) {
-            g.setColor(game.color);
-            game.distribution.lines(startIdx1, endIdx1, DIST_WIDTH, DIST_HEIGHT).draw(DIST_X0, DIST_Y0, g);
-
-            if (index-- == 0) {
-                g.setColor(Color.gray);
-                int width = (int)(DIST_WIDTH * 0.7);
-                int height = (int)(DIST_HEIGHT * 0.7);
-                game.distribution.lines(startIdx2, endIdx2, width, height).draw(750, DIST_Y0 + 50, startIdx1, endIdx1, height, g);
-            }
-        }
         repaint();
         sleep(20);
     }
