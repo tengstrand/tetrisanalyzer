@@ -8,14 +8,12 @@ import com.github.tetrisanalyzer.text.RaceInfo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TetrisAnalyzer extends JPanel implements MouseListener {
+public class TetrisAnalyzer extends JPanel {
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
@@ -99,45 +97,14 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
-        addMouseListener(this);
+        addMouseListener(multiGraph);
+        addMouseMotionListener(multiGraph);
+        addMouseListener(overviewGraph);
+        addMouseMotionListener(overviewGraph);
         setVisible(true);
 
         setPreferredSize(new Dimension(300, 300));
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        adjustGraph(e.getX(), e.getY());
-    }
-
-    private void adjustGraph(int x, int y) {
-        if (y < DIST_Y0 || y > DIST_Y1) {
-            return;
-        }
-        int dx1 = 0;
-        int dx2 = 0;
-        if (x < DIST_X0) {
-            dx1 = -1;
-        } else if (x < DIST_X_MID) {
-            dx1 = 1;
-        } else if (x > DIST_X1) {
-            dx2 = 1;
-        } else {
-            dx2 = -1;
-        }
-
-        multiGraph.adjustStartIndex(dx1);
-        multiGraph.adjustEndIndex(dx2);
-        overviewGraph.startSelectionIdx = multiGraph.startIdx;
-        if (multiGraph.endIdx <= overviewGraph.endIdx) {
-            overviewGraph.endSelectionIdx = multiGraph.endIdx;
-        }
-    }
-
-    @Override public void mouseClicked(MouseEvent me) {}
-    @Override public void mouseReleased(MouseEvent e) {}
-    @Override public void mouseEntered(MouseEvent e) {}
-    @Override public void mouseExited(MouseEvent e) {}
 
     public void update(Graphics g) {
         paint(g);
@@ -168,7 +135,6 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
         raceInfo.paintTexts(g, 0, colors);
         multiGraph.draw(g);
-        g.setColor(Color.gray);
         overviewGraph.draw(g);
 
         repaint();
