@@ -43,8 +43,8 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
-        frame.setSize(900, 650);
-        frame.setLocation(300, 300);
+        frame.setSize(1300, 650);
+        frame.setLocation(100, 300);
         frame.setVisible(true);
 
         List<Color> colors = new ArrayList<>();
@@ -148,9 +148,15 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
         raceInfo.paintTexts(g, 0, colors);
 
+        int index = games.size() / 2;
         for (RaceGameSettings game : games) {
             g.setColor(game.color);
             game.distribution.lines(DIST_WIDTH, DIST_HEIGHT).draw(DIST_X0, DIST_Y0, g);
+
+            if (index-- == 0) {
+                game.distribution.lines((int)(DIST_WIDTH * 0.7), (int)(DIST_HEIGHT * 0.7)).draw(750, DIST_Y0 + 50, g);
+            }
+
         }
         repaint();
         sleep(20);
