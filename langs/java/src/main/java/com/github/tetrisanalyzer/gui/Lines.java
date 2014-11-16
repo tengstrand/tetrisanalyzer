@@ -45,7 +45,7 @@ public class Lines implements Iterable<Line> {
     public void draw(int x, int y, int startIdx, int endIdx, int height, Graphics g) {
         int idx = 0;
         for (Line line : lines) {
-            if (idx >= startIdx && idx <= endIdx) {
+            if (idx >= startIdx && idx < endIdx) {
                 g.fillPolygon(polygon(x, y, height, lines.get(idx)));
             } else {
                 g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
