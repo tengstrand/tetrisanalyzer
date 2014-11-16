@@ -129,7 +129,9 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
         multiGraph.adjustStartIndex(dx1);
         multiGraph.adjustEndIndex(dx2);
         overviewGraph.startSelectionIdx = multiGraph.startIdx;
-        overviewGraph.endSelectionIdx = multiGraph.endIdx;
+        if (multiGraph.endIdx <= overviewGraph.endIdx) {
+            overviewGraph.endSelectionIdx = multiGraph.endIdx;
+        }
     }
 
     @Override public void mouseClicked(MouseEvent me) {}
