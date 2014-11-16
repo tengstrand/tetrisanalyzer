@@ -36,9 +36,9 @@ public class Lines implements Iterable<Line> {
         return lines.iterator();
     }
 
-    public void dras(Graphics g) {
+    public void draw(int x, int y, Graphics g) {
         for (Line line : lines) {
-            g.drawLine(line.vertex1.x, line.vertex1.y, line.vertex2.x, line.vertex2.y);
+            g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
         }
     }
 }

@@ -21,7 +21,7 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
     private List<RaceGameSettings> games;
     private List<Color> colors;
 
-    private final int DIST_X0 = 100;
+    private final int DIST_X0 = 50;
     private final int DIST_Y0 = 250;
     private final int DIST_WIDTH = 600;
     private final int DIST_HEIGHT = 300;
@@ -150,7 +150,7 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
         for (RaceGameSettings game : games) {
             g.setColor(game.color);
-            game.distribution.lines(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT).dras(g);
+            game.distribution.lines(DIST_WIDTH, DIST_HEIGHT).draw(DIST_X0, DIST_Y0, g);
         }
         repaint();
         sleep(20);

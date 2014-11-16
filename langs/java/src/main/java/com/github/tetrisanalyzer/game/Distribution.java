@@ -58,11 +58,11 @@ public class Distribution {
         return max;
     }
 
-    public Lines lines(int x0, int y0, int width, int height) {
-        return Lines.fromVertices(vertices(x0, y0, width, height));
+    public Lines lines(int width, int height) {
+        return Lines.fromVertices(vertices(width, height));
     }
 
-    public List<Vertex> vertices(int x0, int y0, int width, int height) {
+    public List<Vertex> vertices(int width, int height) {
         long min = min();
         long max = max();
 
@@ -72,8 +72,8 @@ public class Distribution {
         double dy = (double)height / (max - min);
 
         for (int i = startIdx; i<=endIdx; i++) {
-            int x = (int)(x0 + (i - startIdx) * dx);
-            int y = y0 + height + - (int)((cells[i] - min) * dy);
+            int x = (int)((i - startIdx) * dx);
+            int y = height + - (int)((cells[i] - min) * dy);
             result.add(Vertex(x, y));
         }
         return result;
