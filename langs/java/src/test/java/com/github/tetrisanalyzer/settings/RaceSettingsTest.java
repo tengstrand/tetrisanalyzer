@@ -27,7 +27,6 @@ public class RaceSettingsTest {
             "   min rows: 2\n" +
             "   max rows: 27478\n" +
             "   rows/game: 23100\n" +
-            "   cell area%: 1.2342342\n" +
             "   pieces/s: 10987\n" +
             "   piece generator state: {seed: 11, constant2: 4444}\n" +
             "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +

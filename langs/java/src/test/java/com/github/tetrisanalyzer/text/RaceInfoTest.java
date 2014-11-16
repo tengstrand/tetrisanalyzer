@@ -33,7 +33,6 @@ public class RaceInfoTest {
                         "rows:                         0              0\n" +
                         "                                              \n" +
                         "rows/game:              500 000              0\n" +
-                        "cell area%:            100.0000       100.0000\n" +
                         "min rows:                     2              2\n" +
                         "max rows:                27 478         29 919\n" +
                         "pieces/s:                 39.87          1 548";

@@ -111,7 +111,6 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
             }
             game.distribution.startIdx = startIdx;
             game.distribution.endIdx = endIdx;
-            game.distribution.initArea();
         }
     }
 

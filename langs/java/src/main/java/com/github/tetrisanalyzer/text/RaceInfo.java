@@ -26,7 +26,7 @@ public class RaceInfo {
     }
 
     public RowsResult rows() {
-        String[] rows = new String[11];
+        String[] rows = new String[10];
 
         final int paramLength = 16;
         rows[0] = "parameter value:";
@@ -36,12 +36,11 @@ public class RaceInfo {
         rows[4] = rpad("rows:", paramLength);
         rows[5] = rpad("", paramLength);
         rows[6] = rpad("rows/game:", paramLength);
-        rows[7] = rpad("cell area%:", paramLength);
-        rows[8] = rpad("min rows:", paramLength);
-        rows[9] = rpad("max rows:", paramLength);
-        rows[10] = rpad("pieces/s:", paramLength);
+        rows[7] = rpad("min rows:", paramLength);
+        rows[8] = rpad("max rows:", paramLength);
+        rows[9] = rpad("pieces/s:", paramLength);
 
-        String[] values = new String[10];
+        String[] values = new String[9];
 
         int parameterIdx = 0;
         String[] parameters = new String[raceGameSettingsList.size()];
@@ -56,10 +55,9 @@ public class RaceInfo {
             values[3] = format(settings.gameState.rows);
             values[4] = "";
             values[5] = settings.gameState.rowsPerGame();
-            values[6] = settings.gameState.distribution.percentArea();
-            values[7] = settings.gameState.minRows();
-            values[8] = settings.gameState.maxRows();
-            values[9] = settings.gameState.piecesPerSecond();
+            values[6] = settings.gameState.minRows();
+            values[7] = settings.gameState.maxRows();
+            values[8] = settings.gameState.piecesPerSecond();
 
             int max = maxValueLength(values);
             rows[0] += "  " + lpad("", max);
@@ -72,7 +70,6 @@ public class RaceInfo {
             rows[7] += "  " + lpad(values[6], max);
             rows[8] += "  " + lpad(values[7], max);
             rows[9] += "  " + lpad(values[8], max);
-            rows[10] += "  " + lpad(values[9], max);
 
             for (int i=0; i<parameters.length; i++) {
                 if (i == parameterIdx) {

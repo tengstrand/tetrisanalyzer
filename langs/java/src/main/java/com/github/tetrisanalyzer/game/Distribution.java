@@ -5,14 +5,11 @@ import com.github.tetrisanalyzer.gui.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.github.tetrisanalyzer.gui.Vertex.Vertex;
 
 public class Distribution {
     public int[] cells;
-    public long area;
-    public long totalArea;
     public int startIdx;
     public int endIdx;
 
@@ -34,34 +31,11 @@ public class Distribution {
         }
         startIdx = 0;
         endIdx = this.cells.length - 1;
-
-        initArea();
-    }
-
-    public String percentArea() {
-        return String.format(Locale.ENGLISH, "%.4f", (area / (double)totalArea) * 100);
-    }
-
-    public void initArea() {
-        area = 0;
-        totalArea = 0;
-
-        for (int i=startIdx; i<=endIdx; i++) {
-            area += cells[i];
-        }
-        for (int i=0; i<cells.length; i++) {
-            totalArea += cells[i];
-        }
     }
 
     public void increaseArea(int numberOfCells) {
         int index = numberOfCells >> 1;
         cells[index] += numberOfCells;
-
-        if (index >= startIdx && index <= endIdx) {
-            area += numberOfCells;
-        }
-        totalArea += numberOfCells;
     }
 
     private long min() {
