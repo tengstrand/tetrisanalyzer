@@ -1,10 +1,12 @@
 package com.github.tetrisanalyzer.game;
 
+import com.github.tetrisanalyzer.gui.Vertex;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.github.tetrisanalyzer.game.XY.XY;
+import static com.github.tetrisanalyzer.gui.Vertex.Vertex;
 
 public class Distribution {
     public int[] cells;
@@ -81,11 +83,11 @@ public class Distribution {
         return max;
     }
 
-    public List<XY> coordinates(int x0, int y0, int width, int height) {
+    public List<Vertex> coordinates(int x0, int y0, int width, int height) {
         long min = min();
         long max = max();
 
-        List<XY> result = new ArrayList<>(cells.length);
+        List<Vertex> result = new ArrayList<>(cells.length);
 
         double dx = (double)width / (endIdx - startIdx);
         double dy = (double)height / (max - min);
@@ -93,11 +95,10 @@ public class Distribution {
         for (int i = startIdx; i<=endIdx; i++) {
             int x = (int)(x0 + (i - startIdx) * dx);
             int y = y0 + height + - (int)((cells[i] - min) * dy);
-            result.add(XY(x, y));
+            result.add(Vertex(x, y));
         }
         return result;
     }
-
 
     public Distribution copy() {
         throw new IllegalStateException("Not implemented");

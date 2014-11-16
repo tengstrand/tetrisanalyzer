@@ -77,9 +77,10 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+        adjustGraph(e.getX(), e.getY());
+    }
 
+    private void adjustGraph(int x, int y) {
         if (y < DIST_Y0 || y > DIST_Y1) {
             return;
         }

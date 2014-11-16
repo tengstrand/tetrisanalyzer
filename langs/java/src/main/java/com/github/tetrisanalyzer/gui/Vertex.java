@@ -1,14 +1,14 @@
-package com.github.tetrisanalyzer.game;
+package com.github.tetrisanalyzer.gui;
 
-public class XY {
+public class Vertex {
     public int x;
     public int y;
 
-    public static XY XY(int x, int y) {
-        return new XY(x, y);
+    public static Vertex Vertex(int x, int y) {
+        return new Vertex(x, y);
     }
 
-    private XY(int x, int y) {
+    private Vertex(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -18,10 +18,10 @@ public class XY {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        XY xy = (XY) o;
+        Vertex vertex = (Vertex) o;
 
-        if (x != xy.x) return false;
-        if (y != xy.y) return false;
+        if (x != vertex.x) return false;
+        if (y != vertex.y) return false;
 
         return true;
     }
@@ -35,7 +35,7 @@ public class XY {
 
     @Override
     public String toString() {
-        return "XY{" +
+        return "Vertex{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
