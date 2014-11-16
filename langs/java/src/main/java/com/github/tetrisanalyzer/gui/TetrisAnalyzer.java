@@ -151,7 +151,7 @@ public class TetrisAnalyzer extends JPanel implements MouseListener {
 
         for (RaceGameSettings game : games) {
             g.setColor(game.color);
-            Diagram.draw(game.distribution.coordinates(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT), g);
+            game.distribution.lines(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT).dras(g);
         }
         repaint();
         sleep(20);

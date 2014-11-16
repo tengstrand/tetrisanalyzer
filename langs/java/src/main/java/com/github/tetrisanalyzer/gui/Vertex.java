@@ -35,9 +35,6 @@ public class Vertex {
 
     @Override
     public String toString() {
-        return "Vertex{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return "(" + x + "," + y + ")";
     }
 }

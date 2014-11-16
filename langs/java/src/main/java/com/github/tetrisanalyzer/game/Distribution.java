@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.game;
 
+import com.github.tetrisanalyzer.gui.Lines;
 import com.github.tetrisanalyzer.gui.Vertex;
 
 import java.util.ArrayList;
@@ -83,7 +84,11 @@ public class Distribution {
         return max;
     }
 
-    public List<Vertex> coordinates(int x0, int y0, int width, int height) {
+    public Lines lines(int x0, int y0, int width, int height) {
+        return Lines.fromVertices(vertices(x0, y0, width, height));
+    }
+
+    public List<Vertex> vertices(int x0, int y0, int width, int height) {
         long min = min();
         long max = max();
 
