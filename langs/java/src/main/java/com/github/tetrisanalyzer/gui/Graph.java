@@ -25,6 +25,7 @@ public class Graph implements MouseListener, MouseMotionListener {
     private static int START_DX = 400;
 
     private boolean mouseButtonPressed;
+    private boolean expandLeft;
     private boolean expandRight;
     private long expandTime;
     private int dx = START_DX;
@@ -64,11 +65,18 @@ public class Graph implements MouseListener, MouseMotionListener {
         if (expandRight) {
             long time = System.currentTimeMillis();
             long timeElapsed = time - expandTime;
-            if (timeElapsed >= dx && endSelectionIdx < maxIdx) {
+            if (timeElapsed >= dx && endIdx < maxIdx) {
                 expandTime = time;
-                if (endIdx < maxIdx) {
-                    endIdx++;
-                }
+                endIdx++;
+                dx *= 0.8;
+            }
+        }
+        if (expandLeft) {
+            long time = System.currentTimeMillis();
+            long timeElapsed = time - expandTime;
+            if (timeElapsed >= dx && startIdx > 0) {
+                expandTime = time;
+                startIdx--;
                 dx *= 0.8;
             }
         }
@@ -131,6 +139,7 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     @Override public void mouseDragged(MouseEvent e) {
         if (mouseSelectX1 > 0) {
+            expandLeft = e.getX() < x1 && e.getX() < lastExpandX && mouseButtonPressed;
             expandRight = e.getX() > x2 && e.getX() > lastExpandX && mouseButtonPressed;
             mouseSelectX2 = calculateX(e);
             lastExpandX = e.getX();
