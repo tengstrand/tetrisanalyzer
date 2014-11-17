@@ -27,8 +27,6 @@ public class TetrisAnalyzer extends JPanel {
     private static final int DIST_WIDTH = 600;
     private static final int DIST_HEIGHT = 300;
     private static final int DIST_X1 = DIST_X0 + DIST_WIDTH - 1;
-    private static final int DIST_Y1 = DIST_Y0 + DIST_HEIGHT - 1;
-    private static final int DIST_X_MID = (DIST_X0 + DIST_X1) / 2;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -136,6 +134,8 @@ public class TetrisAnalyzer extends JPanel {
         raceInfo.paintTexts(g, 0, colors);
         multiGraph.draw(g);
         overviewGraph.draw(g);
+
+        overviewGraph.setSelection(multiGraph);
 
         repaint();
         sleep(20);

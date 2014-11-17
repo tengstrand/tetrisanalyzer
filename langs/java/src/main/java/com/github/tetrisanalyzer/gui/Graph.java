@@ -9,7 +9,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 public class Graph implements MouseListener, MouseMotionListener {
-    private int x;
+    private int x1;
+    private int x2;
     private int y;
     private int width;
     private int height;
@@ -21,18 +22,26 @@ public class Graph implements MouseListener, MouseMotionListener {
     public int startSelectionIdx;
     public int endSelectionIdx;
 
+    private static int START_DX = 400;
+
+    private boolean mouseButtonPressed;
+    private boolean expandRight;
+    private long expandTime;
+    private int dx = START_DX;
+    private int lastExpandX;
     private int mouseSelectX1;
     private int mouseSelectX2;
 
     private List<RaceGameSettings> games;
 
-    public Graph(int x, int y, int width, int height, int startIdx, int endIdx, List<RaceGameSettings> games) {
-        this(x, y, width, height, startIdx, endIdx, -1, -1, games);
+    public Graph(int x1, int y, int width, int height, int startIdx, int endIdx, List<RaceGameSettings> games) {
+        this(x1, y, width, height, startIdx, endIdx, -1, -1, games);
     }
 
     public Graph(int x, int y, int width, int height, int startIdx, int endIdx,
                  int startSelectionIdx, int endSelectionIdx, List<RaceGameSettings> games) {
-        this.x = x;
+        this.x1 = x;
+        this.x2 = x + width;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -44,38 +53,38 @@ public class Graph implements MouseListener, MouseMotionListener {
         maxIdx = games.get(0).distribution.cells.length - 1;
     }
 
-    public void adjustStartIndex(int dx) {
-        int index = startIdx + dx;
-        if (startIdx > endIdx) {
-            startIdx = endIdx;
-        } else {
-            startIdx = index >= 0 ? index : 0;
-        }
-    }
-
-    public void adjustEndIndex(int dx) {
-        int index = endIdx + dx;
-        if (index < startIdx) {
-            endIdx = startIdx;
-        } else {
-            endIdx = index > maxIdx ? maxIdx : index;
-        }
+    public void setSelection(Graph graph) {
+        startSelectionIdx = graph.startIdx;
+        endSelectionIdx = graph.endIdx >= endIdx ? endIdx : graph.endIdx;
     }
 
     public void draw(Graphics g) {
         fillMouseSelection(g);
 
+        if (expandRight) {
+            long time = System.currentTimeMillis();
+            long timeElapsed = time - expandTime;
+            if (timeElapsed >= dx && endSelectionIdx < maxIdx) {
+                expandTime = time;
+                if (endIdx < maxIdx) {
+                    endIdx++;
+                }
+                dx *= 0.8;
+            }
+        }
+
         if (startSelectionIdx >= 0) {
             g.setColor(Color.gray);
         }
         for (RaceGameSettings game : games) {
-            Lines lines = game.distribution.lines(startIdx, endIdx, width, height);
+            int endIndex = endIdx;
+            Lines lines = game.distribution.lines(startIdx, endIndex, width, height);
             if (startSelectionIdx < 0) {
                 g.setColor(game.color);
-                lines.drawLines(x, y, g);
+                lines.drawLines(x1, y, g);
             } else {
-                lines.drawLines(x, y, g);
-                lines.drawSelection(x, y, startSelectionIdx, endSelectionIdx, g);
+                lines.drawLines(x1, y, g);
+                lines.drawSelection(x1, y, startSelectionIdx, endSelectionIdx, g);
             }
         }
     }
@@ -96,14 +105,18 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getX() >= x && e.getX() <= x + width) {
+        if (e.getX() >= x1 && e.getX() <= x2) {
             mouseSelectX1 = mouseSelectX2 = e.getX();
+            mouseButtonPressed = true;
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseSelectX2 = e.getX();
+        mouseButtonPressed = false;
+        expandRight = false;
+        dx = START_DX;
 
         // do stuff
 
@@ -118,17 +131,19 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     @Override public void mouseDragged(MouseEvent e) {
         if (mouseSelectX1 > 0) {
+            expandRight = e.getX() > x2 && e.getX() > lastExpandX && mouseButtonPressed;
             mouseSelectX2 = calculateX(e);
+            lastExpandX = e.getX();
         }
     }
 
     private int calculateX(MouseEvent e) {
         int sx = e.getX();
-        if (sx > x + width) {
-            sx = x + width;
+        if (sx > x2) {
+            sx = x2;
         }
-        if (sx < x) {
-            sx = x;
+        if (sx < x1) {
+            sx = x1;
         }
         return sx;
     }
