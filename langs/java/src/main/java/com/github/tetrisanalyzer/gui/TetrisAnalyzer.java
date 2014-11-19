@@ -57,11 +57,11 @@ public class TetrisAnalyzer extends JPanel {
 
         RaceInfo raceInfo = new RaceInfo(race.games);
         int numberOfCells = race.games.get(0).distribution.cells.length;
-        int startIdx = (int)(numberOfCells * 0.1);
-        int endIdx =  (int)(numberOfCells * 0.15);
+        double start = 0.1;
+        double end = 0.15;
 
-        Graph multiGraph = multiGraph(startIdx, endIdx, race.games);
-        Graph overviewGraph = overviewGraph(numberOfCells, startIdx, endIdx, race.games);
+        Graph multiGraph = multiGraph(start, end, race.games);
+        Graph overviewGraph = overviewGraph(numberOfCells, start, end, race.games);
 
         frame.getContentPane().add(new TetrisAnalyzer(multiGraph, overviewGraph, raceInfo, race.games, colors));
 
@@ -74,11 +74,11 @@ public class TetrisAnalyzer extends JPanel {
         }
     }
 
-    private static Graph multiGraph(int startIdx, int endIdx, List<RaceGameSettings> games) {
-        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, startIdx, endIdx, games);
+    private static Graph multiGraph(double start, double end, List<RaceGameSettings> games) {
+        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, start, end, games);
     }
 
-    private static Graph overviewGraph(int numberOfCells, int startSelectionIdx, int endSelectionIdx, List<RaceGameSettings> games) {
+    private static Graph overviewGraph(int numberOfCells, double startSelection, double endSelection, List<RaceGameSettings> games) {
         int index = games.size() / 2;
         List<RaceGameSettings> game = Arrays.asList(games.get(index));
 
@@ -86,7 +86,7 @@ public class TetrisAnalyzer extends JPanel {
         int height = (int)(DIST_HEIGHT * 0.7);
         int endIdx = (int)((numberOfCells - 1) * 0.5);
 
-        return new Graph(750, DIST_Y0 + 50, width, height, 0, endIdx, startSelectionIdx, endSelectionIdx, game);
+        return new Graph(750, DIST_Y0 + 50, width, height, 0, endIdx, startSelection, endSelection, game);
     }
 
     public TetrisAnalyzer(Graph multiGraph, Graph overviewGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {

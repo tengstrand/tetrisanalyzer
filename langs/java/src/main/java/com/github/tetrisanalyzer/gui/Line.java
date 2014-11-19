@@ -4,16 +4,12 @@ public class Line {
     public final Vertex vertex1;
     public final Vertex vertex2;
 
-    public static Line Line(Vertex vertex1, Vertex vertex2) {
-        return new Line(vertex1, vertex2);
-    }
-
-    private Line(Vertex vertex1, Vertex vertex2) {
+    public Line(Vertex vertex1, Vertex vertex2) {
         this.vertex1 = vertex1;
         this.vertex2 = vertex2;
     }
 
-    public int maxY() {
+    public double maxY() {
         return vertex1.y > vertex2.y ? vertex1.y : vertex2.y;
     }
 

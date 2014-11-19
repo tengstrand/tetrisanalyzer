@@ -1,14 +1,10 @@
 package com.github.tetrisanalyzer.gui;
 
 public class Vertex {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
 
-    public static Vertex Vertex(int x, int y) {
-        return new Vertex(x, y);
-    }
-
-    private Vertex(int x, int y) {
+    public Vertex(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -20,16 +16,20 @@ public class Vertex {
 
         Vertex vertex = (Vertex) o;
 
-        if (x != vertex.x) return false;
-        if (y != vertex.y) return false;
+        if (Double.compare(vertex.x, x) != 0) return false;
+        if (Double.compare(vertex.y, y) != 0) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 

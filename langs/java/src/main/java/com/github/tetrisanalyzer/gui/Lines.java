@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.github.tetrisanalyzer.gui.Line.Line;
-
 public class Lines implements Iterable<Line> {
     public final List<Line> lines;
 
@@ -21,7 +19,7 @@ public class Lines implements Iterable<Line> {
 
         for (int i=1; i<vertices.size(); i++) {
             Vertex vertex2 = vertices.get(i);
-            lines.add(Line(vertex1, vertex2));
+            lines.add(new Line(vertex1, vertex2));
             vertex1 = vertex2;
         }
         return new Lines(lines);
@@ -37,9 +35,11 @@ public class Lines implements Iterable<Line> {
     }
 
     public void drawLines(int x, int y, Graphics g) {
+/*
         for (Line line : lines) {
             g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
         }
+        */
     }
 
     public void drawSelection(int x, int y, int startIdx, int endIdx, Graphics g) {
@@ -51,6 +51,7 @@ public class Lines implements Iterable<Line> {
     }
 
     private int maxHeight(int startIdx, int endIdx) {
+        /*
         int height = Integer.MIN_VALUE;
 
         for (int i=startIdx; i < endIdx; i++) {
@@ -59,10 +60,13 @@ public class Lines implements Iterable<Line> {
             }
         }
         return height;
+        */
+        return 0;
     }
 
 
     private Polygon polygon(int x, int y, int height, Line line) {
+        /*
         int[] xpoints = new int[4];
         int[] ypoints = new int[4];
 
@@ -77,5 +81,7 @@ public class Lines implements Iterable<Line> {
         ypoints[3] = height + y;
 
         return new Polygon(xpoints, ypoints, 4);
+        */
+        return null;
     }
 }

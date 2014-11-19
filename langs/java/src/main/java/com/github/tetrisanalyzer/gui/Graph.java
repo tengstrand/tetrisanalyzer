@@ -15,12 +15,12 @@ public class Graph implements MouseListener, MouseMotionListener {
     private int width;
     private int height;
 
-    public int startIdx;
-    public int endIdx;
+    public double start;
+    public double end;
     private int maxIdx;
 
-    public int startSelectionIdx;
-    public int endSelectionIdx;
+    public double startSelection;
+    public double endSelection;
 
     private static int START_DX = 400;
 
@@ -35,33 +35,34 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     private List<RaceGameSettings> games;
 
-    public Graph(int x1, int y, int width, int height, int startIdx, int endIdx, List<RaceGameSettings> games) {
-        this(x1, y, width, height, startIdx, endIdx, -1, -1, games);
+    public Graph(int x1, int y, int width, int height, double start, double end, List<RaceGameSettings> games) {
+        this(x1, y, width, height, start, end, -1, -1, games);
     }
 
-    public Graph(int x, int y, int width, int height, int startIdx, int endIdx,
-                 int startSelectionIdx, int endSelectionIdx, List<RaceGameSettings> games) {
+    public Graph(int x, int y, int width, int height, double start, double end,
+                 double startSelection, double endSelection, List<RaceGameSettings> games) {
         this.x1 = x;
         this.x2 = x + width;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.startIdx = startIdx;
-        this.endIdx = endIdx;
-        this.startSelectionIdx = startSelectionIdx;
-        this.endSelectionIdx = endSelectionIdx;
+        this.start = start;
+        this.end = end;
+        this.startSelection = startSelection;
+        this.endSelection = endSelection;
         this.games = games;
         maxIdx = games.get(0).distribution.cells.length - 1;
     }
 
     public void setSelection(Graph graph) {
-        startSelectionIdx = graph.startIdx;
-        endSelectionIdx = graph.endIdx >= endIdx ? endIdx : graph.endIdx;
+// todo: fix!
+//        startSelectionIdx = graph.startIdx;
+//        endSelectionIdx = graph.endIdx >= endIdx ? endIdx : graph.endIdx;
     }
 
     public void draw(Graphics g) {
         fillMouseSelection(g);
-
+/*
         if (expandRight) {
             long time = System.currentTimeMillis();
             long timeElapsed = time - expandTime;
@@ -80,21 +81,22 @@ public class Graph implements MouseListener, MouseMotionListener {
                 dx *= 0.8;
             }
         }
-
+*/
+/*
         if (startSelectionIdx >= 0) {
             g.setColor(Color.gray);
         }
         for (RaceGameSettings game : games) {
-            int endIndex = endIdx;
-            Lines lines = game.distribution.lines(startIdx, endIndex, width, height);
+            Lines lines = game.distribution.lines(start, end, width, height);
             if (startSelectionIdx < 0) {
                 g.setColor(game.color);
                 lines.drawLines(x1, y, g);
             } else {
                 lines.drawLines(x1, y, g);
-                lines.drawSelection(x1, y, startSelectionIdx, endSelectionIdx, g);
+                lines.drawSelection(x1, y, startSelection, endSelection, g);
             }
         }
+        */
     }
 
     private void fillMouseSelection(Graphics g) {

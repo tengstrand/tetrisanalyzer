@@ -1,12 +1,11 @@
 package com.github.tetrisanalyzer.game;
 
+import com.github.tetrisanalyzer.gui.Line;
 import com.github.tetrisanalyzer.gui.Lines;
 import com.github.tetrisanalyzer.gui.Vertex;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.github.tetrisanalyzer.gui.Vertex.Vertex;
 
 public class Distribution {
     public int[] cells;
@@ -32,7 +31,8 @@ public class Distribution {
         cells[index] += numberOfCells;
     }
 
-    private long min(int startIdx, int endIdx) {
+/*
+    private long min(double left, double right) {
         long min = Long.MAX_VALUE;
         for (int i=startIdx; i<= endIdx; i++) {
             if (cells[i] < min) {
@@ -51,17 +51,100 @@ public class Distribution {
         }
         return max;
     }
-
-    public Lines lines(int startIdx, int endIdx, int width, int height) {
-        return Lines.fromVertices(vertices(startIdx, endIdx, width, height));
+*/
+    public Lines lines(double left, double right, int width, int height) {
+        return Lines.fromVertices(vertices(left, right, width, height));
     }
 
-    public List<Vertex> vertices(int startIdx, int endIdx, int width, int height) {
-        long min = min(startIdx, endIdx);
-        long max = max(startIdx, endIdx);
+    public List<Vertex> verticesClipHorizontal(double left, double right, int width) {
+        int length = cells.length;
 
-        List<Vertex> result = new ArrayList<>(cells.length);
+        double x1 = length * left;
+        double x2 = length * right;
+        int index1 = (int)x1;
+        int index2;
+        double slice1 = x1 - index1;
+        double slice2;
+        if (right == 1) {
+            index2 = length - 1;
+            slice2 = 1;
+        } else {
+            index2 = (int)x2;
+            slice2 = x2 - index2;
+        }
 
+        int idx = index2 - index1;
+        double dx = idx > 0 ? (double)width / idx : 0;
+
+        List<Vertex> vertices = new ArrayList<>(cells.length + 1);
+
+        int y1 = cells[0] + (int)((cells[1] - cells[0]) * slice1);
+        int y2 = cells[index2 - 1] + (int)((cells[index2] - cells[index2 - 1]) * slice2);
+
+        vertices.add(new Vertex(0, y1));
+
+        for (int i=index1+1; i<index2; i++) {
+            vertices.add(new Vertex(i * dx, cells[i]));
+        }
+        vertices.add(new Vertex(width, y2));
+
+        return vertices;
+    }
+
+    public Lines clipVertically(double top, double bottom, int height, List<Vertex> vertices) {
+        double maxy = Double.MIN_VALUE;
+
+        for (Vertex vertex : vertices) {
+            if (vertex.y > maxy) {
+                maxy = vertex.y;
+            }
+        }
+        double topy = maxy * (1 - top);
+        double bottomy = maxy * (1 - bottom);
+
+        List<Line> lines = new ArrayList<>(vertices.size());
+
+        if (vertices.size() <= 1) {
+            return Lines.fromLines(lines);
+        }
+        Vertex v1 = vertices.get(0);
+        for (int i=1; i<vertices.size(); i++) {
+            Vertex v2 = vertices.get(i);
+            double min = Math.min(v1.y, v2.y);
+            double max = (Math.max(v1.y, v2.y));
+
+            if ((min > topy && max > topy) || (min < bottomy && max < bottomy)) {
+                continue;
+            }
+            double x1 = v1.x;
+            double y1 = v1.y;
+            if (v1.y > topy) {
+                x1 = v1.x + (v2.x - v1.x) * (topy / v1.y);
+                y1 = topy;
+            }
+            if (v1.y < bottomy) {
+                x1 = v1.x + (v2.x - v1.x) * (bottomy / v1.y);
+                y1 = bottomy;
+            }
+            double x2 = v2.x;
+            double y2 = v2.y;
+            if (v2.y > topy) {
+                x2 = v1.x + (v2.x - v1.x) * (topy / v2.y);
+                y2 = topy;
+            }
+            if (v2.y < bottomy) {
+                x1 = v1.x + (v2.x - v1.x) * (bottomy / v2.y);
+                y1 = bottomy;
+            }
+            lines.add(new Line(new Vertex(x1,y1), new Vertex(x2,y2)));
+            v1 = v2;
+        }
+        return Lines.fromLines(lines);
+    }
+
+    public List<Vertex> vertices(double left, double right, int width, int height) {
+
+/*
         double dx = (double)width / (endIdx - startIdx);
         double dy = (double)height / (max - min);
 
@@ -69,8 +152,14 @@ public class Distribution {
             int x = (int)((i - startIdx) * dx);
             int y = height + - (int)((cells[i] - min) * dy);
             result.add(Vertex(x, y));
-        }
-        return result;
+        }*/
+        return null;
+    }
+
+    private double sliceLeft(int x1, int x2, double slice) {
+        int xx = 1;
+
+        return 0;
     }
 
     public Distribution copy() {
