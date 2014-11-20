@@ -20,7 +20,7 @@ public class DistributionTest {
         Vertices expected = new Vertices(
                 new Vertex(0.0, 500.0),
                 new Vertex(1.0, 1000.0),
-                new Vertex(2., 1200.0),
+                new Vertex(2.0, 1200.0),
                 new Vertex(3.0, 700.0));
 
         assertEquals(expected, vertices);
