@@ -38,7 +38,31 @@ public class Vertices {
     }
 
     public Vertices clipHorizontal(double wx1, double wx2) {
-        return null;
+		int lastIdx = vertices.size() - 1;
+
+		double x1 = lastIdx * wx1;
+		double x2 = lastIdx * wx2;
+		int index1 = (int)x1;
+		int index2 = (int)x2;
+
+		List<Vertex> result = new ArrayList<>(lastIdx + 2);
+
+		if (wx1 == 0) {
+			result.add(vertices.get(0));
+		} else {
+			double y = vertices.get(index1).y + ((vertices.get(index1 + 1).y - vertices.get(index1).y)) * (x1 - index1);
+			result.add(new Vertex(x1, y));
+		}
+
+		for (int i=index1+1; i<=index2; i++) {
+			result.add(vertices.get(i));
+		}
+
+		if (wx2 < 1.0) {
+			double y = vertices.get(index2).y + ((vertices.get(index2 + 1).y - vertices.get(index2).y)) * (x2 - index2);
+			result.add(new Vertex(x2, y));
+		}
+		return new Vertices(result);
     }
 
     public Lines clipVertically(double wy1, double wy2) {
