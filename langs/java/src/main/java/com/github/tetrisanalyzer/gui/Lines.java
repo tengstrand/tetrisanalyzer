@@ -35,11 +35,9 @@ public class Lines implements Iterable<Line> {
     }
 
     public void drawLines(int x, int y, Graphics g) {
-/*
         for (Line line : lines) {
-            g.drawLine(x + line.vertex1.x, y + line.vertex1.y, line.vertex2.x + x, line.vertex2.y + y);
+            g.drawLine(x + (int)line.vertex1.x, y + (int)line.vertex1.y, x + (int)line.vertex2.x, y + (int)line.vertex2.y);
         }
-        */
     }
 
     public void drawSelection(int x, int y, int startIdx, int endIdx, Graphics g) {
@@ -83,5 +81,33 @@ public class Lines implements Iterable<Line> {
         return new Polygon(xpoints, ypoints, 4);
         */
         return null;
+    }
+
+    public Lines zoom(int width, int height) {
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lines lines1 = (Lines) o;
+
+        if (lines != null ? !lines.equals(lines1.lines) : lines1.lines != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return lines != null ? lines.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Lines{" +
+                "lines=" + lines +
+                '}';
     }
 }
