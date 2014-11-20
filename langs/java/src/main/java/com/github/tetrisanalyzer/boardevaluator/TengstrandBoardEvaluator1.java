@@ -25,7 +25,6 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     public double hollowFactor1 = 0.533;
     public double hollowFactor2 = 0.6;
     public double hollowFactorDelta = 0.85;
-    public double hollowFactorDeltaDelta = 0.95;
 
     public double areaWidthFactor1 = 4.97;
     public double areaWidthFactor2 = 2.38;
@@ -70,7 +69,6 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         hollowFactor1 = reader.readDouble("hollowFactor1");
         hollowFactor2 = reader.readDouble("hollowFactor2");
         hollowFactorDelta = reader.readDouble("hollowFactorDelta");
-        hollowFactorDeltaDelta = reader.readDouble("hollowFactorDeltaDelta");
         areaWidthFactor1 = reader.readDouble("areaWidthFactor1");
         areaWidthFactor2 = reader.readDouble("areaWidthFactor2");
         areaWidthFactor3 = reader.readDouble("areaWidthFactor3");
@@ -127,11 +125,9 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
         hollowFactors[1] = hollowFactor1;
         hollowFactors[2] = hollowFactor2;
         double factor = hollowFactor2;
-        double delta = 1 - hollowFactorDelta;
 
         for (int i=3; i<hollowFactors.length; i++) {
-            factor *= (1 - delta);
-            delta *= hollowFactorDeltaDelta;
+            factor *= hollowFactorDelta;
             hollowFactors[i] = factor;
         }
     }
