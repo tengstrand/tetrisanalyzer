@@ -62,6 +62,20 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     public void draw(Graphics g) {
         fillMouseSelection(g);
+
+        for (RaceGameSettings game : games) {
+            Lines lines = game.distribution.lines(0, 1, 0, 1, width, height);
+            lines.drawLines(x1, y, g);
+/*
+            if (startSelectionIdx < 0) {
+                g.setColor(game.color);
+                lines.drawLines(x1, y, g);
+            } else {
+                lines.drawLines(x1, y, g);
+                lines.drawSelection(x1, y, startSelection, endSelection, g);
+            }*/
+        }
+
 /*
         if (expandRight) {
             long time = System.currentTimeMillis();

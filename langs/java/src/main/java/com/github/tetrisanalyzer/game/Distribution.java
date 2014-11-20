@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.game;
 import com.github.tetrisanalyzer.gui.Line;
 import com.github.tetrisanalyzer.gui.Lines;
 import com.github.tetrisanalyzer.gui.Vertex;
+import com.github.tetrisanalyzer.gui.Vertices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,41 +32,51 @@ public class Distribution {
         cells[index] += numberOfCells;
     }
 
-/*
-    private long min(double left, double right) {
-        long min = Long.MAX_VALUE;
-        for (int i=startIdx; i<= endIdx; i++) {
-            if (cells[i] < min) {
-                min = cells[i];
+    /*
+        private long min(double left, double right) {
+            long min = Long.MAX_VALUE;
+            for (int i=startIdx; i<= endIdx; i++) {
+                if (cells[i] < min) {
+                    min = cells[i];
+                }
             }
+            return min;
         }
-        return min;
+
+        private long max(int startIdx, int endIdx) {
+            long max = Long.MIN_VALUE;
+            for (int i=startIdx; i<= endIdx; i++) {
+                if (cells[i] > max) {
+                    max = cells[i];
+                }
+            }
+            return max;
+        }
+    */
+
+    Vertices toVertices() {
+        List<Vertex> vertices = new ArrayList<>();
+
+        for (int x=0; x<cells.length; x++) {
+            vertices.add(new Vertex(x, cells[x]));
+        }
+        return new Vertices(vertices);
     }
 
-    private long max(int startIdx, int endIdx) {
-        long max = Long.MIN_VALUE;
-        for (int i=startIdx; i<= endIdx; i++) {
-            if (cells[i] > max) {
-                max = cells[i];
-            }
-        }
-        return max;
-    }
-*/
-    public Lines lines(double left, double right, int width, int height) {
-        return Lines.fromVertices(vertices(left, right, width, height));
+    public Lines lines(double wx1, double wx2, double wy1, double wy2, int width, int height) {
+        return toVertices().normalizeY().clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).zoom(width, height);
     }
 
-    public List<Vertex> verticesClipHorizontal(double left, double right, int width) {
+    List<Vertex> verticesClipHorizontal(double wx1, double wx2, int width) {
         int length = cells.length;
 
-        double x1 = length * left;
-        double x2 = length * right;
+        double x1 = length * wx1;
+        double x2 = length * wx2;
         int index1 = (int)x1;
         int index2;
         double slice1 = x1 - index1;
         double slice2;
-        if (right == 1) {
+        if (wx2 == 1) {
             index2 = length - 1;
             slice2 = 1;
         } else {
@@ -91,7 +102,7 @@ public class Distribution {
         return vertices;
     }
 
-    public Lines clipVertically(double top, double bottom, int height, List<Vertex> vertices) {
+    Lines clipVertically(double wy1, double wy2, int height, List<Vertex> vertices) {
         double maxy = Double.MIN_VALUE;
 
         for (Vertex vertex : vertices) {
@@ -99,8 +110,8 @@ public class Distribution {
                 maxy = vertex.y;
             }
         }
-        double topy = maxy * (1 - top);
-        double bottomy = maxy * (1 - bottom);
+        double topy = maxy * (1 - wy1);
+        double bottomy = maxy * (1 - wy2);
 
         List<Line> lines = new ArrayList<>(vertices.size());
 
@@ -123,7 +134,7 @@ public class Distribution {
                 y1 = topy;
             }
             if (v1.y < bottomy) {
-                x1 = v1.x + (v2.x - v1.x) * (bottomy / v1.y);
+                x1 = v1.x + (v2.x - v1.x) * ((bottomy / v1.y) - 1);
                 y1 = bottomy;
             }
             double x2 = v2.x;
@@ -133,7 +144,7 @@ public class Distribution {
                 y2 = topy;
             }
             if (v2.y < bottomy) {
-                x1 = v1.x + (v2.x - v1.x) * (bottomy / v2.y);
+                x1 = v1.x + (v2.x - v1.x) * (bottomy / v1.y);
                 y1 = bottomy;
             }
             lines.add(new Line(new Vertex(x1,y1), new Vertex(x2,y2)));
