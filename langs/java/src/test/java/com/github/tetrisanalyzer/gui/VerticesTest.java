@@ -24,10 +24,10 @@ public class VerticesTest {
         Vertices normalized = vertices.normalizeY();
 
         Vertices expected = new Vertices(
-                new Vertex(0.0, 0.4166666666666667),
-                new Vertex(1.0, 0.8333333333333334),
-                new Vertex(2.0, 1.0),
-                new Vertex(3.0, 0.5833333333333334));
+                new Vertex(0.0, 0.5833333333333333),
+                new Vertex(1.0, 0.16666666666666663),
+                new Vertex(2.0, 0.0),
+                new Vertex(3.0, 0.41666666666666663));
 
         assertEquals(expected, normalized);
     }
@@ -79,4 +79,28 @@ public class VerticesTest {
 
 		assertEquals(expected, result);
 	}
+
+    @Test
+    public void clipVertically_top() {
+        Lines lines = vertices.clipVertically(0, 0.9);
+
+        Lines expected = new Lines(
+                new Line(new Vertex(0.0, 0.417), new Vertex(1.0,0.833)),
+                new Line(new Vertex(1.0, 0.833), new Vertex(1.9, 0.9)),
+                new Line(new Vertex(2.1, 0.9), new Vertex(3.0,0.583)));
+
+        assertEquals(expected, lines);
+    }
+
+    @Test
+    public void clipVertically_bottom() {
+        Lines lines = vertices.clipVertically(0.45, 1);
+
+        Lines expected = new Lines(
+                new Line(new Vertex(0.9266666666666666, 0.45), new Vertex(1.0,0.833)),
+                new Line(new Vertex(1.0, 0.833), new Vertex(2.0, 1.0)),
+                new Line(new Vertex(2.0, 1.0), new Vertex(3.0,0.583)));
+
+        assertEquals(expected, lines);
+    }
 }

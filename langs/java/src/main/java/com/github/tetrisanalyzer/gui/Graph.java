@@ -55,9 +55,7 @@ public class Graph implements MouseListener, MouseMotionListener {
     }
 
     public void setSelection(Graph graph) {
-// todo: fix!
-//        startSelectionIdx = graph.startIdx;
-//        endSelectionIdx = graph.endIdx >= endIdx ? endIdx : graph.endIdx;
+        // TODO: fix!
     }
 
     public void draw(Graphics g) {
@@ -65,52 +63,9 @@ public class Graph implements MouseListener, MouseMotionListener {
 
         for (RaceGameSettings game : games) {
             Lines lines = game.distribution.lines(0, 1, 0, 1, width, height);
+            g.setColor(game.color);
             lines.drawLines(x1, y, g);
-/*
-            if (startSelectionIdx < 0) {
-                g.setColor(game.color);
-                lines.drawLines(x1, y, g);
-            } else {
-                lines.drawLines(x1, y, g);
-                lines.drawSelection(x1, y, startSelection, endSelection, g);
-            }*/
         }
-
-/*
-        if (expandRight) {
-            long time = System.currentTimeMillis();
-            long timeElapsed = time - expandTime;
-            if (timeElapsed >= dx && endIdx < maxIdx) {
-                expandTime = time;
-                endIdx++;
-                dx *= 0.8;
-            }
-        }
-        if (expandLeft) {
-            long time = System.currentTimeMillis();
-            long timeElapsed = time - expandTime;
-            if (timeElapsed >= dx && startIdx > 0) {
-                expandTime = time;
-                startIdx--;
-                dx *= 0.8;
-            }
-        }
-*/
-/*
-        if (startSelectionIdx >= 0) {
-            g.setColor(Color.gray);
-        }
-        for (RaceGameSettings game : games) {
-            Lines lines = game.distribution.lines(start, end, width, height);
-            if (startSelectionIdx < 0) {
-                g.setColor(game.color);
-                lines.drawLines(x1, y, g);
-            } else {
-                lines.drawLines(x1, y, g);
-                lines.drawSelection(x1, y, startSelection, endSelection, g);
-            }
-        }
-        */
     }
 
     private void fillMouseSelection(Graphics g) {
@@ -142,7 +97,7 @@ public class Graph implements MouseListener, MouseMotionListener {
         expandRight = false;
         dx = START_DX;
 
-        // do stuff
+        //TODO: do stuff!
 
         mouseSelectX1 = -1;
         mouseSelectX2 = -1;

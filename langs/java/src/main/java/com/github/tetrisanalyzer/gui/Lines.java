@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.gui;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,17 +13,8 @@ public class Lines implements Iterable<Line> {
         return new Lines(lines);
     }
 
-    public static Lines fromVertices(List<Vertex> vertices) {
-        List<Line> lines = new ArrayList<>();
-
-        Vertex vertex1 = vertices.get(0);
-
-        for (int i=1; i<vertices.size(); i++) {
-            Vertex vertex2 = vertices.get(i);
-            lines.add(new Line(vertex1, vertex2));
-            vertex1 = vertex2;
-        }
-        return new Lines(lines);
+    public Lines(Line... lines) {
+        this.lines = Arrays.asList(lines);
     }
 
     public Lines(List<Line> lines) {
@@ -40,51 +32,30 @@ public class Lines implements Iterable<Line> {
         }
     }
 
-    public void drawSelection(int x, int y, int startIdx, int endIdx, Graphics g) {
-        int height = maxHeight(startIdx, endIdx);
+    public Lines normalizeX() {
+        double minx = lines.get(0).vertex1.x;
+        double maxx = lines.get(lines.size()-1).vertex2.x;
 
-        for (int i=startIdx; i < endIdx; i++) {
-            g.fillPolygon(polygon(x, y, height, lines.get(i)));
+        if (minx == maxx) {
+            return this;
         }
-    }
+        double scale = (maxx - minx) / (lines.size() * lines.size());
 
-    private int maxHeight(int startIdx, int endIdx) {
-        /*
-        int height = Integer.MIN_VALUE;
+        List<Line> result = new ArrayList<>();
 
-        for (int i=startIdx; i < endIdx; i++) {
-            if (lines.get(i).maxY() > height) {
-                height = lines.get(i).maxY();
-            }
+        for (Line line : lines) {
+            result.add(line.normalizeX(-minx, scale));
         }
-        return height;
-        */
-        return 0;
+        return new Lines(result);
     }
 
+    public Lines resize(int width, int height) {
+        List<Line> result = new ArrayList<>();
 
-    private Polygon polygon(int x, int y, int height, Line line) {
-        /*
-        int[] xpoints = new int[4];
-        int[] ypoints = new int[4];
-
-        xpoints[0] = line.vertex1.x + x;
-        xpoints[1] = line.vertex2.x + x;
-        xpoints[2] = line.vertex2.x + x;
-        xpoints[3] = line.vertex1.x + x;
-
-        ypoints[0] = line.vertex1.y + y;
-        ypoints[1] = line.vertex2.y + y;
-        ypoints[2] = height + y;
-        ypoints[3] = height + y;
-
-        return new Polygon(xpoints, ypoints, 4);
-        */
-        return null;
-    }
-
-    public Lines zoom(int width, int height) {
-        return null;
+        for (Line line : lines) {
+            result.add(line.resize(width, height));
+        }
+        return new Lines(result);
     }
 
     @Override

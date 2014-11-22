@@ -32,7 +32,7 @@ public class Vertices {
 
         double maxy = maxY();
         for (Vertex vertex : vertices) {
-            result.add(new Vertex(vertex.x, vertex.y / maxy));
+            result.add(new Vertex(vertex.x, 1 - vertex.y / maxy));
         }
         return new Vertices(result);
     }
@@ -66,7 +66,42 @@ public class Vertices {
     }
 
     public Lines clipVertically(double wy1, double wy2) {
-        return null;
+        List<Line> lines = new ArrayList<>(vertices.size());
+
+        if (vertices.size() <= 1) {
+            return Lines.fromLines(lines);
+        }
+        Vertex v1 = vertices.get(0);
+        for (int i=1; i<vertices.size(); i++) {
+            Vertex v2 = vertices.get(i);
+
+            double x1 = v1.x;
+            double y1 = v1.y;
+            double x2 = v2.x;
+            double y2 = v2.y;
+
+            if ((y1 < wy1 && y2 < wy1) || (y1 > wy2 && y2 > wy2)) {
+                continue;
+            }
+
+            if (y1 < wy1) {
+                x1 = v1.x + (x2 - x1) * (y1 / wy1);
+                y1 = wy1;
+            } else if (y1 > wy2) {
+                x1 = v1.x + (x2 - x1) * (1 - wy2 / y1);
+                y1 = wy2;
+            }
+            if (y2 < wy1) {
+                x2 = v1.x + (x2 - v1.x) * (y2 / wy2);
+                y2 = wy1;
+            } else if (y2 > wy2) {
+                x2 = v1.x + (x2 - v1.x) * (wy2 / y2);
+                y2 = wy2;
+            }
+            lines.add(new Line(new Vertex(x1,y1), new Vertex(x2,y2)));
+            v1 = v2;
+        }
+        return Lines.fromLines(lines);
     }
 
     @Override

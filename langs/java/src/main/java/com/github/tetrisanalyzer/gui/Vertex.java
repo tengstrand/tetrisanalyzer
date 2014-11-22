@@ -9,6 +9,14 @@ public class Vertex {
         this.y = y;
     }
 
+    public Vertex normalizeX(double adjustX, double scale) {
+        return new Vertex((x + adjustX) * scale, y);
+    }
+
+    public Vertex resize(int width, int height) {
+        return new Vertex(x * width, y * height);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

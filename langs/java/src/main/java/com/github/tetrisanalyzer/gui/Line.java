@@ -9,8 +9,12 @@ public class Line {
         this.vertex2 = vertex2;
     }
 
-    public double maxY() {
-        return vertex1.y > vertex2.y ? vertex1.y : vertex2.y;
+    public Line normalizeX(double adjustX, double scale) {
+        return new Line(vertex1.normalizeX(adjustX, scale), vertex2.normalizeX(adjustX, scale));
+    }
+
+    public Line resize(int width, int height) {
+        return new Line(vertex1.resize(width, height), vertex2.resize(width, height));
     }
 
     @Override
