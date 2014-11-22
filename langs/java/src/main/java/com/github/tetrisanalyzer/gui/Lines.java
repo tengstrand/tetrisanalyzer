@@ -9,10 +9,6 @@ import java.util.List;
 public class Lines implements Iterable<Line> {
     public final List<Line> lines;
 
-    public static Lines fromLines(List<Line> lines) {
-        return new Lines(lines);
-    }
-
     public Lines(Line... lines) {
         this.lines = Arrays.asList(lines);
     }
@@ -30,23 +26,6 @@ public class Lines implements Iterable<Line> {
         for (Line line : lines) {
             g.drawLine(x + (int)line.vertex1.x, y + (int)line.vertex1.y, x + (int)line.vertex2.x, y + (int)line.vertex2.y);
         }
-    }
-
-    public Lines normalizeX() {
-        double minx = lines.get(0).vertex1.x;
-        double maxx = lines.get(lines.size()-1).vertex2.x;
-
-        if (minx == maxx) {
-            return this;
-        }
-        double scale = (maxx - minx) / (lines.size() * lines.size());
-
-        List<Line> result = new ArrayList<>();
-
-        for (Line line : lines) {
-            result.add(line.normalizeX(-minx, scale));
-        }
-        return new Lines(result);
     }
 
     public Lines resize(int width, int height) {

@@ -3,17 +3,24 @@ package com.github.tetrisanalyzer.gui;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
-public class Graph implements MouseListener, MouseMotionListener {
+public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int x1;
     private int x2;
     private int y;
     private int width;
     private int height;
+
+    public double wx1;
+    public double wx2;
+    public double wy1;
+    public double wy2;
 
     private boolean mouseButtonPressed;
     private boolean expandLeft;
@@ -26,11 +33,19 @@ public class Graph implements MouseListener, MouseMotionListener {
     private List<RaceGameSettings> games;
 
     public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
+        this(x, y, width, height, 0, 1, 0, 1, games);
+    }
+
+    public Graph(int x, int y, int width, int height, double wx1, double wx2, double wy1, double wy2, List<RaceGameSettings> games) {
         this.x1 = x;
         this.x2 = x + width;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.wx1 = wx1;
+        this.wx2 = wx2;
+        this.wy1 = wy1;
+        this.wy2 = wy2;
         this.games = games;
     }
 
@@ -42,7 +57,7 @@ public class Graph implements MouseListener, MouseMotionListener {
         fillMouseSelection(g);
 
         for (RaceGameSettings game : games) {
-            Lines lines = game.distribution.lines(0, 1, 0, 1, width, height);
+            Lines lines = game.distribution.lines(wx1, wy1, wx2, wy2, width, height);
             g.setColor(game.color);
             lines.drawLines(x1, y, g);
         }
@@ -104,5 +119,18 @@ public class Graph implements MouseListener, MouseMotionListener {
             sx = x1;
         }
         return sx;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("KeyPressed: " + e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }

@@ -40,8 +40,8 @@ public class Distribution {
         return new Vertices(vertices);
     }
 
-    public Lines lines(double wx1, double wx2, double wy1, double wy2, int width, int height) {
-        return toVertices().normalizeY().clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).normalizeX().resize(width, height);
+    public Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height) {
+        return toVertices().normalizeY().clipHorizontal(wx1, wx2).normalizeX().clipVertically(wy1, wy2).resize(width, height);
     }
 
     public Distribution copy() {

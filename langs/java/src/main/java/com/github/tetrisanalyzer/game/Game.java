@@ -27,7 +27,7 @@ public class Game implements Runnable {
     public ColoredBoard coloredBoard;
     private final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
-    private final GameState state;
+    public final GameState state;
     public final GameMessage message;
     public final PieceSettings settings;
 

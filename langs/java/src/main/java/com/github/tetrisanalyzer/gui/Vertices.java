@@ -65,11 +65,29 @@ public class Vertices {
 		return new Vertices(result);
     }
 
+    public Vertices normalizeX() {
+        int lastIdx = vertices.size() - 1;
+        List<Vertex> result = new ArrayList<>(vertices.size());
+
+        double minx = vertices.get(0).x;
+        double maxx = vertices.get(lastIdx).x;
+
+        if (minx == maxx) {
+            return this;
+        }
+        double scale = 1 / (maxx - minx);
+
+        for (Vertex vertex : vertices) {
+            result.add(vertex.normalizeX(-minx, scale));
+        }
+        return new Vertices(result);
+    }
+
     public Lines clipVertically(double wy1, double wy2) {
         List<Line> lines = new ArrayList<>(vertices.size());
 
         if (vertices.size() <= 1) {
-            return Lines.fromLines(lines);
+            return new Lines(lines);
         }
         Vertex v1 = vertices.get(0);
         for (int i=1; i<vertices.size(); i++) {
@@ -81,27 +99,32 @@ public class Vertices {
             double y2 = v2.y;
 
             if ((y1 < wy1 && y2 < wy1) || (y1 > wy2 && y2 > wy2)) {
+                v1 = v2;
                 continue;
             }
 
             if (y1 < wy1) {
-                x1 = v1.x + (x2 - x1) * (y1 / wy1);
+                x1 = v1.x + (wy1 - v1.y) / (y2 - v1.y) * (x2 - v1.x);
                 y1 = wy1;
             } else if (y1 > wy2) {
-                x1 = v1.x + (x2 - x1) * (1 - wy2 / y1);
+                x1 = v1.x + (v1.y - wy2) / (v1.y - y2) * (x2 - v1.x);
                 y1 = wy2;
             }
             if (y2 < wy1) {
-                x2 = v1.x + (x2 - v1.x) * (y2 / wy2);
+                x2 = v1.x + (v1.y - wy1) / (v1.y - y2) * (x2 - v1.x);
                 y2 = wy1;
             } else if (y2 > wy2) {
-                x2 = v1.x + (x2 - v1.x) * (wy2 / y2);
+                x2 = v1.x + (wy2 - v1.y) / (y2 - v1.y) * (x2 - v1.x);
                 y2 = wy2;
             }
             lines.add(new Line(new Vertex(x1,y1), new Vertex(x2,y2)));
             v1 = v2;
         }
-        return Lines.fromLines(lines);
+        return new Lines(lines);
+    }
+
+    public int size() {
+        return vertices.size();
     }
 
     @Override

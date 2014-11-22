@@ -93,6 +93,34 @@ public class VerticesTest {
     }
 
     @Test
+    public void clipVertically_top_fromTopLeft() {
+        Vertices vertices = new Vertices(
+                new Vertex(0.0, 0.0),
+                new Vertex(1.0, 1.0));
+
+        Lines lines = vertices.clipVertically(0, 0.9);
+
+        Lines expected = new Lines(
+                new Line(new Vertex(0.0, 0.0), new Vertex(0.9,0.9)));
+
+        assertEquals(expected, lines);
+    }
+
+    @Test
+    public void clipVertically_top_fromBottomLeft() {
+        Vertices vertices = new Vertices(
+                new Vertex(0.0, 1.0),
+                new Vertex(1.0, 0.0));
+
+        Lines lines = vertices.clipVertically(0.0, 0.9);
+
+        Lines expected = new Lines(
+                new Line(new Vertex(0.09999999999999998, 0.9), new Vertex(1,0.0)));
+
+        assertEquals(expected, lines);
+    }
+
+    @Test
     public void clipVertically_bottom() {
         Lines lines = vertices.clipVertically(0.45, 1);
 

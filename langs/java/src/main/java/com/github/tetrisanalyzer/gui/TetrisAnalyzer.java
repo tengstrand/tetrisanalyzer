@@ -56,12 +56,9 @@ public class TetrisAnalyzer extends JPanel {
         }
 
         RaceInfo raceInfo = new RaceInfo(race.games);
-        int numberOfCells = race.games.get(0).distribution.cells.length;
-        double start = 0.1;
-        double end = 0.15;
 
-        Graph multiGraph = multiGraph(start, end, race.games);
-        Graph overviewGraph = overviewGraph(numberOfCells, start, end, race.games);
+        Graph multiGraph = multiGraph(race.games);
+        Graph overviewGraph = overviewGraph(race.games);
 
         frame.getContentPane().add(new TetrisAnalyzer(multiGraph, overviewGraph, raceInfo, race.games, colors));
 
@@ -74,11 +71,11 @@ public class TetrisAnalyzer extends JPanel {
         }
     }
 
-    private static Graph multiGraph(double start, double end, List<RaceGameSettings> games) {
-        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, games);
+    private static Graph multiGraph(List<RaceGameSettings> games) {
+        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, 0.05, 0.3, 0, 1, games);
     }
 
-    private static Graph overviewGraph(int numberOfCells, double startSelection, double endSelection, List<RaceGameSettings> games) {
+    private static Graph overviewGraph(List<RaceGameSettings> games) {
         int selectedGraphIndex = games.size() / 2;
         List<RaceGameSettings> game = Arrays.asList(games.get(selectedGraphIndex));
 
@@ -98,6 +95,10 @@ public class TetrisAnalyzer extends JPanel {
         addMouseMotionListener(multiGraph);
         addMouseListener(overviewGraph);
         addMouseMotionListener(overviewGraph);
+
+        addKeyListener(overviewGraph);
+
+        this.setFocusable(true);
         setVisible(true);
 
         setPreferredSize(new Dimension(300, 300));
