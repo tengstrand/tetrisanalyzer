@@ -17,18 +17,14 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     public double start;
     public double end;
-    private int maxIdx;
 
     public double startSelection;
     public double endSelection;
 
-    private static int START_DX = 400;
-
     private boolean mouseButtonPressed;
     private boolean expandLeft;
     private boolean expandRight;
-    private long expandTime;
-    private int dx = START_DX;
+
     private int lastExpandX;
     private int mouseSelectX1;
     private int mouseSelectX2;
@@ -51,7 +47,6 @@ public class Graph implements MouseListener, MouseMotionListener {
         this.startSelection = startSelection;
         this.endSelection = endSelection;
         this.games = games;
-        maxIdx = games.get(0).distribution.cells.length - 1;
     }
 
     public void setSelection(Graph graph) {
@@ -94,8 +89,6 @@ public class Graph implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         mouseSelectX2 = e.getX();
         mouseButtonPressed = false;
-        expandRight = false;
-        dx = START_DX;
 
         //TODO: do stuff!
 
