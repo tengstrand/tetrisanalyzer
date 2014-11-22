@@ -79,8 +79,8 @@ public class TetrisAnalyzer extends JPanel {
     }
 
     private static Graph overviewGraph(int numberOfCells, double startSelection, double endSelection, List<RaceGameSettings> games) {
-        int index = games.size() / 2;
-        List<RaceGameSettings> game = Arrays.asList(games.get(index));
+        int selectedGraphIndex = games.size() / 2;
+        List<RaceGameSettings> game = Arrays.asList(games.get(selectedGraphIndex));
 
         int width = (int)(DIST_WIDTH * 0.7);
         int height = (int)(DIST_HEIGHT * 0.7);
