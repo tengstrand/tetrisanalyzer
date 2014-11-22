@@ -75,7 +75,7 @@ public class TetrisAnalyzer extends JPanel {
     }
 
     private static Graph multiGraph(double start, double end, List<RaceGameSettings> games) {
-        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, start, end, games);
+        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, games);
     }
 
     private static Graph overviewGraph(int numberOfCells, double startSelection, double endSelection, List<RaceGameSettings> games) {
@@ -84,9 +84,8 @@ public class TetrisAnalyzer extends JPanel {
 
         int width = (int)(DIST_WIDTH * 0.7);
         int height = (int)(DIST_HEIGHT * 0.7);
-        int endIdx = (int)((numberOfCells - 1) * 0.5);
 
-        return new Graph(750, DIST_Y0 + 50, width, height, 0, endIdx, startSelection, endSelection, game);
+        return new Graph(750, DIST_Y0 + 50, width, height, game);
     }
 
     public TetrisAnalyzer(Graph multiGraph, Graph overviewGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {

@@ -15,12 +15,6 @@ public class Graph implements MouseListener, MouseMotionListener {
     private int width;
     private int height;
 
-    public double start;
-    public double end;
-
-    public double startSelection;
-    public double endSelection;
-
     private boolean mouseButtonPressed;
     private boolean expandLeft;
     private boolean expandRight;
@@ -31,21 +25,12 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     private List<RaceGameSettings> games;
 
-    public Graph(int x1, int y, int width, int height, double start, double end, List<RaceGameSettings> games) {
-        this(x1, y, width, height, start, end, -1, -1, games);
-    }
-
-    public Graph(int x, int y, int width, int height, double start, double end,
-                 double startSelection, double endSelection, List<RaceGameSettings> games) {
+    public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
         this.x1 = x;
         this.x2 = x + width;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.start = start;
-        this.end = end;
-        this.startSelection = startSelection;
-        this.endSelection = endSelection;
         this.games = games;
     }
 
