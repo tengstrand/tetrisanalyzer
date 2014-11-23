@@ -22,13 +22,10 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     public double wy1;
     public double wy2;
 
-    private boolean mouseButtonPressed;
-    private boolean expandLeft;
-    private boolean expandRight;
-
-    private int lastExpandX;
-    private int mouseSelectX1;
-    private int mouseSelectX2;
+    private int sx1 = -1;
+    private int sy1 = -1;
+    private int sx2 = -1;
+    private int sy2 = -1;
 
     private List<RaceGameSettings> games;
 
@@ -64,36 +61,39 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     }
 
     private void fillMouseSelection(Graphics g) {
-        int x1;
-        int x2;
-        if (mouseSelectX1 < mouseSelectX2) {
-            x1 = mouseSelectX1;
-            x2 = mouseSelectX2;
-        } else {
-            x1 = mouseSelectX2;
-            x2 = mouseSelectX1;
+        if (sx1 >= 0) {
+            int mx1,mx2,my1,my2;
+            if (sx1 <= sx2) {
+                mx1 = sx1;
+                mx2 = sx2;
+            } else {
+                mx1 = sx2;
+                mx2 = sx1;
+            }
+            if (sy1 <= sy2) {
+                my1 = sy1;
+                my2 = sy2;
+            } else {
+                my1 = sy2;
+                my2 = sy1;
+            }
+            g.setColor(Color.lightGray);
+            g.fillRect(mx1, my1, mx2 - mx1 + 1, my2 - my1 + 1);
         }
-        g.setColor(Color.lightGray);
-        g.fillRect(x1, y, x2 - x1 + 1, height + 1);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getX() >= x1 && e.getX() <= x2) {
-            mouseSelectX1 = mouseSelectX2 = e.getX();
-            mouseButtonPressed = true;
+            sx1 = sx2 = e.getX();
+            sy1 = sy2 = e.getY();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseSelectX2 = e.getX();
-        mouseButtonPressed = false;
-
-        //TODO: do stuff!
-
-        mouseSelectX1 = -1;
-        mouseSelectX2 = -1;
+        sx1 = -1;
+        sx2 = -1;
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
@@ -102,23 +102,10 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override public void mouseMoved(MouseEvent e) {}
 
     @Override public void mouseDragged(MouseEvent e) {
-        if (mouseSelectX1 > 0) {
-            expandLeft = e.getX() < x1 && e.getX() < lastExpandX && mouseButtonPressed;
-            expandRight = e.getX() > x2 && e.getX() > lastExpandX && mouseButtonPressed;
-            mouseSelectX2 = calculateX(e);
-            lastExpandX = e.getX();
+        if (sx1 >= 0) {
+            sx2 = e.getX();
+            sy2 = e.getY();
         }
-    }
-
-    private int calculateX(MouseEvent e) {
-        int sx = e.getX();
-        if (sx > x2) {
-            sx = x2;
-        }
-        if (sx < x1) {
-            sx = x1;
-        }
-        return sx;
     }
 
     @Override

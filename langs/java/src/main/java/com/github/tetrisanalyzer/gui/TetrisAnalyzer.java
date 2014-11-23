@@ -47,7 +47,7 @@ public class TetrisAnalyzer extends JPanel {
         }
 
         frame.setSize(1300, 650);
-        frame.setLocation(100, 300);
+        frame.setLocation(100, 200);
         frame.setVisible(true);
 
         List<Color> colors = new ArrayList<>();
@@ -138,7 +138,7 @@ public class TetrisAnalyzer extends JPanel {
         overviewGraph.setSelection(multiGraph);
 
         repaint();
-        sleep(20);
+        sleep(50);
     }
 
     private void sleep(int ms) {
