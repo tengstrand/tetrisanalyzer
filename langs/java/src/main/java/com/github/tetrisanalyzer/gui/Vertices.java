@@ -27,11 +27,12 @@ public class Vertices {
         return max;
     }
 
-    public Vertices normalizeY() {
+    public Vertices normalizeY(double dy) {
         List<Vertex> result = new ArrayList<>(vertices.size());
 
         double maxy = maxY();
         for (Vertex vertex : vertices) {
+//            result.add(new Vertex(vertex.x, 1 - (vertex.y * dy) / maxy));
             result.add(new Vertex(vertex.x, 1 - vertex.y / maxy));
         }
         return new Vertices(result);

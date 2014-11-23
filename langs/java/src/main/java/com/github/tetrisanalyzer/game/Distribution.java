@@ -41,7 +41,9 @@ public class Distribution {
     }
 
     public Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height) {
-        return toVertices().normalizeY().clipHorizontal(wx1, wx2).normalizeX().clipVertically(wy1, wy2).resize(width, height);
+        double dy = ((wx2 - wx1) / (wy2-wy1)) / (width / height);
+
+        return toVertices().normalizeY(dy).clipHorizontal(wx1, wx2).normalizeX().clipVertically(wy1, wy2).resize(width, height);
     }
 
     public Distribution copy() {
