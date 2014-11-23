@@ -72,7 +72,7 @@ public class TetrisAnalyzer extends JPanel {
     }
 
     private static Graph multiGraph(List<RaceGameSettings> games) {
-        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, 0.05, 0.3, 0, 1, games);
+        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, games);
     }
 
     private static Graph overviewGraph(List<RaceGameSettings> games) {

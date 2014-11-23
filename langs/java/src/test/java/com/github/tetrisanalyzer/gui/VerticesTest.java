@@ -86,8 +86,8 @@ public class VerticesTest {
 
         Lines expected = new Lines(
                 new Line(new Vertex(0.0, 0.417), new Vertex(1.0,0.833)),
-                new Line(new Vertex(1.0, 0.833), new Vertex(1.9, 0.9)),
-                new Line(new Vertex(2.1, 0.9), new Vertex(3.0,0.583)));
+                new Line(new Vertex(1.0, 0.833), new Vertex(1.4011976047904193, 0.9)),
+                new Line(new Vertex(2.239808153477218, 0.9), new Vertex(3.0,0.583)));
 
         assertEquals(expected, lines);
     }
@@ -125,7 +125,7 @@ public class VerticesTest {
         Lines lines = vertices.clipVertically(0.45, 1);
 
         Lines expected = new Lines(
-                new Line(new Vertex(0.9266666666666666, 0.45), new Vertex(1.0,0.833)),
+                new Line(new Vertex(0.07932692307692316, 0.45), new Vertex(1.0,0.833)),
                 new Line(new Vertex(1.0, 0.833), new Vertex(2.0, 1.0)),
                 new Line(new Vertex(2.0, 1.0), new Vertex(3.0,0.583)));
 

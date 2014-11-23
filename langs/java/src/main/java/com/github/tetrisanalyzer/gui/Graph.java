@@ -29,6 +29,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private List<RaceGameSettings> games;
 
+    private static Color grey = new Color(230, 230, 230);
+
     public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
         this(x, y, width, height, 0, 1, 0, 1, games);
     }
@@ -77,7 +79,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
                 my1 = sy2;
                 my2 = sy1;
             }
-            g.setColor(Color.lightGray);
+            g.setColor(grey);
             g.fillRect(mx1, my1, mx2 - mx1 + 1, my2 - my1 + 1);
         }
     }
@@ -85,15 +87,37 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getX() >= x1 && e.getX() <= x2) {
-            sx1 = sx2 = e.getX();
-            sy1 = sy2 = e.getY();
+            if (e.getButton() == 1) {
+                sx1 = sx2 = e.getX();
+                sy1 = sy2 = e.getY();
+            }
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        int mx1,mx2,my1,my2;
+        if (sx1 <= sx2) {
+            mx1 = sx1;
+            mx2 = sx2;
+        } else {
+            mx1 = sx2;
+            mx2 = sx1;
+        }
+        if (sy1 <= sy2) {
+            my1 = sy1;
+            my2 = sy2;
+        } else {
+            my1 = sy2;
+            my2 = sy1;
+        }
         sx1 = -1;
-        sx2 = -1;
+
+        ZoomCalculator.ZoomWindow window = ZoomCalculator.zoom(width, height, mx1 - x1, my1 - y, mx2 - x1, my2 - y, wx1, wy1, wx2, wy2);
+        wx1 = window.wx1;
+        wy1 = window.wy1;
+        wx2 = window.wx2;
+        wy2 = window.wy2;
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
@@ -114,7 +138,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("KeyPressed: " + e.getKeyCode());
     }
 
     @Override
