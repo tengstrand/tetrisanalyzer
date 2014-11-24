@@ -34,16 +34,15 @@ public class Distribution {
     Vertices toVertices() {
         List<Vertex> vertices = new ArrayList<>();
 
-        for (int x=0; x<cells.length; x++) {
-            vertices.add(new Vertex(x, cells[x]));
+        double dx = 1.0 / (cells.length - 1);
+        for (int i=0; i<cells.length; i++) {
+            vertices.add(new Vertex(i * dx, cells[i]));
         }
         return new Vertices(vertices);
     }
 
     public Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height) {
-        double dy = ((wx2 - wx1) / (wy2-wy1)) / (width / height);
-
-        return toVertices().normalizeY(dy).clipHorizontal(wx1, wx2).normalizeX().clipVertically(wy1, wy2).resize(width, height);
+        return toVertices().normalizeY().clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).resize(wx1, wy1, wx2, wy2, width, height);
     }
 
     public Distribution copy() {

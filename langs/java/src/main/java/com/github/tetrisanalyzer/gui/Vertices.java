@@ -27,12 +27,11 @@ public class Vertices {
         return max;
     }
 
-    public Vertices normalizeY(double dy) {
+    public Vertices normalizeY() {
         List<Vertex> result = new ArrayList<>(vertices.size());
 
         double maxy = maxY();
         for (Vertex vertex : vertices) {
-//            result.add(new Vertex(vertex.x, 1 - (vertex.y * dy) / maxy));
             result.add(new Vertex(vertex.x, 1 - vertex.y / maxy));
         }
         return new Vertices(result);
@@ -52,7 +51,7 @@ public class Vertices {
 			result.add(vertices.get(0));
 		} else {
 			double y = vertices.get(index1).y + ((vertices.get(index1 + 1).y - vertices.get(index1).y)) * (x1 - index1);
-			result.add(new Vertex(x1, y));
+			result.add(new Vertex(wx1, y));
 		}
 
 		for (int i=index1+1; i<=index2; i++) {
@@ -61,27 +60,9 @@ public class Vertices {
 
 		if (wx2 < 1.0) {
 			double y = vertices.get(index2).y + ((vertices.get(index2 + 1).y - vertices.get(index2).y)) * (x2 - index2);
-			result.add(new Vertex(x2, y));
+			result.add(new Vertex(wx2, y));
 		}
 		return new Vertices(result);
-    }
-
-    public Vertices normalizeX() {
-        int lastIdx = vertices.size() - 1;
-        List<Vertex> result = new ArrayList<>(vertices.size());
-
-        double minx = vertices.get(0).x;
-        double maxx = vertices.get(lastIdx).x;
-
-        if (minx == maxx) {
-            return this;
-        }
-        double scale = 1 / (maxx - minx);
-
-        for (Vertex vertex : vertices) {
-            result.add(vertex.normalizeX(-minx, scale));
-        }
-        return new Vertices(result);
     }
 
     public Lines clipVertically(double wy1, double wy2) {

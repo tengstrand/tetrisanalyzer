@@ -13,8 +13,10 @@ public class Vertex {
         return new Vertex((x + adjustX) * scale, y);
     }
 
-    public Vertex resize(int width, int height) {
-        return new Vertex(x * width, y * height);
+    public Vertex resize(double wx1, double wy1, double wx2, double wy2, int width, int height) {
+        return new Vertex(
+                (x - wx1) / (wx2 - wx1) * width,
+                (y - wy1) / (wy2 - wy1) * height);
     }
 
     @Override

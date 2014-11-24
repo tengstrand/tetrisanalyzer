@@ -28,11 +28,11 @@ public class Lines implements Iterable<Line> {
         }
     }
 
-    public Lines resize(int width, int height) {
+    public Lines resize(double wx1, double wy1, double wx2, double wy2, int width, int height) {
         List<Line> result = new ArrayList<>();
 
         for (Line line : lines) {
-            result.add(line.resize(width, height));
+            result.add(line.resize(wx1, wy1, wx2, wy2, width, height));
         }
         return new Lines(result);
     }

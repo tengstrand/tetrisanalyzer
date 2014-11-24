@@ -13,8 +13,8 @@ public class Line {
         return new Line(vertex1.normalizeX(adjustX, scale), vertex2.normalizeX(adjustX, scale));
     }
 
-    public Line resize(int width, int height) {
-        return new Line(vertex1.resize(width, height), vertex2.resize(width, height));
+    public Line resize(double wx1, double wy1, double wx2, double wy2, int width, int height) {
+        return new Line(vertex1.resize(wx1, wy1, wx2, wy2, width, height), vertex2.resize(wx1, wy1, wx2, wy2, width, height));
     }
 
     @Override
