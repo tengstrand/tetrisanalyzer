@@ -3,8 +3,6 @@ package com.github.tetrisanalyzer.gui;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,7 +11,7 @@ import java.util.Stack;
 
 import static com.github.tetrisanalyzer.gui.ZoomCalculator.ZoomWindow;
 
-public class Graph implements MouseListener, MouseMotionListener, KeyListener {
+public class Graph implements MouseListener, MouseMotionListener {
     private int x1;
     private int x2;
     private int y;
@@ -53,10 +51,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.games = games;
 
         windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
-    }
-
-    public void setSelection(Graph graph) {
-        // TODO: fix!
     }
 
     public void draw(Graphics g) {
@@ -148,17 +142,5 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             sx2 = e.getX();
             sy2 = e.getY();
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
     }
 }

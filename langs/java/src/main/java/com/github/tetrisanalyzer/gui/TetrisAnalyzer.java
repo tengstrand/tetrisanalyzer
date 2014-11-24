@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TetrisAnalyzer extends JPanel {
@@ -20,13 +19,11 @@ public class TetrisAnalyzer extends JPanel {
     private List<RaceGameSettings> games;
     private List<Color> colors;
     private Graph multiGraph;
-    private Graph overviewGraph;
 
     private static final int DIST_X0 = 50;
-    private static final int DIST_Y0 = 250;
+    private static final int DIST_Y0 = 220;
     private static final int DIST_WIDTH = 600;
     private static final int DIST_HEIGHT = 300;
-    private static final int DIST_X1 = DIST_X0 + DIST_WIDTH - 1;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -46,7 +43,7 @@ public class TetrisAnalyzer extends JPanel {
             throw new IllegalArgumentException("Could not find any games for the race");
         }
 
-        frame.setSize(1300, 650);
+        frame.setSize(750, 600);
         frame.setLocation(100, 200);
         frame.setVisible(true);
 
@@ -58,9 +55,8 @@ public class TetrisAnalyzer extends JPanel {
         RaceInfo raceInfo = new RaceInfo(race.games);
 
         Graph multiGraph = multiGraph(race.games);
-        Graph overviewGraph = overviewGraph(race.games);
 
-        frame.getContentPane().add(new TetrisAnalyzer(multiGraph, overviewGraph, raceInfo, race.games, colors));
+        frame.getContentPane().add(new TetrisAnalyzer(multiGraph, raceInfo, race.games, colors));
 
         List<Game> games = new ArrayList<>();
 
@@ -75,28 +71,13 @@ public class TetrisAnalyzer extends JPanel {
         return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, games);
     }
 
-    private static Graph overviewGraph(List<RaceGameSettings> games) {
-        int selectedGraphIndex = games.size() / 2;
-        List<RaceGameSettings> game = Arrays.asList(games.get(selectedGraphIndex));
-
-        int width = (int)(DIST_WIDTH * 0.7);
-        int height = (int)(DIST_HEIGHT * 0.7);
-
-        return new Graph(750, DIST_Y0 + 50, width, height, game);
-    }
-
-    public TetrisAnalyzer(Graph multiGraph, Graph overviewGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+    public TetrisAnalyzer(Graph multiGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
         this.multiGraph = multiGraph;
-        this.overviewGraph = overviewGraph;
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
         addMouseListener(multiGraph);
         addMouseMotionListener(multiGraph);
-        addMouseListener(overviewGraph);
-        addMouseMotionListener(overviewGraph);
-
-        addKeyListener(overviewGraph);
 
         this.setFocusable(true);
         setVisible(true);
@@ -133,9 +114,6 @@ public class TetrisAnalyzer extends JPanel {
 
         raceInfo.paintTexts(g, 0, colors);
         multiGraph.draw(g);
-        overviewGraph.draw(g);
-
-        overviewGraph.setSelection(multiGraph);
 
         repaint();
         sleep(50);
