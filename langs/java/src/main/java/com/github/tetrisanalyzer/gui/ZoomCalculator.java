@@ -28,16 +28,16 @@ public class ZoomCalculator {
     }
 
     public static class ZoomWindow {
-        public final double wx1;
-        public final double wy1;
-        public final double wx2;
-        public final double wy2;
+        public final double x1;
+        public final double y1;
+        public final double x2;
+        public final double y2;
 
-        public ZoomWindow(double wx1, double wy1, double wx2, double wy2) {
-            this.wx1 = wx1;
-            this.wy1 = wy1;
-            this.wx2 = wx2;
-            this.wy2 = wy2;
+        public ZoomWindow(double x1, double y1, double x2, double y2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
         }
     }
 }

@@ -76,6 +76,8 @@ public class TetrisAnalyzer extends JPanel {
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
+
+        addKeyListener(multiGraph);
         addMouseListener(multiGraph);
         addMouseMotionListener(multiGraph);
 

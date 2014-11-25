@@ -3,6 +3,8 @@ package com.github.tetrisanalyzer.gui;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,7 +13,7 @@ import java.util.Stack;
 
 import static com.github.tetrisanalyzer.gui.ZoomCalculator.ZoomWindow;
 
-public class Graph implements MouseListener, MouseMotionListener {
+public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int x1;
     private int x2;
     private int y;
@@ -65,23 +67,9 @@ public class Graph implements MouseListener, MouseMotionListener {
 
     private void fillMouseSelection(Graphics g) {
         if (sx1 >= 0) {
-            int mx1,mx2,my1,my2;
-            if (sx1 <= sx2) {
-                mx1 = sx1;
-                mx2 = sx2;
-            } else {
-                mx1 = sx2;
-                mx2 = sx1;
-            }
-            if (sy1 <= sy2) {
-                my1 = sy1;
-                my2 = sy2;
-            } else {
-                my1 = sy2;
-                my2 = sy1;
-            }
+            SelectedWindow w = selectedWindow();
             g.setColor(grey);
-            g.fillRect(mx1, my1, mx2 - mx1 + 1, my2 - my1 + 1);
+            g.fillRect(w.x1, w.y1, w.x2 - w.x1 + 1, w.y2 - w.y1 + 1);
         }
     }
 
@@ -93,43 +81,48 @@ public class Graph implements MouseListener, MouseMotionListener {
                 sy1 = sy2 = e.getY();
             } else if (e.getButton() == 3 && !windows.isEmpty()) {
                 ZoomWindow window = windows.pop();
-                wx1 = window.wx1;
-                wy1 = window.wy1;
-                wx2 = window.wx2;
-                wy2 = window.wy2;
+                wx1 = window.x1;
+                wy1 = window.y1;
+                wx2 = window.x2;
+                wy2 = window.y2;
             }
         }
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() != 1 || sx1 < 0) {
-            return;
-        }
-        int mx1,mx2,my1,my2;
+    private SelectedWindow selectedWindow() {
+        int x1,x2,y1,y2;
         if (sx1 <= sx2) {
-            mx1 = sx1;
-            mx2 = sx2;
+            x1 = sx1;
+            x2 = sx2;
         } else {
-            mx1 = sx2;
-            mx2 = sx1;
+            x1 = sx2;
+            x2 = sx1;
         }
         if (sy1 <= sy2) {
-            my1 = sy1;
-            my2 = sy2;
+            y1 = sy1;
+            y2 = sy2;
         } else {
-            my1 = sy2;
-            my2 = sy1;
+            y1 = sy2;
+            y2 = sy1;
         }
+        return new SelectedWindow(x1, y1, x2, y2);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() != 1 || sx1 < 0 || sx1 == sx2) {
+            return;
+        }
+        SelectedWindow w = selectedWindow();
         sx1 = -1;
 
         windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
 
-        ZoomWindow window = ZoomCalculator.zoom(width, height, mx1 - x1, my1 - y, mx2 - x1, my2 - y, wx1, wy1, wx2, wy2);
-        wx1 = window.wx1;
-        wy1 = window.wy1;
-        wx2 = window.wx2;
-        wy2 = window.wy2;
+        ZoomWindow window = ZoomCalculator.zoom(width, height, w.x1 - x1, w.y1 - y, w.x2 - x1, w.y2 - y, wx1, wy1, wx2, wy2);
+        wx1 = window.x1;
+        wy1 = window.y1;
+        wx2 = window.x2;
+        wy2 = window.y2;
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
@@ -141,6 +134,16 @@ public class Graph implements MouseListener, MouseMotionListener {
         if (sx1 >= 0) {
             sx2 = e.getX();
             sy2 = e.getY();
+        }
+    }
+
+    @Override public void keyTyped(KeyEvent e) {}
+
+    @Override public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == 86) {
         }
     }
 }
