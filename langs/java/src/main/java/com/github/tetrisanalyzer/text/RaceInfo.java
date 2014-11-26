@@ -130,7 +130,7 @@ public class RaceInfo {
         }
 
         for (int i=0; i<result.parameters.length; i++) {
-            g.setColor(colors.get(i));
+            g.setColor(colors.get(i % colors.size()));
             g.drawChars(result.parameters[i].toCharArray(), 0, result.parameters[i].length(), X0, Y0);
         }
     }

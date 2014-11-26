@@ -32,11 +32,7 @@ public class RaceGameSettings {
                             Color color) {
         reader = new SettingsReader(settings, "game");
 
-        if (reader.exists("color")) {
-            this.color = reader.readColor("color");
-        } else {
-            this.color = color;
-        }
+        this.color = color;
 
         parameterValue = reader.get("parameter value");
         duration = reader.readDuration();

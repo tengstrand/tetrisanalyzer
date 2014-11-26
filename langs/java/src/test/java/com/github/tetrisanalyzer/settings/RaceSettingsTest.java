@@ -17,7 +17,6 @@ public class RaceSettingsTest {
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +
-            "   color: ee0000\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19308\n" +

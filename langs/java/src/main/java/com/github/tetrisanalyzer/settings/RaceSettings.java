@@ -16,6 +16,7 @@ import java.util.Map;
 public class RaceSettings {
     private final SettingsReader reader;
 
+    public String filename;
     public GameSettings tetrisRules;
     public Map boardEvaluatorSettings;
     public Map pieceGeneratorSettings;
@@ -24,9 +25,12 @@ public class RaceSettings {
     public List<Color> colors;
     public List<RaceGameSettings> games = new ArrayList<>();
 
+    /**
+     * Used from tests.
+     */
     public static RaceSettings fromString(String settings, SystemSettings systemSettings) {
         try {
-            return new RaceSettings((Map) new YamlReader(settings).read(), systemSettings);
+            return new RaceSettings(null, (Map) new YamlReader(settings).read(), systemSettings);
         } catch (YamlException e) {
             throw new IllegalArgumentException(e);
         }
@@ -34,15 +38,16 @@ public class RaceSettings {
 
     public static RaceSettings fromFile(String filename, SystemSettings systemSettings) {
         try {
-            return new RaceSettings((Map) new YamlReader(new FileReader(filename)).read(), systemSettings);
+            return new RaceSettings(filename, (Map) new YamlReader(new FileReader(filename)).read(), systemSettings);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private RaceSettings(Map settings, SystemSettings systemSettings) {
+    private RaceSettings(String filename, Map settings, SystemSettings systemSettings) {
         reader = new SettingsReader(settings, "race");
 
+        this.filename = filename;
         Duration duration = reader.readDuration();
         ColoredBoard board = reader.readBoard();
 

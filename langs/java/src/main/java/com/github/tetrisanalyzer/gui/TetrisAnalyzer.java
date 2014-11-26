@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TetrisAnalyzer extends JPanel implements KeyListener {
@@ -63,22 +62,13 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLocation(100, 200);
         frame.setVisible(true);
 
-        List<Color> colors = new ArrayList<>();
-        for (RaceGameSettings settings : race.games) {
-            colors.add(settings.color);
-        }
-
+        Graph graph = graph(race.games);
         RaceInfo raceInfo = new RaceInfo(race.games);
 
-        Graph multiGraph = graph(race.games);
-
-        frame.getContentPane().add(new TetrisAnalyzer(multiGraph, raceInfo, race.games, colors));
-
-        List<Game> games = new ArrayList<>();
+        frame.getContentPane().add(new TetrisAnalyzer(graph, raceInfo, race.games, race.colors));
 
         for (RaceGameSettings settings : race.games) {
             Game game = settings.createGame(race.tetrisRules);
-            games.add(game);
             new Thread(game).start();
         }
     }
