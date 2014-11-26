@@ -8,6 +8,9 @@ import com.github.tetrisanalyzer.game.GameState;
 
 import java.awt.*;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,6 +109,11 @@ public class RaceSettings {
             result.put("board", gameMap.get("board"));
         }
         return result;
+    }
+
+    public void saveToFile() throws IOException {
+        String filename = this.filename.endsWith(".yaml") ? this.filename + ".0" : this.filename;
+        Files.write(Paths.get(filename), export().getBytes("utf-8"));
     }
 
     public String export() {

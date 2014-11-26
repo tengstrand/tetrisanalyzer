@@ -10,7 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileNotFoundException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.List;
 
 public class TetrisAnalyzer extends JPanel implements KeyListener {
@@ -19,9 +21,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private Color actionColor = new Color(0,128,0);
 
     private long savedAt;
+    private String saveError;
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
+    private RaceSettings race;
     private List<RaceGameSettings> games;
     private List<Color> colors;
     private Graph graph;
@@ -37,7 +41,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
      * Incoming arguments for system and race settings, e.g.:
      *   C:/TetrisAnalyzer/system.yaml C:/TetrisAnalyzer/race/race.yaml
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws Exception {
         if (args.length != 2) {
             System.out.println("Expected to find two arguments, e.g.: system.yaml race.yaml");
             return;
@@ -51,7 +55,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLayout(new GridLayout());
 
         SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
-        RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
+        final RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
         if (race.games.size() == 0) {
             System.out.println("Could not find any games for the race!");
@@ -62,10 +66,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLocation(100, 200);
         frame.setVisible(true);
 
-        Graph graph = graph(race.games);
-        RaceInfo raceInfo = new RaceInfo(race.games);
+        saveOnClose(frame, race);
 
-        frame.getContentPane().add(new TetrisAnalyzer(graph, raceInfo, race.games, race.colors));
+        Graph graph = graph(race.games);
+
+        frame.getContentPane().add(new TetrisAnalyzer(graph, race));
 
         for (RaceGameSettings settings : race.games) {
             Game game = settings.createGame(race.tetrisRules);
@@ -77,11 +82,13 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games);
     }
 
-    public TetrisAnalyzer(Graph graph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+    public TetrisAnalyzer(Graph graph, RaceSettings race) {
         this.graph = graph;
-        this.raceInfo = raceInfo;
-        this.games = games;
-        this.colors = colors;
+
+        this.race = race;
+        this.games = race.games;
+        this.colors = race.colors;
+        this.raceInfo = new RaceInfo(race.games);
 
         addKeyListener(this);
         addKeyListener(graph);
@@ -139,6 +146,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void paintSaved(Graphics g) {
+        if (saveError != null) {
+            g.setColor(Color.red);
+            raceInfo.paintTextAtColumn(saveError, 1, g);
+        }
         if (System.currentTimeMillis() - savedAt < 700) {
             g.setColor(actionColor);
             raceInfo.paintTextAtColumn("Saved", 1, g);
@@ -181,7 +192,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         boolean paused = this.paused;
         pauseGames(true);
         sleep(110);
-        System.out.println("Save!");
+
+        try {
+            race.saveToFile();
+        } catch (IOException e) {
+            saveError = e.getLocalizedMessage();
+        }
         pauseGames(paused);
     }
 
@@ -189,5 +205,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         for (RaceGameSettings game : games) {
             game.game.paused = paused;
         }
+    }
+
+    private static void saveOnClose(JFrame frame, final RaceSettings race) {
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                try {
+                    race.saveToFile();
+                } catch (IOException e1) {
+                    throw new RuntimeException(e1);
+                }
+            }
+        });
     }
 }
