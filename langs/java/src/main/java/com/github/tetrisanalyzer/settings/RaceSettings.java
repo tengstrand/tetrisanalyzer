@@ -111,9 +111,10 @@ public class RaceSettings {
         return result;
     }
 
-    public void saveToFile() throws IOException {
-        String filename = this.filename.endsWith(".yaml") ? this.filename + ".0" : this.filename;
+    public String saveToFile() throws IOException {
+        String filename = this.filename.endsWith(".yaml") ? this.filename + ".x" : this.filename;
         Files.write(Paths.get(filename), export().getBytes("utf-8"));
+        return filename;
     }
 
     public String export() {

@@ -21,6 +21,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private Color actionColor = new Color(0,128,0);
 
     private long savedAt;
+    private String saveFilename;
     private String saveError;
 
     private Image offscreenImage;
@@ -150,9 +151,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             g.setColor(Color.red);
             raceInfo.paintTextAtColumn(saveError, 1, g);
         }
-        if (System.currentTimeMillis() - savedAt < 700) {
+        if (System.currentTimeMillis() - savedAt < 2000) {
             g.setColor(actionColor);
-            raceInfo.paintTextAtColumn("Saved", 1, g);
+            raceInfo.paintTextAtColumn("Saved: " + saveFilename, 1, g);
         }
     }
 
@@ -194,7 +195,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         sleep(110);
 
         try {
-            race.saveToFile();
+            saveFilename = race.saveToFile();
         } catch (IOException e) {
             saveError = e.getLocalizedMessage();
         }
