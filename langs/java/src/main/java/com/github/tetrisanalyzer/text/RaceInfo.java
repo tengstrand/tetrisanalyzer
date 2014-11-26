@@ -117,9 +117,9 @@ public class RaceInfo {
         return new String(new char[n]).replace("\0", character);
     }
 
-    public void paintText(String text, Graphics g) {
+    public void paintTextAtColumn(String text, int column, Graphics g) {
         int row = 11;
-        paintText(text, row, g);
+        g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
     }
 
     public void paintTexts(Graphics g, int startRow, List<Color> colors) {

@@ -17,7 +17,9 @@ import java.util.List;
 public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private boolean paused;
-    private Color pausedColor = new Color(200,0,0);
+    private Color actionColor = new Color(0,128,0);
+
+    private long savedAt;
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
@@ -133,6 +135,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         raceInfo.paintTexts(g, 0, colors);
         graph.draw(g);
         paintPaused(g);
+        paintSaved(g);
 
         repaint();
     }
@@ -141,8 +144,15 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         if (!paused) {
             return;
         }
-        g.setColor(pausedColor);
-        raceInfo.paintText("Paused", g);
+        g.setColor(actionColor);
+        raceInfo.paintTextAtColumn("Paused", 0, g);
+    }
+
+    private void paintSaved(Graphics g) {
+        if (System.currentTimeMillis() - savedAt < 700) {
+            g.setColor(actionColor);
+            raceInfo.paintTextAtColumn("Saved", 1, g);
+        }
     }
 
     private void sleep(int ms) {
@@ -165,6 +175,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 83: // S
                 save();
+                savedAt = System.currentTimeMillis();
                 break;
             default:
                 System.out.println("key: " + keyCode);
