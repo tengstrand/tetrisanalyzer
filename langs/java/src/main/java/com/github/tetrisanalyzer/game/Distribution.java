@@ -48,4 +48,14 @@ public class Distribution {
     public Distribution copy() {
         throw new IllegalStateException("Not implemented");
     }
+
+    public String export() {
+        String result = "[";
+        String separator = "";
+        for (int cell : cells) {
+            result += separator + cell;
+            separator = ",";
+        }
+        return result + "]";
+    }
 }

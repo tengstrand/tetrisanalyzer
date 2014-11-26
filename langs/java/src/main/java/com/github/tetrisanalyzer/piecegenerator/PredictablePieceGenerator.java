@@ -2,8 +2,6 @@ package com.github.tetrisanalyzer.piecegenerator;
 
 import com.github.tetrisanalyzer.piece.Piece;
 
-import static com.github.tetrisanalyzer.settings.Setting.setting;
-
 public class PredictablePieceGenerator extends PieceGenerator {
     private int nextPieceIndex;
     private final String pieces;
@@ -24,10 +22,8 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     @Override
-    public PieceGeneratorSettings settings() {
-        return new PieceGeneratorSettings(
-                setting("next piece index", nextPieceIndex),
-                setting("pieces", pieces));
+    public String export() {
+        return "{ next piece index: " + nextPieceIndex + ", pieces: " + pieces + " }";
     }
 
     @Override

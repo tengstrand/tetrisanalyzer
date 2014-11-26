@@ -4,6 +4,7 @@ import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Duration;
+import com.github.tetrisanalyzer.game.GameState;
 
 import java.awt.*;
 import java.io.FileReader;
@@ -22,7 +23,13 @@ public class RaceSettings {
     public Map pieceGeneratorSettings;
     public String parameterName;
 
+    public ColoredBoard board;
+    public String tetrisRulesId;
+    public String pieceGeneratorId;
+    public String boardEvaluatorId;
+
     public List<Color> colors;
+    public String colorsString;
     public List<RaceGameSettings> games = new ArrayList<>();
 
     /**
@@ -49,21 +56,22 @@ public class RaceSettings {
 
         this.filename = filename;
         Duration duration = reader.readDuration();
-        ColoredBoard board = reader.readBoard();
+        board = reader.readBoard();
 
-        String tetrisRulesId = reader.readString("tetris rules id");
-        String boardEvaluatorId = reader.readString("board evaluator id");
-        String pieceGeneratorId = reader.readString("piece generator id");
+        tetrisRulesId = reader.readString("tetris rules id");
+        pieceGeneratorId = reader.readString("piece generator id");
+        boardEvaluatorId = reader.readString("board evaluator id");
+        parameterName = reader.readString("parameter name");
+        if (reader.exists("colors")) {
+            colorsString = reader.readString("colors");
+        }
+        colors = reader.readColors("colors", defaultColors());
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
         boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
         pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(pieceGeneratorId);
 
-        parameterName = reader.readString("parameter name");
-
         List<Map> games = reader.readMaps("games");
-
-        colors = reader.readColors("colors", defaultColors());
 
         int idx = 0;
         for (Map gameMap : games) {
@@ -89,7 +97,7 @@ public class RaceSettings {
     }
 
     /**
-     * Add the 'board' attribute to board evaluator settings.
+     * Add the 'board' attribute to board evaluator settings (if exists).
      */
     private Map boardEvaluatorSettings(Map gameMap) {
         Map result = new HashMap();
@@ -98,6 +106,38 @@ public class RaceSettings {
             result.put("board", gameMap.get("board"));
         }
         return result;
+    }
+
+    public String export() {
+        String colors = colorsString == null ? "" : "colors: " + colorsString;
+
+        String games = "games:\n";
+
+        for (RaceGameSettings game : this.games) {
+            GameState state = game.gameState;
+            games +=
+                    " - parameter value: " + game.parameterValue + "\n" +
+                    "   duration: " + game.duration + "\n" +
+                    "   board: [" + state.board.width + "," + game.gameState.board.height + "]\n" +
+                    "   games: " + state.games + "\n" +
+                    "   pieces: " + state.pieces + "\n" +
+                    "   pieces total: " + state.totalPieces + "\n" +
+                    "   rows: " + state.rows + "\n" +
+                    "   min rows: " + state.minRows + "\n" +
+                    "   max rows: " + state.maxRows + "\n" +
+                    "   rows/game: " + state.rowsPerGame() + "\n" +
+                    "   piece/s: " + state.piecesPerSecond() + "\n" +
+                    "   piece generator state: " + state.pieceGenerator.export() + "\n" +
+                    "   distribution: " + state.distribution.export() + "\n";
+        }
+
+        return "board: [" + board.width + "," + board.height + "]\n" +
+                "tetris rules id: " + tetrisRulesId + "\n" +
+                "piece generator id: " + pieceGeneratorId + "\n" +
+                "board evaluator id: " + boardEvaluatorId + "\n" +
+                "parameter name: " + parameterName + "\n" +
+                colors + "\n" +
+                games;
     }
 
     @Override

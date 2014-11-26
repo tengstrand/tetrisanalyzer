@@ -44,7 +44,7 @@ public class SystemSettingsTest {
             "  - id: Linear\n" +
             "    description: Standard Linear congruential piece generator\n" +
             "    class: com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator\n" +
-            "    constant1: 1234567\n" +
+            "    constant1: 1664525\n" +
             "    constant2: 555555555\n" +
             "    seed: 1" +
             "\n" +
@@ -93,7 +93,7 @@ public class SystemSettingsTest {
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);
 
         Map pieceGeneratorSettings = systemSettings.pieceGeneratorSettings.get("Linear");
-        assertEquals("1234567", pieceGeneratorSettings.get("constant1"));
+        assertEquals("1664525", pieceGeneratorSettings.get("constant1"));
 
         assertEquals("0.86", systemSettings.boardEvaluatorSettings.get("Tengstrand 1.2").get("heightFactorDelta"));
     }

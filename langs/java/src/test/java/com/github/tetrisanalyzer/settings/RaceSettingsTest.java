@@ -48,7 +48,7 @@ public class RaceSettingsTest {
             "   distribution: [1,3,5,9,21,31,11,4,1,1,1]";
 
     @Test
-    public void readRaceSettings() throws YamlException {
+    public void importSettings() throws YamlException {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
         RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
 
@@ -60,11 +60,54 @@ public class RaceSettingsTest {
 
         LinearCongrentialPieceGenerator pieceGenerator = (LinearCongrentialPieceGenerator)race.games.get(0).pieceGenerator;
         assertEquals(11, pieceGenerator.seed);
-        assertEquals(1234567, pieceGenerator.constant1);
+        assertEquals(1664525, pieceGenerator.constant1);
         assertEquals(4444, pieceGenerator.constant2);
 
         TengstrandBoardEvaluator1 boardEvaluator = (TengstrandBoardEvaluator1)race.games.get(0).boardEvaluator;
         assertEquals(3.33, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
+    }
+
+    @Test
+    public void exportSettings() throws YamlException {
+        SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
+        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
+
+        String result = race.export();
+
+        assertEquals(
+                "board: [10,20]\n" +
+                "tetris rules id: Standard\n" +
+                "piece generator id: Linear\n" +
+                "board evaluator id: Tengstrand 1.2\n" +
+                "parameter name: areaWidthFactor2\n" +
+                "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
+                "games:\n" +
+                " - parameter value: 3.33\n" +
+                "   duration: 1d 3h 52m 10.760s\n" +
+                "   board: [10,12]\n" +
+                "   games: 19308\n" +
+                "   pieces: 63332\n" +
+                "   pieces total: 153065282\n" +
+                "   rows: 0\n" +
+                "   min rows: 2\n" +
+                "   max rows: 27478\n" +
+                "   rows/game: 0\n" +
+                "   piece/s: 1 525\n" +
+                "   piece generator state: { seed: 11, constant2: 4444 }\n" +
+                "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
+                " - parameter value: 3.55\n" +
+                "   duration: 1d 3h 52m 10.760s\n" +
+                "   board: [10,12]\n" +
+                "   games: 19488\n" +
+                "   pieces: 54343\n" +
+                "   pieces total: 155367231\n" +
+                "   rows: 0\n" +
+                "   min rows: 2\n" +
+                "   max rows: 29919\n" +
+                "   rows/game: 0\n" +
+                "   piece/s: 1 548\n" +
+                "   piece generator state: { seed: 12, constant2: 555555555 }\n" +
+                "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n", result);
     }
 }
