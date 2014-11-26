@@ -14,7 +14,6 @@ public class RaceSettingsTest {
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
-            "cell area range: [0,380]\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +

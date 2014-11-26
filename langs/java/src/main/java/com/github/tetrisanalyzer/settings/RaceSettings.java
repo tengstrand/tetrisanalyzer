@@ -20,8 +20,6 @@ public class RaceSettings {
     public Map boardEvaluatorSettings;
     public Map pieceGeneratorSettings;
     public String parameterName;
-    public int cellAreaRangeFrom;
-    public int cellAreaRangeTo;
 
     public List<Color> colors;
     public List<RaceGameSettings> games = new ArrayList<>();
@@ -57,9 +55,6 @@ public class RaceSettings {
         pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(pieceGeneratorId);
 
         parameterName = reader.readString("parameter name");
-        List<Integer> range = reader.readIntegers("cell area range", 2);
-        cellAreaRangeFrom = range.get(0);
-        cellAreaRangeTo = range.get(1);
 
         List<Map> games = reader.readMaps("games");
 
