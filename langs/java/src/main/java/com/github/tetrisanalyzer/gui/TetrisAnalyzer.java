@@ -8,6 +8,8 @@ import com.github.tetrisanalyzer.text.RaceInfo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -20,9 +22,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private boolean paused;
     private Color actionColor = new Color(0,128,0);
 
-    private long savedAt;
-    private String saveFilename;
-    private String saveError;
+    private long actionAt;
+    private long actionDuration;
+    private String actionMessage;
+
+    private String actionError;
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
@@ -148,13 +152,13 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void paintSaved(Graphics g) {
-        if (saveError != null) {
+        if (actionError != null) {
             g.setColor(Color.red);
-            raceInfo.paintTextAtColumn(saveError, 1, g);
+            raceInfo.paintTextAtColumn(actionError, 1, g);
         }
-        if (System.currentTimeMillis() - savedAt < 2000) {
+        if (System.currentTimeMillis() - actionAt < actionDuration) {
             g.setColor(actionColor);
-            raceInfo.paintTextAtColumn("Saved: " + saveFilename, 1, g);
+            raceInfo.paintTextAtColumn(actionMessage, 1, g);
         }
     }
 
@@ -178,11 +182,23 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 83: // S
                 save();
-                savedAt = System.currentTimeMillis();
                 break;
+            case 67: // C
+                copyToClipboard();
             default:
                 System.out.println("key: " + keyCode);
         }
+    }
+
+    private void copyToClipboard() {
+        String str = race.export();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        StringSelection strSel = new StringSelection(str);
+        clipboard.setContents(strSel, null);
+
+        setAction("Copied to clipboard", 1);
     }
 
     private void togglePaused() {
@@ -196,11 +212,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         waitForGamesToPause();
 
         try {
-            saveFilename = race.saveToFile();
+            setAction("Saved to: " + race.saveToFile(), 2);
         } catch (IOException e) {
-            saveError = e.getLocalizedMessage();
+            actionError = e.getLocalizedMessage();
         }
         pauseGames(paused);
+    }
+
+    private void setAction(String message, double seconds) {
+        actionMessage = message;
+        actionDuration = (long) (seconds * 1000);
+        actionAt = System.currentTimeMillis();
     }
 
     private void pauseGames(boolean paused) {

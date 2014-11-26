@@ -117,7 +117,7 @@ public class RaceSettings {
     }
 
     public String export() {
-        String colors = colorsString == null ? "" : "colors: " + colorsString;
+        String colors = colorsString == null ? "" : "colors: " + colorsString + "\n";
 
         String games = "games:\n";
 
@@ -144,7 +144,7 @@ public class RaceSettings {
                 "piece generator id: " + pieceGeneratorId + "\n" +
                 "board evaluator id: " + boardEvaluatorId + "\n" +
                 "parameter name: " + parameterName + "\n" +
-                colors + "\n" +
+                colors +
                 games;
     }
 
