@@ -5,6 +5,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.github.tetrisanalyzer.board.Board.bottomString;
 import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
@@ -44,6 +45,29 @@ public class ColoredBoard implements TextBoard {
         for (int y=0; y<height; y++) {
             for (int x=0; x<width; x++) {
                 board.board[y][x] = rows[y].charAt(x + 1);
+            }
+        }
+        return board;
+    }
+
+    /**
+     * Imports a boar from the Yaml import format, e.g.:
+     * [--------
+     *  --------
+     *  --------
+     *  --------
+     *  SS------
+     *  -SS-----]
+     */
+    public static ColoredBoard createYaml(List rows) {
+        int width = rows.get(0).toString().length();
+        int height = rows.size();
+
+        ColoredBoard board = new ColoredBoard(width, height);
+
+        for (int y=0; y<height; y++) {
+            for (int x=0; x<width; x++) {
+                board.board[y][x] = rows.get(y).toString().charAt(x);
             }
         }
         return board;
@@ -200,6 +224,20 @@ public class ColoredBoard implements TextBoard {
         }
 
         return result;
+    }
+
+    public String export() {
+        String result = "[";
+
+        String separator = "";
+        for (int y=0; y<height; y++) {
+            result += separator;
+            for (int x=0; x<width; x++) {
+                result += board[y][x];
+            }
+            separator = ",\n           ";
+        }
+        return result + "]";
     }
 
     @Override

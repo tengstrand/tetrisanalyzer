@@ -20,7 +20,18 @@ public class RaceSettingsTest {
             "games:\n" +
             " - parameter value: 3.33\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
-            "   board: [10,12]\n" +
+            "   board: [----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------]\n" +
             "   games: 19308\n" +
             "   pieces: 63332\n" +
             "   pieces total: 153065282\n" +
@@ -34,7 +45,18 @@ public class RaceSettingsTest {
             "\n" +
             " - parameter value: 3.55\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
-            "   board: [10,12]\n" +
+            "   board: [----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------,\n" +
+            "           ----------]\n" +
             "   games: 19488\n" +
             "   pieces: 54343\n" +
             "   pieces total: 155367231\n" +
@@ -73,6 +95,9 @@ public class RaceSettingsTest {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
         RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
 
+        for (RaceGameSettings settings : race.games) {
+            settings.createGame(race.tetrisRules);
+        }
         String result = race.export();
 
         assertEquals(
@@ -85,7 +110,18 @@ public class RaceSettingsTest {
                 "games:\n" +
                 " - parameter value: 3.33\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
-                "   board: [10,12]\n" +
+                "   board: [----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------]\n" +
                 "   games: 19308\n" +
                 "   pieces: 63332\n" +
                 "   pieces total: 153065282\n" +
@@ -98,7 +134,18 @@ public class RaceSettingsTest {
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
                 " - parameter value: 3.55\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
-                "   board: [10,12]\n" +
+                "   board: [----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------,\n" +
+                "           ----------]\n" +
                 "   games: 19488\n" +
                 "   pieces: 54343\n" +
                 "   pieces total: 155367231\n" +

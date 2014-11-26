@@ -76,6 +76,12 @@ public class SettingsReader {
         return result;
     }
 
+    public List readList(String key) {
+        ensureExists(key);
+        ensureType(key, List.class);
+        return (List)get(key);
+    }
+
     public Map readMap(String key) {
         ensureExists(key);
         ensureType(key, Map.class);
@@ -105,9 +111,13 @@ public class SettingsReader {
         ensureExists(key);
         ensureType(key, List.class);
 
+        return asIntegers((List)get(key), key);
+    }
+
+    private List<Integer> asIntegers(List values, String key) {
         List<Integer> result = new ArrayList<>();
 
-        for (Object value : (List) get(key)) {
+        for (Object value : values) {
             result.add(toInt(key, value));
         }
         return result;
@@ -291,26 +301,17 @@ public class SettingsReader {
         return new Distribution(cells);
     }
 
-    public int readBoardWidth() {
-        if (!exists("board")) {
-            return 10;
-        }
-        return readIntegers("board", 2).get(0);
-    }
-
-    public int readBoardHeight() {
-        if (!exists("board")) {
-            return 20;
-        }
-        return readIntegers("board", 2).get(1);
-    }
-
     public ColoredBoard readBoard() {
         if (!exists("board")) {
             return null;
         }
-        List<Integer> board = readIntegers("board", 2);
-        return ColoredBoard.create(board.get(0), board.get(1));
+        List board = readList("board");
+        if (board.size() == 2) {
+            List<Integer> values = asIntegers(board, "board");
+            return ColoredBoard.create(values.get(0), values.get(1));
+        } else {
+            return ColoredBoard.createYaml(board);
+        }
     }
 
     @Override

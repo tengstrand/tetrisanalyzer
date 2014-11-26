@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.boardevaluator;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
+import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.settings.SettingsReader;
 
@@ -60,8 +61,9 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     public TengstrandBoardEvaluator1(Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
-        boardWidth = reader.readBoardWidth();
-        boardHeight = reader.readBoardHeight();
+        ColoredBoard board = reader.readBoard();
+        boardWidth = board.width;
+        boardHeight = board.height;
         maxEquityFactor = reader.readDouble("maxEquityFactor");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");

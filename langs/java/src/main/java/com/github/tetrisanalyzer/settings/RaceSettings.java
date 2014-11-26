@@ -112,7 +112,6 @@ public class RaceSettings {
     }
 
     public String saveToFile() throws IOException {
-        String filename = this.filename.endsWith(".yaml") ? this.filename + ".x" : this.filename;
         Files.write(Paths.get(filename), export().getBytes("utf-8"));
         return filename;
     }
@@ -127,7 +126,7 @@ public class RaceSettings {
             games +=
                     " - parameter value: " + game.parameterValue + "\n" +
                     "   duration: " + game.duration + "\n" +
-                    "   board: [" + state.board.width + "," + game.gameState.board.height + "]\n" +
+                    "   board: " + game.game.coloredBoard.export() + "\n" +
                     "   games: " + state.games + "\n" +
                     "   pieces: " + state.pieces + "\n" +
                     "   pieces total: " + state.totalPieces + "\n" +
