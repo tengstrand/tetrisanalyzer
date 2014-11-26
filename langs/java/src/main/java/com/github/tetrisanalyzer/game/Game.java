@@ -23,6 +23,7 @@ public class Game implements Runnable {
     private AllValidPieceMoves allValidPieceMoves;
 
     public boolean paused;
+    public boolean waiting;
     private int numberOfCells;
     public Board board;
     public ColoredBoard coloredBoard;
@@ -91,11 +92,13 @@ public class Game implements Runnable {
         long pausedAt = System.currentTimeMillis();
 
         while (paused) {
+            waiting = true;
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
             }
         }
+        waiting = false;
         state.duration.adjustPause(pausedAt);
     }
 

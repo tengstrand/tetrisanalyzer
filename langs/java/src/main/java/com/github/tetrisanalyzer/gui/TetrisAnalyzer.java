@@ -67,11 +67,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLocation(100, 200);
         frame.setVisible(true);
 
-        saveOnClose(frame, race);
-
         Graph graph = graph(race.games);
 
-        frame.getContentPane().add(new TetrisAnalyzer(graph, race));
+        TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(graph, race);
+        tetrisAnalyzer.saveOnClose(frame);
+
+        frame.getContentPane().add(tetrisAnalyzer);
 
         for (RaceGameSettings settings : race.games) {
             Game game = settings.createGame(race.tetrisRules);
@@ -192,7 +193,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private void save() {
         boolean paused = this.paused;
         pauseGames(true);
-        sleep(110);
+        waitForGamesToPause();
 
         try {
             saveFilename = race.saveToFile();
@@ -208,14 +209,20 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
     }
 
-    private static void saveOnClose(JFrame frame, final RaceSettings race) {
+    private void waitForGamesToPause() {
+        boolean allWaiting = false;
+        while (!allWaiting) {
+            allWaiting = true;
+            for (RaceGameSettings game : games) {
+                allWaiting &= game.game.waiting;
+            }
+        }
+    }
+
+    private void saveOnClose(JFrame frame) {
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                try {
-                    race.saveToFile();
-                } catch (IOException e1) {
-                    throw new RuntimeException(e1);
-                }
+                save();
             }
         });
     }

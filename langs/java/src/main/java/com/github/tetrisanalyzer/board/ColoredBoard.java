@@ -227,7 +227,7 @@ public class ColoredBoard implements TextBoard {
     }
 
     public String export() {
-        String result = "[";
+        String result = "[\"";
 
         String separator = "";
         for (int y=0; y<height; y++) {
@@ -235,9 +235,9 @@ public class ColoredBoard implements TextBoard {
             for (int x=0; x<width; x++) {
                 result += board[y][x];
             }
-            separator = ",\n           ";
+            separator = "\",\n           \"";
         }
-        return result + "]";
+        return result + "\"]";
     }
 
     @Override
