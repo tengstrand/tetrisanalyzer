@@ -8,22 +8,27 @@ import com.github.tetrisanalyzer.text.RaceInfo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TetrisAnalyzer extends JPanel {
+public class TetrisAnalyzer extends JPanel implements KeyListener {
+
+    private boolean paused;
+    private Color pausedColor = new Color(200,0,0);
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
     private List<RaceGameSettings> games;
     private List<Color> colors;
-    private Graph multiGraph;
+    private Graph graph;
 
-    private static final int DIST_X0 = 50;
-    private static final int DIST_Y0 = 220;
-    private static final int DIST_WIDTH = 600;
-    private static final int DIST_HEIGHT = 300;
+    private static final int GRAPH_X0 = 50;
+    private static final int GRAPH_Y0 = 230;
+    private static final int GRAPH_WIDTH = 600;
+    private static final int GRAPH_HEIGHT = 300;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -54,7 +59,7 @@ public class TetrisAnalyzer extends JPanel {
 
         RaceInfo raceInfo = new RaceInfo(race.games);
 
-        Graph multiGraph = multiGraph(race.games);
+        Graph multiGraph = graph(race.games);
 
         frame.getContentPane().add(new TetrisAnalyzer(multiGraph, raceInfo, race.games, colors));
 
@@ -67,19 +72,20 @@ public class TetrisAnalyzer extends JPanel {
         }
     }
 
-    private static Graph multiGraph(List<RaceGameSettings> games) {
-        return new Graph(DIST_X0, DIST_Y0, DIST_WIDTH, DIST_HEIGHT, games);
+    private static Graph graph(List<RaceGameSettings> games) {
+        return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games);
     }
 
-    public TetrisAnalyzer(Graph multiGraph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
-        this.multiGraph = multiGraph;
+    public TetrisAnalyzer(Graph graph, RaceInfo raceInfo, List<RaceGameSettings> games, List<Color> colors) {
+        this.graph = graph;
         this.raceInfo = raceInfo;
         this.games = games;
         this.colors = colors;
 
-        addKeyListener(multiGraph);
-        addMouseListener(multiGraph);
-        addMouseMotionListener(multiGraph);
+        addKeyListener(this);
+        addKeyListener(graph);
+        addMouseListener(graph);
+        addMouseMotionListener(graph);
 
         this.setFocusable(true);
         setVisible(true);
@@ -100,6 +106,7 @@ public class TetrisAnalyzer extends JPanel {
 
         paintOffscreen(offscreenImage.getGraphics());
         g.drawImage(offscreenImage, 0, 0, null);
+        sleep(50);
     }
 
     private void checkOffscreenImage() {
@@ -115,16 +122,37 @@ public class TetrisAnalyzer extends JPanel {
         g.setFont(monospacedFont);
 
         raceInfo.paintTexts(g, 0, colors);
-        multiGraph.draw(g);
+        graph.draw(g);
+        paintPaused(g);
 
         repaint();
-        sleep(50);
+    }
+
+    private void paintPaused(Graphics g) {
+        if (!paused) {
+            return;
+        }
+        g.setColor(pausedColor);
+        raceInfo.paintText("Paused", g);
     }
 
     private void sleep(int ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
+        }
+    }
+
+    @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 80) {
+            paused = !paused;
+            for (RaceGameSettings game : games) {
+                game.game.paused = paused;
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ import java.util.List;
 public class Game implements Runnable {
     private AllValidPieceMoves allValidPieceMoves;
 
+    public boolean paused;
     private int numberOfCells;
     public Board board;
     public ColoredBoard coloredBoard;
@@ -61,6 +62,7 @@ public class Game implements Runnable {
         PieceMove bestMove;
 
         while (state.nonstop || state.movesLeft > 0) {
+            waitIfPaused();
             Piece piece = pieceGenerator.nextPiece(settings);
             bestMove = evaluateBestMove(piece);
             state.totalPieces++;
@@ -80,6 +82,21 @@ public class Game implements Runnable {
             state.distribution.increaseArea(numberOfCells);
             state.duration.setEndTime();
         }
+    }
+
+    private void waitIfPaused() {
+        if (!paused) {
+            return;
+        }
+        long pausedAt = System.currentTimeMillis();
+
+        while (paused) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+        }
+        state.duration.adjustPause(pausedAt);
     }
 
     private TextBoard textBoard() {

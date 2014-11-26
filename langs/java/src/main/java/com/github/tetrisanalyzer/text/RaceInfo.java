@@ -117,6 +117,11 @@ public class RaceInfo {
         return new String(new char[n]).replace("\0", character);
     }
 
+    public void paintText(String text, Graphics g) {
+        int row = 11;
+        paintText(text, row, g);
+    }
+
     public void paintTexts(Graphics g, int startRow, List<Color> colors) {
         RowsResult result = rows();
 

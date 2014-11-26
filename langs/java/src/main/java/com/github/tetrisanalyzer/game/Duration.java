@@ -84,6 +84,14 @@ public class Duration {
         initTime(endMillis);
     }
 
+    public void adjustPause(long pausedAt) {
+        long now = System.currentTimeMillis();
+        long duration = now - pausedAt;
+
+        this.startMillis += duration;
+        initTime(now);
+    }
+
     private void initTime(long endMillis) {
         this.endMillis = endMillis;
         duration = endMillis - startMillis;
