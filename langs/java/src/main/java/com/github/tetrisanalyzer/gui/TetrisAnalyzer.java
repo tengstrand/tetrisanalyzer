@@ -32,20 +32,29 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
+    /**
+     * Incoming arguments for system and race settings, e.g.:
+     *   C:/TetrisAnalyzer/system.yaml C:/TetrisAnalyzer/race/race.yaml
+     */
     public static void main(String[] args) throws FileNotFoundException {
+        if (args.length != 2) {
+            System.out.println("Expected to find two arguments, e.g.: system.yaml race.yaml");
+            return;
+        }
+        String systemFilename = args[0];
+        String raceFilename = args[1];
+
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
 
-        String systemFilename = "C:/TetrisAnalyzer/settings/system.yaml";
         SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
-
-        String raceFilename = "C:/TetrisAnalyzer/race/race.yaml";
         RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
 
         if (race.games.size() == 0) {
-            throw new IllegalArgumentException("Could not find any games for the race");
+            System.out.println("Could not find any games for the race!");
+            return;
         }
 
         frame.setSize(750, 600);
@@ -148,11 +157,36 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 80) {
-            paused = !paused;
-            for (RaceGameSettings game : games) {
-                game.game.paused = paused;
-            }
+        int keyCode = e.getKeyCode();
+
+        switch (keyCode) {
+            case 80: // P
+                togglePaused();
+                break;
+            case 83: // S
+                save();
+                break;
+            default:
+                System.out.println("key: " + keyCode);
+        }
+    }
+
+    private void togglePaused() {
+        paused = !paused;
+        pauseGames(paused);
+    }
+
+    private void save() {
+        boolean paused = this.paused;
+        pauseGames(true);
+        sleep(110);
+        System.out.println("Save!");
+        pauseGames(paused);
+    }
+
+    private void pauseGames(boolean paused) {
+        for (RaceGameSettings game : games) {
+            game.game.paused = paused;
         }
     }
 }
