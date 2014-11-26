@@ -10,7 +10,9 @@ import static junit.framework.Assert.assertEquals;
 
 public class RaceSettingsTest {
 
-    public static final String RACE_SETTINGS = "tetris rules id: Standard\n" +
+    public static final String RACE_SETTINGS =
+            "board: [10,20]\n" +
+            "tetris rules id: Standard\n" +
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
