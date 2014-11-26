@@ -11,10 +11,8 @@ import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 
 public class RaceGameSettings {
     private final SettingsReader reader;
@@ -30,13 +28,17 @@ public class RaceGameSettings {
     public BoardEvaluator boardEvaluator;
 
     public RaceGameSettings(String parameterName, Map settings, Map boardEvaluatorSettings,
-                            Map pieceGeneratorSettings, Duration mainDuration, ColoredBoard mainBoard) {
+                            Map pieceGeneratorSettings, Duration mainDuration, ColoredBoard mainBoard,
+                            Color color) {
         reader = new SettingsReader(settings, "game");
 
-        parameterValue = reader.get("parameter value");
-        List<Integer> rgb = reader.readIntegers("color", 3, Arrays.asList(0,0,0));
-        color = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        if (reader.exists("color")) {
+            this.color = reader.readColor("color");
+        } else {
+            this.color = color;
+        }
 
+        parameterValue = reader.get("parameter value");
         duration = reader.readDuration();
 
         if (duration == null) {

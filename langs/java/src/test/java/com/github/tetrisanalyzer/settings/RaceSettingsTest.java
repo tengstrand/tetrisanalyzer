@@ -15,9 +15,10 @@ public class RaceSettingsTest {
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
             "cell area range: [0,380]\n" +
+            "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +
-            "   color: [255,0,0]\n" +
+            "   color: ee0000\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19308\n" +
@@ -32,7 +33,6 @@ public class RaceSettingsTest {
             "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
             "\n" +
             " - parameter value: 3.55\n" +
-            "   color: [0,255,0]\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
             "   board: [10,12]\n" +
             "   games: 19488\n" +

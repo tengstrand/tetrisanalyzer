@@ -4,6 +4,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -119,11 +120,53 @@ public class SettingsReader {
         return readIntegers(key, expectedSize);
     }
 
+    public List<String> readStrings(String key) {
+        ensureExists(key);
+        ensureType(key, List.class);
+
+        List<String> result = new ArrayList<>();
+
+        for (Object value : (List) get(key)) {
+            result.add(value.toString());
+        }
+        return result;
+    }
+
     public List<Integer> readIntegers(String key, int expectedSize) {
         List<Integer> numbers = readIntegers(key);
         ensureSize(key, numbers, expectedSize);
 
         return numbers;
+    }
+
+    public Color readColor(String key) {
+        ensureExists(key);
+
+        return asColor(get(key).toString(), key);
+    }
+
+    private Color asColor(String rgb, String key) {
+        if (rgb.length() != 6) {
+            throw new IllegalArgumentException("Expected to find color in format 'RRGGBB' for attribute '" + key + "', but was: " + rgb);
+        }
+        int r = Integer.parseInt(rgb.substring(0,2), 16);
+        int g = Integer.parseInt(rgb.substring(2,4), 16);
+        int b = Integer.parseInt(rgb.substring(4,6), 16);
+
+        return new Color(r, g, b);
+    }
+
+    public List<Color> readColors(String key, List<Color> defaultColors) {
+        if (!exists(key)) {
+            return defaultColors;
+        }
+        List<String> colors = readStrings(key);
+        List<Color> result = new ArrayList<>();
+
+        for (String color : colors) {
+            result.add(asColor(color, key));
+        }
+        return result;
     }
 
     public List<List> readLists(String key) {
@@ -136,6 +179,13 @@ public class SettingsReader {
             result.add(toList(key, value));
         }
         return result;
+    }
+
+    public List<List> readLists(String key, List<List> defaultValue) {
+        if (!exists(key)) {
+            return defaultValue;
+        }
+        return readLists(key);
     }
 
     public List<Map> readMaps(String key) {

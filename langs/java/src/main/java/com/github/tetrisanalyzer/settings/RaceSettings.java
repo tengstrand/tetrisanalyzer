@@ -5,8 +5,10 @@ import com.esotericsoftware.yamlbeans.YamlReader;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Duration;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class RaceSettings {
     public int cellAreaRangeFrom;
     public int cellAreaRangeTo;
 
+    public List<Color> colors;
     public List<RaceGameSettings> games = new ArrayList<>();
 
     public static RaceSettings fromString(String settings, SystemSettings systemSettings) {
@@ -60,11 +63,29 @@ public class RaceSettings {
 
         List<Map> games = reader.readMaps("games");
 
+        colors = reader.readColors("colors", defaultColors());
+
+        int idx = 0;
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(gameMap);
-            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, evaluatorSettings, pieceGeneratorSettings, duration, board);
+            Color color = colors.get(idx++ % colors.size());
+            RaceGameSettings game = new RaceGameSettings(parameterName, gameMap, evaluatorSettings, pieceGeneratorSettings, duration, board, color);
             this.games.add(game);
         }
+    }
+
+    private List<Color> defaultColors() {
+        return Arrays.asList(
+                new Color(255,0,0),
+                new Color(0,255,0),
+                new Color(0,0,0),
+                new Color(255,170,0),
+                new Color(0,178,255),
+                new Color(179,45,215),
+                new Color(206,225,38),
+                new Color(255,0,246),
+                new Color(200,200,200)
+        );
     }
 
     /**
