@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -31,7 +30,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private Stack<ZoomWindow> windows = new Stack<>();
 
-    private List<Stack<ZoomWindow>> shortcuts = new ArrayList<>(10);
+    private Shortcuts shortcuts;
 
     public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
         this(x, y, width, height, 0, 1, 0, 1, games);
@@ -46,10 +45,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.games = games;
 
         windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
-
-        for (int i=0; i<10; i++) {
-            shortcuts.add(copy(windows));
-        }
+        shortcuts = new Shortcuts(windows);
     }
 
     public void draw(Graphics g) {
@@ -136,17 +132,11 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             int index = key - 48;
 
             if (e.getModifiers() == 2) {
-                shortcuts.set(index, copy(windows));
+                shortcuts.set(index, windows);
             } else {
-                windows = copy(shortcuts.get(index));
+                windows = shortcuts.get(index);
             }
         }
-    }
-
-    private Stack<ZoomWindow> copy(Stack<ZoomWindow> windows) {
-        Stack<ZoomWindow> copy = new Stack<>();
-        copy.addAll(windows);
-        return copy;
     }
 
     @Override
