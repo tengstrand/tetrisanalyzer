@@ -17,6 +17,11 @@ public class RaceSettingsTest {
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
+            "windows:\n" +
+            "  key-1:\n" +
+            "    window-2: [0.278, 0.054, 0.295, 0.150]\n" +
+            "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
+            "    window-3: [0.286, 0.084, 0.287, 0.118]\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
@@ -88,6 +93,12 @@ public class RaceSettingsTest {
         TengstrandBoardEvaluator12 boardEvaluator = (TengstrandBoardEvaluator12)race.games.get(0).boardEvaluator;
         assertEquals(3.33, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
+
+        assertEquals("windows:\n" +
+                "  key-1:\n" +
+                "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
+                "    window-2: [0.278, 0.054, 0.295, 0.15]\n" +
+                "    window-3: [0.286, 0.084, 0.287, 0.118]\n", race.shortcuts.export());
     }
 
     @Test
@@ -98,7 +109,7 @@ public class RaceSettingsTest {
         for (RaceGameSettings settings : race.games) {
             settings.createGame(race.tetrisRules);
         }
-        String result = race.export();
+        String result = race.export("");
 
         assertEquals(
                 "board: [10,20]\n" +

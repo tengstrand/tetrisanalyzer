@@ -32,11 +32,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private Shortcuts shortcuts;
 
-    public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
-        this(x, y, width, height, 0, 1, 0, 1, games);
-    }
-
-    public Graph(int x, int y, int width, int height, double wx1, double wx2, double wy1, double wy2, List<RaceGameSettings> games) {
+    public Graph(int x, int y, int width, int height, List<RaceGameSettings> games, Shortcuts shortcuts) {
         this.x1 = x;
         this.x2 = x + width;
         this.y = y;
@@ -44,8 +40,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.height = height;
         this.games = games;
 
-        windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
-        shortcuts = new Shortcuts(windows);
+        windows.add(new ZoomWindow());
+        this.shortcuts = shortcuts;
     }
 
     public void draw(Graphics g) {
@@ -57,6 +53,10 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             g.setColor(game.color);
             lines.drawLines(x1, y, g);
         }
+    }
+
+    public String export() {
+        return shortcuts.export();
     }
 
     private void fillMouseSelection(Graphics g) {
@@ -139,5 +139,4 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             }
         }
     }
-
 }

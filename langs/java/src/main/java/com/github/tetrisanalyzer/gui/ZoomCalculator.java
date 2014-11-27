@@ -33,6 +33,10 @@ public class ZoomCalculator {
         public final double x2;
         public final double y2;
 
+        public ZoomWindow() {
+            this(0,0,1,1);
+        }
+
         public ZoomWindow(double x1, double y1, double x2, double y2) {
             this.x1 = x1;
             this.y1 = y1;

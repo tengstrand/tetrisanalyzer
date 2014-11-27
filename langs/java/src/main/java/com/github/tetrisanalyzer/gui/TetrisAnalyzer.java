@@ -71,7 +71,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLocation(100, 200);
         frame.setVisible(true);
 
-        Graph graph = graph(race.games);
+        Graph graph = graph(race.games, race.shortcuts);
 
         TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(graph, race);
         tetrisAnalyzer.saveOnClose(frame);
@@ -84,8 +84,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
     }
 
-    private static Graph graph(List<RaceGameSettings> games) {
-        return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games);
+    private static Graph graph(List<RaceGameSettings> games, Shortcuts shortcuts) {
+        return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games, shortcuts);
     }
 
     public TetrisAnalyzer(Graph graph, RaceSettings race) {
@@ -191,7 +191,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void copyToClipboard() {
-        String str = race.export();
+        String str = race.export(graph.export());
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = toolkit.getSystemClipboard();
@@ -212,7 +212,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         waitForGamesToPause();
 
         try {
-            setAction("Saved to: " + race.saveToFile(), 2);
+            setAction("Saved to: " + race.saveToFile(graph.export()), 2);
         } catch (IOException e) {
             actionError = e.getLocalizedMessage();
         }

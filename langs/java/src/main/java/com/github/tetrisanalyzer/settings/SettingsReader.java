@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.settings;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
+import com.github.tetrisanalyzer.gui.Shortcuts;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -312,6 +313,15 @@ public class SettingsReader {
         } else {
             return ColoredBoard.createYaml(board);
         }
+    }
+
+    public Shortcuts readShortcuts(String key) {
+        if (!exists(key)) {
+            return new Shortcuts();
+        }
+        Map keys = readMap(key);
+
+        return new Shortcuts(keys);
     }
 
     @Override
