@@ -26,6 +26,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private static Color grey = new Color(230, 230, 230);
 
+    private Zoomer zoomer;
     private Stack<ZoomWindow> windows = new Stack<>();
 
     private Shortcuts shortcuts;
@@ -47,6 +48,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
         for (RaceGameSettings game : games) {
             ZoomWindow w = windows.peek();
+            if (zoomer != null && zoomer.isZooming()) {
+                w = zoomer.zoom();
+            }
             Lines lines = game.distribution.lines(w.x1, w.y1, w.x2, w.y2, width, height);
             g.setColor(game.color);
             lines.drawLines(x1, y, g);
@@ -133,7 +137,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             if (e.getModifiers() == 2) {
                 shortcuts.set(index, windows);
             } else {
+                ZoomWindow from = windows.peek();
                 windows = shortcuts.get(index);
+                zoomer = new Zoomer(from, windows.peek(), 100);
             }
         }
     }
