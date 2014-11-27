@@ -1,7 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12;
 import com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator;
 import org.junit.Test;
 
@@ -85,7 +85,7 @@ public class RaceSettingsTest {
         assertEquals(1664525, pieceGenerator.constant1);
         assertEquals(4444, pieceGenerator.constant2);
 
-        TengstrandBoardEvaluator1 boardEvaluator = (TengstrandBoardEvaluator1)race.games.get(0).boardEvaluator;
+        TengstrandBoardEvaluator12 boardEvaluator = (TengstrandBoardEvaluator12)race.games.get(0).boardEvaluator;
         assertEquals(3.33, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
     }

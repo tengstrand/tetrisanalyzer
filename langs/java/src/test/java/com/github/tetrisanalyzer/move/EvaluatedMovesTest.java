@@ -2,7 +2,7 @@ package com.github.tetrisanalyzer.move;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.piecemove.PieceMove;
@@ -35,7 +35,7 @@ public class EvaluatedMovesTest {
         GameSettings settings = new AtariGameSettings();
         PieceMove startPieceMove = new ValidPieceMoves(board, piece, settings).calculateStartMove(board.width, board.height);
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(10, 20);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(10, 20);
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new StandardGameSettings(board));
         return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board);
     }

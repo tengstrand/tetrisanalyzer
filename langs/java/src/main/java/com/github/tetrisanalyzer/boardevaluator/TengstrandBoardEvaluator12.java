@@ -13,7 +13,7 @@ import static com.github.tetrisanalyzer.settings.Setting.setting;
 /**
  * Joakim Tengstrand's Tetris AI, version 1.2
  */
-public class TengstrandBoardEvaluator1 extends BoardEvaluator {
+public class TengstrandBoardEvaluator12 extends BoardEvaluator {
     public int boardWidth;
     public int boardHeight;
     public double maxEquity;
@@ -54,11 +54,11 @@ public class TengstrandBoardEvaluator1 extends BoardEvaluator {
     public double[] areaHeightFactors;
     public double[] areaHeightEqFactors;
 
-    public TengstrandBoardEvaluator1(int boardWidth, int boardHeight) {
+    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight) {
         init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator1(Map settings) {
+    public TengstrandBoardEvaluator12(Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
         ColoredBoard board = reader.readBoard();

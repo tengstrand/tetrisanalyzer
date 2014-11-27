@@ -3,7 +3,7 @@ package com.github.tetrisanalyzer.game;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1;
+import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecegenerator.PredictablePieceGenerator;
 import com.github.tetrisanalyzer.settings.AtariGameSettings;
@@ -19,7 +19,7 @@ public class GameTest {
     @Ignore
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 5, 0, 0, 0, 0, 0, 0);
@@ -57,7 +57,7 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 1);
@@ -83,7 +83,7 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator1(board.width, board.height);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 1);

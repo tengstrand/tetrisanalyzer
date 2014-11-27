@@ -53,7 +53,7 @@ public class SystemSettingsTest {
             "    description: Tengstrand 1.2\n" +
             "    author: Joakim Tengstrand\n" +
             "    url: http://hem.bredband.net/joakimtengstrand\n" +
-            "    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1\n" +
+            "    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12\n" +
             "    maxEquityFactor: 1.21\n" +
             "    heightFactor0: 7\n" +
             "    heightFactor1: 2.5\n" +

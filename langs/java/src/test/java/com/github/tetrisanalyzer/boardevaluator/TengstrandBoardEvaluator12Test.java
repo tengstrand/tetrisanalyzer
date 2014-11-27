@@ -8,12 +8,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TengstrandBoardEvaluator1Test {
+public class TengstrandBoardEvaluator12Test {
 
     @Test
     @Ignore
     public void evaluateVersionOneDotOne() {
-        BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
+        BoardEvaluator evaluator = new TengstrandBoardEvaluator12(10, 5);
 
         Board board = Board.create(
                 "|----------|",
@@ -30,14 +30,14 @@ public class TengstrandBoardEvaluator1Test {
     @Test
     @Ignore
     public void export() {
-        BoardEvaluator evaluator = new TengstrandBoardEvaluator1(10, 5);
+        BoardEvaluator evaluator = new TengstrandBoardEvaluator12(10, 5);
 
         String expected = "board evaluator:\n" +
                 "  id: Tengstrand 1.1\n" +
                 "  description: A first version was created 2001\n" +
                 "  author: Joakim Tengstrand\n" +
                 "  url: http://hem.bredband.net/joakimtengstrand\n" +
-                "  class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator1\n" +
+                "  class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12\n" +
                 "  less is: better\n" +
                 "  min board size: [4,4]\n" +
                 "  max board size: [10,20]\n" +
