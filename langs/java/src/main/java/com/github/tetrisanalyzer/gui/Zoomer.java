@@ -24,7 +24,17 @@ public class Zoomer {
     }
 
     public ZoomWindow zoom() {
-        step++;
+        int originalStep = step;
+
+        if (step < steps) {
+            if (step + 3 > steps) {
+                step++;
+            } else {
+                step += 3;
+            }
+        } else {
+            step++;
+        }
         if (step < 0) {
             return zoomFrom;
         }
@@ -36,7 +46,7 @@ public class Zoomer {
         }
         if (step == steps && fullsizesteps > 0) {
             fullsizesteps--;
-            step--;
+            step = originalStep;
         }
         return zoomIn(step - steps);
     }

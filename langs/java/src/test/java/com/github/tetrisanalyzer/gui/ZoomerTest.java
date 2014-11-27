@@ -14,7 +14,7 @@ public class ZoomerTest {
 
         ZoomWindow window = zoomer.zoom(10);
 
-        assertEquals(new ZoomWindow(0.18, 0.27, 0.46, 0.55), window);
+        assertEquals(new ZoomWindow(0.176, 0.264, 0.47200000000000003, 0.56), window);
     }
 
     @Test

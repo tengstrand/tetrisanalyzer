@@ -139,7 +139,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             } else {
                 ZoomWindow from = windows.peek();
                 windows = shortcuts.get(index);
-                zoomer = new Zoomer(from, windows.peek(), 100);
+                zoomer = new Zoomer(from, windows.peek(), 150);
             }
         }
     }
