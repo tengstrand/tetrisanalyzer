@@ -17,7 +17,7 @@ public class RaceSettingsTest {
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
-            "windows:\n" +
+            "zoom-windows:\n" +
             "  key-1:\n" +
             "    window-2: [0.278, 0.054, 0.295, 0.150]\n" +
             "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
@@ -94,7 +94,7 @@ public class RaceSettingsTest {
         assertEquals(3.33, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
 
-        assertEquals("windows:\n" +
+        assertEquals("zoom-windows:\n" +
                 "  key-1:\n" +
                 "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
                 "    window-2: [0.278, 0.054, 0.295, 0.15]\n" +

@@ -38,7 +38,7 @@ public class ShortcutsTest {
 
         String result = shortcuts.export();
 
-        assertEquals("windows:\n" +
+        assertEquals("zoom-windows:\n" +
                 "  key-2:\n" +
                 "    window-1: [0.5, 0.6, 0.7, 0.8]\n" +
                 "    window-2: [0.55, 0.66, 0.77, 0.88]\n" +
@@ -72,7 +72,7 @@ public class ShortcutsTest {
 
         String output = shortcuts.export();
 
-        assertEquals("windows:\n" +
+        assertEquals("zoom-windows:\n" +
                 "  key-2:\n" +
                 "    window-1: [0.5, 0.6, 0.7, 0.8]\n" +
                 "    window-2: [0.55, 0.66, 0.77, 0.88]\n" +

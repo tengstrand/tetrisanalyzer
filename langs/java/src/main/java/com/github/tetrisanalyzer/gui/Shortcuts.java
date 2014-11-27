@@ -89,6 +89,6 @@ public class Shortcuts {
                 }
             }
         }
-        return result.isEmpty() ? "" : "windows:\n" + result;
+        return result.isEmpty() ? "" : "zoom-windows:\n" + result;
     }
 }

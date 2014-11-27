@@ -71,7 +71,7 @@ public class RaceSettings {
             colorsString = reader.readString("colors");
         }
         colors = reader.readColors("colors", defaultColors());
-        shortcuts = reader.readShortcuts("windows");
+        shortcuts = reader.readShortcuts("zoom-windows");
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
         boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
