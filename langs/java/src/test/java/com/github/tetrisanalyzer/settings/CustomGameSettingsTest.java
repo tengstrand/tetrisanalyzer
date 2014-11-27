@@ -33,7 +33,7 @@ public class CustomGameSettingsTest {
         assertEquals("anticlockwise", gameSettings.rotationDirection.toString());
         assertEquals("Standard Tetris 2007 June 4 (Colin Fahey)", gameSettings.description);
         assertEquals("com.github.tetrisanalyzer.settings.StandardGameSettings", gameSettings.clazz.getCanonicalName());
-        assertEquals(3, gameSettings.pieceStartX);
+        assertEquals(3, gameSettings.pieceStartX(10));
         assertEquals(0, gameSettings.pieceStartY);
         assertTrue(gameSettings.slidingEnabled);
         assertEquals(gameSettings.pieceAdjustments[1], AdjustmentCalculator.calculate("O", dxdy(1, 1)));

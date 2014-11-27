@@ -32,8 +32,9 @@ public class CustomGameSettings extends GameSettings {
         boolean clockwise = reader.readString("rotation", "clockwise", "anticlockwise").equals("clockwise");
 
         List<Integer> pos = reader.readIntegers("piece start position on standard board", 2);
-        int pieceStartX = pos.get(0);
+        int pieceStartXOnStandardBoard = pos.get(0);
         int pieceStartY = pos.get(1);
+
         Class clazz = reader.readClass("class");
 
         Adjustments empty = calculate("-", dxdy(0,0));
@@ -49,7 +50,7 @@ public class CustomGameSettings extends GameSettings {
 
         Adjustments[] pieceAdjustments = new Adjustments[] { empty, O, I, S, Z, L, J, T, any, shadow };
 
-        return new CustomGameSettings(id, url, description, pieceStartX, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
+        return new CustomGameSettings(id, url, description, pieceStartXOnStandardBoard, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
     }
 
     private static Adjustments adjustments(SettingsReader reader, String piece) {
@@ -66,8 +67,8 @@ public class CustomGameSettings extends GameSettings {
         return AdjustmentCalculator.calculate(piece, adjustments);
     }
 
-    public CustomGameSettings(String id, String url, String description, int pieceStartX, int pieceStartY,
+    public CustomGameSettings(String id, String url, String description, int pieceStartXOnStandardBoard, int pieceStartY,
                                boolean sliding, boolean clockwise, Class clazz, Adjustments[] pieceAdjustments) {
-        super(id, url, description, pieceStartX, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
+        super(id, url, description, pieceStartXOnStandardBoard, pieceStartY, sliding, clockwise, clazz, pieceAdjustments);
     }
 }

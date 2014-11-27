@@ -38,7 +38,7 @@ public class ValidPieceMoves {
      * Calculates all valid moves as a linked list of moves by returning the starting piece move for the board.
      */
     public PieceMove calculateStartMove(int boardWidth, int boardHeight) {
-        Move startMove = new Move(0, settings.pieceStartX + piece.startX(), settings.pieceStartY + piece.startY());
+        Move startMove = new Move(0, settings.pieceStartX(boardWidth) + piece.startX(), settings.pieceStartY + piece.startY());
         Movement startMovement = new Movement(new PieceMove(piece, startMove));
         Movement fromMovement = new Movement(new PieceMove(piece, startMove.up()));
 
@@ -89,7 +89,7 @@ public class ValidPieceMoves {
     private void ensureStartingPositionIsInsideBoard(Movement startMovement, int boardWidth, int boardHeight) {
         if (!startMovement.isPieceInsideBoard(boardWidth, boardHeight)) {
             throw new IllegalStateException("The start piece position is outside the board, " +
-                    "start piece settings: [" + settings.pieceStartX + "," + settings.pieceStartY + "]" +
+                    "start piece settings: [" + settings.pieceStartX(boardWidth) + "," + settings.pieceStartY + "]" +
                     ", piece: " + piece +
                     ", piece adjustment (rotation,x, y): " + startMovement.pieceMove.move);
         }

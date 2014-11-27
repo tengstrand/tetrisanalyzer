@@ -89,7 +89,7 @@ public class SystemSettingsTest {
         assertEquals(1, systemSettings.pieceGeneratorSettings.size());
         assertEquals(1, systemSettings.boardEvaluatorSettings.size());
 
-        assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX);
+        assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX(10));
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);
 
         Map pieceGeneratorSettings = systemSettings.pieceGeneratorSettings.get("Linear");

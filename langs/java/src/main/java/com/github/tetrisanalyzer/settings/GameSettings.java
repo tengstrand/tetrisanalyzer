@@ -17,17 +17,17 @@ public class GameSettings extends PieceSettings {
     public final String id;
     public final String url;
     public final String description;
-    public final int pieceStartX;
+    private final int pieceStartXOnStandardBoard;
     public final int pieceStartY;
     public final boolean slidingEnabled;
     public final Class clazz;
 
-    public GameSettings(String id, String url, String description, int pieceStartX, int pieceStartY, boolean slidingEnabled, boolean clockwise, Class clazz, Adjustments[] pieceAdjustments) {
-        super(clockwise, slidingEnabled, pieceStartX, pieceStartY, pieceAdjustments);
+    public GameSettings(String id, String url, String description, int pieceStartXOnStandardBoard, int pieceStartY, boolean slidingEnabled, boolean clockwise, Class clazz, Adjustments[] pieceAdjustments) {
+        super(clockwise, slidingEnabled, pieceStartXOnStandardBoard, pieceStartY, pieceAdjustments);
         this.id = id;
         this.url = url;
         this.description = description;
-        this.pieceStartX = pieceStartX;
+        this.pieceStartXOnStandardBoard = pieceStartXOnStandardBoard;
         this.pieceStartY = pieceStartY;
         this.slidingEnabled = slidingEnabled;
         this.clazz = clazz;
@@ -44,7 +44,7 @@ public class GameSettings extends PieceSettings {
                 setting("description", description),
                 setting("sliding", (slidingEnabled ? "on" : "off")),
                 setting("rotation", rotationDirection),
-                setting("piece start position on standard board", "[" + pieceStartX + "," + pieceStartY + "]"),
+                setting("piece start position on standard board", "[" + pieceStartXOnStandardBoard + "," + pieceStartY + "]"),
                 setting("O", adjustment(O)),
                 setting("I", adjustment(I)),
                 setting("S", adjustment(S)),
@@ -72,6 +72,10 @@ public class GameSettings extends PieceSettings {
 
     private String adjustment(int piece) {
         return Piece.validPieces(this)[piece].adjustments.export();
+    }
+
+    public int pieceStartX(int boardWidth) {
+        return StartPieceCalculator.startX(boardWidth, pieceStartXOnStandardBoard);
     }
 
     @Override

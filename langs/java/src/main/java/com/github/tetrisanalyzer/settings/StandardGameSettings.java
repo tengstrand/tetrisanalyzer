@@ -6,7 +6,6 @@ import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
@@ -41,7 +40,7 @@ public class StandardGameSettings extends GameSettings {
 
     public StandardGameSettings(int boardWidth, boolean sliding) {
         super("Standard", "http://colinfahey.com/tetris/tetris.html",
-                "Standard Tetris 2007 June 4 (Colin Fahey)", startX(boardWidth, 3), 0, sliding, false, StandardGameSettings.class, adjustments());
+                "Standard Tetris 2007 June 4 (Colin Fahey)", 3, 0, sliding, false, StandardGameSettings.class, adjustments());
     }
 
     private static Adjustments[] adjustments() {

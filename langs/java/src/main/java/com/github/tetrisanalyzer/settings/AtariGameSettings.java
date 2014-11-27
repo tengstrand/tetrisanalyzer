@@ -6,7 +6,6 @@ import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.StartPieceCalculator.startX;
 import static com.github.tetrisanalyzer.settings.adjustment.AdjustmentCalculator.calculate;
 
 /**
@@ -49,7 +48,7 @@ public class AtariGameSettings extends GameSettings {
 
     public AtariGameSettings(int boardWidth, boolean sliding) {
         super("Atari", "http://www.arcade-museum.com/game_detail.php?game_id=10081",
-                "Rules of the original Tetris arcade game", startX(boardWidth, 4), 0, sliding, false, AtariGameSettings.class, adjustments());
+                "Rules of the original Tetris arcade game", 4, 0, sliding, false, AtariGameSettings.class, adjustments());
     }
 
     public static Adjustments[] adjustments() {
