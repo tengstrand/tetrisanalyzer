@@ -4,6 +4,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.gui.Shortcuts;
+import com.github.tetrisanalyzer.gui.WindowLocation;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -156,11 +157,18 @@ public class SettingsReader {
         return asColor(get(key).toString(), key);
     }
 
+    public WindowLocation readWindowLocation(String key) {
+        if (!exists(key)) {
+            return new WindowLocation();
+        }
+        return new WindowLocation(readIntegers(key, 4));
+    }
+
     private Color asColor(String rgb, String key) {
         if (rgb.length() != 6) {
             throw new IllegalArgumentException("Expected to find color in format 'RRGGBB' for attribute '" + key + "', but was: " + rgb);
         }
-        int r = Integer.parseInt(rgb.substring(0,2), 16);
+        int r = Integer.parseInt(rgb.substring(0, 2), 16);
         int g = Integer.parseInt(rgb.substring(2,4), 16);
         int b = Integer.parseInt(rgb.substring(4,6), 16);
 

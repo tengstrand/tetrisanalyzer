@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.gui.Shortcuts;
+import com.github.tetrisanalyzer.gui.WindowLocation;
 
 import java.awt.*;
 import java.io.FileReader;
@@ -35,6 +36,7 @@ public class RaceSettings {
     public List<Color> colors;
     public String colorsString;
     public Shortcuts shortcuts;
+    public WindowLocation windowLocation;
     public List<RaceGameSettings> games = new ArrayList<>();
 
     /**
@@ -71,6 +73,7 @@ public class RaceSettings {
             colorsString = reader.readString("colors");
         }
         colors = reader.readColors("colors", defaultColors());
+        windowLocation = reader.readWindowLocation("window-location");
         shortcuts = reader.readShortcuts("zoom-windows");
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
@@ -114,12 +117,12 @@ public class RaceSettings {
         return result;
     }
 
-    public String saveToFile(String windows) throws IOException {
-        Files.write(Paths.get(filename), export(windows).getBytes("utf-8"));
+    public String saveToFile(WindowLocation windowLocation, String windows) throws IOException {
+        Files.write(Paths.get(filename), export(windowLocation, windows).getBytes("utf-8"));
         return filename;
     }
 
-    public String export(String windows) {
+    public String export(WindowLocation windowLocation, String windows) {
         String colors = colorsString == null ? "" : "colors: " + colorsString + "\n";
 
         String games = "games:\n";
@@ -148,6 +151,7 @@ public class RaceSettings {
                 "board evaluator id: " + boardEvaluatorId + "\n" +
                 "parameter name: " + parameterName + "\n" +
                 colors +
+                windowLocation.export() + "\n" +
                 windows +
                 games;
     }

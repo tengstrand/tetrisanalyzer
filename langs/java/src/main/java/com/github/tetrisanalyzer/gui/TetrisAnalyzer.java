@@ -34,6 +34,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private List<RaceGameSettings> games;
     private List<Color> colors;
     private Graph graph;
+    private JFrame frame;
 
     private static final int GRAPH_X0 = 50;
     private static final int GRAPH_Y0 = 230;
@@ -67,13 +68,14 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             return;
         }
 
-        frame.setSize(750, 600);
-        frame.setLocation(100, 200);
+        WindowLocation loc = race.windowLocation;
+        frame.setLocation(loc.x1, loc.y1);
+        frame.setSize(loc.width, loc.height);
         frame.setVisible(true);
 
         Graph graph = graph(race.games, race.shortcuts);
 
-        TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(graph, race);
+        TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(frame, graph, race);
         tetrisAnalyzer.saveOnClose(frame);
 
         frame.getContentPane().add(tetrisAnalyzer);
@@ -88,7 +90,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games, shortcuts);
     }
 
-    public TetrisAnalyzer(Graph graph, RaceSettings race) {
+    public TetrisAnalyzer(JFrame frame, Graph graph, RaceSettings race) {
+        this.frame = frame;
         this.graph = graph;
 
         this.race = race;
@@ -191,7 +194,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void copyToClipboard() {
-        String str = race.export(graph.export());
+        String str = race.export(new WindowLocation(frame), graph.export());
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = toolkit.getSystemClipboard();
@@ -212,7 +215,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         waitForGamesToPause();
 
         try {
-            setAction("Saved to: " + race.saveToFile(graph.export()), 2);
+            setAction("Saved to: " + race.saveToFile(new WindowLocation(frame), graph.export()), 2);
         } catch (IOException e) {
             actionError = e.getLocalizedMessage();
         }

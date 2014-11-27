@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12;
+import com.github.tetrisanalyzer.gui.WindowLocation;
 import com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator;
 import org.junit.Test;
 
@@ -17,6 +18,7 @@ public class RaceSettingsTest {
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
+            "window-location: [100,200,1139,600]\n" +
             "zoom-windows:\n" +
             "  key-1:\n" +
             "    window-2: [0.278, 0.054, 0.295, 0.150]\n" +
@@ -109,7 +111,7 @@ public class RaceSettingsTest {
         for (RaceGameSettings settings : race.games) {
             settings.createGame(race.tetrisRules);
         }
-        String result = race.export("");
+        String result = race.export(new WindowLocation(), "");
 
         assertEquals(
                 "board: [10,20]\n" +
@@ -118,6 +120,7 @@ public class RaceSettingsTest {
                 "board evaluator id: Tengstrand 1.2\n" +
                 "parameter name: areaWidthFactor2\n" +
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
+                "window-location: [100,200,750,600]\n" +
                 "games:\n" +
                 " - parameter value: 3.33\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
