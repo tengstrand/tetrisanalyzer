@@ -48,7 +48,8 @@ public class Shortcuts {
     }
 
     private int index(String key) {
-        return Integer.parseInt(key.substring(key.length() - 1, key.length()));
+        int index = key.indexOf("-");
+        return Integer.parseInt(key.substring(index + 1, key.length()));
     }
 
     private double value(List<String> list, int index) {
