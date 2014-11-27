@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -19,12 +20,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int y;
     private int width;
     private int height;
-
-    public double wx1;
-    public double wx2;
-    public double wy1;
-    public double wy2;
-
     private int sx1 = -1;
     private int sy1 = -1;
     private int sx2 = -1;
@@ -34,7 +29,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private static Color grey = new Color(230, 230, 230);
 
-    Stack<ZoomWindow> windows = new Stack<>();
+    private Stack<ZoomWindow> windows = new Stack<>();
+
+    private List<Stack<ZoomWindow>> shortcuts = new ArrayList<>(10);
 
     public Graph(int x, int y, int width, int height, List<RaceGameSettings> games) {
         this(x, y, width, height, 0, 1, 0, 1, games);
@@ -46,20 +43,21 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.wx1 = wx1;
-        this.wx2 = wx2;
-        this.wy1 = wy1;
-        this.wy2 = wy2;
         this.games = games;
 
         windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
+
+        for (int i=0; i<10; i++) {
+            shortcuts.add(copy(windows));
+        }
     }
 
     public void draw(Graphics g) {
         fillMouseSelection(g);
 
         for (RaceGameSettings game : games) {
-            Lines lines = game.distribution.lines(wx1, wy1, wx2, wy2, width, height);
+            ZoomWindow w = windows.peek();
+            Lines lines = game.distribution.lines(w.x1, w.y1, w.x2, w.y2, width, height);
             g.setColor(game.color);
             lines.drawLines(x1, y, g);
         }
@@ -79,12 +77,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             if (e.getButton() == 1) {
                 sx1 = sx2 = e.getX();
                 sy1 = sy2 = e.getY();
-            } else if (e.getButton() == 3 && !windows.isEmpty()) {
-                ZoomWindow window = windows.pop();
-                wx1 = window.x1;
-                wy1 = window.y1;
-                wx2 = window.x2;
-                wy2 = window.y2;
+            } else if (e.getButton() == 3 && windows.size() > 1) {
+                windows.pop();
             }
         }
     }
@@ -113,16 +107,12 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (e.getButton() != 1 || sx1 < 0 || sx1 == sx2) {
             return;
         }
-        SelectedWindow w = selectedWindow();
+        SelectedWindow sw = selectedWindow();
         sx1 = -1;
 
-        windows.add(new ZoomWindow(wx1, wy1, wx2, wy2));
-
-        ZoomWindow window = ZoomCalculator.zoom(width, height, w.x1 - x1, w.y1 - y, w.x2 - x1, w.y2 - y, wx1, wy1, wx2, wy2);
-        wx1 = window.x1;
-        wy1 = window.y1;
-        wx2 = window.x2;
-        wy2 = window.y2;
+        ZoomWindow w = windows.peek();
+        ZoomWindow window = ZoomCalculator.zoom(width, height, sw.x1 - x1, sw.y1 - y, sw.x2 - x1, sw.y2 - y, w.x1, w.y1, w.x2, w.y2);
+        windows.push(window);
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
@@ -139,7 +129,25 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     @Override public void keyTyped(KeyEvent e) {}
 
-    @Override public void keyPressed(KeyEvent e) {}
+    @Override public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        int modifiers = e.getModifiers();
+        if (key >= 48 && key <= 57 && (modifiers == 0 || modifiers == 2)) { // 0..9
+            int index = key - 48;
+
+            if (e.getModifiers() == 2) {
+                shortcuts.set(index, copy(windows));
+            } else {
+                windows = copy(shortcuts.get(index));
+            }
+        }
+    }
+
+    private Stack<ZoomWindow> copy(Stack<ZoomWindow> windows) {
+        Stack<ZoomWindow> copy = new Stack<>();
+        copy.addAll(windows);
+        return copy;
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {
