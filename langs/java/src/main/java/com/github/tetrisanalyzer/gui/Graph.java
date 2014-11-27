@@ -131,16 +131,22 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         int modifiers = e.getModifiers();
-        if (key >= 48 && key <= 57 && (modifiers == 0 || modifiers == 2)) { // 0..9
+        if (key >= 48 && key <= 57) { // 0..9
             int index = key - 48;
 
             if (e.getModifiers() == 2) {
                 shortcuts.set(index, windows);
+            } else if (e.getModifiers() == 1) {
+                zoom(index, 200);
             } else {
-                ZoomWindow from = windows.peek();
-                windows = shortcuts.get(index);
-                zoomer = new Zoomer(from, windows.peek(), 150);
+                zoom(index, 50);
             }
         }
+    }
+
+    private void zoom(int index, int steps) {
+        ZoomWindow from = windows.peek();
+        windows = shortcuts.get(index);
+        zoomer = new Zoomer(from, windows.peek(), steps);
     }
 }

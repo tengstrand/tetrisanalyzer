@@ -11,7 +11,7 @@ public class Zoomer {
         this.zoomFrom = zoomFrom;
         this.zoomTo = zoomTo;
         this.steps = steps;
-        this.fullsizesteps = steps / 4;
+        this.fullsizesteps = steps / 5;
     }
 
     public boolean isZooming() {
