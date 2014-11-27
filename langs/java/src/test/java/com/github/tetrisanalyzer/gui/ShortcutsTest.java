@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.Stack;
 
-import static com.github.tetrisanalyzer.gui.ZoomCalculator.ZoomWindow;
 import static junit.framework.Assert.assertEquals;
 
 public class ShortcutsTest {

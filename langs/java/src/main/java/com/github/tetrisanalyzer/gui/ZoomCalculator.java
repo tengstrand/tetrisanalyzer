@@ -26,23 +26,5 @@ public class ZoomCalculator {
 
         return new ZoomWindow(rx1, ry1, rx2, ry2);
     }
-
-    public static class ZoomWindow {
-        public final double x1;
-        public final double y1;
-        public final double x2;
-        public final double y2;
-
-        public ZoomWindow() {
-            this(0,0,1,1);
-        }
-
-        public ZoomWindow(double x1, double y1, double x2, double y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        }
-    }
 }
 

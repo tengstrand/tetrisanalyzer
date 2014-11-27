@@ -11,8 +11,6 @@ import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Stack;
 
-import static com.github.tetrisanalyzer.gui.ZoomCalculator.ZoomWindow;
-
 public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int x1;
     private int x2;

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 
-import static com.github.tetrisanalyzer.gui.ZoomCalculator.ZoomWindow;
 import static java.util.Map.Entry;
 
 public class Shortcuts {
