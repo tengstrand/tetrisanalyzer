@@ -124,6 +124,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     }
 
     @Override public void keyTyped(KeyEvent e) {}
+    @Override public void keyReleased(KeyEvent e) {}
 
     @Override public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -139,9 +140,4 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == 86) {
-        }
-    }
 }
