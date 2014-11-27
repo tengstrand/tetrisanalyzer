@@ -27,9 +27,8 @@ public class RaceGameSettings {
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
 
-    public RaceGameSettings(String parameterName, Map settings, Map boardEvaluatorSettings,
-                            Map pieceGeneratorSettings, Duration mainDuration, ColoredBoard mainBoard,
-                            Color color) {
+    public RaceGameSettings(ColoredBoard raceBoard, String parameterName, Map settings, Map boardEvaluatorSettings,
+                            Map pieceGeneratorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
         this.color = color;
@@ -56,20 +55,20 @@ public class RaceGameSettings {
         Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state", new HashMap<>()));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
-        ColoredBoard board = reader.readBoard();
+        ColoredBoard gameBoard = reader.readBoard();
         int piecesLeft = 0; // TODO: Set value
 
-        if (board == null && mainBoard == null) {
-            board = ColoredBoard.create(10, 20);
+        if (gameBoard == null && raceBoard == null) {
+            gameBoard = ColoredBoard.create(10, 20);
         }
-        ColoredBoard theBoard = board != null ? board : mainBoard;
+        ColoredBoard board = gameBoard != null ? gameBoard : raceBoard;
 
-        distribution = reader.readDistribution(theBoard.width, theBoard.height);
+        distribution = reader.readDistribution(board.width, board.height);
 
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
-        boardEvaluator = createBoardEvaluator(evaluatorSettings);
+        boardEvaluator = createBoardEvaluator(board.width, board.height, evaluatorSettings);
 
-        gameState = new GameState(duration, theBoard, distribution,
+        gameState = new GameState(duration, board, distribution,
                 boardEvaluator, pieceGenerator, numberOfGames, numberOfPieces,
                 totalNumberOfPieces, totalNumberOfRows, minRows, maxRows, piecesLeft);
     }
@@ -103,12 +102,12 @@ public class RaceGameSettings {
         return result;
     }
 
-    private BoardEvaluator createBoardEvaluator(Map settings) {
+    private BoardEvaluator createBoardEvaluator(int boardWidth, int boardHeight, Map settings) {
         Class clazz = classAttribute(settings);
 
         try {
-            Constructor constructor = clazz.getConstructor(Map.class);
-            return (BoardEvaluator)constructor.newInstance(settings);
+            Constructor constructor = clazz.getConstructor(int.class, int.class, Map.class);
+            return (BoardEvaluator)constructor.newInstance(boardWidth, boardHeight, settings);
         } catch (InvocationTargetException e) {
             throw new IllegalArgumentException(e.getTargetException());
         }

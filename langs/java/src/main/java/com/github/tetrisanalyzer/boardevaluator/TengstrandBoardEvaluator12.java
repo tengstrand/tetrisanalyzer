@@ -2,7 +2,6 @@ package com.github.tetrisanalyzer.boardevaluator;
 
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
-import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.settings.SettingsReader;
 
@@ -58,12 +57,9 @@ public class TengstrandBoardEvaluator12 extends BoardEvaluator {
         init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator12(Map settings) {
+    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
-        ColoredBoard board = reader.readBoard();
-        boardWidth = board.width;
-        boardHeight = board.height;
         maxEquityFactor = reader.readDouble("maxEquityFactor");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
@@ -289,8 +285,6 @@ public class TengstrandBoardEvaluator12 extends BoardEvaluator {
     @Override public String description() { return "A first version was created 2001"; }
     @Override public String author() { return "Joakim Tengstrand"; }
     @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
-    @Override public int boardWidth() { return boardWidth; }
-    @Override public int boardHeight() { return boardHeight; }
     @Override public LessIs lessIs() { return LessIs.BETTER; }
 
     @Override

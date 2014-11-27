@@ -15,8 +15,6 @@ public abstract class BoardEvaluator {
     public abstract String description();
     public abstract String author();
     public abstract String url();
-    public abstract int boardWidth();
-    public abstract int boardHeight();
 
     public String export() {
         return new BoardEvaluatorSettings(
