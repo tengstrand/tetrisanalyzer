@@ -17,6 +17,14 @@ public class ZoomWindow {
         this.y2 = y2;
     }
 
+    public double width() {
+        return x2 - x1;
+    }
+
+    public double height() {
+        return y2 - y1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

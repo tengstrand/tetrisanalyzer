@@ -1,69 +1,51 @@
 package com.github.tetrisanalyzer.gui;
 
-public class Zoomer {
-    private final ZoomWindow zoomFrom;
-    private final ZoomWindow zoomTo;
-    private int step = 0;
-    private int fullsizesteps;
-    private final int steps;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-    public Zoomer(ZoomWindow zoomFrom, ZoomWindow zoomTo, int steps) {
-        this.zoomFrom = zoomFrom;
-        this.zoomTo = zoomTo;
-        this.steps = steps;
-        this.fullsizesteps = steps / 5;
+public class Zoomer {
+    private int zoomedOutCnt;
+    private ZoomWindow windowOverview = new ZoomWindow();
+
+    private Iterator<ZoomWindow> windowsZoomOut;
+    private Iterator<ZoomWindow> windowsZoomIn;
+
+    public static Zoomer zoomOut(ZoomWindow from, ZoomWindow to, double zoomSpeed) {
+        return new Zoomer(Collections.<ZoomWindow>emptyList(), WindowZoomer.zoomOut(to, from, zoomSpeed), 0);
+    }
+
+    public static Zoomer zoomIn(ZoomWindow from, ZoomWindow to, double zoomSpeed) {
+        return new Zoomer(WindowZoomer.zoomIn(from, to, zoomSpeed), Collections.<ZoomWindow>emptyList(), 0);
+    }
+
+    public static Zoomer zoomOutAndIn(ZoomWindow from, ZoomWindow to, double zoomSpeed) {
+        ZoomWindow overview = new ZoomWindow();
+        List<ZoomWindow> zoomOut = WindowZoomer.zoomOut(overview, from, zoomSpeed);
+        List<ZoomWindow> zoomIn = WindowZoomer.zoomIn(overview, to, zoomSpeed);
+
+        return new Zoomer(zoomIn, zoomOut, zoomOut.size() / 3);
+    }
+
+    private Zoomer(List<ZoomWindow> zoomIn, List<ZoomWindow> zoomOut, int zoomOutCnt) {
+        windowsZoomIn = zoomIn.iterator();
+        windowsZoomOut = zoomOut.iterator();
+        this.zoomedOutCnt = zoomOutCnt;
     }
 
     public boolean isZooming() {
-        return step <= steps * 2;
-    }
-
-    public ZoomWindow zoom(int step) {
-        this.step = step - 1;
-        return zoom();
+        return windowsZoomOut.hasNext() || windowsZoomIn.hasNext();
     }
 
     public ZoomWindow zoom() {
-        int originalStep = step;
-
-        if (step < steps) {
-            if (step + 3 > steps) {
-                step++;
-            } else {
-                step += 3;
-            }
-        } else {
-            step++;
+        if (windowsZoomOut.hasNext()) {
+            return windowsZoomOut.next();
         }
-        if (step < 0) {
-            return zoomFrom;
+        if (zoomedOutCnt > 0) {
+            zoomedOutCnt--;
+        } else if (windowsZoomIn.hasNext()) {
+            return windowsZoomIn.next();
         }
-        if (step > steps * 2) {
-            return zoomTo;
-        }
-        if (step < steps) {
-            return zoomOut(step);
-        }
-        if (step == steps && fullsizesteps > 0) {
-            fullsizesteps--;
-            step = originalStep;
-        }
-        return zoomIn(step - steps);
-    }
-
-    private ZoomWindow zoomOut(int step) {
-        return new ZoomWindow(
-                zoomFrom.x1 / steps * (steps - step),
-                zoomFrom.y1 / steps * (steps - step),
-                zoomFrom.x2 + (1 - zoomFrom.x2) / steps * step,
-                zoomFrom.y2 + (1 - zoomFrom.y2) / steps * step);
-    }
-
-    private ZoomWindow zoomIn(int step) {
-        return new ZoomWindow(
-                zoomTo.x1 / steps * step,
-                zoomTo.y1 / steps * step,
-                1 - (1 - zoomTo.x2) / steps * step,
-                1 - (1 - zoomTo.y2) / steps * step);
+        return windowOverview;
     }
 }

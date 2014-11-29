@@ -26,6 +26,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private static Color grey = new Color(230, 230, 230);
 
+    private static double zoomSpeed = 0.9;
+    private static double slowZoomSpeed = 0.97;
     private Zoomer zoomer;
     private Stack<ZoomWindow> windows = new Stack<>();
 
@@ -76,7 +78,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
                 sx1 = sx2 = e.getX();
                 sy1 = sy2 = e.getY();
             } else if (e.getButton() == 3 && windows.size() > 1) {
-                windows.pop();
+                ZoomWindow from = windows.pop();
+                zoomer = Zoomer.zoomOut(from, windows.peek(), zoomSpeed);
             }
         }
     }
@@ -111,6 +114,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         ZoomWindow w = windows.peek();
         ZoomWindow window = ZoomCalculator.zoom(width, height, sw.x1 - x1, sw.y1 - y, sw.x2 - x1, sw.y2 - y, w.x1, w.y1, w.x2, w.y2);
         windows.push(window);
+        zoomer = Zoomer.zoomIn(w, window, zoomSpeed);
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
@@ -134,19 +138,19 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (key >= 48 && key <= 57) { // 0..9
             int index = key - 48;
 
-            if (e.getModifiers() == 2) {
+            if (modifiers == 2) {
                 shortcuts.set(index, windows);
-            } else if (e.getModifiers() == 1) {
-                zoom(index, 200);
+            } else if (modifiers == 1) {
+                zoomOutAndIn(index, slowZoomSpeed);
             } else {
-                zoom(index, 50);
+                zoomOutAndIn(index, zoomSpeed);
             }
         }
     }
 
-    private void zoom(int index, int steps) {
+    private void zoomOutAndIn(int index, double zoomSpeed) {
         ZoomWindow from = windows.peek();
         windows = shortcuts.get(index);
-        zoomer = new Zoomer(from, windows.peek(), steps);
+        zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
     }
 }
