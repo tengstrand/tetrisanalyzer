@@ -73,7 +73,7 @@ public class RaceSettings {
             colorsString = reader.readString("colors");
         }
         colors = reader.readColors("colors", defaultColors());
-        windowLocation = reader.readWindowLocation("window-location");
+        windowLocation = reader.readWindowLocation("window-location-size");
         shortcuts = reader.readShortcuts("zoom-windows");
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
@@ -93,15 +93,15 @@ public class RaceSettings {
 
     private List<Color> defaultColors() {
         return Arrays.asList(
-                new Color(255,0,0),
-                new Color(0,255,0),
-                new Color(0,0,0),
-                new Color(255,170,0),
-                new Color(0,178,255),
-                new Color(179,45,215),
-                new Color(206,225,38),
-                new Color(255,0,246),
-                new Color(200,200,200)
+                ColorConverter.color("ff0000"),
+                ColorConverter.color("ffd100"),
+                ColorConverter.color("b3ff00"),
+                ColorConverter.color("00b100"),
+                ColorConverter.color("005aff"),
+                ColorConverter.color("7debff"),
+                ColorConverter.color("f78eff"),
+                ColorConverter.color("bc00ff"),
+                ColorConverter.color("000000")
         );
     }
 

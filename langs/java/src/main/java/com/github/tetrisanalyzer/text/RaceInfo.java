@@ -3,7 +3,7 @@ package com.github.tetrisanalyzer.text;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class RaceInfo {
@@ -14,15 +14,6 @@ public class RaceInfo {
 
     public RaceInfo(List<RaceGameSettings> raceGameSettingsList) {
         this.raceGameSettingsList = raceGameSettingsList;
-    }
-
-    public List<String> parameters() {
-        List<String> result = new ArrayList<>();
-
-        for (RaceGameSettings settings : raceGameSettingsList) {
-            result.add(settings.parameterValue.toString());
-        }
-        return result;
     }
 
     public RowsResult rows() {
@@ -41,12 +32,9 @@ public class RaceInfo {
         rows[9] = rpad("pieces/s:", paramLength);
 
         String[] values = new String[9];
-
-        int parameterIdx = 0;
-        String[] parameters = new String[raceGameSettingsList.size()];
-        for (int i=0; i<parameters.length; i++) {
-            parameters[i] = spaces(paramLength);
-        }
+        int columnIdx = 0;
+        int column = paramLength;
+        int[] columns = new int[raceGameSettingsList.size()];
 
         for (RaceGameSettings settings : raceGameSettingsList) {
             values[0] = settings.parameterValue.toString();
@@ -60,6 +48,8 @@ public class RaceInfo {
             values[8] = settings.gameState.piecesPerSecond();
 
             int max = maxValueLength(values);
+            column += 2 + max;
+            columns[columnIdx++] = column;
             rows[0] += "  " + lpad("", max);
             rows[1] += "  " + separator(max);
             rows[2] += "  " + lpad(values[1], max);
@@ -70,17 +60,8 @@ public class RaceInfo {
             rows[7] += "  " + lpad(values[6], max);
             rows[8] += "  " + lpad(values[7], max);
             rows[9] += "  " + lpad(values[8], max);
-
-            for (int i=0; i<parameters.length; i++) {
-                if (i == parameterIdx) {
-                    parameters[parameterIdx] += "  " + lpad(values[0], max);
-                } else if (i <= parameterIdx) {
-                    parameters[parameterIdx] += spaces(max + 2);
-                }
-            }
-            parameterIdx++;
         }
-        return new RowsResult(rows, parameters);
+        return new RowsResult(rows, columns);
     }
 
     private int maxValueLength(String[] values) {
@@ -129,9 +110,14 @@ public class RaceInfo {
             paintText(result.rows[row], startRow + row, g);
         }
 
-        for (int i=0; i<result.parameters.length; i++) {
+        int charWidth = g.getFontMetrics().charWidth(' ');
+
+        Iterator<RaceGameSettings> settingsIterator = raceGameSettingsList.iterator();
+        for (int i=0; i<result.columns.length; i++) {
+            RaceGameSettings settings = settingsIterator.next();
             g.setColor(colors.get(i % colors.size()));
-            g.drawChars(result.parameters[i].toCharArray(), 0, result.parameters[i].length(), X0, Y0);
+            String value = settings.parameterValue.toString();
+            g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns[i] - value.length()) * charWidth, Y0);
         }
     }
 
@@ -141,11 +127,11 @@ public class RaceInfo {
 
     static class RowsResult {
         public String[] rows;
-        public String[] parameters;
+        public int[] columns;
 
-        RowsResult(String[] rows, String[] parameters) {
+        RowsResult(String[] rows, int[] columns) {
             this.rows = rows;
-            this.parameters = parameters;
+            this.columns = columns;
         }
     }
 }

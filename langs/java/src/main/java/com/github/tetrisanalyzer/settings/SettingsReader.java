@@ -168,11 +168,7 @@ public class SettingsReader {
         if (rgb.length() != 6) {
             throw new IllegalArgumentException("Expected to find color in format 'RRGGBB' for attribute '" + key + "', but was: " + rgb);
         }
-        int r = Integer.parseInt(rgb.substring(0, 2), 16);
-        int g = Integer.parseInt(rgb.substring(2,4), 16);
-        int b = Integer.parseInt(rgb.substring(4,6), 16);
-
-        return new Color(r, g, b);
+        return ColorConverter.color(rgb);
     }
 
     public List<Color> readColors(String key, List<Color> defaultColors) {
