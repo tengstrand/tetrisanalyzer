@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.text;
 
+import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class RaceInfo {
         rows.add("parameter value:");
         rows.add("----------------");
         rows.add(rpad("duration:", paramLength));
+        rows.add(rpad("board:", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
         rows.add(rpad("", paramLength));
@@ -37,17 +39,18 @@ public class RaceInfo {
         List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
 
         for (RaceGameSettings settings : raceGameSettingsList) {
-            //values.add(settings.parameterValue.toString());
+            GameState state = settings.gameState;
             values.add("");
             values.add("");
-            values.add(settings.gameState.duration.asDaysHoursMinutesSecs());
-            values.add(format(settings.gameState.games));
-            values.add(format(settings.gameState.rows));
+            values.add(state.duration.asDaysHoursMinutesSecs());
+            values.add(state.board.width + " x " + state.board.height);
+            values.add(format(state.games));
+            values.add(format(state.rows));
             values.add("");
-            values.add(settings.gameState.rowsPerGame());
-            values.add(settings.gameState.minRows());
-            values.add(settings.gameState.maxRows());
-            values.add(settings.gameState.piecesPerSecond());
+            values.add(state.rowsPerGame());
+            values.add(state.minRows());
+            values.add(state.maxRows());
+            values.add(state.piecesPerSecond());
 
             int max = maxValueLength(values);
             column += 2 + max;
@@ -98,7 +101,7 @@ public class RaceInfo {
     }
 
     public void paintTextAtColumn(String text, int column, Graphics g) {
-        int row = 11;
+        int row = 12;
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
     }
 
