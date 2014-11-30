@@ -5,6 +5,8 @@ import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
 import org.junit.Test;
 
+import java.util.List;
+
 import static com.github.tetrisanalyzer.settings.RaceSettingsTest.RACE_SETTINGS;
 import static com.github.tetrisanalyzer.settings.SystemSettingsTest.SYSTEM_SETTINGS;
 import static junit.framework.Assert.assertEquals;
@@ -13,7 +15,7 @@ public class RaceInfoTest {
 
     @Test
     public void parameterValuesAsString() {
-        String[] rows = parameters().rows().rows;
+        List<String> rows = parameters().rows().rows;
 
         String result = "";
         String separator = "";
@@ -43,7 +45,7 @@ public class RaceInfoTest {
 
         race.games.get(0).gameState.games = 2;
         race.games.get(0).gameState.totalPieces = 4000000;
-        race.games.get(0).gameState.totalRows =1000000;
+        race.games.get(0).gameState.totalRows = 1000000;
         race.games.get(0).duration = new Duration(1,2,3,4,5);
 
         return new RaceInfo(race.games);

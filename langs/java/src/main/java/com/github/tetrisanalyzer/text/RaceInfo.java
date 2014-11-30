@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.text;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,54 +18,52 @@ public class RaceInfo {
     }
 
     public RowsResult rows() {
-        String[] rows = new String[10];
+        List<String> rows = new ArrayList<>();
 
         final int paramLength = 16;
-        rows[0] = "parameter value:";
-        rows[1] = "----------------";
-        rows[2] = rpad("duration:", paramLength);
-        rows[3] = rpad("games:", paramLength);
-        rows[4] = rpad("rows:", paramLength);
-        rows[5] = rpad("", paramLength);
-        rows[6] = rpad("rows/game:", paramLength);
-        rows[7] = rpad("min rows:", paramLength);
-        rows[8] = rpad("max rows:", paramLength);
-        rows[9] = rpad("pieces/s:", paramLength);
+        rows.add("parameter value:");
+        rows.add("----------------");
+        rows.add(rpad("duration:", paramLength));
+        rows.add(rpad("games:", paramLength));
+        rows.add(rpad("rows:", paramLength));
+        rows.add(rpad("", paramLength));
+        rows.add(rpad("rows/game:", paramLength));
+        rows.add(rpad("min rows:", paramLength));
+        rows.add(rpad("max rows:", paramLength));
+        rows.add(rpad("pieces/s:", paramLength));
 
-        String[] values = new String[9];
-        int columnIdx = 0;
+        List<String> values = new ArrayList<>();
         int column = paramLength;
-        int[] columns = new int[raceGameSettingsList.size()];
+        List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
 
         for (RaceGameSettings settings : raceGameSettingsList) {
-            values[0] = settings.parameterValue.toString();
-            values[1] = settings.gameState.duration.asDaysHoursMinutesSecs();
-            values[2] = format(settings.gameState.games);
-            values[3] = format(settings.gameState.rows);
-            values[4] = "";
-            values[5] = settings.gameState.rowsPerGame();
-            values[6] = settings.gameState.minRows();
-            values[7] = settings.gameState.maxRows();
-            values[8] = settings.gameState.piecesPerSecond();
+            //values.add(settings.parameterValue.toString());
+            values.add("");
+            values.add("");
+            values.add(settings.gameState.duration.asDaysHoursMinutesSecs());
+            values.add(format(settings.gameState.games));
+            values.add(format(settings.gameState.rows));
+            values.add("");
+            values.add(settings.gameState.rowsPerGame());
+            values.add(settings.gameState.minRows());
+            values.add(settings.gameState.maxRows());
+            values.add(settings.gameState.piecesPerSecond());
 
             int max = maxValueLength(values);
             column += 2 + max;
-            columns[columnIdx++] = column;
-            rows[0] += "  " + lpad("", max);
-            rows[1] += "  " + separator(max);
-            rows[2] += "  " + lpad(values[1], max);
-            rows[3] += "  " + lpad(values[2], max);
-            rows[4] += "  " + lpad(values[3], max);
-            rows[5] += "  " + lpad(values[4], max);
-            rows[6] += "  " + lpad(values[5], max);
-            rows[7] += "  " + lpad(values[6], max);
-            rows[8] += "  " + lpad(values[7], max);
-            rows[9] += "  " + lpad(values[8], max);
+            columns.add(column);
+            for (int i=0; i<rows.size(); i++) {
+                if (i == 1) {
+                    rows.set(i, rows.get(i) + "  " + separator(max));
+                } else {
+                    rows.set(i, rows.get(i) + "  " + lpad(values.get(i), max));
+                }
+            }
         }
         return new RowsResult(rows, columns);
     }
 
-    private int maxValueLength(String[] values) {
+    private int maxValueLength(List<String> values) {
         int max = Integer.MIN_VALUE;
         for (String value : values) {
             if (value.length() > max) {
@@ -106,18 +105,18 @@ public class RaceInfo {
     public void paintTexts(Graphics g, int startRow, List<Color> colors) {
         RowsResult result = rows();
 
-        for (int row=0; row < result.rows.length; row++) {
-            paintText(result.rows[row], startRow + row, g);
+        for (int row=0; row < result.rows.size(); row++) {
+            paintText(result.rows.get(row), startRow + row, g);
         }
 
         int charWidth = g.getFontMetrics().charWidth(' ');
 
         Iterator<RaceGameSettings> settingsIterator = raceGameSettingsList.iterator();
-        for (int i=0; i<result.columns.length; i++) {
+        for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
             g.setColor(colors.get(i % colors.size()));
             String value = settings.parameterValue.toString();
-            g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns[i] - value.length()) * charWidth, Y0);
+            g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns.get(i) - value.length()) * charWidth, Y0);
         }
     }
 
@@ -126,10 +125,10 @@ public class RaceInfo {
     }
 
     static class RowsResult {
-        public String[] rows;
-        public int[] columns;
+        public List<String> rows;
+        public List<Integer> columns;
 
-        RowsResult(String[] rows, int[] columns) {
+        RowsResult(List<String> rows, List<Integer> columns) {
             this.rows = rows;
             this.columns = columns;
         }
