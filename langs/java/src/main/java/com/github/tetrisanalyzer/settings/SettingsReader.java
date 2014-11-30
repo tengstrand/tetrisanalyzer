@@ -303,9 +303,9 @@ public class SettingsReader {
             return new Distribution(boardWidth, boardHeight);
         }
         List<String> list = (List)get("distribution");
-        List<Integer> cells = new ArrayList<>();
+        List<Long> cells = new ArrayList<>();
         for (String value : list) {
-            cells.add(Integer.parseInt(value));
+            cells.add(Long.parseLong(value));
         }
         return new Distribution(cells);
     }

@@ -13,7 +13,7 @@ public class DistributionTest {
 
     @Test
     public void toVertices() {
-        List<Integer> cells = Arrays.asList(500, 1000, 1200, 700);
+        List<Long> cells = Arrays.asList(500L, 1000L, 1200L, 700L);
         Distribution distribution = new Distribution(cells);
         Vertices vertices = distribution.toVertices();
 

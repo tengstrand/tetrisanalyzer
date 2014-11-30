@@ -21,13 +21,13 @@ public class VerticesTest {
                 new Vertex(2.0, 1200.0),
                 new Vertex(3.0, 700.0));
 
-        Vertices normalized = vertices.normalizeY();
+        Vertices normalized = vertices.normalizeY(vertices.maxYRatio());
 
         Vertices expected = new Vertices(
-                new Vertex(0.0, 0.5833333333333333),
-                new Vertex(1.0, 0.16666666666666663),
+                new Vertex(0.0, 0.5833333333333334),
+                new Vertex(1.0, 0.16666666666666674),
                 new Vertex(2.0, 0.0),
-                new Vertex(3.0, 0.41666666666666663));
+                new Vertex(3.0, 0.41666666666666674));
 
         assertEquals(expected, normalized);
     }

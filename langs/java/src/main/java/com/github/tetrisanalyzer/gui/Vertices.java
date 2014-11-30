@@ -7,32 +7,45 @@ import java.util.List;
 public class Vertices {
     List<Vertex> vertices;
 
+    public double totalY;
+    public double maxY;
+
     public Vertices(Vertex... vertices) {
-        this.vertices = new ArrayList<>(vertices.length);
-        this.vertices.addAll(Arrays.asList(vertices));
+        this(vertices(vertices));
+    }
+
+    private static List<Vertex> vertices(Vertex... vertices) {
+        List<Vertex> result = new ArrayList<>(vertices.length);
+        result.addAll(Arrays.asList(vertices));
+        return result;
     }
 
     public Vertices(List<Vertex> vertices) {
         this.vertices = vertices;
-    }
-
-    private double maxY() {
-        double max = Double.MIN_VALUE;
+        this.totalY = 0;
+        this.maxY = Long.MIN_VALUE;
 
         for (Vertex vertex : vertices) {
-            if (vertex.y > max) {
-                max = vertex.y;
+            totalY += vertex.y;
+            if (vertex.y > maxY) {
+                maxY = vertex.y;
             }
         }
-        return max;
     }
 
-    public Vertices normalizeY() {
+    public double maxYRatio() {
+        return maxY / totalY;
+    }
+
+    Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height, Double maxYRatio) {
+        return normalizeY(maxYRatio).clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).resize(wx1, wy1, wx2, wy2, width, height);
+    }
+
+    public Vertices normalizeY(Double maxYRatio) {
         List<Vertex> result = new ArrayList<>(vertices.size());
 
-        double maxy = maxY();
         for (Vertex vertex : vertices) {
-            result.add(new Vertex(vertex.x, 1 - vertex.y / maxy));
+            result.add(new Vertex(vertex.x, 1 - (vertex.y / totalY) / maxYRatio));
         }
         return new Vertices(result);
     }

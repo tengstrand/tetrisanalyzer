@@ -1,6 +1,5 @@
 package com.github.tetrisanalyzer.game;
 
-import com.github.tetrisanalyzer.gui.Lines;
 import com.github.tetrisanalyzer.gui.Vertex;
 import com.github.tetrisanalyzer.gui.Vertices;
 
@@ -8,21 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distribution {
-    public int[] cells;
+    public long[] cells;
 
     public Distribution(int boardWidth, int boardHeight) {
-        cells = new int[((boardWidth-1) * boardHeight) / 2 + 1];
+        cells = new long[((boardWidth-1) * boardHeight) / 2 + 1];
     }
 
-    public Distribution(List<Integer> cells) {
-        this.cells = new int[cells.size()];
+    public Distribution(List<Long> cells) {
+        this.cells = new long[cells.size()];
 
         int i = 0;
-        for (Integer square : cells) {
+        for (long cell : cells) {
             if (i == cells.size()) {
                 break;
             }
-            this.cells[i++] = square;
+            this.cells[i++] = cell;
         }
     }
 
@@ -31,7 +30,7 @@ public class Distribution {
         cells[index] += numberOfCells;
     }
 
-    Vertices toVertices() {
+    public Vertices toVertices() {
         List<Vertex> vertices = new ArrayList<>();
 
         double dx = 1.0 / (cells.length - 1);
@@ -41,10 +40,6 @@ public class Distribution {
         return new Vertices(vertices);
     }
 
-    public Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height) {
-        return toVertices().normalizeY().clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).resize(wx1, wy1, wx2, wy2, width, height);
-    }
-
     public Distribution copy() {
         throw new IllegalStateException("Not implemented");
     }
@@ -52,7 +47,7 @@ public class Distribution {
     public String export() {
         String result = "[";
         String separator = "";
-        for (int cell : cells) {
+        for (long cell : cells) {
             result += separator + cell;
             separator = ",";
         }

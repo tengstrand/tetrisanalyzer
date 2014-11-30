@@ -8,6 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -52,13 +54,26 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     public void draw(Graphics g) {
         fillMouseSelection(g);
 
+        Double maxYRatio = Double.MIN_VALUE;
+        List<Vertices> gameVertices = new ArrayList<>(games.size());
+
         for (RaceGameSettings game : games) {
+            Vertices vertices = game.distribution.toVertices();
+            gameVertices.add(vertices);
+
+            if (vertices.maxYRatio() > maxYRatio) {
+                maxYRatio = vertices.maxYRatio();
+            }
+        }
+
+        Iterator<RaceGameSettings> gameIterator = games.iterator();
+        for (Vertices vertices : gameVertices) {
             ZoomWindow w = windows.peek();
             if (zoomer != null && zoomer.isZooming()) {
                 w = zoomer.zoom();
             }
-            Lines lines = game.distribution.lines(w.x1, w.y1, w.x2, w.y2, width, height);
-            g.setColor(game.color);
+            Lines lines = vertices.lines(w.x1, w.y1, w.x2, w.y2, width, height, maxYRatio);
+            g.setColor(gameIterator.next().color);
             lines.drawLines(x1, y, g);
         }
     }
