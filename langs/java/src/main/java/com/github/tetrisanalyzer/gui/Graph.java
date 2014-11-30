@@ -29,7 +29,10 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private static double zoomSpeed = 0.9;
     private static double slowZoomSpeed = 0.97;
     private Zoomer zoomer;
+    private Stack<ZoomWindow> overviewWindows = new Stack<>();
     private Stack<ZoomWindow> windows = new Stack<>();
+
+    private ZoomWindow overview = new ZoomWindow();
 
     private Shortcuts shortcuts;
 
@@ -41,8 +44,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.height = height;
         this.games = games;
 
-        windows.add(new ZoomWindow());
         this.shortcuts = shortcuts;
+        windows.add(new ZoomWindow());
+        overviewWindows.add(overview);
     }
 
     public void draw(Graphics g) {
@@ -141,16 +145,21 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             if (modifiers == 2) {
                 shortcuts.set(index, windows);
             } else if (modifiers == 1) {
-                zoomOutAndIn(index, slowZoomSpeed);
+                zoomTo(index, slowZoomSpeed);
             } else {
-                zoomOutAndIn(index, zoomSpeed);
+                zoomTo(index, zoomSpeed);
             }
         }
     }
 
-    private void zoomOutAndIn(int index, double zoomSpeed) {
+    private void zoomTo(int index, double zoomSpeed) {
         ZoomWindow from = windows.peek();
         windows = shortcuts.get(index);
-        zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
+        if (windows.peek() == from && from != overview) {
+            windows = overviewWindows;
+            zoomer = Zoomer.zoomOut(from, overview, zoomSpeed);
+        } else {
+            zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
+        }
     }
 }
