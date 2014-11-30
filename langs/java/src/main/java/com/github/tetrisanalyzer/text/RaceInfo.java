@@ -44,7 +44,7 @@ public class RaceInfo {
             values.add("");
             values.add(state.duration.asDaysHoursMinutesSecs());
             values.add(state.board.width + " x " + state.board.height);
-            values.add(format(state.games));
+            values.add(state.games == 0 ? "-" : format(state.games));
             values.add(format(state.rows));
             values.add("");
             values.add(state.rowsPerGame());

@@ -84,8 +84,10 @@ public class GameState {
     }
 
     public String rowsPerGame() {
-        long rowsPerGame = games == 0 ? 0 : totalRows / games;
-        return format(rowsPerGame);
+        if (games == 0) {
+            return "-";
+        }
+        return format(totalRows / games);
     }
 
     private String board() {
