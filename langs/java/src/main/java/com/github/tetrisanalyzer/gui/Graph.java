@@ -117,8 +117,11 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
         ZoomWindow w = windows.peek();
         ZoomWindow window = ZoomCalculator.zoom(width, height, sw.x1 - x1, sw.y1 - y, sw.x2 - x1, sw.y2 - y, w.x1, w.y1, w.x2, w.y2);
-        windows.push(window);
-        zoomer = Zoomer.zoomIn(w, window, zoomSpeed);
+
+        if (window.width() > 0 && window.height() > 0) {
+            zoomer = Zoomer.zoomIn(w, window, zoomSpeed);
+            windows.push(window);
+        }
     }
 
     @Override public void mouseClicked(MouseEvent e) {}
