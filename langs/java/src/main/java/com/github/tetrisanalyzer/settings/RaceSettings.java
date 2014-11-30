@@ -86,7 +86,9 @@ public class RaceSettings {
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(gameMap);
             Color color = colors.get(idx++ % colors.size());
-            RaceGameSettings game = new RaceGameSettings(board, parameterName, gameMap, boardEvaluatorId, evaluatorSettings, pieceGeneratorSettings, duration, color);
+            RaceGameSettings game = new RaceGameSettings(board, parameterName, gameMap,
+                    tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings,
+                    pieceGeneratorSettings, duration, color);
             this.games.add(game);
         }
     }
@@ -137,6 +139,7 @@ public class RaceSettings {
                     "   pieces: " + state.pieces + "\n" +
                     "   pieces total: " + state.totalPieces + "\n" +
                     "   rows: " + state.rows + "\n" +
+                    "   rows total: " + state.totalRows + "\n" +
                     "   min rows: " + state.minRows() + "\n" +
                     "   max rows: " + state.maxRows() + "\n" +
                     "   rows/game: " + state.rowsPerGame() + "\n" +

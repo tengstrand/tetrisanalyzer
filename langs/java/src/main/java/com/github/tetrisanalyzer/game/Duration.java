@@ -138,7 +138,13 @@ public class Duration {
         return String.format(Locale.ENGLISH, "%.2f", value);
     }
 
-    public String xPerSeconds(long x) {
+    public String xPerSecond(long x) {
+        double seconds = seconds();
+
+        return String.valueOf((long)(x / seconds));
+    }
+
+    public String xPerSecondFormatted(long x) {
         double seconds = seconds();
 
         double xPerSec = x / seconds;

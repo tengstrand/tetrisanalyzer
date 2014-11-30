@@ -26,7 +26,10 @@ public class RaceInfo {
         rows.add("-------------------");
         rows.add(rpad("duration:", paramLength));
         rows.add(rpad("board:", paramLength));
+        rows.add(rpad("tetris rules id:", paramLength));
+        rows.add(rpad("piece generator id:", paramLength));
         rows.add(rpad("board evaluator id:", paramLength));
+        rows.add(rpad("", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
         rows.add(rpad("", paramLength));
@@ -46,15 +49,18 @@ public class RaceInfo {
             values.add("");
             values.add(state.duration.asDaysHoursMinutesSecs());
             values.add(state.board.width + " x " + state.board.height);
+            values.add(settings.tetrisRulesId);
+            values.add(settings.pieceGeneratorId);
             values.add(settings.boardEvaluatorId);
+            values.add("");
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
             values.add("");
-            values.add(state.rowsPerGame());
-            values.add(state.minRows());
-            values.add(state.maxRows());
+            values.add(state.rowsPerGameFormatted());
+            values.add(state.minRowsFormatted());
+            values.add(state.maxRowsFormatted());
             values.add(state.rowsPerSecond());
-            values.add(state.piecesPerSecond());
+            values.add(state.piecesPerSecondFormatted());
 
             int max = maxValueLength(values);
             column += 2 + max;
@@ -105,7 +111,7 @@ public class RaceInfo {
     }
 
     public void paintTextAtColumn(String text, int column, Graphics g) {
-        int row = 12;
+        int row = 17;
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
     }
 

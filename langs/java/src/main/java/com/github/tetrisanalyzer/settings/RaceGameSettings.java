@@ -24,15 +24,21 @@ public class RaceGameSettings {
     public Duration duration;
     public Distribution distribution;
 
-    public PieceGenerator pieceGenerator;
+    public String tetrisRulesId;
+    public String pieceGeneratorId;
     public String boardEvaluatorId;
+
+    public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
 
-    public RaceGameSettings(ColoredBoard raceBoard, String parameterName, Map settings, String boardEvaluatorId, Map boardEvaluatorSettings,
+    public RaceGameSettings(ColoredBoard raceBoard, String parameterName, Map settings, String tetrisRulesId,
+                            String pieceGeneratorId, String boardEvaluatorId, Map boardEvaluatorSettings,
                             Map pieceGeneratorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
         this.color = color;
+        this.tetrisRulesId = tetrisRulesId;
+        this.pieceGeneratorId = pieceGeneratorId;
         this.boardEvaluatorId = boardEvaluatorId;
 
         parameterValue = reader.get("parameter value");
@@ -46,10 +52,11 @@ public class RaceGameSettings {
             }
         }
 
-        long numberOfGames = reader.readLong("games", 0);
-        long numberOfPieces = reader.readLong("pieces", 0);
-        long totalNumberOfPieces = reader.readLong("pieces total", 0);
-        long totalNumberOfRows = reader.readLong("rows", 0);
+        long games = reader.readLong("games", 0);
+        long pieces = reader.readLong("pieces", 0);
+        long totalPieces = reader.readLong("pieces total", 0);
+        long rows = reader.readLong("rows", 0);
+        long totalRows = reader.readLong("rows total", 0);
 
         long minRows = reader.readLong("min rows", Long.MAX_VALUE);
         long maxRows = reader.readLong("max rows", Long.MIN_VALUE);
@@ -71,8 +78,8 @@ public class RaceGameSettings {
         boardEvaluator = createBoardEvaluator(board.width, board.height, evaluatorSettings);
 
         gameState = new GameState(duration, board, distribution,
-                boardEvaluator, pieceGenerator, numberOfGames, numberOfPieces,
-                totalNumberOfPieces, totalNumberOfRows, minRows, maxRows, piecesLeft);
+                boardEvaluator, pieceGenerator, games, pieces,
+                totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 
     private Map pieceGeneratorSettings(Map pieceGeneratorSettings, Map parameters) {

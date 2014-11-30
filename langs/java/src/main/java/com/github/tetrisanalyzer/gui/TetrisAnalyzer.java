@@ -37,7 +37,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private JFrame frame;
 
     private static final int GRAPH_X0 = 50;
-    private static final int GRAPH_Y0 = 246;
+    private static final int GRAPH_Y0 = 330;
     private static final int GRAPH_WIDTH = 600;
     private static final int GRAPH_HEIGHT = 300;
 

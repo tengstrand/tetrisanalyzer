@@ -29,7 +29,7 @@ public class GameState {
     public GameState(Duration duration, ColoredBoard coloredBoard, Distribution distribution,
                      BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                      long numberOfGames, long numberOfPieces, long totalNumberOfPieces,
-                     long totalNumberOfRows, long minRows, long maxRows, long piecesLeft) {
+                     long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
         this.duration = duration;
         this.coloredBoard = coloredBoard;
         this.distribution = distribution;
@@ -39,7 +39,8 @@ public class GameState {
         this.games = numberOfGames;
         this.pieces = numberOfPieces;
         this.totalPieces = totalNumberOfPieces;
-        this.totalRows = totalNumberOfRows;
+        this.rows = rows;
+        this.totalRows = totalRows;
         this.minRows = minRows;
         this.maxRows = maxRows;
         this.movesLeft = piecesLeft;
@@ -51,18 +52,30 @@ public class GameState {
     }
 
     public String rowsPerSecond() {
-        return duration.xPerSeconds(totalRows);
+        return duration.xPerSecondFormatted(totalRows);
     }
 
     public String piecesPerSecond() {
-        return duration.xPerSeconds(totalPieces);
+        return duration.xPerSecond(totalPieces);
+    }
+
+    public String piecesPerSecondFormatted() {
+        return duration.xPerSecondFormatted(totalPieces);
     }
 
     public String minRows() {
-        return minRows == Long.MAX_VALUE ? "" : format(minRows);
+        return minRows == Long.MAX_VALUE ? "" : String.valueOf(minRows);
     }
 
     public String maxRows() {
+        return maxRows == Long.MIN_VALUE ? "" : String.valueOf(maxRows);
+    }
+
+    public String minRowsFormatted() {
+        return minRows == Long.MAX_VALUE ? "" : format(minRows);
+    }
+
+    public String maxRowsFormatted() {
         return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
     }
 
@@ -95,6 +108,13 @@ public class GameState {
         if (games == 0) {
             return "";
         }
+        return String.valueOf(totalRows / games);
+    }
+
+    public String rowsPerGameFormatted() {
+        if (games == 0) {
+            return "";
+        }
         return format(totalRows / games);
     }
 
@@ -124,8 +144,8 @@ public class GameState {
                 ", movesLeft=" + movesLeft +
                 ", games=" + games +
                 ", rows=" + rows +
-                ", minRows=" + minRows +
-                ", maxRows=" + maxRows +
+                ", minRowsFormatted=" + minRows +
+                ", maxRowsFormatted=" + maxRows +
                 ", totalRows=" + totalRows +
                 '}';
     }

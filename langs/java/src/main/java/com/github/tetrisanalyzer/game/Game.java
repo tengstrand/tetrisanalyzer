@@ -112,7 +112,6 @@ public class Game implements Runnable {
 
         if (bestMove == null) {
             state.games++;
-            state.totalRows += state.rows;
             setMinRows();
             setMaxRows();
             state.pieces = 0;
