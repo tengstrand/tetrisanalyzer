@@ -46,16 +46,24 @@ public class GameState {
         this.nonstop = piecesLeft <= 0;
     }
 
+    public String games() {
+        return games == 0 ? "" : String.valueOf(games);
+    }
+
+    public String rowsPerSecond() {
+        return duration.xPerSeconds(totalRows);
+    }
+
     public String piecesPerSecond() {
         return duration.xPerSeconds(totalPieces);
     }
 
     public String minRows() {
-        return minRows == Long.MAX_VALUE ? "-" : format(minRows);
+        return minRows == Long.MAX_VALUE ? "" : format(minRows);
     }
 
     public String maxRows() {
-        return maxRows == Long.MIN_VALUE ? "-" : format(maxRows);
+        return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
     }
 
     public GameState copy() {
@@ -85,7 +93,7 @@ public class GameState {
 
     public String rowsPerGame() {
         if (games == 0) {
-            return "-";
+            return "";
         }
         return format(totalRows / games);
     }

@@ -133,12 +133,12 @@ public class RaceSettings {
                     " - parameter value: " + game.parameterValue + "\n" +
                     "   duration: " + game.duration + "\n" +
                     "   board: " + game.game.coloredBoard.export() + "\n" +
-                    "   games: " + state.games + "\n" +
+                    "   games: " + state.games() + "\n" +
                     "   pieces: " + state.pieces + "\n" +
                     "   pieces total: " + state.totalPieces + "\n" +
                     "   rows: " + state.rows + "\n" +
-                    "   min rows: " + state.minRows + "\n" +
-                    "   max rows: " + state.maxRows + "\n" +
+                    "   min rows: " + state.minRows() + "\n" +
+                    "   max rows: " + state.maxRows() + "\n" +
                     "   rows/game: " + state.rowsPerGame() + "\n" +
                     "   piece/s: " + state.piecesPerSecond() + "\n" +
                     "   piece generator state: " + state.pieceGenerator.export() + "\n" +

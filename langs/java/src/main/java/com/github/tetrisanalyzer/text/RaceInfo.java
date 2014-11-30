@@ -32,6 +32,7 @@ public class RaceInfo {
         rows.add(rpad("rows/game:", paramLength));
         rows.add(rpad("min rows:", paramLength));
         rows.add(rpad("max rows:", paramLength));
+        rows.add(rpad("rows/s:", paramLength));
         rows.add(rpad("pieces/s:", paramLength));
 
         List<String> values = new ArrayList<>();
@@ -44,12 +45,13 @@ public class RaceInfo {
             values.add("");
             values.add(state.duration.asDaysHoursMinutesSecs());
             values.add(state.board.width + " x " + state.board.height);
-            values.add(state.games == 0 ? "-" : format(state.games));
+            values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
             values.add("");
             values.add(state.rowsPerGame());
             values.add(state.minRows());
             values.add(state.maxRows());
+            values.add(state.rowsPerSecond());
             values.add(state.piecesPerSecond());
 
             int max = maxValueLength(values);

@@ -78,6 +78,7 @@ public class Game implements Runnable {
             int clearedRows = bestMove.setPiece(board);
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
             state.rows += clearedRows;
+            state.totalRows += clearedRows;
             numberOfCells += 4 - clearedRows * board.width;
 
             state.distribution.increaseArea(numberOfCells);
