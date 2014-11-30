@@ -25,13 +25,15 @@ public class RaceGameSettings {
     public Distribution distribution;
 
     public PieceGenerator pieceGenerator;
+    public String boardEvaluatorId;
     public BoardEvaluator boardEvaluator;
 
-    public RaceGameSettings(ColoredBoard raceBoard, String parameterName, Map settings, Map boardEvaluatorSettings,
+    public RaceGameSettings(ColoredBoard raceBoard, String parameterName, Map settings, String boardEvaluatorId, Map boardEvaluatorSettings,
                             Map pieceGeneratorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
         this.color = color;
+        this.boardEvaluatorId = boardEvaluatorId;
 
         parameterValue = reader.get("parameter value");
         duration = reader.readDuration();
@@ -56,7 +58,7 @@ public class RaceGameSettings {
         pieceGenerator = createPieceGenerator(generatorSettings);
 
         ColoredBoard gameBoard = reader.readBoard();
-        int piecesLeft = 0; // TODO: Set value
+        int piecesLeft = 0;
 
         if (gameBoard == null && raceBoard == null) {
             gameBoard = ColoredBoard.create(10, 20);

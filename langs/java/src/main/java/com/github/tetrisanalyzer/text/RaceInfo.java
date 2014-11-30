@@ -21,11 +21,12 @@ public class RaceInfo {
     public RowsResult rows() {
         List<String> rows = new ArrayList<>();
 
-        final int paramLength = 16;
+        final int paramLength = 19;
         rows.add("parameter value:");
-        rows.add("----------------");
+        rows.add("-------------------");
         rows.add(rpad("duration:", paramLength));
         rows.add(rpad("board:", paramLength));
+        rows.add(rpad("board evaluator id:", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
         rows.add(rpad("", paramLength));
@@ -45,6 +46,7 @@ public class RaceInfo {
             values.add("");
             values.add(state.duration.asDaysHoursMinutesSecs());
             values.add(state.board.width + " x " + state.board.height);
+            values.add(settings.boardEvaluatorId);
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
             values.add("");

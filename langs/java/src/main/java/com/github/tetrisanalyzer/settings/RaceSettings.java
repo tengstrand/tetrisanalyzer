@@ -86,7 +86,7 @@ public class RaceSettings {
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(gameMap);
             Color color = colors.get(idx++ % colors.size());
-            RaceGameSettings game = new RaceGameSettings(board, parameterName, gameMap, evaluatorSettings, pieceGeneratorSettings, duration, color);
+            RaceGameSettings game = new RaceGameSettings(board, parameterName, gameMap, boardEvaluatorId, evaluatorSettings, pieceGeneratorSettings, duration, color);
             this.games.add(game);
         }
     }
