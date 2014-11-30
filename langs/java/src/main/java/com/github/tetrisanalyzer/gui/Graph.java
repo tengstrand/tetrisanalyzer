@@ -29,9 +29,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private static Color grey = new Color(230, 230, 230);
 
     private static double zoomSpeed = 0.9;
-    private static double slowZoomSpeed = 0.97;
+    private static double slowZoomSpeed = 0.98;
     private Zoomer zoomer;
-    private Stack<ZoomWindow> overviewWindows = new Stack<>();
     private Stack<ZoomWindow> windows = new Stack<>();
 
     private ZoomWindow overview = new ZoomWindow();
@@ -48,7 +47,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
         this.shortcuts = shortcuts;
         windows.add(new ZoomWindow());
-        overviewWindows.add(overview);
     }
 
     public void draw(Graphics g) {
@@ -57,6 +55,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         Double maxYRatio = Double.MIN_VALUE;
         List<Vertices> gameVertices = new ArrayList<>(games.size());
 
+        // 1. Calculate the graph and the relative max y (maxYRatio).
         for (RaceGameSettings game : games) {
             Vertices vertices = game.distribution.toVertices();
             gameVertices.add(vertices);
@@ -66,13 +65,18 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             }
         }
 
+        // 2. Clip lines, scale and paint.
         Iterator<RaceGameSettings> gameIterator = games.iterator();
         for (Vertices vertices : gameVertices) {
             ZoomWindow w = windows.peek();
             if (zoomer != null && zoomer.isZooming()) {
                 w = zoomer.zoom();
             }
-            Lines lines = vertices.lines(w.x1, w.y1, w.x2, w.y2, width, height, maxYRatio);
+            Lines lines = vertices
+                    .normalizeY(maxYRatio)
+                    .clipHorizontal(w.x1, w.x2)
+                    .clipVertically(w.y1, w.y2)
+                    .resize(w.x1, w.y1, w.x2, w.y2, width, height);
             g.setColor(gameIterator.next().color);
             lines.drawLines(x1, y, g);
         }
@@ -160,7 +164,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (key >= 48 && key <= 57) { // 0..9
             int index = key - 48;
 
-            if (modifiers == 2) {
+            if (modifiers == 2 && index > 0) {
                 shortcuts.set(index, windows);
             } else if (modifiers == 1) {
                 zoomTo(index, slowZoomSpeed);
@@ -172,11 +176,12 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private void zoomTo(int index, double zoomSpeed) {
         ZoomWindow from = windows.peek();
-        windows = shortcuts.get(index);
-        if (windows.peek() == from && from != overview) {
-            windows = overviewWindows;
+        Stack<ZoomWindow> toWindows = shortcuts.get(index);
+        if (toWindows.peek() == from && from != overview) {
+            windows = shortcuts.get(0);
             zoomer = Zoomer.zoomOut(from, overview, zoomSpeed);
         } else {
+            windows = toWindows;
             zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
         }
     }

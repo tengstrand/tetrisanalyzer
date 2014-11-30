@@ -37,10 +37,6 @@ public class Vertices {
         return maxY / totalY;
     }
 
-    Lines lines(double wx1, double wy1, double wx2, double wy2, int width, int height, Double maxYRatio) {
-        return normalizeY(maxYRatio).clipHorizontal(wx1, wx2).clipVertically(wy1, wy2).resize(wx1, wy1, wx2, wy2, width, height);
-    }
-
     public Vertices normalizeY(Double maxYRatio) {
         List<Vertex> result = new ArrayList<>(vertices.size());
 
