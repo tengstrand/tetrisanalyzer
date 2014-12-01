@@ -39,11 +39,11 @@ public class RaceInfo {
         rows.add(rpad("rows/s:", paramLength));
         rows.add(rpad("pieces/s:", paramLength));
 
-        List<String> values = new ArrayList<>();
         int column = paramLength;
         List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
 
         for (RaceGameSettings settings : raceGameSettingsList) {
+            List<String> values = new ArrayList<>();
             GameState state = settings.gameState;
             values.add("");
             values.add("");
