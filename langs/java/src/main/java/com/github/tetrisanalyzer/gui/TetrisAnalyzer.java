@@ -81,7 +81,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.getContentPane().add(tetrisAnalyzer);
 
         for (RaceGameSettings settings : race.games) {
-            Game game = settings.createGame(race.tetrisRules);
+            Game game = settings.createGame(settings.tetrisRules);
             new Thread(game).start();
         }
     }

@@ -112,7 +112,7 @@ public class RaceSettingsTest {
         RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
 
         for (RaceGameSettings settings : race.games) {
-            settings.createGame(race.tetrisRules);
+            settings.createGame(settings.tetrisRules);
         }
         String result = race.export(new WindowLocation(), "");
 

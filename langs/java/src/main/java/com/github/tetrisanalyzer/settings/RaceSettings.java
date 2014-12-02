@@ -86,7 +86,7 @@ public class RaceSettings {
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(gameMap);
             Color color = colors.get(idx++ % colors.size());
-            RaceGameSettings game = new RaceGameSettings(board, parameterName, gameMap,
+            RaceGameSettings game = new RaceGameSettings(systemSettings, board, parameterName, gameMap,
                     tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings,
                     pieceGeneratorSettings, duration, color);
             this.games.add(game);
@@ -96,7 +96,7 @@ public class RaceSettings {
     private List<Color> defaultColors() {
         return Arrays.asList(
                 ColorConverter.color("ff0000"),
-                ColorConverter.color("ffd100"),
+                ColorConverter.color("ff6400"),
                 ColorConverter.color("b3ff00"),
                 ColorConverter.color("00b100"),
                 ColorConverter.color("005aff"),
