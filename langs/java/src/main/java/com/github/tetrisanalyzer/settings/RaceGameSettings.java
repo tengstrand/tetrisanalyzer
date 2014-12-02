@@ -37,11 +37,17 @@ public class RaceGameSettings {
         reader = new SettingsReader(settings, "game");
 
         this.color = color;
-        this.tetrisRulesId = tetrisRulesId;
         this.pieceGeneratorId = pieceGeneratorId;
         this.boardEvaluatorId = boardEvaluatorId;
 
         parameterValue = reader.get("parameter value");
+
+        if (reader.exists("tetris rules id")) {
+            this.tetrisRulesId = reader.readString("tetris rules id");
+        } else {
+            this.tetrisRulesId = tetrisRulesId;
+        }
+
         duration = reader.readDuration();
 
         if (duration == null) {

@@ -131,8 +131,10 @@ public class RaceSettings {
 
         for (RaceGameSettings game : this.games) {
             GameState state = game.gameState;
+            String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             games +=
                     " - parameter value: " + game.parameterValue + "\n" +
+                    tetrisRuleId +
                     "   duration: " + game.duration + "\n" +
                     "   board: " + game.game.coloredBoard.export() + "\n" +
                     "   games: " + state.games() + "\n" +
