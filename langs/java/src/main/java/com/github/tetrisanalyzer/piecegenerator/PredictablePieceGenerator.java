@@ -11,7 +11,6 @@ public class PredictablePieceGenerator extends PieceGenerator {
     }
 
     public PredictablePieceGenerator(String pieces, int nextPieceIndex) {
-        super("predictable", "Predetermined sequence of pieces. Returns 'O' when the sequence is exceeded");
         this.pieces = pieces;
         this.nextPieceIndex = nextPieceIndex;
     }

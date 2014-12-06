@@ -8,7 +8,6 @@ public class SZPieceGenerator extends PieceGenerator {
     public long seed;
 
     public SZPieceGenerator(long seed) {
-        super("sz", "Produces S and Z pieces");
         this.seed = seed;
     }
 
@@ -16,8 +15,6 @@ public class SZPieceGenerator extends PieceGenerator {
      * Called via reflection.
      */
     public SZPieceGenerator(Map settings) {
-        super("sz", "Produces S and Z pieces");
-
         SettingsReader reader = new SettingsReader(settings, "piece generators");
         seed = reader.readLong("seed", 1);
     }

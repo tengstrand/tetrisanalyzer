@@ -23,7 +23,6 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     }
 
     public LinearCongrentialPieceGenerator(long seed, long constant1, long constant2) {
-        super("lenear", "Linear congruential piece generator");
         this.seed = seed;
         this.constant1 = constant1;
         this.constant2 = constant2;
@@ -33,9 +32,8 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
      * Called via reflection.
      */
     public LinearCongrentialPieceGenerator(Map settings) {
-        super(readString(settings, "id"), readString(settings, "description"));
-
         SettingsReader reader = new SettingsReader(settings, "piece generators");
+
         seed = reader.readLong("seed", 1);
         constant1 = reader.readLong("constant1", CONSTANT1);
         constant2 = reader.readLong("constant2", CONSTANT2);
