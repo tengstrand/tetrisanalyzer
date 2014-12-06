@@ -24,8 +24,6 @@ public class RaceSettings {
 
     public String filename;
     public GameSettings tetrisRules;
-    public Map boardEvaluatorSettings;
-    public Map pieceGeneratorSettings;
     public String parameterName;
 
     public ColoredBoard board;
@@ -77,18 +75,16 @@ public class RaceSettings {
         shortcuts = reader.readShortcuts("zoom-windows");
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
-        boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
-        pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(pieceGeneratorId);
+        Map boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
 
         List<Map> games = reader.readMaps("games");
 
         int idx = 0;
         for (Map gameMap : games) {
-            Map evaluatorSettings = boardEvaluatorSettings(gameMap);
+            Map evaluatorSettings = boardEvaluatorSettings(boardEvaluatorSettings, gameMap);
             Color color = colors.get(idx++ % colors.size());
             RaceGameSettings game = new RaceGameSettings(systemSettings, board, parameterName, gameMap,
-                    tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings,
-                    pieceGeneratorSettings, duration, color);
+                    tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings, duration, color);
             this.games.add(game);
         }
     }
@@ -96,7 +92,7 @@ public class RaceSettings {
     private List<Color> defaultColors() {
         return Arrays.asList(
                 ColorConverter.color("ff0000"),
-                ColorConverter.color("ff6400"),
+                ColorConverter.color("ff7d00"),
                 ColorConverter.color("b3ff00"),
                 ColorConverter.color("00b100"),
                 ColorConverter.color("005aff"),
@@ -110,7 +106,7 @@ public class RaceSettings {
     /**
      * Add the 'board' attribute to board evaluator settings (if exists).
      */
-    private Map boardEvaluatorSettings(Map gameMap) {
+    private Map boardEvaluatorSettings(Map boardEvaluatorSettings, Map gameMap) {
         Map result = new HashMap();
         result.putAll(boardEvaluatorSettings);
         if (gameMap.containsKey("board")) {
@@ -132,9 +128,11 @@ public class RaceSettings {
         for (RaceGameSettings game : this.games) {
             GameState state = game.gameState;
             String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
+            String pieceGeneratorId = game.pieceGeneratorId == this.pieceGeneratorId ? "" : "   piece generator id: " + game.pieceGeneratorId + "\n";
             games +=
                     " - parameter value: " + game.parameterValue + "\n" +
                     tetrisRuleId +
+                    pieceGeneratorId +
                     "   duration: " + game.duration + "\n" +
                     "   board: " + game.game.coloredBoard.export() + "\n" +
                     "   games: " + state.games() + "\n" +

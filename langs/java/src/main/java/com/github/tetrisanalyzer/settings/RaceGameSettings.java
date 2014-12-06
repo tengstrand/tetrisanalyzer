@@ -29,13 +29,12 @@ public class RaceGameSettings {
     public String boardEvaluatorId;
 
     public GameSettings tetrisRules;
-
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
 
     public RaceGameSettings(SystemSettings systemSettings, ColoredBoard raceBoard, String parameterName, Map settings,
                             String tetrisRulesId, String pieceGeneratorId, String boardEvaluatorId,
-                            Map boardEvaluatorSettings, Map pieceGeneratorSettings, Duration mainDuration, Color color) {
+                            Map boardEvaluatorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
         this.color = color;
@@ -50,6 +49,13 @@ public class RaceGameSettings {
             this.tetrisRulesId = tetrisRulesId;
         }
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
+
+        if (reader.exists("piece generator id")) {
+            this.pieceGeneratorId = reader.readString("piece generator id");
+        } else {
+            this.pieceGeneratorId = pieceGeneratorId;
+        }
+        Map pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(this.pieceGeneratorId);
 
         duration = reader.readDuration();
 

@@ -26,7 +26,7 @@ public class TengstrandBoardEvaluator12 extends BoardEvaluator {
     public double hollowFactor2 = 0.6;
     public double hollowFactorDelta = 0.85;
 
-    public double areaWidthFactor1 = 4.975;
+    public double areaWidthFactor1 = 4.978;
     public double areaWidthFactor2 = 2.38;
     public double areaWidthFactor3 = 3.0;
     public double areaWidthFactor4 = 2.21;
