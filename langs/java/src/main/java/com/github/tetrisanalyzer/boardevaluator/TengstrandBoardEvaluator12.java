@@ -7,12 +7,10 @@ import com.github.tetrisanalyzer.settings.SettingsReader;
 
 import java.util.Map;
 
-import static com.github.tetrisanalyzer.settings.Setting.setting;
-
 /**
  * Joakim Tengstrand's Tetris AI, version 1.2
  */
-public class TengstrandBoardEvaluator12 extends BoardEvaluator {
+public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public int boardWidth;
     public int boardHeight;
     public double maxEquity;
@@ -279,32 +277,5 @@ public class TengstrandBoardEvaluator12 extends BoardEvaluator {
             }
         }
         return equity;
-    }
-
-    @Override public String id() { return "Tengstrand 1.2"; }
-    @Override public String description() { return "A first version was created 2001"; }
-    @Override public String author() { return "Joakim Tengstrand"; }
-    @Override public String url() { return "http://hem.bredband.net/joakimtengstrand"; }
-    @Override public LessIs lessIs() { return LessIs.BETTER; }
-
-    @Override
-    public BoardEvaluatorSettings settings() {
-        return new BoardEvaluatorSettings(
-                setting("height factor", asList(heightFactors)),
-                setting("hollow factor", asList(hollowFactors)),
-                setting("area width factor", asList(areaWidthFactors)),
-                setting("area height factor", asList(areaHeightFactors)),
-                setting("area height factor2", asList(areaHeightEqFactors)));
-    }
-
-    private String asList(double[] array) {
-        String result = "[";
-        String separator = "";
-
-        for (double value : array) {
-            result += separator + value;
-            separator = ", ";
-        }
-        return result + "]";
     }
 }

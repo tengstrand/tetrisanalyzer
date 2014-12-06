@@ -1,14 +1,10 @@
 package com.github.tetrisanalyzer.settings;
 
-import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.settings.adjustment.AdjustmentDxDy;
 import com.github.tetrisanalyzer.settings.adjustment.Adjustments;
 
 import java.util.List;
 import java.util.Map;
-
-import static com.github.tetrisanalyzer.piece.Piece.*;
-import static com.github.tetrisanalyzer.settings.Setting.setting;
 
 /**
  * Defines the API of the game settings used by the Tetris engine.
@@ -37,23 +33,6 @@ public class GameSettings extends PieceSettings {
         return new AdjustmentDxDy(dx, dy);
     }
 
-    public String export() {
-        return new Settings("tetris rules",
-                setting("id", id),
-                setting("url", url),
-                setting("description", description),
-                setting("sliding", (slidingEnabled ? "on" : "off")),
-                setting("rotation", rotationDirection),
-                setting("piece start position on standard board", "[" + pieceStartXOnStandardBoard + "," + pieceStartY + "]"),
-                setting("O", adjustment(O)),
-                setting("I", adjustment(I)),
-                setting("S", adjustment(S)),
-                setting("Z", adjustment(Z)),
-                setting("L", adjustment(L)),
-                setting("J", adjustment(J)),
-                setting("T", adjustment(T))).export();
-    }
-
     public static int boardWidth(Map settings) {
         return boardSize(settings, "game rule").get(0);
     }
@@ -70,16 +49,7 @@ public class GameSettings extends PieceSettings {
         return reader(settings, group).readIntegers("board");
     }
 
-    private String adjustment(int piece) {
-        return Piece.validPieces(this)[piece].adjustments.export();
-    }
-
     public int pieceStartX(int boardWidth) {
         return StartPieceCalculator.startX(boardWidth, pieceStartXOnStandardBoard);
-    }
-
-    @Override
-    public String toString() {
-        return export();
     }
 }
