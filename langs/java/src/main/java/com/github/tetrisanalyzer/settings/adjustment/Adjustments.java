@@ -29,17 +29,6 @@ public class Adjustments {
         this.source = source;
     }
 
-    public String export() {
-        String result = "[";
-        String separator = "";
-
-        for (AdjustmentDxDy adjustment : source) {
-            result += separator + "[" + adjustment.dx + "," + adjustment.dy + "]";
-            separator = " ";
-        }
-        return result + "]";
-    }
-
     @Override
     public int hashCode() {
         int result = piece.hashCode();

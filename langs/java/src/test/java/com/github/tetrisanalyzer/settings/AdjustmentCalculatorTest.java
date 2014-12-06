@@ -61,13 +61,4 @@ public class AdjustmentCalculatorTest {
         assertEquals(new Adjustments("T", 1, 1, Arrays.asList(1, -1, 0, 0), Arrays.asList(-1, 0, 0, 1),
                 Arrays.asList(adjustment1, adjustment2, adjustment3, adjustment4)), result);
     }
-
-    @Test
-    public void export() {
-        AdjustmentDxDy adjustment1 = new AdjustmentDxDy(1, 1);
-        AdjustmentDxDy adjustment2 = new AdjustmentDxDy(2, 0);
-        String result = AdjustmentCalculator.calculate("Z", adjustment1, adjustment2).export();
-
-        assertEquals("[[1,1] [2,0]]", result);
-    }
 }
