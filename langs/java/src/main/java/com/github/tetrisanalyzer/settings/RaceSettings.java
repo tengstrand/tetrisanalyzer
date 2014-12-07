@@ -85,6 +85,10 @@ public class RaceSettings {
             Color color = colors.get(idx++ % colors.size());
             RaceGameSettings game = new RaceGameSettings(systemSettings, board, parameterName, gameMap,
                     tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings, duration, color);
+            if (game.color != color) {
+                // Don't consume the global color if a color was explicitly specified.
+                idx--;
+            }
             this.games.add(game);
         }
     }
