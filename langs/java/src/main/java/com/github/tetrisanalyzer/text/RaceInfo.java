@@ -115,7 +115,7 @@ public class RaceInfo {
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
     }
 
-    public void paintTexts(Graphics g, int startRow, List<Color> colors) {
+    public void paintTexts(Graphics g, int startRow) {
         RowsResult result = rows();
 
         for (int row=0; row < result.rows.size(); row++) {
@@ -127,7 +127,7 @@ public class RaceInfo {
         Iterator<RaceGameSettings> settingsIterator = raceGameSettingsList.iterator();
         for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
-            g.setColor(colors.get(i % colors.size()));
+            g.setColor(settings.color);
             String value = settings.parameterValue.toString();
             g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns.get(i) - value.length()) * charWidth, Y0);
         }

@@ -130,11 +130,13 @@ public class RaceSettings {
             String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorId == this.pieceGeneratorId ? "" : "   piece generator id: " + game.pieceGeneratorId + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
+            String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             games +=
                     " - parameter value: " + game.parameterValue + "\n" +
                     tetrisRuleId +
                     pieceGeneratorId +
                     paused +
+                    color +
                     "   duration: " + game.duration + "\n" +
                     "   board: " + game.game.coloredBoard.export() + "\n" +
                     "   games: " + state.games() + "\n" +

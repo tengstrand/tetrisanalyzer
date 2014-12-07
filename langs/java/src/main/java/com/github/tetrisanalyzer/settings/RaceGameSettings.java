@@ -21,6 +21,7 @@ public class RaceGameSettings {
     public final GameState gameState;
 
     public Object parameterValue;
+    public String colorString;
     public Color color;
     public Duration duration;
     public Distribution distribution;
@@ -38,7 +39,8 @@ public class RaceGameSettings {
                             Map boardEvaluatorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
-        this.color = color;
+        this.color = reader.readColor("color", color);
+        colorString = reader.exists("color") ? reader.readString("color") : null;
         this.pieceGeneratorId = pieceGeneratorId;
         this.boardEvaluatorId = boardEvaluatorId;
 

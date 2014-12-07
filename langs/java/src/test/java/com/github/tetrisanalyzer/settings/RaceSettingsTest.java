@@ -29,6 +29,7 @@ public class RaceSettingsTest {
             "   tetris rules id: Atari\n" +
             "   paused: true\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
+            "   color: aabbcc\n" +
             "   board: [\"----------\",\n" +
             "           \"----------\",\n" +
             "           \"----------\",\n" +
@@ -129,6 +130,7 @@ public class RaceSettingsTest {
                 " - parameter value: 3.33\n" +
                 "   tetris rules id: Atari\n" +
                 "   paused: true\n" +
+                "   color: aabbcc\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +

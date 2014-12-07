@@ -32,7 +32,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private final RaceInfo raceInfo;
     private RaceSettings race;
     private List<RaceGameSettings> games;
-    private List<Color> colors;
     private Graph graph;
     private JFrame frame;
 
@@ -94,7 +93,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         this.race = race;
         this.games = race.games;
-        this.colors = race.colors;
         this.raceInfo = new RaceInfo(race.games);
 
         addKeyListener(this);
@@ -136,7 +134,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.black);
         g.setFont(monospacedFont);
 
-        raceInfo.paintTexts(g, 0, colors);
+        raceInfo.paintTexts(g, 0);
 
         int width = frame.getWidth() - 100;
         int height = frame.getHeight() - 400;

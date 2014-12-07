@@ -164,9 +164,10 @@ public class SettingsReader {
         return numbers;
     }
 
-    public Color readColor(String key) {
-        ensureExists(key);
-
+    public Color readColor(String key, Color defaultColor) {
+        if (!exists(key)) {
+            return defaultColor;
+        }
         return asColor(get(key).toString(), key);
     }
 
