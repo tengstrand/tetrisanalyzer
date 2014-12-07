@@ -27,7 +27,7 @@ public class Distribution {
 
     public void increaseArea(int numberOfCells) {
         int index = numberOfCells >> 1;
-        cells[index] += numberOfCells;
+        cells[index] += (numberOfCells == 0 ? 1 : numberOfCells);
     }
 
     public Vertices toVertices() {
