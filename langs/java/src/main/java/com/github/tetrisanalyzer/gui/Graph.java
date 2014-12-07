@@ -24,6 +24,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int sx2 = -1;
     private int sy2 = -1;
 
+    private int dragX = -1;
+    private int dragY = -1;
+
     private List<RaceGameSettings> games;
 
     private static Color grey = new Color(230, 230, 230);
@@ -68,10 +71,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         // 2. Clip lines, scale and paint.
         Iterator<RaceGameSettings> gameIterator = games.iterator();
         for (Vertices vertices : gameVertices) {
-            ZoomWindow w = windows.peek();
-            if (zoomer != null && zoomer.isZooming()) {
-                w = zoomer.zoom();
-            }
+            ZoomWindow w = currentWindow();
             Lines lines = vertices
                     .normalizeY(maxYRatio)
                     .clipHorizontal(w.x1, w.x2)
@@ -80,6 +80,13 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             g.setColor(gameIterator.next().color);
             lines.drawLines(x1, y, g);
         }
+    }
+
+    private ZoomWindow currentWindow() {
+        if (zoomer != null && zoomer.isZooming()) {
+            return zoomer.zoom();
+        }
+        return windows.peek();
     }
 
     public String export() {
@@ -100,9 +107,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             if (e.getButton() == 1) {
                 sx1 = sx2 = e.getX();
                 sy1 = sy2 = e.getY();
-            } else if (e.getButton() == 3 && windows.size() > 1) {
-                ZoomWindow from = windows.pop();
-                zoomer = Zoomer.zoomOut(from, windows.peek(), zoomSpeed);
+            } else if (e.getButton() == 3) {
+                dragX = e.getX();
+                dragY = e.getY();
             }
         }
     }
@@ -128,6 +135,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        dragX = dragY = -1;
         if (e.getButton() != 1 || sx1 < 0 || sx1 == sx2) {
             return;
         }
@@ -143,7 +151,13 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
     }
 
-    @Override public void mouseClicked(MouseEvent e) {}
+    @Override public void mouseClicked(MouseEvent e) {
+        if (e.getX() >= x1 && e.getX() <= x2 && e.getButton() == 3 && windows.size() > 1) {
+            ZoomWindow from = windows.pop();
+            zoomer = Zoomer.zoomOut(from, windows.peek(), zoomSpeed);
+        }
+    }
+
     @Override public void mouseEntered(MouseEvent e) {}
     @Override public void mouseExited(MouseEvent e) {}
     @Override public void mouseMoved(MouseEvent e) {}
@@ -152,6 +166,25 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (sx1 >= 0) {
             sx2 = e.getX();
             sy2 = e.getY();
+        } else {
+            double dx = e.getX() - dragX;
+            double dy = e.getY() - dragY;
+
+            ZoomWindow w = windows.peek();
+            double wx = w.x2 - w.x1;
+            double wy = w.y2 - w.y1;
+
+            double wdx = wx * (dx / width);
+            double wdy = wy * (dy / height);
+
+            if (w.x1 - wdx < 0) { wdx = w.x1; }
+            if (w.y1 - wdy < 0) { wdy = w.y1; }
+            if (w.x2 - wdx > 1) { wdx = w.x2 - 1; }
+            if (w.y2 - wdy > 1) { wdy = w.y2 - 1; }
+            windows.pop();
+            windows.push(new ZoomWindow(w.x1 - wdx, w.y1 - wdy, w.x2 - wdx, w.y2 - wdy));
+            dragX = e.getX();
+            dragY = e.getY();
         }
     }
 
