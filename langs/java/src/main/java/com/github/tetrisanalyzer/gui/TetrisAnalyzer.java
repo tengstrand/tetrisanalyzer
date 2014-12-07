@@ -160,9 +160,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             g.setColor(Color.red);
             raceInfo.paintTextAtColumn(actionError, 1, g);
         }
-        if (System.currentTimeMillis() - actionAt < actionDuration) {
+        if (!paused && System.currentTimeMillis() - actionAt < actionDuration) {
             g.setColor(actionColor);
-            raceInfo.paintTextAtColumn(actionMessage, 1, g);
+            raceInfo.paintTextAtColumn(actionMessage, 0, g);
         }
     }
 
