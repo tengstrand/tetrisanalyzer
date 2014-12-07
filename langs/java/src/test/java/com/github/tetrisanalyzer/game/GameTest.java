@@ -24,7 +24,7 @@ public class GameTest {
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 5, 0, 0, 0, 0, 0, 0, 0);
         GameSettings settings = new AtariGameSettings(board, true);
-        Game game = new Game(result, settings);
+        Game game = new Game(result, settings, false);
         game.run();
 
         assertEquals(1, result.rows);
@@ -62,7 +62,7 @@ public class GameTest {
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
         GameSettings settings = new AtariGameSettings(board, true);
-        Game game = new Game(result, settings);
+        Game game = new Game(result, settings, false);
         game.run();
 
         assertEquals(Board.create(
@@ -88,7 +88,7 @@ public class GameTest {
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
         GameSettings settings = new AtariGameSettings(board);
-        Game game = new Game(result, settings);
+        Game game = new Game(result, settings, false);
         game.run();
 
         assertEquals(ColoredBoard.create(

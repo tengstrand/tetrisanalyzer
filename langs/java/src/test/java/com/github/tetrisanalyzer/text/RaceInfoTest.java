@@ -39,8 +39,8 @@ public class RaceInfoTest {
                         "rows/game:                  500 000           4 561\n" +
                         "min rows:                         2               2\n" +
                         "max rows:                    27 478          29 919\n" +
-                        "rows/s:                        9.97          885.97\n" +
-                        "pieces/s:                     39.87           1 548";
+                        "rows/s:                           0               0\n" +
+                        "pieces/s:                         0               0";
 
         assertEquals(expected, result);
     }

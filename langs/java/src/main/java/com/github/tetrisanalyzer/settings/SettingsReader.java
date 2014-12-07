@@ -21,6 +21,19 @@ public class SettingsReader {
         this.group = group;
     }
 
+    public boolean readBoolean(String key, boolean defaultValue) {
+        return hasValue(key) && !readString(key).isEmpty() ? readBoolean(key) : defaultValue;
+    }
+
+    public boolean readBoolean(String key) {
+        ensureExists(key);
+        try {
+            return Boolean.parseBoolean(get(key).toString());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Attribute '" + key + "' in '" + group + "' must be 'true' or 'false', but was: " + get(key));
+        }
+    }
+
     public int readInteger(String key, int defaultValue) {
         return hasValue(key) && !readString(key).isEmpty() ? readInteger(key) : defaultValue;
     }
