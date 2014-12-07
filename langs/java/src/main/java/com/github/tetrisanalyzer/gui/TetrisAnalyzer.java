@@ -38,8 +38,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private static final int GRAPH_X0 = 50;
     private static final int GRAPH_Y0 = 330;
-    private static final int GRAPH_WIDTH = 600;
-    private static final int GRAPH_HEIGHT = 300;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -87,7 +85,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private static Graph graph(List<RaceGameSettings> games, Shortcuts shortcuts) {
-        return new Graph(GRAPH_X0, GRAPH_Y0, GRAPH_WIDTH, GRAPH_HEIGHT, games, shortcuts);
+        return new Graph(GRAPH_X0, GRAPH_Y0, games, shortcuts);
     }
 
     public TetrisAnalyzer(JFrame frame, Graph graph, RaceSettings race) {
@@ -139,7 +137,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setFont(monospacedFont);
 
         raceInfo.paintTexts(g, 0, colors);
-        graph.draw(g);
+
+        int width = frame.getWidth() - 100;
+        int height = frame.getHeight() - 400;
+        graph.draw(g, width < 100 ? 100 : width, height < 100 ? 100 : height);
         paintPaused(g);
         paintSaved(g);
 

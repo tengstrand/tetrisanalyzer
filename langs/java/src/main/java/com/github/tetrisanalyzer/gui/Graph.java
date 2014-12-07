@@ -37,19 +37,19 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private Shortcuts shortcuts;
 
-    public Graph(int x, int y, int width, int height, List<RaceGameSettings> games, Shortcuts shortcuts) {
+    public Graph(int x, int y, List<RaceGameSettings> games, Shortcuts shortcuts) {
         this.x1 = x;
-        this.x2 = x + width;
         this.y = y;
-        this.width = width;
-        this.height = height;
         this.games = games;
 
         this.shortcuts = shortcuts;
         windows.add(new ZoomWindow());
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.x2 = x1 + width;
         fillMouseSelection(g);
 
         Double maxYRatio = Double.MIN_VALUE;
