@@ -38,9 +38,6 @@ public class RaceInfo {
         rows.add(rpad("max rows:", paramLength));
         rows.add(rpad("rows/s:", paramLength));
         rows.add(rpad("pieces/s:", paramLength));
-        rows.add(rpad("", paramLength));
-        rows.add(rpad("rows/s (1s):", paramLength));
-        rows.add(rpad("pieces/s (1s):", paramLength));
 
         int column = paramLength;
         List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
@@ -62,11 +59,8 @@ public class RaceInfo {
             values.add(state.rowsPerGameFormatted());
             values.add(state.minRowsFormatted());
             values.add(state.maxRowsFormatted());
-            values.add(state.rowsPerSecondFormatted());
-            values.add(state.piecesPerSecondFormatted());
-            values.add("");
-            values.add(state.rowsPerLastSecondFormatted());
-            values.add(state.piecesPerLastSecondFormatted());
+            values.add(state.rowsPerLastSecondsFormatted());
+            values.add(state.piecesPerLastSecondsFormatted());
 
             int max = maxValueLength(values);
             column += 2 + max;

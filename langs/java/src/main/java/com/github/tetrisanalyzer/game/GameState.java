@@ -25,8 +25,8 @@ public class GameState {
     public long minRows;
     public long maxRows;
     public long totalRows;
-    public XPerLastSecond rowsPerLastSecond;
-    public XPerLastSecond piecesPerLastSecond;
+    public XPerLastSeconds rowsPerLastSecond;
+    public XPerLastSeconds piecesPerLastSecond;
 
     public GameState(Duration duration, ColoredBoard coloredBoard, Distribution distribution,
                      BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
@@ -47,19 +47,15 @@ public class GameState {
         this.maxRows = maxRows;
         this.movesLeft = piecesLeft;
         this.nonstop = piecesLeft <= 0;
-        rowsPerLastSecond = new XPerLastSecond(duration.startMillis, rows + totalRows);
-        piecesPerLastSecond = new XPerLastSecond(duration.startMillis, totalPieces);
+        rowsPerLastSecond = new XPerLastSeconds(duration.startMillis, rows + totalRows);
+        piecesPerLastSecond = new XPerLastSeconds(duration.startMillis, totalPieces);
     }
 
     public String games() {
         return games == 0 ? "" : String.valueOf(games);
     }
 
-    public String rowsPerSecondFormatted() {
-        return duration.xPerSecondFormatted(totalRows);
-    }
-
-    public String rowsPerLastSecondFormatted() {
+    public String rowsPerLastSecondsFormatted() {
         return StringUtils.format(rowsPerLastSecond.xPerSecond);
     }
 
@@ -67,11 +63,7 @@ public class GameState {
         return duration.xPerSecond(totalPieces);
     }
 
-    public String piecesPerSecondFormatted() {
-        return duration.xPerSecondFormatted(totalPieces);
-    }
-
-    public String piecesPerLastSecondFormatted() {
+    public String piecesPerLastSecondsFormatted() {
         return StringUtils.format(piecesPerLastSecond.xPerSecond);
     }
 
