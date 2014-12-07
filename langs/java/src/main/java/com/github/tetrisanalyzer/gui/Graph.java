@@ -104,10 +104,12 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getX() >= x1 && e.getX() <= x2) {
-            if (e.getButton() == 1) {
+            if (e.getButton() == 3) {
                 sx1 = sx2 = e.getX();
                 sy1 = sy2 = e.getY();
-            } else if (e.getButton() == 3) {
+                dragX = -1;
+            } else if (e.getButton() == 1) {
+                sx1 = -1;
                 dragX = e.getX();
                 dragY = e.getY();
             }
@@ -136,7 +138,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         dragX = dragY = -1;
-        if (e.getButton() != 1 || sx1 < 0 || sx1 == sx2) {
+        if (e.getButton() != 3 || sx1 < 0 || sx1 == sx2) {
             return;
         }
         SelectedWindow sw = selectedWindow();
@@ -163,10 +165,10 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     @Override public void mouseMoved(MouseEvent e) {}
 
     @Override public void mouseDragged(MouseEvent e) {
-        if (sx1 >= 0) {
+        if (e.getModifiers() == 4 && sx1 >= 0) {
             sx2 = e.getX();
             sy2 = e.getY();
-        } else {
+        } else if (e.getModifiers() == 16) {
             double dx = e.getX() - dragX;
             double dy = e.getY() - dragY;
 
