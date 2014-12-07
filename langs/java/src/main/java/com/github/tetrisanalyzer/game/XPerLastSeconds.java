@@ -7,7 +7,7 @@ public class XPerLastSeconds {
 
     // Update x/sec more often when the game starts, end with updating every 30 sec.
     private int[] everyMillis = new int[] { 100, 1000, 2000, 10000, 30000};
-    private int idx = 0;
+    public int idx = 0;
 
     public XPerLastSeconds(long startMillis, long x) {
         this.startMillis = startMillis;

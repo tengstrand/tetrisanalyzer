@@ -111,7 +111,7 @@ public class RaceInfo {
     }
 
     public void paintTextAtColumn(String text, int column, Graphics g) {
-        int row = 20;
+        int row = 17;
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
     }
 

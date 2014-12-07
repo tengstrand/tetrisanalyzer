@@ -102,6 +102,8 @@ public class Game implements Runnable {
         }
         waiting = false;
         state.duration.adjustPause(pausedAt);
+        state.rowsPerLastSecond.idx = 0;
+        state.piecesPerLastSecond.idx = 0;
     }
 
     private TextBoard textBoard() {
