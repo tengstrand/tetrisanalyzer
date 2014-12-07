@@ -82,6 +82,8 @@ public class Game implements Runnable {
 
             state.distribution.increaseArea(numberOfCells);
             state.duration.setEndTime();
+            state.rowsPerLastSecond.update(state.duration.endMillis, state.rows + state.totalRows);
+            state.piecesPerLastSecond.update(state.duration.endMillis, state.totalPieces);
         }
     }
 

@@ -25,10 +25,12 @@ public class GameState {
     public long minRows;
     public long maxRows;
     public long totalRows;
+    public XPerLastSecond rowsPerLastSecond;
+    public XPerLastSecond piecesPerLastSecond;
 
     public GameState(Duration duration, ColoredBoard coloredBoard, Distribution distribution,
                      BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
-                     long numberOfGames, long numberOfPieces, long totalNumberOfPieces,
+                     long numberOfGames, long numberOfPieces, long totalPieces,
                      long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
         this.duration = duration;
         this.coloredBoard = coloredBoard;
@@ -38,21 +40,27 @@ public class GameState {
         this.pieceGenerator = pieceGenerator;
         this.games = numberOfGames;
         this.pieces = numberOfPieces;
-        this.totalPieces = totalNumberOfPieces;
+        this.totalPieces = totalPieces;
         this.rows = rows;
         this.totalRows = totalRows;
         this.minRows = minRows;
         this.maxRows = maxRows;
         this.movesLeft = piecesLeft;
         this.nonstop = piecesLeft <= 0;
+        rowsPerLastSecond = new XPerLastSecond(duration.startMillis, rows + totalRows);
+        piecesPerLastSecond = new XPerLastSecond(duration.startMillis, totalPieces);
     }
 
     public String games() {
         return games == 0 ? "" : String.valueOf(games);
     }
 
-    public String rowsPerSecond() {
+    public String rowsPerSecondFormatted() {
         return duration.xPerSecondFormatted(totalRows);
+    }
+
+    public String rowsPerLastSecondFormatted() {
+        return StringUtils.format(rowsPerLastSecond.xPerSecond);
     }
 
     public String piecesPerSecond() {
@@ -61,6 +69,10 @@ public class GameState {
 
     public String piecesPerSecondFormatted() {
         return duration.xPerSecondFormatted(totalPieces);
+    }
+
+    public String piecesPerLastSecondFormatted() {
+        return StringUtils.format(piecesPerLastSecond.xPerSecond);
     }
 
     public String minRows() {
