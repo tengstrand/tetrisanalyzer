@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.gui;
 
+import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
@@ -30,6 +31,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private Image offscreenImage;
     private final RaceInfo raceInfo;
+    private final GraphBoardPainter graphBoardPainter;
     private RaceSettings race;
     private List<RaceGameSettings> games;
     private Graph graph;
@@ -94,6 +96,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         this.race = race;
         this.games = race.games;
         this.raceInfo = new RaceInfo(race.games);
+        Board board = games.get(0).gameState.board;
+        graphBoardPainter = new GraphBoardPainter(board.width, board.height);
 
         addKeyListener(this);
         addKeyListener(graph);
@@ -136,9 +140,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        int width = frame.getWidth() - 100;
+        int width = frame.getWidth() - 250;
         int height = frame.getHeight() - 400;
-        graph.draw(g, width < 100 ? 100 : width, height < 100 ? 100 : height);
+        if (height < 100) { height = 100; }
+        graph.draw(g, width < 100 ? 100 : width, height);
+        int boardCellPixels = height / graphBoardPainter.boardHeight;
+        if (boardCellPixels > 12) { boardCellPixels = 12; }
+        int boardPixelHeight = graphBoardPainter.boardHeight * boardCellPixels;
+        int boardY1 = height - boardPixelHeight + 334;
+        graphBoardPainter.paint(g, width + 85, boardY1, boardCellPixels);
+
+//        graph.drawRow(g, games.get(0).distribution);
         paintPaused(g);
         paintSaved(g);
 

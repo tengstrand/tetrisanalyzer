@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.gui;
 
+import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 
 import java.awt.*;
@@ -80,6 +81,13 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             g.setColor(gameIterator.next().color);
             lines.drawLines(x1, y, g);
         }
+    }
+
+    public void drawRow(Graphics g, Distribution distribution) {
+        String row1 = String.valueOf(distribution.cellsInRow(windows.peek().x1));
+
+        g.setColor(Color.black);
+        g.drawChars(row1.toCharArray(), 0, row1.length(), 100, 500);
     }
 
     private ZoomWindow currentWindow() {

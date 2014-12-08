@@ -14,7 +14,7 @@ public class DistributionTest {
     @Test
     public void toVertices() {
         List<Long> cells = Arrays.asList(500L, 1000L, 1200L, 700L);
-        Distribution distribution = new Distribution(cells);
+        Distribution distribution = new Distribution(10, 20, cells);
         Vertices vertices = distribution.toVertices();
 
         Vertices expected = new Vertices(

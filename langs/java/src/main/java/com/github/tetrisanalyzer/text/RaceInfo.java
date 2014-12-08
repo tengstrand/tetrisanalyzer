@@ -11,6 +11,7 @@ import java.util.List;
 public class RaceInfo {
     private final List<RaceGameSettings> raceGameSettingsList;
 
+    private static final int CHAR_HEIGHT = 16;
     private static final int X0 = 20;
     private static final int Y0 = 30;
 
@@ -112,7 +113,7 @@ public class RaceInfo {
 
     public void paintTextAtColumn(String text, int column, Graphics g) {
         int row = 17;
-        g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + 16 * row);
+        g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + CHAR_HEIGHT * row);
     }
 
     public void paintTexts(Graphics g, int startRow) {
@@ -134,7 +135,7 @@ public class RaceInfo {
     }
 
     private void paintText(String text, int row, Graphics g) {
-        g.drawChars(text.toCharArray(), 0, text.length(), X0, Y0 + 16 * row);
+        g.drawChars(text.toCharArray(), 0, text.length(), X0, Y0 + CHAR_HEIGHT * row);
     }
 
     static class RowsResult {

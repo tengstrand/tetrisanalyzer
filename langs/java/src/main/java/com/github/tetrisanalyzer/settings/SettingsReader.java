@@ -317,7 +317,7 @@ public class SettingsReader {
         for (String value : list) {
             cells.add(Long.parseLong(value));
         }
-        return new Distribution(cells);
+        return new Distribution(boardWidth, boardHeight, cells);
     }
 
     public ColoredBoard readBoard() {

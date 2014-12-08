@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distribution {
-    public long[] cells;
+    public final int boardWidth;
+    public final int boardHeight;
+    public final long[] cells;
 
     public Distribution(int boardWidth, int boardHeight) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
         cells = new long[((boardWidth-1) * boardHeight) / 2 + 1];
     }
 
-    public Distribution(List<Long> cells) {
+    public Distribution(int boardWidth, int boardHeight, List<Long> cells) {
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
         this.cells = new long[cells.size()];
 
         int i = 0;
@@ -52,5 +58,13 @@ public class Distribution {
             separator = ",";
         }
         return result + "]";
+    }
+
+    /**
+     * @param x a value between 0 and 1, representing a x-pos on the diagram.
+     * @return row number, a value between 0 and 200 for a 10x20 board.
+     */
+    public double cellsInRow(double x) {
+        return (x * cells.length) / (boardWidth - 1) * 20;
     }
 }
