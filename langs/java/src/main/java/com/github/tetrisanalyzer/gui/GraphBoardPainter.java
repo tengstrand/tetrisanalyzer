@@ -20,5 +20,13 @@ public class GraphBoardPainter {
         g.drawLine(x2, y1, x2, y2);
         g.drawLine(x1, y2, x2, y2);
         g.drawLine(x1, y1, x1, y2);
+
+        g.setColor(Color.lightGray);
+        for (int x=x1 + cellWidth; x<x2; x += cellWidth) {
+            g.drawLine(x, y1+1, x, y2-1);
+        }
+        for (int y=y1 + cellWidth; y<y2; y += cellWidth) {
+            g.drawLine(x1+1, y, x2-1, y);
+        }
     }
 }
