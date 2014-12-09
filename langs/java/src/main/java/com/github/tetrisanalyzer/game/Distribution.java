@@ -11,10 +11,14 @@ public class Distribution {
     public final int boardHeight;
     public final long[] cells;
 
+    private int shift;
+    private int mul;
+
     public Distribution(int boardWidth, int boardHeight) {
+        setMulShift();
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
-        cells = new long[((boardWidth-1) * boardHeight) / 2 + 1];
+        cells = new long[(((boardWidth-1) * boardHeight) >> shift) + 1];
     }
 
     public Distribution(int boardWidth, int boardHeight, List<Long> cells) {
@@ -29,10 +33,16 @@ public class Distribution {
             }
             this.cells[i++] = cell;
         }
+        setMulShift();
+    }
+
+    private void setMulShift() {
+        shift = (boardWidth == 8) ? 2 : 1;
+        mul = shift * 2;
     }
 
     public void increaseArea(int numberOfCells) {
-        int index = numberOfCells >> 1;
+        int index = numberOfCells >> shift;
         cells[index] += (numberOfCells == 0 ? 1 : numberOfCells);
     }
 
@@ -65,6 +75,6 @@ public class Distribution {
      * @return row number, a value between 0 and 200 for a 10x20 board.
      */
     public double cellsInRow(double x) {
-        return (x * (cells.length - 1)) / (boardWidth - 1) * 2;
+        return (x * (cells.length - 1)) / (boardWidth - 1) * mul;
     }
 }
