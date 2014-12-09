@@ -90,7 +90,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         g.drawChars(row1.toCharArray(), 0, row1.length(), 100, 500);
     }
 
-    private ZoomWindow currentWindow() {
+    public ZoomWindow currentWindow() {
         if (zoomer != null && zoomer.isZooming()) {
             return zoomer.zoom();
         }

@@ -65,6 +65,6 @@ public class Distribution {
      * @return row number, a value between 0 and 200 for a 10x20 board.
      */
     public double cellsInRow(double x) {
-        return (x * cells.length) / (boardWidth - 1) * 20;
+        return (x * (cells.length - 1)) / (boardWidth - 1) * 2;
     }
 }

@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.gui;
 
 import com.github.tetrisanalyzer.board.Board;
+import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
@@ -148,7 +149,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         if (boardCellPixels > 12) { boardCellPixels = 12; }
         int boardPixelHeight = graphBoardPainter.boardHeight * boardCellPixels;
         int boardY1 = height - boardPixelHeight + 334;
-        graphBoardPainter.paint(g, width + 85, boardY1, boardCellPixels);
+
+        ZoomWindow window = graph.currentWindow();
+        Distribution distribution = games.get(0).distribution;
+        double row = distribution.cellsInRow(window.x2);
+
+        graphBoardPainter.paint(g, width + 85, boardY1, boardCellPixels, row);
 
 //        graph.drawRow(g, games.get(0).distribution);
         paintPaused(g);
