@@ -12,10 +12,9 @@ public class Distribution {
     public final long[] cells;
 
     private int shift;
-    private int mul;
 
     public Distribution(int boardWidth, int boardHeight) {
-        setMulShift();
+        setShift();
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         cells = new long[(((boardWidth-1) * boardHeight) >> shift) + 1];
@@ -33,12 +32,11 @@ public class Distribution {
             }
             this.cells[i++] = cell;
         }
-        setMulShift();
+        setShift();
     }
 
-    private void setMulShift() {
-        shift = (boardWidth == 8) ? 2 : 1;
-        mul = shift * 2;
+    private void setShift() {
+        shift = (boardWidth % 4 == 0) ? 2 : 1;
     }
 
     public void increaseArea(int numberOfCells) {
@@ -75,6 +73,6 @@ public class Distribution {
      * @return row number, a value between 0 and 200 for a 10x20 board.
      */
     public double cellsInRow(double x) {
-        return (x * (cells.length - 1)) / (boardWidth - 1) * mul;
+        return (x * (cells.length - 1)) / (boardWidth - 1) * shift * 2;
     }
 }
