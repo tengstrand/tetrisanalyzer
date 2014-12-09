@@ -17,7 +17,6 @@ public class GraphBoardPainter {
         int x2 = x1 + width;
         int y2 = y1 + height;
 
-
         g.setColor(new Color(235,235,235));
         g.fillRect(x1,y1, width, height);
 
