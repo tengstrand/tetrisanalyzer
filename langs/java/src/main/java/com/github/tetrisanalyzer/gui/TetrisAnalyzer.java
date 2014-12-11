@@ -38,8 +38,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private Graph graph;
     private JFrame frame;
 
-    private static final int GRAPH_X0 = 50;
-    private static final int GRAPH_Y0 = 330;
+    private static final int GRAPH_X1 = 50;
+    private static final int GRAPH_Y1 = 330;
 
     private static Font monospacedFont = new Font("monospaced", Font.PLAIN, 12);
 
@@ -87,7 +87,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private static Graph graph(List<RaceGameSettings> games, Shortcuts shortcuts) {
-        return new Graph(GRAPH_X0, GRAPH_Y0, games, shortcuts);
+        return new Graph(GRAPH_X1, GRAPH_Y1, games, shortcuts);
     }
 
     public TetrisAnalyzer(JFrame frame, Graph graph, RaceSettings race) {
@@ -141,22 +141,26 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        int width = frame.getWidth() - 250;
-        int height = frame.getHeight() - 400;
-        if (height < 100) { height = 100; }
-        graph.draw(g, width < 100 ? 100 : width, height);
-        int boardCellPixels = height / graphBoardPainter.boardHeight;
-        if (boardCellPixels > 12) { boardCellPixels = 12; }
-        int boardPixelHeight = graphBoardPainter.boardHeight * boardCellPixels;
-        int boardY1 = height - boardPixelHeight + 334;
+        int y = raceInfo.height();
+        int graphWidth = (int) (frame.getWidth() * 0.7);
+        int boardWidth = frame.getWidth() - graphWidth;
+
+        g.setColor(Color.blue);
+
+        int x1 = 20;
+        int h = frame.getHeight() - y - 60;
+        if (h < 100) h = 100;
+        int w1 = (int) ((frame.getWidth() - 70) * 0.85);
+        int w2 = (int) ((frame.getWidth() - 70) * 0.15) - 20;
+        int x2 = w1 + 50;
 
         ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
         double row = distribution.cellsInRow(window.x2);
 
-        graphBoardPainter.paint(g, width + 85, boardY1, boardCellPixels, row);
+        graph.draw(g, x1, y, w1, h);
+        graphBoardPainter.paint(g, x2, y, w2, h, row);
 
-//        graph.drawRow(g, games.get(0).distribution);
         paintPaused(g);
         paintSaved(g);
 

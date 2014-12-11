@@ -19,10 +19,9 @@ public class RaceInfo {
         this.raceGameSettingsList = raceGameSettingsList;
     }
 
-    public RowsResult rows() {
+    private List<String> text(int paramLength) {
         List<String> rows = new ArrayList<>();
 
-        final int paramLength = 19;
         rows.add("parameter value:");
         rows.add("-------------------");
         rows.add(rpad("duration:", paramLength));
@@ -40,7 +39,17 @@ public class RaceInfo {
         rows.add(rpad("rows/s:", paramLength));
         rows.add(rpad("pieces/s:", paramLength));
 
-        int column = paramLength;
+        return rows;
+    }
+
+    private int textRows() {
+        return text(19).size();
+    }
+
+    public RowsResult rows() {
+        int column = 19;
+        List<String> rows = text(column);
+
         List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
 
         for (RaceGameSettings settings : raceGameSettingsList) {
@@ -111,8 +120,12 @@ public class RaceInfo {
         return new String(new char[n]).replace("\0", character);
     }
 
+    public int height() {
+        return Y0 + CHAR_HEIGHT * (textRows() + 3);
+    }
+
     public void paintTextAtColumn(String text, int column, Graphics g) {
-        int row = 17;
+        int row = textRows() + 1;
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + CHAR_HEIGHT * row);
     }
 
