@@ -14,13 +14,14 @@ public class Distribution {
     private int shift;
 
     public Distribution(int boardWidth, int boardHeight) {
-        setShift();
+        setShift(boardWidth);
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         cells = new long[(((boardWidth-1) * boardHeight) >> shift) + 1];
     }
 
     public Distribution(int boardWidth, int boardHeight, List<Long> cells) {
+        setShift(boardWidth);
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.cells = new long[cells.size()];
@@ -32,10 +33,9 @@ public class Distribution {
             }
             this.cells[i++] = cell;
         }
-        setShift();
     }
 
-    private void setShift() {
+    private void setShift(int boardWidth) {
         shift = (boardWidth % 4 == 0) ? 2 : 1;
     }
 
