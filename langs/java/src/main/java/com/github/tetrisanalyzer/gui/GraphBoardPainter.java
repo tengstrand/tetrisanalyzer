@@ -28,11 +28,11 @@ public class GraphBoardPainter {
         y1 += adjusty;
         y2 += adjusty;
 
-        // Write background
+        // Draw the background
         g.setColor(new Color(235,235,235));
         g.fillRect(x1, y1, w, h);
 
-        // Write frame
+        // Draw the frame
         g.setColor(Color.gray);
         g.drawLine(x1, y1, x2, y1);
         g.drawLine(x2, y1, x2, y2);
@@ -41,6 +41,7 @@ public class GraphBoardPainter {
 
         g.setColor(Color.lightGray);
 
+        // Draw selection
         int y = (int)row;
         if (row >= 1) {
             h = y * cellWidth - 1;
@@ -50,6 +51,7 @@ public class GraphBoardPainter {
         y = y2 - (y+1) * cellWidth + 1;
         g.fillRect(x1+1, y, w, cellWidth-1);
 
+        // Draw the cells/grid
         g.setColor(Color.white);
         for (int x=x1+cellWidth; x<x2; x += cellWidth) {
             g.drawLine(x, y1+1, x, y2-1);
