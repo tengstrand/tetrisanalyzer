@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * Represents a Tetris board. Default size is 10x20.
  *
- * Each row is represented by a 32 bit integer where each bit corresponds to a column on the board.
+ * Each row is represented by a 64 bit integer where each bit corresponds to a column on the board.
  * Bit 0 corresponds to the x-value 0 (left most position), bit 1 to x-value 1 etc.
  *
  * This is a highly optimized version that does not follow best practice in object-orientation!
@@ -16,10 +16,10 @@ import java.util.Arrays;
 public class Board implements TextBoard {
     public int width;
     public int height;
-    private int completeRow;
-    private int[] rows;
+    private long completeRow;
+    private long[] rows;
 
-    private static int EMPTY_ROW = 0;
+    private static long EMPTY_ROW = 0;
 
     public static Board create() {
         return new Board(10, 20);
@@ -36,9 +36,9 @@ public class Board implements TextBoard {
         int width = (rows[0]).length() - 2;
         int height = rows.length - 1;
 
-        int[] boardRows = new int[height];
+        long[] boardRows = new long[height];
         for (int y=0; y<height; y++) {
-            boardRows[y] = rowsFromText(width, rows[y]);
+            boardRows[y] = rowFromText(width, rows[y]);
         }
         Board result = new Board(width,  height, boardRows);
 
@@ -56,7 +56,7 @@ public class Board implements TextBoard {
         this(width, height, emptyBoard(height));
     }
 
-    private Board(int width, int height, int[] rows) {
+    private Board(int width, int height, long[] rows) {
         if (width < 4 || width > 32) {
             throw new IllegalArgumentException("The board width must be in the range 4 to 32");
         }
@@ -73,14 +73,14 @@ public class Board implements TextBoard {
         return new Board(width, height, copy(rows));
     }
 
-    private static int[] emptyBoard(int height) {
-        int[] rows = new int[height];
+    private static long[] emptyBoard(int height) {
+        long[] rows = new long[height];
         Arrays.fill(rows, 0);
         return rows;
     }
 
-    private static int[] copy(int[] sourceRows) {
-        int[] newRows = new int[sourceRows.length];
+    private static long[] copy(long[] sourceRows) {
+        long[] newRows = new long[sourceRows.length];
         System.arraycopy(sourceRows, 0, newRows, 0, sourceRows.length);
         return newRows;
     }
@@ -93,8 +93,8 @@ public class Board implements TextBoard {
         return bottomString(width + 2);
     }
 
-    private static int rowsFromText(int width, String textRow) {
-        int row = EMPTY_ROW;
+    private static long rowFromText(int width, String textRow) {
+        long row = EMPTY_ROW;
         for (int x=width; x>=1; x--) {
             row <<= 1;
             row |= textRow.charAt(x) == '-' ? 0 : 1;
@@ -139,8 +139,8 @@ public class Board implements TextBoard {
         this.width = width;
     }
 
-    private int calculateCompleteRow(int width) {
-        int row = EMPTY_ROW;
+    private long calculateCompleteRow(int width) {
+        long row = EMPTY_ROW;
 
         for (int x=0; x<width; x++) {
             row <<= 1;
@@ -209,7 +209,7 @@ public class Board implements TextBoard {
     /**
      * Converts a board row into its string representation.
      */
-    public String boardRowAsString(int boardRow) {
+    public String boardRowAsString(long boardRow) {
         String result = "";
 
         for (int i=0; i<width; i++) {
