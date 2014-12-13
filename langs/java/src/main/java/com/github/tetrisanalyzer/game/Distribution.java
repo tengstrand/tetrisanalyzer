@@ -70,9 +70,9 @@ public class Distribution {
 
     /**
      * @param x a value between 0 and 1, representing a x-pos on the diagram.
-     * @return row number, a value between 0 and 200 for a 10x20 board.
+     * @return row number, a value between 0 and 20 for a board with the height 20.
      */
     public double cellsInRow(double x) {
-        return (x * (cells.length - 1)) / (boardWidth - 1) * shift * 2;
+        return ((cells.length) * shift * 2) / (boardWidth - 1) * x;
     }
 }

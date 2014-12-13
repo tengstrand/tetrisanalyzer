@@ -141,12 +141,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        int y = raceInfo.height();
-        int graphWidth = (int) (frame.getWidth() * 0.7);
-        int boardWidth = frame.getWidth() - graphWidth;
-
         g.setColor(Color.blue);
 
+        int y = raceInfo.height();
         int x1 = 20;
         int h = frame.getHeight() - y - 60;
         if (h < 100) h = 100;
