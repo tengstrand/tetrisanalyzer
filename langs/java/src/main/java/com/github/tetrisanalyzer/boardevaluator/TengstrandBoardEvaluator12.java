@@ -95,8 +95,8 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         heightFactors = new double[boardHeight + 1];
         hollowFactors = new double[boardWidth];
         areaWidthFactors = new double[boardWidth < 10 ? 10 : boardWidth];
-        areaHeightFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
-        areaHeightEqFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
+        areaHeightFactors = new double[boardHeight < 6 ? 6 : boardHeight + 1];
+        areaHeightEqFactors = new double[boardHeight < 6 ? 6 : boardHeight + 1];
 
         maxEquity = boardWidth * (boardHeight - 1) * maxEquityFactor;
 
