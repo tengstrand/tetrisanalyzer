@@ -95,15 +95,15 @@ public class RaceSettings {
 
     private List<Color> defaultColors() {
         return Arrays.asList(
-                ColorConverter.color("ff0000"),
-                ColorConverter.color("ff7d00"),
-                ColorConverter.color("b3ff00"),
                 ColorConverter.color("00b100"),
+                ColorConverter.color("bc00ff"),
+                ColorConverter.color("000000"),
                 ColorConverter.color("005aff"),
+                ColorConverter.color("ff0000"),
                 ColorConverter.color("7debff"),
                 ColorConverter.color("f78eff"),
-                ColorConverter.color("bc00ff"),
-                ColorConverter.color("000000")
+                ColorConverter.color("b3ff00"),
+                ColorConverter.color("ff7d00")
         );
     }
 
