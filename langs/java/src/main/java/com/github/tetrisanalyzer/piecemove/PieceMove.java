@@ -18,7 +18,7 @@ public class PieceMove {
     public final Move move;
 
     public PieceMove down;
-    public Set<PieceMove> asideAndRotate = new HashSet<PieceMove>();
+    public Set<PieceMove> asideAndRotate = new HashSet<>();
 
     private int[] boardLineIndices;
     private long[] orLines;
