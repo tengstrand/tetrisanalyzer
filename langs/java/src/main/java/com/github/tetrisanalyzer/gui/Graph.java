@@ -32,7 +32,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private static Color grey = new Color(230, 230, 230);
 
     private static double zoomSpeed = 0.9;
-    private static double slowZoomSpeed = 0.98;
+    private static double fastZoomSpeed = 0.5;
     private Zoomer zoomer;
     private Stack<ZoomWindow> windows = new Stack<>();
 
@@ -204,7 +204,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             if (modifiers == 2 && index > 0) {
                 shortcuts.set(index, windows);
             } else if (modifiers == 1) {
-                zoomTo(index, slowZoomSpeed);
+                zoomTo(index, fastZoomSpeed);
             } else {
                 zoomTo(index, zoomSpeed);
             }
