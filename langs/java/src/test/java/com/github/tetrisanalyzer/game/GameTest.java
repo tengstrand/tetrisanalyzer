@@ -19,11 +19,11 @@ public class GameTest {
     @Ignore
     public void playFivePieces() {
         ColoredBoard board = ColoredBoard.create(10, 15);
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
+        GameSettings settings = new AtariGameSettings(board, true);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 5);
-        GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, settings, false);
         game.run();
 
@@ -57,11 +57,11 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
+        GameSettings settings = new AtariGameSettings(board, true);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
-        GameSettings settings = new AtariGameSettings(board, true);
         Game game = new Game(result, settings, false);
         game.run();
 
@@ -83,11 +83,11 @@ public class GameTest {
                 "|--------OO|",
                 "|S--------Z|",
                 "¯¯¯¯¯¯¯¯¯¯¯¯");
-        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height);
+        GameSettings settings = new AtariGameSettings(board);
+        BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
-        GameSettings settings = new AtariGameSettings(board);
         Game game = new Game(result, settings, false);
         game.run();
 

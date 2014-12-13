@@ -95,7 +95,7 @@ public class RaceGameSettings {
         distribution = reader.readDistribution(board.width, board.height);
 
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
-        boardEvaluator = createBoardEvaluator(board.width, board.height, evaluatorSettings);
+        boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, distribution,
                 boardEvaluator, pieceGenerator, games, pieces,
@@ -131,12 +131,12 @@ public class RaceGameSettings {
         return result;
     }
 
-    private BoardEvaluator createBoardEvaluator(int boardWidth, int boardHeight, Map settings) {
+    private BoardEvaluator createBoardEvaluator(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
         Class clazz = classAttribute(settings);
 
         try {
-            Constructor constructor = clazz.getConstructor(int.class, int.class, Map.class);
-            return (BoardEvaluator)constructor.newInstance(boardWidth, boardHeight, settings);
+            Constructor constructor = clazz.getConstructor(int.class, int.class, GameSettings.class, Map.class);
+            return (BoardEvaluator)constructor.newInstance(boardWidth, boardHeight, rules, settings);
         } catch (InvocationTargetException e) {
             throw new IllegalArgumentException(e.getTargetException());
         }

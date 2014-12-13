@@ -3,6 +3,7 @@ package com.github.tetrisanalyzer.boardevaluator;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.BoardOutline;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
+import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.SettingsReader;
 
 import java.util.Map;
@@ -51,11 +52,11 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public double[] areaHeightFactors;
     public double[] areaHeightEqFactors;
 
-    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight) {
+    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, GameSettings rules) {
         init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, Map settings) {
+    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
         maxEquityFactor = reader.readDouble("maxEquityFactor");
