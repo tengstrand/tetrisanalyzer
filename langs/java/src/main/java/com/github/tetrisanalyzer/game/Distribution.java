@@ -67,12 +67,4 @@ public class Distribution {
         }
         return result + "]";
     }
-
-    /**
-     * @param x a value between 0 and 1, representing a x-pos on the diagram.
-     * @return row number, a value between 0 and 20 for a board with the height 20.
-     */
-    public double cellsInRow(double x) {
-        return ((cells.length) * shift * 2) / (boardWidth - 1) * x;
-    }
 }

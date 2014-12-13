@@ -25,20 +25,4 @@ public class DistributionTest {
 
         assertEquals(expected, vertices);
     }
-
-    @Test
-    public void cellsInRow_10x20() {
-        Distribution distribution = new Distribution(10, 20);
-        double value = distribution.cellsInRow(1);
-
-        assertEquals(20.0, value);
-    }
-
-    @Test
-    public void cellsInRow_4x5() {
-        Distribution distribution = new Distribution(4, 5);
-        double value = distribution.cellsInRow(1);
-
-        assertEquals(5.0, value);
-    }
 }

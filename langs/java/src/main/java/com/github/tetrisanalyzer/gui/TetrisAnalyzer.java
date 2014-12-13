@@ -153,7 +153,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
-        double row = distribution.cellsInRow(window.x2);
+        double row = distribution.boardHeight * window.x2;
 
         graph.draw(g, x1, y, w1, h);
         graphBoardPainter.paint(g, x2, y, w2, h, row);
