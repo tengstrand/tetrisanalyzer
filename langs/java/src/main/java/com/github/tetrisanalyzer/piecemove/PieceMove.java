@@ -21,19 +21,19 @@ public class PieceMove {
     public Set<PieceMove> asideAndRotate = new HashSet<PieceMove>();
 
     private int[] boardLineIndices;
-    private int[] orLines;
-    private int[] andLines;
+    private long[] orLines;
+    private long[] andLines;
 
-    private static final int ALL_BITS_CLEARED = 0;
-    private static final int ALL_BITS_SET = -1;
+    private static final long ALL_BITS_CLEARED = 0;
+    private static final long ALL_BITS_SET = -1;
 
     public PieceMove(Piece piece, Move move) {
         this.piece = piece;
         this.move = move;
 
         pieceHeight = piece.height(move.rotation);
-        orLines = new int[pieceHeight];
-        andLines = new int[pieceHeight];
+        orLines = new long[pieceHeight];
+        andLines = new long[pieceHeight];
         Arrays.fill(orLines, ALL_BITS_CLEARED);
         Arrays.fill(andLines, ALL_BITS_SET);
         boardLineIndices = new int[pieceHeight];
@@ -42,10 +42,10 @@ public class PieceMove {
             boardLineIndices[y] = move.y + y;
         }
         for (Point point: piece.getShape(move.rotation).getPoints()) {
-            orLines[point.y] |= (1 << (move.x + point.x));
+            orLines[point.y] |= (1L << (move.x + point.x));
         }
         for (Point point: piece.getShape(move.rotation).getPoints()) {
-            andLines[point.y] &= ~(1 << (move.x + point.x));
+            andLines[point.y] &= ~(1L << (move.x + point.x));
         }
     }
 

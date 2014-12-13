@@ -57,11 +57,11 @@ public class Board implements TextBoard {
     }
 
     private Board(int width, int height, long[] rows) {
-        if (width < 4 || width > 32) {
-            throw new IllegalArgumentException("The board width must be in the range 4 to 32");
+        if (width < 4 || width > 64) {
+            throw new IllegalArgumentException("The board width must be in the range 4 to 64");
         }
-        if (height < 4) {
-            throw new IllegalArgumentException("Minimum board height is 4");
+        if (height < 4 || height > 128) {
+            throw new IllegalArgumentException("The board height must be in the range 4 to 128");
         }
         this.width = width;
         this.height = height;
@@ -96,7 +96,7 @@ public class Board implements TextBoard {
     private static long rowFromText(int width, String textRow) {
         long row = EMPTY_ROW;
         for (int x=width; x>=1; x--) {
-            row <<= 1;
+            row <<= 1L;
             row |= textRow.charAt(x) == '-' ? 0 : 1;
         }
         return row;
@@ -108,7 +108,7 @@ public class Board implements TextBoard {
      * @param y board row
      * @param pieceRowCells filled cells of a specific piece row
      */
-    public void setBits(int y, int pieceRowCells) {
+    public void setBits(int y, long pieceRowCells) {
         rows[y] |= pieceRowCells;
     }
 
@@ -118,7 +118,7 @@ public class Board implements TextBoard {
      * @param y board row
      * @param inversePieceRowCells filled cells of a specific piece row
      */
-    public void clearBits(int y, int inversePieceRowCells) {
+    public void clearBits(int y, long inversePieceRowCells) {
         rows[y] &= inversePieceRowCells;
     }
 
@@ -127,7 +127,7 @@ public class Board implements TextBoard {
      * @param pieceRowCells filled cells of a specific piece row
      * @return true if the piece row cells are not occupied on the board
      */
-    public boolean isBitsFree(int y, int pieceRowCells) {
+    public boolean isBitsFree(int y, long pieceRowCells) {
         try {
             return (rows[y] & pieceRowCells) == 0;
         } catch (IndexOutOfBoundsException e) {
@@ -143,7 +143,7 @@ public class Board implements TextBoard {
         long row = EMPTY_ROW;
 
         for (int x=0; x<width; x++) {
-            row <<= 1;
+            row <<= 1L;
             row |= 1;
         }
         return row;
@@ -154,7 +154,7 @@ public class Board implements TextBoard {
      */
     public boolean isFree(int x, int y) {
         try {
-            return (rows[y] & (1 << x)) == 0;
+            return (rows[y] & (1L << x)) == 0;
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
