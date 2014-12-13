@@ -42,10 +42,9 @@ public class PieceMove {
             boardLineIndices[y] = move.y + y;
         }
         for (Point point: piece.getShape(move.rotation).getPoints()) {
-            orLines[point.y] |= (1L << (move.x + point.x));
-        }
-        for (Point point: piece.getShape(move.rotation).getPoints()) {
-            andLines[point.y] &= ~(1L << (move.x + point.x));
+            long bit = 1L << (move.x + point.x);
+            orLines[point.y] |= bit;
+            andLines[point.y] &= ~bit;
         }
     }
 
