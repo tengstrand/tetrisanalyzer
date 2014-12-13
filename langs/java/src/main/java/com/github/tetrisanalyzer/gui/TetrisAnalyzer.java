@@ -141,8 +141,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        g.setColor(Color.blue);
-
         int y = raceInfo.height();
         int x1 = 20;
         int h = frame.getHeight() - y - 60;
@@ -150,6 +148,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         int w1 = (int) ((frame.getWidth() - 70) * 0.85);
         int w2 = (int) ((frame.getWidth() - 70) * 0.15) - 20;
         int x2 = w1 + 50;
+
+        g.setColor(Color.lightGray);
+        g.drawRect(x1, y, w1, h);
 
         ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
