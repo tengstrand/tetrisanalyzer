@@ -43,7 +43,7 @@ piece generators:
 
 board evaluators:
   - id: Tengstrand 1.2
-    description: Tetris AI that can makes nearly 3 000 000 lines per row in 1 piece mode.
+    description: A Tetris AI that makes 2 800 000 lines per row in average on a 10x20 board, 1 piece mode.
     author: Joakim Tengstrand
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12
