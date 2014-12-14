@@ -264,10 +264,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void saveOnClose(JFrame frame) {
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                save();
-            }
-        });
+        if (race.saveOnClose) {
+            frame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    save();
+                }
+            });
+        }
     }
 }

@@ -25,6 +25,7 @@ public class RaceSettings {
     public String filename;
     public GameSettings tetrisRules;
     public String parameterName;
+    public boolean saveOnClose;
 
     public ColoredBoard board;
     public String tetrisRulesId;
@@ -73,6 +74,8 @@ public class RaceSettings {
         colors = reader.readColors("colors", defaultColors());
         windowLocation = reader.readWindowLocation("window-location-size");
         shortcuts = reader.readShortcuts("zoom-windows");
+
+        saveOnClose = reader.readBoolean("save-on-close", true);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
         Map boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
@@ -161,6 +164,7 @@ public class RaceSettings {
                 "piece generator id: " + pieceGeneratorId + "\n" +
                 "board evaluator id: " + boardEvaluatorId + "\n" +
                 "parameter name: " + parameterName + "\n" +
+                "save-on-close: " + saveOnClose + "\n" +
                 colors +
                 windowLocation.export() + "\n" +
                 windows +
