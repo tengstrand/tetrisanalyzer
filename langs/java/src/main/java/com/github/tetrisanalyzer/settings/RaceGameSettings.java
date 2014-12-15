@@ -47,6 +47,9 @@ public class RaceGameSettings {
 
         heading = reader.readString("heading", null);
         parameterValue = reader.get("parameter value");
+        if (parameterName == null) {
+            parameterValue = null;
+        }
 
         if (reader.exists("tetris rules id")) {
             this.tetrisRulesId = reader.readString("tetris rules id");

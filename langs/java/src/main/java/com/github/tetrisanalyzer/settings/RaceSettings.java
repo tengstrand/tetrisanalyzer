@@ -67,7 +67,7 @@ public class RaceSettings {
         tetrisRulesId = reader.readString("tetris rules id");
         pieceGeneratorId = reader.readString("piece generator id");
         boardEvaluatorId = reader.readString("board evaluator id");
-        parameterName = reader.readString("parameter name");
+        parameterName = reader.readString("parameter name", null);
         if (reader.exists("colors")) {
             colorsString = reader.readString("colors");
         }
@@ -134,19 +134,19 @@ public class RaceSettings {
 
         for (RaceGameSettings game : this.games) {
             GameState state = game.gameState;
+            String parameterValue = game.parameterValue == null ? "" : "   parameter value: " + game.parameterValue + "\n";
             String heading = game.heading == null ? "" : "   heading: " + game.heading + "\n";
             String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorId == this.pieceGeneratorId ? "" : "   piece generator id: " + game.pieceGeneratorId + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
-            games +=
-                    " - parameter value: " + game.parameterValue + "\n" +
+            games += " - duration: " + game.duration + "\n" +
                     heading +
+                    parameterValue +
                     tetrisRuleId +
                     pieceGeneratorId +
                     paused +
                     color +
-                    "   duration: " + game.duration + "\n" +
                     "   board: " + game.game.coloredBoard.export() + "\n" +
                     "   games: " + state.games() + "\n" +
                     "   pieces: " + state.pieces + "\n" +

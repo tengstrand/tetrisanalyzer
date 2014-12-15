@@ -26,11 +26,10 @@ public class RaceSettingsTest {
             "    window-3: [0.286, 0.084, 0.287, 0.118]\n" +
             "save-on-close: false\n" +
             "games:\n" +
-            " - parameter value: 3.33\n" +
+            " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
             "   tetris rules id: Atari\n" +
             "   paused: true\n" +
-            "   duration: 1d 3h 52m 10.760s\n" +
             "   color: aabbcc\n" +
             "   board: [\"----------\",\n" +
             "           \"----------\",\n" +
@@ -56,8 +55,8 @@ public class RaceSettingsTest {
             "   piece generator state: {seed: 11, constant2: 4444}\n" +
             "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
             "\n" +
-            " - parameter value: 3.55\n" +
-            "   duration: 1d 3h 52m 10.760s\n" +
+            " - duration: 1d 3h 52m 10.760s\n" +
+            "   parameter value: 3.55\n" +
             "   board: [\"----------\",\n" +
             "           \"----------\",\n" +
             "           \"----------\",\n" +
@@ -100,7 +99,7 @@ public class RaceSettingsTest {
         assertEquals(4444, pieceGenerator.constant2);
 
         TengstrandBoardEvaluator12 boardEvaluator = (TengstrandBoardEvaluator12)race.games.get(0).boardEvaluator;
-        assertEquals(3.33, boardEvaluator.areaWidthFactor2);
+        assertEquals(2.39, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
 
         assertEquals("zoom-windows:\n" +
@@ -130,12 +129,11 @@ public class RaceSettingsTest {
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
                 "window-location-size: [100,200,750,600]\n" +
                 "games:\n" +
-                " - parameter value: 3.33\n" +
+                " - duration: 1d 3h 52m 10.760s\n" +
                 "   heading: first value\n" +
                 "   tetris rules id: Atari\n" +
                 "   paused: true\n" +
                 "   color: aabbcc\n" +
-                "   duration: 1d 3h 52m 10.760s\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +
@@ -159,8 +157,8 @@ public class RaceSettingsTest {
                 "   piece/s: 1525\n" +
                 "   piece generator state: { seed: 11, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
-                " - parameter value: 3.55\n" +
-                "   duration: 1d 3h 52m 10.760s\n" +
+                " - duration: 1d 3h 52m 10.760s\n" +
+                "   parameter value: 3.55\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +
