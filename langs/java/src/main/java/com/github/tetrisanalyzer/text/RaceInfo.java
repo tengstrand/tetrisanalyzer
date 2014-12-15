@@ -142,7 +142,7 @@ public class RaceInfo {
         for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
             g.setColor(settings.color);
-            String value = settings.parameterValue.toString();
+            String value = settings.heading();
             g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns.get(i) - value.length()) * charWidth, Y0);
         }
     }

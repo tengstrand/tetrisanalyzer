@@ -134,12 +134,14 @@ public class RaceSettings {
 
         for (RaceGameSettings game : this.games) {
             GameState state = game.gameState;
+            String heading = game.heading == null ? "" : "   heading: " + game.heading + "\n";
             String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorId == this.pieceGeneratorId ? "" : "   piece generator id: " + game.pieceGeneratorId + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             games +=
                     " - parameter value: " + game.parameterValue + "\n" +
+                    heading +
                     tetrisRuleId +
                     pieceGeneratorId +
                     paused +

@@ -27,6 +27,7 @@ public class RaceSettingsTest {
             "save-on-close: false\n" +
             "games:\n" +
             " - parameter value: 3.33\n" +
+            "   heading: first value\n" +
             "   tetris rules id: Atari\n" +
             "   paused: true\n" +
             "   duration: 1d 3h 52m 10.760s\n" +
@@ -130,6 +131,7 @@ public class RaceSettingsTest {
                 "window-location-size: [100,200,750,600]\n" +
                 "games:\n" +
                 " - parameter value: 3.33\n" +
+                "   heading: first value\n" +
                 "   tetris rules id: Atari\n" +
                 "   paused: true\n" +
                 "   color: aabbcc\n" +

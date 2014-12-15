@@ -83,7 +83,14 @@ public class SettingsReader {
         return get(key);
     }
 
-    public String readString(String key, String... validValues) {
+    public String readString(String key, String defaultValue) {
+        if (!exists(key)) {
+            return defaultValue;
+        }
+        return readString(key);
+    }
+
+    public String readStringEnsureValue(String key, String... validValues) {
         String result = readString(key);
 
         ensureValues(key, validValues);

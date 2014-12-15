@@ -20,6 +20,7 @@ public class RaceGameSettings {
     public Game game;
     public final GameState gameState;
 
+    public String heading;
     public Object parameterValue;
     public String colorString;
     public Color color;
@@ -44,6 +45,7 @@ public class RaceGameSettings {
         this.pieceGeneratorId = pieceGeneratorId;
         this.boardEvaluatorId = boardEvaluatorId;
 
+        heading = reader.readString("heading", null);
         parameterValue = reader.get("parameter value");
 
         if (reader.exists("tetris rules id")) {
@@ -100,6 +102,13 @@ public class RaceGameSettings {
         gameState = new GameState(duration, board, distribution,
                 boardEvaluator, pieceGenerator, games, pieces,
                 totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
+    }
+
+    public String heading() {
+        if (heading != null) {
+            return heading;
+        }
+        return parameterValue == null ? "" : parameterValue.toString();
     }
 
     private Map pieceGeneratorSettings(Map pieceGeneratorSettings, Map parameters) {

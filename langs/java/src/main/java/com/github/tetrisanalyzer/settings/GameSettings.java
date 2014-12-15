@@ -38,7 +38,7 @@ public class GameSettings extends PieceSettings {
     }
 
     public static boolean sliding(Map settings) {
-        return reader(settings, "game rule").readString("sliding", "on", "off").equals("on");
+        return reader(settings, "game rule").readStringEnsureValue("sliding", "on", "off").equals("on");
     }
 
     private static SettingsReader reader(Map settings, String group) {

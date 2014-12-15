@@ -28,8 +28,8 @@ public class CustomGameSettings extends GameSettings {
         String id = reader.readString("id");
         String url = reader.readString("url");
         String description = reader.readString("description");
-        boolean sliding = reader.readString("sliding", "on", "off").equals("on");
-        boolean clockwise = reader.readString("rotation", "clockwise", "anticlockwise").equals("clockwise");
+        boolean sliding = reader.readStringEnsureValue("sliding", "on", "off").equals("on");
+        boolean clockwise = reader.readStringEnsureValue("rotation", "clockwise", "anticlockwise").equals("clockwise");
 
         List<Integer> pos = reader.readIntegers("piece start position on standard board", 2);
         int pieceStartXOnStandardBoard = pos.get(0);
