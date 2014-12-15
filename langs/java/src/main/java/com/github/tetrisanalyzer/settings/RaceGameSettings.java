@@ -22,6 +22,7 @@ public class RaceGameSettings {
 
     public String heading;
     public Object parameterValue;
+    public Map parameterValues;
     public String colorString;
     public Color color;
     public Duration duration;
@@ -50,6 +51,8 @@ public class RaceGameSettings {
         if (parameterName == null) {
             parameterValue = null;
         }
+
+        parameterValues = reader.readMap("parameter values", null);
 
         if (reader.exists("tetris rules id")) {
             this.tetrisRulesId = reader.readString("tetris rules id");
@@ -99,7 +102,7 @@ public class RaceGameSettings {
 
         distribution = reader.readDistribution(board.width, board.height);
 
-        Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue);
+        Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue, parameterValues);
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, distribution,
@@ -134,9 +137,12 @@ public class RaceGameSettings {
         }
     }
 
-    private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Object parameterValue) {
+    private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Object parameterValue, Map parameterValues) {
         Map result = new HashMap();
         result.putAll(boardEvaluatorSettings);
+        if (parameterValues != null) {
+            result.putAll(parameterValues);
+        }
         if (parameterName != null && parameterValue != null) {
             result.put(parameterName, parameterValue);
         }

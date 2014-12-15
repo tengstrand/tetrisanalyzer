@@ -28,6 +28,9 @@ public class RaceSettingsTest {
             "games:\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
+            "   parameter values:\n" +
+            "     hollowFactor1: 0.54\n" +
+            "     areaWidthFactor2: 2.38\n" +
             "   tetris rules id: Atari\n" +
             "   paused: true\n" +
             "   color: aabbcc\n" +
@@ -99,8 +102,9 @@ public class RaceSettingsTest {
         assertEquals(4444, pieceGenerator.constant2);
 
         TengstrandBoardEvaluator12 boardEvaluator = (TengstrandBoardEvaluator12)race.games.get(0).boardEvaluator;
-        assertEquals(2.39, boardEvaluator.areaWidthFactor2);
         assertEquals(2.5, boardEvaluator.heightFactor1);
+        assertEquals(0.54, boardEvaluator.hollowFactor1);
+        assertEquals(2.38, boardEvaluator.areaWidthFactor2);
 
         assertEquals("zoom-windows:\n" +
                 "  key-1:\n" +
