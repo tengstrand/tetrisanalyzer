@@ -31,12 +31,15 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private String actionError;
 
     private Image offscreenImage;
-    private final RaceInfo raceInfo;
-    private final GraphBoardPainter graphBoardPainter;
+    private RaceInfo raceInfo;
+    private GraphBoardPainter graphBoardPainter;
     private RaceSettings race;
     private List<RaceGameSettings> games;
     private Graph graph;
     private JFrame frame;
+
+    private String systemFilename;
+    private String raceFilename;
 
     private static final int GRAPH_X1 = 50;
     private static final int GRAPH_Y1 = 330;
@@ -60,52 +63,32 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setTitle("Tetris Analyzer 3.0 - by Joakim Tengstrand");
         frame.setLayout(new GridLayout());
 
-        SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
-        final RaceSettings race = RaceSettings.fromFile(raceFilename, systemSettings);
+        TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(systemFilename, raceFilename, frame);
+        tetrisAnalyzer.saveOnClose(frame);
 
-        if (race.games.size() == 0) {
-            System.out.println("Could not find any games for the race!");
-            return;
-        }
-
-        WindowLocation loc = race.windowLocation;
+        WindowLocation loc = tetrisAnalyzer.race.windowLocation;
         frame.setLocation(loc.x1, loc.y1);
         frame.setSize(loc.width, loc.height);
         frame.setVisible(true);
 
-        Graph graph = graph(race.games, race.shortcuts);
-
-        TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(frame, graph, race);
-        tetrisAnalyzer.saveOnClose(frame);
 
         frame.getContentPane().add(tetrisAnalyzer);
 
-        for (RaceGameSettings settings : race.games) {
-            Game game = settings.createGame(settings.tetrisRules);
-            new Thread(game).start();
-        }
+        tetrisAnalyzer.startGames();
     }
 
-    private static Graph graph(List<RaceGameSettings> games, Shortcuts shortcuts) {
-        return new Graph(GRAPH_X1, GRAPH_Y1, games, shortcuts);
-    }
+    public TetrisAnalyzer(String systemFilename, String raceFilename, JFrame frame) {
+        this.systemFilename = systemFilename;
+        this.raceFilename = raceFilename;
 
-    public TetrisAnalyzer(JFrame frame, Graph graph, RaceSettings race) {
+        reloadGames();
+
         this.frame = frame;
-        this.graph = graph;
-
-        this.race = race;
-        this.games = race.games;
-        this.raceInfo = new RaceInfo(race.games);
-        Board board = games.get(0).gameState.board;
-        graphBoardPainter = new GraphBoardPainter(board.width, board.height);
+        games = race.games;
 
         addKeyListener(this);
-        addKeyListener(graph);
-        addMouseListener(graph);
-        addMouseMotionListener(graph);
 
-        this.setFocusable(true);
+        setFocusable(true);
         setVisible(true);
 
         setPreferredSize(new Dimension(300, 300));
@@ -207,6 +190,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 67: // C
                 copyToClipboard();
+            case 82: // <Ctrl> + R
+                if (e.getModifiers() == 2) {
+                    stopGames();
+                    reloadGames();
+                    startGames();
+                }
             default:
                 System.out.println("key: " + keyCode);
         }
@@ -241,6 +230,34 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         pauseGames(paused);
     }
 
+    private void reloadGames() {
+        SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
+        race = RaceSettings.fromFile(raceFilename, systemSettings);
+
+        for (RaceGameSettings settings : race.games) {
+            Game game = settings.createGame(settings.tetrisRules);
+            settings.thread = new Thread(game);
+        }
+        games = race.games;
+        graph = new Graph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts);
+        raceInfo = new RaceInfo(race.games);
+        Board board = games.get(0).gameState.board;
+        graphBoardPainter = new GraphBoardPainter(board.width, board.height);
+
+        paused = false;
+        actionMessage = "";
+
+        addKeyListener(graph);
+        addMouseListener(graph);
+        addMouseMotionListener(graph);
+    }
+
+    private void startGames() {
+        for (RaceGameSettings settings : race.games) {
+            settings.thread.start();
+        }
+    }
+
     private void setAction(String message, double seconds) {
         actionMessage = message;
         actionDuration = (long) (seconds * 1000);
@@ -248,8 +265,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void pauseGames(boolean paused) {
-        for (RaceGameSettings game : games) {
-            game.game.paused = paused;
+        for (RaceGameSettings settings : games) {
+            settings.game.paused = paused;
         }
     }
 
@@ -257,11 +274,23 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         boolean allWaiting = false;
         while (!allWaiting) {
             allWaiting = true;
-            for (RaceGameSettings game : games) {
-                allWaiting &= game.game.waiting;
+            for (RaceGameSettings settings : games) {
+                allWaiting &= settings.game.waiting;
             }
         }
     }
+
+    private void stopGames() {
+        boolean allStopped = false;
+        while (!allStopped) {
+            allStopped = true;
+            for (RaceGameSettings settings : games) {
+                settings.game.stopThread();
+                allStopped &= settings.game.stopped;
+            }
+        }
+    }
+
 
     private void saveOnClose(JFrame frame) {
         if (race.saveOnClose) {

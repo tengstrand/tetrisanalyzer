@@ -22,6 +22,9 @@ import java.util.List;
 public class Game implements Runnable {
     private AllValidPieceMoves allValidPieceMoves;
 
+    private boolean stop;
+    public boolean stopped;
+
     public boolean paused;
     public boolean permanentlyPaused;
     public boolean waiting;
@@ -57,17 +60,21 @@ public class Game implements Runnable {
         return board.asString(piece, move);
     }
 
+    public void stopThread() {
+        stop = true;
+    }
+
     /**
      * Plays a specified number of pieces (state.movesLeft).
      */
     @Override
     public void run() {
-        PieceMove bestMove;
+        stop = false;
 
-        while (state.nonstop || state.movesLeft > 0) {
+        while (!stop && state.nonstop || state.movesLeft > 0) {
             waitIfPaused();
             Piece piece = pieceGenerator.nextPiece(settings);
-            bestMove = evaluateBestMove(piece);
+            PieceMove bestMove = evaluateBestMove(piece);
             state.totalPieces++;
             state.pieces++;
 
@@ -87,15 +94,16 @@ public class Game implements Runnable {
             state.rowsPerLastSecond.update(state.duration.endMillis, state.rows + state.totalRows);
             state.piecesPerLastSecond.update(state.duration.endMillis, state.totalPieces);
         }
+        stopped = true;
     }
 
     private void waitIfPaused() {
-        if (!paused && !permanentlyPaused) {
+        if (stop || (!paused && !permanentlyPaused)) {
             return;
         }
         long pausedAt = System.currentTimeMillis();
 
-        while (paused || permanentlyPaused) {
+        while (!stop && (paused || permanentlyPaused)) {
             waiting = true;
             try {
                 Thread.sleep(50);

@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RaceGameSettings {
+    public Thread thread;
+
     private final SettingsReader reader;
     public boolean permanentlyPaused;
     public Game game;
