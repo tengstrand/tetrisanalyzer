@@ -32,7 +32,7 @@ public class BoardTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tooWide() {
-        Board.create(33, 10);
+        Board.create(65, 10);
     }
 
     @Test
