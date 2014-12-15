@@ -70,8 +70,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         frame.setLocation(loc.x1, loc.y1);
         frame.setSize(loc.width, loc.height);
         frame.setVisible(true);
-
-
         frame.getContentPane().add(tetrisAnalyzer);
 
         tetrisAnalyzer.startGames();

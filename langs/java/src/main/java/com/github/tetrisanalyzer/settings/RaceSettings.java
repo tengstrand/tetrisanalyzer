@@ -136,8 +136,9 @@ public class RaceSettings {
             GameState state = game.gameState;
             String parameterValue = game.parameterValue == null ? "" : "   parameter value: " + game.parameterValue + "\n";
             String heading = game.heading == null ? "" : "   heading: " + game.heading + "\n";
-            String tetrisRuleId = game.tetrisRulesId == this.tetrisRulesId ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
-            String pieceGeneratorId = game.pieceGeneratorId == this.pieceGeneratorId ? "" : "   piece generator id: " + game.pieceGeneratorId + "\n";
+            String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
+            String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
+            String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             games += " - duration: " + game.duration + "\n" +
@@ -145,6 +146,7 @@ public class RaceSettings {
                     parameterValue +
                     tetrisRuleId +
                     pieceGeneratorId +
+                    boardEvaluatorId +
                     paused +
                     color +
                     "   board: " + game.game.coloredBoard.export() + "\n" +

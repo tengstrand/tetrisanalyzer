@@ -34,6 +34,10 @@ public class RaceGameSettings {
     public String pieceGeneratorId;
     public String boardEvaluatorId;
 
+    public String tetrisRulesIdText;
+    public String pieceGeneratorIdText;
+    public String boardEvaluatorIdText;
+
     public GameSettings tetrisRules;
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
@@ -45,8 +49,15 @@ public class RaceGameSettings {
 
         this.color = reader.readColor("color", color);
         colorString = reader.exists("color") ? reader.readString("color") : null;
-        this.pieceGeneratorId = pieceGeneratorId;
-        this.boardEvaluatorId = boardEvaluatorId;
+
+        tetrisRulesIdText = reader.readString("tetris rules id", null);
+        this.tetrisRulesId = reader.readString("tetris rules id", tetrisRulesId);
+
+        pieceGeneratorIdText = reader.readString("piece generator id", null);
+        this.pieceGeneratorId = reader.readString("piece generator id", pieceGeneratorId);
+
+        boardEvaluatorIdText = reader.readString("board evaluator id", null);
+        this.boardEvaluatorId = reader.readString("board evaluator id", boardEvaluatorId);
 
         heading = reader.readString("heading", null);
         parameterValue = reader.get("parameter value");
@@ -56,18 +67,8 @@ public class RaceGameSettings {
 
         parameterValues = reader.readMap("parameter values", null);
 
-        if (reader.exists("tetris rules id")) {
-            this.tetrisRulesId = reader.readString("tetris rules id");
-        } else {
-            this.tetrisRulesId = tetrisRulesId;
-        }
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
 
-        if (reader.exists("piece generator id")) {
-            this.pieceGeneratorId = reader.readString("piece generator id");
-        } else {
-            this.pieceGeneratorId = pieceGeneratorId;
-        }
         Map pieceGeneratorSettings = systemSettings.findPieceGeneratorSettings(this.pieceGeneratorId);
 
         duration = reader.readDuration();
@@ -79,7 +80,6 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
-
         permanentlyPaused = reader.readBoolean("paused", false);
 
         long games = reader.readLong("games", 0);

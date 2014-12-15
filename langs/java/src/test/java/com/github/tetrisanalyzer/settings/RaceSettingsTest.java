@@ -32,6 +32,7 @@ public class RaceSettingsTest {
             "     hollowFactor1: 0.54\n" +
             "     areaWidthFactor2: 2.38\n" +
             "   tetris rules id: Atari\n" +
+            "   board evaluator id: Tengstrand 1.2\n" +
             "   paused: true\n" +
             "   color: aabbcc\n" +
             "   board: [\"----------\",\n" +
@@ -136,6 +137,7 @@ public class RaceSettingsTest {
                 " - duration: 1d 3h 52m 10.760s\n" +
                 "   heading: first value\n" +
                 "   tetris rules id: Atari\n" +
+                "   board evaluator id: Tengstrand 1.2\n" +
                 "   paused: true\n" +
                 "   color: aabbcc\n" +
                 "   board: [\"----------\",\n" +
