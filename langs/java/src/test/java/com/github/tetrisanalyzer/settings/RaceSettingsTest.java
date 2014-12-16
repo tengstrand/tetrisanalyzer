@@ -134,8 +134,11 @@ public class RaceSettingsTest {
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
                 "window-location-size: [100,200,750,600]\n" +
                 "games:\n" +
-                " - duration: 1d 3h 52m 10.760s\n" +
-                "   heading: first value\n" +
+                " - heading: first value\n" +
+                "   parameter values:\n" +
+                "     hollowFactor1: 0.54\n" +
+                "     areaWidthFactor2: 2.38\n" +
+                "   duration: 1d 3h 52m 10.760s\n" +
                 "   tetris rules id: Atari\n" +
                 "   board evaluator id: Tengstrand 1.2\n" +
                 "   paused: true\n" +
@@ -163,8 +166,8 @@ public class RaceSettingsTest {
                 "   piece/s: 1525\n" +
                 "   piece generator state: { seed: 11, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
-                " - duration: 1d 3h 52m 10.760s\n" +
-                "   parameter value: 3.55\n" +
+                " - parameter value: 3.55\n" +
+                "   duration: 1d 3h 52m 10.760s\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +

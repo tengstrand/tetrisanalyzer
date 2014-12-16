@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Map.Entry;
+
 public class RaceSettings {
     private final SettingsReader reader;
 
@@ -134,16 +136,29 @@ public class RaceSettings {
 
         for (RaceGameSettings game : this.games) {
             GameState state = game.gameState;
-            String parameterValue = game.parameterValue == null ? "" : "   parameter value: " + game.parameterValue + "\n";
-            String heading = game.heading == null ? "" : "   heading: " + game.heading + "\n";
+            String heading = game.heading == null ? "" : "heading: " + game.heading + "\n";
+            String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
+            String parameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues);
+            String duration = "   duration: " + game.duration + "\n";
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
-            games += " - duration: " + game.duration + "\n" +
-                    heading +
-                    parameterValue +
+
+            List<String> values = Arrays.asList(heading, parameterValue, parameterValues);
+
+            int i;
+            String separator = " - ";
+            for (i=0; i<values.size() && values.get(i).length() == 0; i++);
+            for (int j=i; j<values.size(); j++) {
+                if (values.get(j).length() > 0) {
+                    games += separator + values.get(j);
+                    separator = "   ";
+                }
+            }
+
+            games += duration +
                     tetrisRuleId +
                     pieceGeneratorId +
                     boardEvaluatorId +
@@ -173,6 +188,15 @@ public class RaceSettings {
                 windowLocation.export() + "\n" +
                 windows +
                 games;
+    }
+
+    private String parameterValues(Map parameterValues) {
+        String result = "parameter values:\n";
+        for (Object o : parameterValues.entrySet()) {
+            Entry entry = (Entry)o;
+            result += "     " + entry.getKey() + ": " + entry.getValue() + "\n";
+        }
+        return result;
     }
 
     @Override
