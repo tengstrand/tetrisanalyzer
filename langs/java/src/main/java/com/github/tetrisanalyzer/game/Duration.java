@@ -126,10 +126,6 @@ public class Duration {
         return new Duration(startMillis, endMillis);
     }
 
-    public Duration stop() {
-        return new Duration(startMillis, currentTime());
-    }
-
     public double seconds() {
         return (endMillis - startMillis) / 1000.0;
     }
@@ -141,7 +137,7 @@ public class Duration {
     public String xPerSecond(long x) {
         double seconds = seconds();
 
-        return String.valueOf((long)(x / seconds));
+        return String.valueOf(x / seconds);
     }
 
     public String xPerSecondFormatted(long x) {
@@ -150,7 +146,7 @@ public class Duration {
         double xPerSec = x / seconds;
 
         if (xPerSec >= 1000) {
-            return StringUtils.format((long)xPerSec);
+            return StringUtils.format(xPerSec);
         }
 
         return seconds == 0 ? "0" : round(xPerSec);

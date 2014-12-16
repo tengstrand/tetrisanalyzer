@@ -36,9 +36,9 @@ public class RaceInfoTest {
                         "games:                            2          19 488\n" +
                         "rows:                         2 666           6 466\n" +
                         "                                                   \n" +
-                        "rows/game:                  500 000           4 561\n" +
+                        "rows/game:                  500 000           4 561\n" +
                         "min rows:                         2               2\n" +
-                        "max rows:                    27 478          29 919\n" +
+                        "max rows:                    27 478          29 919\n" +
                         "rows/s:                           0               0\n" +
                         "pieces/s:                         0               0";
 

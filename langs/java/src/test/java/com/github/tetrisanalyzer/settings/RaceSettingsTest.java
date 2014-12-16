@@ -162,8 +162,8 @@ public class RaceSettingsTest {
                 "   rows total: 7777777\n" +
                 "   min rows: 2\n" +
                 "   max rows: 27478\n" +
-                "   rows/game: 402\n" +
-                "   piece/s: 1525\n" +
+                "   rows/game: 402.82665216490574\n" +
+                "   piece/s: 1525.6182796770656\n" +
                 "   piece generator state: { seed: 11, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
                 " - parameter value: 3.55\n" +
@@ -187,8 +187,8 @@ public class RaceSettingsTest {
                 "   rows total: 88888888\n" +
                 "   min rows: 2\n" +
                 "   max rows: 29919\n" +
-                "   rows/game: 4561\n" +
-                "   piece/s: 1548\n" +
+                "   rows/game: 4561.211412151068\n" +
+                "   piece/s: 1548.5620552177813\n" +
                 "   piece generator state: { seed: 12, constant2: 555555555 }\n" +
                 "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n", result);
     }

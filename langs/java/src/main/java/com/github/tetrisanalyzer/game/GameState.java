@@ -112,14 +112,14 @@ public class GameState {
         if (games == 0) {
             return "";
         }
-        return String.valueOf(totalRows / games);
+        return String.valueOf((double)totalRows / games);
     }
 
     public String rowsPerGameFormatted() {
         if (games == 0) {
             return "";
         }
-        return format(totalRows / games);
+        return format((double)totalRows / games);
     }
 
     private String board() {
