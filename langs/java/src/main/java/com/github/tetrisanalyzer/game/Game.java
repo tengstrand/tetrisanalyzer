@@ -130,7 +130,7 @@ public class Game implements Runnable {
             setMaxRows();
             state.pieces = 0;
             state.rows = 0;
-            board = state.board.copy();
+            board = state.startBoard.copy();
             initColoredBoard();
             numberOfCells = board.numberOfOccupiedCells();
             bestMove = evaluatePiece(piece, board);
@@ -166,9 +166,7 @@ public class Game implements Runnable {
     }
 
     private void initColoredBoard() {
-        if (coloredBoard != null) {
-            coloredBoard = state.coloredBoard.copy();
-        }
+        coloredBoard = state.coloredStartBoard.copy();
     }
 
     private PieceMove evaluatePiece(Piece piece, Board board) {

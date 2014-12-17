@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.github.tetrisanalyzer.board.Board.bottomString;
 import static com.github.tetrisanalyzer.board.Board.bottomTextRow;
+import static com.github.tetrisanalyzer.text.StringFunctions.spaces;
 
 public class ColoredBoard implements TextBoard {
     public final int width;
@@ -226,7 +227,7 @@ public class ColoredBoard implements TextBoard {
         return result;
     }
 
-    public String export() {
+    public String export(int spaces) {
         String result = "[\"";
 
         String separator = "";
@@ -235,7 +236,7 @@ public class ColoredBoard implements TextBoard {
             for (int x=0; x<width; x++) {
                 result += board[y][x];
             }
-            separator = "\",\n           \"";
+            separator = "\",\n" + spaces(spaces) + "\"";
         }
         return result + "\"]";
     }

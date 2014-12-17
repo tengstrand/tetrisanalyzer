@@ -12,7 +12,18 @@ import static junit.framework.Assert.assertEquals;
 public class RaceSettingsTest {
 
     public static final String RACE_SETTINGS =
-            "board: [10,20]\n" +
+            "start board: [\"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"----------\",\n" +
+            "              \"xx------xx\",\n" +
+            "              \"xx----xxxx\"]\n" +
             "tetris rules id: Standard\n" +
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
@@ -46,7 +57,7 @@ public class RaceSettingsTest {
             "           \"----------\",\n" +
             "           \"----------\",\n" +
             "           \"----------\",\n" +
-            "           \"----------\"]\n" +
+            "           \"SS--------\"]\n" +
             "   games: 19308\n" +
             "   pieces: 63332\n" +
             "   pieces total: 153065282\n" +
@@ -61,6 +72,18 @@ public class RaceSettingsTest {
             "\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   parameter value: 3.55\n" +
+            "   start board: [\"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"----------\",\n" +
+            "                 \"xx------xx\"]\n" +
             "   board: [\"----------\",\n" +
             "           \"----------\",\n" +
             "           \"----------\",\n" +
@@ -125,7 +148,18 @@ public class RaceSettingsTest {
         String result = race.export(new WindowLocation(), "");
 
         assertEquals(
-                "board: [10,20]\n" +
+                "start board: [\"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"----------\",\n" +
+                "              \"xx------xx\",\n" +
+                "              \"xx----xxxx\"]\n" +
                 "tetris rules id: Standard\n" +
                 "piece generator id: Linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
@@ -154,7 +188,7 @@ public class RaceSettingsTest {
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +
-                "           \"----------\"]\n" +
+                "           \"SS--------\"]\n" +
                 "   games: 19308\n" +
                 "   pieces: 63332\n" +
                 "   pieces total: 153065282\n" +
@@ -168,6 +202,18 @@ public class RaceSettingsTest {
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
                 " - parameter value: 3.55\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
+                "   start board: [\"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"----------\",\n" +
+                "                 \"xx------xx\"]\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +
                 "           \"----------\",\n" +

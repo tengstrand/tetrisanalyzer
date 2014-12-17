@@ -12,8 +12,10 @@ public class GameState {
     public Duration duration;
 
     public final Board board;
+    public final Board startBoard;
     public final Distribution distribution;
     public ColoredBoard coloredBoard;
+    public ColoredBoard coloredStartBoard;
     public final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
     public long pieces;
@@ -28,12 +30,14 @@ public class GameState {
     public XPerLastSeconds rowsPerLastSecond;
     public XPerLastSeconds piecesPerLastSecond;
 
-    public GameState(Duration duration, ColoredBoard coloredBoard, Distribution distribution,
-                     BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
+    public GameState(Duration duration, ColoredBoard coloredBoard, ColoredBoard coloredStartBoard,
+                     Distribution distribution, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                      long numberOfGames, long numberOfPieces, long totalPieces,
                      long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
         this.duration = duration;
         this.coloredBoard = coloredBoard;
+        this.startBoard = coloredStartBoard.asBoard();
+        this.coloredStartBoard = coloredStartBoard;
         this.distribution = distribution;
         this.board = coloredBoard.asBoard();
         this.boardEvaluator = boardEvaluator;
@@ -84,18 +88,20 @@ public class GameState {
     }
 
     public GameState copy() {
-        return new GameState(duration, board, distribution, coloredBoard, boardEvaluator, pieceGenerator,
+        return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
                 totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
     }
 
-    private GameState(Duration duration, Board board, Distribution distribution,
+    private GameState(Duration duration, Board board, Board startBoard, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                       long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows) {
         this.duration = duration;
         this.board = board.copy();
+        this.startBoard = startBoard.copy();
         this.distribution = distribution.copy();
         this.coloredBoard = coloredBoard == null ? null : coloredBoard.copy();
+        this.coloredStartBoard = coloredStartBoard.copy();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
         this.totalPieces = totalPieces;

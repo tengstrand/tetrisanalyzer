@@ -327,13 +327,13 @@ public class SettingsReader {
         return new Distribution(boardWidth, boardHeight, cells);
     }
 
-    public ColoredBoard readBoard() {
-        if (!exists("board")) {
-            return null;
+    public ColoredBoard readBoard(String key, ColoredBoard defaultBoard) {
+        if (!exists(key)) {
+            return defaultBoard.copy();
         }
-        List board = readList("board");
+        List board = readList(key);
         if (board.size() == 2) {
-            List<Integer> values = asIntegers(board, "board");
+            List<Integer> values = asIntegers(board, key);
             return ColoredBoard.create(values.get(0), values.get(1));
         } else {
             return ColoredBoard.createYaml(board);

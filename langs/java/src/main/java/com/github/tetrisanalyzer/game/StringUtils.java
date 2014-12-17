@@ -12,10 +12,10 @@ public class StringUtils {
         if (value >= 1000) {
             return format((long)value);
         } else if (value >= 100) {
-            return String.format(Locale.ENGLISH, "%.2f", value);
-        } else if (value >= 10) {
             return String.format(Locale.ENGLISH, "%.3f", value);
+        } else if (value >= 10) {
+            return String.format(Locale.ENGLISH, "%.4f", value);
         }
-        return String.format(Locale.ENGLISH, "%.4f", value);
+        return String.format(Locale.ENGLISH, "%.5f", value);
     }
 }

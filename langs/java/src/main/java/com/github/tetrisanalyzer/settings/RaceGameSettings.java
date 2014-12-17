@@ -22,6 +22,9 @@ public class RaceGameSettings {
     public Game game;
     public final GameState gameState;
 
+    public String startBoardText;
+    public ColoredBoard startBoard;
+
     public String heading;
     public Object parameterValue;
     public Map parameterValues;
@@ -42,9 +45,9 @@ public class RaceGameSettings {
     public PieceGenerator pieceGenerator;
     public BoardEvaluator boardEvaluator;
 
-    public RaceGameSettings(SystemSettings systemSettings, ColoredBoard raceBoard, String parameterName, Map settings,
-                            String tetrisRulesId, String pieceGeneratorId, String boardEvaluatorId,
-                            Map boardEvaluatorSettings, Duration mainDuration, Color color) {
+    public RaceGameSettings(SystemSettings systemSettings, ColoredBoard startBoard,
+                            String parameterName, Map settings, String tetrisRulesId, String pieceGeneratorId,
+                            String boardEvaluatorId, Map boardEvaluatorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
         this.color = reader.readColor("color", color);
@@ -94,20 +97,22 @@ public class RaceGameSettings {
         Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state", new HashMap<>()));
         pieceGenerator = createPieceGenerator(generatorSettings);
 
-        ColoredBoard gameBoard = reader.readBoard();
         int piecesLeft = 0;
 
-        if (gameBoard == null && raceBoard == null) {
-            gameBoard = ColoredBoard.create(10, 20);
-        }
-        ColoredBoard board = gameBoard != null ? gameBoard : raceBoard;
+        startBoardText = reader.readString("start board", null);
+        this.startBoard = reader.readBoard("start board", startBoard);
+
+        ColoredBoard board = reader.readBoard("board", startBoard);
 
         distribution = reader.readDistribution(board.width, board.height);
 
+        if (startBoard.width != board.width || startBoard.height != board.height) {
+            throw new IllegalArgumentException("The size of 'start board' and 'board' must match");
+        }
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue, parameterValues);
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
-        gameState = new GameState(duration, board, distribution,
+        gameState = new GameState(duration, board, this.startBoard, distribution,
                 boardEvaluator, pieceGenerator, games, pieces,
                 totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }

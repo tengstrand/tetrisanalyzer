@@ -29,7 +29,8 @@ public class RaceSettings {
     public String parameterName;
     public boolean saveOnClose;
 
-    public ColoredBoard board;
+    public ColoredBoard startBoard;
+    public String startBoardText;
     public String tetrisRulesId;
     public String pieceGeneratorId;
     public String boardEvaluatorId;
@@ -64,7 +65,8 @@ public class RaceSettings {
 
         this.filename = filename;
         Duration duration = reader.readDuration();
-        board = reader.readBoard();
+        startBoard = reader.readBoard("start board", ColoredBoard.create(10, 20));
+        startBoardText = reader.readString("start board");
 
         tetrisRulesId = reader.readString("tetris rules id");
         pieceGeneratorId = reader.readString("piece generator id");
@@ -88,7 +90,7 @@ public class RaceSettings {
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(boardEvaluatorSettings, gameMap);
             Color color = colors.get(idx++ % colors.size());
-            RaceGameSettings game = new RaceGameSettings(systemSettings, board, parameterName, gameMap,
+            RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName, gameMap,
                     tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings, duration, color);
             if (game.color != color) {
                 // Don't consume the global color if a color was explicitly specified.
@@ -145,6 +147,7 @@ public class RaceSettings {
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
+            String startBoard = game.startBoardText == null ? "" : "   start board: " + game.startBoard.export(17) + "\n";
 
             List<String> values = Arrays.asList(heading, parameterValue, parameterValues);
 
@@ -164,7 +167,8 @@ public class RaceSettings {
                     boardEvaluatorId +
                     paused +
                     color +
-                    "   board: " + game.game.coloredBoard.export() + "\n" +
+                    startBoard +
+                    "   board: " + game.game.coloredBoard.export(11) + "\n" +
                     "   games: " + state.games() + "\n" +
                     "   pieces: " + state.pieces + "\n" +
                     "   pieces total: " + state.totalPieces + "\n" +
@@ -178,16 +182,19 @@ public class RaceSettings {
                     "   distribution: " + state.distribution.export() + "\n";
         }
 
-        return "board: [" + board.width + "," + board.height + "]\n" +
-                "tetris rules id: " + tetrisRulesId + "\n" +
-                "piece generator id: " + pieceGeneratorId + "\n" +
-                "board evaluator id: " + boardEvaluatorId + "\n" +
-                "parameter name: " + parameterName + "\n" +
-                "save-on-close: " + saveOnClose + "\n" +
-                colors +
-                windowLocation.export() + "\n" +
-                windows +
-                games;
+        boolean isSimpleBoard = startBoardText.length() - startBoardText.replace(",", "").length() == 1;
+        String board = isSimpleBoard ? "[" + startBoard.width + "," + startBoard.height + "]" : startBoard.export(14);
+
+        return "start board: " + board + "\n" +
+               "tetris rules id: " + tetrisRulesId + "\n" +
+               "piece generator id: " + pieceGeneratorId + "\n" +
+               "board evaluator id: " + boardEvaluatorId + "\n" +
+               "parameter name: " + parameterName + "\n" +
+               "save-on-close: " + saveOnClose + "\n" +
+               colors +
+               windowLocation.export() + "\n" +
+               windows +
+               games;
     }
 
     private String parameterValues(Map parameterValues) {

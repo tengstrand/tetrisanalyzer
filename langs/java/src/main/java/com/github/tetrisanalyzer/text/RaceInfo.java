@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.github.tetrisanalyzer.text.StringFunctions.repeat;
+import static com.github.tetrisanalyzer.text.StringFunctions.spaces;
+
 public class RaceInfo {
     private final List<RaceGameSettings> raceGameSettingsList;
 
@@ -108,16 +111,8 @@ public class RaceInfo {
         return spaces(length - string.length()) + string;
     }
 
-    private String spaces(int n) {
-        return repeat(n, " ");
-    }
-
     private String separator(int n) {
         return repeat(n, "-");
-    }
-
-    private String repeat(int n, String character) {
-        return new String(new char[n]).replace("\0", character);
     }
 
     public int height() {
