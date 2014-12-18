@@ -1,5 +1,6 @@
 package com.github.tetrisanalyzer.gui;
 
+import com.github.tetrisanalyzer.FileChangeObserver;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Game;
@@ -18,6 +19,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.List;
+
+import static com.github.tetrisanalyzer.FileChangeObserver.FileChangedEvent;
 
 public class TetrisAnalyzer extends JPanel implements KeyListener {
 
@@ -80,6 +83,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         this.raceFilename = raceFilename;
 
         reloadGames();
+        startFileChangeObserver(raceFilename);
 
         this.frame = frame;
         games = race.games;
@@ -90,6 +94,18 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         setVisible(true);
 
         setPreferredSize(new Dimension(300, 300));
+    }
+
+    private void startFileChangeObserver(String raceFilename) {
+        if (race.restartOnFileChange) {
+            FileChangedEvent event = new FileChangedEvent() {
+                @Override
+                public void changed() {
+                    reloadAndRestartGames();
+                }
+            };
+            new Thread(new FileChangeObserver(raceFilename, event)).start();
+        }
     }
 
     public void update(Graphics g) {
@@ -190,13 +206,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 copyToClipboard();
             case 82: // <Ctrl> + R
                 if (e.getModifiers() == 2) {
-                    stopGames();
-                    reloadGames();
-                    startGames();
+                    reloadAndRestartGames();
                 }
             default:
                 System.out.println("key: " + keyCode);
         }
+    }
+
+    private void reloadAndRestartGames() {
+        stopGames();
+        reloadGames();
+        startGames();
     }
 
     private void copyToClipboard() {

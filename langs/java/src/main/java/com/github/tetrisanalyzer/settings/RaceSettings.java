@@ -28,6 +28,7 @@ public class RaceSettings {
     public GameSettings tetrisRules;
     public String parameterName;
     public boolean saveOnClose;
+    public boolean restartOnFileChange;
 
     public ColoredBoard startBoard;
     public String startBoardText;
@@ -80,6 +81,7 @@ public class RaceSettings {
         shortcuts = reader.readShortcuts("zoom-windows");
 
         saveOnClose = reader.readBoolean("save-on-close", true);
+        restartOnFileChange = reader.readBoolean("restart on file change", false);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
         Map boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
@@ -191,6 +193,7 @@ public class RaceSettings {
                "board evaluator id: " + boardEvaluatorId + "\n" +
                "parameter name: " + parameterName + "\n" +
                "save-on-close: " + saveOnClose + "\n" +
+               "restart on file change: " + restartOnFileChange + "\n" +
                colors +
                windowLocation.export() + "\n" +
                windows +
