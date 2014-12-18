@@ -329,7 +329,7 @@ public class SettingsReader {
 
     public ColoredBoard readBoard(String key, ColoredBoard defaultBoard) {
         if (!exists(key)) {
-            return defaultBoard.copy();
+            return defaultBoard == null ? null : defaultBoard.copy();
         }
         List board = readList(key);
         if (board.size() == 2) {

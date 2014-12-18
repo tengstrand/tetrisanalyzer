@@ -65,8 +65,8 @@ public class RaceSettings {
 
         this.filename = filename;
         Duration duration = reader.readDuration();
-        startBoard = reader.readBoard("start board", ColoredBoard.create(10, 20));
-        startBoardText = reader.readString("start board");
+        startBoard = reader.readBoard("start board", null);
+        startBoardText = reader.readString("start board", null);
 
         tetrisRulesId = reader.readString("tetris rules id");
         pieceGeneratorId = reader.readString("piece generator id");

@@ -102,11 +102,14 @@ public class RaceGameSettings {
         startBoardText = reader.readString("start board", null);
         this.startBoard = reader.readBoard("start board", startBoard);
 
-        ColoredBoard board = reader.readBoard("board", startBoard);
+        if (this.startBoard == null) {
+            throw new IllegalArgumentException("The 'start board' must be set");
+        }
+        ColoredBoard board = reader.readBoard("board", this.startBoard);
 
         distribution = reader.readDistribution(board.width, board.height);
 
-        if (startBoard.width != board.width || startBoard.height != board.height) {
+        if (this.startBoard.width != board.width || this.startBoard.height != board.height) {
             throw new IllegalArgumentException("The size of 'start board' and 'board' must match");
         }
         Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue, parameterValues);
