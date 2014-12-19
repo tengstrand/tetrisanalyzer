@@ -77,10 +77,10 @@ public class RaceSettings {
             colorsString = reader.readString("colors");
         }
         colors = reader.readColors("colors", defaultColors());
-        windowLocation = reader.readWindowLocation("window-location-size");
-        shortcuts = reader.readShortcuts("zoom-windows");
+        windowLocation = reader.readWindowLocation("window location size");
+        shortcuts = reader.readShortcuts("zoom windows");
 
-        saveOnClose = reader.readBoolean("save-on-close", true);
+        saveOnClose = reader.readBoolean("save on close", true);
         restartOnFileChange = reader.readBoolean("restart on file change", false);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
@@ -192,7 +192,7 @@ public class RaceSettings {
                "piece generator id: " + pieceGeneratorId + "\n" +
                "board evaluator id: " + boardEvaluatorId + "\n" +
                "parameter name: " + parameterName + "\n" +
-               "save-on-close: " + saveOnClose + "\n" +
+               "save on close: " + saveOnClose + "\n" +
                "restart on file change: " + restartOnFileChange + "\n" +
                colors +
                windowLocation.export() + "\n" +

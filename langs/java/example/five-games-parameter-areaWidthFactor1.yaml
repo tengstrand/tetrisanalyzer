@@ -1,8 +1,9 @@
-board: [10,20]
+start board: [10,20]
 tetris rules id: Standard
 piece generator id: Linear
 board evaluator id: Tengstrand 1.2
 parameter name: areaWidthFactor1
+save on close: false
 games:
  - parameter value: 4
  - parameter value: 4.5

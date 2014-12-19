@@ -30,6 +30,6 @@ public class WindowLocation {
     }
 
     public String export() {
-        return "window-location-size: [" + x1 + "," + y1 + "," + width + "," + height + "]";
+        return "window location size: [" + x1 + "," + y1 + "," + width + "," + height + "]";
     }
 }

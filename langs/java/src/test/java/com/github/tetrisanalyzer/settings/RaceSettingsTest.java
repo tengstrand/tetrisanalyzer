@@ -29,14 +29,14 @@ public class RaceSettingsTest {
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
-            "window-location-size: [100,200,1139,600]\n" +
+            "window location size: [100,200,1139,600]\n" +
             "restart-on-file-change: true\n" +
-            "zoom-windows:\n" +
+            "zoom windows:\n" +
             "  key-1:\n" +
             "    window-2: [0.278, 0.054, 0.295, 0.150]\n" +
             "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
             "    window-3: [0.286, 0.084, 0.287, 0.118]\n" +
-            "save-on-close: false\n" +
+            "save on close: false\n" +
             "games:\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
@@ -131,7 +131,7 @@ public class RaceSettingsTest {
         assertEquals(0.54, boardEvaluator.hollowFactor1);
         assertEquals(2.38, boardEvaluator.areaWidthFactor2);
 
-        assertEquals("zoom-windows:\n" +
+        assertEquals("zoom windows:\n" +
                 "  key-1:\n" +
                 "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
                 "    window-2: [0.278, 0.054, 0.295, 0.15]\n" +
@@ -165,10 +165,10 @@ public class RaceSettingsTest {
                 "piece generator id: Linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
                 "parameter name: areaWidthFactor2\n" +
-                "save-on-close: false\n" +
+                "save on close: false\n" +
                 "restart on file change: false\n" +
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
-                "window-location-size: [100,200,750,600]\n" +
+                "window location size: [100,200,750,600]\n" +
                 "games:\n" +
                 " - heading: first value\n" +
                 "   parameter values:\n" +
