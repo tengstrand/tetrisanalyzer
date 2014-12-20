@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static java.util.Map.Entry;
 
@@ -27,6 +28,7 @@ public class RaceSettings {
     public String filename;
     public GameSettings tetrisRules;
     public String parameterName;
+    public Map parameterValues;
     public boolean saveOnClose;
     public boolean restartOnFileChange;
 
@@ -73,6 +75,8 @@ public class RaceSettings {
         pieceGeneratorId = reader.readString("piece generator id");
         boardEvaluatorId = reader.readString("board evaluator id");
         parameterName = reader.readString("parameter name", null);
+        parameterValues = reader.readMap("parameter values", null);
+
         if (reader.exists("colors")) {
             colorsString = reader.readString("colors");
         }
@@ -92,8 +96,9 @@ public class RaceSettings {
         for (Map gameMap : games) {
             Map evaluatorSettings = boardEvaluatorSettings(boardEvaluatorSettings, gameMap);
             Color color = colors.get(idx++ % colors.size());
-            RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName, gameMap,
-                    tetrisRulesId, pieceGeneratorId, boardEvaluatorId, evaluatorSettings, duration, color);
+            RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName,
+                    parameterValues, gameMap, tetrisRulesId, pieceGeneratorId, boardEvaluatorId,
+                    evaluatorSettings, duration, color);
             if (game.color != color) {
                 // Don't consume the global color if a color was explicitly specified.
                 idx--;
@@ -142,7 +147,7 @@ public class RaceSettings {
             GameState state = game.gameState;
             String heading = game.heading == null ? "" : "heading: " + game.heading + "\n";
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
-            String parameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues);
+            String gameParameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues, "     ");
             String duration = "   duration: " + game.duration + "\n";
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
@@ -150,20 +155,10 @@ public class RaceSettings {
             String paused = game.permanentlyPaused ? "   paused: true\n" : "";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             String startBoard = game.startBoardText == null ? "" : "   start board: " + game.startBoard.export(17) + "\n";
+            String headValues = headValues(heading, parameterValue, gameParameterValues);
 
-            List<String> values = Arrays.asList(heading, parameterValue, parameterValues);
-
-            int i;
-            String separator = " - ";
-            for (i=0; i<values.size() && values.get(i).length() == 0; i++);
-            for (int j=i; j<values.size(); j++) {
-                if (values.get(j).length() > 0) {
-                    games += separator + values.get(j);
-                    separator = "   ";
-                }
-            }
-
-            games += duration +
+            games += headValues +
+                    duration +
                     tetrisRuleId +
                     pieceGeneratorId +
                     boardEvaluatorId +
@@ -187,11 +182,14 @@ public class RaceSettings {
         boolean isSimpleBoard = startBoardText.length() - startBoardText.replace(",", "").length() == 1;
         String board = isSimpleBoard ? "[" + startBoard.width + "," + startBoard.height + "]" : startBoard.export(14);
 
+        String paramValues = parameterValues == null ? "" : parameterValues(parameterValues, "  ");
+
         return "start board: " + board + "\n" +
                "tetris rules id: " + tetrisRulesId + "\n" +
                "piece generator id: " + pieceGeneratorId + "\n" +
                "board evaluator id: " + boardEvaluatorId + "\n" +
                "parameter name: " + parameterName + "\n" +
+               paramValues +
                "save on close: " + saveOnClose + "\n" +
                "restart on file change: " + restartOnFileChange + "\n" +
                colors +
@@ -200,11 +198,29 @@ public class RaceSettings {
                games;
     }
 
-    private String parameterValues(Map parameterValues) {
+    private String headValues(String... values) {
+        String result = "";
+
+        int i;
+        String separator = " - ";
+        for (i=0; i<values.length && values[i].length() == 0; i++);
+        for (int j=i; j<values.length; j++) {
+            if (values[j].length() > 0) {
+                result += separator + values[j];
+                separator = "   ";
+            }
+        }
+        return result;
+    }
+
+    private String parameterValues(Map parameterValues, String tab) {
         String result = "parameter values:\n";
-        for (Object o : parameterValues.entrySet()) {
+
+        Map orderedValues = new TreeMap(parameterValues);
+
+        for (Object o : orderedValues.entrySet()) {
             Entry entry = (Entry)o;
-            result += "     " + entry.getKey() + ": " + entry.getValue() + "\n";
+            result += tab + entry.getKey() + ": " + entry.getValue() + "\n";
         }
         return result;
     }

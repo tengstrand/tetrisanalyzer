@@ -28,6 +28,9 @@ public class RaceSettingsTest {
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
+            "parameter values:\n" +
+            "  hollowFactor2: 0.61\n" +
+            "  hollowFactorDelta: 0.86\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
             "window location size: [100,200,1139,600]\n" +
             "restart-on-file-change: true\n" +
@@ -165,6 +168,9 @@ public class RaceSettingsTest {
                 "piece generator id: Linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
                 "parameter name: areaWidthFactor2\n" +
+                "parameter values:\n" +
+                "  hollowFactor2: 0.61\n" +
+                "  hollowFactorDelta: 0.86\n" +
                 "save on close: false\n" +
                 "restart on file change: false\n" +
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
@@ -172,8 +178,8 @@ public class RaceSettingsTest {
                 "games:\n" +
                 " - heading: first value\n" +
                 "   parameter values:\n" +
-                "     hollowFactor1: 0.54\n" +
                 "     areaWidthFactor2: 2.38\n" +
+                "     hollowFactor1: 0.54\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
                 "   tetris rules id: Atari\n" +
                 "   board evaluator id: Tengstrand 1.2\n" +
