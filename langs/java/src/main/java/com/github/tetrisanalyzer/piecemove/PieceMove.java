@@ -6,7 +6,7 @@ import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piece.Point;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +18,7 @@ public class PieceMove {
     public final Move move;
 
     public PieceMove down;
-    public Set<PieceMove> asideAndRotate = new HashSet<>();
+    public Set<PieceMove> asideAndRotate = new LinkedHashSet<>();
 
     private int[] boardLineIndices;
     private long[] orLines;
