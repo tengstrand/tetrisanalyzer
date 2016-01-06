@@ -13,18 +13,18 @@ public class TengstrandBoardEvaluator12Test {
 
     @Test
     @Ignore
-    public void evaluateVersionOneDotOne() {
+    public void evaluateVersionOneDotTwo() {
         Board board = Board.create(
                 "|----------|",
                 "|----------|",
                 "|-x---xx---|",
                 "|-xx-xx-x--|",
                 "|xxxx-xxxx-|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
         BoardEvaluator evaluator = new TengstrandBoardEvaluator12(10, 5, new StandardGameSettings(board));
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new AtariGameSettings(board));
 
-        assertEquals(49.2915, evaluator.evaluate(board, allValidPieceMoves), 0.0001);
+        assertEquals(47.328689, evaluator.evaluate(board, allValidPieceMoves), 0.0001);
     }
 }

@@ -170,7 +170,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (e.getModifiers() == 16 && sx1 >= 0) {
             sx2 = e.getX();
             sy2 = e.getY();
-        } else if (e.getModifiers() == 4) {
+        } else if (e.getModifiers() == 4 || e.getModifiers() == 20) {
             double dx = e.getX() - dragX;
             double dy = e.getY() - dragY;
 
@@ -201,7 +201,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         if (key >= 48 && key <= 57) { // 0..9
             int index = key - 48;
 
-            if (modifiers == 2 && index > 0) {
+            if ((modifiers == 2 || modifiers == 4) && index > 0) {
                 shortcuts.set(index, windows);
             } else if (modifiers == 1) {
                 zoomTo(index, fastZoomSpeed);

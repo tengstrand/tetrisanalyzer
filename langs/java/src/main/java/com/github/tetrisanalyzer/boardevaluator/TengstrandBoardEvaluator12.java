@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.SettingsReader;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -183,6 +184,40 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     @Override
     public double evaluate(Board board, AllValidPieceMoves allValidPieceMoves)  {
         return allValidPieceMoves.adjustEquityIfOccupiedStartPiece(evaluate(board), maxEquity, board);
+    }
+
+    @Override
+    public Map<String, String> parameters() {
+        Map<String,String> parameters = new LinkedHashMap<>();
+
+        parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
+        parameters.put("heightFactor0", Double.toString(heightFactor0));
+        parameters.put("heightFactor1", Double.toString(heightFactor1));
+        parameters.put("heightFactorDelta", Double.toString(heightFactorDelta));
+        parameters.put("hollowFactor1", Double.toString(hollowFactor1));
+        parameters.put("hollowFactor2", Double.toString(hollowFactor2));
+        parameters.put("hollowFactorDelta", Double.toString(hollowFactorDelta));
+        parameters.put("areaWidthFactor1", Double.toString(areaWidthFactor1));
+        parameters.put("areaWidthFactor2", Double.toString(areaWidthFactor2));
+        parameters.put("areaWidthFactor3", Double.toString(areaWidthFactor3));
+        parameters.put("areaWidthFactor4", Double.toString(areaWidthFactor4));
+        parameters.put("areaWidthFactor5", Double.toString(areaWidthFactor5));
+        parameters.put("areaWidthFactor6", Double.toString(areaWidthFactor6));
+        parameters.put("areaWidthFactor7", Double.toString(areaWidthFactor7));
+        parameters.put("areaWidthFactor8", Double.toString(areaWidthFactor8));
+        parameters.put("areaWidthFactor9", Double.toString(areaWidthFactor9));
+        parameters.put("areaHeightFactor1", Double.toString(areaHeightFactor1));
+        parameters.put("areaHeightEqFactor1", Double.toString(areaHeightEqFactor1));
+        parameters.put("areaHeightFactor2", Double.toString(areaHeightFactor2));
+        parameters.put("areaHeightEqFactor2", Double.toString(areaHeightEqFactor2));
+        parameters.put("areaHeightFactor3", Double.toString(areaHeightFactor3));
+        parameters.put("areaHeightEqFactor3", Double.toString(areaHeightEqFactor3));
+        parameters.put("areaHeightEqFactor4", Double.toString(areaHeightEqFactor4));
+        parameters.put("areaHeightFactor4", Double.toString(areaHeightFactor4));
+        parameters.put("areaHeightFactor5", Double.toString(areaHeightFactor5));
+        parameters.put("areaHeightFactorDelta", Double.toString(areaHeightFactorDelta));
+
+        return parameters;
     }
 
     public double evaluate(Board board)  {
