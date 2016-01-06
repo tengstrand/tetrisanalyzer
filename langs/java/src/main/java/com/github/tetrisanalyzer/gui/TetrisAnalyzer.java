@@ -51,7 +51,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     /**
      * Incoming arguments for system and race settings, e.g.:
-     *   C:/TetrisAnalyzer/system.yaml C:/TetrisAnalyzer/race/race.yaml
+     *   /Users/joakimtengstrand/Source/Idea/tetrisanalyzer/langs/java/example/system.yaml /Users/joakimtengstrand/TetrisAnalyzer/race.yaml
      */
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {

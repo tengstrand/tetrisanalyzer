@@ -40,11 +40,12 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public double areaHeightFactor3 = 2.35;
     public double areaHeightFactor4 = 3.1;
     public double areaHeightFactor5 = 4.6;
-    public double areaHeightFactorDelta = 1;
+    public double areaHeightFactorDelta = 1; // 1.1
 
     public double areaHeightEqFactor1 = 0.42;
     public double areaHeightEqFactor2 = 1.05;
-    public double areaHeightEqFactor3 = 2.2;
+    public double areaHeightEqFactor3 = 2.2; // 2.22
+    public double areaHeightEqFactor4 = 3.00; // 3.06
 
     public double[] heightFactors;
     public double[] hollowFactors;
@@ -81,6 +82,7 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         areaHeightEqFactor2 = reader.readDouble("areaHeightEqFactor2");
         areaHeightFactor3 = reader.readDouble("areaHeightFactor3");
         areaHeightEqFactor3 = reader.readDouble("areaHeightEqFactor3");
+        areaHeightEqFactor4 = reader.readDouble("areaHeightEqFactor4");
         areaHeightFactor4 = reader.readDouble("areaHeightFactor4");
         areaHeightFactor5 = reader.readDouble("areaHeightFactor5");
         areaHeightFactorDelta = reader.readDouble("areaHeightFactorDelta");
@@ -167,7 +169,7 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         areaHeightEqFactors[1] = areaHeightEqFactor1;
         areaHeightEqFactors[2] = areaHeightEqFactor2;
         areaHeightEqFactors[3] = areaHeightEqFactor3;
-        areaHeightEqFactors[4] = areaHeightFactor4;
+        areaHeightEqFactors[4] = areaHeightEqFactor4;
         areaHeightEqFactors[5] = areaHeightFactor5;
 
         double factor = areaHeightFactor5;
