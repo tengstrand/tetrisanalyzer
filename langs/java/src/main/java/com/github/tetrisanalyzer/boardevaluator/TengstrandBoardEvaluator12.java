@@ -190,6 +190,7 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public Map<String, String> parameters() {
         Map<String,String> parameters = new LinkedHashMap<>();
 
+        parameters.put("evaluator", "Tengstrand 1.2");
         parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
         parameters.put("heightFactor0", Double.toString(heightFactor0));
         parameters.put("heightFactor1", Double.toString(heightFactor1));
