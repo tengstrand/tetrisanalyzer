@@ -149,20 +149,21 @@ public class RaceSettings {
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
             String gameParameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues, "     ");
             String duration = "   duration: " + game.duration + "\n";
+            String boardEvaluatorParameters = boardEvaluatorParameters(game.boardEvaluator.parameters());
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
-            String paused = game.permanentlyPaused ? "   paused: true\n" : "";
+            String paused = "   paused: " + game.permanentlyPaused + "\n";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             String startBoard = game.startBoardText == null ? "" : "   start board: " + game.startBoard.export(17) + "\n";
             String headValues = headValues(heading, parameterValue, gameParameterValues);
 
             games += headValues +
                     duration +
+                    paused +
                     tetrisRuleId +
                     pieceGeneratorId +
                     boardEvaluatorId +
-                    paused +
                     color +
                     startBoard +
                     "   board: " + game.game.coloredBoard.export(11) + "\n" +
@@ -176,7 +177,8 @@ public class RaceSettings {
                     "   rows/game: " + state.rowsPerGame() + "\n" +
                     "   piece/s: " + state.piecesPerSecond() + "\n" +
                     "   piece generator state: " + state.pieceGenerator.export() + "\n" +
-                    "   distribution: " + state.distribution.export() + "\n";
+                    "   distribution: " + state.distribution.export() + "\n" +
+                    "   board evaluator parameters:\n" + boardEvaluatorParameters;
         }
 
         boolean isSimpleBoard = startBoardText.length() - startBoardText.replace(",", "").length() == 1;
@@ -196,6 +198,15 @@ public class RaceSettings {
                windowLocation.export() + "\n" +
                windows +
                games;
+    }
+
+    private String boardEvaluatorParameters(Map<String,String> parameters) {
+        String result = "";
+
+        for (Entry<String,String> entry : parameters.entrySet()) {
+            result += "      " + entry.getKey() + ": " + entry.getValue() + "\n";
+        }
+        return result;
     }
 
     private String headValues(String... values) {
