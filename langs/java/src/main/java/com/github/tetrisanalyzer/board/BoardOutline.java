@@ -7,7 +7,12 @@ public class BoardOutline {
     private int[] outline;
 
     public BoardOutline(Board board) {
-        int[] outline = new int[board.width + 1];
+        this(board, false);
+    }
+
+    public BoardOutline(Board board, boolean withLeftWall) {
+        int wall = withLeftWall ? 1 : 0;
+        int[] outline = new int[board.width + 1 + wall];
         int minY = Integer.MAX_VALUE;
 
         for (int x = 0; x < board.width; x++) {
@@ -15,13 +20,16 @@ public class BoardOutline {
             while (board.isFree(x, y)) {
                 y++;
             }
-            outline[x] = y;
+            outline[x + wall] = y;
 
             if (y < minY) {
                 minY = y;
             }
         }
-        outline[board.width] = 0;
+        if (withLeftWall) {
+            outline[0] = 0;
+        }
+        outline[board.width + wall] = 0;
 
         this.outline = outline;
         this.minY = minY;
@@ -30,6 +38,10 @@ public class BoardOutline {
     public BoardOutline(int minY, int... outline) {
         this.minY = minY;
         this.outline = outline;
+    }
+
+    public int size() {
+        return outline.length;
     }
 
     public int get(int x) {

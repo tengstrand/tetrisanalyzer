@@ -70,6 +70,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         tetrisAnalyzer.saveOnClose(frame);
 
         WindowLocation loc = tetrisAnalyzer.race.windowLocation;
+        frame.pack();
         frame.setLocation(loc.x1, loc.y1);
         frame.setSize(loc.width, loc.height);
         frame.setVisible(true);
@@ -209,7 +210,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                     reloadAndRestartGames();
                 }
             default:
-                System.out.println("key: " + keyCode);
+                System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());
         }
     }
 

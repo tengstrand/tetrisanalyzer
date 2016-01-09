@@ -88,16 +88,18 @@ public class RaceSettings {
         restartOnFileChange = reader.readBoolean("restart on file change", false);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
-        Map boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(boardEvaluatorId);
 
         List<Map> games = reader.readMaps("games");
 
         int idx = 0;
         for (Map gameMap : games) {
+            String evaluatorId = evaluatorId(boardEvaluatorId, gameMap);
+            Map boardEvaluatorSettings = systemSettings.findBoardEvaluatorSettings(evaluatorId);
             Map evaluatorSettings = boardEvaluatorSettings(boardEvaluatorSettings, gameMap);
             Color color = colors.get(idx++ % colors.size());
+
             RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName,
-                    parameterValues, gameMap, tetrisRulesId, pieceGeneratorId, boardEvaluatorId,
+                    parameterValues, gameMap, tetrisRulesId, pieceGeneratorId, evaluatorId,
                     evaluatorSettings, duration, color);
             if (game.color != color) {
                 // Don't consume the global color if a color was explicitly specified.
@@ -105,6 +107,18 @@ public class RaceSettings {
             }
             this.games.add(game);
         }
+    }
+
+    private String evaluatorId(String boardEvaluatorId, Map gameMap) {
+        if (gameMap.containsKey("parameter values")) {
+            Object map = gameMap.get("parameter values");
+            if (map instanceof Map) {
+                if (((Map)map).containsKey("board evaluator id")) {
+                    return ((Map)map).get("board evaluator id").toString();
+                }
+            }
+        }
+        return boardEvaluatorId;
     }
 
     private List<Color> defaultColors() {
@@ -122,13 +136,19 @@ public class RaceSettings {
     }
 
     /**
-     * Add the 'board' attribute to board evaluator settings (if exists).
+     * Add the 'board' (if exists) and all 'parameter values' attributes to board evaluator settings.
      */
     private Map boardEvaluatorSettings(Map boardEvaluatorSettings, Map gameMap) {
         Map result = new HashMap();
         result.putAll(boardEvaluatorSettings);
         if (gameMap.containsKey("board")) {
             result.put("board", gameMap.get("board"));
+        }
+        if (gameMap.containsKey("parameter values")) {
+            Object map = gameMap.get("parameter values");
+            if (map instanceof Map) {
+                result.putAll((Map)map);
+            }
         }
         return result;
     }

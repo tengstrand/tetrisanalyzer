@@ -14,12 +14,17 @@ public class BoardOutlineTest {
                 "|-----xx|",
                 "|-x---xx|",
                 "|x-x--xx|",
-                "¯¯¯¯¯¯¯¯¯");
+                "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
 
     @Test
     public void getOutline() {
         Assert.assertEquals(new BoardOutline(0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board));
+    }
+
+    @Test
+    public void getOutline_withLeftWall() {
+        Assert.assertEquals(new BoardOutline(0, 0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board, true));
     }
 
     @Test
