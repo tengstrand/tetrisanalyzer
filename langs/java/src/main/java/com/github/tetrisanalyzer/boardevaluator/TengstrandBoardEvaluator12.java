@@ -41,11 +41,11 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public double areaHeightFactor3 = 2.35;
     public double areaHeightFactor4 = 3.1;
     public double areaHeightFactor5 = 4.6;
-    public double areaHeightFactorDelta = 1; // 1.1
+    public double areaHeightFactorDelta = 1.1;
 
     public double areaHeightEqFactor1 = 0.42;
     public double areaHeightEqFactor2 = 1.05;
-    public double areaHeightEqFactor3 = 2.20; // 2.22
+    public double areaHeightEqFactor3 = 2.22;
     public double areaHeightEqFactor4 = 3.06;
 
     public String id;
