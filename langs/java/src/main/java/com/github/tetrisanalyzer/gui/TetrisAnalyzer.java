@@ -153,6 +153,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
         } else if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME){
             x1 = 210;
+            w1 = raceInfo.width(g);
             raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
         }
         int x2 = w1 + 50;

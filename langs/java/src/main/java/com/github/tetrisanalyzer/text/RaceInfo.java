@@ -118,6 +118,17 @@ public class RaceInfo {
         return repeat(n, "-");
     }
 
+    public int width(Graphics g) {
+        RowsResult rowsResult = rows();
+        int size = rowsResult.columns.size();
+
+        int columns = rowsResult.columns.get(size-1).intValue() - rowsResult.columns.get(0).intValue();
+
+        int charWidth = g.getFontMetrics().charWidth(' ');
+
+        return X0 + charWidth * columns;
+    }
+
     public int height() {
         return Y0 + CHAR_HEIGHT * (textRows() + 3);
     }

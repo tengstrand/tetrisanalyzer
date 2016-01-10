@@ -95,8 +95,8 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         areaHeightEqFactor2 = reader.readDouble("areaHeightEqFactor2");
         areaHeightFactor3 = reader.readDouble("areaHeightFactor3");
         areaHeightEqFactor3 = reader.readDouble("areaHeightEqFactor3");
-        areaHeightEqFactor4 = reader.readDouble("areaHeightEqFactor4");
         areaHeightFactor4 = reader.readDouble("areaHeightFactor4");
+        areaHeightEqFactor4 = reader.readDouble("areaHeightEqFactor4");
         areaHeightFactor5 = reader.readDouble("areaHeightFactor5");
         areaHeightFactorDelta = reader.readDouble("areaHeightFactorDelta");
 
@@ -230,8 +230,8 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         parameters.put("areaHeightEqFactor2", Double.toString(areaHeightEqFactor2));
         parameters.put("areaHeightFactor3", Double.toString(areaHeightFactor3));
         parameters.put("areaHeightEqFactor3", Double.toString(areaHeightEqFactor3));
-        parameters.put("areaHeightEqFactor4", Double.toString(areaHeightEqFactor4));
         parameters.put("areaHeightFactor4", Double.toString(areaHeightFactor4));
+        parameters.put("areaHeightEqFactor4", Double.toString(areaHeightEqFactor4));
         parameters.put("areaHeightFactor5", Double.toString(areaHeightFactor5));
         parameters.put("areaHeightFactorDelta", Double.toString(areaHeightFactorDelta));
 
