@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.gui;
 
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -27,7 +28,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int dragX = -1;
     private int dragY = -1;
 
-    private List<RaceGameSettings> games;
+    private int charWidth;
+    private final RaceInfo raceInfo;
+    private final List<RaceGameSettings> games;
 
     private ViewMode viewMode;
 
@@ -40,14 +43,14 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private ZoomWindow overview = new ZoomWindow();
 
-    private Shortcuts shortcuts;
+    private final Shortcuts shortcuts;
 
-    public Graph(int x, int y, List<RaceGameSettings> games, Shortcuts shortcuts) {
+    public Graph(int x, int y, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
         this.x1 = x;
         this.y = y;
         this.games = games;
-
         this.shortcuts = shortcuts;
+        this.raceInfo = raceInfo;
         windows.add(new ZoomWindow());
     }
 
@@ -68,6 +71,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     }
 
     private void paintDistribution(Graphics g) {
+        charWidth = g.getFontMetrics().charWidth(' ');
+
         fillMouseSelection(g);
 
         Double maxYRatio = Double.MIN_VALUE;
@@ -234,6 +239,14 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     }
 
     @Override public void mouseClicked(MouseEvent e) {
+        if (e.getY() < raceInfo.height()) {
+            int column = raceInfo.translatePixeltoColumn(e.getX(), charWidth);
+            if (column >= 0) {
+                raceInfo.height();
+                games.get(column).game.togglePermanentlyPaused();
+            }
+        }
+
         if (e.getX() >= x1 && e.getX() <= x2 && e.getButton() == 3 && windows.size() > 1) {
             ZoomWindow from = windows.pop();
             zoomer = Zoomer.zoomOut(from, windows.peek(), zoomSpeed);

@@ -174,4 +174,8 @@ public class Game implements Runnable {
         List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
         return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board).bestMove();
     }
+
+    public void togglePermanentlyPaused() {
+        permanentlyPaused = !permanentlyPaused;
+    }
 }

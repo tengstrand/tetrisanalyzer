@@ -118,13 +118,24 @@ public class RaceInfo {
         return repeat(n, "-");
     }
 
-    public int width(Graphics g) {
+    public int translatePixeltoColumn(int x, int charWidth) {
+        RowsResult rowsResult = rows();
+
+        int x1 = X0 + rowsResult.columns.get(0).intValue() * charWidth;
+        for (int i=1; i<rowsResult.columns.size(); i++) {
+            int x2 = X0 + rowsResult.columns.get(i).intValue() * charWidth;
+            if (x >= x1 && x < x2) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public int width(int charWidth) {
         RowsResult rowsResult = rows();
         int size = rowsResult.columns.size();
 
         int columns = rowsResult.columns.get(size-1).intValue() - rowsResult.columns.get(0).intValue();
-
-        int charWidth = g.getFontMetrics().charWidth(' ');
 
         return X0 + charWidth * columns;
     }
