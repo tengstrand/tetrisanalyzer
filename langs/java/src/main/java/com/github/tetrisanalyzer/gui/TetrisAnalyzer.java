@@ -160,27 +160,31 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.lightGray);
         g.drawRect(x1, y1, w1, height);
 
-        ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
 
         graph.draw(g, x1, y1, w1, height);
         if (viewMode == ViewMode.DISTRIBUTION) {
-            if (!graph.isZoomed()) {
-                paintAreaPercentBar(x1, y1, w1, height, g);
-            }
-            if (graph.isZoomed()) {
-                double row = distribution.boardHeight * window.x2;
-                graphBoardPainter.paint(g, x2, y1, w2, height, row);
-            } else {
-                double row = distribution.boardHeight * ((100 - race.areaPercentage) / 100.0);
-                graphBoardPainter.paint(g, x2, y1, w2, height, row);
-            }
+            ZoomWindow window = graph.currentWindow();
+            paintBoard(x1, y1, x2, w1, w2, height, window.x2, distribution, g);
         }
 
         paintPaused(g);
         paintSaved(g);
 
         repaint();
+    }
+
+    private void paintBoard(int x1, int y1, int x2, int w1, int w2, int height, double windowX2, Distribution distribution, Graphics g) {
+        if (!graph.isZoomed()) {
+            paintAreaPercentBar(x1, y1, w1, height, g);
+        }
+        if (graph.isZoomed()) {
+            double row = distribution.boardHeight * windowX2;
+            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+        } else {
+            double row = distribution.boardHeight * ((100 - race.areaPercentage) / 100.0);
+            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+        }
     }
 
     private void paintAreaPercentBar(int x1, int y1, int width, int height, Graphics g) {

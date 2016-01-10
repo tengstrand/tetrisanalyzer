@@ -146,7 +146,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
 
         // 4. Clip lines and scale.
-        ZoomWindow w = currentWindow();
+        ZoomWindow w = shortcuts.get(0).peek();
         Lines lines = new Vertices(vertices)
                 .normalizeY(max)
                 .clipHorizontal(w.x1, w.x2)
