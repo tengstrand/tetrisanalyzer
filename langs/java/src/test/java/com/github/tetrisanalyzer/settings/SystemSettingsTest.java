@@ -77,6 +77,40 @@ public class SystemSettingsTest {
             "    areaHeightEqFactor2: 1.05\n" +
             "    areaHeightFactor3: 2.3\n" +
             "    areaHeightEqFactor3: 2.2\n" +
+            "    areaHeightEqFactor4: 3.06\n" +
+            "    areaHeightFactor4: 3.1\n" +
+            "    areaHeightFactor5: 4.6\n" +
+            "    areaHeightFactorDelta: 1\n" +
+            "  - id: Tengstrand 1.3\n" +
+            "    description: Tengstrand 1.3\n" +
+            "    author: Joakim Tengstrand\n" +
+            "    url: http://hem.bredband.net/joakimtengstrand\n" +
+            "    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13\n" +
+            "    maxEquityFactor: 1.21\n" +
+            "    piecePenalty: 6\n" +
+            "    heightFactor0: 7\n" +
+            "    heightFactor1: 2.5\n" +
+            "    heightFactorDelta: 0.86\n" +
+            "    hollowFactor1: 0.533\n" +
+            "    hollowFactor2: 0.6\n" +
+            "    hollowFactorDelta: 0.85\n" +
+            "    hollowFactorDeltaDelta: 0.95\n" +
+            "    areaWidthFactor1: 4.95\n" +
+            "    areaWidthFactor2: 2.39\n" +
+            "    areaWidthFactor3: 3.1\n" +
+            "    areaWidthFactor4: 2.21\n" +
+            "    areaWidthFactor5: 2.05\n" +
+            "    areaWidthFactor6: 1.87\n" +
+            "    areaWidthFactor7: 1.52\n" +
+            "    areaWidthFactor8: 1.34\n" +
+            "    areaWidthFactor9: 1.18\n" +
+            "    areaHeightFactor1: 0.5\n" +
+            "    areaHeightEqFactor1: 0.42\n" +
+            "    areaHeightFactor2: 1.19\n" +
+            "    areaHeightEqFactor2: 1.05\n" +
+            "    areaHeightFactor3: 2.3\n" +
+            "    areaHeightEqFactor3: 2.2\n" +
+            "    areaHeightEqFactor4: 3.06\n" +
             "    areaHeightFactor4: 3.1\n" +
             "    areaHeightFactor5: 4.6\n" +
             "    areaHeightFactorDelta: 1";
@@ -87,7 +121,7 @@ public class SystemSettingsTest {
 
         assertEquals(2, systemSettings.gameSettings.size());
         assertEquals(1, systemSettings.pieceGeneratorSettings.size());
-        assertEquals(1, systemSettings.boardEvaluatorSettings.size());
+        assertEquals(2, systemSettings.boardEvaluatorSettings.size());
 
         assertEquals(3, systemSettings.gameSettings.get("Standard").pieceStartX(10));
         assertEquals(0, systemSettings.gameSettings.get("Standard").pieceStartY);

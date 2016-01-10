@@ -67,4 +67,15 @@ public class Distribution {
         }
         return result + "]";
     }
+
+    public double area(int percentage) {
+        int index =(int)(cells.length * (percentage / 100.0));
+        if (index < 0) {
+            index = 0;
+        } else if (index >= cells.length) {
+            index = cells.length - 1;
+        }
+        return 0;
+    }
+
 }

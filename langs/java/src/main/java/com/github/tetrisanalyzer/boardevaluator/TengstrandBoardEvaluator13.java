@@ -10,13 +10,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Joakim Tengstrand's Tetris AI, version 1.2
+ * Joakim Tengstrand's Tetris AI, version 1.3 (an experiment, work in progress!)
  */
-public class TengstrandBoardEvaluator12 implements BoardEvaluator {
+public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     public int boardWidth;
     public int boardHeight;
     public double maxEquity;
     public double maxEquityFactor = 1.21;
+
+    public double piecePenalty = 6;
 
     public double heightFactor0 = 7;
     public double heightFactor1 = 2.5;
@@ -41,12 +43,12 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public double areaHeightFactor3 = 2.35;
     public double areaHeightFactor4 = 3.1;
     public double areaHeightFactor5 = 4.6;
-    public double areaHeightFactorDelta = 1; // 1.1
+    public double areaHeightFactorDelta = 1;
 
     public double areaHeightEqFactor1 = 0.42;
     public double areaHeightEqFactor2 = 1.05;
-    public double areaHeightEqFactor3 = 2.2; // 2.22
-    public double areaHeightEqFactor4 = 3.00; // 3.06
+    public double areaHeightEqFactor3 = 2.2;
+    public double areaHeightEqFactor4 = 3.00;
 
     public String id;
     public String description;
@@ -60,11 +62,11 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     public double[] areaHeightFactors;
     public double[] areaHeightEqFactors;
 
-    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, GameSettings rules) {
+    public TengstrandBoardEvaluator13(int boardWidth, int boardHeight, GameSettings rules) {
         init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator12(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
+    public TengstrandBoardEvaluator13(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
         id = reader.readString("id");
@@ -74,6 +76,7 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         clazz = reader.readString("class");
 
         maxEquityFactor = reader.readDouble("maxEquityFactor");
+        piecePenalty = reader.readDouble("piecePenalty");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
         heightFactorDelta = reader.readDouble("heightFactorDelta");
@@ -209,6 +212,7 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
         parameters.put("class", clazz);
 
         parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
+        parameters.put("piecePenalty", Double.toString(piecePenalty));
         parameters.put("heightFactor0", Double.toString(heightFactor0));
         parameters.put("heightFactor1", Double.toString(heightFactor1));
         parameters.put("heightFactorDelta", Double.toString(heightFactorDelta));
@@ -246,7 +250,8 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
 
         return evaluateBasedOnHollows(board, outline) +
                 evaluateBasedOnOutlineHeight(outline) +
-                evaluateBasedOnOutlineStructure(outline);
+                evaluateBasedOnOutlineStructure(outline) +
+                Contour.evaluate(outline, boardWidth, piecePenalty);
     }
 
     private double evaluateBasedOnHollows(Board board, BoardOutline outline) {

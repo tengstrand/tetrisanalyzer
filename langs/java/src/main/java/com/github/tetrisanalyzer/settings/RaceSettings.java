@@ -169,7 +169,7 @@ public class RaceSettings {
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
             String gameParameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues, "     ");
             String duration = "   duration: " + game.duration + "\n";
-            String boardEvaluatorParameters = boardEvaluatorParameters(game.boardEvaluator.parameters());
+            String boardEvaluatorParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
