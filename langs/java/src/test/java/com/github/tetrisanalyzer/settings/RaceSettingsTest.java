@@ -40,6 +40,7 @@ public class RaceSettingsTest {
             "    window-1: [0.243, 0.0, 0.351, 0.31]\n" +
             "    window-3: [0.286, 0.084, 0.287, 0.118]\n" +
             "save on close: false\n" +
+            "area %: 25\n" +
             "games:\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
@@ -176,6 +177,7 @@ public class RaceSettingsTest {
                 "restart on file change: false\n" +
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
                 "window location size: [100,200,750,600]\n" +
+                "area %: 25\n" +
                 "games:\n" +
                 " - heading: first value\n" +
                 "   parameter values:\n" +

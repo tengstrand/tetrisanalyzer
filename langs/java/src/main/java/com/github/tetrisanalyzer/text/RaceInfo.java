@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.text;
 
 import com.github.tetrisanalyzer.game.GameState;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.settings.RaceSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ import static com.github.tetrisanalyzer.text.StringFunctions.repeat;
 import static com.github.tetrisanalyzer.text.StringFunctions.spaces;
 
 public class RaceInfo {
-    private final List<RaceGameSettings> raceGameSettingsList;
+    private final RaceSettings raceSettings;
 
     private static final int CHAR_HEIGHT = 16;
     private static final int X0 = 20;
     private static final int Y0 = 30;
 
-    public RaceInfo(List<RaceGameSettings> raceGameSettingsList) {
-        this.raceGameSettingsList = raceGameSettingsList;
+    public RaceInfo(RaceSettings raceSettings) {
+        this.raceSettings = raceSettings;
     }
 
     private List<String> text(int paramLength) {
@@ -35,7 +36,7 @@ public class RaceInfo {
         rows.add(rpad("", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
-        rows.add(rpad("area (%):", paramLength));
+        rows.add(rpad("area (" + raceSettings.areaPercentage + "%):", paramLength));
         rows.add(rpad("", paramLength));
         rows.add(rpad("rows/game:", paramLength));
         rows.add(rpad("min rows:", paramLength));
@@ -54,9 +55,9 @@ public class RaceInfo {
         int column = 19;
         List<String> rows = text(column);
 
-        List<Integer> columns = new ArrayList<>(raceGameSettingsList.size());
+        List<Integer> columns = new ArrayList<>(raceSettings.games.size());
 
-        for (RaceGameSettings settings : raceGameSettingsList) {
+        for (RaceGameSettings settings : raceSettings.games) {
             List<String> values = new ArrayList<>();
             GameState state = settings.gameState;
             values.add("");
@@ -135,7 +136,7 @@ public class RaceInfo {
 
         int charWidth = g.getFontMetrics().charWidth(' ');
 
-        Iterator<RaceGameSettings> settingsIterator = raceGameSettingsList.iterator();
+        Iterator<RaceGameSettings> settingsIterator = raceSettings.games.iterator();
         for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
             g.setColor(settings.color);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distribution {
-    private int areaIndex = 0;
+    public int areaIndex = 0;
     public final int boardWidth;
     public final int boardHeight;
     public final long[] cells;
@@ -58,7 +58,6 @@ public class Distribution {
     public void increaseArea(int numberOfCells) {
         int index = numberOfCells >> shift;
         cells[index] += (numberOfCells == 0 ? 1 : numberOfCells);
-        setAreaIndex();
     }
 
     public Vertices toVertices() {

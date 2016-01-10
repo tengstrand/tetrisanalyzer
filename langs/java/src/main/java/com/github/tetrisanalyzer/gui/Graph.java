@@ -289,4 +289,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     public void setViewMode(ViewMode viewMode) {
         this.viewMode = viewMode;
     }
+
+    public boolean isZoomed() {
+        return windows.size() > 1 || (zoomer != null && zoomer.isZooming());
+    }
 }

@@ -32,6 +32,7 @@ public class RaceSettings {
     public boolean saveOnClose;
     public boolean restartOnFileChange;
 
+    public int areaPercentage;
     public ColoredBoard startBoard;
     public String startBoardText;
     public String tetrisRulesId;
@@ -68,6 +69,7 @@ public class RaceSettings {
 
         this.filename = filename;
         Duration duration = reader.readDuration();
+        areaPercentage = reader.readInteger("area %", 30);
         startBoard = reader.readBoard("start board", null);
         startBoardText = reader.readString("start board", null);
 
@@ -106,6 +108,28 @@ public class RaceSettings {
                 idx--;
             }
             this.games.add(game);
+        }
+    }
+
+    public void decreaseAreaPercentage() {
+        int percentage = areaPercentage - 1;
+        if (percentage >= 0) {
+            setAreaPercentage(percentage);
+        }
+    }
+
+    public void increaseAreaPercentage() {
+        int percentage = areaPercentage + 1;
+        if (percentage <= 100) {
+            setAreaPercentage(percentage);
+        }
+    }
+
+    public void setAreaPercentage(int percentage) {
+        this.areaPercentage = percentage;
+
+        for (RaceGameSettings game : games) {
+            game.distribution.setAreaPercentage(percentage);
         }
     }
 
@@ -203,6 +227,7 @@ public class RaceSettings {
 
         boolean isSimpleBoard = startBoardText.length() - startBoardText.replace(",", "").length() == 1;
         String board = isSimpleBoard ? "[" + startBoard.width + "," + startBoard.height + "]" : startBoard.export(14);
+        String percentage = "area %: " + areaPercentage + "\n";
 
         String paramValues = parameterValues == null ? "" : parameterValues(parameterValues, "  ");
 
@@ -217,6 +242,7 @@ public class RaceSettings {
                colors +
                windowLocation.export() + "\n" +
                windows +
+               percentage +
                games;
     }
 

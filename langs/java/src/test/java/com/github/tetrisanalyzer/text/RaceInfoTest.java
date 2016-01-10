@@ -54,6 +54,6 @@ public class RaceInfoTest {
         race.games.get(0).gameState.totalRows = 1000000;
         race.games.get(0).duration = new Duration(1,2,3,4,5);
 
-        return new RaceInfo(race.games);
+        return new RaceInfo(race);
     }
 }
