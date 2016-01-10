@@ -141,32 +141,45 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        int y = raceInfo.height();
+        int y1 = raceInfo.height();
         int x1 = 20;
-        int h = frame.getHeight() - y - 60;
-        if (h < 100) h = 100;
+        int height = frame.getHeight() - y1 - 60;
+        if (height < 100) height = 100;
         int w1 = (int) ((frame.getWidth() - 70) * 0.85);
         int w2 = (int) ((frame.getWidth() - 70) * 0.15) - 20;
         int x2 = w1 + 50;
 
         g.setColor(Color.lightGray);
-        g.drawRect(x1, y, w1, h);
+        g.drawRect(x1, y1, w1, height);
 
         ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
         double row = distribution.boardHeight * window.x2;
 
-        graph.draw(g, x1, y, w1, h);
+        graph.draw(g, x1, y1, w1, height);
         if (viewMode == ViewMode.DISTRIBUTION) {
+            if (!graph.isZoomed()) {
+                paintAreaPercentBar(x1, y1, w1, height, g);
+            }
+            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+        }
 
-
-            graphBoardPainter.paint(g, x2, y, w2, h, row);
+        if (viewMode != ViewMode.HELP) {
+            g.setColor(Color.GRAY);
+            raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
         }
 
         paintPaused(g);
         paintSaved(g);
 
         repaint();
+    }
+
+    private void paintAreaPercentBar(int x1, int y1, int width, int height, Graphics g) {
+        g.setColor(Color.lightGray);
+
+        int barX = x1 + (int)(width * (100 - race.areaPercentage) / 100.0);
+        g.drawLine(barX, y1, barX, y1 + height);
     }
 
     private void paintPaused(Graphics g) {
@@ -216,6 +229,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 if (e.getModifiers() == 2) {
                     reloadAndRestartGames();
                 }
+                break;
+            case 37: // Left
+                race.increaseAreaPercentage();
+                break;
+            case 39: // Right
+                race.decreaseAreaPercentage();
                 break;
             case 113: // <F2>
                 setViewMode(ViewMode.DISTRIBUTION);
@@ -278,7 +297,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
         games = race.games;
         graph = new Graph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts);
-        raceInfo = new RaceInfo(race.games);
+        raceInfo = new RaceInfo(race);
         Board board = games.get(0).gameState.board;
         graphBoardPainter = new GraphBoardPainter(board.width, board.height);
 
