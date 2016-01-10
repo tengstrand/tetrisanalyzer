@@ -62,6 +62,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             paintDistribution(g);
         } else if (viewMode == ViewMode.AREAS) {
             paintAreas(g);
+        } else if (viewMode == ViewMode.GAMES) {
+            paintGames(g);
         }
     }
 
@@ -130,7 +132,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
 
         // 4. Clip lines and scale.
-//
         ZoomWindow w = currentWindow();
         Lines lines = new Vertices(vertices)
                 .normalizeY(max)
@@ -146,6 +147,58 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
         lines.drawColorredLines(x1, y, colors, g);
     }
+
+    private void paintGames(Graphics g) {
+        // 1. Calculate the min and max
+        double[] rowspergame = new double[games.size()];
+
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+        int i = 0;
+        for (RaceGameSettings game : games) {
+            double rowsPerGame = game.gameState.rowsPerGame();
+            rowspergame[i++] = rowsPerGame;
+
+            if (rowsPerGame < min) {
+                min = rowsPerGame;
+            }
+            if (rowsPerGame > max) {
+                max = rowsPerGame;
+            }
+        }
+
+        // 2. Cut off the "floor".
+        max = max - min;
+
+        for (i=0; i<rowspergame.length; i++) {
+            rowspergame[i] = rowspergame[i] - min;
+        }
+
+        // 3. Create vertices
+        List<Vertex> vertices = new ArrayList<>();
+
+        double dx = 1.0 / (rowspergame.length - 1);
+        for (i=0; i<rowspergame.length; i++) {
+            vertices.add(new Vertex(i * dx, rowspergame[i]));
+        }
+
+        // 4. Clip lines and scale.
+        ZoomWindow w = currentWindow();
+        Lines lines = new Vertices(vertices)
+                .normalizeY(max)
+                .clipHorizontal(w.x1, w.x2)
+                .clipVertically(w.y1, w.y2)
+                .resize(w.x1, w.y1, w.x2, w.y2, width, height);
+
+        // 5. Paint
+        Color[] colors = new Color[rowspergame.length];
+        i = 0;
+        for (RaceGameSettings game : this.games) {
+            colors[i++] = game.color;
+        }
+        lines.drawColorredLines(x1, y, colors, g);
+    }
+
 
     public ZoomWindow currentWindow() {
         if (zoomer != null && zoomer.isZooming()) {

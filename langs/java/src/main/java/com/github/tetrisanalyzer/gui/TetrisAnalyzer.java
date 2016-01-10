@@ -242,6 +242,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             case 114: // <F3>
                 setViewMode(ViewMode.AREAS);
                 break;
+            case 115: // <F4>
+                setViewMode(ViewMode.GAMES);
+                break;
             default:
                 System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());
         }

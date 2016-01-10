@@ -122,11 +122,15 @@ public class GameState {
         this.totalRows = totalRows;
     }
 
-    public String rowsPerGame() {
+    public double rowsPerGame() {
+        return (double)totalRows / games;
+    }
+
+    public String rowsPerGameString() {
         if (games == 0) {
             return "";
         }
-        return String.valueOf((double)totalRows / games);
+        return String.valueOf(rowsPerGame());
     }
 
     public String rowsPerGameFormatted() {

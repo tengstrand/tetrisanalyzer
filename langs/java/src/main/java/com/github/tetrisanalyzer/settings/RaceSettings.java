@@ -218,7 +218,7 @@ public class RaceSettings {
                     "   rows total: " + state.totalRows + "\n" +
                     "   min rows: " + state.minRows() + "\n" +
                     "   max rows: " + state.maxRows() + "\n" +
-                    "   rows/game: " + state.rowsPerGame() + "\n" +
+                    "   rows/game: " + state.rowsPerGameString() + "\n" +
                     "   piece/s: " + state.piecesPerSecond() + "\n" +
                     "   piece generator state: " + state.pieceGenerator.export() + "\n" +
                     "   distribution: " + state.distribution.export() + "\n" +
