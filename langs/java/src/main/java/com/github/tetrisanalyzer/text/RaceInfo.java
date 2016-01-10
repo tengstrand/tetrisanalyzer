@@ -123,7 +123,11 @@ public class RaceInfo {
     }
 
     public void paintTextAtColumn(String text, int column, Graphics g) {
-        int row = textRows() + 1;
+        paintTextAt(text, 0, column, g);
+    }
+
+    public void paintTextAt(String text, int rowNumber, int column, Graphics g) {
+        int row = textRows() + rowNumber;
         g.drawChars(text.toCharArray(), 0, text.length(), X0 + 100 * column, Y0 + CHAR_HEIGHT * row);
     }
 
