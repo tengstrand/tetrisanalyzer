@@ -1,7 +1,7 @@
 package com.github.tetrisanalyzer.settings;
 
 import com.esotericsoftware.yamlbeans.YamlException;
-import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12;
+import com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13;
 import com.github.tetrisanalyzer.gui.WindowLocation;
 import com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator;
 import org.junit.Test;
@@ -44,6 +44,7 @@ public class RaceSettingsTest {
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
             "   parameter values:\n" +
+            "     board evaluator id: Tengstrand 1.3\n" +
             "     hollowFactor1: 0.54\n" +
             "     areaWidthFactor2: 2.38\n" +
             "   tetris rules id: Atari\n" +
@@ -129,7 +130,7 @@ public class RaceSettingsTest {
         assertEquals(1664525, pieceGenerator.constant1);
         assertEquals(4444, pieceGenerator.constant2);
 
-        TengstrandBoardEvaluator12 boardEvaluator = (TengstrandBoardEvaluator12)race.games.get(0).boardEvaluator;
+        TengstrandBoardEvaluator13 boardEvaluator = (TengstrandBoardEvaluator13)race.games.get(0).boardEvaluator;
         assertEquals(2.5, boardEvaluator.heightFactor1);
         assertEquals(0.54, boardEvaluator.hollowFactor1);
         assertEquals(2.38, boardEvaluator.areaWidthFactor2);
@@ -179,11 +180,12 @@ public class RaceSettingsTest {
                 " - heading: first value\n" +
                 "   parameter values:\n" +
                 "     areaWidthFactor2: 2.38\n" +
+                "     board evaluator id: Tengstrand 1.3\n" +
                 "     hollowFactor1: 0.54\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
+                "   paused: true\n" +
                 "   tetris rules id: Atari\n" +
                 "   board evaluator id: Tengstrand 1.2\n" +
-                "   paused: true\n" +
                 "   color: aabbcc\n" +
                 "   board: [\"----------\",\n" +
                 "           \"----------\",\n" +
@@ -208,8 +210,42 @@ public class RaceSettingsTest {
                 "   piece/s: 1525.6182796770656\n" +
                 "   piece generator state: { seed: 11, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
+                "   board evaluator parameters:\n" +
+                "      id: Tengstrand 1.3\n" +
+                "      description: Tengstrand 1.3\n" +
+                "      author: Joakim Tengstrand\n" +
+                "      url: http://hem.bredband.net/joakimtengstrand\n" +
+                "      class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13\n" +
+                "      maxEquityFactor: 1.21\n" +
+                "      piecePenalty: 6.0\n" +
+                "      heightFactor0: 7.0\n" +
+                "      heightFactor1: 2.5\n" +
+                "      heightFactorDelta: 0.86\n" +
+                "      hollowFactor1: 0.54\n" +
+                "      hollowFactor2: 0.61\n" +
+                "      hollowFactorDelta: 0.86\n" +
+                "      areaWidthFactor1: 4.95\n" +
+                "      areaWidthFactor2: 2.38\n" +
+                "      areaWidthFactor3: 3.1\n" +
+                "      areaWidthFactor4: 2.21\n" +
+                "      areaWidthFactor5: 2.05\n" +
+                "      areaWidthFactor6: 1.87\n" +
+                "      areaWidthFactor7: 1.52\n" +
+                "      areaWidthFactor8: 1.34\n" +
+                "      areaWidthFactor9: 1.18\n" +
+                "      areaHeightFactor1: 0.5\n" +
+                "      areaHeightEqFactor1: 0.42\n" +
+                "      areaHeightFactor2: 1.19\n" +
+                "      areaHeightEqFactor2: 1.05\n" +
+                "      areaHeightFactor3: 2.3\n" +
+                "      areaHeightEqFactor3: 2.2\n" +
+                "      areaHeightEqFactor4: 3.06\n" +
+                "      areaHeightFactor4: 3.1\n" +
+                "      areaHeightFactor5: 4.6\n" +
+                "      areaHeightFactorDelta: 1.0\n" +
                 " - parameter value: 3.55\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
+                "   paused: false\n" +
                 "   start board: [\"----------\",\n" +
                 "                 \"----------\",\n" +
                 "                 \"----------\",\n" +
@@ -244,6 +280,38 @@ public class RaceSettingsTest {
                 "   rows/game: 4561.211412151068\n" +
                 "   piece/s: 1548.5620552177813\n" +
                 "   piece generator state: { seed: 12, constant2: 555555555 }\n" +
-                "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n", result);
+                "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n" +
+                "   board evaluator parameters:\n" +
+                "      id: Tengstrand 1.2\n" +
+                "      description: Tengstrand 1.2\n" +
+                "      author: Joakim Tengstrand\n" +
+                "      url: http://hem.bredband.net/joakimtengstrand\n" +
+                "      class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12\n" +
+                "      maxEquityFactor: 1.21\n" +
+                "      heightFactor0: 7.0\n" +
+                "      heightFactor1: 2.5\n" +
+                "      heightFactorDelta: 0.86\n" +
+                "      hollowFactor1: 0.533\n" +
+                "      hollowFactor2: 0.61\n" +
+                "      hollowFactorDelta: 0.86\n" +
+                "      areaWidthFactor1: 4.95\n" +
+                "      areaWidthFactor2: 3.55\n" +
+                "      areaWidthFactor3: 3.1\n" +
+                "      areaWidthFactor4: 2.21\n" +
+                "      areaWidthFactor5: 2.05\n" +
+                "      areaWidthFactor6: 1.87\n" +
+                "      areaWidthFactor7: 1.52\n" +
+                "      areaWidthFactor8: 1.34\n" +
+                "      areaWidthFactor9: 1.18\n" +
+                "      areaHeightFactor1: 0.5\n" +
+                "      areaHeightEqFactor1: 0.42\n" +
+                "      areaHeightFactor2: 1.19\n" +
+                "      areaHeightEqFactor2: 1.05\n" +
+                "      areaHeightFactor3: 2.3\n" +
+                "      areaHeightEqFactor3: 2.2\n" +
+                "      areaHeightEqFactor4: 3.06\n" +
+                "      areaHeightFactor4: 3.1\n" +
+                "      areaHeightFactor5: 4.6\n" +
+                "      areaHeightFactorDelta: 1.0\n", result);
     }
 }
