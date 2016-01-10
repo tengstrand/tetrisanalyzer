@@ -98,88 +98,51 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
     }
 
     private void paintAreas(Graphics g) {
-        // 1. Calculate the min and max
         double[] areas = new double[games.size()];
 
-        double min = Double.MAX_VALUE;
-        double max = Double.MIN_VALUE;
         int i = 0;
         for (RaceGameSettings game : games) {
-            double area = game.gameState.area();
-            areas[i++] = area;
-
-            if (area < min) {
-                min = area;
-            }
-            if (area > max) {
-                max = area;
-            }
+            areas[i++] = 100 - game.gameState.area();
         }
-
-        // 2. Cut off the "floor".
-        max = max - min;
-
-        for (i=0; i<areas.length; i++) {
-            areas[i] = areas[i] - min;
-        }
-
-        // 3. Create vertices
-        List<Vertex> vertices = new ArrayList<>();
-
-        double dx = 1.0 / (areas.length - 1);
-        for (i=0; i<areas.length; i++) {
-            vertices.add(new Vertex(i * dx, areas[i]));
-        }
-
-        // 4. Clip lines and scale.
-        ZoomWindow w = currentWindow();
-        Lines lines = new Vertices(vertices)
-                .normalizeY(max)
-                .clipHorizontal(w.x1, w.x2)
-                .clipVertically(w.y1, w.y2)
-                .resize(w.x1, w.y1, w.x2, w.y2, width, height);
-
-        // 5. Paint
-        Color[] colors = new Color[areas.length];
-        i = 0;
-        for (RaceGameSettings game : games) {
-            colors[i++] = game.color;
-        }
-        lines.drawColorredLines(x1, y, colors, g);
+        paintGraph(areas, g);
     }
 
     private void paintGames(Graphics g) {
-        // 1. Calculate the min and max
         double[] rowspergame = new double[games.size()];
 
-        double min = Double.MAX_VALUE;
-        double max = Double.MIN_VALUE;
         int i = 0;
         for (RaceGameSettings game : games) {
-            double rowsPerGame = game.gameState.rowsPerGame();
-            rowspergame[i++] = rowsPerGame;
+            rowspergame[i++] = game.gameState.rowsPerGame();
+        }
+        paintGraph(rowspergame, g);
+    }
 
-            if (rowsPerGame < min) {
-                min = rowsPerGame;
+    private void paintGraph(double[] values, Graphics g) {
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+
+        for (double value : values) {
+            if (value < min) {
+                min = value;
             }
-            if (rowsPerGame > max) {
-                max = rowsPerGame;
+            if (value > max) {
+                max = value;
             }
         }
 
         // 2. Cut off the "floor".
         max = max - min;
 
-        for (i=0; i<rowspergame.length; i++) {
-            rowspergame[i] = rowspergame[i] - min;
+        for (int i=0; i<values.length; i++) {
+            values[i] = values[i] - min;
         }
 
         // 3. Create vertices
         List<Vertex> vertices = new ArrayList<>();
 
-        double dx = 1.0 / (rowspergame.length - 1);
-        for (i=0; i<rowspergame.length; i++) {
-            vertices.add(new Vertex(i * dx, rowspergame[i]));
+        double dx = 1.0 / (values.length - 1);
+        for (int i=0; i<values.length; i++) {
+            vertices.add(new Vertex(i * dx, values[i]));
         }
 
         // 4. Clip lines and scale.
@@ -191,14 +154,13 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
                 .resize(w.x1, w.y1, w.x2, w.y2, width, height);
 
         // 5. Paint
-        Color[] colors = new Color[rowspergame.length];
-        i = 0;
+        Color[] colors = new Color[values.length];
+        int i = 0;
         for (RaceGameSettings game : this.games) {
             colors[i++] = game.color;
         }
         lines.drawColorredLines(x1, y, colors, g);
     }
-
 
     public ZoomWindow currentWindow() {
         if (zoomer != null && zoomer.isZooming()) {

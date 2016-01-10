@@ -147,6 +147,14 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         if (height < 100) height = 100;
         int w1 = (int) ((frame.getWidth() - 70) * 0.85);
         int w2 = (int) ((frame.getWidth() - 70) * 0.15) - 20;
+
+        g.setColor(Color.GRAY);
+        if (viewMode == ViewMode.DISTRIBUTION) {
+            raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
+        } else if (viewMode == ViewMode.AREAS || viewMode == ViewMode.GAMES){
+            x1 = 210;
+            raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
+        }
         int x2 = w1 + 50;
 
         g.setColor(Color.lightGray);
@@ -162,11 +170,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 paintAreaPercentBar(x1, y1, w1, height, g);
             }
             graphBoardPainter.paint(g, x2, y1, w2, height, row);
-        }
-
-        if (viewMode != ViewMode.HELP) {
-            g.setColor(Color.GRAY);
-            raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
         }
 
         paintPaused(g);
