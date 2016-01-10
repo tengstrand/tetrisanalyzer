@@ -71,4 +71,38 @@ board evaluators:
     areaHeightFactorDelta: 1
     areaHeightEqFactor1: 0.42
     areaHeightEqFactor2: 1.05
-    areaHeightEqFactor3: 2.2
+    areaHeightEqFactor3: 2.20
+    areaHeightEqFactor4: 3.06
+
+  - id: Tengstrand 1.3
+    description: A Tetris AI that makes 2 800 000 lines per row in average on a 10x20 board, 1 piece mode.
+    author: Joakim Tengstrand
+    url: http://hem.bredband.net/joakimtengstrand
+    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13
+    maxEquityFactor: 1.21
+    piecePenalty: 6
+    heightFactor0: 7
+    heightFactor1: 2.5
+    heightFactorDelta: 0.81
+    hollowFactor1: 0.533
+    hollowFactor2: 0.6
+    hollowFactorDelta: 0.85
+    areaWidthFactor1: 4.978
+    areaWidthFactor2: 2.38
+    areaWidthFactor3: 3.01
+    areaWidthFactor4: 2.21
+    areaWidthFactor5: 2.05
+    areaWidthFactor6: 1.87
+    areaWidthFactor7: 1.52
+    areaWidthFactor8: 1.34
+    areaWidthFactor9: 1.18
+    areaHeightFactor1: 0.5
+    areaHeightFactor2: 1.19
+    areaHeightFactor3: 2.35
+    areaHeightFactor4: 3.1
+    areaHeightFactor5: 4.6
+    areaHeightFactorDelta: 1
+    areaHeightEqFactor1: 0.42
+    areaHeightEqFactor2: 1.05
+    areaHeightEqFactor3: 2.20
+    areaHeightEqFactor4: 3.06
