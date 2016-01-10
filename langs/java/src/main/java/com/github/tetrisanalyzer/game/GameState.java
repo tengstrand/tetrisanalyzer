@@ -87,6 +87,14 @@ public class GameState {
         return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
     }
 
+    public double area() {
+        return distribution.area();
+    }
+
+    public String areaFormatted() {
+        return format(area());
+    }
+
     public GameState copy() {
         return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
                 totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);

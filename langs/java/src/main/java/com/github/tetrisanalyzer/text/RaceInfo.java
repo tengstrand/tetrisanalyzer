@@ -35,6 +35,7 @@ public class RaceInfo {
         rows.add(rpad("", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
+        rows.add(rpad("area (%):", paramLength));
         rows.add(rpad("", paramLength));
         rows.add(rpad("rows/game:", paramLength));
         rows.add(rpad("min rows:", paramLength));
@@ -68,6 +69,7 @@ public class RaceInfo {
             values.add("");
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
+            values.add(state.areaFormatted());
             values.add("");
             values.add(state.rowsPerGameFormatted());
             values.add(state.minRowsFormatted());

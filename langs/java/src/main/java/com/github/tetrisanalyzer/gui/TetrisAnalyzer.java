@@ -26,6 +26,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private boolean paused;
     private Color actionColor = new Color(0,128,0);
+    private ViewMode viewMode = ViewMode.DISTRIBUTION;
 
     private long actionAt;
     private long actionDuration;
@@ -68,6 +69,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(systemFilename, raceFilename, frame);
         tetrisAnalyzer.saveOnClose(frame);
+        tetrisAnalyzer.setViewMode(ViewMode.DISTRIBUTION);
 
         WindowLocation loc = tetrisAnalyzer.race.windowLocation;
         frame.pack();
@@ -155,7 +157,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         double row = distribution.boardHeight * window.x2;
 
         graph.draw(g, x1, y, w1, h);
-        graphBoardPainter.paint(g, x2, y, w2, h, row);
+        if (viewMode == ViewMode.DISTRIBUTION) {
+
+
+            graphBoardPainter.paint(g, x2, y, w2, h, row);
+        }
 
         paintPaused(g);
         paintSaved(g);
@@ -205,13 +211,26 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 67: // C
                 copyToClipboard();
+                break;
             case 82: // <Ctrl> + R
                 if (e.getModifiers() == 2) {
                     reloadAndRestartGames();
                 }
+                break;
+            case 113: // <F2>
+                setViewMode(ViewMode.DISTRIBUTION);
+                break;
+            case 114: // <F3>
+                setViewMode(ViewMode.AREAS);
+                break;
             default:
                 System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());
         }
+    }
+
+    private void setViewMode(ViewMode viewMode) {
+        this.viewMode = viewMode;
+        graph.setViewMode(viewMode);
     }
 
     private void reloadAndRestartGames() {

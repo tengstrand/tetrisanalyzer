@@ -21,7 +21,7 @@ public class VerticesTest {
                 new Vertex(2.0, 1200.0),
                 new Vertex(3.0, 700.0));
 
-        Vertices normalized = vertices.normalizeY(vertices.maxYRatio());
+        Vertices normalized = vertices.normalizeTotalY(vertices.maxYRatio());
 
         Vertices expected = new Vertices(
                 new Vertex(0.0, 0.5833333333333334),

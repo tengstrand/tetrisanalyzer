@@ -25,4 +25,13 @@ public class DistributionTest {
 
         assertEquals(expected, vertices);
     }
+
+    @Test
+    public void test() {
+        List<Long> cells = Arrays.asList(1L, 2L, 4L, 2L, 1L);
+        Distribution distribution = new Distribution(10, 20, cells);
+
+        distribution.setAreaPercentage(25);
+        assertEquals(distribution.area(), 10.0);
+    }
 }

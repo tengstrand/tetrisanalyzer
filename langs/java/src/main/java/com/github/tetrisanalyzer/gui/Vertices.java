@@ -41,6 +41,15 @@ public class Vertices {
         List<Vertex> result = new ArrayList<>(vertices.size());
 
         for (Vertex vertex : vertices) {
+            result.add(new Vertex(vertex.x, 1 - (vertex.y / maxYRatio)));
+        }
+        return new Vertices(result);
+    }
+
+    public Vertices normalizeTotalY(Double maxYRatio) {
+        List<Vertex> result = new ArrayList<>(vertices.size());
+
+        for (Vertex vertex : vertices) {
             result.add(new Vertex(vertex.x, 1 - (vertex.y / totalY) / maxYRatio));
         }
         return new Vertices(result);

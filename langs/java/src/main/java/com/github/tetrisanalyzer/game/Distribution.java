@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distribution {
+    private int areaIndex = 0;
     public final int boardWidth;
     public final int boardHeight;
     public final long[] cells;
@@ -18,6 +19,7 @@ public class Distribution {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         cells = new long[(((boardWidth-1) * boardHeight) >> shift) + 1];
+        setAreaIndex();
     }
 
     public Distribution(int boardWidth, int boardHeight, List<Long> cells) {
@@ -25,6 +27,7 @@ public class Distribution {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.cells = new long[cells.size()];
+        setAreaIndex();
 
         int i = 0;
         for (long cell : cells) {
@@ -39,9 +42,23 @@ public class Distribution {
         shift = (boardWidth % 4 == 0) ? 2 : 1;
     }
 
+    private void setAreaIndex() {
+        setAreaPercentage(30);
+    }
+
+    public void setAreaPercentage(int percentage) {
+        areaIndex = cells.length - (int)(cells.length * (percentage / 100.0));
+        if (areaIndex < 0) {
+            areaIndex = 0;
+        } else if (areaIndex >= cells.length) {
+            areaIndex = cells.length - 1;
+        }
+    }
+
     public void increaseArea(int numberOfCells) {
         int index = numberOfCells >> shift;
         cells[index] += (numberOfCells == 0 ? 1 : numberOfCells);
+        setAreaIndex();
     }
 
     public Vertices toVertices() {
@@ -68,14 +85,15 @@ public class Distribution {
         return result + "]";
     }
 
-    public double area(int percentage) {
-        int index =(int)(cells.length * (percentage / 100.0));
-        if (index < 0) {
-            index = 0;
-        } else if (index >= cells.length) {
-            index = cells.length - 1;
+    public double area() {
+        long total = 0;
+        for (int i=0; i<cells.length; i++) {
+            total += cells[i];
         }
-        return 0;
+        long area = 0;
+        for (int i=areaIndex; i<cells.length; i++) {
+            area += cells[i];
+        }
+        return (double)area / total * 100.0;
     }
-
 }

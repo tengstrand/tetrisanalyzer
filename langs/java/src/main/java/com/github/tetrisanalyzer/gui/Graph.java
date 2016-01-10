@@ -29,6 +29,8 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private List<RaceGameSettings> games;
 
+    private ViewMode viewMode;
+
     private static Color grey = new Color(230, 230, 230);
 
     private static double zoomSpeed = 0.9;
@@ -55,6 +57,15 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         this.width = width;
         this.height = height;
         this.x2 = x1 + width;
+
+        if (viewMode == ViewMode.DISTRIBUTION) {
+            paintDistribution(g);
+        } else if (viewMode == ViewMode.AREAS) {
+            paintAreas(g);
+        }
+    }
+
+    private void paintDistribution(Graphics g) {
         fillMouseSelection(g);
 
         Double maxYRatio = Double.MIN_VALUE;
@@ -75,13 +86,65 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         for (Vertices vertices : gameVertices) {
             ZoomWindow w = currentWindow();
             Lines lines = vertices
-                    .normalizeY(maxYRatio)
+                    .normalizeTotalY(maxYRatio)
                     .clipHorizontal(w.x1, w.x2)
                     .clipVertically(w.y1, w.y2)
                     .resize(w.x1, w.y1, w.x2, w.y2, width, height);
             g.setColor(gameIterator.next().color);
             lines.drawLines(x1, y, g);
         }
+    }
+
+    private void paintAreas(Graphics g) {
+        // 1. Calculate the min and max
+        double[] areas = new double[games.size()];
+
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+        int i = 0;
+        for (RaceGameSettings game : games) {
+            double area = game.gameState.area();
+            areas[i++] = area;
+
+            if (area < min) {
+                min = area;
+            }
+            if (area > max) {
+                max = area;
+            }
+        }
+
+        // 2. Cut off the "floor".
+        max = max - min;
+
+        for (i=0; i<areas.length; i++) {
+            areas[i] = areas[i] - min;
+        }
+
+        // 3. Create vertices
+        List<Vertex> vertices = new ArrayList<>();
+
+        double dx = 1.0 / (areas.length - 1);
+        for (i=0; i<areas.length; i++) {
+            vertices.add(new Vertex(i * dx, areas[i]));
+        }
+
+        // 4. Clip lines and scale.
+//
+        ZoomWindow w = currentWindow();
+        Lines lines = new Vertices(vertices)
+                .normalizeY(max)
+                .clipHorizontal(w.x1, w.x2)
+                .clipVertically(w.y1, w.y2)
+                .resize(w.x1, w.y1, w.x2, w.y2, width, height);
+
+        // 5. Paint
+        Color[] colors = new Color[areas.length];
+        i = 0;
+        for (RaceGameSettings game : games) {
+            colors[i++] = game.color;
+        }
+        lines.drawColorredLines(x1, y, colors, g);
     }
 
     public ZoomWindow currentWindow() {
@@ -221,5 +284,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             windows = toWindows;
             zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
         }
+    }
+
+    public void setViewMode(ViewMode viewMode) {
+        this.viewMode = viewMode;
     }
 }

@@ -1,5 +1,5 @@
 package com.github.tetrisanalyzer.gui;
 
-public enum View {
+public enum ViewMode {
     HELP, DISTRIBUTION, AREAS, GAMES
 }

@@ -28,6 +28,14 @@ public class Lines implements Iterable<Line> {
         }
     }
 
+    public void drawColorredLines(int x, int y, Color[] colors, Graphics g) {
+        int i= 0;
+        for (Line line : lines) {
+            g.setColor(colors[i++]);
+            g.drawLine(x + (int)line.vertex1.x, y + (int)line.vertex1.y, x + (int)line.vertex2.x, y + (int)line.vertex2.y);
+        }
+    }
+
     public Lines resize(double wx1, double wy1, double wx2, double wy2, int width, int height) {
         List<Line> result = new ArrayList<>();
 
