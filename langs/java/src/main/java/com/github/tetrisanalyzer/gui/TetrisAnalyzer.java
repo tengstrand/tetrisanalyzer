@@ -151,7 +151,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.GRAY);
         if (viewMode == ViewMode.DISTRIBUTION) {
             raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
-        } else if (viewMode == ViewMode.AREAS || viewMode == ViewMode.GAMES){
+        } else if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME){
             x1 = 210;
             raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
         }
@@ -162,14 +162,19 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         ZoomWindow window = graph.currentWindow();
         Distribution distribution = games.get(0).distribution;
-        double row = distribution.boardHeight * window.x2;
 
         graph.draw(g, x1, y1, w1, height);
         if (viewMode == ViewMode.DISTRIBUTION) {
             if (!graph.isZoomed()) {
                 paintAreaPercentBar(x1, y1, w1, height, g);
             }
-            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+            if (graph.isZoomed()) {
+                double row = distribution.boardHeight * window.x2;
+                graphBoardPainter.paint(g, x2, y1, w2, height, row);
+            } else {
+                double row = distribution.boardHeight * ((100 - race.areaPercentage) / 100.0);
+                graphBoardPainter.paint(g, x2, y1, w2, height, row);
+            }
         }
 
         paintPaused(g);
@@ -243,10 +248,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 setViewMode(ViewMode.DISTRIBUTION);
                 break;
             case 114: // <F3>
-                setViewMode(ViewMode.AREAS);
+                setViewMode(ViewMode.DISTRIBUTION_AREA);
                 break;
             case 115: // <F4>
-                setViewMode(ViewMode.GAMES);
+                setViewMode(ViewMode.ROWS_PER_GAME);
                 break;
             default:
                 System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());

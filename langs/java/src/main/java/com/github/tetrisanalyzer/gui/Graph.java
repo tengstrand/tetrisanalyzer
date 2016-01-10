@@ -60,9 +60,9 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
         if (viewMode == ViewMode.DISTRIBUTION) {
             paintDistribution(g);
-        } else if (viewMode == ViewMode.AREAS) {
+        } else if (viewMode == ViewMode.DISTRIBUTION_AREA) {
             paintAreas(g);
-        } else if (viewMode == ViewMode.GAMES) {
+        } else if (viewMode == ViewMode.ROWS_PER_GAME) {
             paintGames(g);
         }
     }
