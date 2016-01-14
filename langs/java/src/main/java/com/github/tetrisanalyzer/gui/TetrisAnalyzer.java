@@ -276,45 +276,29 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (viewMode) {
             case DISTRIBUTION:
-                graph = distributionGraph;
-                addKeyListener(distributionGraph);
-                addMouseListener(distributionGraph);
-                addMouseMotionListener(distributionGraph);
-                removeKeyListener(distributionAreasGraph);
-                removeMouseListener(distributionAreasGraph);
-                removeMouseMotionListener(distributionAreasGraph);
-                removeKeyListener(rowsPerGameGraph);
-                removeMouseListener(rowsPerGameGraph);
-                removeMouseMotionListener(rowsPerGameGraph);
+                updateLiteners(distributionGraph, distributionAreasGraph, rowsPerGameGraph);
                 break;
             case DISTRIBUTION_AREA:
-                graph = distributionAreasGraph;
-                addKeyListener(distributionAreasGraph);
-                addMouseListener(distributionAreasGraph);
-                addMouseMotionListener(distributionAreasGraph);
-                removeKeyListener(distributionGraph);
-                removeMouseListener(distributionGraph);
-                removeMouseMotionListener(distributionGraph);
-                removeKeyListener(rowsPerGameGraph);
-                removeMouseListener(rowsPerGameGraph);
-                removeMouseMotionListener(rowsPerGameGraph);
+                updateLiteners(distributionAreasGraph, distributionGraph, rowsPerGameGraph);
                 break;
             case ROWS_PER_GAME:
-                graph = rowsPerGameGraph;
-                addKeyListener(rowsPerGameGraph);
-                addMouseListener(rowsPerGameGraph);
-                addMouseMotionListener(rowsPerGameGraph);
-                removeKeyListener(distributionGraph);
-                removeMouseListener(distributionGraph);
-                removeMouseMotionListener(distributionGraph);
-                removeKeyListener(distributionAreasGraph);
-                removeMouseListener(distributionAreasGraph);
-                removeMouseMotionListener(distributionAreasGraph);
+                updateLiteners(rowsPerGameGraph, distributionGraph, distributionAreasGraph);
                 break;
         }
-
     }
 
+    private void updateLiteners(Graph add, Graph remove1, Graph remove2) {
+        graph = add;
+        addKeyListener(add);
+        addMouseListener(add);
+        addMouseMotionListener(add);
+        removeKeyListener(remove1);
+        removeMouseListener(remove1);
+        removeMouseMotionListener(remove1);
+        removeKeyListener(remove2);
+        removeMouseListener(remove2);
+        removeMouseMotionListener(remove2);
+    }
 
     private void reloadAndRestartGames() {
         stopGames();

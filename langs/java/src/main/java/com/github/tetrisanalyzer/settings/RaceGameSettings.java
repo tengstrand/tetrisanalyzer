@@ -18,7 +18,7 @@ public class RaceGameSettings {
     public Thread thread;
 
     private final SettingsReader reader;
-    public boolean permanentlyPaused;
+    public boolean paused;
     public Game game;
     public final GameState gameState;
 
@@ -83,7 +83,7 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
-        permanentlyPaused = reader.readBoolean("paused", false);
+        paused = reader.readBoolean("paused", false);
 
         long games = reader.readLong("games", 0);
         long pieces = reader.readLong("pieces", 0);
@@ -182,7 +182,7 @@ public class RaceGameSettings {
     }
 
     public Game createGame(GameSettings tetrisRules) {
-        game = new Game(gameState, tetrisRules, permanentlyPaused);
+        game = new Game(gameState, tetrisRules, paused);
         return game;
     }
 }
