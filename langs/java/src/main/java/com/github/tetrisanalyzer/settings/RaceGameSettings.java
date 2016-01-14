@@ -68,7 +68,7 @@ public class RaceGameSettings {
             parameterValue = null;
         }
 
-        this.parameterValues = reader.readMap("parameter values", null);
+        this.parameterValues = reader.readMap("parameters", null);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
 

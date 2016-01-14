@@ -77,7 +77,7 @@ public class RaceSettings {
         pieceGeneratorId = reader.readString("piece generator id");
         boardEvaluatorId = reader.readString("board evaluator id");
         parameterName = reader.readString("parameter name", "");
-        parameterValues = reader.readMap("parameter values", null);
+        parameterValues = reader.readMap("parameters", null);
 
         if (reader.exists("colors")) {
             colorsString = reader.readString("colors");
@@ -137,8 +137,8 @@ public class RaceSettings {
     }
 
     private String evaluatorId(String boardEvaluatorId, Map gameMap) {
-        if (gameMap.containsKey("parameter values")) {
-            Object map = gameMap.get("parameter values");
+        if (gameMap.containsKey("parameters")) {
+            Object map = gameMap.get("parameters");
             if (map instanceof Map) {
                 if (((Map)map).containsKey("board evaluator id")) {
                     return ((Map)map).get("board evaluator id").toString();
@@ -163,7 +163,7 @@ public class RaceSettings {
     }
 
     /**
-     * Add the 'board' (if exists) and all 'parameter values' attributes to board evaluator settings.
+     * Add the 'board' (if exists) and all 'parameters' attributes to board evaluator settings.
      */
     private Map boardEvaluatorSettings(Map boardEvaluatorSettings, Map gameMap) {
         Map result = new HashMap();
@@ -171,8 +171,8 @@ public class RaceSettings {
         if (gameMap.containsKey("board")) {
             result.put("board", gameMap.get("board"));
         }
-        if (gameMap.containsKey("parameter values")) {
-            Object map = gameMap.get("parameter values");
+        if (gameMap.containsKey("parameters")) {
+            Object map = gameMap.get("parameters");
             if (map instanceof Map) {
                 result.putAll((Map)map);
             }
@@ -196,7 +196,7 @@ public class RaceSettings {
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
             String gameParameterValues = game.parameterValues == null ? "" : parameterValues(game.parameterValues, "     ");
             String duration = "   duration: " + game.duration + "\n";
-            String boardEvaluatorParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
+            String usedParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
@@ -225,7 +225,7 @@ public class RaceSettings {
                     "   piece/s: " + state.piecesPerSecond() + "\n" +
                     "   piece generator state: " + state.pieceGenerator.export() + "\n" +
                     "   distribution: " + state.distribution.export() + "\n" +
-                    "   board evaluator parameters:\n" + boardEvaluatorParameters;
+                    "   used parameters:\n" + usedParameters;
         }
 
         boolean isSimpleBoard = startBoardText.length() - startBoardText.replace(",", "").length() == 1;
@@ -274,7 +274,7 @@ public class RaceSettings {
     }
 
     private String parameterValues(Map parameterValues, String tab) {
-        String result = "parameter values:\n";
+        String result = "parameters:\n";
 
         Map orderedValues = new TreeMap(parameterValues);
 

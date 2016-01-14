@@ -28,7 +28,7 @@ public class RaceSettingsTest {
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
             "parameter name: areaWidthFactor2\n" +
-            "parameter values:\n" +
+            "parameters:\n" +
             "  hollowFactor2: 0.61\n" +
             "  hollowFactorDelta: 0.86\n" +
             "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
@@ -44,7 +44,7 @@ public class RaceSettingsTest {
             "games:\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
-            "   parameter values:\n" +
+            "   parameters:\n" +
             "     board evaluator id: Tengstrand 1.3\n" +
             "     hollowFactor1: 0.54\n" +
             "     areaWidthFactor2: 2.38\n" +
@@ -212,7 +212,7 @@ public class RaceSettingsTest {
                 "   piece/s: 1525.6182796770656\n" +
                 "   piece generator state: { seed: 11, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
-                "   board evaluator parameters:\n" +
+                "   used parameters:\n" +
                 "      id: Tengstrand 1.3\n" +
                 "      description: Tengstrand 1.3\n" +
                 "      author: Joakim Tengstrand\n" +
@@ -283,7 +283,7 @@ public class RaceSettingsTest {
                 "   piece/s: 1548.5620552177813\n" +
                 "   piece generator state: { seed: 12, constant2: 555555555 }\n" +
                 "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n" +
-                "   board evaluator parameters:\n" +
+                "   used parameters:\n" +
                 "      id: Tengstrand 1.2\n" +
                 "      description: Tengstrand 1.2\n" +
                 "      author: Joakim Tengstrand\n" +
