@@ -76,7 +76,7 @@ public class RaceSettings {
         tetrisRulesId = reader.readString("tetris rules id");
         pieceGeneratorId = reader.readString("piece generator id");
         boardEvaluatorId = reader.readString("board evaluator id");
-        parameterName = reader.readString("parameter name", null);
+        parameterName = reader.readString("parameter name", "");
         parameterValues = reader.readMap("parameter values", null);
 
         if (reader.exists("colors")) {
@@ -110,8 +110,6 @@ public class RaceSettings {
             this.games.add(game);
         }
     }
-
-
 
     public void decreaseAreaPercentage() {
         addAreaPercentage(-1);
