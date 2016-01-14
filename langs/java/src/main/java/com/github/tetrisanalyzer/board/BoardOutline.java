@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class BoardOutline {
     public int minY;
+    public int maxY;
     private int[] outline;
 
     public BoardOutline(Board board) {
@@ -13,7 +14,8 @@ public class BoardOutline {
     public BoardOutline(Board board, boolean withLeftWall) {
         int wall = withLeftWall ? 1 : 0;
         int[] outline = new int[board.width + 1 + wall];
-        int minY = Integer.MAX_VALUE;
+        minY = Integer.MAX_VALUE;
+        maxY = Integer.MIN_VALUE;
 
         for (int x = 0; x < board.width; x++) {
             int y = 0;
@@ -25,6 +27,9 @@ public class BoardOutline {
             if (y < minY) {
                 minY = y;
             }
+            if (y > maxY) {
+                maxY = y;
+            }
         }
         if (withLeftWall) {
             outline[0] = 0;
@@ -32,11 +37,11 @@ public class BoardOutline {
         outline[board.width + wall] = 0;
 
         this.outline = outline;
-        this.minY = minY;
     }
 
-    public BoardOutline(int minY, int... outline) {
+    public BoardOutline(int minY, int maxY, int... outline) {
         this.minY = minY;
+        this.maxY = maxY;
         this.outline = outline;
     }
 
@@ -72,6 +77,7 @@ public class BoardOutline {
     public String toString() {
         return "BoardOutline{" +
                 "minY=" + minY +
+                "maxY=" + maxY +
                 ", outline=" + outline +
                 '}';
     }

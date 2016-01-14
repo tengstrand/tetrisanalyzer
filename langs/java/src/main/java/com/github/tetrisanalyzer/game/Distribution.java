@@ -46,7 +46,7 @@ public class Distribution {
         setAreaPercentage(30);
     }
 
-    public void setAreaPercentage(int percentage) {
+    public void setAreaPercentage(double percentage) {
         areaIndex = cells.length - (int)(cells.length * (percentage / 100.0));
         if (areaIndex < 0) {
             areaIndex = 0;

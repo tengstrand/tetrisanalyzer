@@ -1,23 +1,19 @@
-package com.github.tetrisanalyzer.gui;
+package com.github.tetrisanalyzer.gui.graph;
 
+import com.github.tetrisanalyzer.gui.*;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-public class Graph implements MouseListener, MouseMotionListener, KeyListener {
+public abstract class Graph implements MouseListener, MouseMotionListener, KeyListener {
     private int x1;
     private int x2;
-    private int y;
+    protected int y;
     private int width;
     private int height;
     private int sx1 = -1;
@@ -30,9 +26,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
 
     private int charWidth;
     private final RaceInfo raceInfo;
-    private final List<RaceGameSettings> games;
-
-    private ViewMode viewMode;
+    protected final List<RaceGameSettings> games;
 
     private static Color grey = new Color(230, 230, 230);
 
@@ -54,75 +48,19 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         windows.add(new ZoomWindow());
     }
 
-    public void draw(Graphics g, int x1, int y1, int width, int height) {
+    public abstract void draw(Graphics g, int x1, int y1, int width, int height);
+
+    public void setParameters(int x1, int y1, int width, int height, Graphics g) {
         this.x1 = x1;
         this.y = y1;
         this.width = width;
         this.height = height;
         this.x2 = x1 + width;
 
-        if (viewMode == ViewMode.DISTRIBUTION) {
-            paintDistribution(g);
-        } else if (viewMode == ViewMode.DISTRIBUTION_AREA) {
-            paintAreas(g);
-        } else if (viewMode == ViewMode.ROWS_PER_GAME) {
-            paintGames(g);
-        }
-    }
-
-    private void paintDistribution(Graphics g) {
         charWidth = g.getFontMetrics().charWidth(' ');
-
-        fillMouseSelection(g);
-
-        Double maxYRatio = Double.MIN_VALUE;
-        List<Vertices> gameVertices = new ArrayList<>(games.size());
-
-        // 1. Calculate the graph and the relative max y (maxYRatio).
-        for (RaceGameSettings game : games) {
-            Vertices vertices = game.distribution.toVertices();
-            gameVertices.add(vertices);
-
-            if (vertices.maxYRatio() > maxYRatio) {
-                maxYRatio = vertices.maxYRatio();
-            }
-        }
-
-        // 2. Clip lines, scale and paint.
-        Iterator<RaceGameSettings> gameIterator = games.iterator();
-        for (Vertices vertices : gameVertices) {
-            ZoomWindow w = currentWindow();
-            Lines lines = vertices
-                    .normalizeTotalY(maxYRatio)
-                    .clipHorizontal(w.x1, w.x2)
-                    .clipVertically(w.y1, w.y2)
-                    .resize(w.x1, w.y1, w.x2, w.y2, width, height);
-            g.setColor(gameIterator.next().color);
-            lines.drawLines(x1, y, g);
-        }
     }
 
-    private void paintAreas(Graphics g) {
-        double[] areas = new double[games.size()];
-
-        int i = 0;
-        for (RaceGameSettings game : games) {
-            areas[i++] = 100 - game.gameState.area();
-        }
-        paintGraph(areas, g);
-    }
-
-    private void paintGames(Graphics g) {
-        double[] rowspergame = new double[games.size()];
-
-        int i = 0;
-        for (RaceGameSettings game : games) {
-            rowspergame[i++] = game.gameState.rowsPerGame();
-        }
-        paintGraph(rowspergame, g);
-    }
-
-    private void paintGraph(double[] values, Graphics g) {
+    protected void paintGraph(double[] values, Graphics g) {
         double min = Double.MAX_VALUE;
         double max = Double.MIN_VALUE;
 
@@ -151,7 +89,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         }
 
         // 4. Clip lines and scale.
-        ZoomWindow w = shortcuts.get(0).peek();
+        ZoomWindow w = currentWindow();
         Lines lines = new Vertices(vertices)
                 .normalizeY(max)
                 .clipHorizontal(w.x1, w.x2)
@@ -178,7 +116,7 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
         return shortcuts.export();
     }
 
-    private void fillMouseSelection(Graphics g) {
+    protected void fillMouseSelection(Graphics g) {
         if (sx1 >= 0) {
             SelectedWindow w = selectedWindow();
             g.setColor(grey);
@@ -312,10 +250,6 @@ public class Graph implements MouseListener, MouseMotionListener, KeyListener {
             windows = toWindows;
             zoomer = Zoomer.zoomOutAndIn(from, windows.peek(), zoomSpeed);
         }
-    }
-
-    public void setViewMode(ViewMode viewMode) {
-        this.viewMode = viewMode;
     }
 
     public boolean isZoomed() {

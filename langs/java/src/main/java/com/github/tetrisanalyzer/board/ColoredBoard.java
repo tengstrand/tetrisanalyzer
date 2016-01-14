@@ -29,6 +29,10 @@ public class ColoredBoard implements TextBoard {
         }
     }
 
+    public int numberOfCells() {
+        return width * height;
+    }
+
     public static ColoredBoard create(int width, int height) {
         return new ColoredBoard(width, height);
     }
@@ -182,7 +186,7 @@ public class ColoredBoard implements TextBoard {
      *  |LL-------+|
      *  |LLIIIIOOT+|
      *  |IJS-TTTLLL|
-     *  ¯¯¯¯¯¯¯¯¯¯¯¯
+     *  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public String[] asStringRows(Piece piece, Move move) {
         String[] board = new String[height + 2];

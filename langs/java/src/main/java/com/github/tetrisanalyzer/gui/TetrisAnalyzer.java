@@ -4,6 +4,10 @@ import com.github.tetrisanalyzer.FileChangeObserver;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Game;
+import com.github.tetrisanalyzer.gui.graph.DistributionAreasGraph;
+import com.github.tetrisanalyzer.gui.graph.DistributionGraph;
+import com.github.tetrisanalyzer.gui.graph.Graph;
+import com.github.tetrisanalyzer.gui.graph.RowsPerGameGraph;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
@@ -40,6 +44,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private RaceSettings race;
     private List<RaceGameSettings> games;
     private Graph graph;
+    private DistributionGraph distributionGraph;
+    private DistributionAreasGraph distributionAreasGraph;
+    private RowsPerGameGraph rowsPerGameGraph;
     private JFrame frame;
 
     private String systemFilename;
@@ -69,7 +76,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         TetrisAnalyzer tetrisAnalyzer = new TetrisAnalyzer(systemFilename, raceFilename, frame);
         tetrisAnalyzer.saveOnClose(frame);
-        tetrisAnalyzer.setViewMode(ViewMode.DISTRIBUTION);
 
         WindowLocation loc = tetrisAnalyzer.race.windowLocation;
         frame.pack();
@@ -141,33 +147,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         raceInfo.paintTexts(g, 0);
 
-        int y1 = raceInfo.height();
-        int x1 = 20;
-        int height = frame.getHeight() - y1 - 60;
-        if (height < 100) height = 100;
-        int w1 = (int) ((frame.getWidth() - 70) * 0.85);
-        int w2 = (int) ((frame.getWidth() - 70) * 0.15) - 20;
 
-        g.setColor(Color.GRAY);
-        if (viewMode == ViewMode.DISTRIBUTION) {
-            raceInfo.paintTextAt(" " + viewMode.viewName, 2, 0, g);
-        } else if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME){
-            x1 = 210;
-            w1 = raceInfo.width(g.getFontMetrics().charWidth(' '));
-            raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
-        }
-        int x2 = w1 + 50;
-
-        g.setColor(Color.lightGray);
-        g.drawRect(x1, y1, w1, height);
-
-        Distribution distribution = games.get(0).distribution;
-
-        graph.draw(g, x1, y1, w1, height);
-        if (viewMode == ViewMode.DISTRIBUTION) {
-            ZoomWindow window = graph.currentWindow();
-            paintBoard(x1, y1, x2, w1, w2, height, window.x2, distribution, g);
-        }
+        paintGraph(g);
 
         paintPaused(g);
         paintSaved(g);
@@ -175,16 +156,43 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         repaint();
     }
 
-    private void paintBoard(int x1, int y1, int x2, int w1, int w2, int height, double windowX2, Distribution distribution, Graphics g) {
-        if (!graph.isZoomed()) {
+    private void paintGraph(Graphics g) {
+        int x1 = 210;
+        int y1 = raceInfo.height();
+        int height = frame.getHeight() - y1 - 60;
+        if (height < 100) height = 100;
+        int w1 = frame.getWidth() - 240;
+
+        int charWidth = g.getFontMetrics().charWidth(' ');
+        g.setColor(Color.GRAY);
+        if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME) {
+            w1 = raceInfo.totalWidth(charWidth);
+        }
+
+        raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
+
+        g.setColor(Color.lightGray);
+        g.drawRect(x1, y1, w1, height);
+
+        Distribution distribution = games.get(0).distribution;
+
+        graph.draw(g, x1, y1, w1, height);
+
+        if (viewMode == ViewMode.DISTRIBUTION && !graph.isZoomed()) {
             paintAreaPercentBar(x1, y1, w1, height, g);
         }
-        if (graph.isZoomed()) {
-            double row = distribution.boardHeight * windowX2;
-            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+
+        int width = raceInfo.firstColumnWidth(charWidth);
+        paintBoard(20, y1, width - 70, height, distribution, g);
+    }
+
+    private void paintBoard(int x1, int y1, int width, int height, Distribution distribution, Graphics g) {
+        if (distributionGraph.isZoomed()) {
+            double row = distribution.boardHeight * distributionGraph.currentWindow().x2;
+            graphBoardPainter.paint(g, x1, y1, width, height, row);
         } else {
             double row = distribution.boardHeight * ((100 - race.areaPercentage) / 100.0);
-            graphBoardPainter.paint(g, x2, y1, w2, height, row);
+            graphBoardPainter.paint(g, x1, y1, width, height, row);
         }
     }
 
@@ -244,10 +252,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 }
                 break;
             case 37: // Left
-                race.increaseAreaPercentage();
+                race.decreaseAreaPercentage();
                 break;
             case 39: // Right
-                race.decreaseAreaPercentage();
+                race.increaseAreaPercentage();
                 break;
             case 113: // <F2>
                 setViewMode(ViewMode.DISTRIBUTION);
@@ -263,10 +271,50 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
     }
 
-    private void setViewMode(ViewMode viewMode) {
-        this.viewMode = viewMode;
-        graph.setViewMode(viewMode);
+    private void setViewMode(ViewMode view) {
+        viewMode = view;
+
+        switch (viewMode) {
+            case DISTRIBUTION:
+                graph = distributionGraph;
+                addKeyListener(distributionGraph);
+                addMouseListener(distributionGraph);
+                addMouseMotionListener(distributionGraph);
+                removeKeyListener(distributionAreasGraph);
+                removeMouseListener(distributionAreasGraph);
+                removeMouseMotionListener(distributionAreasGraph);
+                removeKeyListener(rowsPerGameGraph);
+                removeMouseListener(rowsPerGameGraph);
+                removeMouseMotionListener(rowsPerGameGraph);
+                break;
+            case DISTRIBUTION_AREA:
+                graph = distributionAreasGraph;
+                addKeyListener(distributionAreasGraph);
+                addMouseListener(distributionAreasGraph);
+                addMouseMotionListener(distributionAreasGraph);
+                removeKeyListener(distributionGraph);
+                removeMouseListener(distributionGraph);
+                removeMouseMotionListener(distributionGraph);
+                removeKeyListener(rowsPerGameGraph);
+                removeMouseListener(rowsPerGameGraph);
+                removeMouseMotionListener(rowsPerGameGraph);
+                break;
+            case ROWS_PER_GAME:
+                graph = rowsPerGameGraph;
+                addKeyListener(rowsPerGameGraph);
+                addMouseListener(rowsPerGameGraph);
+                addMouseMotionListener(rowsPerGameGraph);
+                removeKeyListener(distributionGraph);
+                removeMouseListener(distributionGraph);
+                removeMouseMotionListener(distributionGraph);
+                removeKeyListener(distributionAreasGraph);
+                removeMouseListener(distributionAreasGraph);
+                removeMouseMotionListener(distributionAreasGraph);
+                break;
+        }
+
     }
+
 
     private void reloadAndRestartGames() {
         stopGames();
@@ -313,16 +361,20 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
         games = race.games;
         raceInfo = new RaceInfo(race);
-        graph = new Graph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        rowsPerGameGraph = new RowsPerGameGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        distributionAreasGraph = new DistributionAreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        graph = distributionGraph;
+
         Board board = games.get(0).gameState.board;
         graphBoardPainter = new GraphBoardPainter(board.width, board.height);
 
         paused = false;
         actionMessage = "";
 
-        addKeyListener(graph);
-        addMouseListener(graph);
-        addMouseMotionListener(graph);
+        addKeyListener(distributionGraph);
+        addMouseListener(distributionGraph);
+        addMouseMotionListener(distributionGraph);
     }
 
     private void startGames() {

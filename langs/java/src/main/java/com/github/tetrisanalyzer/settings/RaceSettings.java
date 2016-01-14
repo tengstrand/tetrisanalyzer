@@ -32,7 +32,7 @@ public class RaceSettings {
     public boolean saveOnClose;
     public boolean restartOnFileChange;
 
-    public int areaPercentage;
+    public double areaPercentage;
     public ColoredBoard startBoard;
     public String startBoardText;
     public String tetrisRulesId;
@@ -69,7 +69,7 @@ public class RaceSettings {
 
         this.filename = filename;
         Duration duration = reader.readDuration();
-        areaPercentage = reader.readInteger("area %", 30);
+        areaPercentage = reader.readDouble("area %", 30);
         startBoard = reader.readBoard("start board", null);
         startBoardText = reader.readString("start board", null);
 
@@ -111,25 +111,30 @@ public class RaceSettings {
         }
     }
 
+
+
     public void decreaseAreaPercentage() {
-        int percentage = areaPercentage - 1;
-        if (percentage >= 0) {
-            setAreaPercentage(percentage);
-        }
+        addAreaPercentage(-1);
     }
 
     public void increaseAreaPercentage() {
-        int percentage = areaPercentage + 1;
-        if (percentage <= 100) {
-            setAreaPercentage(percentage);
-        }
+        addAreaPercentage(1);
     }
 
-    public void setAreaPercentage(int percentage) {
-        this.areaPercentage = percentage;
-
+    public void addAreaPercentage(int direction) {
+        if (startBoard.numberOfCells() < 200) {
+            areaPercentage += direction;
+        } else {
+            areaPercentage += direction * -0.5;
+        }
+        if (areaPercentage < 0) {
+            areaPercentage = 0;
+        }
+        if (areaPercentage > 100) {
+            areaPercentage = 100;
+        }
         for (RaceGameSettings game : games) {
-            game.distribution.setAreaPercentage(percentage);
+            game.distribution.setAreaPercentage(areaPercentage);
         }
     }
 
