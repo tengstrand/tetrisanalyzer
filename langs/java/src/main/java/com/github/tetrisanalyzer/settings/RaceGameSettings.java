@@ -27,7 +27,7 @@ public class RaceGameSettings {
 
     public String heading;
     public Object parameterValue;
-    public Map parameterValues;
+    public Map parameters;
     public String colorString;
     public Color color;
     public Duration duration;
@@ -46,7 +46,7 @@ public class RaceGameSettings {
     public BoardEvaluator boardEvaluator;
 
     public RaceGameSettings(SystemSettings systemSettings, ColoredBoard startBoard, String parameterName,
-                            Map parameterValues, Map settings, String tetrisRulesId, String pieceGeneratorId,
+                            Map parentParameters, Map settings, String tetrisRulesId, String pieceGeneratorId,
                             String boardEvaluatorId, Map boardEvaluatorSettings, Duration mainDuration, Color color) {
         reader = new SettingsReader(settings, "game");
 
@@ -64,11 +64,11 @@ public class RaceGameSettings {
 
         heading = reader.readString("heading", null);
         parameterValue = reader.get("parameter value");
-        if (parameterName == null) {
+        if (parameterName == null || parameterName.isEmpty()) {
             parameterValue = null;
         }
 
-        this.parameterValues = reader.readMap("parameters", null);
+        this.parameters = reader.readMap("parameters", null);
 
         tetrisRules = systemSettings.findTetrisRules(tetrisRulesId);
 
@@ -112,8 +112,7 @@ public class RaceGameSettings {
         if (this.startBoard.width != board.width || this.startBoard.height != board.height) {
             throw new IllegalArgumentException("The size of 'start board' and 'board' must match");
         }
-        Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parameterValue,
-                parameterValues, this.parameterValues);
+        Map evaluatorSettings = evaluatorSettings(boardEvaluatorSettings, parameterName, parentParameters);
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, this.startBoard, distribution,
@@ -148,15 +147,14 @@ public class RaceGameSettings {
         }
     }
 
-    private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Object parameterValue,
-                                  Map parentParameterValues, Map parameterValues) {
+    private Map evaluatorSettings(Map boardEvaluatorSettings, String parameterName, Map parentParameters) {
         Map result = new HashMap();
         result.putAll(boardEvaluatorSettings);
-        if (parentParameterValues != null) {
-            result.putAll(parentParameterValues);
+        if (parentParameters != null) {
+            result.putAll(parentParameters);
         }
-        if (parameterValues != null) {
-            result.putAll(parameterValues);
+        if (parameters != null) {
+            result.putAll(parameters);
         }
         if (parameterName != null && parameterValue != null) {
             result.put(parameterName, parameterValue);
