@@ -75,7 +75,7 @@ public class DistributionGraph extends Graph {
         if (width < 1) { wx1 -= 1; width = 1; }
         if (height < 1) { wy1 -= 1; height = 1; }
 
-        g.setColor(Color.orange);
+        g.setColor(new Color(255, 100, 0));
         g.drawRect(wx1, wy1, width+1, height+1);
     }
 }
