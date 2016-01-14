@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Stack;
 
 public abstract class Graph implements MouseListener, MouseMotionListener, KeyListener {
-    private int x1;
-    private int x2;
-    protected int y;
-    private int width;
-    private int height;
+    protected int x1;
+    protected int x2;
+    protected int y1;
+    protected int width;
+    protected int height;
     private int sx1 = -1;
     private int sy1 = -1;
     private int sx2 = -1;
@@ -39,9 +39,9 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
     private final Shortcuts shortcuts;
 
-    public Graph(int x, int y, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
-        this.x1 = x;
-        this.y = y;
+    public Graph(int x1, int y1, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
+        this.x1 = x1;
+        this.y1 = y1;
         this.games = games;
         this.shortcuts = shortcuts;
         this.raceInfo = raceInfo;
@@ -52,7 +52,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
     public void setParameters(int x1, int y1, int width, int height, Graphics g) {
         this.x1 = x1;
-        this.y = y1;
+        this.y1 = y1;
         this.width = width;
         this.height = height;
         this.x2 = x1 + width;
@@ -102,7 +102,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
         for (RaceGameSettings game : this.games) {
             colors[i++] = game.color;
         }
-        lines.drawColorredLines(x1, y, colors, g);
+        lines.drawColorredLines(x1, y1, colors, g);
     }
 
     public ZoomWindow currentWindow() {
@@ -168,7 +168,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
         sx1 = -1;
 
         ZoomWindow w = windows.peek();
-        ZoomWindow window = ZoomCalculator.zoom(width, height, sw.x1 - x1, sw.y1 - y, sw.x2 - x1, sw.y2 - y, w.x1, w.y1, w.x2, w.y2);
+        ZoomWindow window = ZoomCalculator.zoom(width, height, sw.x1 - x1, sw.y1 - y1, sw.x2 - x1, sw.y2 - y1, w.x1, w.y1, w.x2, w.y2);
 
         if (window.width() > 0 && window.height() > 0) {
             zoomer = Zoomer.zoomIn(w, window, zoomSpeed);
