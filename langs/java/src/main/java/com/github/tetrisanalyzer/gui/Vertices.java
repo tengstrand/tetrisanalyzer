@@ -55,6 +55,20 @@ public class Vertices {
         return new Vertices(result);
     }
 
+    // This is a hack, didn't have the energy to fix clipHorizontal for this corner case!
+    public Vertices removeVerticalLineIfOutside(double wx1, double wx2) {
+        boolean left = true;
+        boolean right = true;
+        for (int i=0; i< vertices.size(); i++) {
+            if (vertices.get(i).x >= wx1) left = false;
+            if (vertices.get(i).x <= wx2) right = false;
+        }
+        if (right || left) {
+            return new Vertices();
+        }
+        return this;
+    }
+
     public Vertices clipHorizontal(double wx1, double wx2) {
 		int lastIdx = vertices.size() - 1;
 
