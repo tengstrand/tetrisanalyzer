@@ -181,9 +181,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         miniatureGraph.areaPercentage = race.areaPercentage;
         miniatureGraph.draw(g, 22, y1, width - 20, 50);
 
-        if (distributionGraph.isZoomed()) {
-            miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
-        }
+        miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
 
         paintBoard(20, y1+50, width, height-50, distribution, g);
     }
