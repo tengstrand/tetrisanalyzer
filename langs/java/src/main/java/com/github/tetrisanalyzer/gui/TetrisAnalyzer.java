@@ -4,10 +4,7 @@ import com.github.tetrisanalyzer.FileChangeObserver;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Game;
-import com.github.tetrisanalyzer.gui.graph.DistributionAreasGraph;
-import com.github.tetrisanalyzer.gui.graph.DistributionGraph;
-import com.github.tetrisanalyzer.gui.graph.Graph;
-import com.github.tetrisanalyzer.gui.graph.RowsPerGameGraph;
+import com.github.tetrisanalyzer.gui.graph.*;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
@@ -47,6 +44,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private DistributionGraph distributionGraph;
     private DistributionAreasGraph distributionAreasGraph;
     private RowsPerGameGraph rowsPerGameGraph;
+    private DistributionGraph miniatureGraph;
     private JFrame frame;
 
     private String systemFilename;
@@ -162,28 +160,32 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         int height = frame.getHeight() - y1 - 60;
         if (height < 100) height = 100;
         int w1 = frame.getWidth() - 240;
-
         int charWidth = g.getFontMetrics().charWidth(' ');
+
         g.setColor(Color.GRAY);
+        raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
+
         if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME) {
             w1 = raceInfo.totalWidth(charWidth);
         }
-
-        raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
 
         g.setColor(Color.lightGray);
         g.drawRect(x1, y1, w1, height);
 
         Distribution distribution = games.get(0).distribution;
 
+        distributionGraph.areaPercentage = race.areaPercentage;
         graph.draw(g, x1, y1, w1, height);
 
-        if (viewMode == ViewMode.DISTRIBUTION && !graph.isZoomed()) {
-            paintAreaPercentBar(x1, y1, w1, height, g);
+        int width = raceInfo.firstColumnWidth(charWidth) - 70;
+        miniatureGraph.areaPercentage = race.areaPercentage;
+        miniatureGraph.draw(g, 22, y1, width - 20, 50);
+
+        if (distributionGraph.isZoomed()) {
+            miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
         }
 
-        int width = raceInfo.firstColumnWidth(charWidth);
-        paintBoard(20, y1, width - 70, height, distribution, g);
+        paintBoard(20, y1+50, width, height-50, distribution, g);
     }
 
     private void paintBoard(int x1, int y1, int width, int height, Distribution distribution, Graphics g) {
@@ -194,13 +196,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             double row = distribution.boardHeight * ((100 - race.areaPercentage) / 100.0);
             graphBoardPainter.paint(g, x1, y1, width, height, row);
         }
-    }
-
-    private void paintAreaPercentBar(int x1, int y1, int width, int height, Graphics g) {
-        g.setColor(Color.lightGray);
-
-        int barX = x1 + (int)(width * (100 - race.areaPercentage) / 100.0);
-        g.drawLine(barX, y1, barX, y1 + height);
     }
 
     private void paintPaused(Graphics g) {
@@ -348,6 +343,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         rowsPerGameGraph = new RowsPerGameGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         distributionAreasGraph = new DistributionAreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         graph = distributionGraph;
 
         Board board = games.get(0).gameState.board;
@@ -400,8 +396,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
     }
 
-
-    private void saveOnClose(JFrame frame) {
+   private void saveOnClose(JFrame frame) {
         if (race.saveOnClose) {
             frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
