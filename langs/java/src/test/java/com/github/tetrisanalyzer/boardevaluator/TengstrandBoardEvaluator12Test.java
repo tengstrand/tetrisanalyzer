@@ -20,7 +20,7 @@ public class TengstrandBoardEvaluator12Test {
                 "|-x---xx---|",
                 "|-xx-xx-x--|",
                 "|xxxx-xxxx-|",
-                "������������");
+                "------------");
 
         BoardEvaluator evaluator = new TengstrandBoardEvaluator12(10, 5, new StandardGameSettings(board));
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new AtariGameSettings(board));

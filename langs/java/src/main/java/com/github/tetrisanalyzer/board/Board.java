@@ -86,7 +86,7 @@ public class Board implements TextBoard {
     }
 
     public static String bottomString(int chars) {
-        return new String(new char[chars]).replace("\0", "¯");
+        return new String(new char[chars]).replace("\0", "ï¿½");
     }
 
     public static String bottomTextRow(int width) {
@@ -239,6 +239,17 @@ public class Board implements TextBoard {
         return true;
     }
 
+    public int numberOfOccupiedCells(int y) {
+        int cnt = 0;
+
+        for (int x=0; x<width; x++) {
+            if (!isFree(x, y)) {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
     public int numberOfOccupiedCells() {
         int cnt = 0;
 
@@ -264,7 +275,7 @@ public class Board implements TextBoard {
      *  |LL--------|
      *  |LLIIIIOOT-|
      *  |IJS-TTTLLL|
-     *  ¯¯¯¯¯¯¯¯¯¯¯¯
+     *  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public String[] asStringRows(Piece piece, Move move) {
         String[] board = new String[height + 2];

@@ -131,7 +131,12 @@ public class RaceInfo {
         return 0;
     }
 
-    public int width(int charWidth) {
+    public int firstColumnWidth(int charWidth) {
+        RowsResult rowsResult = rows();
+        return rowsResult.columns.get(0).intValue() * charWidth;
+    }
+
+    public int totalWidth(int charWidth) {
         RowsResult rowsResult = rows();
         int size = rowsResult.columns.size();
 

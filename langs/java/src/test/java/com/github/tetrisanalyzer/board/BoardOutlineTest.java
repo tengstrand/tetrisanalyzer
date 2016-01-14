@@ -19,12 +19,12 @@ public class BoardOutlineTest {
 
     @Test
     public void getOutline() {
-        Assert.assertEquals(new BoardOutline(0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board));
+        Assert.assertEquals(new BoardOutline(0, 4, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board));
     }
 
     @Test
     public void getOutline_withLeftWall() {
-        Assert.assertEquals(new BoardOutline(0, 0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board, true));
+        Assert.assertEquals(new BoardOutline(0, 4, 0, 3, 2, 3, 4, 4, 1, 0, 0), new BoardOutline(board, true));
     }
 
     @Test
