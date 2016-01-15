@@ -11,10 +11,12 @@ import java.util.List;
 
 public class DistributionGraph extends Graph {
 
+    private final boolean miniature;
     public double areaPercentage;
 
-    public DistributionGraph(int x, int y, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
+    public DistributionGraph(int x, int y, boolean miniature, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
         super(x, y, games, shortcuts, raceInfo);
+        this.miniature = miniature;
     }
 
     public void draw(Graphics g, int x1, int y1, int width, int height) {
@@ -36,6 +38,7 @@ public class DistributionGraph extends Graph {
 
         // 2. Clip lines, scale and paint.
         Iterator<RaceGameSettings> gameIterator = games.iterator();
+
         for (Vertices vertices : gameVertices) {
             ZoomWindow w = currentWindow();
             Lines lines = vertices
@@ -43,14 +46,19 @@ public class DistributionGraph extends Graph {
                     .clipHorizontal(w.x1, w.x2)
                     .clipVertically(w.y1, w.y2)
                     .resize(w.x1, w.y1, w.x2, w.y2, width, height);
-            g.setColor(gameIterator.next().color);
+
+            if (miniature) {
+                g.setColor(Color.darkGray);
+            } else {
+                g.setColor(gameIterator.next().color);
+            }
             lines.drawLines(x1, y1, g);
         }
 
-        printAreaPercentBar(g, x1, y1, width, height);
+        printAreaBar(g, x1, y1, width, height);
     }
 
-    protected void printAreaPercentBar(Graphics g, int x1, int y1, int width, int height) {
+    protected void printAreaBar(Graphics g, int x1, int y1, int width, int height) {
         g.setColor(Color.lightGray);
         double x = (100 - areaPercentage) / 100.0;
         ZoomWindow w = currentWindow();

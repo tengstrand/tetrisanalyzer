@@ -172,17 +172,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.lightGray);
         g.drawRect(x1, y1, w1, height);
 
-        Distribution distribution = games.get(0).distribution;
-
+        miniatureGraph.areaPercentage = race.areaPercentage;
         distributionGraph.areaPercentage = race.areaPercentage;
+
         graph.draw(g, x1, y1, w1, height);
 
         int width = raceInfo.firstColumnWidth(charWidth) - 70;
-        miniatureGraph.areaPercentage = race.areaPercentage;
         miniatureGraph.draw(g, 22, y1, width - 20, 50);
 
         miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
 
+        Distribution distribution = games.get(0).distribution;
         paintBoard(20, y1+50, width, height-50, distribution, g);
     }
 
@@ -338,10 +338,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         }
         games = race.games;
         raceInfo = new RaceInfo(race);
-        distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, false, games, race.shortcuts, raceInfo);
         rowsPerGameGraph = new RowsPerGameGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         distributionAreasGraph = new DistributionAreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
-        miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, true, games, race.shortcuts, raceInfo);
         graph = distributionGraph;
 
         Board board = games.get(0).gameState.board;
