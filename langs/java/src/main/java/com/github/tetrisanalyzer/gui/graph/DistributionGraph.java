@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.gui.graph;
 
 import com.github.tetrisanalyzer.gui.*;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
@@ -12,11 +13,12 @@ import java.util.List;
 public class DistributionGraph extends Graph {
 
     private final boolean miniature;
-    public double areaPercentage;
+    private final RaceSettings race;
 
-    public DistributionGraph(int x, int y, boolean miniature, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
-        super(x, y, games, shortcuts, raceInfo);
+    public DistributionGraph(int x, int y, boolean miniature, RaceSettings race, RaceInfo raceInfo) {
+        super(x, y, race.games, race.shortcuts, raceInfo);
         this.miniature = miniature;
+        this.race = race;
     }
 
     public void draw(Graphics g, int x1, int y1, int width, int height) {
@@ -60,7 +62,7 @@ public class DistributionGraph extends Graph {
 
     protected void printAreaBar(Graphics g, int x1, int y1, int width, int height) {
         g.setColor(Color.lightGray);
-        double x = (100 - areaPercentage) / 100.0;
+        double x = (100 - race.areaPercentage) / 100.0;
         ZoomWindow w = currentWindow();
 
         List<Vertex> list = new ArrayList<>();
