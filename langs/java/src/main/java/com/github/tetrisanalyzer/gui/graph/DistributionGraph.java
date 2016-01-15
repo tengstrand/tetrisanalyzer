@@ -63,11 +63,11 @@ public class DistributionGraph extends Graph {
         double x = (100 - areaPercentage) / 100.0;
         ZoomWindow w = currentWindow();
 
-        List<Vertex> vertexes = new ArrayList<>();
-        vertexes.add(new Vertex(x, 0));
-        vertexes.add(new Vertex(x, 1));
+        List<Vertex> list = new ArrayList<>();
+        list.add(new Vertex(x, 0));
+        list.add(new Vertex(x, 1));
 
-        new Vertices(vertexes)
+        new Vertices(list)
                 .removeVerticalLineIfOutside(w.x1, w.x2)
                 .clipVertically(w.y1, w.y2)
                 .resize(w.x1, w.y1, w.x2, w.y2, width, height)
