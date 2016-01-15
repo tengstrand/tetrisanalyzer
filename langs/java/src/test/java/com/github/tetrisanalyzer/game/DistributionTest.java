@@ -27,7 +27,7 @@ public class DistributionTest {
     }
 
     @Test
-    public void test() {
+    public void setAreaPercentage() {
         List<Long> cells = Arrays.asList(1L, 2L, 4L, 2L, 1L);
         Distribution distribution = new Distribution(10, 20, cells);
 

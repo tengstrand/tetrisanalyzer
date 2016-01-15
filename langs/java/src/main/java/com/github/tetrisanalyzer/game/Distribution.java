@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distribution {
-    public int areaIndex = 0;
+    private int areaIndex;
     public final int boardWidth;
     public final int boardHeight;
     public final long[] cells;
@@ -19,7 +19,6 @@ public class Distribution {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         cells = new long[(((boardWidth-1) * boardHeight) >> shift) + 1];
-        setAreaIndex();
     }
 
     public Distribution(int boardWidth, int boardHeight, List<Long> cells) {
@@ -27,7 +26,6 @@ public class Distribution {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         this.cells = new long[cells.size()];
-        setAreaIndex();
 
         int i = 0;
         for (long cell : cells) {
@@ -40,10 +38,6 @@ public class Distribution {
 
     private void setShift(int boardWidth) {
         shift = (boardWidth % 4 == 0) ? 2 : 1;
-    }
-
-    private void setAreaIndex() {
-        setAreaPercentage(30);
     }
 
     public void setAreaPercentage(double percentage) {

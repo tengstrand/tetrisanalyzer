@@ -109,6 +109,7 @@ public class RaceSettings {
             }
             this.games.add(game);
         }
+        initAreaPercentage();
     }
 
     public void decreaseAreaPercentage() {
@@ -131,6 +132,10 @@ public class RaceSettings {
         if (areaPercentage > 100) {
             areaPercentage = 100;
         }
+        initAreaPercentage();
+    }
+
+    public void initAreaPercentage() {
         for (RaceGameSettings game : games) {
             game.distribution.setAreaPercentage(areaPercentage);
         }
