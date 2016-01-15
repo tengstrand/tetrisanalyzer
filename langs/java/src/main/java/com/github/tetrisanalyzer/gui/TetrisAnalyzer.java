@@ -339,7 +339,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         rowsPerGameGraph = new RowsPerGameGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         distributionAreasGraph = new DistributionAreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, true, race, raceInfo);
-        graph = distributionGraph;
 
         Board board = games.get(0).gameState.board;
         graphBoardPainter = new GraphBoardPainter(board.width, board.height);
@@ -347,9 +346,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         paused = false;
         actionMessage = "";
 
-        addKeyListener(distributionGraph);
-        addMouseListener(distributionGraph);
-        addMouseMotionListener(distributionGraph);
+        updateLiteners(distributionGraph, distributionAreasGraph, rowsPerGameGraph);
     }
 
     private void startGames() {
