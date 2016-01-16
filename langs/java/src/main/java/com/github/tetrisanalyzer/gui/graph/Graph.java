@@ -183,14 +183,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
     }
 
     @Override public void mouseClicked(MouseEvent e) {
-        if (e.getY() < raceInfo.height()) {
-            int column = raceInfo.translatePixeltoColumn(e.getX(), charWidth);
-            if (column >= 0) {
-                raceInfo.height();
-                games.get(column).game.togglePermanentlyPaused();
-            }
-        }
-
+        // Zoom out if mouse right click
         if (e.getX() >= x1 && e.getX() <= x2 && e.getButton() == 3 && windows.size() > 1) {
             ZoomWindow from = windows.pop();
             zoomer = Zoomer.zoomOut(from, windows.peek(), zoomSpeed);

@@ -205,7 +205,7 @@ public class RaceSettings {
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
-            String paused = "   paused: " + game.paused + "\n";
+            String paused = "   paused: " + game.paused() + "\n";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             String startBoard = game.startBoardText == null ? "" : "   start board: " + game.startBoard.export(17) + "\n";
             String headValues = headValues(heading, parameterValue, gameParameters);

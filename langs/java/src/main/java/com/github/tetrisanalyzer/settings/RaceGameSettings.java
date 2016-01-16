@@ -18,7 +18,7 @@ public class RaceGameSettings {
     public Thread thread;
 
     private final SettingsReader reader;
-    public boolean paused;
+    private boolean paused;
     public Game game;
     public final GameState gameState;
 
@@ -120,6 +120,13 @@ public class RaceGameSettings {
                 totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 
+    public boolean paused() {
+        if (game != null) {
+            return game.paused;
+        }
+        return paused;
+    }
+
     public String heading() {
         if (heading != null) {
             return heading;
@@ -182,7 +189,7 @@ public class RaceGameSettings {
     }
 
     public Game createGame(GameSettings tetrisRules) {
-        game = new Game(gameState, tetrisRules, paused);
+        game = new Game(gameState, tetrisRules, paused());
         return game;
     }
 }

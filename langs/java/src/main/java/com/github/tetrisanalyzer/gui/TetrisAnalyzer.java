@@ -4,7 +4,9 @@ import com.github.tetrisanalyzer.FileChangeObserver;
 import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Game;
-import com.github.tetrisanalyzer.gui.graph.*;
+import com.github.tetrisanalyzer.gui.graph.AreasGraph;
+import com.github.tetrisanalyzer.gui.graph.DistributionGraph;
+import com.github.tetrisanalyzer.gui.graph.Graph;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
@@ -26,6 +28,7 @@ import static com.github.tetrisanalyzer.FileChangeObserver.FileChangedEvent;
 public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private boolean paused;
+    private final static int CHAR_WIDTH = 8;
     private Color actionColor = new Color(0,128,0);
     private ViewMode viewMode = ViewMode.DISTRIBUTION;
     private ViewMode areasViewMode = ViewMode.DISTRIBUTION_AREA;
@@ -120,6 +123,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     public void paint(Graphics g) {
+        raceInfo.charWidth = CHAR_WIDTH;
+
         Dimension d = getSize();
         checkOffscreenImage();
         Graphics offG = offscreenImage.getGraphics();
@@ -184,7 +189,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void paintBoard(int x1, int y1, int width, int height, Distribution distribution, Graphics g) {
-        if (distributionGraph.isZoomed()) {
+        if (distributionGraph.isZoomed() && viewMode == ViewMode.DISTRIBUTION) {
             double row = distribution.boardHeight * distributionGraph.currentWindow().x2;
             graphBoardPainter.paint(g, x1, y1, width, height, row);
         } else {
@@ -242,10 +247,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 }
                 break;
             case 37: // Left
-                race.decreaseAreaPercentage();
+                race.increaseAreaPercentage();
                 break;
             case 39: // Right
-                race.increaseAreaPercentage();
+                race.decreaseAreaPercentage();
                 break;
             case 113: // <F2>
                 setViewMode(ViewMode.DISTRIBUTION);
@@ -270,18 +275,18 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (viewMode) {
             case DISTRIBUTION:
-                updateLiteners(distributionGraph, areasGraph);
+                updateListeners(distributionGraph, areasGraph);
                 break;
             case DISTRIBUTION_AREA:
-                updateLiteners(areasGraph, distributionGraph);
+                updateListeners(areasGraph, distributionGraph);
                 break;
             case ROWS_PER_GAME:
-                updateLiteners(areasGraph, distributionGraph);
+                updateListeners(areasGraph, distributionGraph);
                 break;
         }
     }
 
-    private void updateLiteners(Graph add, Graph remove) {
+    private void updateListeners(Graph add, Graph remove) {
         graph = add;
 
         addKeyListener(add);
@@ -348,7 +353,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         paused = false;
         actionMessage = "";
 
-        updateLiteners(distributionGraph, areasGraph);
+        updateListeners(distributionGraph, areasGraph);
+        addMouseListener(raceInfo);
     }
 
     private void startGames() {
@@ -365,7 +371,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private void pauseGames(boolean paused) {
         for (RaceGameSettings settings : games) {
-            settings.game.paused = paused;
+            settings.game.temporarilyPaused = paused;
         }
     }
 

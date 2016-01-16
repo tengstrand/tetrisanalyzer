@@ -25,8 +25,8 @@ public class Game implements Runnable {
     private boolean stop;
     public boolean stopped;
 
+    public boolean temporarilyPaused;
     public boolean paused;
-    public boolean permanentlyPaused;
     public boolean waiting;
     private int numberOfCells;
     public Board board;
@@ -37,7 +37,7 @@ public class Game implements Runnable {
     public final GameMessage message;
     public final PieceSettings settings;
 
-    public Game(GameState gameState, GameSettings settings, boolean permanentlyPaused) {
+    public Game(GameState gameState, GameSettings settings, boolean paused) {
         this.board = gameState.board.copy();
         if (gameState.coloredBoard != null) {
             this.coloredBoard = gameState.coloredBoard.copy();
@@ -46,7 +46,7 @@ public class Game implements Runnable {
         this.message = new GameMessage(gameState);
         this.boardEvaluator = gameState.boardEvaluator;
         this.settings = settings;
-        this.permanentlyPaused = permanentlyPaused;
+        this.paused = paused;
         this.pieceGenerator = state.pieceGenerator;
         this.numberOfCells = board.numberOfOccupiedCells();
 
@@ -98,12 +98,12 @@ public class Game implements Runnable {
     }
 
     private void waitIfPaused() {
-        if (stop || (!paused && !permanentlyPaused)) {
+        if (stop || (!paused && !temporarilyPaused)) {
             return;
         }
         long pausedAt = System.currentTimeMillis();
 
-        while (!stop && (paused || permanentlyPaused)) {
+        while (!stop && (paused || temporarilyPaused)) {
             waiting = true;
             try {
                 Thread.sleep(50);
@@ -175,7 +175,7 @@ public class Game implements Runnable {
         return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board).bestMove();
     }
 
-    public void togglePermanentlyPaused() {
-        permanentlyPaused = !permanentlyPaused;
+    public void togglePaused() {
+        paused = !paused;
     }
 }
