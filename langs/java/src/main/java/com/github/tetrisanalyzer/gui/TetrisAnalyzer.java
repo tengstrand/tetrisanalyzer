@@ -233,6 +233,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (keyCode) {
             case 80: // P
+                race.resetSpeedometer();
                 if (raceInfo.showSelectedHeading) {
                     games.get(raceInfo.selectedHeadingColumn).game.togglePaused();
                 } else {

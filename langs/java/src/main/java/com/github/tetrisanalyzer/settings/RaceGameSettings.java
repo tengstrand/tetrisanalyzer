@@ -120,6 +120,10 @@ public class RaceGameSettings {
                 totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 
+    public void resetSpeedometer() {
+        gameState.resetSpeedometer();
+    }
+
     public boolean paused() {
         if (game != null) {
             return game.paused;

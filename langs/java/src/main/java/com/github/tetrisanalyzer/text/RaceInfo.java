@@ -5,8 +5,6 @@ import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,12 +12,11 @@ import java.util.List;
 import static com.github.tetrisanalyzer.text.StringFunctions.repeat;
 import static com.github.tetrisanalyzer.text.StringFunctions.spaces;
 
-public class RaceInfo implements MouseListener {
+public class RaceInfo {
     public boolean showSelectedHeading;
     public int selectedHeadingColumn = 0;
 
     public int charWidth;
-    private final List<RaceGameSettings> games;
     private final RaceSettings raceSettings;
 
     private static final int CHAR_HEIGHT = 16;
@@ -30,7 +27,6 @@ public class RaceInfo implements MouseListener {
 
     public RaceInfo(RaceSettings raceSettings) {
         this.raceSettings = raceSettings;
-        games = raceSettings.games;
     }
 
     public void toggleShowHeading() {
@@ -134,23 +130,6 @@ public class RaceInfo implements MouseListener {
         return repeat(n, "-");
     }
 
-    public int translatePixelsToRow(int y) {
-        return (y - Y0 + CHAR_HEIGHT - 1) / CHAR_HEIGHT + 1;
-    }
-
-    public int translatePixeltoColumn(int x, int charWidth) {
-        RowsResult rows = rows();
-
-        int x1 = X0 + rows.columns.position(0) * charWidth;
-        for (int i=1; i<rows.columns.size(); i++) {
-            int x2 = X0 + rows.columns.position(i) * charWidth;
-            if (x >= x1 && x < x2) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     public int firstColumnWidth(int charWidth) {
         RowsResult rowsResult = rows();
         return rowsResult.columns.position(0) * charWidth;
@@ -187,15 +166,13 @@ public class RaceInfo implements MouseListener {
 
         int charWidth = g.getFontMetrics().charWidth(' ');
 
-        // Paint headings cursor
         if (showSelectedHeading) {
-            g.setColor(CURSOR_COLOR);
-            int width = result.columns.width(selectedHeadingColumn) * charWidth;
-            int x1 = result.columns.position(selectedHeadingColumn) * charWidth - width;
-            g.fillRect(X0 + x1, Y0 - CHAR_HEIGHT + 1, width + 2, 20);
+            paintHeadingCursor(g, result, charWidth);
         }
+        paintHeadings(g, result, charWidth);
+    }
 
-        // Paint headings
+    private void paintHeadings(Graphics g, RowsResult result, int charWidth) {
         Iterator<RaceGameSettings> settingsIterator = raceSettings.games.iterator();
         for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
@@ -205,25 +182,16 @@ public class RaceInfo implements MouseListener {
         }
     }
 
+    private void paintHeadingCursor(Graphics g, RowsResult result, int charWidth) {
+        g.setColor(CURSOR_COLOR);
+        int width = result.columns.width(selectedHeadingColumn) * charWidth;
+        int x1 = result.columns.position(selectedHeadingColumn) * charWidth - width;
+        g.fillRect(X0 + x1, Y0 - CHAR_HEIGHT + 1, width + 2, 20);
+    }
+
     private void paintText(String text, int row, Graphics g) {
         g.drawChars(text.toCharArray(), 0, text.length(), X0, Y0 + CHAR_HEIGHT * row);
     }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getY() < height()) {
-            int row = translatePixelsToRow(e.getY());
-            int column = translatePixeltoColumn(e.getX(), charWidth);
-            if (row == 1 && column >= 0) {
-                games.get(column).game.togglePaused();
-            }
-        }
-    }
-
-    @Override public void mousePressed(MouseEvent e) {}
-    @Override public void mouseReleased(MouseEvent e) {}
-    @Override public void mouseEntered(MouseEvent e) {}
-    @Override public void mouseExited(MouseEvent e) {}
 
     public void moveSelectedColumnLeft() {
         if (selectedHeadingColumn > 0) {

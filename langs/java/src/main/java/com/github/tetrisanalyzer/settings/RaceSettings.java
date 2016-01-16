@@ -112,6 +112,12 @@ public class RaceSettings {
         initAreaPercentage();
     }
 
+    public void resetSpeedometer() {
+        for (RaceGameSettings settings : games) {
+            settings.resetSpeedometer();
+        }
+    }
+
     public void decreaseAreaPercentage() {
         addAreaPercentage(-1);
     }

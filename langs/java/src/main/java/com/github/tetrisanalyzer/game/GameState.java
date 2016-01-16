@@ -51,6 +51,11 @@ public class GameState {
         this.maxRows = maxRows;
         this.movesLeft = piecesLeft;
         this.nonstop = piecesLeft <= 0;
+
+        resetSpeedometer();
+    }
+
+    public void resetSpeedometer() {
         rowsPerLastSecond = new XPerLastSeconds(duration.startMillis, rows + totalRows);
         piecesPerLastSecond = new XPerLastSeconds(duration.startMillis, totalPieces);
     }
