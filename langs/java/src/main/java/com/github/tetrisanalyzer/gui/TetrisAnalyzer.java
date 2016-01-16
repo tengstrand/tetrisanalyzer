@@ -233,7 +233,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (keyCode) {
             case 80: // P
-                togglePaused();
+                if (raceInfo.showSelectedHeading) {
+                    games.get(raceInfo.selectedHeadingColumn).game.togglePaused();
+                } else {
+                    togglePaused();
+                }
                 break;
             case 83: // S
                 save();
@@ -366,7 +370,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         actionMessage = "";
 
         updateListeners(distributionGraph, areasGraph);
-        addMouseListener(raceInfo);
     }
 
     private void startGames() {
