@@ -238,8 +238,12 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             case 83: // S
                 save();
                 break;
-            case 67: // C
-                copyToClipboard();
+            case 67: // <Ctrl> + C
+                if (e.getModifiers() == 2) {
+                    copyToClipboard();
+                } else {
+                    raceInfo.toggleShowHeading();
+                }
                 break;
             case 82: // <Ctrl> + R
                 if (e.getModifiers() == 2) {
@@ -247,10 +251,18 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 }
                 break;
             case 37: // Left
-                race.increaseAreaPercentage();
+                if (raceInfo.showSelectedHeading) {
+                    raceInfo.moveSelectedColumnLeft();
+                } else {
+                    race.increaseAreaPercentage();
+                }
                 break;
             case 39: // Right
-                race.decreaseAreaPercentage();
+                if (raceInfo.showSelectedHeading) {
+                    raceInfo.moveSelectedColumnRight();
+                } else {
+                    race.decreaseAreaPercentage();
+                }
                 break;
             case 113: // <F2>
                 setViewMode(ViewMode.DISTRIBUTION);

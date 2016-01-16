@@ -15,6 +15,9 @@ import static com.github.tetrisanalyzer.text.StringFunctions.repeat;
 import static com.github.tetrisanalyzer.text.StringFunctions.spaces;
 
 public class RaceInfo implements MouseListener {
+    public boolean showSelectedHeading;
+    public int selectedHeadingColumn = 0;
+
     public int charWidth;
     private final List<RaceGameSettings> games;
     private final RaceSettings raceSettings;
@@ -23,9 +26,15 @@ public class RaceInfo implements MouseListener {
     private static final int X0 = 20;
     private static final int Y0 = 30;
 
+    private static Color CURSOR_COLOR = new Color(240, 240, 240);
+
     public RaceInfo(RaceSettings raceSettings) {
         this.raceSettings = raceSettings;
         games = raceSettings.games;
+    }
+
+    public void toggleShowHeading() {
+        showSelectedHeading = !showSelectedHeading;
     }
 
     private List<String> text(int paramLength) {
@@ -57,10 +66,11 @@ public class RaceInfo implements MouseListener {
     }
 
     public RowsResult rows() {
-        int column = 19;
-        List<String> rows = text(column);
+        int position = 19;
+        List<String> rows = text(position);
 
-        List<Integer> columns = new ArrayList<>(raceSettings.games.size());
+        List<Integer> columnsWidths = new ArrayList<>(raceSettings.games.size());
+        List<Integer> columnPositions = new ArrayList<>(raceSettings.games.size());
 
         for (RaceGameSettings settings : raceSettings.games) {
             List<String> values = new ArrayList<>();
@@ -83,18 +93,19 @@ public class RaceInfo implements MouseListener {
             values.add(state.rowsPerLastSecondsFormatted());
             values.add(state.piecesPerLastSecondsFormatted());
 
-            int max = maxValueLength(values);
-            column += 2 + max;
-            columns.add(column);
+            int maxWidth = maxValueLength(values);
+            columnsWidths.add(maxWidth);
+            position += 2 + maxWidth;
+            columnPositions.add(position);
             for (int i=0; i<rows.size(); i++) {
                 if (i == 1) {
-                    rows.set(i, rows.get(i) + "  " + separator(max));
+                    rows.set(i, rows.get(i) + "  " + separator(maxWidth));
                 } else {
-                    rows.set(i, rows.get(i) + "  " + lpad(values.get(i), max));
+                    rows.set(i, rows.get(i) + "  " + lpad(values.get(i), maxWidth));
                 }
             }
         }
-        return new RowsResult(rows, columns);
+        return new RowsResult(rows, columnsWidths, columnPositions);
     }
 
     private int maxValueLength(List<String> values) {
@@ -130,9 +141,9 @@ public class RaceInfo implements MouseListener {
     public int translatePixeltoColumn(int x, int charWidth) {
         RowsResult rows = rows();
 
-        int x1 = X0 + rows.columns.get(0).intValue() * charWidth;
+        int x1 = X0 + rows.columns.position(0) * charWidth;
         for (int i=1; i<rows.columns.size(); i++) {
-            int x2 = X0 + rows.columns.get(i).intValue() * charWidth;
+            int x2 = X0 + rows.columns.position(i) * charWidth;
             if (x >= x1 && x < x2) {
                 return i;
             }
@@ -142,14 +153,14 @@ public class RaceInfo implements MouseListener {
 
     public int firstColumnWidth(int charWidth) {
         RowsResult rowsResult = rows();
-        return rowsResult.columns.get(0).intValue() * charWidth;
+        return rowsResult.columns.position(0) * charWidth;
     }
 
     public int totalWidth(int charWidth) {
         RowsResult rowsResult = rows();
         int size = rowsResult.columns.size();
 
-        int columns = rowsResult.columns.get(size-1).intValue() - rowsResult.columns.get(0).intValue();
+        int columns = rowsResult.columns.position(size - 1) - rowsResult.columns.position(0);
 
         return X0 + charWidth * columns;
     }
@@ -176,12 +187,21 @@ public class RaceInfo implements MouseListener {
 
         int charWidth = g.getFontMetrics().charWidth(' ');
 
+        // Paint headings cursor
+        if (showSelectedHeading) {
+            g.setColor(CURSOR_COLOR);
+            int width = result.columns.width(selectedHeadingColumn) * charWidth;
+            int x1 = result.columns.position(selectedHeadingColumn) * charWidth - width;
+            g.fillRect(X0 + x1, Y0 - CHAR_HEIGHT + 1, width + 2, 20);
+        }
+
+        // Paint headings
         Iterator<RaceGameSettings> settingsIterator = raceSettings.games.iterator();
         for (int i=0; i<result.columns.size(); i++) {
             RaceGameSettings settings = settingsIterator.next();
             g.setColor(settings.color);
-            String value = settings.heading();
-            g.drawChars(value.toCharArray(), 0, value.length(), X0 + (result.columns.get(i) - value.length()) * charWidth, Y0);
+            String heading = settings.heading();
+            g.drawChars(heading.toCharArray(), 0, heading.length(), X0 + (result.columns.position(i) - heading.length()) * charWidth, Y0);
         }
     }
 
@@ -205,13 +225,47 @@ public class RaceInfo implements MouseListener {
     @Override public void mouseEntered(MouseEvent e) {}
     @Override public void mouseExited(MouseEvent e) {}
 
+    public void moveSelectedColumnLeft() {
+        if (selectedHeadingColumn > 0) {
+            selectedHeadingColumn--;
+        }
+    }
+
+    public void moveSelectedColumnRight() {
+        if (selectedHeadingColumn < raceSettings.games.size() - 1) {
+            selectedHeadingColumn++;
+        }
+    }
+
     static class RowsResult {
         public List<String> rows;
-        public List<Integer> columns;
+        public Columns columns;
 
-        RowsResult(List<String> rows, List<Integer> columns) {
+        RowsResult(List<String> rows, List<Integer> widths, List<Integer> positions) {
             this.rows = rows;
-            this.columns = columns;
+            this.columns = new Columns(widths, positions);
+        }
+    }
+
+    static class Columns {
+        private final List<Integer> widths;
+        private final List<Integer> positions;
+
+        public Columns(List<Integer> widths, List<Integer> positions) {
+            this.widths = widths;
+            this.positions = positions;
+        }
+
+        public int width(int column) {
+            return widths.get(column);
+        }
+
+        public int position(int column) {
+            return positions.get(column);
+        }
+
+        public int size() {
+            return positions.size();
         }
     }
 }
