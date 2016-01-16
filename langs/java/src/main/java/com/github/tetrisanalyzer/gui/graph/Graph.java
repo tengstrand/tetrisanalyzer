@@ -28,8 +28,8 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
     private final RaceInfo raceInfo;
     protected final List<RaceGameSettings> games;
 
-    private static Color grey = new Color(230, 230, 230);
-    private static Color lightGrey = new Color(240, 240, 240);
+    private static Color selectedWindowColor = new Color(240, 240, 240);
+    private static Color backgroundLineColor = new Color(230, 230, 230);
 
     private static double zoomSpeed = 0.9;
     private static double fastZoomSpeed = 0.5;
@@ -99,7 +99,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
         // 5. Paint
         if (background) {
-            g.setColor(lightGrey);
+            g.setColor(backgroundLineColor);
             lines.drawLines(x1, y1, g);
         } else {
             Color[] colors = new Color[values.length];
@@ -125,7 +125,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
     protected void fillMouseSelection(Graphics g) {
         if (sx1 >= 0) {
             SelectedWindow w = selectedWindow();
-            g.setColor(grey);
+            g.setColor(selectedWindowColor);
             g.fillRect(w.x1, w.y1, w.x2 - w.x1 + 1, w.y2 - w.y1 + 1);
         }
     }
