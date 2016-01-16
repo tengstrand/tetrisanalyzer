@@ -48,7 +48,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
         windows.add(new ZoomWindow());
     }
 
-    public abstract void draw(Graphics g, int x1, int y1, int width, int height);
+    public abstract void draw(boolean background, int x1, int y1, int width, int height, Graphics g);
 
     public void setParameters(int x1, int y1, int width, int height, Graphics g) {
         this.x1 = x1;
@@ -60,7 +60,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
         charWidth = g.getFontMetrics().charWidth(' ');
     }
 
-    protected void paintGraph(double[] values, Graphics g) {
+    protected void paintGraph(boolean background, double[] values, Graphics g) {
         double min = Double.MAX_VALUE;
         double max = Double.MIN_VALUE;
 
@@ -97,12 +97,17 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
                 .resize(w.x1, w.y1, w.x2, w.y2, width, height);
 
         // 5. Paint
-        Color[] colors = new Color[values.length];
-        int i = 0;
-        for (RaceGameSettings game : this.games) {
-            colors[i++] = game.color;
+        if (background) {
+            g.setColor(Color.lightGray);
+            lines.drawLines(x1, y1, g);
+        } else {
+            Color[] colors = new Color[values.length];
+            int i = 0;
+            for (RaceGameSettings game : this.games) {
+                colors[i++] = game.color;
+            }
+            lines.drawColorredLines(x1, y1, colors, g);
         }
-        lines.drawColorredLines(x1, y1, colors, g);
     }
 
     public ZoomWindow currentWindow() {

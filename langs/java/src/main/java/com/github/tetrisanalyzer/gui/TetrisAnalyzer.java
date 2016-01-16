@@ -28,6 +28,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private boolean paused;
     private Color actionColor = new Color(0,128,0);
     private ViewMode viewMode = ViewMode.DISTRIBUTION;
+    private ViewMode areasViewMode = ViewMode.DISTRIBUTION_AREA;
 
     private long actionAt;
     private long actionDuration;
@@ -41,9 +42,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private RaceSettings race;
     private List<RaceGameSettings> games;
     private Graph graph;
-    private DistributionGraph distributionGraph;
-    private DistributionAreasGraph distributionAreasGraph;
-    private RowsPerGameGraph rowsPerGameGraph;
+    private Graph areasGraph;
+    private Graph distributionGraph;
     private DistributionGraph miniatureGraph;
     private JFrame frame;
 
@@ -172,15 +172,15 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.lightGray);
         g.drawRect(x1, y1, w1, height);
 
-        graph.draw(g, x1, y1, w1, height);
+        graph.draw(viewMode == ViewMode.ROWS_PER_GAME, x1, y1, w1, height, g);
 
         int width = raceInfo.firstColumnWidth(charWidth) - 70;
-        miniatureGraph.draw(g, 22, y1, width - 20, 50);
+        miniatureGraph.draw(true, 22, y1, width - 20, 50, g);
 
         miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
 
         Distribution distribution = games.get(0).distribution;
-        paintBoard(20, y1+50, width, height-50, distribution, g);
+        paintBoard(20, y1 + 50, width, height - 50, distribution, g);
     }
 
     private void paintBoard(int x1, int y1, int width, int height, Distribution distribution, Graphics g) {
@@ -251,14 +251,18 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 setViewMode(ViewMode.DISTRIBUTION);
                 break;
             case 114: // <F3>
-                setViewMode(ViewMode.DISTRIBUTION_AREA);
-                break;
-            case 115: // <F4>
-                setViewMode(ViewMode.ROWS_PER_GAME);
+                setViewMode(toggleViewMode());
                 break;
             default:
                 System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());
         }
+    }
+
+    // Set to 'Distribution' or toggle between 'Distribution area' and 'Rows per game'
+    private ViewMode toggleViewMode() {
+        if (viewMode == ViewMode.DISTRIBUTION) return areasViewMode;;
+        if (viewMode == ViewMode.ROWS_PER_GAME) return ViewMode.DISTRIBUTION_AREA;
+        return ViewMode.ROWS_PER_GAME;
     }
 
     private void setViewMode(ViewMode view) {
@@ -266,28 +270,27 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (viewMode) {
             case DISTRIBUTION:
-                updateLiteners(distributionGraph, distributionAreasGraph, rowsPerGameGraph);
+                updateLiteners(distributionGraph, areasGraph);
                 break;
             case DISTRIBUTION_AREA:
-                updateLiteners(distributionAreasGraph, distributionGraph, rowsPerGameGraph);
+                updateLiteners(areasGraph, distributionGraph);
                 break;
             case ROWS_PER_GAME:
-                updateLiteners(rowsPerGameGraph, distributionGraph, distributionAreasGraph);
+                updateLiteners(areasGraph, distributionGraph);
                 break;
         }
     }
 
-    private void updateLiteners(Graph add, Graph remove1, Graph remove2) {
+    private void updateLiteners(Graph add, Graph remove) {
         graph = add;
+
         addKeyListener(add);
         addMouseListener(add);
         addMouseMotionListener(add);
-        removeKeyListener(remove1);
-        removeMouseListener(remove1);
-        removeMouseMotionListener(remove1);
-        removeKeyListener(remove2);
-        removeMouseListener(remove2);
-        removeMouseMotionListener(remove2);
+
+        removeKeyListener(remove);
+        removeMouseListener(remove);
+        removeMouseMotionListener(remove);
     }
 
     private void reloadAndRestartGames() {
@@ -336,8 +339,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         games = race.games;
         raceInfo = new RaceInfo(race);
         distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, false, race, raceInfo);
-        rowsPerGameGraph = new RowsPerGameGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
-        distributionAreasGraph = new DistributionAreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
+        areasGraph = new AreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
         miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, true, race, raceInfo);
 
         Board board = games.get(0).gameState.board;
@@ -346,7 +348,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         paused = false;
         actionMessage = "";
 
-        updateLiteners(distributionGraph, distributionAreasGraph, rowsPerGameGraph);
+        updateLiteners(distributionGraph, areasGraph);
     }
 
     private void startGames() {

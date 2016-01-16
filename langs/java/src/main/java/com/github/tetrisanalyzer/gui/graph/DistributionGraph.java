@@ -21,7 +21,8 @@ public class DistributionGraph extends Graph {
         this.race = race;
     }
 
-    public void draw(Graphics g, int x1, int y1, int width, int height) {
+    @Override
+    public void draw(boolean background, int x1, int y1, int width, int height, Graphics g) {
         setParameters(x1, y1, width, height, g);
         fillMouseSelection(g);
 

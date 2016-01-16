@@ -13,7 +13,7 @@ public class RowsPerGameGraph extends Graph {
     }
 
     @Override
-    public void draw(Graphics g, int x1, int y1, int width, int height) {
+    public void draw(boolean background, int x1, int y1, int width, int height, Graphics g) {
         setParameters(x1, y1, width, height, g);
         fillMouseSelection(g);
 
@@ -23,6 +23,6 @@ public class RowsPerGameGraph extends Graph {
         for (RaceGameSettings game : games) {
             rowspergame[i++] = game.gameState.rowsPerGame();
         }
-        paintGraph(rowspergame, g);
+        paintGraph(false, rowspergame, g);
     }
 }
