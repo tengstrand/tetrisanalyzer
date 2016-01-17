@@ -221,6 +221,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         for (int i=0; i<hollowFactors.length; i++) {
             parameters.put("hollowFactor" + (i+1), Double.toString(hollowFactors[i]));
         }
+        parameters.put("hollowFactorDelta", Double.toString(hollowFactorDelta));
         parameters.put("areaWidthFactor1", Double.toString(areaWidthFactor1));
         parameters.put("areaWidthFactor2", Double.toString(areaWidthFactor2));
         parameters.put("areaWidthFactor3", Double.toString(areaWidthFactor3));
