@@ -259,14 +259,14 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 if (raceInfo.showSelectedHeading) {
                     raceInfo.moveSelectedColumnLeft();
                 } else {
-                    race.increaseAreaPercentage();
+                    race.decreaseAreaPercentage();
                 }
                 break;
             case 39: // Right
                 if (raceInfo.showSelectedHeading) {
                     raceInfo.moveSelectedColumnRight();
                 } else {
-                    race.decreaseAreaPercentage();
+                    race.increaseAreaPercentage();
                 }
                 break;
             case 113: // <F2>
