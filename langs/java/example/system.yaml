@@ -51,8 +51,8 @@ board evaluators:
     heightFactor0: 7
     heightFactor1: 2.5
     heightFactorDelta: 0.81
-    hollowFactor1: 0.533
-    hollowFactor2: 0.6
+    hollowFactor1: 0.46
+    hollowFactor2: 0.51
     hollowFactorDelta: 0.85
     areaWidthFactor1: 4.978
     areaWidthFactor2: 2.38
@@ -80,12 +80,12 @@ board evaluators:
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13
     maxEquityFactor: 1.21
-    piecePenalty: 6
     heightFactor0: 7
     heightFactor1: 2.5
     heightFactorDelta: 0.81
-    hollowFactor1: 0.533
-    hollowFactor2: 0.6
+    hollowFactor1: 0.46
+    hollowFactor2: 0.51
+    hollowFactor3: 0.5
     hollowFactorDelta: 0.85
     areaWidthFactor1: 4.978
     areaWidthFactor2: 2.38
@@ -106,3 +106,19 @@ board evaluators:
     areaHeightEqFactor2: 1.05
     areaHeightEqFactor3: 2.22
     areaHeightEqFactor4: 3.06
+
+  - id: Tengstrand 2.0
+    description: A Tetris AI.
+    author: Joakim Tengstrand
+    url: http://hem.bredband.net/joakimtengstrand
+    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator20
+    hollowFactor: 0.9
+    factor1: 0.95
+    factor2: 0.976
+    factor3: 0.97
+    factor4: 0.978
+    factor5: 0.98
+    factor6: 0.981
+    factor7: 0.985
+    factor8: 0.987
+    factor9: 0.988

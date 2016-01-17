@@ -18,14 +18,13 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     public double maxEquity;
     public double maxEquityFactor = 1.21;
 
-    public double piecePenalty = 6;
-
     public double heightFactor0 = 7;
     public double heightFactor1 = 2.5;
     public double heightFactorDelta = 0.81;
 
-    public double hollowFactor1 = 0.533;
-    public double hollowFactor2 = 0.6;
+    public double hollowFactor1 = 0.46;
+    public double hollowFactor2 = 0.51;
+    public double hollowFactor3 = 0.5;
     public double hollowFactorDelta = 0.85;
 
     public double areaWidthFactor1 = 4.978;
@@ -43,12 +42,12 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     public double areaHeightFactor3 = 2.35;
     public double areaHeightFactor4 = 3.1;
     public double areaHeightFactor5 = 4.6;
-    public double areaHeightFactorDelta = 1;
+    public double areaHeightFactorDelta = 1.1;
 
     public double areaHeightEqFactor1 = 0.42;
     public double areaHeightEqFactor2 = 1.05;
-    public double areaHeightEqFactor3 = 2.2;
-    public double areaHeightEqFactor4 = 3.00;
+    public double areaHeightEqFactor3 = 2.22;
+    public double areaHeightEqFactor4 = 3.06;
 
     public String id;
     public String description;
@@ -76,12 +75,12 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         clazz = reader.readString("class");
 
         maxEquityFactor = reader.readDouble("maxEquityFactor");
-        piecePenalty = reader.readDouble("piecePenalty");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
         heightFactorDelta = reader.readDouble("heightFactorDelta");
         hollowFactor1 = reader.readDouble("hollowFactor1");
         hollowFactor2 = reader.readDouble("hollowFactor2");
+        hollowFactor3 = reader.readDouble("hollowFactor3");
         hollowFactorDelta = reader.readDouble("hollowFactorDelta");
         areaWidthFactor1 = reader.readDouble("areaWidthFactor1");
         areaWidthFactor2 = reader.readDouble("areaWidthFactor2");
@@ -98,8 +97,8 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         areaHeightEqFactor2 = reader.readDouble("areaHeightEqFactor2");
         areaHeightFactor3 = reader.readDouble("areaHeightFactor3");
         areaHeightEqFactor3 = reader.readDouble("areaHeightEqFactor3");
-        areaHeightEqFactor4 = reader.readDouble("areaHeightEqFactor4");
         areaHeightFactor4 = reader.readDouble("areaHeightFactor4");
+        areaHeightEqFactor4 = reader.readDouble("areaHeightEqFactor4");
         areaHeightFactor5 = reader.readDouble("areaHeightFactor5");
         areaHeightFactorDelta = reader.readDouble("areaHeightFactorDelta");
 
@@ -139,9 +138,10 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     private void initHollowFactors() {
         hollowFactors[1] = hollowFactor1;
         hollowFactors[2] = hollowFactor2;
-        double factor = hollowFactor2;
+        hollowFactors[3] = hollowFactor3;
+        double factor = hollowFactor3;
 
-        for (int i=3; i<hollowFactors.length; i++) {
+        for (int i=4; i<hollowFactors.length; i++) {
             factor *= hollowFactorDelta;
             hollowFactors[i] = factor;
         }
@@ -212,7 +212,6 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         parameters.put("class", clazz);
 
         parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
-        parameters.put("piecePenalty", Double.toString(piecePenalty));
         parameters.put("heightFactor0", Double.toString(heightFactor0));
         parameters.put("heightFactor1", Double.toString(heightFactor1));
         parameters.put("heightFactorDelta", Double.toString(heightFactorDelta));
@@ -234,8 +233,8 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         parameters.put("areaHeightEqFactor2", Double.toString(areaHeightEqFactor2));
         parameters.put("areaHeightFactor3", Double.toString(areaHeightFactor3));
         parameters.put("areaHeightEqFactor3", Double.toString(areaHeightEqFactor3));
-        parameters.put("areaHeightEqFactor4", Double.toString(areaHeightEqFactor4));
         parameters.put("areaHeightFactor4", Double.toString(areaHeightFactor4));
+        parameters.put("areaHeightEqFactor4", Double.toString(areaHeightEqFactor4));
         parameters.put("areaHeightFactor5", Double.toString(areaHeightFactor5));
         parameters.put("areaHeightFactorDelta", Double.toString(areaHeightFactorDelta));
 
@@ -250,8 +249,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
 
         return evaluateBasedOnHollows(board, outline) +
                 evaluateBasedOnOutlineHeight(outline) +
-                evaluateBasedOnOutlineStructure(outline) +
-                Contour.evaluate(outline, boardWidth, piecePenalty);
+                evaluateBasedOnOutlineStructure(outline);
     }
 
     private double evaluateBasedOnHollows(Board board, BoardOutline outline) {
