@@ -25,6 +25,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     public double hollowFactor1 = 0.46;
     public double hollowFactor2 = 0.51;
     public double hollowFactor3 = 0.5;
+    public double hollowFactor4 = 0.5;
     public double hollowFactorDelta = 0.85;
 
     public double areaWidthFactor1 = 4.978;
@@ -81,6 +82,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         hollowFactor1 = reader.readDouble("hollowFactor1");
         hollowFactor2 = reader.readDouble("hollowFactor2");
         hollowFactor3 = reader.readDouble("hollowFactor3");
+        hollowFactor4 = reader.readDouble("hollowFactor4");
         hollowFactorDelta = reader.readDouble("hollowFactorDelta");
         areaWidthFactor1 = reader.readDouble("areaWidthFactor1");
         areaWidthFactor2 = reader.readDouble("areaWidthFactor2");
@@ -110,7 +112,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         this.boardHeight = boardHeight;
 
         heightFactors = new double[boardHeight + 1];
-        hollowFactors = new double[boardWidth];
+        hollowFactors = new double[boardWidth < 5 ? 5 : boardWidth];
         areaWidthFactors = new double[boardWidth < 10 ? 10 : boardWidth];
         areaHeightFactors = new double[boardHeight < 6 ? 6 : boardHeight + 1];
         areaHeightEqFactors = new double[boardHeight < 6 ? 6 : boardHeight + 1];
@@ -139,9 +141,10 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         hollowFactors[1] = hollowFactor1;
         hollowFactors[2] = hollowFactor2;
         hollowFactors[3] = hollowFactor3;
-        double factor = hollowFactor3;
+        hollowFactors[4] = hollowFactor4;
+        double factor = hollowFactor4;
 
-        for (int i=4; i<hollowFactors.length; i++) {
+        for (int i=5; i<hollowFactors.length; i++) {
             factor *= hollowFactorDelta;
             hollowFactors[i] = factor;
         }
@@ -215,9 +218,9 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
         parameters.put("heightFactor0", Double.toString(heightFactor0));
         parameters.put("heightFactor1", Double.toString(heightFactor1));
         parameters.put("heightFactorDelta", Double.toString(heightFactorDelta));
-        parameters.put("hollowFactor1", Double.toString(hollowFactor1));
-        parameters.put("hollowFactor2", Double.toString(hollowFactor2));
-        parameters.put("hollowFactorDelta", Double.toString(hollowFactorDelta));
+        for (int i=0; i<hollowFactors.length; i++) {
+            parameters.put("hollowFactor" + (i+1), Double.toString(hollowFactors[i]));
+        }
         parameters.put("areaWidthFactor1", Double.toString(areaWidthFactor1));
         parameters.put("areaWidthFactor2", Double.toString(areaWidthFactor2));
         parameters.put("areaWidthFactor3", Double.toString(areaWidthFactor3));

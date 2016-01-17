@@ -86,6 +86,7 @@ board evaluators:
     hollowFactor1: 0.46
     hollowFactor2: 0.51
     hollowFactor3: 0.5
+    hollowFactor4: 0.5
     hollowFactorDelta: 0.85
     areaWidthFactor1: 4.978
     areaWidthFactor2: 2.38
