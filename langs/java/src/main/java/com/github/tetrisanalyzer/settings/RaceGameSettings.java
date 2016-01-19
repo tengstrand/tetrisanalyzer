@@ -18,6 +18,7 @@ public class RaceGameSettings {
     public Thread thread;
 
     private final SettingsReader reader;
+    private boolean hide;
     private boolean paused;
     public Game game;
     public final GameState gameState;
@@ -83,6 +84,7 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
+        hide = reader.readBoolean("hide", false);
         paused = reader.readBoolean("paused", false);
 
         long games = reader.readLong("games", 0);
@@ -129,6 +131,13 @@ public class RaceGameSettings {
             return game.paused;
         }
         return paused;
+    }
+
+    public boolean hide() {
+        if (game != null) {
+            return game.hide;
+        }
+        return hide;
     }
 
     public String heading() {
@@ -193,7 +202,7 @@ public class RaceGameSettings {
     }
 
     public Game createGame(GameSettings tetrisRules) {
-        game = new Game(gameState, tetrisRules, paused());
+        game = new Game(gameState, tetrisRules, paused(), hide());
         return game;
     }
 }

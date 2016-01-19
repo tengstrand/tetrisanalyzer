@@ -2,13 +2,14 @@ package com.github.tetrisanalyzer.gui.graph;
 
 import com.github.tetrisanalyzer.gui.Shortcuts;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.settings.RaceGamesSettings;
 import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
 
 public class AreasGraph extends Graph {
 
-    public AreasGraph(int x, int y, java.util.List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
+    public AreasGraph(int x, int y, RaceGamesSettings games, Shortcuts shortcuts, RaceInfo raceInfo) {
         super(x, y, games, shortcuts, raceInfo);
     }
 

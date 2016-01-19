@@ -69,6 +69,9 @@ public class RaceInfo {
         List<Integer> columnPositions = new ArrayList<>(raceSettings.games.size());
 
         for (RaceGameSettings settings : raceSettings.games) {
+            if (settings.game.hide) {
+                continue;
+            }
             List<String> values = new ArrayList<>();
             GameState state = settings.gameState;
             values.add("");
@@ -173,12 +176,14 @@ public class RaceInfo {
     }
 
     private void paintHeadings(Graphics g, RowsResult result, int charWidth) {
-        Iterator<RaceGameSettings> settingsIterator = raceSettings.games.iterator();
-        for (int i=0; i<result.columns.size(); i++) {
-            RaceGameSettings settings = settingsIterator.next();
+        int i = 0;
+        for (RaceGameSettings settings : raceSettings.games) {
+            if (settings.game.hide) {
+                continue;
+            }
             g.setColor(settings.color);
             String heading = settings.heading();
-            g.drawChars(heading.toCharArray(), 0, heading.length(), X0 + (result.columns.position(i) - heading.length()) * charWidth, Y0);
+            g.drawChars(heading.toCharArray(), 0, heading.length(), X0 + (result.columns.position(i++) - heading.length()) * charWidth, Y0);
         }
     }
 

@@ -24,7 +24,7 @@ public class GameTest {
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 5);
-        Game game = new Game(result, settings, false);
+        Game game = new Game(result, settings, false, false);
         game.run();
 
         assertEquals(1, result.rows);
@@ -45,7 +45,7 @@ public class GameTest {
                 "|---------Z|",
                 "|--------ZZ|",
                 "|OO---TTTZL|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.board);
+                "------------"), game.board);
     }
 
     @Test
@@ -56,13 +56,13 @@ public class GameTest {
                 "|----------|",
                 "|--------OO|",
                 "|S--------Z|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "------------");
         GameSettings settings = new AtariGameSettings(board, true);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
-        Game game = new Game(result, settings, false);
+        Game game = new Game(result, settings, false, false);
         game.run();
 
         assertEquals(Board.create(
@@ -71,7 +71,7 @@ public class GameTest {
                 "|----------|",
                 "|-------TOO|",
                 "|S-----TTTZ|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.board);
+                "------------"), game.board);
     }
 
     @Test
@@ -82,13 +82,13 @@ public class GameTest {
                 "|----------|",
                 "|--------OO|",
                 "|S--------Z|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "------------");
         GameSettings settings = new AtariGameSettings(board);
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
         GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 0, 0, 0, 0, 0, 1);
-        Game game = new Game(result, settings, false);
+        Game game = new Game(result, settings, false, false);
         game.run();
 
         assertEquals(ColoredBoard.create(
@@ -97,7 +97,7 @@ public class GameTest {
                 "|----------|",
                 "|TTT-----OO|",
                 "|ST-------Z|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), game.coloredBoard);
+                "------------"), game.coloredBoard);
     }
 
     // 1 000 000 = 200 sec = 5 000 validPieces/sec (sliding on)

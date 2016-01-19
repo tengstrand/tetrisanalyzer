@@ -2,6 +2,7 @@ package com.github.tetrisanalyzer.gui.graph;
 
 import com.github.tetrisanalyzer.gui.*;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.settings.RaceGamesSettings;
 import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
     private int charWidth;
     private final RaceInfo raceInfo;
-    protected final List<RaceGameSettings> games;
+    protected final RaceGamesSettings games;
 
     private static Color selectedWindowColor = new Color(240, 240, 240);
     private static Color backgroundLineColor = new Color(230, 230, 230);
@@ -40,7 +41,7 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
     private final Shortcuts shortcuts;
 
-    public Graph(int x1, int y1, List<RaceGameSettings> games, Shortcuts shortcuts, RaceInfo raceInfo) {
+    public Graph(int x1, int y1, RaceGamesSettings games, Shortcuts shortcuts, RaceInfo raceInfo) {
         this.x1 = x1;
         this.y1 = y1;
         this.games = games;

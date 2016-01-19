@@ -8,6 +8,7 @@ import com.github.tetrisanalyzer.gui.graph.AreasGraph;
 import com.github.tetrisanalyzer.gui.graph.DistributionGraph;
 import com.github.tetrisanalyzer.gui.graph.Graph;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
+import com.github.tetrisanalyzer.settings.RaceGamesSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 import com.github.tetrisanalyzer.settings.SystemSettings;
 import com.github.tetrisanalyzer.text.RaceInfo;
@@ -21,7 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.List;
+import java.util.Iterator;
 
 import static com.github.tetrisanalyzer.FileChangeObserver.FileChangedEvent;
 
@@ -43,7 +44,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private RaceInfo raceInfo;
     private GraphBoardPainter graphBoardPainter;
     private RaceSettings race;
-    private List<RaceGameSettings> games;
+    private RaceGamesSettings games;
     private Graph graph;
     private Graph areasGraph;
     private Graph distributionGraph;
@@ -232,6 +233,18 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         int keyCode = e.getKeyCode();
 
         switch (keyCode) {
+            case 72: // H
+                if (raceInfo.showSelectedHeading) {
+                    if (games.size() > 1) {
+                        Game game = games.get(raceInfo.selectedHeadingColumn).game;
+                        if (raceInfo.selectedHeadingColumn == games.size() - 1) {
+                            raceInfo.selectedHeadingColumn--;
+                        }
+                        game.stopThread();
+                        game.hide();
+                    }
+                }
+                break;
             case 80: // P
                 race.resetSpeedometer();
                 if (raceInfo.showSelectedHeading) {
@@ -354,7 +367,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
         race = RaceSettings.fromFile(raceFilename, systemSettings);
 
-        for (RaceGameSettings settings : race.games) {
+        Iterator<RaceGameSettings> iterator = race.games.allGamesIterator();
+        while (iterator.hasNext()) {
+            RaceGameSettings settings = iterator.next();
             Game game = settings.createGame(settings.tetrisRules);
             settings.thread = new Thread(game);
         }

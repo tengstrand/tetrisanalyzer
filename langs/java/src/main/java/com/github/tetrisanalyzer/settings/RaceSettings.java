@@ -43,7 +43,7 @@ public class RaceSettings {
     public String colorsString;
     public Shortcuts shortcuts;
     public WindowLocation windowLocation;
-    public List<RaceGameSettings> games = new ArrayList<>();
+    public RaceGamesSettings games = new RaceGamesSettings();
 
     /**
      * Used from tests.
@@ -143,7 +143,9 @@ public class RaceSettings {
 
     public void initAreaPercentage() {
         for (RaceGameSettings game : games) {
-            game.distribution.setAreaPercentage(areaPercentage);
+            if (game.distribution != null) {
+                game.distribution.setAreaPercentage(areaPercentage);
+            }
         }
     }
 
@@ -201,7 +203,7 @@ public class RaceSettings {
 
         String games = "games:\n";
 
-        for (RaceGameSettings game : this.games) {
+        for (RaceGameSettings game : this.games.games) {
             GameState state = game.gameState;
             String heading = game.heading == null ? "" : "heading: " + game.heading + "\n";
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
@@ -211,20 +213,25 @@ public class RaceSettings {
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
             String pieceGeneratorId = game.pieceGeneratorIdText == null ? "" : "   piece generator id: " + game.pieceGeneratorIdText + "\n";
             String boardEvaluatorId = game.boardEvaluatorIdText == null ? "" : "   board evaluator id: " + game.boardEvaluatorIdText + "\n";
+            String hide = "   hide: " + game.hide() + "\n";
             String paused = "   paused: " + game.paused() + "\n";
             String color = game.colorString == null ? "" : "   color: " + game.colorString + "\n";
             String startBoard = game.startBoardText == null ? "" : "   start board: " + game.startBoard.export(17) + "\n";
+            String board = game.game.coloredBoard.export(11);
+            String pieceGeneratorState = state.pieceGenerator.export();
+            String distribution = state.distribution.export();
             String headValues = headValues(heading, parameterValue, gameParameters);
 
             games += headValues +
                     duration +
+                    hide +
                     paused +
                     tetrisRuleId +
                     pieceGeneratorId +
                     boardEvaluatorId +
                     color +
                     startBoard +
-                    "   board: " + game.game.coloredBoard.export(11) + "\n" +
+                    "   board: " + board + "\n" +
                     "   games: " + state.games() + "\n" +
                     "   pieces: " + state.pieces + "\n" +
                     "   pieces total: " + state.totalPieces + "\n" +
@@ -234,8 +241,8 @@ public class RaceSettings {
                     "   max rows: " + state.maxRows() + "\n" +
                     "   rows/game: " + state.rowsPerGameString() + "\n" +
                     "   piece/s: " + state.piecesPerSecond() + "\n" +
-                    "   piece generator state: " + state.pieceGenerator.export() + "\n" +
-                    "   distribution: " + state.distribution.export() + "\n" +
+                    "   piece generator state: " + pieceGeneratorState + "\n" +
+                    "   distribution: " + distribution + "\n" +
                     "   used parameters:\n" + usedParameters;
         }
 

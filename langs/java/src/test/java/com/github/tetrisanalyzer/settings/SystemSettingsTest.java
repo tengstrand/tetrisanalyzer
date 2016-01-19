@@ -60,6 +60,8 @@ public class SystemSettingsTest {
             "    heightFactorDelta: 0.86\n" +
             "    hollowFactor1: 0.533\n" +
             "    hollowFactor2: 0.6\n" +
+            "    hollowFactor3: 0.5\n" +
+            "    hollowFactor4: 0.4\n" +
             "    hollowFactorDelta: 0.85\n" +
             "    hollowFactorDeltaDelta: 0.95\n" +
             "    areaWidthFactor1: 4.95\n" +
@@ -93,6 +95,8 @@ public class SystemSettingsTest {
             "    heightFactorDelta: 0.86\n" +
             "    hollowFactor1: 0.533\n" +
             "    hollowFactor2: 0.6\n" +
+            "    hollowFactor3: 0.5\n" +
+            "    hollowFactor4: 0.4\n" +
             "    hollowFactorDelta: 0.85\n" +
             "    hollowFactorDeltaDelta: 0.95\n" +
             "    areaWidthFactor1: 4.95\n" +

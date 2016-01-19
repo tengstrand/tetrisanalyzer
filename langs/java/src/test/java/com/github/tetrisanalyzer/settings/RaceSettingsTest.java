@@ -42,6 +42,8 @@ public class RaceSettingsTest {
             "save on close: false\n" +
             "area %: 25\n" +
             "games:\n" +
+            " - duration: 1d 0h 0m 0s\n" +
+            "   hide: true\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: first value\n" +
             "   parameters:\n" +

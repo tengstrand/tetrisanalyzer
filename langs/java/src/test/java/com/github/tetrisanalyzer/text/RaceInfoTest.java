@@ -35,6 +35,7 @@ public class RaceInfoTest {
                         "                                                   \n" +
                         "games:                            2          19 488\n" +
                         "rows:                         2 666           6 466\n" +
+                        "area (25.0%):               2.38095         2.27273\n" +
                         "                                                   \n" +
                         "rows/game:                  500 000           4 561\n" +
                         "min rows:                         2               2\n" +
