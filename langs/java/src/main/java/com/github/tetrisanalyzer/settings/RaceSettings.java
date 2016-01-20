@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -48,23 +47,23 @@ public class RaceSettings {
     /**
      * Used from tests.
      */
-    public static RaceSettings fromString(String settings, SystemSettings systemSettings) {
+    public static RaceSettings fromString(String settings, SystemSettings systemSettings, boolean showAll) {
         try {
-            return new RaceSettings(null, (Map) new YamlReader(settings).read(), systemSettings);
+            return new RaceSettings(null, (Map) new YamlReader(settings).read(), systemSettings, showAll);
         } catch (YamlException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    public static RaceSettings fromFile(String filename, SystemSettings systemSettings) {
+    public static RaceSettings fromFile(String filename, SystemSettings systemSettings, boolean showAll) {
         try {
-            return new RaceSettings(filename, (Map) new YamlReader(new FileReader(filename)).read(), systemSettings);
+            return new RaceSettings(filename, (Map) new YamlReader(new FileReader(filename)).read(), systemSettings, showAll);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private RaceSettings(String filename, Map settings, SystemSettings systemSettings) {
+    private RaceSettings(String filename, Map settings, SystemSettings systemSettings, boolean showAll) {
         reader = new SettingsReader(settings, "race");
 
         this.filename = filename;
@@ -102,7 +101,7 @@ public class RaceSettings {
 
             RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName,
                     parameters, gameMap, tetrisRulesId, pieceGeneratorId, evaluatorId,
-                    evaluatorSettings, duration, color);
+                    evaluatorSettings, duration, color, showAll);
             if (game.color != color) {
                 // Don't consume the global color if a color was explicitly specified.
                 idx--;

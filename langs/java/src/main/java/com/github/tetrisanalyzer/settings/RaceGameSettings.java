@@ -48,7 +48,8 @@ public class RaceGameSettings {
 
     public RaceGameSettings(SystemSettings systemSettings, ColoredBoard startBoard, String parameterName,
                             Map parentParameters, Map settings, String tetrisRulesId, String pieceGeneratorId,
-                            String boardEvaluatorId, Map boardEvaluatorSettings, Duration mainDuration, Color color) {
+                            String boardEvaluatorId, Map boardEvaluatorSettings, Duration mainDuration, Color color,
+                            boolean showAll) {
         reader = new SettingsReader(settings, "game");
 
         this.color = reader.readColor("color", color);
@@ -84,7 +85,7 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
-        hide = reader.readBoolean("hide", false);
+        hide = showAll ? false : reader.readBoolean("hide", false);
         paused = reader.readBoolean("paused", false);
 
         long games = reader.readLong("games", 0);

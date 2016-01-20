@@ -93,7 +93,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         this.systemFilename = systemFilename;
         this.raceFilename = raceFilename;
 
-        reloadGames();
+        reloadGames(false);
         startFileChangeObserver(raceFilename);
 
         this.frame = frame;
@@ -112,7 +112,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             FileChangedEvent event = new FileChangedEvent() {
                 @Override
                 public void changed() {
-                    reloadAndRestartGames();
+                    reloadAndRestartGames(false);
                 }
             };
             new Thread(new FileChangeObserver(raceFilename, event)).start();
@@ -234,15 +234,13 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         switch (keyCode) {
             case 72: // H
-                if (raceInfo.showSelectedHeading) {
-                    if (games.size() > 1) {
-                        Game game = games.get(raceInfo.selectedHeadingColumn).game;
-                        if (raceInfo.selectedHeadingColumn == games.size() - 1) {
-                            raceInfo.selectedHeadingColumn--;
-                        }
-                        game.stopThread();
-                        game.hide();
+                if (raceInfo.showSelectedHeading && games.size() > 1) {
+                    Game game = games.get(raceInfo.selectedHeadingColumn).game;
+                    if (raceInfo.selectedHeadingColumn == games.size() - 1) {
+                        raceInfo.selectedHeadingColumn--;
                     }
+                    game.stopThread();
+                    game.hide();
                 }
                 break;
             case 80: // P
@@ -255,6 +253,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 83: // S
                 save();
+                if (e.getModifiers() == 2) { // <Ctrl> + S
+                    reloadAndRestartGames(true);
+                }
                 break;
             case 67: // <Ctrl> + C
                 if (e.getModifiers() == 2) {
@@ -263,9 +264,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                     raceInfo.toggleShowHeading();
                 }
                 break;
-            case 82: // <Ctrl> + R
-                if (e.getModifiers() == 2) {
-                    reloadAndRestartGames();
+            case 82:
+                if (e.getModifiers() == 2) { // <Ctrl> + R
+                    reloadAndRestartGames(false);
                 }
                 break;
             case 37: // Left
@@ -328,9 +329,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         removeMouseMotionListener(remove);
     }
 
-    private void reloadAndRestartGames() {
+    private void reloadAndRestartGames(boolean showAll) {
         stopGames();
-        reloadGames();
+        reloadGames(showAll);
         startGames();
     }
 
@@ -363,9 +364,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         pauseGames(paused);
     }
 
-    private void reloadGames() {
+    private void reloadGames(boolean showAll) {
         SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
-        race = RaceSettings.fromFile(raceFilename, systemSettings);
+        race = RaceSettings.fromFile(raceFilename, systemSettings, showAll);
 
         Iterator<RaceGameSettings> iterator = race.games.allGamesIterator();
         while (iterator.hasNext()) {

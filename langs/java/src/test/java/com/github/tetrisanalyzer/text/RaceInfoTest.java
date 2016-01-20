@@ -48,7 +48,7 @@ public class RaceInfoTest {
 
     private RaceInfo parameters() {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
-        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
+        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings, false);
 
         race.games.get(0).gameState.games = 2;
         race.games.get(0).gameState.totalPieces = 4000000;

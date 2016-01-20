@@ -120,7 +120,7 @@ public class RaceSettingsTest {
     @Test
     public void importSettings() throws YamlException {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
-        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
+        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings, false);
 
         assertEquals(2, race.games.size());
         assertEquals(19308, race.games.get(0).gameState.games);
@@ -148,7 +148,7 @@ public class RaceSettingsTest {
     @Test
     public void exportSettings() throws YamlException {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
-        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings);
+        RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings, false);
 
         for (RaceGameSettings settings : race.games) {
             settings.createGame(settings.tetrisRules);
