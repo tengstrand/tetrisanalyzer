@@ -18,11 +18,14 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
     public double maxEquity;
     public double maxEquityFactor = 1.21;
 
-    public double heightOutlineFactor0 = 1.6;
-    public double heightOutlineFactor1 = 1.3;
-    public double heightOutlineFactor2 = 1.18;
-    public double heightOutlineFactor3 = 1.12;
-    public double heightOutlineFactor4 = 1.02;
+    public double outlineHeightFactor0 = 1.6;
+    public double outlineHeightFactor1 = 1.3;
+    public double outlineHeightFactor2 = 1.18;
+    public double outlineHeightFactor3 = 1.12;
+    public double outlineHeightFactor4 = 1.02;
+
+    public double hollowHeightFactor0 = 1.9;
+    public double hollowHeightFactor1 = 1;
 
     public double hollowFactor1 = 0.46;
     public double hollowFactor2 = 0.51;
@@ -58,7 +61,8 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
     public String url;
     public String clazz;
 
-    public double[] heightOutlineFactors;
+    public double[] outlineHeightFactors;
+    public double[] hollowHeightFactors;
     public double[] hollowFactors;
     public double[] areaWidthFactors;
     public double[] areaHeightFactors;
@@ -78,11 +82,13 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
         clazz = reader.readString("class");
 
         maxEquityFactor = reader.readDouble("maxEquityFactor");
-        heightOutlineFactor0 = reader.readDouble("heightOutlineFactor0");
-        heightOutlineFactor1 = reader.readDouble("heightOutlineFactor1");
-        heightOutlineFactor2 = reader.readDouble("heightOutlineFactor2");
-        heightOutlineFactor3 = reader.readDouble("heightOutlineFactor3");
-        heightOutlineFactor4 = reader.readDouble("heightOutlineFactor4");
+        outlineHeightFactor0 = reader.readDouble("outlineHeightFactor0");
+        outlineHeightFactor1 = reader.readDouble("outlineHeightFactor1");
+        outlineHeightFactor2 = reader.readDouble("outlineHeightFactor2");
+        outlineHeightFactor3 = reader.readDouble("outlineHeightFactor3");
+        outlineHeightFactor4 = reader.readDouble("outlineHeightFactor4");
+        hollowHeightFactor0 = reader.readDouble("hollowHeightFactor0");
+        hollowHeightFactor1 = reader.readDouble("hollowHeightFactor1");
         hollowFactor1 = reader.readDouble("hollowFactor1");
         hollowFactor2 = reader.readDouble("hollowFactor2");
         hollowFactor3 = reader.readDouble("hollowFactor3");
@@ -115,7 +121,8 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
 
-        heightOutlineFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
+        outlineHeightFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
+        hollowHeightFactors = new double[boardHeight < 5 ? 5 : boardHeight + 1];
         hollowFactors = new double[boardWidth < 5 ? 5 : boardWidth];
         areaWidthFactors = new double[boardWidth < 10 ? 10 : boardWidth];
         areaHeightFactors = new double[boardHeight < 6 ? 6 : boardHeight + 1];
@@ -124,6 +131,7 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
         maxEquity = boardWidth * (boardHeight - 1) * maxEquityFactor;
 
         initHeightOutlineFactors();
+        initHeightHollowFactors();
         initHollowFactors();
         initAreaWidthFactors();
         initAreaHeightFactors();
@@ -131,13 +139,21 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
     }
 
     private void initHeightOutlineFactors() {
-        heightOutlineFactors[0] = heightOutlineFactor0;
-        heightOutlineFactors[1] = heightOutlineFactor1;
-        heightOutlineFactors[2] = heightOutlineFactor2;
-        heightOutlineFactors[3] = heightOutlineFactor3;
-        heightOutlineFactors[4] = heightOutlineFactor4;
-        for (int i=5; i<heightOutlineFactors.length; i++) {
-            heightOutlineFactors[i] = 1;
+        outlineHeightFactors[0] = outlineHeightFactor0;
+        outlineHeightFactors[1] = outlineHeightFactor1;
+        outlineHeightFactors[2] = outlineHeightFactor2;
+        outlineHeightFactors[3] = outlineHeightFactor3;
+        outlineHeightFactors[4] = outlineHeightFactor4;
+        for (int i=5; i< outlineHeightFactors.length; i++) {
+            outlineHeightFactors[i] = 1;
+        }
+    }
+
+    private void initHeightHollowFactors() {
+        hollowHeightFactors[0] = hollowHeightFactor0;
+        hollowHeightFactors[1] = hollowHeightFactor1;
+        for (int i=2; i< hollowHeightFactors.length; i++) {
+            hollowHeightFactors[i] = 1;
         }
     }
 
@@ -219,11 +235,13 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
         parameters.put("class", clazz);
 
         parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
-        parameters.put("heightOutlineFactor0", Double.toString(heightOutlineFactor0));
-        parameters.put("heightOutlineFactor1", Double.toString(heightOutlineFactor1));
-        parameters.put("heightOutlineFactor2", Double.toString(heightOutlineFactor2));
-        parameters.put("heightOutlineFactor3", Double.toString(heightOutlineFactor3));
-        parameters.put("heightOutlineFactor4", Double.toString(heightOutlineFactor4));
+        parameters.put("outlineHeightFactor0", Double.toString(outlineHeightFactor0));
+        parameters.put("outlineHeightFactor1", Double.toString(outlineHeightFactor1));
+        parameters.put("outlineHeightFactor2", Double.toString(outlineHeightFactor2));
+        parameters.put("outlineHeightFactor3", Double.toString(outlineHeightFactor3));
+        parameters.put("outlineHeightFactor4", Double.toString(outlineHeightFactor4));
+        parameters.put("hollowHeightFactor0", Double.toString(hollowHeightFactor0));
+        parameters.put("hollowHeightFactor1", Double.toString(hollowHeightFactor1));
         for (int i=1; i<hollowFactors.length; i++) {
             parameters.put("hollowFactor" + (i), Double.toString(hollowFactors[i]));
         }
@@ -258,7 +276,7 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
         BoardOutline outline = new BoardOutline(board);
 
         return evaluateBasedOnHollows(board, outline) +
-                evaluateBasedOnOutlineStructure(board, outline);
+               evaluateBasedOnOutlineStructure(outline);
     }
 
     private double evaluateBasedOnHollows(Board board, BoardOutline outline) {
@@ -267,31 +285,31 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
 
         for (int y=outline.minY; y<boardHeight; y++) {
             int numberOfEmptySquaresPerRow = 0;
-            int minOutlineForHole = boardHeight;
+            int minYForOutlineHole = boardHeight;
 
             for (int x=0; x<boardWidth; x++) {
                 if (board.isFree(x, y)) {
                     numberOfEmptySquaresPerRow++;
-                    if (outline.get(x) < minOutlineForHole && outline.get(x) < y) {
-                        minOutlineForHole = outline.get(x);
+                    if (outline.get(x) < minYForOutlineHole && outline.get(x) < y) {
+                        minYForOutlineHole = outline.get(x);
                     }
                 }
             }
             hollowFactorForRow[y] = hollowFactors[numberOfEmptySquaresPerRow];
 
-            if (minOutlineForHole < boardHeight) {
+            if (minYForOutlineHole < boardHeight) {
                 double hollowFactor = 1;
 
-                for (int row=minOutlineForHole; row<=y; row++) {
+                for (int row=minYForOutlineHole; row<=y; row++) {
                     hollowFactor *= hollowFactorForRow[row];
                 }
-                equity += (1 - hollowFactor) * boardWidth;
+                equity += (1 - hollowFactor) * boardWidth * hollowHeightFactors[minYForOutlineHole];
             }
         }
         return equity;
     }
 
-    private double evaluateBasedOnOutlineStructure(Board board, BoardOutline outline) {
+    private double evaluateBasedOnOutlineStructure(BoardOutline outline) {
         double equity = 0;
 
         for (int x=1; x<=boardWidth; x++) {
@@ -324,9 +342,9 @@ public class TengstrandBoardEvaluator20 implements BoardEvaluator {
                         areaHeight++;
                     } else {
                         if (hasAreaWallsSameHeight) {
-                            equity += areaWidthFactors[previousAreaWidth] * areaHeightEqFactors[areaHeight] * heightOutlineFactors[startY];
+                            equity += areaWidthFactors[previousAreaWidth] * areaHeightEqFactors[areaHeight] * outlineHeightFactors[startY];
                         } else {
-                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactors[areaHeight] * heightOutlineFactors[startY];
+                            equity += areaWidthFactors[previousAreaWidth] * areaHeightFactors[areaHeight] * outlineHeightFactors[startY];
                         }
                         areaHeight = 1;
                         isAreaWallsSameHeightNotInitialized = true;
