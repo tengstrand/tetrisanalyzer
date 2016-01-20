@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class BoardOutline {
     public int minY;
     public int maxY;
+    public double freeRows;
     private int[] outline;
 
     public BoardOutline(Board board) {
@@ -17,9 +18,11 @@ public class BoardOutline {
         minY = Integer.MAX_VALUE;
         maxY = Integer.MIN_VALUE;
 
+        int freeCells = 0;
         for (int x = 0; x < board.width; x++) {
             int y = 0;
             while (board.isFree(x, y)) {
+                freeCells++;
                 y++;
             }
             outline[x + wall] = y;
@@ -35,6 +38,8 @@ public class BoardOutline {
             outline[0] = 0;
         }
         outline[board.width + wall] = 0;
+
+        freeRows = ((double)freeCells) / board.width;
     }
 
     public BoardOutline(int minY, int maxY, int... outline) {
