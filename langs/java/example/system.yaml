@@ -34,6 +34,7 @@ piece generators:
   - id: Linear
     description: Standard Linear congruential piece generator
     class: com.github.tetrisanalyzer.piecegenerator.LinearCongrentialPieceGenerator
+    seed: 3
     constant 1: 1664525
     constant 2: 1013904223
 
@@ -75,7 +76,7 @@ board evaluators:
     areaHeightEqFactor4: 3.06
 
   - id: Tengstrand 1.3
-    description: A Tetris AI that makes 2 800 000 lines per row in average on a 10x20 board, 1 piece mode.
+    description: A Tetris AI that makes 3 400 000 lines per row in average on a 10x20 board, 1 piece mode.
     author: Joakim Tengstrand
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13
@@ -86,7 +87,7 @@ board evaluators:
     hollowFactor1: 0.46
     hollowFactor2: 0.51
     hollowFactor3: 0.5
-    hollowFactor4: 0.42
+    hollowFactor4: 0.40
     hollowFactorDelta: 0.85
     areaWidthFactor1: 4.978
     areaWidthFactor2: 2.38
@@ -109,7 +110,7 @@ board evaluators:
     areaHeightEqFactor4: 3.06
 
   - id: Tengstrand 2.0
-    description: Work in progress
+    description: A Tetris AI that makes > 3 400 000 lines per row in average on a 10x20 board, 1 piece mode.
     author: Joakim Tengstrand
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator20
@@ -120,11 +121,11 @@ board evaluators:
     outlineHeightFactor3: 1.12
     outlineHeightFactor4: 1.1
     hollowHeightFactor0: 1.9
-    hollowHeightFactor1: 1.5
+    hollowHeightFactor1: 1.0
     hollowFactor1: 0.46
     hollowFactor2: 0.51
     hollowFactor3: 0.5
-    hollowFactor4: 0.42
+    hollowFactor4: 0.40
     hollowFactorDelta: 0.85
     areaWidthFactor1: 4.978
     areaWidthFactor2: 2.38
