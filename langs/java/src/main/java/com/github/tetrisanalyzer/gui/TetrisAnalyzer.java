@@ -31,7 +31,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private boolean paused;
     private final static int CHAR_WIDTH = 8;
     private Color actionColor = new Color(0,128,0);
-    private ViewMode viewMode = ViewMode.DISTRIBUTION;
+    private ViewMode viewMode = ViewMode.ROWS_PER_GAME;
     private ViewMode areasViewMode = ViewMode.DISTRIBUTION_AREA;
 
     private long actionAt;

@@ -25,7 +25,7 @@ public class TengstrandBoardEvaluator13 implements BoardEvaluator {
     public double hollowFactor1 = 0.46;
     public double hollowFactor2 = 0.51;
     public double hollowFactor3 = 0.5;
-    public double hollowFactor4 = 0.5;
+    public double hollowFactor4 = 0.40;
     public double hollowFactorDelta = 0.85;
 
     public double areaWidthFactor1 = 4.978;
