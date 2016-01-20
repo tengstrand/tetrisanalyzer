@@ -13,7 +13,7 @@ public class BoardOutline {
 
     public BoardOutline(Board board, boolean withLeftWall) {
         int wall = withLeftWall ? 1 : 0;
-        int[] outline = new int[board.width + 1 + wall];
+        outline = new int[board.width + 1 + wall];
         minY = Integer.MAX_VALUE;
         maxY = Integer.MIN_VALUE;
 
@@ -35,8 +35,6 @@ public class BoardOutline {
             outline[0] = 0;
         }
         outline[board.width + wall] = 0;
-
-        this.outline = outline;
     }
 
     public BoardOutline(int minY, int maxY, int... outline) {
