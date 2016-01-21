@@ -133,6 +133,10 @@ board evaluators:
     areaWidthFactor8: 1.34
     areaWidthFactor9: 1.18
     areaWidthFloorFactor2: 2.8
+    areaWidthFloorFactor3: 2.9
+    areaWidthFloorFactor4: 2.9
+    areaWidthFloorFactor5: 2.9
+    areaWidthFloorFactor6: 2.9
     areaHeightFactor1: 0.5
     areaHeightFactor2: 1.19
     areaHeightFactor3: 2.35
