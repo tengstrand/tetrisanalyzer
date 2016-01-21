@@ -6,6 +6,8 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.util.Locale;
+
 import static com.github.tetrisanalyzer.game.StringUtils.format;
 
 public class GameState {
@@ -97,7 +99,7 @@ public class GameState {
     }
 
     public String areaFormatted() {
-        return format(area());
+        return String.format(Locale.ENGLISH, "%.8f", area());
     }
 
     public GameState copy() {
