@@ -4,7 +4,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class RaceGameSettingsIterator implements Iterator<RaceGameSettings> {
     final boolean removeHidden;
@@ -40,11 +39,6 @@ public class RaceGameSettingsIterator implements Iterator<RaceGameSettings> {
 
     @Override
     public void remove() {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void forEachRemaining(Consumer<? super RaceGameSettings> action) {
         throw new NotImplementedException();
     }
 }
