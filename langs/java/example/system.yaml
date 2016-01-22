@@ -44,7 +44,7 @@ piece generators:
 
 board evaluators:
   - id: Tengstrand 1.2
-    description: A Tetris AI that makes 2 800 000 lines per row in average on a 10x20 board, 1 piece mode.
+    description: A Tetris AI that makes 3 200 000 lines per row in average on a 10x20 board, 1 piece mode, standard Colin Fahey rules.
     author: Joakim Tengstrand
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12
@@ -76,7 +76,7 @@ board evaluators:
     areaHeightEqFactor4: 3.06
 
   - id: Tengstrand 1.3
-    description: A Tetris AI that makes 3 400 000 lines per row in average on a 10x20 board, 1 piece mode.
+    description: A Tetris AI that makes 3 500 263 lines per row in average (after 317 games) on a 10x20 board, 1 piece mode, standard Colin Fahey rules.
     author: Joakim Tengstrand
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13
