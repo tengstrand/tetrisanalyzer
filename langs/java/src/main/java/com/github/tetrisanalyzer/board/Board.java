@@ -42,10 +42,6 @@ public class Board implements TextBoard {
         }
         Board result = new Board(width,  height, boardRows);
 
-        int cells = result.numberOfOccupiedCells();
-        if ((width & 1) == 0 && (cells & 1) == 1) {
-            throw new IllegalArgumentException("An even board width (" + width + ") must contain an even number of filled cells (" + cells + ")");
-        }
         return result;
     }
 
