@@ -38,11 +38,8 @@ public class TengstrandBoardEvaluator14 implements BoardEvaluator {
     public double areaWidthFactor8 = 1.34;
     public double areaWidthFactor9 = 1.18;
 
+    public final int floorFactors = 2;
     public double areaWidthFloorFactor2 = 2.8;
-    public double areaWidthFloorFactor3 = 2.9;
-    public double areaWidthFloorFactor4 = 2.9;
-    public double areaWidthFloorFactor5 = 2.9;
-    public double areaWidthFloorFactor6 = 2.9;
 
     public double areaHeightFactor1 = 0.5;
     public double areaHeightFactor2 = 1.19;
@@ -101,10 +98,6 @@ public class TengstrandBoardEvaluator14 implements BoardEvaluator {
         areaWidthFactor8 = reader.readDouble("areaWidthFactor8");
         areaWidthFactor9 = reader.readDouble("areaWidthFactor9");
         areaWidthFloorFactor2 = reader.readDouble("areaWidthFloorFactor2");
-        areaWidthFloorFactor3 = reader.readDouble("areaWidthFloorFactor3");
-        areaWidthFloorFactor4 = reader.readDouble("areaWidthFloorFactor4");
-        areaWidthFloorFactor5 = reader.readDouble("areaWidthFloorFactor5");
-        areaWidthFloorFactor6 = reader.readDouble("areaWidthFloorFactor6");
         areaHeightFactor1 = reader.readDouble("areaHeightFactor1");
         areaHeightEqFactor1 = reader.readDouble("areaHeightEqFactor1");
         areaHeightFactor2 = reader.readDouble("areaHeightFactor2");
@@ -185,14 +178,6 @@ public class TengstrandBoardEvaluator14 implements BoardEvaluator {
 
     private void initAreaWidthFloorFactors() {
         areaWidthFloorFactors[2] = areaWidthFloorFactor2;
-        areaWidthFloorFactors[3] = areaWidthFloorFactor3;
-        areaWidthFloorFactors[4] = areaWidthFloorFactor4;
-        areaWidthFloorFactors[5] = areaWidthFloorFactor5;
-        areaWidthFloorFactors[6] = areaWidthFloorFactor6;
-
-        for (int i=7; i<areaWidthFloorFactors.length; i++) {
-            areaWidthFloorFactors[i] = areaWidthFloorFactor6;
-        }
     }
 
     private void initAreaHeightFactors() {
@@ -258,10 +243,6 @@ public class TengstrandBoardEvaluator14 implements BoardEvaluator {
         parameters.put("areaWidthFactor8", Double.toString(areaWidthFactor8));
         parameters.put("areaWidthFactor9", Double.toString(areaWidthFactor9));
         parameters.put("areaWidthFloorFactor2", Double.toString(areaWidthFloorFactor2));
-        parameters.put("areaWidthFloorFactor3", Double.toString(areaWidthFloorFactor3));
-        parameters.put("areaWidthFloorFactor4", Double.toString(areaWidthFloorFactor4));
-        parameters.put("areaWidthFloorFactor5", Double.toString(areaWidthFloorFactor5));
-        parameters.put("areaWidthFloorFactor6", Double.toString(areaWidthFloorFactor6));
         parameters.put("areaHeightFactor1", Double.toString(areaHeightFactor1));
         parameters.put("areaHeightEqFactor1", Double.toString(areaHeightEqFactor1));
         parameters.put("areaHeightFactor2", Double.toString(areaHeightFactor2));
@@ -364,7 +345,7 @@ public class TengstrandBoardEvaluator14 implements BoardEvaluator {
                     if (areaWidth > 0 && (areaWidth == previousAreaWidth || previousAreaWidth == 0)) {
                         areaHeight++;
                     } else {
-                        if (isFloor && previousAreaWidth >= 2) {
+                        if (isFloor && previousAreaWidth >= 2 && previousAreaWidth <= floorFactors) {
                             if (hasAreaWallsSameHeight) {
                                 equity += areaWidthFloorFactors[previousAreaWidth] * areaHeightEqFactors[areaHeight];
                             } else {

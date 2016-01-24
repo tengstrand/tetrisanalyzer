@@ -19,6 +19,8 @@ public class TengstrandBoardEvaluator133 implements BoardEvaluator {
     public double maxEquityFactor = 1.21;
 
     public double heightHollowOutlineFactor = 2;
+    public double heightHollowOutlineDelta = 0.7;
+
     public double heightFactor0 = 7;
     public double heightFactor1 = 2.5;
     public double heightFactorDelta = 0.81;
@@ -79,6 +81,7 @@ public class TengstrandBoardEvaluator133 implements BoardEvaluator {
 
         maxEquityFactor = reader.readDouble("maxEquityFactor");
         heightHollowOutlineFactor = reader.readDouble("heightHollowOutlineFactor");
+        heightHollowOutlineDelta = reader.readDouble("heightHollowOutlineDelta");
         heightFactor0 = reader.readDouble("heightFactor0");
         heightFactor1 = reader.readDouble("heightFactor1");
         heightFactorDelta = reader.readDouble("heightFactorDelta");
@@ -156,12 +159,15 @@ public class TengstrandBoardEvaluator133 implements BoardEvaluator {
     }
 
     private void initHeightHollowOutlineFactor() {
-        double delta = ((boardHeight / 20.0) * (heightHollowOutlineFactor - 1)) / (boardHeight);
-        double factor = heightHollowOutlineFactor;
+        double factor = heightHollowOutlineFactor - 1;
+
+        if (factor < 0) {
+            throw new IllegalStateException("heightHollowOutlineFactor must be equal or greater than 1");
+        }
 
         for (int i=0; i<= boardHeight; i++) {
-            heightHollowOutlineFactors[i] = factor;
-            factor -= delta;
+            heightHollowOutlineFactors[i] = factor + 1;
+            factor *= heightHollowOutlineDelta;
         }
     }
 
@@ -231,6 +237,7 @@ public class TengstrandBoardEvaluator133 implements BoardEvaluator {
 
         parameters.put("maxEquityFactor", Double.toString(maxEquityFactor));
         parameters.put("heightHollowOutlineFactor", Double.toString(heightHollowOutlineFactor));
+        parameters.put("heightHollowOutlineDelta", Double.toString(heightHollowOutlineDelta));
         parameters.put("heightFactor0", Double.toString(heightFactor0));
         parameters.put("heightFactor1", Double.toString(heightFactor1));
         parameters.put("heightFactorDelta", Double.toString(heightFactorDelta));
