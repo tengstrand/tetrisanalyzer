@@ -150,7 +150,7 @@ board evaluators:
     url: http://hem.bredband.net/joakimtengstrand
     class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator132
     maxEquityFactor: 1.21
-    heightHollowOutlineFactor: 2
+    heightHollowOutlineFactor: 1.4
     heightFactor0: 7
     heightFactor1: 2.5
     heightFactorDelta: 0.81

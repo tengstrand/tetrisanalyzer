@@ -18,7 +18,7 @@ public class TengstrandBoardEvaluator132 implements BoardEvaluator {
     public double maxEquity;
     public double maxEquityFactor = 1.21;
 
-    public double heightHollowOutlineFactor = 2;
+    public double heightHollowOutlineFactor = 1.4;
     public double heightFactor0 = 7;
     public double heightFactor1 = 2.5;
     public double heightFactorDelta = 0.81;
