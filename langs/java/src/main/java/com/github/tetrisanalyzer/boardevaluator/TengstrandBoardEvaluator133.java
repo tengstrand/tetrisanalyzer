@@ -10,9 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Joakim Tengstrand's Tetris AI, version 1.3.2 (an experiment, work in progress!)
+ * Joakim Tengstrand's Tetris AI, version 1.3.3 (an experiment, work in progress!)
  */
-public class TengstrandBoardEvaluator132 implements BoardEvaluator {
+public class TengstrandBoardEvaluator133 implements BoardEvaluator {
     public int boardWidth;
     public int boardHeight;
     public double maxEquity;
@@ -64,11 +64,11 @@ public class TengstrandBoardEvaluator132 implements BoardEvaluator {
     public double[] areaHeightFactors;
     public double[] areaHeightEqFactors;
 
-    public TengstrandBoardEvaluator132(int boardWidth, int boardHeight, GameSettings rules) {
+    public TengstrandBoardEvaluator133(int boardWidth, int boardHeight, GameSettings rules) {
         init(boardWidth, boardHeight);
     }
 
-    public TengstrandBoardEvaluator132(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
+    public TengstrandBoardEvaluator133(int boardWidth, int boardHeight, GameSettings rules, Map settings) {
         SettingsReader reader = new SettingsReader(settings, "board evaluators");
 
         id = reader.readString("id");

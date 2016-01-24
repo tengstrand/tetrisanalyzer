@@ -179,6 +179,41 @@ board evaluators:
     areaHeightEqFactor3: 2.22
     areaHeightEqFactor4: 3.06
 
+  - id: Tengstrand 1.3.3
+    description: Work in progress
+    author: Joakim Tengstrand
+    url: http://hem.bredband.net/joakimtengstrand
+    class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator133
+    maxEquityFactor: 1.21
+    heightHollowOutlineFactor: 2
+    heightFactor0: 7
+    heightFactor1: 2.5
+    heightFactorDelta: 0.81
+    hollowFactor1: 0.46
+    hollowFactor2: 0.51
+    hollowFactor3: 0.5
+    hollowFactor4: 0.40
+    hollowFactorDelta: 0.85
+    areaWidthFactor1: 4.978
+    areaWidthFactor2: 2.38
+    areaWidthFactor3: 3.01
+    areaWidthFactor4: 2.21
+    areaWidthFactor5: 2.05
+    areaWidthFactor6: 1.87
+    areaWidthFactor7: 1.52
+    areaWidthFactor8: 1.34
+    areaWidthFactor9: 1.18
+    areaHeightFactor1: 0.5
+    areaHeightFactor2: 1.19
+    areaHeightFactor3: 2.35
+    areaHeightFactor4: 3.1
+    areaHeightFactor5: 4.6
+    areaHeightFactorDelta: 1.1
+    areaHeightEqFactor1: 0.42
+    areaHeightEqFactor2: 1.05
+    areaHeightEqFactor3: 2.22
+    areaHeightEqFactor4: 3.06
+
   - id: Tengstrand 1.4
     description: Work in progress!
     author: Joakim Tengstrand
