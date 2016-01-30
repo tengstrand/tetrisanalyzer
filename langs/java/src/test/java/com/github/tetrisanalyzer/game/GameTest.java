@@ -21,7 +21,7 @@ public class GameTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         Distribution distribution = new Distribution(board.width, board.height);
-        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 2, 1, null, 0, 0, 0, 0, 0, 0, 0, 5);
+        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 5);
         Game game = new Game(result, settings, false, false);
         game.run();
 
@@ -40,9 +40,9 @@ public class GameTest {
                 "|----------|",
                 "|----------|",
                 "|----------|",
-                "|----------|",
-                "|x-----x---|",
-                "|xxx--xxxxx|",
+                "|------x---|",
+                "|-----xxx--|",
+                "|----xxxxxx|",
                 "============"), game.board);
     }
 
