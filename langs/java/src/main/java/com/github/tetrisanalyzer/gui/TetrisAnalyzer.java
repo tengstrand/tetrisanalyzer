@@ -178,10 +178,10 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.lightGray);
         g.drawRect(x1, y1, w1, height);
 
-        graph.draw(viewMode == ViewMode.ROWS_PER_GAME, x1, y1, w1, height, g);
+        graph.draw(viewMode, x1, y1, w1, height, g);
 
         int width = raceInfo.firstColumnWidth(charWidth) - 70;
-        miniatureGraph.draw(true, 22, y1, width - 20, 50, g);
+        miniatureGraph.draw(null, 22, y1, width - 20, 50, g);
 
         miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
 
@@ -291,6 +291,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
             case 114: // <F3>
                 setViewMode(toggleViewMode());
                 break;
+            case 115: // <F4>
+                setViewMode(ViewMode.EQUITY_DIFF);
+                break;
             default:
                 System.out.println("key: " + keyCode + " modifiers:" + e.getModifiers());
         }
@@ -298,7 +301,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     // Set to 'Distribution' or toggle between 'Distribution area' and 'Rows per game'
     private ViewMode toggleViewMode() {
-        if (viewMode == ViewMode.DISTRIBUTION) return areasViewMode;;
+        if (viewMode == ViewMode.DISTRIBUTION) return areasViewMode;
         if (viewMode == ViewMode.ROWS_PER_GAME) return ViewMode.DISTRIBUTION_AREA;
         return ViewMode.ROWS_PER_GAME;
     }
@@ -311,9 +314,8 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 updateListeners(distributionGraph, areasGraph);
                 break;
             case DISTRIBUTION_AREA:
-                updateListeners(areasGraph, distributionGraph);
-                break;
             case ROWS_PER_GAME:
+            case EQUITY_DIFF:
                 updateListeners(areasGraph, distributionGraph);
                 break;
         }
@@ -377,9 +379,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         race = RaceSettings.fromFile(raceFilename, systemSettings, showAll);
         games = race.games;
         raceInfo = new RaceInfo(race);
-        distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, false, race, raceInfo);
-        areasGraph = new AreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts, raceInfo);
-        miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, true, race, raceInfo);
+        distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, false, race);
+        areasGraph = new AreasGraph(GRAPH_X1, GRAPH_Y1, games, race.shortcuts);
+        miniatureGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, true, race);
 
         Board board = games.get(0).gameState.board;
         graphBoardPainter = new GraphBoardPainter(board.width, board.height);

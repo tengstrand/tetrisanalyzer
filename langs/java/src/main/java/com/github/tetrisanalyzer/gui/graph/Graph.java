@@ -25,8 +25,6 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
     private int dragX = -1;
     private int dragY = -1;
 
-    private int charWidth;
-    private final RaceInfo raceInfo;
     protected final RaceGamesSettings games;
 
     private static Color selectedWindowColor = new Color(240, 240, 240);
@@ -41,25 +39,22 @@ public abstract class Graph implements MouseListener, MouseMotionListener, KeyLi
 
     private final Shortcuts shortcuts;
 
-    public Graph(int x1, int y1, RaceGamesSettings games, Shortcuts shortcuts, RaceInfo raceInfo) {
+    public Graph(int x1, int y1, RaceGamesSettings games, Shortcuts shortcuts) {
         this.x1 = x1;
         this.y1 = y1;
         this.games = games;
         this.shortcuts = shortcuts;
-        this.raceInfo = raceInfo;
         windows.add(new ZoomWindow());
     }
 
-    public abstract void draw(boolean background, int x1, int y1, int width, int height, Graphics g);
+    public abstract void draw(ViewMode viewMode, int x1, int y1, int width, int height, Graphics g);
 
-    public void setParameters(int x1, int y1, int width, int height, Graphics g) {
+    public void setParameters(int x1, int y1, int width, int height) {
         this.x1 = x1;
         this.y1 = y1;
         this.width = width;
         this.height = height;
         this.x2 = x1 + width;
-
-        charWidth = g.getFontMetrics().charWidth(' ');
     }
 
     protected void paintGraph(boolean background, double[] values, Graphics g) {

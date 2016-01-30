@@ -15,15 +15,15 @@ public class DistributionGraph extends Graph {
     private final boolean miniature;
     private final RaceSettings race;
 
-    public DistributionGraph(int x, int y, boolean miniature, RaceSettings race, RaceInfo raceInfo) {
-        super(x, y, race.games, race.shortcuts, raceInfo);
+    public DistributionGraph(int x, int y, boolean miniature, RaceSettings race) {
+        super(x, y, race.games, race.shortcuts);
         this.miniature = miniature;
         this.race = race;
     }
 
     @Override
-    public void draw(boolean background, int x1, int y1, int width, int height, Graphics g) {
-        setParameters(x1, y1, width, height, g);
+    public void draw(ViewMode viewMode, int x1, int y1, int width, int height, Graphics g) {
+        setParameters(x1, y1, width, height);
         fillMouseSelection(g);
 
         Double maxYRatio = Double.MIN_VALUE;
