@@ -21,6 +21,9 @@ public class GameState {
     public ColoredBoard coloredStartBoard;
     public final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
+    public final int masterDepth;
+    public double totalEquityDiff;
+    public double totalEquityAbsDiff;
     public final int level;
     public final int numberOfKnownPieces;
     public final List<String> nextPieces;
@@ -38,6 +41,7 @@ public class GameState {
 
     public GameState(Duration duration, ColoredBoard coloredBoard, ColoredBoard coloredStartBoard,
                      Distribution distribution, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
+                     int masterDepth, double totalEquityDiff, double totalEquityAbsDiff,
                      int level, int numberOfKnownPieces, List<String> nextPieces,
                      long numberOfGames, long numberOfPieces, long totalPieces,
                      long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
@@ -49,6 +53,9 @@ public class GameState {
         this.board = coloredBoard.asBoard();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
+        this.masterDepth = masterDepth;
+        this.totalEquityDiff = totalEquityDiff;
+        this.totalEquityAbsDiff = totalEquityAbsDiff;
         this.level = level;
         this.numberOfKnownPieces = numberOfKnownPieces;
         this.nextPieces = nextPieces;
@@ -102,6 +109,14 @@ public class GameState {
         return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
     }
 
+    public String totalEquityDiffFormatted() {
+        return format(totalEquityDiff / totalPieces);
+    }
+
+    public String totalEquityAbsDiffFormatted() {
+        return format(totalEquityAbsDiff / totalPieces);
+    }
+
     public double area() {
         return distribution.area();
     }
@@ -112,12 +127,13 @@ public class GameState {
 
     public GameState copy() {
         return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
-            level, numberOfKnownPieces, nextPieces, totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
+            masterDepth, totalEquityDiff, totalEquityAbsDiff, level, numberOfKnownPieces, nextPieces, totalPieces,
+            nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
     }
 
     private GameState(Duration duration, Board board, Board startBoard, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
-                      int level, int numberOfKnownPieces, List<String> nextPieces,
+                      int masterDepth, double totalEquityDiff, double totalEquityAbsDiff, int level, int numberOfKnownPieces, List<String> nextPieces,
                       long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows) {
         this.duration = duration;
@@ -128,6 +144,9 @@ public class GameState {
         this.coloredStartBoard = coloredStartBoard.copy();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
+        this.masterDepth = masterDepth;
+        this.totalEquityDiff = totalEquityDiff;
+        this.totalEquityAbsDiff = totalEquityAbsDiff;
         this.level = level;
         this.numberOfKnownPieces = numberOfKnownPieces;
         this.nextPieces = nextPieces;
@@ -156,7 +175,7 @@ public class GameState {
         if (games == 0) {
             return "";
         }
-        return format((double)totalRows / games);
+        return format((double) totalRows / games);
     }
 
     private String board() {
@@ -179,6 +198,9 @@ public class GameState {
                 ", coloredBoard=" + coloredBoard +
                 ", boardEvaluator=" + boardEvaluator +
                 ", pieceGenerator=" + pieceGenerator +
+                ", masterDepth=" + masterDepth +
+                ", totalEquityDiff=" + totalEquityDiff +
+                ", totalEquityAbsDiff=" + totalEquityAbsDiff +
                 ", level=" + level +
                 ", numberOfKnownPieces" + numberOfKnownPieces +
                 ", nextPieces=" + nextPieces +

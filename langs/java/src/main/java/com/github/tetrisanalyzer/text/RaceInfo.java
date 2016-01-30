@@ -45,8 +45,10 @@ public class RaceInfo {
         rows.add(rpad("board evaluator id:", paramLength));
         rows.add(rpad("", paramLength));
         rows.add(rpad("level, known pieces:", paramLength));
-        rows.add(rpad("equity diff:", paramLength));
-        rows.add(rpad("equity abs diff:", paramLength));
+        if (hasMaster()) {
+            rows.add(rpad("equity diff:", paramLength));
+            rows.add(rpad("equity abs diff:", paramLength));
+        }
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
         rows.add(rpad("area (" + raceSettings.areaPercentage + "%):", paramLength));
@@ -58,6 +60,15 @@ public class RaceInfo {
         rows.add(rpad("pieces/s:", paramLength));
 
         return rows;
+    }
+
+    private boolean hasMaster() {
+        for (RaceGameSettings settings : raceSettings.games) {
+            if (settings.masterDepth > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private int textRows() {
@@ -88,8 +99,10 @@ public class RaceInfo {
             values.add("");
 
             values.add(level);
-            values.add(state.totalEquityDiffFormatted());
-            values.add(state.totalEquityAbsDiffFormatted());
+            if (hasMaster()) {
+                values.add(state.totalEquityDiffFormatted());
+                values.add(state.totalEquityAbsDiffFormatted());
+            }
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
             values.add(state.areaFormatted());

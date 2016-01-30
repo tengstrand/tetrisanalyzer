@@ -231,8 +231,8 @@ public class RaceSettings {
             String headValues = headValues(heading, parameterValue, gameParameters);
 
             String masterDepth = "   master depth: " + game.masterDepth + "\n";
-            String totalEquityDiff = "   total equity diff: " + game.totalEquityDiff + "\n";
-            String totalEquityAbsDiff = "   total equity abs diff: " + game.totalEquityAbsDiff + "\n";
+            String totalEquityDiff = "   total equity diff: " + game.gameState.totalEquityDiff + "\n";
+            String totalEquityAbsDiff = "   total equity abs diff: " + game.gameState.totalEquityAbsDiff + "\n";
             String master = game.masterDepth == 0 ? "" : masterDepth + totalEquityDiff + totalEquityAbsDiff;
 
             games += headValues +
