@@ -6,7 +6,7 @@ import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
 import java.util.Map;
 
 public interface BoardEvaluator {
+    double maxEquity();
     double evaluate(Board board, AllValidPieceMoves allValidPieceMoves);
-
     Map<String,String> parameters();
 }

@@ -46,6 +46,18 @@ public abstract class Piece {
         };
     }
 
+    public static Piece[] pieces(PieceSettings settings) {
+        return new Piece[] {
+                createPieceO(settings),
+                createPieceI(settings),
+                createPieceS(settings),
+                createPieceZ(settings),
+                createPieceL(settings),
+                createPieceJ(settings),
+                createPieceT(settings),
+        };
+    }
+
     private static final Map<Character,Integer> indexMap = new HashMap<>();
 
     static {

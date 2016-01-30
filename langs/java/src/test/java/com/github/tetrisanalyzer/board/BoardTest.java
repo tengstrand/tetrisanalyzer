@@ -17,7 +17,7 @@ public class BoardTest {
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "============");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -27,7 +27,7 @@ public class BoardTest {
                 "|---|",
                 "|---|",
                 "|-x-|",
-                "¯¯¯¯¯");
+                "=====");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -42,7 +42,7 @@ public class BoardTest {
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"};
+                "============"};
 
         Board board = Board.create(expectedBoard);
 
@@ -67,7 +67,7 @@ public class BoardTest {
                 "|---------|",
                 "|---------|",
                 "|-x-------|",
-                "¯¯¯¯¯¯¯¯¯¯¯");
+                "===========");
 
         assertFalse(board.isFree(1, 4));
     }
@@ -80,7 +80,7 @@ public class BoardTest {
                 "|xxxxxxxxx|",
                 "|xxxxxxxxx|",
                 "|x-xxxxxxx|",
-                "¯¯¯¯¯¯¯¯¯¯¯");
+                "===========");
 
         assertTrue(board.isFree(1, 4));
     }
@@ -94,7 +94,7 @@ public class BoardTest {
                 "|xxxxxxxxxx|",
                 "|-x--x----x|",
                 "|xxxxxxxxxx|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯");
+                "============");
 
         assertEquals(3, board.clearRows(2, 4));
 
@@ -105,7 +105,7 @@ public class BoardTest {
                 "|----------|",
                 "|----x-----|",
                 "|-x--x----x|",
-                "¯¯¯¯¯¯¯¯¯¯¯¯"), board);
+                "============"), board);
     }
 
     @Test
@@ -125,27 +125,13 @@ public class BoardTest {
     }
 
     @Test
-    public void cantHaveOddNumberOfCellsOnAnEvenBoardWidth() {
-        try {
-            Board.create(
-                    "|------|",
-                    "|------|",
-                    "|x-----|",
-                    "|xx----|",
-                    "¯¯¯¯¯¯¯¯");
-            fail();
-        } catch (IllegalArgumentException e) {
-        }
-    }
-
-    @Test
     public void canHaveOddNumberOfCellsOnAnOddBoardWidth() {
         Board.create(
                 "|-----|",
                 "|-----|",
                 "|x----|",
                 "|xx---|",
-                "¯¯¯¯¯¯¯");
+                "=======");
     }
 
     @Test
@@ -156,7 +142,7 @@ public class BoardTest {
                 "|--------|",
                 "|--------|",
                 "|x------x|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
 
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = new Move(0,0, 3);
@@ -167,7 +153,7 @@ public class BoardTest {
                 "|--------|",
                 "|--------|",
                 "|x------x|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+                "=========="), board.asString(piece, move));
     }
 
     @Test
@@ -178,7 +164,7 @@ public class BoardTest {
                 "|xxxxx-xx|",
                 "|xx-xxxxx|",
                 "|xxxxxx-x|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
 
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = null;
@@ -189,7 +175,7 @@ public class BoardTest {
                 "|xxxxx-xx|",
                 "|xx-xxxxx|",
                 "|xxxxxx-x|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+                "=========="), board.asString(piece, move));
     }
 
     private Board board() {
@@ -198,7 +184,7 @@ public class BoardTest {
                 "|x-------|",
                 "|xxx----x|",
                 "|xxx-x-xx|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
     }
 
     private String board(String... rows) {
@@ -211,5 +197,4 @@ public class BoardTest {
         }
         return result;
     }
-
 }

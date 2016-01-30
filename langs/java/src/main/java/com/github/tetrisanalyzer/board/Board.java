@@ -82,7 +82,7 @@ public class Board implements TextBoard {
     }
 
     public static String bottomString(int chars) {
-        return new String(new char[chars]).replace("\0", "�");
+        return new String(new char[chars]).replace("\0", "=");
     }
 
     public static String bottomTextRow(int width) {
@@ -271,7 +271,7 @@ public class Board implements TextBoard {
      *  |LL--------|
      *  |LLIIIIOOT-|
      *  |IJS-TTTLLL|
-     *  ������������
+     *  ============
      */
     public String[] asStringRows(Piece piece, Move move) {
         String[] board = new String[height + 2];

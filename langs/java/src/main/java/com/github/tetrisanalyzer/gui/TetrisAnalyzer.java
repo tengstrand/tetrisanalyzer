@@ -257,9 +257,11 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                     reloadAndRestartGames(true);
                 }
                 break;
-            case 67: // <Ctrl> + C
+            case 67:
                 if (e.getModifiers() == 2) {
-                    copyToClipboard();
+                    copyToClipboard(); // <Ctrl> + C
+                } else if (e.getModifiers() == 3) {
+                    copyBoardsToClipboard(); // <Ctrl> + <Shift> + C
                 } else {
                     raceInfo.toggleShowHeading();
                 }
@@ -336,11 +338,17 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void copyToClipboard() {
-        String str = race.export(new WindowLocation(frame), graph.export());
+        copyToClipboard(race.export(new WindowLocation(frame), graph.export()));
+    }
 
+    private void copyBoardsToClipboard() {
+        copyToClipboard(race.games.get(0).game.lastBoardsAsString());
+    }
+
+    private void copyToClipboard(String string) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = toolkit.getSystemClipboard();
-        StringSelection strSel = new StringSelection(str);
+        StringSelection strSel = new StringSelection(string);
         clipboard.setContents(strSel, null);
 
         setAction("Copied to clipboard", 1);
@@ -367,13 +375,6 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private void reloadGames(boolean showAll) {
         SystemSettings systemSettings = SystemSettings.fromFile(systemFilename);
         race = RaceSettings.fromFile(raceFilename, systemSettings, showAll);
-
-        Iterator<RaceGameSettings> iterator = race.games.allGamesIterator();
-        while (iterator.hasNext()) {
-            RaceGameSettings settings = iterator.next();
-            Game game = settings.createGame(settings.tetrisRules);
-            settings.thread = new Thread(game);
-        }
         games = race.games;
         raceInfo = new RaceInfo(race);
         distributionGraph = new DistributionGraph(GRAPH_X1, GRAPH_Y1, false, race, raceInfo);

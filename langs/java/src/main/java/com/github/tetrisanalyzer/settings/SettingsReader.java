@@ -104,6 +104,14 @@ public class SettingsReader {
         return (List)get(key);
     }
 
+    public List readList(String key, List defaultList) {
+        if (!exists(key)) {
+            return defaultList;
+        }
+        ensureType(key, List.class);
+        return (List)get(key);
+    }
+
     public Map readMap(String key) {
         ensureExists(key);
         ensureType(key, Map.class);

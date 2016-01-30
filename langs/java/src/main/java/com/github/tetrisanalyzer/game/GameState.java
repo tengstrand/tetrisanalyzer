@@ -6,6 +6,7 @@ import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
+import java.util.List;
 import java.util.Locale;
 
 import static com.github.tetrisanalyzer.game.StringUtils.format;
@@ -20,6 +21,9 @@ public class GameState {
     public ColoredBoard coloredStartBoard;
     public final BoardEvaluator boardEvaluator;
     public final PieceGenerator pieceGenerator;
+    public final int level;
+    public final int numberOfKnownPieces;
+    public final List<String> nextPieces;
     public long pieces;
     public long totalPieces;
     public boolean nonstop;
@@ -34,6 +38,7 @@ public class GameState {
 
     public GameState(Duration duration, ColoredBoard coloredBoard, ColoredBoard coloredStartBoard,
                      Distribution distribution, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
+                     int level, int numberOfKnownPieces, List<String> nextPieces,
                      long numberOfGames, long numberOfPieces, long totalPieces,
                      long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
         this.duration = duration;
@@ -44,6 +49,9 @@ public class GameState {
         this.board = coloredBoard.asBoard();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator;
+        this.level = level;
+        this.numberOfKnownPieces = numberOfKnownPieces;
+        this.nextPieces = nextPieces;
         this.games = numberOfGames;
         this.pieces = numberOfPieces;
         this.totalPieces = totalPieces;
@@ -104,11 +112,12 @@ public class GameState {
 
     public GameState copy() {
         return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
-                totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
+            level, numberOfKnownPieces, nextPieces, totalPieces, nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
     }
 
     private GameState(Duration duration, Board board, Board startBoard, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
+                      int level, int numberOfKnownPieces, List<String> nextPieces,
                       long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows) {
         this.duration = duration;
@@ -119,6 +128,9 @@ public class GameState {
         this.coloredStartBoard = coloredStartBoard.copy();
         this.boardEvaluator = boardEvaluator;
         this.pieceGenerator = pieceGenerator.copy();
+        this.level = level;
+        this.numberOfKnownPieces = numberOfKnownPieces;
+        this.nextPieces = nextPieces;
         this.totalPieces = totalPieces;
         this.nonstop = nonstop;
         this.movesLeft = movesLeft;
@@ -167,6 +179,9 @@ public class GameState {
                 ", coloredBoard=" + coloredBoard +
                 ", boardEvaluator=" + boardEvaluator +
                 ", pieceGenerator=" + pieceGenerator +
+                ", level=" + level +
+                ", numberOfKnownPieces" + numberOfKnownPieces +
+                ", nextPieces=" + nextPieces +
                 ", pieces=" + pieces +
                 ", totalPieces=" + totalPieces +
                 ", nonstop=" + nonstop +

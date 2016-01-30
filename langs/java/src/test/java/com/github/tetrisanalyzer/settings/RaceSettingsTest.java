@@ -43,13 +43,20 @@ public class RaceSettingsTest {
             "area %: 25\n" +
             "games:\n" +
             " - duration: 1d 0h 0m 0s\n" +
+            "   level: 3\n" +
+            "   number of known pieces: 2\n" +
+            "   next pieces: [L]\n" +
+            "   heading: first value\n" +
             "   hide: true\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
-            "   heading: first value\n" +
+            "   heading: second value\n" +
             "   parameters:\n" +
             "     board evaluator id: Tengstrand 1.3\n" +
             "     hollowFactor1: 0.54\n" +
             "     areaWidthFactor2: 2.38\n" +
+            "   level: 1\n" +
+            "   number of known pieces: 1\n" +
+            "   next pieces: [T]\n" +
             "   tetris rules id: Atari\n" +
             "   board evaluator id: Tengstrand 1.2\n" +
             "   paused: true\n" +
@@ -80,6 +87,9 @@ public class RaceSettingsTest {
             "\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   parameter value: 3.55\n" +
+            "   level: 1\n" +
+            "   number of known pieces: 1\n" +
+            "   next pieces: [T]\n" +
             "   start board: [\"----------\",\n" +
             "                 \"----------\",\n" +
             "                 \"----------\",\n" +
@@ -149,10 +159,6 @@ public class RaceSettingsTest {
     public void exportSettings() throws YamlException {
         SystemSettings systemSettings = SystemSettings.fromString(SYSTEM_SETTINGS);
         RaceSettings race = RaceSettings.fromString(RACE_SETTINGS, systemSettings, false);
-
-        for (RaceGameSettings settings : race.games) {
-            settings.createGame(settings.tetrisRules);
-        }
         String result = race.export(new WindowLocation(), "");
 
         assertEquals(
@@ -172,21 +178,87 @@ public class RaceSettingsTest {
                 "piece generator id: Linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
                 "parameter name: areaWidthFactor2\n" +
-                "parameter values:\n" +
+                "parameters:\n" +
                 "  hollowFactor2: 0.61\n" +
                 "  hollowFactorDelta: 0.86\n" +
                 "save on close: false\n" +
                 "restart on file change: false\n" +
                 "colors: [ff0000, 00ff00, 000000, ffaa00, 00b2ff, b32dd7, cee126, ff00f6, c8c8c8]\n" +
                 "window location size: [100,200,750,600]\n" +
-                "area %: 25\n" +
+                "area %: 25.0\n" +
                 "games:\n" +
                 " - heading: first value\n" +
-                "   parameter values:\n" +
+                "   level: 3\n" +
+                "   number of known pieces: 2\n" +
+                "   next pieces: [L, L]\n" +
+                "   duration: 1d 0h 0m 0.000s\n" +
+                "   hide: true\n" +
+                "   paused: false\n" +
+                "   board: [\"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"----------\",\n" +
+                "           \"xx------xx\",\n" +
+                "           \"xx----xxxx\"]\n" +
+                "   games: \n" +
+                "   pieces: 0\n" +
+                "   pieces total: 0\n" +
+                "   rows: 0\n" +
+                "   rows total: 0\n" +
+                "   min rows: \n" +
+                "   max rows: \n" +
+                "   rows/game: \n" +
+                "   piece/s: 0.0\n" +
+                "   piece generator state: { seed: 557220080, constant2: 555555555 }\n" +
+                "   distribution: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]\n" +
+                "   used parameters:\n" +
+                "      id: Tengstrand 1.2\n" +
+                "      description: Tengstrand 1.2\n" +
+                "      author: Joakim Tengstrand\n" +
+                "      url: http://hem.bredband.net/joakimtengstrand\n" +
+                "      class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator12\n" +
+                "      maxEquityFactor: 1.21\n" +
+                "      heightFactor0: 7.0\n" +
+                "      heightFactor1: 2.5\n" +
+                "      heightFactorDelta: 0.86\n" +
+                "      hollowFactor1: 0.533\n" +
+                "      hollowFactor2: 0.61\n" +
+                "      hollowFactorDelta: 0.86\n" +
+                "      areaWidthFactor1: 4.95\n" +
+                "      areaWidthFactor2: 2.39\n" +
+                "      areaWidthFactor3: 3.1\n" +
+                "      areaWidthFactor4: 2.21\n" +
+                "      areaWidthFactor5: 2.05\n" +
+                "      areaWidthFactor6: 1.87\n" +
+                "      areaWidthFactor7: 1.52\n" +
+                "      areaWidthFactor8: 1.34\n" +
+                "      areaWidthFactor9: 1.18\n" +
+                "      areaHeightFactor1: 0.5\n" +
+                "      areaHeightEqFactor1: 0.42\n" +
+                "      areaHeightFactor2: 1.19\n" +
+                "      areaHeightEqFactor2: 1.05\n" +
+                "      areaHeightFactor3: 2.3\n" +
+                "      areaHeightEqFactor3: 2.2\n" +
+                "      areaHeightFactor4: 3.1\n" +
+                "      areaHeightEqFactor4: 3.06\n" +
+                "      areaHeightFactor5: 4.6\n" +
+                "      areaHeightFactorDelta: 1.0\n" +
+                " - heading: second value\n" +
+                "   parameters:\n" +
                 "     areaWidthFactor2: 2.38\n" +
                 "     board evaluator id: Tengstrand 1.3\n" +
                 "     hollowFactor1: 0.54\n" +
+                "   level: 1\n" +
+                "   number of known pieces: 1\n" +
+                "   next pieces: [T]\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
+                "   hide: false\n" +
                 "   paused: true\n" +
                 "   tetris rules id: Atari\n" +
                 "   board evaluator id: Tengstrand 1.2\n" +
@@ -221,12 +293,18 @@ public class RaceSettingsTest {
                 "      url: http://hem.bredband.net/joakimtengstrand\n" +
                 "      class: com.github.tetrisanalyzer.boardevaluator.TengstrandBoardEvaluator13\n" +
                 "      maxEquityFactor: 1.21\n" +
-                "      piecePenalty: 6.0\n" +
                 "      heightFactor0: 7.0\n" +
                 "      heightFactor1: 2.5\n" +
                 "      heightFactorDelta: 0.86\n" +
                 "      hollowFactor1: 0.54\n" +
                 "      hollowFactor2: 0.61\n" +
+                "      hollowFactor3: 0.5\n" +
+                "      hollowFactor4: 0.4\n" +
+                "      hollowFactor5: 0.34400000000000003\n" +
+                "      hollowFactor6: 0.29584\n" +
+                "      hollowFactor7: 0.2544224\n" +
+                "      hollowFactor8: 0.218803264\n" +
+                "      hollowFactor9: 0.18817080704\n" +
                 "      hollowFactorDelta: 0.86\n" +
                 "      areaWidthFactor1: 4.95\n" +
                 "      areaWidthFactor2: 2.38\n" +
@@ -243,12 +321,16 @@ public class RaceSettingsTest {
                 "      areaHeightEqFactor2: 1.05\n" +
                 "      areaHeightFactor3: 2.3\n" +
                 "      areaHeightEqFactor3: 2.2\n" +
-                "      areaHeightEqFactor4: 3.06\n" +
                 "      areaHeightFactor4: 3.1\n" +
+                "      areaHeightEqFactor4: 3.06\n" +
                 "      areaHeightFactor5: 4.6\n" +
                 "      areaHeightFactorDelta: 1.0\n" +
                 " - parameter value: 3.55\n" +
+                "   level: 1\n" +
+                "   number of known pieces: 1\n" +
+                "   next pieces: [T]\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
+                "   hide: false\n" +
                 "   paused: false\n" +
                 "   start board: [\"----------\",\n" +
                 "                 \"----------\",\n" +
@@ -313,8 +395,8 @@ public class RaceSettingsTest {
                 "      areaHeightEqFactor2: 1.05\n" +
                 "      areaHeightFactor3: 2.3\n" +
                 "      areaHeightEqFactor3: 2.2\n" +
-                "      areaHeightEqFactor4: 3.06\n" +
                 "      areaHeightFactor4: 3.1\n" +
+                "      areaHeightEqFactor4: 3.06\n" +
                 "      areaHeightFactor5: 4.6\n" +
                 "      areaHeightFactorDelta: 1.0\n", result);
     }

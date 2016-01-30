@@ -123,6 +123,6 @@ public class PieceMove {
 
     @Override
     public String toString() {
-        return piece + ", " + move;
+        return piece + " " + move;
     }
 }

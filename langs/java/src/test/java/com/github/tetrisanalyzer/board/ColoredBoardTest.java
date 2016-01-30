@@ -22,7 +22,7 @@ public class ColoredBoardTest {
                 "|------|",
                 "|------|",
                 "|------|",
-                "¯¯¯¯¯¯¯¯"), board.toString());
+                "========"), board.toString());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|J-----OO|",
                 "|JJJ---OO|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
 
         assertEquals(board(
                 "|--------|",
@@ -41,7 +41,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|J-----OO|",
                 "|JJJ---OO|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.toString());
+                "=========="), board.toString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|J-----OO|",
                 "|JJJ---OO|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
         Board board = coloredBoard.asBoard();
 
         assertEquals(Board.create(
@@ -61,7 +61,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|x-----xx|",
                 "|xxx---xx|",
-                "¯¯¯¯¯¯¯¯¯¯"
+                "=========="
         ), board);
     }
 
@@ -73,7 +73,7 @@ public class ColoredBoardTest {
                 "|ZZ------|",
                 "|JZZOO-OO|",
                 "|JJJOO-OO|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
         Piece piece = createPieceL(new StandardGameSettings(board));
         Move move = new Move(3,4, 2);
         board.setPiece(piece, move);
@@ -84,7 +84,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|--------|",
                 "|ZZ--LL--|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.toString());
+                "=========="), board.toString());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|--------|",
                 "|x------x|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
 
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = new Move(0,0, 3);
@@ -106,7 +106,7 @@ public class ColoredBoardTest {
                 "|--------|",
                 "|--------|",
                 "|x------x|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+                "=========="), board.asString(piece, move));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ColoredBoardTest {
                 "|xxxxx-xx|",
                 "|xx-xxxxx|",
                 "|xxxxxx-x|",
-                "¯¯¯¯¯¯¯¯¯¯");
+                "==========");
 
         Piece piece = createPieceZ(new StandardGameSettings(board));
         Move move = null;
@@ -128,7 +128,7 @@ public class ColoredBoardTest {
                 "|xxxxx-xx|",
                 "|xx-xxxxx|",
                 "|xxxxxx-x|",
-                "¯¯¯¯¯¯¯¯¯¯"), board.asString(piece, move));
+                "=========="), board.asString(piece, move));
     }
 
     private String board(String... rows) {

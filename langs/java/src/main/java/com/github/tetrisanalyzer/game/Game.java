@@ -4,9 +4,8 @@ import com.github.tetrisanalyzer.board.Board;
 import com.github.tetrisanalyzer.board.ColoredBoard;
 import com.github.tetrisanalyzer.board.TextBoard;
 import com.github.tetrisanalyzer.boardevaluator.BoardEvaluator;
-import com.github.tetrisanalyzer.move.EvaluatedMoves;
 import com.github.tetrisanalyzer.move.Move;
-import com.github.tetrisanalyzer.move.ValidMoves;
+import com.github.tetrisanalyzer.move.MoveEquity;
 import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 import com.github.tetrisanalyzer.piecemove.AllValidPieceMoves;
@@ -14,6 +13,7 @@ import com.github.tetrisanalyzer.piecemove.PieceMove;
 import com.github.tetrisanalyzer.settings.GameSettings;
 import com.github.tetrisanalyzer.settings.PieceSettings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +24,8 @@ public class Game implements Runnable {
 
     private boolean stop;
     public boolean stopped;
+
+    private Piece[] pieces;
 
     public boolean temporarilyPaused;
     public boolean hide;
@@ -37,29 +39,58 @@ public class Game implements Runnable {
     public final GameState state;
     public final GameMessage message;
     public final PieceSettings settings;
+    public NextPieces nextPieces;
+
+    private int numberOfLastBoards = 100;
+    private int lastBoardIdx = 0;
+    private List<BoardPieceMove> lastBoards = new ArrayList<>();
 
     public Game(GameState gameState, GameSettings settings, boolean paused, boolean hide) {
         this.board = gameState.board.copy();
         if (gameState.coloredBoard != null) {
             this.coloredBoard = gameState.coloredBoard.copy();
         }
-        this.state = gameState;
-        this.message = new GameMessage(gameState);
-        this.boardEvaluator = gameState.boardEvaluator;
+        state = gameState;
+        message = new GameMessage(gameState);
+        boardEvaluator = gameState.boardEvaluator;
         this.settings = settings;
+        pieceGenerator = state.pieceGenerator;
+
+        pieces = Piece.pieces(settings);
+
+        nextPieces = new NextPieces(pieceGenerator, settings, state.level, state.numberOfKnownPieces, nextPiece(state.nextPieces));
+
         this.paused = paused;
         this.hide = hide;
-        this.pieceGenerator = state.pieceGenerator;
-        this.numberOfCells = board.numberOfOccupiedCells();
+        numberOfCells = board.numberOfOccupiedCells();
 
         allValidPieceMoves = new AllValidPieceMoves(board, settings);
+
+        pieces = Piece.pieces(settings);
     }
 
-    private String board(Piece piece, Move move) {
-        if (coloredBoard != null) {
-            return coloredBoard.asString(piece, move);
+    private List<Piece> nextPiece(List<String> pieces) {
+        List<Piece> result = new ArrayList<>();
+
+        if (pieces != null) {
+            for (String p : pieces) {
+                Piece piece = this.pieces[Piece.indexOf(p.charAt(0)) - 1];
+                result.add(piece);
+            }
         }
-        return board.asString(piece, move);
+        return result;
+    }
+
+    public String lastBoardsAsString() {
+        String result = "";
+
+        for (int i=0; i<numberOfLastBoards; i++) {
+            int index = (lastBoardIdx + i) % numberOfLastBoards;
+            if (index < lastBoards.size()) {
+                result += lastBoards.get(index).toString() + "\n\n";
+            }
+        }
+        return result;
     }
 
     public void stopThread() {
@@ -75,8 +106,8 @@ public class Game implements Runnable {
 
         while (!stop && state.nonstop || state.movesLeft > 0) {
             waitIfPaused();
-            Piece piece = pieceGenerator.nextPiece(settings);
-            PieceMove bestMove = evaluateBestMove(piece);
+
+            PieceMove bestMove = evaluateBestMove();
             state.totalPieces++;
             state.pieces++;
 
@@ -84,7 +115,7 @@ public class Game implements Runnable {
                 state.movesLeft--;
             }
             setShadowOnColoredBoard(bestMove.piece, bestMove.move);
-            message.setStateIfNeeded(state, textBoard(), piece, bestMove == null ? null : bestMove.move);
+            message.setStateIfNeeded(state, textBoard(), nextPieces.piece(), bestMove == null ? null : bestMove.move);
 
             int clearedRows = bestMove.setPiece(board);
             setPieceOnColoredBoard(bestMove.piece, bestMove.move);
@@ -122,8 +153,8 @@ public class Game implements Runnable {
         return coloredBoard == null ? board : coloredBoard;
     }
 
-    private PieceMove evaluateBestMove(Piece piece) {
-        PieceMove bestMove = evaluatePiece(piece, board);
+    private PieceMove evaluateBestMove() {
+        MoveEquity bestMove = bestMove(board, nextPieces);
 
         if (bestMove == null) {
             state.games++;
@@ -135,12 +166,24 @@ public class Game implements Runnable {
             board = state.startBoard.copy();
             initColoredBoard();
             numberOfCells = board.numberOfOccupiedCells();
-            bestMove = evaluatePiece(piece, board);
+            bestMove = bestMove(board, nextPieces);
             if (bestMove == null) {
                 throw new IllegalStateException("The starting position is occupied!");
             }
+            lastBoardIdx = 0;
+            lastBoards = new ArrayList<>();
+        } else {
+            nextPieces = nextPieces.next();
         }
-        return bestMove;
+        if (lastBoards.size() < numberOfLastBoards) {
+            lastBoards.add(new BoardPieceMove(coloredBoard.copy(), bestMove.pieceMove));
+            lastBoardIdx = (lastBoardIdx + 1) % numberOfLastBoards;
+        } else {
+            lastBoards.set(lastBoardIdx, new BoardPieceMove(coloredBoard.copy(), bestMove.pieceMove));
+            lastBoardIdx = (lastBoardIdx + 1) % numberOfLastBoards;
+        }
+
+        return bestMove.pieceMove;
     }
 
     private void setMinRows() {
@@ -171,10 +214,8 @@ public class Game implements Runnable {
         coloredBoard = state.coloredStartBoard.copy();
     }
 
-    private PieceMove evaluatePiece(Piece piece, Board board) {
-        PieceMove startPieceMove = allValidPieceMoves.startMoveForPiece(piece);
-        List<PieceMove> validMoves = new ValidMoves(board).pieceMoves(startPieceMove, board);
-        return new EvaluatedMoves(allValidPieceMoves, validMoves, boardEvaluator, board).bestMove();
+    private MoveEquity bestMove(Board board, NextPieces nextNextPieces) {
+        return PositionEvaluator.bestMove(allValidPieceMoves, pieces, boardEvaluator, board, nextNextPieces);
     }
 
     public void togglePaused() {
@@ -183,5 +224,20 @@ public class Game implements Runnable {
 
     public void hide() {
         hide = true;
+    }
+
+    static class BoardPieceMove {
+        public final ColoredBoard board;
+        public final PieceMove pieceMove;
+
+        public BoardPieceMove(ColoredBoard board, PieceMove pieceMove) {
+            this.board = board;
+            this.pieceMove = pieceMove;
+        }
+
+        @Override
+        public String toString() {
+            return " " + pieceMove + "\n" + board;
+        }
     }
 }

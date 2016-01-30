@@ -13,11 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static java.util.Map.Entry;
 
@@ -109,6 +106,15 @@ public class RaceSettings {
             this.games.add(game);
         }
         initAreaPercentage();
+        createGames();
+    }
+
+    private void createGames() {
+        Iterator<RaceGameSettings> iterator = this.games.allGamesIterator();
+        while (iterator.hasNext()) {
+            RaceGameSettings settings = iterator.next();
+            settings.createGame(settings.tetrisRules);
+        }
     }
 
     public void resetSpeedometer() {
@@ -207,6 +213,9 @@ public class RaceSettings {
             String heading = game.heading == null ? "" : "heading: " + game.heading + "\n";
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
             String gameParameters = game.parameters == null ? "" : parameters(game.parameters, "     ");
+            String level = "   level: " + game.level() + "\n";
+            String numberOfKnownPieces = "   number of known pieces: " + game.numberOfKnownPieces() + "\n";
+            String nextPieces = "   next pieces: " + game.nextPieces() + "\n";
             String duration = "   duration: " + game.duration + "\n";
             String usedParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
             String tetrisRuleId = game.tetrisRulesIdText == null ? "" : "   tetris rules id: " + game.tetrisRulesId + "\n";
@@ -222,6 +231,9 @@ public class RaceSettings {
             String headValues = headValues(heading, parameterValue, gameParameters);
 
             games += headValues +
+                    level +
+                    numberOfKnownPieces +
+                    nextPieces +
                     duration +
                     hide +
                     paused +

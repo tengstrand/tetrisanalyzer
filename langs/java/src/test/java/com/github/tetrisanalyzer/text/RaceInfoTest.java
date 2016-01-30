@@ -26,22 +26,23 @@ public class RaceInfoTest {
 
         String expected =
                 "parameter value:                                \n" +
-                        "-------------------  --------------  --------------\n" +
-                        "duration:             1d 3h 52m 10s   1d 3h 52m 10s\n" +
-                        "board:                      10 x 12         10 x 12\n" +
-                        "tetris rules id:              Atari        Standard\n" +
-                        "piece generator id:          Linear          Linear\n" +
-                        "board evaluator id:  Tengstrand 1.2  Tengstrand 1.2\n" +
-                        "                                                   \n" +
-                        "games:                            2          19 488\n" +
-                        "rows:                         2 666           6 466\n" +
-                        "area (25.0%):               2.38095         2.27273\n" +
-                        "                                                   \n" +
-                        "rows/game:                  500 000           4 561\n" +
-                        "min rows:                         2               2\n" +
-                        "max rows:                    27 478          29 919\n" +
-                        "rows/s:                           0               0\n" +
-                        "pieces/s:                         0               0";
+                "---------------------  --------------  --------------\n" +
+                "duration:               1d 3h 52m 10s   1d 3h 52m 10s\n" +
+                "board:                        10 x 12         10 x 12\n" +
+                "tetris rules id:                Atari        Standard\n" +
+                "piece generator id:            Linear          Linear\n" +
+                "board evaluator id:    Tengstrand 1.2  Tengstrand 1.2\n" +
+                "                                                     \n" +
+                "level : known pieces:           1 : 1           1 : 1\n" +
+                "games:                              2          19 488\n" +
+                "rows:                           2 666           6 466\n" +
+                "area (25.0%):              2.38095238      2.27272727\n" +
+                "                                                     \n" +
+                "rows/game:                    500 000           4 561\n" +
+                "min rows:                           2               2\n" +
+                "max rows:                      27 478          29 919\n" +
+                "rows/s:                             0               0\n" +
+                "pieces/s:                           0               0";
 
         assertEquals(expected, result);
     }

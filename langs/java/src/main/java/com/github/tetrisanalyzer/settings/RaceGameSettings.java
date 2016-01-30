@@ -6,13 +6,14 @@ import com.github.tetrisanalyzer.game.Distribution;
 import com.github.tetrisanalyzer.game.Duration;
 import com.github.tetrisanalyzer.game.Game;
 import com.github.tetrisanalyzer.game.GameState;
+import com.github.tetrisanalyzer.piece.Piece;
 import com.github.tetrisanalyzer.piecegenerator.PieceGenerator;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class RaceGameSettings {
     public Thread thread;
@@ -20,6 +21,10 @@ public class RaceGameSettings {
     private final SettingsReader reader;
     private boolean hide;
     private boolean paused;
+    public int level;
+    public int numberOfKnownPieces;
+    public List<String> nextPieces;
+
     public Game game;
     public final GameState gameState;
 
@@ -85,6 +90,15 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
+        level = reader.readInteger("level", 1);
+        numberOfKnownPieces = reader.readInteger("number of known pieces", 1);
+        if (level < 1) {
+            level = 1;
+        }
+        if (numberOfKnownPieces > level) {
+            numberOfKnownPieces = level;
+        }
+        nextPieces = reader.readList("next pieces", Arrays.asList());
         hide = showAll ? false : reader.readBoolean("hide", false);
         paused = reader.readBoolean("paused", false);
 
@@ -119,8 +133,8 @@ public class RaceGameSettings {
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, this.startBoard, distribution,
-                boardEvaluator, pieceGenerator, games, pieces,
-                totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
+                boardEvaluator, pieceGenerator, level, numberOfKnownPieces, nextPieces,
+                games, pieces, totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 
     public void resetSpeedometer() {
@@ -139,6 +153,32 @@ public class RaceGameSettings {
             return game.hide;
         }
         return hide;
+    }
+
+    public int level() {
+        if (game != null) {
+            return game.nextPieces.level;
+        }
+        return level;
+    }
+
+    public int numberOfKnownPieces() {
+        if (game != null) {
+            return game.nextPieces.knownPieces;
+        }
+        return numberOfKnownPieces;
+    }
+
+    public List<String> nextPieces() {
+        if (game == null) {
+            return nextPieces;
+        }
+        List<String> result = new ArrayList<>();
+
+        for (Piece piece : game.nextPieces.pieces) {
+            result.add(Character.toString(piece.character()));
+        }
+        return result;
     }
 
     public String heading() {
@@ -204,6 +244,7 @@ public class RaceGameSettings {
 
     public Game createGame(GameSettings tetrisRules) {
         game = new Game(gameState, tetrisRules, paused(), hide());
+        thread = new Thread(game);
         return game;
     }
 }

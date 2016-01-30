@@ -194,6 +194,11 @@ public class TengstrandBoardEvaluator12 implements BoardEvaluator {
     }
 
     @Override
+    public double maxEquity() {
+        return maxEquity;
+    }
+
+    @Override
     public double evaluate(Board board, AllValidPieceMoves allValidPieceMoves)  {
         return allValidPieceMoves.adjustEquityIfOccupiedStartPiece(evaluate(board), maxEquity, board);
     }
