@@ -46,7 +46,6 @@ public class RaceInfo {
         rows.add(rpad("level, known pieces:", paramLength));
         if (hasMaster()) {
             rows.add(rpad("equity diff:", paramLength));
-            rows.add(rpad("equity abs diff:", paramLength));
         }
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
@@ -100,7 +99,6 @@ public class RaceInfo {
             values.add(level);
             if (hasMaster()) {
                 values.add(state.equityDiffPerPieceFormatted());
-                values.add(state.equityAbsDiffPerPieceFormatted());
             }
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));

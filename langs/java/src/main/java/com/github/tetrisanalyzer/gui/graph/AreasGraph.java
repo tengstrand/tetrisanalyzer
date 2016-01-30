@@ -58,7 +58,7 @@ public class AreasGraph extends Graph {
 
         int i = 0;
         for (RaceGameSettings game : games) {
-            equitydiff[i++] = 10000000 - game.gameState.equityAbsDiffPerPiece();
+            equitydiff[i++] = 10000000 - game.gameState.equityDiffPerPiece();
         }
         paintGraph(false, equitydiff, g);
     }

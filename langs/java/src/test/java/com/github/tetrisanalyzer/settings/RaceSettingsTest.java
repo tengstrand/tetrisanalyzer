@@ -57,7 +57,6 @@ public class RaceSettingsTest {
             "   level: 1\n" +
             "   master depth: 1\n" +
             "   total equity diff: 10.0\n" +
-            "   total equity abs diff: 12.3\n" +
             "   number of known pieces: 1\n" +
             "   next pieces: [T]\n" +
             "   tetris rules id: Atari\n" +
@@ -260,7 +259,6 @@ public class RaceSettingsTest {
                 "   level: 1\n" +
                 "   master depth: 1\n" +
                 "   total equity diff: 10.0\n" +
-                "   total equity abs diff: 12.3\n" +
                 "   number of known pieces: 1\n" +
                 "   next pieces: [T]\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +

@@ -179,8 +179,7 @@ public class Game implements Runnable {
             double equity = bestMove.equity;
             NextPieces nextPieces = new NextPieces(pieceGenerator, settings, state.masterDepth, 0, null);
             double depthEquity = PositionEvaluator.evaluate(boardEvaluator, bestMove.pieceMove, board, allValidPieceMoves, pieces, nextPieces, boardEvaluator.maxEquity());
-            state.totalEquityDiff += (equity - depthEquity);
-            state.totalEquityAbsDiff += Math.abs(equity - depthEquity);
+            state.totalEquityDiff += Math.abs(equity - depthEquity);
         }
         if (lastBoards.size() < numberOfLastBoards) {
             lastBoards.add(new BoardPieceMove(coloredBoard.copy(), bestMove.pieceMove));

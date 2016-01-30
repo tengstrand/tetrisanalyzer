@@ -21,7 +21,6 @@ public class RaceGameSettings {
     private final SettingsReader reader;
     public int masterDepth;
     public double totalEquityDiff;
-    public double totalEquityAbsDiff;
     private boolean hide;
     private boolean paused;
     public int level;
@@ -106,7 +105,6 @@ public class RaceGameSettings {
         paused = reader.readBoolean("paused", false);
         masterDepth = reader.readInteger("master depth", 0);
         totalEquityDiff = reader.readDouble("total equity diff", 0);
-        totalEquityAbsDiff = reader.readDouble("total equity abs diff", 0);
 
         long games = reader.readLong("games", 0);
         long pieces = reader.readLong("pieces", 0);
@@ -139,7 +137,7 @@ public class RaceGameSettings {
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, this.startBoard, distribution, boardEvaluator, pieceGenerator,
-                masterDepth, totalEquityDiff, totalEquityAbsDiff, level, numberOfKnownPieces, nextPieces,
+                masterDepth, totalEquityDiff, level, numberOfKnownPieces, nextPieces,
                 games, pieces, totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 

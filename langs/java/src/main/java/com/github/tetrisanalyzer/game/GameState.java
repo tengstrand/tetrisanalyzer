@@ -23,7 +23,6 @@ public class GameState {
     public final PieceGenerator pieceGenerator;
     public final int masterDepth;
     public double totalEquityDiff;
-    public double totalEquityAbsDiff;
     public final int level;
     public final int numberOfKnownPieces;
     public final List<String> nextPieces;
@@ -41,7 +40,7 @@ public class GameState {
 
     public GameState(Duration duration, ColoredBoard coloredBoard, ColoredBoard coloredStartBoard,
                      Distribution distribution, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
-                     int masterDepth, double totalEquityDiff, double totalEquityAbsDiff,
+                     int masterDepth, double totalEquityDiff,
                      int level, int numberOfKnownPieces, List<String> nextPieces,
                      long numberOfGames, long numberOfPieces, long totalPieces,
                      long rows, long totalRows, long minRows, long maxRows, long piecesLeft) {
@@ -55,7 +54,6 @@ public class GameState {
         this.pieceGenerator = pieceGenerator;
         this.masterDepth = masterDepth;
         this.totalEquityDiff = totalEquityDiff;
-        this.totalEquityAbsDiff = totalEquityAbsDiff;
         this.level = level;
         this.numberOfKnownPieces = numberOfKnownPieces;
         this.nextPieces = nextPieces;
@@ -117,14 +115,6 @@ public class GameState {
         return format(equityDiffPerPiece());
     }
 
-    public double equityAbsDiffPerPiece() {
-        return totalEquityAbsDiff / totalPieces;
-    }
-
-    public String equityAbsDiffPerPieceFormatted() {
-        return format(equityAbsDiffPerPiece());
-    }
-
     public double area() {
         return distribution.area();
     }
@@ -135,13 +125,13 @@ public class GameState {
 
     public GameState copy() {
         return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
-            masterDepth, totalEquityDiff, totalEquityAbsDiff, level, numberOfKnownPieces, nextPieces, totalPieces,
+            masterDepth, totalEquityDiff, level, numberOfKnownPieces, nextPieces, totalPieces,
             nonstop, movesLeft, games, rows, minRows, maxRows, totalRows);
     }
 
     private GameState(Duration duration, Board board, Board startBoard, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
-                      int masterDepth, double totalEquityDiff, double totalEquityAbsDiff, int level, int numberOfKnownPieces, List<String> nextPieces,
+                      int masterDepth, double totalEquityDiff, int level, int numberOfKnownPieces, List<String> nextPieces,
                       long totalPieces, boolean nonstop, long movesLeft, long games, long rows, long minRows, long maxRows,
                       long totalRows) {
         this.duration = duration;
@@ -154,7 +144,6 @@ public class GameState {
         this.pieceGenerator = pieceGenerator.copy();
         this.masterDepth = masterDepth;
         this.totalEquityDiff = totalEquityDiff;
-        this.totalEquityAbsDiff = totalEquityAbsDiff;
         this.level = level;
         this.numberOfKnownPieces = numberOfKnownPieces;
         this.nextPieces = nextPieces;
@@ -208,7 +197,6 @@ public class GameState {
                 ", pieceGenerator=" + pieceGenerator +
                 ", masterDepth=" + masterDepth +
                 ", totalEquityDiff=" + totalEquityDiff +
-                ", totalEquityAbsDiff=" + totalEquityAbsDiff +
                 ", level=" + level +
                 ", numberOfKnownPieces" + numberOfKnownPieces +
                 ", nextPieces=" + nextPieces +

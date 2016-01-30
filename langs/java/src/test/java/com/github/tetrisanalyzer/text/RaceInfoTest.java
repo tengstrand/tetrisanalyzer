@@ -34,6 +34,7 @@ public class RaceInfoTest {
                 "board evaluator id:   Tengstrand 1.2  Tengstrand 1.2\n" +
                 "                                                    \n" +
                 "level, known pieces:           1 : 1           1 : 1\n" +
+                "equity diff:                 0.00000         0.00000\n" +
                 "games:                             2          19 488\n" +
                 "rows:                          2 666           6 466\n" +
                 "area (25.0%):             2.38095238      2.27272727\n" +
