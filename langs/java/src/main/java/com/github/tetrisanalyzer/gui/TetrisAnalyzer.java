@@ -171,7 +171,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         g.setColor(Color.GRAY);
         raceInfo.paintTextAt(viewMode.viewName, 2, 2, g);
 
-        if (viewMode == ViewMode.DISTRIBUTION_AREA || viewMode == ViewMode.ROWS_PER_GAME) {
+        if (viewMode.isArea) {
             w1 = raceInfo.totalWidth(charWidth);
         }
 

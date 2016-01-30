@@ -6,7 +6,6 @@ import com.github.tetrisanalyzer.settings.RaceSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static com.github.tetrisanalyzer.text.StringFunctions.repeat;
@@ -100,8 +99,8 @@ public class RaceInfo {
 
             values.add(level);
             if (hasMaster()) {
-                values.add(state.totalEquityDiffFormatted());
-                values.add(state.totalEquityAbsDiffFormatted());
+                values.add(state.equityDiffPerPieceFormatted());
+                values.add(state.equityAbsDiffPerPieceFormatted());
             }
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));

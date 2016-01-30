@@ -4,7 +4,6 @@ import com.github.tetrisanalyzer.gui.Shortcuts;
 import com.github.tetrisanalyzer.gui.ViewMode;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceGamesSettings;
-import com.github.tetrisanalyzer.text.RaceInfo;
 
 import java.awt.*;
 
@@ -25,11 +24,11 @@ public class AreasGraph extends Graph {
                 paintRowsPerGameGraph(false, g);
                 break;
             case DISTRIBUTION_AREA:
-                paintRowsPerGameGraph(false, g);
-                paintDistributionAreaGraph(true, g);
+                paintRowsPerGameGraph(true, g);
+                paintDistributionAreaGraph(false, g);
                 break;
             case EQUITY_DIFF:
-                paintRowsPerGameGraph(false, g);
+                paintEquityAbsDiffGraph(g);
                 break;
             }
     }
@@ -52,5 +51,15 @@ public class AreasGraph extends Graph {
             rowspergame[i++] = game.gameState.rowsPerGame();
         }
         paintGraph(background, rowspergame, g);
+    }
+
+    private void paintEquityAbsDiffGraph(Graphics g) {
+        double[] equitydiff = new double[games.size()];
+
+        int i = 0;
+        for (RaceGameSettings game : games) {
+            equitydiff[i++] = 10000000 - game.gameState.equityAbsDiffPerPiece();
+        }
+        paintGraph(false, equitydiff, g);
     }
 }

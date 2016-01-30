@@ -109,12 +109,20 @@ public class GameState {
         return maxRows == Long.MIN_VALUE ? "" : format(maxRows);
     }
 
-    public String totalEquityDiffFormatted() {
-        return format(totalEquityDiff / totalPieces);
+    public double equityDiffPerPiece() {
+        return totalEquityDiff / totalPieces;
     }
 
-    public String totalEquityAbsDiffFormatted() {
-        return format(totalEquityAbsDiff / totalPieces);
+    public String equityDiffPerPieceFormatted() {
+        return format(equityDiffPerPiece());
+    }
+
+    public double equityAbsDiffPerPiece() {
+        return totalEquityAbsDiff / totalPieces;
+    }
+
+    public String equityAbsDiffPerPieceFormatted() {
+        return format(equityAbsDiffPerPiece());
     }
 
     public double area() {
