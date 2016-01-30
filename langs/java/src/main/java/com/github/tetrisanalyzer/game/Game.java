@@ -175,6 +175,13 @@ public class Game implements Runnable {
         } else {
             nextPieces = nextPieces.next();
         }
+        if (state.masterDepth > 0) {
+            double equity = bestMove.equity;
+            NextPieces nextPieces = new NextPieces(pieceGenerator, settings, state.masterDepth, 0, null);
+            double depthEquity = PositionEvaluator.evaluate(boardEvaluator, bestMove.pieceMove, board, allValidPieceMoves, pieces, nextPieces, boardEvaluator.maxEquity());
+            state.totalEquityDiff += (equity - depthEquity);
+            state.totalEquityAbsDiff += Math.abs(equity - depthEquity);
+        }
         if (lastBoards.size() < numberOfLastBoards) {
             lastBoards.add(new BoardPieceMove(coloredBoard.copy(), bestMove.pieceMove));
             lastBoardIdx = (lastBoardIdx + 1) % numberOfLastBoards;
@@ -214,8 +221,8 @@ public class Game implements Runnable {
         coloredBoard = state.coloredStartBoard.copy();
     }
 
-    private MoveEquity bestMove(Board board, NextPieces nextNextPieces) {
-        return PositionEvaluator.bestMove(allValidPieceMoves, pieces, boardEvaluator, board, nextNextPieces);
+    private MoveEquity bestMove(Board board, NextPieces nextPieces) {
+        return PositionEvaluator.bestMove(allValidPieceMoves, pieces, boardEvaluator, board, nextPieces);
     }
 
     public void togglePaused() {

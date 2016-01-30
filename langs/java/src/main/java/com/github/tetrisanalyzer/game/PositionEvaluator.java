@@ -32,7 +32,7 @@ public class PositionEvaluator {
         return moves;
     }
 
-    private static double evaluate(BoardEvaluator boardEvaluator, PieceMove pieceMove, Board board, AllValidPieceMoves allValidPieceMoves, Piece[] pieces, NextPieces nextPieces, double maxEquity) {
+    public static double evaluate(BoardEvaluator boardEvaluator, PieceMove pieceMove, Board board, AllValidPieceMoves allValidPieceMoves, Piece[] pieces, NextPieces nextPieces, double maxEquity) {
         Board boardCopy = board.copy();
         pieceMove.setPiece(boardCopy);
 

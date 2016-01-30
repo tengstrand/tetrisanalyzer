@@ -36,8 +36,8 @@ public class PositionEvaluatorTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(10, 20, settings);
         AllValidPieceMoves allValidPieceMoves = new AllValidPieceMoves(board, new StandardGameSettings(board));
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("O");
-        NextPieces nextNextPieces = new NextPieces(pieceGenerator, settings, 1, 1, Arrays.asList(piece));
-        return PositionEvaluator.evaluate(allValidPieceMoves, Piece.pieces(settings), boardEvaluator, board, nextNextPieces);
+        NextPieces nextPieces = new NextPieces(pieceGenerator, settings, 1, 1, Arrays.asList(piece));
+        return PositionEvaluator.evaluate(allValidPieceMoves, Piece.pieces(settings), boardEvaluator, board, nextPieces);
     }
 
     @Test

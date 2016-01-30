@@ -37,14 +37,16 @@ public class RaceInfo {
         List<String> rows = new ArrayList<>();
 
         rows.add("parameter value:");
-        rows.add("---------------------");
+        rows.add("--------------------");
         rows.add(rpad("duration:", paramLength));
         rows.add(rpad("board:", paramLength));
         rows.add(rpad("tetris rules id:", paramLength));
         rows.add(rpad("piece generator id:", paramLength));
         rows.add(rpad("board evaluator id:", paramLength));
         rows.add(rpad("", paramLength));
-        rows.add(rpad("level : known pieces:", paramLength));
+        rows.add(rpad("level, known pieces:", paramLength));
+        rows.add(rpad("equity diff:", paramLength));
+        rows.add(rpad("equity abs diff:", paramLength));
         rows.add(rpad("games:", paramLength));
         rows.add(rpad("rows:", paramLength));
         rows.add(rpad("area (" + raceSettings.areaPercentage + "%):", paramLength));
@@ -59,11 +61,11 @@ public class RaceInfo {
     }
 
     private int textRows() {
-        return text(21).size();
+        return text(20).size();
     }
 
     public RowsResult rows() {
-        int position = 21;
+        int position = 20;
         List<String> rows = text(position);
 
         List<Integer> columnsWidths = new ArrayList<>(raceSettings.games.size());
@@ -86,6 +88,8 @@ public class RaceInfo {
             values.add("");
 
             values.add(level);
+            values.add(state.totalEquityDiffFormatted());
+            values.add(state.totalEquityAbsDiffFormatted());
             values.add(state.games == 0 ? "" : format(state.games));
             values.add(format(state.rows));
             values.add(state.areaFormatted());

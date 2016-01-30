@@ -230,8 +230,14 @@ public class RaceSettings {
             String distribution = state.distribution.export();
             String headValues = headValues(heading, parameterValue, gameParameters);
 
+            String masterDepth = "   master depth: " + game.masterDepth + "\n";
+            String totalEquityDiff = "   total equity diff: " + game.totalEquityDiff + "\n";
+            String totalEquityAbsDiff = "   total equity abs diff: " + game.totalEquityAbsDiff + "\n";
+            String master = game.masterDepth == 0 ? "" : masterDepth + totalEquityDiff + totalEquityAbsDiff;
+
             games += headValues +
                     level +
+                    master +
                     numberOfKnownPieces +
                     nextPieces +
                     duration +
