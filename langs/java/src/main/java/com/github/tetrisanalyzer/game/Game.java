@@ -41,7 +41,7 @@ public class Game implements Runnable {
     public final PieceSettings settings;
     public NextPieces nextPieces;
 
-    private int numberOfLastBoards = 100;
+    private int numberOfLastBoards = 10;
     private int lastBoardIdx = 0;
     private List<BoardPieceMove> lastBoards = new ArrayList<>();
 
@@ -87,7 +87,7 @@ public class Game implements Runnable {
         for (int i=0; i<numberOfLastBoards; i++) {
             int index = (lastBoardIdx + i) % numberOfLastBoards;
             if (index < lastBoards.size()) {
-                result += lastBoards.get(index).toString() + "\n\n";
+                result = ColumnStringConcater.concat(result, lastBoards.get(index).toString());
             }
         }
         return result;
@@ -114,7 +114,6 @@ public class Game implements Runnable {
             if (!state.nonstop) {
                 state.movesLeft--;
             }
-            setShadowOnColoredBoard(bestMove.piece, bestMove.move);
             message.setStateIfNeeded(state, textBoard(), nextPieces.piece(), bestMove == null ? null : bestMove.move);
 
             int clearedRows = bestMove.setPiece(board);
@@ -181,6 +180,8 @@ public class Game implements Runnable {
             double depthEquity = PositionEvaluator.evaluate(boardEvaluator, bestMove.pieceMove, board, allValidPieceMoves, pieces, nextPieces, boardEvaluator.maxEquity());
             state.totalEquityDiff += Math.abs(equity - depthEquity);
         }
+        setShadowOnColoredBoard(bestMove.pieceMove.piece, bestMove.pieceMove.move);
+
         if (lastBoards.size() < numberOfLastBoards) {
             lastBoards.add(new BoardPieceMove(coloredBoard.copy(), bestMove.pieceMove));
             lastBoardIdx = (lastBoardIdx + 1) % numberOfLastBoards;

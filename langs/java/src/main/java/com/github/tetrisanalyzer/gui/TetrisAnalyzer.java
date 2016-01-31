@@ -344,7 +344,16 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     }
 
     private void copyBoardsToClipboard() {
-        copyToClipboard(race.games.get(0).game.lastBoardsAsString());
+        Game game = games.get(raceInfo.selectedHeadingColumn).game;
+        boolean paused = game.temporarilyPaused;
+        game.temporarilyPaused = true;
+
+        while (game.waiting);
+
+        String boardsAsString = games.get(raceInfo.selectedHeadingColumn).game.lastBoardsAsString();
+        copyToClipboard(boardsAsString);
+
+        game.temporarilyPaused = paused;
     }
 
     private void copyToClipboard(String string) {
