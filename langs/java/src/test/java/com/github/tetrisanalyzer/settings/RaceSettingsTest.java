@@ -27,6 +27,8 @@ public class RaceSettingsTest {
             "tetris rules id: Standard\n" +
             "piece generator id: Linear\n" +
             "board evaluator id: Tengstrand 1.2\n" +
+            "level: 4\n" +
+            "number of known pieces: 3\n" +
             "parameter name: areaWidthFactor2\n" +
             "parameters:\n" +
             "  hollowFactor2: 0.61\n" +
@@ -54,10 +56,8 @@ public class RaceSettingsTest {
             "     board evaluator id: Tengstrand 1.3\n" +
             "     hollowFactor1: 0.54\n" +
             "     areaWidthFactor2: 2.38\n" +
-            "   level: 1\n" +
             "   master depth: 1\n" +
             "   total equity diff: 10.0\n" +
-            "   number of known pieces: 1\n" +
             "   next pieces: [T]\n" +
             "   tetris rules id: Atari\n" +
             "   board evaluator id: Tengstrand 1.2\n" +
@@ -89,8 +89,6 @@ public class RaceSettingsTest {
             "\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   parameter value: 3.55\n" +
-            "   level: 1\n" +
-            "   number of known pieces: 1\n" +
             "   next pieces: [T]\n" +
             "   start board: [\"----------\",\n" +
             "                 \"----------\",\n" +
@@ -141,7 +139,7 @@ public class RaceSettingsTest {
         assertEquals(27478, race.games.get(0).gameState.maxRows);
 
         LinearCongrentialPieceGenerator pieceGenerator = (LinearCongrentialPieceGenerator)race.games.get(0).pieceGenerator;
-        assertEquals(11, pieceGenerator.seed);
+        assertEquals(3092485707L, pieceGenerator.seed);
         assertEquals(1664525, pieceGenerator.constant1);
         assertEquals(4444, pieceGenerator.constant2);
 
@@ -179,6 +177,8 @@ public class RaceSettingsTest {
                 "tetris rules id: Standard\n" +
                 "piece generator id: Linear\n" +
                 "board evaluator id: Tengstrand 1.2\n" +
+                "level: 4\n" +
+                "number of known pieces: 3\n" +
                 "parameter name: areaWidthFactor2\n" +
                 "parameters:\n" +
                 "  hollowFactor2: 0.61\n" +
@@ -256,11 +256,11 @@ public class RaceSettingsTest {
                 "     areaWidthFactor2: 2.38\n" +
                 "     board evaluator id: Tengstrand 1.3\n" +
                 "     hollowFactor1: 0.54\n" +
-                "   level: 1\n" +
+                "   level: 4\n" +
+                "   number of known pieces: 3\n" +
                 "   master depth: 1\n" +
                 "   total equity diff: 10.0\n" +
-                "   number of known pieces: 1\n" +
-                "   next pieces: [T]\n" +
+                "   next pieces: [T, O, Z]\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
                 "   hide: false\n" +
                 "   paused: true\n" +
@@ -288,7 +288,7 @@ public class RaceSettingsTest {
                 "   max rows: 27478\n" +
                 "   rows/game: 402.82665216490574\n" +
                 "   piece/s: 1525.6182796770656\n" +
-                "   piece generator state: { seed: 11, constant2: 4444 }\n" +
+                "   piece generator state: { seed: 3092485707, constant2: 4444 }\n" +
                 "   distribution: [1,2,4,8,20,30,10,5,2,1,1]\n" +
                 "   used parameters:\n" +
                 "      id: Tengstrand 1.3\n" +
@@ -330,9 +330,9 @@ public class RaceSettingsTest {
                 "      areaHeightFactor5: 4.6\n" +
                 "      areaHeightFactorDelta: 1.0\n" +
                 " - parameter value: 3.55\n" +
-                "   level: 1\n" +
-                "   number of known pieces: 1\n" +
-                "   next pieces: [T]\n" +
+                "   level: 4\n" +
+                "   number of known pieces: 3\n" +
+                "   next pieces: [T, J, J]\n" +
                 "   duration: 1d 3h 52m 10.760s\n" +
                 "   hide: false\n" +
                 "   paused: false\n" +
@@ -369,7 +369,7 @@ public class RaceSettingsTest {
                 "   max rows: 29919\n" +
                 "   rows/game: 4561.211412151068\n" +
                 "   piece/s: 1548.5620552177813\n" +
-                "   piece generator state: { seed: 12, constant2: 555555555 }\n" +
+                "   piece generator state: { seed: 522011222, constant2: 555555555 }\n" +
                 "   distribution: [1,3,5,9,21,31,11,4,1,1,1]\n" +
                 "   used parameters:\n" +
                 "      id: Tengstrand 1.2\n" +

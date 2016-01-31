@@ -22,6 +22,9 @@ public class RaceSettings {
     private final SettingsReader reader;
 
     public String filename;
+    public int level;
+    public int numberOfKnownPieces;
+    public int masterDepth;
     public GameSettings tetrisRules;
     public String parameterName;
     public Map parameters;
@@ -64,6 +67,9 @@ public class RaceSettings {
         reader = new SettingsReader(settings, "race");
 
         this.filename = filename;
+        level = reader.readInteger("level", 1);
+        numberOfKnownPieces = reader.readInteger("number of known pieces", 1);
+        masterDepth = reader.readInteger("master depth", 0);
         Duration duration = reader.readDuration();
         areaPercentage = reader.readDouble("area %", 30);
         startBoard = reader.readBoard("start board", null);
@@ -98,7 +104,7 @@ public class RaceSettings {
 
             RaceGameSettings game = new RaceGameSettings(systemSettings, startBoard, parameterName,
                     parameters, gameMap, tetrisRulesId, pieceGeneratorId, evaluatorId,
-                    evaluatorSettings, duration, color, showAll);
+                    evaluatorSettings, duration, color, level, numberOfKnownPieces, masterDepth, showAll);
             if (game.color != color) {
                 // Don't consume the global color if a color was explicitly specified.
                 idx--;
@@ -213,8 +219,8 @@ public class RaceSettings {
             String heading = game.heading == null ? "" : "heading: " + game.heading + "\n";
             String parameterValue = game.parameterValue == null ? "" : "parameter value: " + game.parameterValue + "\n";
             String gameParameters = game.parameters == null ? "" : parameters(game.parameters, "     ");
-            String level = "   level: " + game.level() + "\n";
-            String numberOfKnownPieces = "   number of known pieces: " + game.numberOfKnownPieces() + "\n";
+            String level = "   level: " + state.level + "\n";
+            String numberOfKnownPieces = "   number of known pieces: " + state.numberOfKnownPieces + "\n";
             String nextPieces = "   next pieces: " + game.nextPieces() + "\n";
             String duration = "   duration: " + game.duration + "\n";
             String usedParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
@@ -230,14 +236,14 @@ public class RaceSettings {
             String distribution = state.distribution.export();
             String headValues = headValues(heading, parameterValue, gameParameters);
 
-            String masterDepth = "   master depth: " + game.masterDepth + "\n";
-            String totalEquityDiff = "   total equity diff: " + game.gameState.totalEquityDiff + "\n";
-            String master = game.masterDepth == 0 ? "" : masterDepth + totalEquityDiff;
+            String masterDepth = "   master depth: " + state.masterDepth + "\n";
+            String totalEquityDiff = "   total equity diff: " + state.totalEquityDiff + "\n";
+            String master = state.masterDepth == 0 ? "" : masterDepth + totalEquityDiff;
 
             games += headValues +
                     level +
-                    master +
                     numberOfKnownPieces +
+                    master +
                     nextPieces +
                     duration +
                     hide +
@@ -266,12 +272,17 @@ public class RaceSettings {
         String board = isSimpleBoard ? "[" + startBoard.width + "," + startBoard.height + "]" : startBoard.export(14);
         String percentage = "area %: " + areaPercentage + "\n";
 
+        String masterDepth = this.masterDepth == 0 ? "" : "master depth: " + this.masterDepth + "\n";
         String parameters = this.parameters == null ? "" : parameters(this.parameters, "  ");
+
 
         return "start board: " + board + "\n" +
                "tetris rules id: " + tetrisRulesId + "\n" +
                "piece generator id: " + pieceGeneratorId + "\n" +
                "board evaluator id: " + boardEvaluatorId + "\n" +
+               "level: " + level + "\n" +
+               "number of known pieces: " + numberOfKnownPieces + "\n" +
+               masterDepth +
                "parameter name: " + parameterName + "\n" +
                parameters +
                "save on close: " + saveOnClose + "\n" +

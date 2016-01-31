@@ -56,7 +56,7 @@ public class RaceGameSettings {
     public RaceGameSettings(SystemSettings systemSettings, ColoredBoard startBoard, String parameterName,
                             Map parentParameters, Map settings, String tetrisRulesId, String pieceGeneratorId,
                             String boardEvaluatorId, Map boardEvaluatorSettings, Duration mainDuration, Color color,
-                            boolean showAll) {
+                            int level, int numberOfKnownPieces, int masterDepth, boolean showAll) {
         reader = new SettingsReader(settings, "game");
 
         this.color = reader.readColor("color", color);
@@ -92,18 +92,15 @@ public class RaceGameSettings {
                 duration = Duration.create();
             }
         }
-        level = reader.readInteger("level", 1);
-        numberOfKnownPieces = reader.readInteger("number of known pieces", 1);
-        if (level < 1) {
-            level = 1;
+        this.level = reader.readInteger("level", level);
+        this.numberOfKnownPieces = reader.readInteger("number of known pieces", numberOfKnownPieces);
+        if (this.numberOfKnownPieces > level) {
+            this.numberOfKnownPieces = level;
         }
-        if (numberOfKnownPieces > level) {
-            numberOfKnownPieces = level;
-        }
+        this.masterDepth = reader.readInteger("master depth", masterDepth);
         nextPieces = reader.readList("next pieces", Arrays.asList());
         hide = showAll ? false : reader.readBoolean("hide", false);
         paused = reader.readBoolean("paused", false);
-        masterDepth = reader.readInteger("master depth", 0);
         totalEquityDiff = reader.readDouble("total equity diff", 0);
 
         long games = reader.readLong("games", 0);
@@ -137,7 +134,7 @@ public class RaceGameSettings {
         boardEvaluator = createBoardEvaluator(board.width, board.height, tetrisRules, evaluatorSettings);
 
         gameState = new GameState(duration, board, this.startBoard, distribution, boardEvaluator, pieceGenerator,
-                masterDepth, totalEquityDiff, level, numberOfKnownPieces, nextPieces,
+                this.masterDepth, totalEquityDiff, this.level, this.numberOfKnownPieces, nextPieces,
                 games, pieces, totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
     }
 
@@ -157,20 +154,6 @@ public class RaceGameSettings {
             return game.hide;
         }
         return hide;
-    }
-
-    public int level() {
-        if (game != null) {
-            return game.nextPieces.level;
-        }
-        return level;
-    }
-
-    public int numberOfKnownPieces() {
-        if (game != null) {
-            return game.nextPieces.knownPieces;
-        }
-        return numberOfKnownPieces;
     }
 
     public List<String> nextPieces() {

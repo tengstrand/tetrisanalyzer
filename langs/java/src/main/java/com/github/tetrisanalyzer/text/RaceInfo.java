@@ -86,7 +86,7 @@ public class RaceInfo {
             }
             List<String> values = new ArrayList<>();
             GameState state = settings.gameState;
-            String level = settings.level() + " : " + settings.numberOfKnownPieces();
+            String level = state.level + " : " + state.numberOfKnownPieces;
             values.add("");
             values.add("");
             values.add(state.duration.asDaysHoursMinutesSecs());

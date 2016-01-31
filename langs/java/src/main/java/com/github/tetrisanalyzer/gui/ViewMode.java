@@ -5,7 +5,7 @@ public enum ViewMode {
     DISTRIBUTION("Distribution:", false),
     DISTRIBUTION_AREA("Distribution area:", true),
     ROWS_PER_GAME("Rows per game:", true),
-    EQUITY_DIFF("Equity diff", true);
+    EQUITY_DIFF("Equity diff:", true);
 
     public final boolean isArea;
     public final String viewName;

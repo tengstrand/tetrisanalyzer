@@ -33,7 +33,7 @@ public class RaceInfoTest {
                 "piece generator id:           Linear          Linear\n" +
                 "board evaluator id:   Tengstrand 1.2  Tengstrand 1.2\n" +
                 "                                                    \n" +
-                "level, known pieces:           1 : 1           1 : 1\n" +
+                "level, known pieces:           4 : 3           4 : 3\n" +
                 "equity diff:                 0.00000         0.00000\n" +
                 "games:                             2          19 488\n" +
                 "rows:                          2 666           6 466\n" +
