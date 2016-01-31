@@ -31,7 +31,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
     private boolean paused;
     private final static int CHAR_WIDTH = 8;
     private Color actionColor = new Color(0,128,0);
-    private ViewMode viewMode = ViewMode.ROWS_PER_GAME;
+    private ViewMode viewMode = ViewMode.DISTRIBUTION;
     private ViewMode areasViewMode = ViewMode.DISTRIBUTION_AREA;
 
     private long actionAt;
@@ -180,13 +180,13 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
         graph.draw(viewMode, x1, y1, w1, height, g);
 
-        int width = raceInfo.firstColumnWidth(charWidth) - 70;
-        miniatureGraph.draw(null, 22, y1, width - 20, 50, g);
+        int width = raceInfo.firstColumnWidth(charWidth) - 50;
+        miniatureGraph.draw(null, 22, y1, width - 50, 50, g);
 
         miniatureGraph.drawSelection(distributionGraph.currentWindow(), g);
 
         Distribution distribution = games.get(0).distribution;
-        paintBoard(20, y1 + 50, width, height - 50, distribution, g);
+        paintBoard(20, y1 + 60, width, height - 60, distribution, g);
     }
 
     private void paintBoard(int x1, int y1, int width, int height, Distribution distribution, Graphics g) {
