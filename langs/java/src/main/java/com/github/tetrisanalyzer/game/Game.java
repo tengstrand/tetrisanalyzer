@@ -41,7 +41,8 @@ public class Game implements Runnable {
     public final PieceSettings settings;
     public NextPieces nextPieces;
 
-    private int numberOfLastBoards = 10;
+    private int numberOfBoardsPerRow = 10;
+    private int numberOfLastBoards = 1000;
     private int lastBoardIdx = 0;
     private List<BoardPieceMove> lastBoards = new ArrayList<>();
 
@@ -82,14 +83,26 @@ public class Game implements Runnable {
     }
 
     public String lastBoardsAsString() {
+        String row = "";
         String result = "";
+        String separator = "";
 
         for (int i=0; i<numberOfLastBoards; i++) {
+            if ((i % numberOfBoardsPerRow) == 0) {
+                result += separator + row;
+                if (row.isEmpty()) {
+                    separator = "\n";
+                } else {
+                    separator = "\n\n";
+                }
+                row = "";
+            }
             int index = (lastBoardIdx + i) % numberOfLastBoards;
             if (index < lastBoards.size()) {
-                result = ColumnStringConcater.concat(result, lastBoards.get(index).toString());
+                row = ColumnStringConcater.concat(row, lastBoards.get(index).toString());
             }
         }
+        result += separator + row;
         return result;
     }
 

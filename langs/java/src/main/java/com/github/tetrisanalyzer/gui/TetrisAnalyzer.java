@@ -259,9 +259,9 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
                 break;
             case 67:
                 if (e.getModifiers() == 2) {
-                    copyToClipboard(); // <Ctrl> + C
-                } else if (e.getModifiers() == 3) {
                     copyBoardsToClipboard(); // <Ctrl> + <Shift> + C
+                } else if (e.getModifiers() == 3) {
+                    copyToClipboard(); // <Ctrl> + C
                 } else {
                     raceInfo.toggleShowHeading();
                 }
@@ -345,10 +345,15 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
 
     private void copyBoardsToClipboard() {
         Game game = games.get(raceInfo.selectedHeadingColumn).game;
+
+        if (game.paused) {
+            return;
+        }
         boolean paused = game.temporarilyPaused;
         game.temporarilyPaused = true;
 
-        while (game.waiting);
+        while (game.waiting)
+            ;
 
         String boardsAsString = games.get(raceInfo.selectedHeadingColumn).game.lastBoardsAsString();
         copyToClipboard(boardsAsString);
