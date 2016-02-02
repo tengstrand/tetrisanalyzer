@@ -40,6 +40,7 @@ public class RaceInfoTest {
                 "area (25.0%):             2.38095238      2.27272727\n" +
                 "                                                    \n" +
                 "rows/game:                   500 000           4 561\n" +
+                "r/g delta:                                          \n" +
                 "min rows:                          2               2\n" +
                 "max rows:                     27 478          29 919\n" +
                 "rows/s:                            0               0\n" +

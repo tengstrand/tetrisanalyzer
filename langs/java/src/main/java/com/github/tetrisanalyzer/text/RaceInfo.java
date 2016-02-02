@@ -1,6 +1,7 @@
 package com.github.tetrisanalyzer.text;
 
 import com.github.tetrisanalyzer.game.GameState;
+import com.github.tetrisanalyzer.game.StringUtils;
 import com.github.tetrisanalyzer.settings.RaceGameSettings;
 import com.github.tetrisanalyzer.settings.RaceSettings;
 
@@ -52,6 +53,7 @@ public class RaceInfo {
         rows.add(rpad("area (" + raceSettings.areaPercentage + "%):", paramLength));
         rows.add(rpad("", paramLength));
         rows.add(rpad("rows/game:", paramLength));
+        rows.add(rpad("r/g delta:", paramLength));
         rows.add(rpad("min rows:", paramLength));
         rows.add(rpad("max rows:", paramLength));
         rows.add(rpad("rows/s:", paramLength));
@@ -80,6 +82,8 @@ public class RaceInfo {
         List<Integer> columnsWidths = new ArrayList<>(raceSettings.games.size());
         List<Integer> columnPositions = new ArrayList<>(raceSettings.games.size());
 
+        double prevRowsPerGame = 0;
+
         for (RaceGameSettings settings : raceSettings.games) {
             if (settings.game.hide) {
                 continue;
@@ -105,6 +109,15 @@ public class RaceInfo {
             values.add(state.areaFormatted());
             values.add("");
             values.add(state.rowsPerGameFormatted());
+
+            double rowsPerGame = settings.gameState.rowsPerGame();
+            if (prevRowsPerGame == 0 || rowsPerGame == 0) {
+                values.add("");
+            } else {
+                values.add(StringUtils.format(rowsPerGame / prevRowsPerGame));
+            }
+            prevRowsPerGame = rowsPerGame;
+
             values.add(state.minRowsFormatted());
             values.add(state.maxRowsFormatted());
             values.add(state.rowsPerLastSecondsFormatted());
