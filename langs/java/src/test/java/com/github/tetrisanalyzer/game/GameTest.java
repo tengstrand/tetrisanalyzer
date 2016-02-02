@@ -21,7 +21,7 @@ public class GameTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("OLIZT");
         Distribution distribution = new Distribution(board.width, board.height);
-        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 5);
+        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 0L, 5L);
         Game game = new Game(result, settings, false, false);
         game.run();
 
@@ -59,7 +59,7 @@ public class GameTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
-        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 1);
+        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 0L, 1L);
         Game game = new Game(result, settings, false, false);
         game.run();
 
@@ -85,7 +85,7 @@ public class GameTest {
         BoardEvaluator boardEvaluator = new TengstrandBoardEvaluator12(board.width, board.height, settings);
         PieceGenerator pieceGenerator = new PredictablePieceGenerator("T");
         Distribution distribution = new Distribution(board.width, board.height);
-        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 1);
+        GameState result = new GameState(Duration.create(), board, board.copy(), distribution, boardEvaluator, pieceGenerator, 0, 0, 1, 1, null, 0, 0, 0, 0, 0, 0, 0, 0L, 1L);
         Game game = new Game(result, settings, false, false);
         game.run();
 

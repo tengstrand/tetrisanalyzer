@@ -34,8 +34,12 @@ public class SettingsReader {
         }
     }
 
-    public int readInteger(String key, int defaultValue) {
-        return hasValue(key) && !readString(key).isEmpty() ? readInteger(key) : defaultValue;
+    public Integer readInteger(String key, Integer defaultValue) {
+        if (hasValue(key)) {
+            return readInteger(key);
+        } else {
+            return defaultValue;
+        }
     }
 
     public int readInteger(String key) {
@@ -47,8 +51,12 @@ public class SettingsReader {
         }
     }
 
-    public long readLong(String key, long defaultValue) {
-        return hasValue(key) ? readLong(key) : defaultValue;
+    public Long readLong(String key, Long defaultValue) {
+        if (hasValue(key)) {
+            return readLong(key);
+        } else {
+            return defaultValue;
+        }
     }
 
     public long readLong(String key) {

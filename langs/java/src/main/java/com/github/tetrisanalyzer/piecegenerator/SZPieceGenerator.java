@@ -16,7 +16,7 @@ public class SZPieceGenerator extends PieceGenerator {
      */
     public SZPieceGenerator(Map settings) {
         SettingsReader reader = new SettingsReader(settings, "piece generators");
-        seed = reader.readLong("seed", 1);
+        seed = reader.readLong("seed", 1L);
     }
 
     @Override

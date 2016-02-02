@@ -50,6 +50,8 @@ public class RaceSettingsTest {
             "   next pieces: [L]\n" +
             "   heading: first value\n" +
             "   hide: true\n" +
+            "   games left: 111\n" +
+            "   pieces left: 100\n" +
             " - duration: 1d 3h 52m 10.760s\n" +
             "   heading: second value\n" +
             "   parameters:\n" +
@@ -192,6 +194,8 @@ public class RaceSettingsTest {
                 " - heading: first value\n" +
                 "   level: 3\n" +
                 "   number of known pieces: 2\n" +
+                "   games left: 111\n" +
+                "   pieces left: 100\n" +
                 "   next pieces: [L, L]\n" +
                 "   duration: 1d 0h 0m 0.000s\n" +
                 "   hide: true\n" +

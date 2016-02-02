@@ -429,7 +429,7 @@ public class TetrisAnalyzer extends JPanel implements KeyListener {
         while (!allWaiting) {
             allWaiting = true;
             for (RaceGameSettings settings : games) {
-                allWaiting &= settings.game.waiting;
+                allWaiting &= settings.game.waiting || settings.game.stopped;
             }
         }
     }

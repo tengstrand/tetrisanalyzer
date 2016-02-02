@@ -110,23 +110,15 @@ public class Game implements Runnable {
         stop = true;
     }
 
-    /**
-     * Plays a specified number of pieces (state.movesLeft).
-     */
     @Override
     public void run() {
         stop = false;
 
-        while (!stop && state.nonstop || state.movesLeft > 0) {
+        while (!stop && state.hasGamesLeftToPlay() && state.hasPiecesLeftToPlay()) {
             waitIfPaused();
 
             PieceMove bestMove = evaluateBestMove();
-            state.totalPieces++;
-            state.pieces++;
-
-            if (!state.nonstop) {
-                state.movesLeft--;
-            }
+            state.piecePlayed();
             message.setStateIfNeeded(state, textBoard(), nextPieces.piece(), bestMove == null ? null : bestMove.move);
 
             int clearedRows = bestMove.setPiece(board);
@@ -169,8 +161,7 @@ public class Game implements Runnable {
         MoveEquity bestMove = bestMove(board, nextPieces);
 
         if (bestMove == null) {
-            state.games++;
-            state.totalRows += state.rows;
+            state.gameFinished();
             setMinRows();
             setMaxRows();
             state.pieces = 0;

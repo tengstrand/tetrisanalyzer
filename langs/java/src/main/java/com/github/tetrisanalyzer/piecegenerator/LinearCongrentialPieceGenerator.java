@@ -34,7 +34,7 @@ public class LinearCongrentialPieceGenerator extends PieceGenerator {
     public LinearCongrentialPieceGenerator(Map settings) {
         SettingsReader reader = new SettingsReader(settings, "piece generators");
 
-        seed = reader.readLong("seed", 1);
+        seed = reader.readLong("seed", 1L);
         constant1 = reader.readLong("constant1", CONSTANT1);
         constant2 = reader.readLong("constant2", CONSTANT2);
     }

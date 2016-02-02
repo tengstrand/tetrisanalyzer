@@ -103,19 +103,19 @@ public class RaceGameSettings {
         paused = reader.readBoolean("paused", false);
         totalEquityDiff = reader.readDouble("total equity diff", 0);
 
-        long games = reader.readLong("games", 0);
-        long pieces = reader.readLong("pieces", 0);
-        long totalPieces = reader.readLong("pieces total", 0);
-        long rows = reader.readLong("rows", 0);
-        long totalRows = reader.readLong("rows total", 0);
+        Long gamesLeft = reader.readLong("games left", null);
+        Long piecesLeft = reader.readLong("pieces left", null);
+        long games = reader.readLong("games", 0L);
+        long pieces = reader.readLong("pieces", 0L);
+        long totalPieces = reader.readLong("pieces total", 0L);
+        long rows = reader.readLong("rows", 0L);
+        long totalRows = reader.readLong("rows total", 0L);
 
         long minRows = reader.readLong("min rows", Long.MAX_VALUE);
         long maxRows = reader.readLong("max rows", Long.MIN_VALUE);
 
         Map generatorSettings = pieceGeneratorSettings(pieceGeneratorSettings, reader.readMap("piece generator state", new HashMap<>()));
         pieceGenerator = createPieceGenerator(generatorSettings);
-
-        int piecesLeft = 0;
 
         startBoardText = reader.readString("start board", null);
         this.startBoard = reader.readBoard("start board", startBoard);
@@ -135,7 +135,7 @@ public class RaceGameSettings {
 
         gameState = new GameState(duration, board, this.startBoard, distribution, boardEvaluator, pieceGenerator,
                 this.masterDepth, totalEquityDiff, this.level, this.numberOfKnownPieces, nextPieces,
-                games, pieces, totalPieces, rows, totalRows, minRows, maxRows, piecesLeft);
+                games, pieces, totalPieces, rows, totalRows, minRows, maxRows, gamesLeft, piecesLeft);
     }
 
     public void resetSpeedometer() {
