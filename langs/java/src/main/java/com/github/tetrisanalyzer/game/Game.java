@@ -118,7 +118,8 @@ public class Game implements Runnable {
             waitIfPaused();
 
             PieceMove bestMove = evaluateBestMove();
-            state.piecePlayed();
+            state.totalPieces++;
+            state.pieces++;
             message.setStateIfNeeded(state, textBoard(), nextPieces.piece(), bestMove == null ? null : bestMove.move);
 
             int clearedRows = bestMove.setPiece(board);
@@ -161,7 +162,8 @@ public class Game implements Runnable {
         MoveEquity bestMove = bestMove(board, nextPieces);
 
         if (bestMove == null) {
-            state.gameFinished();
+            state.games++;
+            state.totalRows += state.rows;
             setMinRows();
             setMaxRows();
             state.pieces = 0;

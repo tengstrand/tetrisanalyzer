@@ -103,8 +103,8 @@ public class RaceGameSettings {
         paused = reader.readBoolean("paused", false);
         totalEquityDiff = reader.readDouble("total equity diff", 0);
 
-        Long gamesLeft = reader.readLong("games left", null);
-        Long piecesLeft = reader.readLong("pieces left", null);
+        Long gamesToPlay = reader.readLong("games to play", null);
+        Long piecesToPlay = reader.readLong("pieces to play", null);
         long games = reader.readLong("games", 0L);
         long pieces = reader.readLong("pieces", 0L);
         long totalPieces = reader.readLong("pieces total", 0L);
@@ -135,7 +135,7 @@ public class RaceGameSettings {
 
         gameState = new GameState(duration, board, this.startBoard, distribution, boardEvaluator, pieceGenerator,
                 this.masterDepth, totalEquityDiff, this.level, this.numberOfKnownPieces, nextPieces,
-                games, pieces, totalPieces, rows, totalRows, minRows, maxRows, gamesLeft, piecesLeft);
+                games, pieces, totalPieces, rows, totalRows, minRows, maxRows, gamesToPlay, piecesToPlay);
     }
 
     public void resetSpeedometer() {

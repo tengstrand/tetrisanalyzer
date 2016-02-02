@@ -28,8 +28,8 @@ public class GameState {
     public final List<String> nextPieces;
     public long pieces;
     public long totalPieces;
-    public Long gamesLeft;
-    public Long piecesLeft;
+    public Long gamesToPlay;
+    public Long piecesToPlay;
     public long games;
     public long rows;
     public long minRows;
@@ -43,7 +43,7 @@ public class GameState {
                      int masterDepth, double totalEquityDiff,
                      int level, int numberOfKnownPieces, List<String> nextPieces,
                      long numberOfGames, long numberOfPieces, long totalPieces,
-                     long rows, long totalRows, long minRows, long maxRows, Long gamesLeft, Long piecesLeft) {
+                     long rows, long totalRows, long minRows, long maxRows, Long gamesToPlay, Long piecesToPlay) {
         this.duration = duration;
         this.coloredBoard = coloredBoard;
         this.startBoard = coloredStartBoard.asBoard();
@@ -64,8 +64,8 @@ public class GameState {
         this.totalRows = totalRows;
         this.minRows = minRows;
         this.maxRows = maxRows;
-        this.gamesLeft = gamesLeft;
-        this.piecesLeft = piecesLeft;
+        this.gamesToPlay = gamesToPlay;
+        this.piecesToPlay = piecesToPlay;
 
         resetSpeedometer();
     }
@@ -126,13 +126,13 @@ public class GameState {
     public GameState copy() {
         return new GameState(duration, board, startBoard, distribution, coloredBoard, boardEvaluator, pieceGenerator,
             masterDepth, totalEquityDiff, level, numberOfKnownPieces, nextPieces, totalPieces,
-                gamesLeft, piecesLeft, games, rows, minRows, maxRows, totalRows);
+                gamesToPlay, piecesToPlay, games, rows, minRows, maxRows, totalRows);
     }
 
     private GameState(Duration duration, Board board, Board startBoard, Distribution distribution,
                       ColoredBoard coloredBoard, BoardEvaluator boardEvaluator, PieceGenerator pieceGenerator,
                       int masterDepth, double totalEquityDiff, int level, int numberOfKnownPieces, List<String> nextPieces,
-                      long totalPieces, Long gamesLeft, Long piecesLeft,
+                      long totalPieces, Long gamesToPlay, Long piecesToPlay,
                       long games, long rows, long minRows, long maxRows, long totalRows) {
         this.duration = duration;
         this.board = board.copy();
@@ -148,8 +148,8 @@ public class GameState {
         this.numberOfKnownPieces = numberOfKnownPieces;
         this.nextPieces = nextPieces;
         this.totalPieces = totalPieces;
-        this.gamesLeft = gamesLeft;
-        this.piecesLeft = piecesLeft;
+        this.gamesToPlay = gamesToPlay;
+        this.piecesToPlay = piecesToPlay;
         this.games = games;
         this.rows = rows;
         this.minRows = minRows;
@@ -176,27 +176,11 @@ public class GameState {
     }
 
     public boolean hasGamesLeftToPlay() {
-        return gamesLeft == null || gamesLeft > 0;
+        return gamesToPlay == null || games < gamesToPlay;
     }
 
     public boolean hasPiecesLeftToPlay() {
-        return piecesLeft == null || piecesLeft > 0;
-    }
-
-    public void gameFinished() {
-        games++;
-        totalRows += rows;
-        if (gamesLeft != null && gamesLeft > 0) {
-            gamesLeft--;
-        }
-    }
-
-    public void piecePlayed() {
-        totalPieces++;
-        pieces++;
-        if (piecesLeft != null && piecesLeft > 0) {
-            piecesLeft--;
-        }
+        return piecesToPlay == null || pieces < piecesToPlay;
     }
 
     private String board() {
@@ -226,8 +210,8 @@ public class GameState {
                 ", nextPieces=" + nextPieces +
                 ", pieces=" + pieces +
                 ", totalPieces=" + totalPieces +
-                ", gamesLeft=" + gamesLeft +
-                ", piecesLeft=" + piecesLeft +
+                ", gamesToPlay=" + gamesToPlay +
+                ", piecesToPlay=" + piecesToPlay +
                 ", games=" + games +
                 ", rows=" + rows +
                 ", minRowsFormatted=" + minRows +

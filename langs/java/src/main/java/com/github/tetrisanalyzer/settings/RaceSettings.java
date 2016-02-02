@@ -221,8 +221,8 @@ public class RaceSettings {
             String gameParameters = game.parameters == null ? "" : parameters(game.parameters, "     ");
             String level = "   level: " + state.level + "\n";
             String numberOfKnownPieces = "   number of known pieces: " + state.numberOfKnownPieces + "\n";
-            String gamesLeft = state.gamesLeft == null ? "" : "   games left: " + state.gamesLeft + "\n";
-            String piecesLeft = state.piecesLeft == null ? "" : "   pieces left: " + state.piecesLeft + "\n";
+            String gamesToPlay = state.gamesToPlay == null ? "" : "   games to play: " + state.gamesToPlay + "\n";
+            String piecesToPlay = state.piecesToPlay == null ? "" : "   pieces to play: " + state.piecesToPlay + "\n";
             String nextPieces = "   next pieces: " + game.nextPieces() + "\n";
             String duration = "   duration: " + game.duration + "\n";
             String usedParameters = boardEvaluatorParameters(state.boardEvaluator.parameters());
@@ -245,8 +245,8 @@ public class RaceSettings {
             games += headValues +
                     level +
                     numberOfKnownPieces +
-                    gamesLeft +
-                    piecesLeft +
+                    gamesToPlay +
+                    piecesToPlay +
                     master +
                     nextPieces +
                     duration +
