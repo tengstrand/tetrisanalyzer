@@ -9,7 +9,7 @@ import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
 class AllValidPieceMovesTest extends BaseTest {
 
-  @Test def startMoveForPiece() {
+  @Test def startMoveForPiece(): Unit = {
     val board = Board(6,6)
     val piece = PieceT()
     val settings = new DefaultGameSettings

@@ -6,7 +6,7 @@ import nu.tengstrand.tetrisanalyzer.gui.help.HelpColor
 
 class PositionStartupHelpPainter extends TextPainter {
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     setMediumFont(g)
     prepareDrawText(origoX, g, 10, HelpColor.Color)
 

@@ -14,7 +14,7 @@ class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings:
   private var visitedPieceMoves = new VisitedPieceMoves(board, piece)
   private val rotationDirection = settings.rotationDirection
 
-  private def markAsVisited(fromMovement: Movement, movement: Movement) {
+  private def markAsVisited(fromMovement: Movement, movement: Movement): Unit = {
     visitedPieceMoves.visit(movement)
     movement.linkTo(fromMovement)
   }
@@ -36,13 +36,13 @@ class ValidPieceMovesForEmptyBoard(val board: Board, val piece: Piece, settings:
 
     calculateValidMoves(fromMovement, startMovement)
 
-    if (fromMovement.pieceMove.down == null)
-      throw new IllegalStateException("Illegal start position for piece")
-
-    fromMovement.pieceMove.down
+    fromMovement.pieceMove.down match {
+      case Some(downMove) => downMove
+      case None => throw new IllegalStateException("Illegal start position for piece")
+    }
   }
 
-  private def calculateValidMoves(fromMovement: Movement, movement: Movement) {
+  private def calculateValidMoves(fromMovement: Movement, movement: Movement): Unit = {
     while (visitedPieceMoves.isUnvisited(movement) && isPieceInsideBoard(movement)) {
       markAsVisited(fromMovement, movement)
       if (isSlidingEnabled || movement.pieceMove.move.y == 0) {

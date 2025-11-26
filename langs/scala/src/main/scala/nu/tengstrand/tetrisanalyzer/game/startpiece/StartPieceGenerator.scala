@@ -4,19 +4,17 @@ import nu.tengstrand.tetrisanalyzer.piecegenerator.PieceGenerator
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 
 class StartPieceGenerator(var pieceGenerator: PieceGenerator) {
-  var firstPiece: Piece = null
-  var secondPiece: Piece = null
+  var firstPiece: Piece = pieceGenerator.nextPiece()
+  var secondPiece: Option[Piece] = Some(pieceGenerator.nextPiece())
 
-  initPieces()
-
-  def setPieceGenerator(pieceGenerator: PieceGenerator) {
+  def setPieceGenerator(pieceGenerator: PieceGenerator): Unit = {
     this.pieceGenerator = pieceGenerator
     initPieces()
   }
 
-  private def initPieces() {
+  private def initPieces(): Unit = {
     firstPiece = pieceGenerator.nextPiece()
-    secondPiece = pieceGenerator.nextPiece()
+    secondPiece = Some(pieceGenerator.nextPiece())
   }
 
   def piece(showNextPiece: Boolean): StartPiece = {
@@ -27,8 +25,8 @@ class StartPieceGenerator(var pieceGenerator: PieceGenerator) {
   }
 
   def nextPiece(showNextPiece: Boolean): StartPiece = {
-    firstPiece = secondPiece
-    secondPiece = pieceGenerator.nextPiece()
+    firstPiece = secondPiece.getOrElse(throw new IllegalStateException("No second piece available"))
+    secondPiece = Some(pieceGenerator.nextPiece())
     piece(showNextPiece)
   }
 }

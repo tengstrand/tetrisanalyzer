@@ -31,7 +31,7 @@ class RankedMoves(maxX: Int, maxY: Int) extends AlignRight {
     rankedMoves.reverse
   }
 
-  def setMoves(equityMoves: List[MoveEquity], keepSelectedMove: Boolean = false) {
+  def setMoves(equityMoves: List[MoveEquity], keepSelectedMove: Boolean = false): Unit = {
     this.equityMoves = equityMoves
     if (keepSelectedMove && moves.size > 0) {
       val selectedMove = moves(selectedRow)
@@ -43,7 +43,7 @@ class RankedMoves(maxX: Int, maxY: Int) extends AlignRight {
     }
   }
 
-  private def selectMove(move: Move) {
+  private def selectMove(move: Move): Unit = {
     selectedRow = moves.map(_.moveEquity.pieceMove.move).indexWhere(m => { m == move } )
     if (selectedRow < 0)
       selectedRow = 0
@@ -53,14 +53,14 @@ class RankedMoves(maxX: Int, maxY: Int) extends AlignRight {
 
   def selectedPieceMove = moves(selectedRow).moveEquity.pieceMove
 
-  def selectPreviousMove() {
+  def selectPreviousMove(): Unit = {
     if (selectedRow > 0)
       selectedRow -= 1
     else
       selectedRow = moves.size - 1
   }
 
-  def selectNextMove() {
+  def selectNextMove(): Unit = {
     if (selectedRow < moves.size - 1)
       selectedRow += 1
     else

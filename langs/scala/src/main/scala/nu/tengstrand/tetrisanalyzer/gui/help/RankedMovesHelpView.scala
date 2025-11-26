@@ -5,7 +5,7 @@ import nu.tengstrand.tetrisanalyzer.gui.TextPainter
 
 class RankedMovesHelpView extends TextPainter with HelpPainter {
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     prepareDrawText(origoX, g, 10, HelpColor.Color)
 
     drawText("left = Hide moves", 1, g)

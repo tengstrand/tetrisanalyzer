@@ -12,7 +12,7 @@ import nu.tengstrand.tetrisanalyzer.move.Move
 
 class ValidPieceMovesForEmptyBoardTest extends BaseTest {
 
-  @Test def startMove() {
+  @Test def startMove(): Unit = {
     val board = Board(5,5)
     val piece = PieceS()
     val settings = new DefaultGameSettings
@@ -49,11 +49,11 @@ class ValidPieceMovesForEmptyBoardTest extends BaseTest {
     ))
   }
 
-  private def addPieceMoves(pieceMove: PieceMove, pieceMoves: Set[PieceMove]) {
+  private def addPieceMoves(pieceMove: PieceMove, pieceMoves: Set[PieceMove]): Unit = {
     if (pieceMove != null && !pieceMoves.contains(pieceMove)) {
       pieceMoves += pieceMove
       pieceMove.asideAndRotate.foreach(move => addPieceMoves(move, pieceMoves))
-      addPieceMoves(pieceMove.down, pieceMoves)
+      pieceMove.down.foreach(addPieceMoves(_, pieceMoves))
     }
   }
 }

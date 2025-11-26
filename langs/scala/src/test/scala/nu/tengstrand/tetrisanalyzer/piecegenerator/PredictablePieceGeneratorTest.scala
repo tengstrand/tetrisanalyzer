@@ -6,14 +6,14 @@ import nu.tengstrand.tetrisanalyzer.piece.{PieceO, PieceI, PieceZ, PieceS}
 
 class PredictablePieceGeneratorTest extends BaseTest {
 
-  @Test def piece() {
+  @Test def piece(): Unit = {
     val pieceGenerator = new PredictablePieceGenerator(List(PieceS(), PieceZ()))
 
     pieceGenerator.nextPiece() should  be (PieceS())
     pieceGenerator.nextPiece() should  be (PieceZ())
   }
 
-  @Test def pieceAndNextPiece() {
+  @Test def pieceAndNextPiece(): Unit = {
     val pieceGenerator = new PredictablePieceGenerator(List(PieceS(), PieceZ(), PieceI()))
     val result = pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() ::
@@ -22,7 +22,7 @@ class PredictablePieceGeneratorTest extends BaseTest {
     result should be (List(PieceS(), PieceZ(), PieceI()))
   }
 
-  @Test def runOutOfPieces() {
+  @Test def runOutOfPieces(): Unit = {
     val pieceGenerator = new PredictablePieceGenerator(List(PieceI()))
     val result = pieceGenerator.nextPiece() ::
       pieceGenerator.nextPiece() ::

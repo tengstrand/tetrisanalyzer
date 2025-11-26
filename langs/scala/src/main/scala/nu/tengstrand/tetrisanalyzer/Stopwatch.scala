@@ -3,7 +3,7 @@ package nu.tengstrand.tetrisanalyzer
 object Stopwatch {
   var timer1 = new Stopwatch("timer1")
 
-  def printAllResult() {
+  def printAllResult(): Unit = {
     timer1.printResult
   }
 }

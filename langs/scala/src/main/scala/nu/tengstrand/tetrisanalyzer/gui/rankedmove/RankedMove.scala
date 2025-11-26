@@ -30,13 +30,13 @@ class RankedMove(val row: Int, val moveEquity: MoveEquity, maxX: Int, maxEquity:
     this
   }
 
-  def withoutY(move: Move, maxX: Int) = move.rotation + " " + alignRight((move.x + 1).toString, maxX.toString.length)
+  def withoutY(move: Move, maxX: Int) = s"${move.rotation} ${alignRight((move.x + 1).toString, maxX.toString.length)}"
 
   def withY(move: Move, pieceHeight: Int, maxX: Int, maxY: Int, isDuplicatedVX: Boolean) = {
     val xWidth = maxX.toString.length
     val yWidth = maxY.toString.length + 1
     val y = if (isDuplicatedVX) alignRight((maxY - move.y - pieceHeight + 1).toString, yWidth) else " " * yWidth
-    move.rotation + " " + alignRight((move.x + 1).toString, xWidth) + y
+    s"${move.rotation} ${alignRight((move.x + 1).toString, xWidth)}$y"
   }
 
   def withThreeDecimals(equity: Double): String = {

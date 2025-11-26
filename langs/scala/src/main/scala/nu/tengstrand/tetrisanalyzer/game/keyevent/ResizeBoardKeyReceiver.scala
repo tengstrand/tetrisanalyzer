@@ -3,7 +3,7 @@ package nu.tengstrand.tetrisanalyzer.game.keyevent
 import nu.tengstrand.tetrisanalyzer.game.Game
 
 class ResizeBoardKeyReceiver(game: Game) extends KeyReceiver {
-  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
+  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean): Unit = {
     if (!shiftKey) {
       keyCode match {
         case 37 => game.decreaseBoardWidthKeepRatio() // Left

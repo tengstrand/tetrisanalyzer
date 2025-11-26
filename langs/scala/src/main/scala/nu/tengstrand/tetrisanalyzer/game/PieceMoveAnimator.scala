@@ -9,21 +9,22 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
 
   def isMaxSpeed = speed.isMaxSpeed
   def getSpeedIndex = speed.getSpeedIndex
-  def increaseSpeed() { speed.increaseSpeed() }
-  def decreaseSpeed() { speed.decreaseSpeed() }
-  def toggleMaxSpeed() { speed.toggleMaxSpeed() }
+  def increaseSpeed(): Unit = { speed.increaseSpeed() }
+  def decreaseSpeed(): Unit = { speed.decreaseSpeed() }
+  def toggleMaxSpeed(): Unit = { speed.toggleMaxSpeed() }
 
   def continueDoStep(paused: Boolean) = fastAnimation || (!paused && !speed.isMaxSpeed)
 
-  def animateMove(position: Position, startPiece: StartPiece, startPieceMove: PieceMove, pieceMove: PieceMove) {
+  def animateMove(position: Position, startPiece: StartPiece, startPieceMove: PieceMove, pieceMove: PieceMove): Unit = {
     startPieceMove.prepareAnimatedPath()
-    startPieceMove.calculateAnimatedPath(null, 0, 0)
+    startPieceMove.calculateAnimatedPath(None, 0, 0)
 
-    var step = pieceMove
+    var step: Option[PieceMove] = Some(pieceMove)
     var steps = List.empty[PieceMove]
-    while (step != null) {
-      steps = step :: steps
-      step = step.animatedPath
+    while (step.isDefined) {
+      val currentStep = step.get
+      steps = currentStep :: steps
+      step = currentStep.animatedPath
     }
 
     steps.foreach(step => {
@@ -36,7 +37,7 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
     })
   }
 
-  def animateClearedRows(position: Position, pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver) {
+  def animateClearedRows(position: Position, pieceY: Int, pieceHeight: Int, gameEventReceiver: GameEventReceiver): Unit = {
     val copyPosition = Position(position)
     val clearedRows = for {y <- pieceY until pieceY + pieceHeight if (position.isCompleteRow(y))} yield y
 
@@ -46,13 +47,13 @@ class PieceMoveAnimator(speed: Speed, gameEventReceiver: GameEventReceiver) {
     showClearedRows(clearedRows, position, copyPosition, speed.clearRowDelay(fastAnimation) / 2, gameEventReceiver)
   }
 
-  private def clearRows(clearedRows: IndexedSeq[Int], position: Position, gameEventReceiver: GameEventReceiver) {
+  private def clearRows(clearedRows: IndexedSeq[Int], position: Position, gameEventReceiver: GameEventReceiver): Unit = {
     clearedRows.foreach(y => position.clearRow(y))
     gameEventReceiver.setPosition(position)
     Thread.sleep(speed.clearRowDelay(fastAnimation))
   }
 
-  private def showClearedRows(clearedRows: IndexedSeq[Int], position: Position, copyPosition: Position, pauseMilisec: Int, gameEventReceiver: GameEventReceiver) {
+  private def showClearedRows(clearedRows: IndexedSeq[Int], position: Position, copyPosition: Position, pauseMilisec: Int, gameEventReceiver: GameEventReceiver): Unit = {
     clearedRows.foreach(y => position.copyRow(y, copyPosition))
     gameEventReceiver.setPosition(position)
     Thread.sleep(pauseMilisec)

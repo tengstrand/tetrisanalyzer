@@ -13,7 +13,7 @@ class NumberSeparator {
     val endIndex = stringNumber.length-1
 
     for (i <- 0 to endIndex)
-      result += stringNumber(i) + (if ((endIndex-i)%3 == 0 && endIndex-i >= 3) " " else "")
+      result += s"${stringNumber(i)}${if ((endIndex-i)%3 == 0 && endIndex-i >= 3) " " else ""}"
 
     result
   }

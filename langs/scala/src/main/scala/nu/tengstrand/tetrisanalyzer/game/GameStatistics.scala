@@ -15,12 +15,12 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
   private var minClearedRows = Long.MaxValue
   private var maxClearedRows = 0L
 
-  def addMove() {
+  def addMove(): Unit = {
     moves += 1
     movesTotal += 1
   }
 
-  def addClearedRows(clearedRows: Int) {
+  def addClearedRows(clearedRows: Int): Unit = {
     this.clearedRows += clearedRows
     clearedRowsTotal += clearedRows
   }
@@ -30,7 +30,7 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     movesTotal % updateEveryXMove == 0
   }
 
-  def reset() {
+  def reset(): Unit = {
     moves = 0L
     movesTotal = 0L
     clearedRows = 0L
@@ -44,7 +44,7 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(0L, 0L, 0L, 0L, 0L)
   }
 
-  def newGame() {
+  def newGame(): Unit = {
     games += 1
 
     totalClearedRows += clearedRows
@@ -61,23 +61,22 @@ class GameStatistics(boardSize: Dimension, gameEventReceiver: GameEventReceiver)
     clearedRows = 0
   }
 
-  def updateAll() {
+  def updateAll(): Unit = {
     gameEventReceiver.setBoardSize(boardSize.width, boardSize.height)
     updateGameInfo()
     gameEventReceiver.setNumberOfGamesAndRowsInLastGame(games, clearedRows, totalClearedRows, minClearedRows, maxClearedRows)
   }
 
-  def setStartPieceAndSelectedMove(position: Position, startPiece: StartPiece, selectedRankedMove: Move, settings: GameSettings) {
+  def setStartPieceAndSelectedMove(position: Position, startPiece: StartPiece, selectedRankedMove: Option[Move], settings: GameSettings): Unit = {
     if (gameEventReceiver.isReadyToReceivePosition) {
       val positionWithStartPiece = Position(position)
       positionWithStartPiece.setStartPieceIfFree(startPiece, settings)
-      if (selectedRankedMove != null)
-        positionWithStartPiece.setSelectedMove(startPiece.firstPiece, selectedRankedMove)
+      selectedRankedMove.foreach(move => positionWithStartPiece.setSelectedMove(startPiece.firstPiece, move))
       gameEventReceiver.setPosition(positionWithStartPiece)
     }
   }
 
-  def updateGameInfo() {
+  def updateGameInfo(): Unit = {
     gameEventReceiver.setNumberOfPieces(moves)
     gameEventReceiver.setTotalNumberOfPieces(movesTotal)
     gameEventReceiver.setNumberOfClearedRows(clearedRows)

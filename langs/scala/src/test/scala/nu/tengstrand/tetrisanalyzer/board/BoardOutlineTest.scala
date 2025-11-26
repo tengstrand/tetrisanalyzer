@@ -6,7 +6,7 @@ import org.junit.{Before, Test}
 class BoardOutlineTest extends BaseTest {
   var board: Board = _
 
-  @Before def setUp() {
+  @Before def setUp(): Unit = {
     board = Board(Array(
       "#------x#",
       "#-----xx#",
@@ -15,11 +15,11 @@ class BoardOutlineTest extends BaseTest {
       "#########"))
   }
 
-  @Test def boarderOutline() {
+  @Test def boarderOutline(): Unit = {
     BoardOutline(board) should be (new BoardOutline(Array(3,2,3,4,4,1,0,0), 0))
   }
 
-  @Test def minY() {
+  @Test def minY(): Unit = {
     BoardOutline(board).minY should be (0)
   }
 }

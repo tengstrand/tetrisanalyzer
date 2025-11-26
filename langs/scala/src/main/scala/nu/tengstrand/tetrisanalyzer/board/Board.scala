@@ -119,11 +119,11 @@ class Board(val width: Int, val height: Int, val rows: Array[Int]) {
     var y1 = pieceY + pieceHeight
 
     // Find first row to clear
-    do {
+    while (clearedRows == 0 && y1 > pieceY) {
       y1 -= 1
       if (rows(y1) == completeRow)
         clearedRows += 1
-    } while (clearedRows == 0 && y1 > pieceY)
+    }
 
     // Clear rows
     if (clearedRows > 0) {
@@ -158,7 +158,7 @@ class Board(val width: Int, val height: Int, val rows: Array[Int]) {
   /**
    * Restores this (mutable) bard from a another board.
    */
-  def restore(other: Board) {
+  def restore(other: Board): Unit = {
     other.rows.copyToArray(rows)
   }
 

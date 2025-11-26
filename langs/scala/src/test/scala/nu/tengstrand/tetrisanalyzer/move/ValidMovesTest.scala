@@ -9,7 +9,7 @@ import nu.tengstrand.tetrisanalyzer.piece.PieceS
 
 class ValidMovesTest extends BaseTest {
 
-  @Test def pieceMoves() {
+  @Test def pieceMoves(): Unit = {
     val board = Board(5,4)
     val validMoves = new ValidMoves(board)
     val startPiece = getStartPiece(board)

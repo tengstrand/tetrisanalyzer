@@ -9,28 +9,28 @@ import nu.tengstrand.tetrisanalyzer.move.{Move, MoveEquity}
 
 class RankedMovesTest extends BaseTest {
 
-  @Test def headerX() {
+  @Test def headerX(): Unit = {
     val rankedMoves = new RankedMoves(9, 20) {
       override def hasDuplicatedVX = false
     }
     rankedMoves.headerAsText should be ("    v x  Depth 0")
   }
 
-  @Test def headerX_adjustRight() {
+  @Test def headerX_adjustRight(): Unit = {
     val rankedMoves = new RankedMoves(10, 20) {
       override def hasDuplicatedVX = false
     }
     rankedMoves.headerAsText should be ("    v  x  Depth 0")
   }
 
-  @Test def headerXY() {
+  @Test def headerXY(): Unit = {
     val rankedMoves = new RankedMoves(9, 20) {
       override def hasDuplicatedVX = true
     }
     rankedMoves.headerAsText should be ("    v x  y  Depth 0")
   }
 
-  @Test def calculateRankedMoves() {
+  @Test def calculateRankedMoves(): Unit = {
     val rankedMoves = new RankedMoves(9, 20)
     rankedMoves.setMoves(equityMoves)
     rankedMoves.moves.map(_.asText).mkString("\n") should be (

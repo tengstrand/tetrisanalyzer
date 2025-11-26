@@ -10,19 +10,19 @@ import nu.tengstrand.tetrisanalyzer.settings.rotation.MoveAdjustment
 class Movement(val pieceMove: PieceMove, val direction: Direction) {
   def this(pieceMove: PieceMove) = this(pieceMove, new Down)
 
-  def linkTo(linkedFromMovement: Movement) {
+  def linkTo(linkedFromMovement: Movement): Unit = {
     if (direction == Direction.Down)
-      linkedFromMovement.pieceMove.down = pieceMove
+      linkedFromMovement.pieceMove.down = Some(pieceMove)
     else
       linkedFromMovement.pieceMove.asideAndRotate += pieceMove
   }
 
   def rotate(adjust: MoveAdjustment, rotationType: RotationDirection, rotationModulus: Int, visitedPieceMoves: VisitedPieceMoves) = {
-    new Movement(visitedPieceMoves.get(pieceMove.move rotate(adjust, rotationType, rotationModulus)), new Rotate)
+    new Movement(visitedPieceMoves.get(pieceMove.move.rotate(adjust, rotationType, rotationModulus)), new Rotate)
   }
   def left(visitedPieceMoves: VisitedPieceMoves) = new Movement(visitedPieceMoves.get(pieceMove.move.left), new Left)
-  def right(visitedPieceMoves: VisitedPieceMoves) = new Movement(visitedPieceMoves.get(pieceMove.move right), new Right)
-  def down(visitedPieceMoves: VisitedPieceMoves) = new Movement(visitedPieceMoves.get(pieceMove.move down), new Down)
+  def right(visitedPieceMoves: VisitedPieceMoves) = new Movement(visitedPieceMoves.get(pieceMove.move.right), new Right)
+  def down(visitedPieceMoves: VisitedPieceMoves) = new Movement(visitedPieceMoves.get(pieceMove.move.down), new Down)
 
-  override def toString = pieceMove + ", " + direction
+  override def toString = s"$pieceMove, $direction"
 }

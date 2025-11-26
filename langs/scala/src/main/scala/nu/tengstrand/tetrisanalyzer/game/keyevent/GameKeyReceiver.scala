@@ -6,7 +6,7 @@ import nu.tengstrand.tetrisanalyzer.gui.GameView
 
 class GameKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
 
-  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
+  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean): Unit = {
         keyCode match {
           case 32 => // Space
             game.performMove()

@@ -3,7 +3,7 @@ package nu.tengstrand.tetrisanalyzer.piecemove
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.move.Move
-import collection.immutable.{Set, HashSet}
+import scala.collection.immutable.{Set, HashSet}
 
 object PieceMove {
   val AllBitsCleared = 0
@@ -32,11 +32,11 @@ object PieceMove {
  */
 class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndices: Array[Int],
                 orRows: Array[Int], andRows: Array[Int]) extends Ordered[PieceMove] {
-  var down: PieceMove = null
+  var down: Option[PieceMove] = None
   var asideAndRotate: Set[PieceMove] = new HashSet[PieceMove]
   private val pieceHeight = piece.height(move.rotation)
 
-  var animatedPath: PieceMove = null
+  var animatedPath: Option[PieceMove] = None
   private var animatedPathValue: Int = Integer.MAX_VALUE
 
   /**
@@ -52,7 +52,7 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   /**
    * Removes a piece from the board.
    */
-  def clearPiece() {
+  def clearPiece(): Unit = {
     for (y <- 0 until pieceHeight) {
       board.rows(boardRowIndices(y)) &= andRows(y)
     }
@@ -70,11 +70,11 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   }
 
   /**
-   * True if this piece hasn't reached the bottom (down == null) and the move down
+   * True if this piece hasn't reached the bottom (down == None) and the move down
    * (current position where y is increased by one) is not occupied with "dots" (pieces parts).
    */
   def canMoveDown: Boolean = {
-    down != null && down.isFree
+    down.isDefined && down.get.isFree
   }
 
   def freeAsideAndRotateMoves = {
@@ -84,12 +84,11 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
   /**
    * Resets the path values so the animated path can be calculated by calling calculateAnimatedPath.
    */
-  def prepareAnimatedPath() {
+  def prepareAnimatedPath(): Unit = {
     if (animatedPathValue != Integer.MAX_VALUE) {
       animatedPathValue = Integer.MAX_VALUE
       asideAndRotate.foreach(_.prepareAnimatedPath())
-      if (down != null)
-        down.prepareAnimatedPath()
+      down.foreach(_.prepareAnimatedPath())
     }
   }
 
@@ -99,13 +98,13 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
    *
    * Make sure the method prepareAnimatedPath has been called before calling this method.
    */
-  def calculateAnimatedPath(fromPieceMove: PieceMove, pathValue: Int, asideValue: Int) {
+  def calculateAnimatedPath(fromPieceMove: Option[PieceMove], pathValue: Int, asideValue: Int): Unit = {
     if (pathValue + asideValue < animatedPathValue && isFree) {
       animatedPath = fromPieceMove
       animatedPathValue = pathValue + asideValue
-      asideAndRotate.foreach(pieceMove => pieceMove.calculateAnimatedPath(this, animatedPathValue, asideValue + 1))
+      asideAndRotate.foreach(pieceMove => pieceMove.calculateAnimatedPath(Some(this), animatedPathValue, asideValue + 1))
       if (canMoveDown) {
-        down.calculateAnimatedPath(this, animatedPathValue, 0)
+        down.foreach(_.calculateAnimatedPath(Some(this), animatedPathValue, 0))
       }
     }
   }
@@ -119,12 +118,12 @@ class PieceMove(val board: Board, val piece: Piece, val move: Move, boardRowIndi
       move.y.compare(that.move.y)
   }
 
-  override def equals(that: Any) = that match {
+  override def equals(that: Any): Boolean = that match {
     case other: PieceMove => piece == other.piece && move == other.move
     case _ => false
   }
 
   override def hashCode = piece.hashCode * 31 + move.hashCode
 
-  override def toString = piece + ", " + move
+  override def toString = s"$piece, $move"
 }

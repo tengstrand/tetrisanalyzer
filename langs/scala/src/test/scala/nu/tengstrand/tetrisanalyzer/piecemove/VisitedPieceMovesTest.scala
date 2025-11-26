@@ -10,7 +10,7 @@ class VisitedPieceMovesTest extends BaseTest {
   private var board: Board = Board(6,6)
   private var piece: Piece = PieceS()
 
-  @Test def visitLeftPieceS() {
+  @Test def visitLeftPieceS(): Unit = {
     val move = new Move(0,0,0)
     val visitedMoves = new VisitedPieceMoves(board, piece)
     visitedMoves.visit(getMovement(move, new Left))

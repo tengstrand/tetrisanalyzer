@@ -7,12 +7,12 @@ class ResizeBoardHelpView extends TextPainter with HelpPainter {
   private var boardWidth = 10
   private var boardHeight = 20
 
-  def setBoardSize(width: Int, height: Int) {
+  def setBoardSize(width: Int, height: Int): Unit = {
     boardWidth = width
     boardHeight = height
   }
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     // Black text
     setBigFont(g)
     prepareDrawText(origoX, g, 10)

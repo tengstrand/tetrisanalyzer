@@ -5,34 +5,34 @@ import org.junit.Test
 
 class BoardTest extends BaseTest {
 
-  @Test def tooLow() {
-    evaluating {
+  @Test def tooLow(): Unit = {
+    assertThrows[IllegalArgumentException] {
       Board(Array(
         "#----------#",
         "#----x-----#",
         "#-x--x----x#",
         "############"))
-    } should produce[IllegalArgumentException]
+    }
   }
 
-  @Test def tooNarrow() {
-    evaluating {
+  @Test def tooNarrow(): Unit = {
+    assertThrows[IllegalArgumentException] {
       Board(Array(
         "#---#",
         "#---#",
         "#---#",
         "#-x-#",
         "#####"))
-    } should produce[IllegalArgumentException]
+    }
   }
 
-  @Test def tooWide() {
-    evaluating {
+  @Test def tooWide(): Unit = {
+    assertThrows[IllegalArgumentException] {
       Board(33,10)
-    } should produce[IllegalArgumentException]
+    }
   }
 
-  @Test def testToString() {
+  @Test def testToString(): Unit = {
     val boardArray = Array(
       "#----------#",
       "#----------#",
@@ -45,7 +45,7 @@ class BoardTest extends BaseTest {
     board.toString should be (boardArray.mkString("\n"))
   }
 
-  @Test def _IsFree_occupied() {
+  @Test def _IsFree_occupied(): Unit = {
     val board = Board(Array(
       "#----------#",
       "#----------#",
@@ -57,7 +57,7 @@ class BoardTest extends BaseTest {
     board.isFree(1,4) should be (false)
   }
 
-  @Test def _IsFree() {
+  @Test def _IsFree(): Unit = {
     val board = Board(Array(
       "#xxxxxxxxxx#",
       "#xxxxxxxxxx#",
@@ -69,7 +69,7 @@ class BoardTest extends BaseTest {
     board.isFree(1,4) should be (true)
   }
 
-  @Test def clearRows() {
+  @Test def clearRows(): Unit = {
     val board = Board(Array(
       "#----------#",
       "#----x-----#",
@@ -91,13 +91,13 @@ class BoardTest extends BaseTest {
       "############")))
   }
 
-  @Test def copy() {
+  @Test def copy(): Unit = {
     val board = getBoard
 
     board.copy should be (board)
   }
 
-  @Test def restore() {
+  @Test def restore(): Unit = {
     val empty = Board(8,4)
     val copy = getBoard
     empty.restore(copy)
@@ -115,7 +115,7 @@ class BoardTest extends BaseTest {
   }
 
   @Test
-  def junkBoard() {
+  def junkBoard(): Unit = {
     val board = Board(10, 5)
 
     board.junkBoard should be (Board(Array(

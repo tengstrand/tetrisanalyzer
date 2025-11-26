@@ -6,9 +6,9 @@ import nu.tengstrand.tetrisanalyzer.gui.{TetrisAnalyzer, TextPainter}
 class GameHelpView extends TextPainter with HelpPainter {
   private var paused = true
 
-  def setPaused(paused: Boolean) { this.paused = paused }
+  def setPaused(paused: Boolean): Unit = { this.paused = paused }
 
-  def paintGraphics(origoX: Int, g: Graphics2D) {
+  def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     prepareDrawText(origoX, g, 10, HelpColor.Color)
 
     drawText("p = Pause (toggle)", 1, g)
@@ -37,7 +37,7 @@ class GameHelpView extends TextPainter with HelpPainter {
 
 
 
-    drawText("Tetris Analyzer " + TetrisAnalyzer.version, 32, g)
+    drawText("Tetris Analyzer " + TetrisAnalyzer.Version, 32, g)
     drawText("AI: JTengstrand 1.1.01", 33, g)
     drawText("tetrisanalyzer@tengstrand.nu", 34, g)
     drawText("http://tetrisanalyzer.tengstrand.nu", 35, g)

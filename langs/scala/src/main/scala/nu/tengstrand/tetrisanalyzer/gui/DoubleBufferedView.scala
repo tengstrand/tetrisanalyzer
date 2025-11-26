@@ -10,9 +10,9 @@ abstract class DoubleBufferedView extends Component {
   private var image: Image = _
 
   def preparePaintGraphics: Dimension
-  def paintGraphics(g: Graphics)
+  def paintGraphics(g: Graphics): Unit
 
-  override def paintComponent(g: Graphics2D) {
+  override def paintComponent(g: Graphics2D): Unit = {
     super.paintComponent(g);
 
     val paintArea = preparePaintGraphics
@@ -22,7 +22,7 @@ abstract class DoubleBufferedView extends Component {
     }
   }
 
-  private def paintOffscreenImage(paintArea: Dimension, g: Graphics) {
+  private def paintOffscreenImage(paintArea: Dimension, g: Graphics): Unit = {
     initializeOffscreenImageIfNeeded(paintArea)
 
     val imageGraphics: Graphics = image.getGraphics
@@ -36,7 +36,7 @@ abstract class DoubleBufferedView extends Component {
     area.width <= 0 || area.height <= 0
   }
 
-  private def initializeOffscreenImageIfNeeded(area: Dimension) {
+  private def initializeOffscreenImageIfNeeded(area: Dimension): Unit = {
     if (image == null || image.getWidth(null) != area.width || image.getHeight(null) != area.height) {
       image = new java.awt.image.BufferedImage(area.width, area.height, java.awt.image.BufferedImage.TYPE_INT_RGB)
     }

@@ -9,7 +9,7 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
   private var timeStarted = 0L;
   private var totalTimeMs = 0L;
 
-  def setPaused(paused: Boolean) {
+  def setPaused(paused: Boolean): Unit = {
     this.paused = paused
 
     val currentTimeMs = System.currentTimeMillis
@@ -30,7 +30,7 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
       (totalTimeMs + System.currentTimeMillis - timeStarted) / 1000.0
   }
 
-  def start() {
+  def start(): Unit = {
     while (true) {
       gameInfoReceiver.setTimePassed(secondsPassed)
       mainFrame.repaint()
@@ -38,7 +38,7 @@ class Timer(mainFrame: UIElement, gameInfoReceiver: GameInfoReceiver) {
     }
   }
 
-  def reset() {
+  def reset(): Unit = {
     timeStarted = System.currentTimeMillis
     totalTimeMs = 0
   }

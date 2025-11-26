@@ -1,6 +1,6 @@
 package nu.tengstrand.tetrisanalyzer.piecemove
 
-import collection.mutable.HashMap
+import scala.collection.mutable.HashMap
 import nu.tengstrand.tetrisanalyzer.piece.Piece
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.move.Move
@@ -22,7 +22,7 @@ class VisitedPieceMoves(board: Board, piece: Piece) {
    * movement to this location has occurred. We also add the direction 'Rotate' because
    * we don't want to rotate the piece back to current position.
    */
-  def visit(movement: Movement) {
+  def visit(movement: Movement): Unit = {
     val move = movement.pieceMove.move
     visitedMoves(move.y)(move.x)(movement.direction.index) |= (1 << move.rotation)
     visitedMoves(move.y)(move.x)(Direction.Rotate.index) |= (1 << move.rotation)

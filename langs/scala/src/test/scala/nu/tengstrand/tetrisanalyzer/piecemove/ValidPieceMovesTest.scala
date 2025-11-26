@@ -1,7 +1,7 @@
 package nu.tengstrand.tetrisanalyzer.piecemove
 
 import org.junit.Test
-import collection.mutable.{HashSet, Set}
+import scala.collection.mutable.{HashSet, Set}
 import nu.tengstrand.tetrisanalyzer.BaseTest
 import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.move.Move
@@ -10,7 +10,7 @@ import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
 
 class ValidPieceMovesTest extends BaseTest {
 
-  @Test def calculateStartMove() {
+  @Test def calculateStartMove(): Unit = {
     val board = Board(5,5)
     val piece = PieceO()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -23,15 +23,15 @@ class ValidPieceMovesTest extends BaseTest {
       PieceMove(board, piece, Move(0,2, 0))
     ))
 
-    startMove.down should be (PieceMove(board, piece, Move(0,1, 1)))
+    startMove.down should be (Some(PieceMove(board, piece, Move(0,1, 1))))
   }
 
-  @Test def _canMoveDown() {
+  @Test def _canMoveDown(): Unit = {
     startMoveForDown.canMoveDown should be (true)
   }
 
-  @Test def _canMoveDown_occupied() {
-    startMoveForDown.down.canMoveDown should be (false)
+  @Test def _canMoveDown_occupied(): Unit = {
+    startMoveForDown.down.exists(_.canMoveDown) should be (false)
   }
 
   private def startMoveForDown = {
@@ -47,7 +47,7 @@ class ValidPieceMovesTest extends BaseTest {
     validPieceMoves.startMove
   }
 
-  @Test def freeAsideAndRotateMoves() {
+  @Test def freeAsideAndRotateMoves(): Unit = {
     val board = startBoardForAsideAndRotate
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -67,7 +67,7 @@ class ValidPieceMovesTest extends BaseTest {
       "##########"))
   }
 
-  @Test def slidingOn() {
+  @Test def slidingOn(): Unit = {
     val board = slidingBoard
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings, true)
@@ -91,7 +91,7 @@ class ValidPieceMovesTest extends BaseTest {
     ))
   }
 
-  @Test def slidingOff() {
+  @Test def slidingOff(): Unit = {
     val board = slidingBoard
     val piece = PieceS()
     val validPieceMoves = new ValidPieceMovesForEmptyBoard(board, piece, new DefaultGameSettings)
@@ -131,12 +131,12 @@ class ValidPieceMovesTest extends BaseTest {
     moves.toList.sortBy{m => (m.x, m.rotation, m.y)}
   }
 
-  private def asMoves(pieceMove: PieceMove, moves: Set[Move], visitedMoves: Set[Move]) {
+  private def asMoves(pieceMove: PieceMove, moves: Set[Move], visitedMoves: Set[Move]): Unit = {
     if (!visitedMoves.contains(pieceMove.move)) {
       visitedMoves += pieceMove.move
       pieceMove.freeAsideAndRotateMoves.foreach(move => asMoves(move, moves, visitedMoves))
       if (pieceMove.canMoveDown)
-        asMoves(pieceMove.down, moves, visitedMoves)
+        pieceMove.down.foreach(asMoves(_, moves, visitedMoves))
       else
         moves += pieceMove.move
     }

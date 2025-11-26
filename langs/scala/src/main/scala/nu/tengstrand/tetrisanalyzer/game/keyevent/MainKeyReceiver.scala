@@ -16,13 +16,13 @@ class MainKeyReceiver(game: Game, gameView: GameView) extends KeyReceiver {
   KeyboardFocusManager.getCurrentKeyboardFocusManager.addKeyEventPostProcessor(new KeyEventPostProcessor {
     def postProcessKeyEvent(e: KeyEvent): Boolean = {
       if (e.getID == KeyEvent.KEY_PRESSED) {
-        keyPressed(e.getKeyCode, (e.getModifiers & 1) == 1, (e.getModifiers & 2) == 2)
+        keyPressed(e.getKeyCode, e.isShiftDown, e.isControlDown)
       }
       true;
     }
   });
 
-  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean) {
+  def keyPressed(keyCode: Int, shiftKey: Boolean, ctrlKey: Boolean): Unit = {
     gameView.hideStartupHelp()
 
     if (keyCode == 27 && isResizingBoard) {

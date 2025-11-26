@@ -36,22 +36,22 @@ class GameInfoView extends GameInfoReceiver {
 
   var showView = true
 
-  def toggleShowView() { showView = !showView }
+  def toggleShowView(): Unit = { showView = !showView }
 
   def width = if (showView) 235 else 0
 
-  def setSeed(seed: Long) { this.seed = seed }
-  def setSliding(enabled: Boolean) { slidingEnabled = enabled }
-  def setShowNextPiece(show: Boolean) { showNextPiece = show }
-  def setBoardSize(width: Int, height: Int) { boardSize = new Dimension(width, height) }
-  def setNumberOfPieces(pieces: Long) { this.pieces = pieces }
-  def setTotalNumberOfPieces(piecesTotal: Long) { this.piecesTotal = piecesTotal }
-  def setNumberOfClearedRows(clearedRows: Long) { this.clearedRows = clearedRows }
-  def setTotalNumberOfClearedRows(clearedRowsTotal: Long) { this.clearedRowsTotal = clearedRowsTotal }
-  def setTimePassed(seconds: Double) { secondsPassed = seconds }
-  def setPaused(paused: Boolean) { this.paused = paused }
+  def setSeed(seed: Long): Unit = { this.seed = seed }
+  def setSliding(enabled: Boolean): Unit = { slidingEnabled = enabled }
+  def setShowNextPiece(show: Boolean): Unit = { showNextPiece = show }
+  def setBoardSize(width: Int, height: Int): Unit = { boardSize = new Dimension(width, height) }
+  def setNumberOfPieces(pieces: Long): Unit = { this.pieces = pieces }
+  def setTotalNumberOfPieces(piecesTotal: Long): Unit = { this.piecesTotal = piecesTotal }
+  def setNumberOfClearedRows(clearedRows: Long): Unit = { this.clearedRows = clearedRows }
+  def setTotalNumberOfClearedRows(clearedRowsTotal: Long): Unit = { this.clearedRowsTotal = clearedRowsTotal }
+  def setTimePassed(seconds: Double): Unit = { secondsPassed = seconds }
+  def setPaused(paused: Boolean): Unit = { this.paused = paused }
 
-  def setSpeed(speedIndex: Int, isMaxSpeed: Boolean) {
+  def setSpeed(speedIndex: Int, isMaxSpeed: Boolean): Unit = {
     this.speedIndex = speedIndex
     this.isMaxSpeed = isMaxSpeed
 
@@ -59,7 +59,7 @@ class GameInfoView extends GameInfoReceiver {
     speedInfo = SpeedInfo(secondsPassed, piecesTotal, clearedRowsTotal)
   }
 
-  def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long) {
+  def setNumberOfGamesAndRowsInLastGame(games: Long, rows: Long, totalClearedRows: Long, minRows: Long, maxRows: Long): Unit = {
     this.games = games
     this.minRows = minRows
     this.maxRows = maxRows
@@ -67,12 +67,12 @@ class GameInfoView extends GameInfoReceiver {
     this.clearedRowsTotalInFinishedGames = totalClearedRows
   }
 
-  def paintGameInfo(origoX: Int, g: Graphics2D) {
+  def paintGameInfo(origoX: Int, g: Graphics2D): Unit = {
     if (showView)
       paintGraphics(origoX, g)
   }
 
-  private def paintGraphics(origoX: Int, g: Graphics2D) {
+  private def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     textPainter.prepareDrawText(origoX, g)
 
     textPainter.drawInfo("Rows:", withSpaces(clearedRows), 1, g)
@@ -86,15 +86,15 @@ class GameInfoView extends GameInfoReceiver {
     textPainter.drawInfo("Min rows:", if (games == 0) "" else withSpaces(minRows), 9, g)
     textPainter.drawInfo("Max rows:", if (games == 0) "" else withSpaces(maxRows), 10, g)
 
-    textPainter.drawInfo("Board:", boardSize.width + " x " + boardSize.height, 12, g)
+    textPainter.drawInfo("Board:", s"${boardSize.width} x ${boardSize.height}", 12, g)
     textPainter.drawInfo("Sliding:", if (slidingEnabled) "On" else "Off", 13, g)
     textPainter.drawInfo("Random seed:", seed, 14, g)
 
     textPainter.drawInfo("Next:", if (showNextPiece) "On" else "Off", 16, g)
 
     textPainter.drawInfo("Speed:", "", 18, g)
-    textPainter.drawInfo("Rows/sec:", calculateUnitsPerSec(clearedRowsTotal - speedInfo.clearedRowsTotal), 19, g)
-    textPainter.drawInfo("Pieces/sec:", calculateUnitsPerSec(piecesTotal - speedInfo.piecesTotal), 20, g)
+    textPainter.drawInfo("Rows/sec:", calculateUnitsPerSec((clearedRowsTotal - speedInfo.clearedRowsTotal).toDouble), 19, g)
+    textPainter.drawInfo("Pieces/sec:", calculateUnitsPerSec((piecesTotal - speedInfo.piecesTotal).toDouble), 20, g)
 
     textPainter.drawInfo("Pause:", if (paused) "On" else "", 22, g)
 
@@ -109,7 +109,7 @@ class GameInfoView extends GameInfoReceiver {
     drawSpeed(18, origoX, g)
   }
 
-  private def drawSpeed(row: Int, origoX: Int, g: Graphics2D) {
+  private def drawSpeed(row: Int, origoX: Int, g: Graphics2D): Unit = {
     val factor = 10
 
     if (isMaxSpeed)
@@ -137,7 +137,7 @@ class GameInfoView extends GameInfoReceiver {
     val sec: Int = (seconds*10 % 600).toInt
     val min: Int = (seconds/60 % 60).toInt
     val hours: Int = (seconds/3600).toInt
-    hours + "h " + min + "m " + (sec/10) + "." + (sec%10) + "s"
+    s"${hours}h ${min}m ${(sec / 10)}.${sec % 10}s"
   }
 
   private def calculateUnitsPerSec(total: Double): Any = {

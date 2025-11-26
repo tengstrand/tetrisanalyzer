@@ -40,7 +40,7 @@ object Profiling {
   private val timeUnits = List("ns", "us", "ms", "s")
   def formatTime(delta:Long) = {
     def formatTime(v:Long, units:List[String], tail:List[String]):List[String] = {
-      def makeTail(what:Long) = (what + units.head) :: tail
+      def makeTail(what:Long) = s"$what${units.head}" :: tail
         if(!units.tail.isEmpty && v >= 1000)
           formatTime(v / 1000, units.tail, makeTail(v % 1000))
         else

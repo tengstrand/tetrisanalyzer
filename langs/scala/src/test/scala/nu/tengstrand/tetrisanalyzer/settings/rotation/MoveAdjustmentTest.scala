@@ -5,7 +5,7 @@ import org.junit.Test
 
 class MoveAdjustmentTest extends BaseTest {
 
-  @Test def minus() {
+  @Test def minus(): Unit = {
     MoveAdjustment(0,2) - MoveAdjustment(1,1) should be (MoveAdjustment(-1,1))
   }
 }

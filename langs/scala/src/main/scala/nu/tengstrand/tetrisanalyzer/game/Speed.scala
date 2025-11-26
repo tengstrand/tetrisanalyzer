@@ -12,12 +12,12 @@ class Speed {
   private var maxSpeed = false
   private var speedIndex = 7
 
-  def toggleMaxSpeed() { maxSpeed = !maxSpeed }
+  def toggleMaxSpeed(): Unit = { maxSpeed = !maxSpeed }
   def isMaxSpeed = maxSpeed
 
   def getSpeedIndex = speedIndex
-  def decreaseSpeed() { maxSpeed = false; if (speedIndex > Speed.MinSpeedIndex) speedIndex -= 1 }
-  def increaseSpeed() { maxSpeed = false; if (speedIndex < Speed.MaxSpeedIndex) speedIndex += 1 }
+  def decreaseSpeed(): Unit = { maxSpeed = false; if (speedIndex > Speed.MinSpeedIndex) speedIndex -= 1 }
+  def increaseSpeed(): Unit = { maxSpeed = false; if (speedIndex < Speed.MaxSpeedIndex) speedIndex += 1 }
 
   def pieceDelay(fastAnimation: Boolean): Int = {
     if (maxSpeed)

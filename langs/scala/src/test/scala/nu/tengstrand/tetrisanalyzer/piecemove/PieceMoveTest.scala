@@ -6,11 +6,11 @@ import nu.tengstrand.tetrisanalyzer.board.Board
 import nu.tengstrand.tetrisanalyzer.move.Move
 import nu.tengstrand.tetrisanalyzer.piece.{PieceI, PieceS}
 import nu.tengstrand.tetrisanalyzer.settings.DefaultGameSettings
-import collection.mutable.LinkedHashSet
+import scala.collection.mutable.LinkedHashSet
 
 class PieceMoveTest extends BaseTest {
 
-  @Test def setPiece() {
+  @Test def setPiece(): Unit = {
     val board = Board(8,4)
     val piece = PieceS()
     val move = Move(0,3, 1)
@@ -25,7 +25,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-  @Test def setStandingPieceI() {
+  @Test def setStandingPieceI(): Unit = {
     val board = Board(8,4)
     val piece = PieceI()
     val move = Move(1,0, 0)
@@ -40,7 +40,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-  @Test def setPiece_clearTwoRows() {
+  @Test def setPiece_clearTwoRows(): Unit = {
     val board = Board(Array(
       "#----------#",
       "#----x-----#",
@@ -62,7 +62,7 @@ class PieceMoveTest extends BaseTest {
       "############")))
   }
 
-  @Test def clearPiece() {
+  @Test def clearPiece(): Unit = {
     val board = Board(Array(
       "#xxxxxxxx#",
       "#xxxxxxxx#",
@@ -82,7 +82,7 @@ class PieceMoveTest extends BaseTest {
       "##########")))
   }
 
-  @Test def _isFree() {
+  @Test def _isFree(): Unit = {
     val board = Board(Array(
       "#-xxxxxxx#",
       "#-xxxxxxx#",
@@ -96,7 +96,7 @@ class PieceMoveTest extends BaseTest {
     PieceMove(board, piece, move).isFree should be (true)
   }
 
-  @Test def _isFree_occupied() {
+  @Test def _isFree_occupied(): Unit = {
     val board = Board(Array(
       "#--------#",
       "#--------#",
@@ -110,7 +110,7 @@ class PieceMoveTest extends BaseTest {
     PieceMove(board, piece, move).isFree should be (false)
   }
 
-  @Test def calculateAnimatedPath() {
+  @Test def calculateAnimatedPath(): Unit = {
     val board = Board(Array(
       "#-----#",
       "#-----#",
@@ -123,18 +123,20 @@ class PieceMoveTest extends BaseTest {
     val validPieceMovesForEmptyBoard = new ValidPieceMovesForEmptyBoard(board, piece, settings)
     var pieceMove = validPieceMovesForEmptyBoard.startMove
 
-    pieceMove.calculateAnimatedPath(null, 0, 0)
+    pieceMove.calculateAnimatedPath(None, 0, 0)
 
     pieceMove = pieceMove.asideAndRotate.find(_.move.x == 0).get
 
-    while (pieceMove.down != null)
-      pieceMove = pieceMove.down
+    while (pieceMove.down.isDefined)
+      pieceMove = pieceMove.down.get
 
     var animatedPath = new LinkedHashSet[PieceMove]
 
-    while (pieceMove != null) {
-      animatedPath += pieceMove
-      pieceMove = pieceMove.animatedPath
+    var current = Option(pieceMove)
+    while (current.isDefined) {
+      val pm = current.get
+      animatedPath += pm
+      current = pm.animatedPath
     }
     animatedPath should be (LinkedHashSet(
       PieceMove(board,piece,Move(0,0, 3)),

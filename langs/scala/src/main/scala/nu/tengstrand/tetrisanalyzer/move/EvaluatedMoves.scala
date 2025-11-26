@@ -9,7 +9,7 @@ import nu.tengstrand.tetrisanalyzer.game.startpiece.StartPiece
 case class MoveEquity(pieceMove: PieceMove, equity: Double)
 
 object EvaluatedMoves {
-  def apply(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator, startPiece: StartPiece, nextPieceMove: PieceMove,
+  def apply(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator, startPiece: StartPiece, nextPieceMove: Option[PieceMove],
             startPieceMoves: List[PieceMove], firstFreeRowUnderStartPiece: Int, maxEquity: Double) = {
     new EvaluatedMoves(board, pieceMoves, boardEvaluator, startPiece, nextPieceMove, startPieceMoves, firstFreeRowUnderStartPiece, maxEquity)
   }
@@ -19,7 +19,7 @@ object EvaluatedMoves {
 /**
  * Takes a list of piece moves and evaluates them using the given board evaluator.
  */
-class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator, startPiece: StartPiece, nextPieceMove: PieceMove,
+class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: BoardEvaluator, startPiece: StartPiece, nextPieceMove: Option[PieceMove],
                      startPieceMoves: List[PieceMove], firstGuaranteedFreeRowUnderStartPiece: Int, maxEquity: Double) {
   val moves: List[MoveEquity] = evaluateValidMoves()
 
@@ -43,12 +43,12 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
       None
     } else {
       var bestEquity = Double.MaxValue
-      var bestMoveEquity: MoveEquity = null
+      var bestMoveEquity: Option[MoveEquity] = None
       moves.foreach(moveEquity => if (moveEquity.equity < bestEquity) {
         bestEquity = moveEquity.equity
-        bestMoveEquity = moveEquity
+        bestMoveEquity = Some(moveEquity)
       })
-      Some(bestMoveEquity)
+      bestMoveEquity
     }
   }
 
@@ -72,7 +72,7 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
     var equity = if (!startPiece.hasNext)
       boardEvaluator.evaluate(board)
     else
-      evaluateBoardUsingCurrentAndNextPiece(board, nextPieceMove)
+      nextPieceMove.map(evaluateBoardUsingCurrentAndNextPiece(board, _)).getOrElse(Double.MaxValue)
 
     if (pieceMove.move.y + clearedRows < firstGuaranteedFreeRowUnderStartPiece)
        equity = adjustEquityIfAnyNextPieceIsOccupied(pieceMove.board, equity)
@@ -90,21 +90,21 @@ class EvaluatedMoves(board: Board, pieceMoves: List[PieceMove], boardEvaluator: 
     val validMoves = ValidMoves(board).pieceMoves(nextPieceMove)
 
     var bestEquity = Double.MaxValue
-    var bestPieceMove: PieceMove = null
+    var bestPieceMove: Option[PieceMove] = None
 
     validMoves.foreach(pieceMove => {
       val clearedRows = pieceMove.setPiece()
       val equity = boardEvaluator.evaluate(board)
-      if (equity < bestEquity || (equity == bestEquity && pieceMove < bestPieceMove)) {
+      if (equity < bestEquity || (equity == bestEquity && bestPieceMove.exists(pieceMove < _))) {
         bestEquity = equity
-        bestPieceMove = pieceMove
+        bestPieceMove = Some(pieceMove)
       }
       if (clearedRows == 0)
         pieceMove.clearPiece()
       else
         pieceMove.board.restore(boardCopy)
     })
-    if (bestPieceMove == null) maxEquity else bestEquity
+    bestPieceMove.map(_ => bestEquity).getOrElse(maxEquity)
   }
 
   private def adjustEquityIfAnyNextPieceIsOccupied(board: Board, equity: Double) = {

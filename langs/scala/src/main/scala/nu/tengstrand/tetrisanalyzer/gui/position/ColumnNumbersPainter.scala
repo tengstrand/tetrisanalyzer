@@ -7,7 +7,7 @@ import nu.tengstrand.tetrisanalyzer.gui.FontChooser
 class ColumnNumbersPainter {
   private val fontChooser = new FontChooser
 
-  def paintNumbers(position: ColoredPosition, rows: Seq[Int], columns: Seq[Int], g: Graphics2D) {
+  def paintNumbers(position: ColoredPosition, rows: Seq[Int], columns: Seq[Int], g: Graphics2D): Unit = {
     g.setColor(Color.BLACK)
 
     val squareHeight = (rows(position.height-1) - rows(position.height-2))

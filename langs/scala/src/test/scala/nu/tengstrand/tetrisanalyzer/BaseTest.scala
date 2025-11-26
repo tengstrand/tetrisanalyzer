@@ -1,5 +1,6 @@
 package nu.tengstrand.tetrisanalyzer
 
-import org.scalatest.junit.{JUnitSuite, ShouldMatchersForJUnit}
+import org.scalatestplus.junit.JUnitSuite
+import org.scalatest.matchers.should.Matchers
 
-abstract class BaseTest extends JUnitSuite with ShouldMatchersForJUnit
+abstract class BaseTest extends JUnitSuite with Matchers

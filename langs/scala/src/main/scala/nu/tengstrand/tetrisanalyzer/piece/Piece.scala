@@ -42,9 +42,9 @@ abstract class Piece {
   protected def heights: Array[Int]
   protected def shapes: Array[PieceShape]
 
-  override def hashCode = number
+  override def hashCode: Int = number.toInt
 
-  override def equals(that: Any) = that match {
+  override def equals(that: Any): Boolean = that match {
     case other: Piece => number == other.number
     case _ => false
   }

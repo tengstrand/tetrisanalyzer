@@ -12,14 +12,14 @@ import nu.tengstrand.tetrisanalyzer.piece.{PieceL, PieceS}
 class EvaluatedMovesTest extends BaseTest {
   private val piece = PieceS()
 
-  @Test def bestMove() {
+  @Test def bestMove(): Unit = {
     val board = Board()
     val startPiece = new StartPiece(piece)
     getEvaluatedMoves(board, startPiece).bestMove should be (
       Some(PieceMove(board, piece, Move(0,7, 18))))
   }
 
-  @Test def evaluatedMovesOnePiece() {
+  @Test def evaluatedMovesOnePiece(): Unit = {
     val board = Board()
     val startPiece = new StartPiece(piece)
     val evaluatedMoves = getEvaluatedMoves(board, startPiece)
@@ -45,7 +45,7 @@ class EvaluatedMovesTest extends BaseTest {
       MoveEquity(PieceMove(board, piece, Move(1,1, 17)), 10.824)))
   }
 
-  @Test def evaluatedMovesTwoPieces() {
+  @Test def evaluatedMovesTwoPieces(): Unit = {
     val board = Board(Array(
       "#----------#",
       "#----------#",
@@ -69,7 +69,7 @@ class EvaluatedMovesTest extends BaseTest {
       "#-xxx------#",
       "############"))
 
-    val startPiece = new StartPiece(PieceL(), PieceS())
+    val startPiece = new StartPiece(PieceL(), Some(PieceS()))
     val evaluatedMoves = getEvaluatedMoves(board, startPiece)
     val moves: List[MoveEquity] = evaluatedMoves.sortedMovesWithAdjustedEquity
     val piece = startPiece.firstPiece
@@ -115,7 +115,7 @@ class EvaluatedMovesTest extends BaseTest {
     val settings = new DefaultGameSettings
     val allValidPieceMovesForEmptyBoard = new AllValidPieceMovesForEmptyBoard(board, settings)
     val startPieceMove = allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.firstPiece)
-    val nextPieceMove: PieceMove = if (startPiece.hasNext) allValidPieceMovesForEmptyBoard.startMoveForPiece(startPiece.secondPiece) else null
+    val nextPieceMove: Option[PieceMove] = startPiece.secondPiece.map(allValidPieceMovesForEmptyBoard.startMoveForPiece)
     val validMoves = new ValidMoves(board).pieceMoves(startPieceMove)
     val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
     val boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings)

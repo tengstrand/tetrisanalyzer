@@ -5,27 +5,27 @@ import org.junit.Test
 
 class NumberSeparatorTest extends BaseTest {
 
-  @Test def separateOneDigit() {
+  @Test def separateOneDigit(): Unit = {
     val numberSeparator = new NumberSeparator
     numberSeparator.withSpaces(1) should be ("1")
   }
 
-  @Test def separateTwoDigit() {
+  @Test def separateTwoDigit(): Unit = {
     val numberSeparator = new NumberSeparator
     numberSeparator.withSpaces(12) should be ("12")
   }
 
-  @Test def separateThreeDigit() {
+  @Test def separateThreeDigit(): Unit = {
     val numberSeparator = new NumberSeparator
     numberSeparator.withSpaces(123) should be ("123")
   }
 
-  @Test def separateFourDigits() {
+  @Test def separateFourDigits(): Unit = {
     val numberSeparator = new NumberSeparator
     numberSeparator.withSpaces(1234) should be ("1 234")
   }
 
-  @Test def separateEightDigits() {
+  @Test def separateEightDigits(): Unit = {
     val numberSeparator = new NumberSeparator
     numberSeparator.withSpaces(12345678) should be ("12 345 678")
   }

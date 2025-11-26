@@ -11,7 +11,7 @@ class HelpView extends TextPainter {
   private val rankedMovesHelpView = new RankedMovesHelpView
   private var helpPainter: HelpPainter = gameHelpView
 
-  def setView(isResizingBoard: Boolean, showRankedMoves: Boolean) {
+  def setView(isResizingBoard: Boolean, showRankedMoves: Boolean): Unit = {
     this.isResizingBoard = isResizingBoard
 
     if (isResizingBoard)
@@ -22,18 +22,18 @@ class HelpView extends TextPainter {
       helpPainter = gameHelpView
   }
 
-  def setPaused(paused: Boolean) { gameHelpView.setPaused(paused) }
+  def setPaused(paused: Boolean): Unit = { gameHelpView.setPaused(paused) }
 
-  def toggleShowView() { showView = !showView }
+  def toggleShowView(): Unit = { showView = !showView }
 
-  def setBoardSize(width: Int, height: Int) { resizeBoardHelpView.setBoardSize(width, height)}
+  def setBoardSize(width: Int, height: Int): Unit = { resizeBoardHelpView.setBoardSize(width, height)}
 
-  def paintHelp(origoX: Int, g: Graphics2D) {
+  def paintHelp(origoX: Int, g: Graphics2D): Unit = {
     if (showView || isResizingBoard)
       paintGraphics(origoX, g)
   }
 
-  private def paintGraphics(origoX: Int, g: Graphics2D) {
+  private def paintGraphics(origoX: Int, g: Graphics2D): Unit = {
     helpPainter.paintGraphics(origoX, g)
   }
 }

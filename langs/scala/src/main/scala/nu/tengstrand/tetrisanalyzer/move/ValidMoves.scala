@@ -13,7 +13,7 @@ class ValidMoves(board: Board) {
   private var validMoves = List.empty[PieceMove]
   private val visitedMoves = Array.fill(board.height, board.width) { 0 }
 
-  private def markAsVisited(move: Move) { visitedMoves(move.y)(move.x) |= 1 << move.rotation }
+  private def markAsVisited(move: Move): Unit = { visitedMoves(move.y)(move.x) |= 1 << move.rotation }
   private def isUnvisited(move: Move): Boolean = {
     try {
       (visitedMoves(move.y)(move.x) & (1 << move.rotation)) == 0
@@ -34,7 +34,7 @@ class ValidMoves(board: Board) {
       pieceMove.freeAsideAndRotateMoves.foreach(move => pieceMoves(move))
 
       if (pieceMove.canMoveDown)
-        pieceMoves(pieceMove.down)
+        pieceMove.down.foreach(pieceMoves)
       else
         validMoves = pieceMove :: validMoves
     }

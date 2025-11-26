@@ -5,7 +5,7 @@ import org.junit.Test
 
 class JavaPieceGeneratorTest extends BaseTest {
 
-  @Test def nextPiece() {
+  @Test def nextPiece(): Unit = {
     val pieceGenerator = new JavaPieceGenerator
 
     for (i <- 1 to 1000) {

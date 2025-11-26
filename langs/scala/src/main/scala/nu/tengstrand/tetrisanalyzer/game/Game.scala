@@ -13,15 +13,15 @@ object Game {
 
 class Game(timer: Timer, gameView: GameView) {
   private var boardSize = new BoardSize(new MinMax(10, 10, 10), new MinMax(20, 20, 20))
-  private var boardSizeBeforeResize: Size = null
+  private var boardSizeBeforeResize: Option[Size] = None
 
-  private var board: Board = null
-  private var position: Position = null
-  private var resizingPosition: Position = null
+  private var board: Option[Board] = None
+  private var position: Option[Position] = None
+  private var resizingPosition: Option[Position] = None
   private val boardEvaluatorSettings = new JTengstrandBoardEvaluator1DefaultSettings
 
-  private var boardEvaluator: BoardEvaluator = null
-  private var computerPlayer: ComputerPlayer = null
+  private var boardEvaluator: Option[BoardEvaluator] = None
+  private var computerPlayer: Option[ComputerPlayer] = None
 
   private var seed = 1L
   private var showNextPiece = true
@@ -39,38 +39,41 @@ class Game(timer: Timer, gameView: GameView) {
 
   startNewGameWithEmptyBoard()
 
-  private def startNewGameWithEmptyBoard() {
-    board = Board(boardWidth, boardHeight)
-    position = Position(boardWidth, boardHeight)
-    resizingPosition = Position(boardWidth, boardHeight)
+  private def startNewGameWithEmptyBoard(): Unit = {
+    board = Some(Board(boardWidth, boardHeight))
+    position = Some(Position(boardWidth, boardHeight))
+    resizingPosition = Some(Position(boardWidth, boardHeight))
     startNewGame()
   }
 
-  private def startNewGame() {
-    if (computerPlayer != null)
-      computerPlayer.quitGame()
+  private def startNewGame(): Unit = {
+    computerPlayer.foreach(_.quitGame())
 
     val settings = new DefaultGameSettings
+    val currentBoard = board.get
+    val currentPosition = position.get
 
     gameView.setSeed(seed)
     gameView.setShowNextPiece(showNextPiece)
-    boardEvaluator = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, board.width, board.height)
-    boardSize = new BoardSize(new MinMax(board.width, boardEvaluator.minBoardWidth, boardEvaluator.maxBoardWidth),
-                              new MinMax(board.height, boardEvaluator.minBoardHeight, boardEvaluator.maxBoardHeight))
-    computerPlayer = new ComputerPlayer(speed, startPieceGenerator, board, position, boardEvaluator, settings, slidingEnabled, gameView)
-    computerPlayer.setShowNextPiece(showNextPiece)
-    computerPlayer.setShowRankedMoves(showRankedMoves)
-    computerPlayer.setPaused(paused)
+    val be = new JTengstrandBoardEvaluator1(boardEvaluatorSettings, currentBoard.width, currentBoard.height)
+    boardEvaluator = Some(be)
+    boardSize = new BoardSize(new MinMax(currentBoard.width, be.minBoardWidth, be.maxBoardWidth),
+                              new MinMax(currentBoard.height, be.minBoardHeight, be.maxBoardHeight))
+    val cp = new ComputerPlayer(speed, startPieceGenerator, currentBoard, currentPosition, be, settings, slidingEnabled, gameView)
+    computerPlayer = Some(cp)
+    cp.setShowNextPiece(showNextPiece)
+    cp.setShowRankedMoves(showRankedMoves)
+    cp.setPaused(paused)
     timer.reset()
-    computerPlayer.start()
-    gameView.stopResizingBoard(position, showRankedMoves)
+    cp.start()
+    gameView.stopResizingBoard(currentPosition, showRankedMoves)
   }
 
-  def performMove() { computerPlayer.performStep() }
+  def performMove(): Unit = { computerPlayer.foreach(_.performStep()) }
 
-  def performRankedMove() { computerPlayer.performStep() }
+  def performRankedMove(): Unit = { computerPlayer.foreach(_.performStep()) }
 
-  def togglePause() {
+  def togglePause(): Unit = {
     if (paused && showRankedMoves) {
       pausedBeforeShowRankedMoves = false
       showRankedMoves(false)
@@ -79,109 +82,109 @@ class Game(timer: Timer, gameView: GameView) {
     }
   }
 
-  private def setPaused(paused: Boolean) {
+  private def setPaused(paused: Boolean): Unit = {
     this.paused = paused
     timer.setPaused(paused)
-    computerPlayer.setPaused(paused)
+    computerPlayer.foreach(_.setPaused(paused))
     gameView.setPaused(paused)
   }
 
-  def toggleSliding() {
+  def toggleSliding(): Unit = {
     slidingEnabled = !slidingEnabled
     gameView.setSliding(slidingEnabled)
-    computerPlayer.setSliding(slidingEnabled)
+    computerPlayer.foreach(_.setSliding(slidingEnabled))
   }
 
-  def toggleShowNextPiece() {
+  def toggleShowNextPiece(): Unit = {
     showNextPiece = !showNextPiece
     gameView.setShowNextPiece(showNextPiece)
-    computerPlayer.setShowNextPiece(showNextPiece)
+    computerPlayer.foreach(_.setShowNextPiece(showNextPiece))
   }
 
-  def increaseSpeed() { computerPlayer.increaseSpeed() }
+  def increaseSpeed(): Unit = { computerPlayer.foreach(_.increaseSpeed()) }
 
-  def decreaseSpeed() { computerPlayer.decreaseSpeed() }
+  def decreaseSpeed(): Unit = { computerPlayer.foreach(_.decreaseSpeed()) }
 
-  def increaseSeed() {
+  def increaseSeed(): Unit = {
     seed += 1
     restartPieceGenerator()
   }
 
-  def decreaseSeed() {
+  def decreaseSeed(): Unit = {
     if (seed > 0) {
       seed -= 1
       restartPieceGenerator()
     }
   }
 
-  private def restartPieceGenerator() {
+  private def restartPieceGenerator(): Unit = {
     pieceGenerator = new DefaultPieceGenerator(seed)
-    computerPlayer.setPieceGenerator(pieceGenerator)
+    computerPlayer.foreach(_.setPieceGenerator(pieceGenerator))
     gameView.setSeed(seed)
   }
 
-  def startResizeBoard() {
-    boardSizeBeforeResize = boardSize.size
+  def startResizeBoard(): Unit = {
+    boardSizeBeforeResize = Some(boardSize.size)
     pausedBeforeResizing = paused
     setPaused(true);
     updateBoardSize()
   }
 
-  def acceptBoardSize() {
+  def acceptBoardSize(): Unit = {
     setPaused(pausedBeforeResizing)
     if (hasBoardSizeChanged)
       startNewGameWithEmptyBoard()
     else
-      gameView.stopResizingBoard(position, showRankedMoves)
+      position.foreach(p => gameView.stopResizingBoard(p, showRankedMoves))
   }
 
-  private def hasBoardSizeChanged = boardSize.size != boardSizeBeforeResize
+  private def hasBoardSizeChanged = boardSizeBeforeResize.exists(_ != boardSize.size)
 
-  def abortBoardSize() {
+  def abortBoardSize(): Unit = {
     setPaused(pausedBeforeResizing)
-    gameView.stopResizingBoard(position, showRankedMoves)
+    position.foreach(p => gameView.stopResizingBoard(p, showRankedMoves))
   }
 
-  def decreaseBoardWidth() {
+  def decreaseBoardWidth(): Unit = {
     boardSize.decreaseWidth()
     updateBoardSize()
   }
 
-  def increaseBoardWidth() {
+  def increaseBoardWidth(): Unit = {
     boardSize.increaseWidth()
     updateBoardSize()
   }
 
-  def decreaseBoardHeight() {
+  def decreaseBoardHeight(): Unit = {
     boardSize.decreaseHeight()
     updateBoardSize()
   }
 
-  def increaseBoardHeight() {
+  def increaseBoardHeight(): Unit = {
     boardSize.increaseHeight()
     updateBoardSize()
   }
 
-  def increaseBoardWidthKeepRatio() {
+  def increaseBoardWidthKeepRatio(): Unit = {
     boardSize.increaseSizeKeepRatio()
     updateBoardSize()
   }
 
-  def decreaseBoardWidthKeepRatio() {
+  def decreaseBoardWidthKeepRatio(): Unit = {
     boardSize.decreaseSizeKeepRatio()
     updateBoardSize()
   }
 
-  private def updateBoardSize() {
-    resizingPosition = Position(boardWidth, boardHeight)
-    gameView.setResizingBoard(resizingPosition, boardWidth, boardHeight)
+  private def updateBoardSize(): Unit = {
+    resizingPosition = Some(Position(boardWidth, boardHeight))
+    resizingPosition.foreach(p => gameView.setResizingBoard(p, boardWidth, boardHeight))
   }
 
-  def toggleMaxSpeed() { computerPlayer.toggleMaxSpeed() }
+  def toggleMaxSpeed(): Unit = { computerPlayer.foreach(_.toggleMaxSpeed()) }
 
   def isRankedMovesVisible = showRankedMoves
 
-  def showRankedMoves(show: Boolean) {
+  def showRankedMoves(show: Boolean): Unit = {
     if (show) {
       pausedBeforeShowRankedMoves = paused
       setPaused(true)
@@ -190,7 +193,7 @@ class Game(timer: Timer, gameView: GameView) {
     }
 
     showRankedMoves = show
-    computerPlayer.setShowRankedMoves(showRankedMoves)
+    computerPlayer.foreach(_.setShowRankedMoves(showRankedMoves))
     gameView.showRankedMoves(show)
   }
 }

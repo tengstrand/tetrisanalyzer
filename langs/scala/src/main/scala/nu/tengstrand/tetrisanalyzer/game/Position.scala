@@ -54,7 +54,7 @@ object Position {
  * If next piece is activated that piece is also shown.
  */
 class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array[Byte]]) extends ColoredPosition {
-  def setDot(dot: Point, move: Move, number: Byte) { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
+  def setDot(dot: Point, move: Move, number: Byte): Unit = { playfield(dot.y + move.y)(dot.x + move.x + Wall.Left) = number }
   def getDot(x: Int, y: Int) = { playfield(y)(x) }
   def getRow(y: Int): Array[Byte] = playfield(y)
 
@@ -62,7 +62,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
   def height = boardHeight + Wall.Bottom
   def colorValue(x: Int, y: Int): Int = playfield(y)(x).toInt
 
-  def setStartPieceIfFree(startPiece: StartPiece, settings: GameSettings) {
+  def setStartPieceIfFree(startPiece: StartPiece, settings: GameSettings): Unit = {
     val piece = startPiece.firstPiece
     val startMove = settings.pieceStartMove(boardWidth, piece)
     val isFree = piece.shape(startMove.rotation).dots.foldLeft(0) {(sum,dot) => sum + emptyOrOccupied(dot.x, dot.y)} == 0
@@ -70,17 +70,18 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
       setPiece(piece, startMove)
   }
 
-  def setOrRemoveNextPiece(startPiece: StartPiece) {
+  def setOrRemoveNextPiece(startPiece: StartPiece): Unit = {
     if (!startPiece.hasNext) {
       setNextPieceSquare(Wall.Number)
     } else {
       setNextPieceSquare(PieceEmpty.Number)
-      val piece = startPiece.secondPiece
-      piece.shape(0).dots.foreach(dot => playfield(dot.y)(dot.x + 1) = piece.number)
+      startPiece.secondPiece.foreach { piece =>
+        piece.shape(0).dots.foreach(dot => playfield(dot.y)(dot.x + 1) = piece.number)
+      }
     }
   }
 
-  private def setNextPieceSquare(number: Byte) {
+  private def setNextPieceSquare(number: Byte): Unit = {
     for (y <- 0 to 1) {
       for (x <- 0 to 4) {
         playfield(y)(x) = number
@@ -88,11 +89,11 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     }
   }
 
-  def setSelectedMove(piece: Piece, move: Move) {
+  def setSelectedMove(piece: Piece, move: Move): Unit = {
     piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, (RankedPiece.Number + piece.number).toByte))
   }
 
-  def setPiece(piece: Piece, move: Move) {
+  def setPiece(piece: Piece, move: Move): Unit = {
     piece.shape(move.rotation).dots.foreach(dot => setDot(dot, move, piece.number))
   }
 
@@ -102,15 +103,15 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
 
   private def emptyOrOccupied(x: Int, y: Int) = if (playfield(y)(x + Wall.Left) == PieceEmpty.Number) 0 else 1
 
-  def clearRow(y: Int) {
+  def clearRow(y: Int): Unit = {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = PieceEmpty.Number)
   }
 
-  private def copyRow(fromY: Int, toY: Int) {
+  private def copyRow(fromY: Int, toY: Int): Unit = {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(toY)(x) = playfield(fromY)(x))
   }
 
-  def copyRow(y: Int, fromPosition: Position) {
+  def copyRow(y: Int, fromPosition: Position): Unit = {
     (Wall.Left until Wall.Left + boardWidth).foreach(x => playfield(y)(x) = fromPosition.getDot(x,y))
   }
 
@@ -125,11 +126,11 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     var y1 = pieceY + pieceHeight
 
     // Find first row to clear
-    do {
+    while (clearedRows == 0 && y1 > pieceY) {
       y1 -= 1
       if (isCompleteRow(y1))
         clearedRows += 1
-    } while (clearedRows == 0 && y1 > pieceY)
+    }
 
     // Clear rows
     if (clearedRows > 0) {
@@ -152,7 +153,7 @@ class Position(val boardWidth: Int, val boardHeight: Int, playfield: Array[Array
     clearedRows
   }
 
-  def copyFrom(position: Position) {
+  def copyFrom(position: Position): Unit = {
     for (y <- 0 until height) {
       position.getRow(y).copyToArray(playfield(y))
     }

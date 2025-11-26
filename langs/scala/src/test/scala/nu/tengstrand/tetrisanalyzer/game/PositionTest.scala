@@ -9,7 +9,7 @@ import startpiece.StartPiece
 
 class PositionTest extends BaseTest {
 
-  @Test def testToString() {
+  @Test def testToString(): Unit = {
     val position = Position();
 
     position.toString should be (
@@ -38,7 +38,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def setStartPieceIfFree() {
+  @Test def setStartPieceIfFree(): Unit = {
     val position = Position(10,5);
     val startPiece = new StartPiece(PieceS())
     position.setStartPieceIfFree(startPiece, new DefaultGameSettings)
@@ -54,9 +54,9 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def setOrRestoreNextPiece() {
+  @Test def setOrRestoreNextPiece(): Unit = {
     val position = Position(10,5);
-    val startPiece = new StartPiece(PieceS(), PieceT())
+    val startPiece = new StartPiece(PieceS(), Some(PieceT()))
     position.setOrRemoveNextPiece(startPiece)
 
     position.toString should be (
@@ -70,7 +70,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def setPiece() {
+  @Test def setPiece(): Unit = {
     val position = Position(10,5);
     position.setPiece(PieceT(), Move(1, 5, 2))
 
@@ -85,7 +85,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def clearRows() {
+  @Test def clearRows(): Unit = {
     // Before:
     // ######---TTT----##
     // ######----T-----##
@@ -121,7 +121,7 @@ class PositionTest extends BaseTest {
     )
   }
 
-  @Test def copyConstructor() {
+  @Test def copyConstructor(): Unit = {
     val position = Position(10,5);
     position.setPiece(PieceT(), Move(1, 5, 2))
 
