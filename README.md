@@ -4,6 +4,8 @@ A Tetris playing AI, by Joakim Tengstrand.
 
 ![Tetris Analyzer screenshot](tetris-analyzer.png)
 
+To run the program, clone this repo and go to `langs/scala` and execute:
+
 ## Build
 ```bash
 ./build.sh
