@@ -122,6 +122,7 @@ void GameSettings::writeSettings(ofstream &logfile)
 
 	logfile << "\nsy1..sy20 = ";
 
+	int i;
 	for (i=1; i<=20; i++)
 		logfile << BrainJote20::spacey[i] << "  ";
 

@@ -1,5 +1,13 @@
 
+#if __has_include(<GL/freeglut.h>)
+#include <GL/freeglut.h>
+#elif __has_include(<GL/glut.h>)
 #include <GL/glut.h>
+#elif __has_include(<GLUT/glut.h>)
+#include <GLUT/glut.h>
+#else
+#error "No GLUT-compatible header found"
+#endif
 #include "RenderText.h"
 
 RenderText::RenderText(int x1, int y1, int height, float r, float g, float b)

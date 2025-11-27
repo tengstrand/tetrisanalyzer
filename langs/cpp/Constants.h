@@ -26,7 +26,7 @@
 #define MAX_MOVE_COST 100000
 
 #define TEXT_INFO1 "Tetris Analyzer (build 76)"
-#define TEXT_INFO2 "NRUNWEQSFFXH@spammotel.com"
+#define TEXT_INFO2 "joakim.tengstrand@gmail.com"
 
 extern long globalCnt;
 

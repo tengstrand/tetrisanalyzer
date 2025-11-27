@@ -12,7 +12,7 @@ DiffMoveThList::~DiffMoveThList()
 {
 }
 
-DiffMoveThList::add(double thEquity)
+void DiffMoveThList::add(double thEquity)
 {
 	diffMoveList[maxIndex].thEquity = thEquity;
 

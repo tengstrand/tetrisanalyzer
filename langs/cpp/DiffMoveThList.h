@@ -15,7 +15,7 @@ class DiffMoveThList
 	public:
 		DiffMoveThList();
 		~DiffMoveThList();
-		add(double thEquity);
+		void add(double thEquity);
 		DiffMoveTh *getFirst();
 		DiffMoveTh *getNext();
 };

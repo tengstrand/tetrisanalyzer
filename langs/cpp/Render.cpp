@@ -1,9 +1,19 @@
 
 #include "stdafx.h"
 
-#include <gl/gl.h>
-#include <gl/glu.h>
-#include <gl/glaux.h>
+#if __has_include(<GL/gl.h>)
+#include <GL/gl.h>
+#elif __has_include(<OpenGL/gl.h>)
+#include <OpenGL/gl.h>
+#else
+#error "OpenGL headers not found"
+#endif
+
+#if __has_include(<GL/glu.h>)
+#include <GL/glu.h>
+#elif __has_include(<OpenGL/glu.h>)
+#include <OpenGL/glu.h>
+#endif
 
 #include "Render.h"
 

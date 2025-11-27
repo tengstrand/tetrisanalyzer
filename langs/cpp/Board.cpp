@@ -27,6 +27,7 @@ Board::Board(int width, int height, int sliding, int pieceStartX)
 	for (int i=1; i<=MAX_LEVELS; i++)
 		movePathList[i] = new MovePath(width, height, pieceStartX);
 
+	int i;
 	for (i=0; i<size; i++)
 		board[i] = 0;
 
@@ -50,6 +51,7 @@ Board::Board(Board *copyBoard)
 	for (int i=1; i<=MAX_LEVELS; i++)
 		movePathList[i] = new MovePath(width, height, pieceStartX);
 
+	int i;
 	for (i=0; i<size; i++)
 		board[i] = copyBoard->board[i];
 

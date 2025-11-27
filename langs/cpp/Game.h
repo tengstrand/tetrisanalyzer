@@ -36,8 +36,8 @@ class Game : public IRunnable
 		long maxCntblockstat;
 		long *cntblockstat;
 		long linesPerGame;
-		time_t milisec1;
-		time_t milisec2;
+		unsigned long milisec1;
+		unsigned long milisec2;
 		time_t seconds;
 		ofstream wHtml;
 		ofstream wTmp;

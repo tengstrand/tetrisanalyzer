@@ -20,7 +20,7 @@ class GameView : public GameObserver
 		int viewX2;
 		int viewY2;
 		int showInfo;
-		int milisec;
+		unsigned long milisec;
 		int frameCnt;
 		int copyBoardIndex;
 		int frameRateDelay;

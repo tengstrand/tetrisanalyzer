@@ -1,11 +1,18 @@
 
 #include "stdafx.h"
+#ifdef _WIN32
 #include "resource.h"
+#endif
 
-#include <iostream.h>
-#include <string.h>
-#include <fstream>
+#if __has_include(<GL/freeglut.h>)
+#include <GL/freeglut.h>
+#elif __has_include(<GL/glut.h>)
 #include <GL/glut.h>
+#elif __has_include(<GLUT/glut.h>)
+#include <GLUT/glut.h>
+#else
+#error "No GLUT-compatible header found"
+#endif
 
 #include "Game.h"
 #include "GameSettings.h"
@@ -24,6 +31,16 @@ long globalCnt = 0;
 GameSettings gameSettings;
 Game *game;
 GameView *gameView;
+
+void renderScene(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (gameView)
+		gameView->render();
+
+	glutSwapBuffers();
+}
 
 void changeSize(int w, int h)
 {
@@ -110,27 +127,16 @@ void processNormalKeys(unsigned char key, int x, int y)
 
 
 
-void renderScene(void)
+static int runApplication(int argc, char **argv)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	char defaultArg[] = "TetrisAnalyzer";
+	char *fallbackArgv[] = { defaultArg, nullptr };
 
-	gameView->render();
-
-	glutSwapBuffers();
-
-	//glFlush();
-}
-
-
-int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
-                     int       nCmdShow)
-{
-	int argc = 1;
-	char xx[1000] = "jote";
-	char *ptr = xx;
-	char **argv = (char **)&ptr;
+	if (argc == 0 || argv == nullptr)
+	{
+		argc = 1;
+		argv = fallbackArgv;
+	}
 
 	gameSettings.setDefaultParameters();
 	game = new Game(&gameSettings);
@@ -160,4 +166,22 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	return 0;
 }
+
+#ifdef _WIN32
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow)
+{
+	char arg0[] = "TetrisAnalyzer";
+	char *argv[] = { arg0, nullptr };
+	int argc = 1;
+	return runApplication(argc, argv);
+}
+#else
+int main(int argc, char **argv)
+{
+	return runApplication(argc, argv);
+}
+#endif
 

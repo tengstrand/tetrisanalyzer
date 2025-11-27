@@ -1,5 +1,5 @@
 
-#include <windows.h>
+#include "Platform.h"
 #include "GameObserverList.h"
 
 GameObserverList::GameObserverList()
@@ -38,11 +38,11 @@ void GameObserverList::notify(MoveList *moveList)
 void GameObserverList::notify(
     Board *board,
     GameInfo *gameInfo,
-	int p1,
-	int p2,
+    int p1,
+    int p2,
 	int showStartPiece,
-	int milisec1,
-	int milisec2,
+	unsigned long milisec1,
+	unsigned long milisec2,
 	long *cntblockstat,
 	int games,
 	long cntPieces,
@@ -57,9 +57,9 @@ void GameObserverList::notify(
 	long maxLines,
 	long linesPerGame)
 {
-	double sec = (GetTickCount() - milisec2)/1000.0;
+	double sec = (platform::getMilliseconds() - milisec2)/1000.0;
 
-	double s = (GetTickCount() - milisec1)/1000.0;
+	double s = (platform::getMilliseconds() - milisec1)/1000.0;
 	int d = s / (3600*24);
 	s -= d * 3600*24;
 	int h = s / 3600;

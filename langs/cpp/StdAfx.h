@@ -10,17 +10,19 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-
-
 // Windows Header Files:
 #include <windows.h>
+#include <tchar.h>
+#endif
 
 // C RunTime Header Files
 #include <stdlib.h>
-#include <malloc.h>
 #include <memory.h>
-#include <tchar.h>
+#ifdef _WIN32
+#include <malloc.h>
+#endif
 
 // Local Header Files
 

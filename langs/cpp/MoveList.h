@@ -40,7 +40,7 @@ class MoveList
 		void add(int v, int x, int y);
 		void setLevel(int level) { this->level = level; }
 		void sort();
-		copy(MoveList *moveList);
+		void copy(MoveList *moveList);
 };
 
 #endif

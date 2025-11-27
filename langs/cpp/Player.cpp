@@ -42,7 +42,7 @@ Move * Player::play(int *pieces, int level, int preview, int calculatePath, Game
 
 	Move *bestMove = moveList->getBestMove();
 
-	if (bestMove > 0)
+	if (bestMove != nullptr)
 	{
 		if (board->isSlidingOn())
 		{

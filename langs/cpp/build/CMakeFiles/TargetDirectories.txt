@@ -1,0 +1,3 @@
+/Users/tengstrand/source/tetrisanalyzer/langs/cpp/build/CMakeFiles/TetrisAnalyzer.dir
+/Users/tengstrand/source/tetrisanalyzer/langs/cpp/build/CMakeFiles/edit_cache.dir
+/Users/tengstrand/source/tetrisanalyzer/langs/cpp/build/CMakeFiles/rebuild_cache.dir

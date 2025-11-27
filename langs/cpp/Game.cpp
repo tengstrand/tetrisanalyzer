@@ -17,6 +17,7 @@
 #include "MoveList.h"
 #include "MovePath.h"
 #include "GameInfo.h"
+#include "Platform.h"
 
 //-height 10 -logfile d:\tetris\debug\game.txt -wgame d:\tetris\debug\game.bin -maxp 5 -printb 1 -level 3
 
@@ -113,8 +114,8 @@ void Game::play()
 	int nextPiece = 0;
 	int viewBoard = gameSettings->getViewBoard();
 	int stepMode = gameSettings->getStepMode();
-	milisec1 = GetTickCount();
-	milisec2 = GetTickCount();
+	milisec1 = platform::getMilliseconds();
+	milisec2 = platform::getMilliseconds();
 	seconds = time(NULL);
 
 	if (strlen(gameSettings->getWgameFilename()) != 0)
@@ -258,7 +259,7 @@ void Game::play()
 		}
 
 		while (gameSettings->isPause())
-			::Sleep(10);
+			platform::sleepMillis(10);
 
 		if (board->getWidth() != gameSettings->getWidth())
 		{
@@ -303,7 +304,7 @@ void Game::play()
 
 
 		if (!animate)
-			::Sleep(delay*10);
+			platform::sleepMillis(static_cast<unsigned long>(delay * 10));
 
 		int playAgain;
 		Move *bestMove;
@@ -321,7 +322,7 @@ void Game::play()
 
 			bestMove = player->play(pieces, level, preview, animate, &gameObserverList);
 
-			if (bestMove > 0)
+			if (bestMove != nullptr)
 				bestPiece.set(bestMove->getV(), bestMove->getX(), bestMove->getY(), bestMove->getClearedLines());
 
 			gameSettings->setIsNotThinking();
@@ -382,7 +383,7 @@ void Game::play()
 					break;
 				}
 
-				if (sliding != gameSettings->getSliding() && bestMove > 0)
+				if (sliding != gameSettings->getSliding() && bestMove != nullptr)
 				{
 					sliding = gameSettings->getSliding();
 					board->setSliding(sliding);
@@ -392,14 +393,14 @@ void Game::play()
 					break;
 				}
 
-				::Sleep(10);
+				platform::sleepMillis(10);
 			}
 		} while (playAgain);
 
 		if (gameSettings->isStepModeOn())
 			gameSettings->setStepWait();
 
-		if (!animate && bestMove > 0)
+		if (!animate && bestMove != nullptr)
 		{
 			bestPiece.setPiece();
 
@@ -414,7 +415,7 @@ void Game::play()
 
 		totalMoves += length;
 
-		if (animate && bestMove > 0)
+		if (animate && bestMove != nullptr)
 		{
 			// Animate the moves.
 			MovePath *movePath = board->getMovePath(level);
@@ -424,7 +425,7 @@ void Game::play()
 
 			int prevy = -1;
 
-			while (s > 0)
+			while (s != nullptr)
 			{
 				//----
 				// Calculate the number of steps for the current line (y value).
@@ -436,7 +437,7 @@ void Game::play()
 				{
 					cnt = 0;
 
-					while (s1 > 0 && s1->y == y1) {
+					while (s1 != nullptr && s1->y == y1) {
 						cnt++;
 						s1 = s1->next;
 					}
@@ -480,16 +481,16 @@ void Game::play()
 																	linesPerGame);
 
 				if (gameSettings->isSlidingOn())
-					::Sleep((double)delay / cnt);
+					platform::sleepMillis(static_cast<unsigned long>(delay / cnt));
 				else
-					::Sleep((double)delay);
+					platform::sleepMillis(static_cast<unsigned long>(delay));
 
 				piece.clearPiece();
 				skipFirst = 1;
 				s = s->next;
 
 				while (gameSettings->isPause())
-					::Sleep(10);
+					platform::sleepMillis(10);
 			}
 
 			bestPiece.setPiece();
@@ -528,9 +529,9 @@ void Game::play()
 						if (delay > 0)
 						{
 							if (delay >= 50)
-								::Sleep(150);
+								platform::sleepMillis(150);
 							else
-								::Sleep(150-(50-delay)*2);
+								platform::sleepMillis(static_cast<unsigned long>(150-(50-delay)*2));
 						}
 					}
 				}
@@ -542,7 +543,7 @@ void Game::play()
 		cntPieces++;
 		totalPieces++;
 		
-		if (bestMove > 0)
+		if (bestMove != nullptr)
 			totalSlided += bestMove->isSlided();
 
 		// Log the moves
@@ -631,9 +632,9 @@ void Game::play()
 
 void Game::notify(GameObserver *gameObserver, GameInfo *gameInfo, int preview, int p1, int p2, int pieceStartX, int showStartPiece)
 {
-	double sec = (GetTickCount() - milisec2)/1000.0;
+	double sec = (platform::getMilliseconds() - milisec2)/1000.0;
 
-	double s = (GetTickCount() - milisec1)/1000.0;
+	double s = (platform::getMilliseconds() - milisec1)/1000.0;
 	int d = s / (3600*24);
 	s -= d * 3600*24;
 	int h = s / 3600;
@@ -939,5 +940,5 @@ void Game::initTime()
 {
 	totalLines2 = totalLines;
 	totalPieces2 = totalPieces;
-	milisec2 = GetTickCount();
+	milisec2 = platform::getMilliseconds();
 }

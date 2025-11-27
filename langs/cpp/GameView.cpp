@@ -1,6 +1,13 @@
 
-
+#if __has_include(<GL/freeglut.h>)
+#include <GL/freeglut.h>
+#elif __has_include(<GL/glut.h>)
 #include <GL/glut.h>
+#elif __has_include(<GLUT/glut.h>)
+#include <GLUT/glut.h>
+#else
+#error "No GLUT-compatible header found"
+#endif
 #include "Constants.h"
 #include "Game.h"
 #include "GameView.h"
@@ -12,6 +19,7 @@
 #include "Move.h"
 #include "DiffMoveThList.h"
 #include "BrainJote20.h"
+#include "Platform.h"
 
 #define VIEW_X1 10
 #define VIEW_Y1 10
@@ -108,7 +116,7 @@ void GameView::render()
 
 	int delay = gameSettings->getFrameRateDelay();
 	if (delay > 0)
-	::Sleep(delay);
+		platform::sleepMillis(delay);
 }
 
 
@@ -262,7 +270,7 @@ int GameView::viewBoard(int origoX, double &size)
 	}
 
 	// Draw Grid
-	for (y = 0; y<height; y++)
+	for (int y = 0; y<height; y++)
 	{
 		for (int x=0; x<width; x++)
 		{
@@ -391,9 +399,9 @@ int GameView::viewBoardInfo(int origoX)
 	txt.lineFeed();
 
 	if (frameCnt == 0)
-		milisec = GetTickCount();
+		milisec = platform::getMilliseconds();
 
-	double sec = (GetTickCount() - milisec)/1000.0;
+	double sec = (platform::getMilliseconds() - milisec)/1000.0;
 	double framesPerSecond = (sec == 0) ? 0 : frameCnt / sec;
 	frameCnt++;
 

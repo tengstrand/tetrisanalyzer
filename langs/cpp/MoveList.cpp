@@ -20,7 +20,7 @@ MoveList::~MoveList()
 	delete [] list;
 }
 
-MoveList::copy(MoveList *moveList)
+void MoveList::copy(MoveList *moveList)
 {
 	index = moveList->index;
 	length = moveList->length;
@@ -31,7 +31,7 @@ MoveList::copy(MoveList *moveList)
 	for (int i=0; i<MAX_LEVELS+1; i++)
 		bestMove[i] = moveList->bestMove[i];
 
-	for (i=0; i<length; i++)
+	for (int i=0; i<length; i++)
 		list[i] = moveList->list[i];
 }
 
