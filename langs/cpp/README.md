@@ -5,8 +5,8 @@
 The C++ version of **TetrisAnalyzer** now uses [GLFW](https://www.glfw.org/), an actively
 maintained, MIT-licensed alternative to GLUT that provides native windowing and input on every platform.
 
-Please note that this version is not as optimized for performance as the Scala version, and actually is slower!
-With proper optimization, it would be at least twice as fast as the Scala version.
+Note that this version is not as performance-optimized as the Scala implementation and is actually slower.
+With proper optimization, it should be at least twice as fast as the Scala version.
 
 ## Building on macOS (and other modern toolchains)
 
