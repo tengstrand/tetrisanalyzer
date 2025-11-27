@@ -76,7 +76,7 @@ Zooming makes it easier to compare different parameter settings.
 - **Save on close:** If the `save on close` parameter is set to `true` in the race YAML file, the state will automatically be saved on close (this is set to `false` in the example file).
 - **Resume:** When you restart the program with the same race YAML file, it will resume from the saved position, continuing with the same number of games, pieces, rows, board state, and piece generator state.
 
-<div style="display: flex; gap: 10px;">
-  <img src="images/tetris-analyzer1.png" alt="Tetris Analyzer 1" style="width: 50%;"/>
-  <img src="images/tetris-analyzer2.png" alt="Tetris Analyzer 2" style="width: 50%;"/>
+<div style="display: flex; flex-direction: row; gap: 10px; align-items: flex-start;">
+  <img src="images/tetris-analyzer1.png" alt="Tetris Analyzer 1" style="flex: 1; max-width: 50%; height: auto;"/>
+  <img src="images/tetris-analyzer2.png" alt="Tetris Analyzer 2" style="flex: 1; max-width: 50%; height: auto;"/>
 </div>
