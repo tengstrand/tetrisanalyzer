@@ -1,7 +1,5 @@
 package com.github.tetrisanalyzer.settings;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,6 +37,6 @@ public class RaceGameSettingsIterator implements Iterator<RaceGameSettings> {
 
     @Override
     public void remove() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }
