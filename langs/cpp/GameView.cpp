@@ -312,10 +312,12 @@ int GameView::viewBoard(int origoX, double &size)
 	y1 = viewY1;
 	y2 = y1 + height * size;
 
+	// Top edge
 	glVertex2f(x1,y1);
 	glVertex2f(x2,y1);
+	// Left edge
 	glVertex2f(x1,y1);
-	glVertex2f(x1,y2);
+	glVertex2f(x1+1,y2);
 
 	glEnd();
 
