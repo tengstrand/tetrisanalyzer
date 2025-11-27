@@ -34,20 +34,51 @@ set(SOURCES
 )
 
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
+find_package(glfw3 3.3 QUIET CONFIG)
+
+if (NOT glfw3_FOUND)
+    find_path(GLFW3_INCLUDE_DIR
+        NAMES GLFW/glfw3.h
+        PATHS
+            /opt/homebrew/include
+            /opt/homebrew/opt/glfw/include
+            /usr/local/include
+            /usr/include
+    )
+
+    find_library(GLFW3_LIBRARY
+        NAMES glfw3 glfw glfw3dll
+        PATHS
+            /opt/homebrew/lib
+            /opt/homebrew/opt/glfw/lib
+            /usr/local/lib
+            /usr/lib
+    )
+
+    if (GLFW3_INCLUDE_DIR AND GLFW3_LIBRARY)
+        set(GLFW3_INCLUDE_DIRS ${GLFW3_INCLUDE_DIR})
+        set(GLFW3_LIBRARIES ${GLFW3_LIBRARY})
+        set(glfw3_FOUND TRUE)
+    else()
+        message(FATAL_ERROR "Could not find GLFW. Install it or set glfw3_DIR to the GLFW CMake package.")
+    endif()
+endif()
 
 add_executable(TetrisAnalyzer ${SOURCES})
 target_include_directories(TetrisAnalyzer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${OPENGL_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIRS}
-    ${GLUT_INCLUDE_DIR}
-    ${GLUT_INCLUDE_DIRS}
 )
-target_link_libraries(TetrisAnalyzer PRIVATE ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+
+if (glfw3_FOUND)
+    target_link_libraries(TetrisAnalyzer PRIVATE ${OPENGL_LIBRARIES} glfw)
+else()
+    target_include_directories(TetrisAnalyzer PRIVATE ${GLFW3_INCLUDE_DIRS})
+    target_link_libraries(TetrisAnalyzer PRIVATE ${OPENGL_LIBRARIES} ${GLFW3_LIBRARIES})
+endif()
 
 if (APPLE)
-    # freeglut installed via Homebrew provides GLUT-compatible headers/libs
     target_compile_definitions(TetrisAnalyzer PRIVATE GL_SILENCE_DEPRECATION)
 endif ()
 

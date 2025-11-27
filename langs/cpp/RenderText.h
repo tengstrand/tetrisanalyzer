@@ -19,6 +19,8 @@ class RenderText
 		RenderText(int x1, int y1, int height, float r=0.0, float g=0.0, float b=0.0);
 		~RenderText();
 		int  getWidth(char *text);
+		static int measureWidth(const char *text);
+		static int measureHeight(const char *text);
 
 		void print(char *text);
 		void print(double val, int pos=0, int decimals=0);

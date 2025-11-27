@@ -1,18 +1,22 @@
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #ifdef _WIN32
 #include "resource.h"
 #endif
 
-#if __has_include(<GL/freeglut.h>)
-#include <GL/freeglut.h>
-#elif __has_include(<GL/glut.h>)
-#include <GL/glut.h>
-#elif __has_include(<GLUT/glut.h>)
-#include <GLUT/glut.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
+#if defined(__APPLE__)
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #else
-#error "No GLUT-compatible header found"
+#include <GL/gl.h>
+#include <GL/glu.h>
 #endif
+
+#include <cstdlib>
+#include <iostream>
 
 #include "Game.h"
 #include "GameSettings.h"
@@ -20,6 +24,7 @@
 #include "Piece.h"
 #include "FileWriter.h"
 #include "GameView.h"
+#include "Platform.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 420
@@ -31,6 +36,7 @@ long globalCnt = 0;
 GameSettings gameSettings;
 Game *game;
 GameView *gameView;
+GLFWwindow *mainWindow = nullptr;
 
 void renderScene(void)
 {
@@ -38,8 +44,6 @@ void renderScene(void)
 
 	if (gameView)
 		gameView->render();
-
-	glutSwapBuffers();
 }
 
 void changeSize(int w, int h)
@@ -127,42 +131,133 @@ void processNormalKeys(unsigned char key, int x, int y)
 
 
 
-static int runApplication(int argc, char **argv)
+int mapSpecialKey(int key)
 {
-	char defaultArg[] = "TetrisAnalyzer";
-	char *fallbackArgv[] = { defaultArg, nullptr };
-
-	if (argc == 0 || argv == nullptr)
+	switch (key)
 	{
-		argc = 1;
-		argv = fallbackArgv;
+		case GLFW_KEY_F1: return 1;
+		case GLFW_KEY_F2: return 2;
+		case GLFW_KEY_F3: return 3;
+		case GLFW_KEY_F4: return 4;
+		case GLFW_KEY_F5: return 5;
+		case GLFW_KEY_LEFT: return 100;
+		case GLFW_KEY_UP: return 101;
+		case GLFW_KEY_RIGHT: return 102;
+		case GLFW_KEY_DOWN: return 103;
+		default: return -1;
+	}
+}
+
+void framebufferSizeCallback(GLFWwindow*, int width, int height)
+{
+	changeSize(width, height);
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	(void) scancode;
+	(void) mods;
+	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
+	{
+		glfwSetWindowShouldClose(window, GLFW_TRUE);
+		return;
 	}
 
+	if (action == GLFW_PRESS || action == GLFW_REPEAT)
+	{
+		int special = mapSpecialKey(key);
+		if (special != -1)
+			processSpecialKeys(special, 0, 0);
+	}
+}
+
+void charCallback(GLFWwindow*, unsigned int codepoint)
+{
+	if (codepoint <= 255)
+		processNormalKeys(static_cast<unsigned char>(codepoint), 0, 0);
+}
+
+void windowCloseCallback(GLFWwindow* window)
+{
+	(void) window;
+	gameSettings.setExit(1);
+	glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
+
+void errorCallback(int error, const char* description)
+{
+	std::cerr << "GLFW error (" << error << "): " << (description ? description : "") << std::endl;
+}
+
+static int runApplication(int argc, char **argv)
+{
 	gameSettings.setDefaultParameters();
 	game = new Game(&gameSettings);
 	gameView = new GameView(game, 1, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	game->attach(gameView);
 
-	glutInit(&argc, argv);
-//	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(50,100);
-	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	glutCreateWindow("Tetris Analyzer - by Joakim Tengstrand");
-	gameView->changeSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glfwSetErrorCallback(errorCallback);
 
-	glutDisplayFunc(renderScene);
-	glutIdleFunc(renderScene);
-	glutReshapeFunc(changeSize);
-	glutKeyboardFunc(processNormalKeys);
-	glutSpecialFunc(processSpecialKeys);
+	if (!glfwInit())
+	{
+		std::cerr << "Failed to initialize GLFW" << std::endl;
+		return -1;
+	}
+
+#ifdef _WIN32
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+#endif
+
+	mainWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Tetris Analyzer - by Joakim Tengstrand", nullptr, nullptr);
+
+	if (!mainWindow)
+	{
+		std::cerr << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+
+	glfwMakeContextCurrent(mainWindow);
+	glfwSwapInterval(1);
+
+	glfwSetFramebufferSizeCallback(mainWindow, framebufferSizeCallback);
+	glfwSetKeyCallback(mainWindow, keyCallback);
+	glfwSetCharCallback(mainWindow, charCallback);
+	glfwSetWindowCloseCallback(mainWindow, windowCloseCallback);
+
+	int fbWidth = 0;
+	int fbHeight = 0;
+	glfwGetFramebufferSize(mainWindow, &fbWidth, &fbHeight);
+	changeSize(fbWidth == 0 ? WINDOW_WIDTH : fbWidth, fbHeight == 0 ? WINDOW_HEIGHT : fbHeight);
 
 	Thread thread(game);
 	thread.start();
 
-	glutMainLoop();
+	while (!glfwWindowShouldClose(mainWindow))
+	{
+		if (gameSettings.getExit() == 1)
+			glfwSetWindowShouldClose(mainWindow, GLFW_TRUE);
+
+		renderScene();
+		glfwSwapBuffers(mainWindow);
+		glfwPollEvents();
+	}
+
+	gameSettings.setExit(1);
+
+	// Wait for game thread to finish, but with a timeout to avoid hanging
+	int timeout = 100; // 0.1 second timeout
+	while (gameSettings.getExit() != 2 && timeout > 0)
+	{
+		platform::sleepMillis(10);
+		timeout -= 10;
+	}
 
 	game->detach(gameView);
+
+	glfwDestroyWindow(mainWindow);
+	glfwTerminate();
 
 	return 0;
 }

@@ -1,12 +1,10 @@
 
-#if __has_include(<GL/freeglut.h>)
-#include <GL/freeglut.h>
-#elif __has_include(<GL/glut.h>)
-#include <GL/glut.h>
-#elif __has_include(<GLUT/glut.h>)
-#include <GLUT/glut.h>
+#if defined(__APPLE__)
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #else
-#error "No GLUT-compatible header found"
+#include <GL/gl.h>
+#include <GL/glu.h>
 #endif
 #include "Constants.h"
 #include "Game.h"
@@ -325,16 +323,26 @@ int GameView::viewBoard(int origoX, double &size)
 	if (gameSettings->getViewMoveList() && size >= 10)
 	{
 		int boardwidth = gameSettings->getWidth();
+		const float cellTop = viewY1 + size * (height - WALL_WIDTH_BOTTOM);
+		const float cellCenterY = cellTop + size * 0.5f;
+		const int digitHeight = RenderText::measureHeight("0");
 		for (int x=1; x<=boardwidth; x++)
 		{
-			char num[2] = "0";
-			
-			if (x < 10)
-				num[0] = 48+x;
-			else
-				num[0] = 48;
+			char num[2];
+			num[0] = static_cast<char>('0' + (x % 10));
+			num[1] = '\0';
 
-			RenderText numbers(origoX + (WALL_WIDTH_LEFT+x-1.15)*size + size/2, viewY1 + size*(height-WALL_WIDTH_BOTTOM+0.75), FONT_HEIGHT, 0.3, 0.3, 0.3);
+			float cellLeft = origoX + (WALL_WIDTH_LEFT + x - 1) * size;
+			float cellCenterX = cellLeft + size * 0.5f;
+			int textWidth = RenderText::measureWidth(num);
+			// Center horizontally: cellCenterX - textWidth/2
+			float textX = cellCenterX - textWidth * 0.5f;
+			// Center vertically: cellCenterY - digitHeight/2
+			// stb_easy_font uses top-left corner (y increases downward)
+			// Add small offset to account for visual centering vs mathematical center
+			float textY = cellCenterY - digitHeight * 0.5f + 1.0f;
+
+			RenderText numbers(static_cast<int>(textX + 0.5f), static_cast<int>(textY + 0.5f), FONT_HEIGHT, 0.3f, 0.3f, 0.3f);
 			numbers.println(num);
 		}
 	}
