@@ -18,21 +18,21 @@ class RenderText
 	public:
 		RenderText(int x1, int y1, int height, float r=0.0, float g=0.0, float b=0.0);
 		~RenderText();
-		int  getWidth(char *text);
+		int  getWidth(const char *text);
 		static int measureWidth(const char *text);
 		static int measureHeight(const char *text);
 
-		void print(char *text);
+		void print(const char *text);
 		void print(double val, int pos=0, int decimals=0);
-		void print(char *text, double val, int pos=0);
-		void print(char *text, double val, int pos, int decimals);
-		void println(char *text);
-		void println(char *text, double val, int pos=0);
-		void printr(char *text, int pos);
+		void print(const char *text, double val, int pos=0);
+		void print(const char *text, double val, int pos, int decimals);
+		void println(const char *text);
+		void println(const char *text, double val, int pos=0);
+		void printr(const char *text, int pos);
 		void printr(double val, int pos, int decimals=0);
-		void println(char *text, double val, int pos, int decimals);
-		void render3(char *text, char *valText, int pos);
-		void renderR3(char *text, int pos);
+		void println(const char *text, double val, int pos, int decimals);
+		void render3(const char *text, const char *valText, int pos);
+		void renderR3(const char *text, int pos);
 		void lineFeed();
 		void halfLineFeed();
 };

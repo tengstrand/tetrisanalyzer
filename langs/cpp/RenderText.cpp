@@ -82,26 +82,26 @@ RenderText::~RenderText()
 }
 
 
-void RenderText::print(char *text)
+void RenderText::print(const char *text)
 {
 	const char *safeText = text ? text : "";
 	drawString(static_cast<float>(x1), static_cast<float>(y1 + row * height), safeText, r, g, b);
 }
 
-void RenderText::println(char *text)
+void RenderText::println(const char *text)
 {
 	print(text);
 	row++;
 }
 
-void RenderText::print(char *text, double val, int pos, int decimals)
+void RenderText::print(const char *text, double val, int pos, int decimals)
 {
 	int width = getWidth(text);
 	print(text);
 	print(val, width + pos, decimals);
 }
 
-void RenderText::println(char *text, double val, int pos, int decimals)
+void RenderText::println(const char *text, double val, int pos, int decimals)
 {
 	print(text, val, pos, decimals);
 	row++;
@@ -113,14 +113,14 @@ void RenderText::print(double val, int pos, int decimals)
 	drawString(static_cast<float>(x1 + pos), static_cast<float>(y1 + row * height), formatted.c_str(), r, g, b);
 }
 
-void RenderText::print(char *text, double val, int pos)
+void RenderText::print(const char *text, double val, int pos)
 {
 	int width = getWidth(text);
 	print(text);
 	print(val, width + pos);
 }
 
-void RenderText::println(char *text, double val, int pos)
+void RenderText::println(const char *text, double val, int pos)
 {
 	print(text, val, pos);
 	row++;
@@ -129,18 +129,18 @@ void RenderText::println(char *text, double val, int pos)
 void RenderText::printr(double val, int pos, int decimals)
 {
 	std::string formatted = addGrouping(formatNumber(val, decimals));
-	int width = getWidth(const_cast<char*>(formatted.c_str()));
+	int width = getWidth(formatted.c_str());
 	drawString(static_cast<float>(x1 + pos - width), static_cast<float>(y1 + row * height), formatted.c_str(), r, g, b);
 }
 
-void RenderText::printr(char *text, int pos)
+void RenderText::printr(const char *text, int pos)
 {
 	const char *safeText = text ? text : "";
-	int width = getWidth(const_cast<char*>(safeText));
+	int width = getWidth(safeText);
 	drawString(static_cast<float>(x1 + pos - width), static_cast<float>(y1 + row * height), safeText, r, g, b);
 }
 
-void RenderText::render3(char *text, char *valText, int pos)
+void RenderText::render3(const char *text, const char *valText, int pos)
 {
 	const char *safeText = text ? text : "";
 	std::string value = valText ? valText : "";
@@ -149,15 +149,15 @@ void RenderText::render3(char *text, char *valText, int pos)
 	drawString(static_cast<float>(x1 + pos), static_cast<float>(y1 + row * height), combined.c_str(), r, g, b);
 }
 
-void RenderText::renderR3(char *text, int pos)
+void RenderText::renderR3(const char *text, int pos)
 {
 	const char *safeText = text ? text : "";
 	std::string grouped = addGrouping(safeText);
-	int width = getWidth(const_cast<char*>(grouped.c_str()));
+	int width = getWidth(grouped.c_str());
 	drawString(static_cast<float>(x1 + pos - width), static_cast<float>(y1 + row * height), grouped.c_str(), r, g, b);
 }
 
-int  RenderText::getWidth(char *text)
+int  RenderText::getWidth(const char *text)
 {
 	const char *safeText = text ? text : "";
 	return stb_easy_font_width(const_cast<char*>(safeText));

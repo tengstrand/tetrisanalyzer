@@ -367,22 +367,22 @@ int GameView::viewBoardInfo(int origoX)
 	glColor3f(0, 0, 0);
 
 	int preview = gameSettings->getPreview();
-	sprintf(buffer, "[N]ext: %s", onoff[preview-1]);
+	snprintf(buffer, sizeof(buffer), "[N]ext: %s", onoff[preview-1]);
 	txt.println(buffer);
 
 	txt.println("Level [1-9]: ", gameSettings->getLevel());
 
 	char anim[3][8] = { "Off", "On", "On Time" };
 	int sliding = gameSettings->getSliding();
-	sprintf(buffer, "s[L]iding: %s", onoff[sliding]);
+	snprintf(buffer, sizeof(buffer), "s[L]iding: %s", onoff[sliding]);
 	txt.println(buffer);
 	
 	int stepMode = gameSettings->getStepMode();
-	sprintf(buffer, "[S]tep: %s", onoff[stepMode]);
+	snprintf(buffer, sizeof(buffer), "[S]tep: %s", onoff[stepMode]);
 	txt.println(buffer);
 
 	int animate = gameSettings->getAnimate();
-	sprintf(buffer, "[A]nimate: %s", anim[animate]);
+	snprintf(buffer, sizeof(buffer), "[A]nimate: %s", anim[animate]);
 	txt.println(buffer);
 
 	txt.println("[d/D]elay: ", gameSettings->getDelay());
@@ -390,7 +390,7 @@ int GameView::viewBoardInfo(int origoX)
 
 	txt.lineFeed();
 
-	sprintf(buffer, "Board: %i x %i", board->getWidth()-WALL_WIDTH_X, board->getHeight()-WALL_WIDTH_BOTTOM);
+	snprintf(buffer, sizeof(buffer), "Board: %i x %i", board->getWidth()-WALL_WIDTH_X, board->getHeight()-WALL_WIDTH_BOTTOM);
 	txt.println(buffer);
 
 	txt.println("Seed: ", gameSettings->getSeed());
@@ -418,7 +418,7 @@ int GameView::viewBoardInfo(int origoX)
 	txt.println("Lines/sec: ", gi->getLinesPerSecond(), 0, 2);
 	txt.println("Pieces/sec: ", gi->getPiecesPerSecond(),0, 2);
 
-	sprintf(buffer, "Frames/sec: %.2f", framesPerSecond);
+	snprintf(buffer, sizeof(buffer), "Frames/sec: %.2f", framesPerSecond);
 	txt.println(buffer);
 	int d,h,m;
 
@@ -426,9 +426,9 @@ int GameView::viewBoardInfo(int origoX)
 	gi->getTime(d, h, m, s);
 
 	if (d == 0)
-		sprintf(buffer, "%ih %im %.1fs", h, m, s);
+		snprintf(buffer, sizeof(buffer), "%ih %im %.1fs", h, m, s);
 	else
-		sprintf(buffer, "%id %ih %im %.1fs", d, h, m, s);
+		snprintf(buffer, sizeof(buffer), "%id %ih %im %.1fs", d, h, m, s);
 
 	txt.println(buffer);
 
@@ -471,7 +471,7 @@ int GameView::viewMoveList(int origoX)
 	txtHeader.printr("vx ", POS_VX);
 
 	for (int i=level; i>=preview; i--) {
-		sprintf(buffer, "Level %i", i);
+		snprintf(buffer, sizeof(buffer), "Level %i", i);
 		txtHeader.printr(buffer, POS_LEVEL + (level-i)*POS_LEVEL_SPACE);
 	}
 
@@ -505,16 +505,16 @@ int GameView::viewMoveList(int origoX)
 
 		glColor3f(0.5, 0.5, 0.5);
 
-		sprintf(buffer, "%i.", movecnt);
+		snprintf(buffer, sizeof(buffer), "%i.", movecnt);
 		txtn.printr(buffer, POS_NUM);
 		txtn.lineFeed();
 
 		glColor3f(0, 0, 0);
 
 		if (move->isSlided())
-			sprintf(buffer, "%i%i*", v, x);
+			snprintf(buffer, sizeof(buffer), "%i%i*", v, x);
 		else
-			sprintf(buffer, "%i%i ", v, x);
+			snprintf(buffer, sizeof(buffer), "%i%i ", v, x);
 			
 		txt.printr(buffer, POS_VX);
 
@@ -532,10 +532,10 @@ int GameView::viewMoveList(int origoX)
 				if (equity == bestEquity[i] && first[i])
 				{
 					first[i] = 0;
-					sprintf(buffer, " %.3f", equity);
+					snprintf(buffer, sizeof(buffer), " %.3f", equity);
 				}
 				else
-					sprintf(buffer, "+%.3f", equity-bestEquity[i]);
+					snprintf(buffer, sizeof(buffer), "+%.3f", equity-bestEquity[i]);
 			}
 
 			txt.printr(buffer, POS_LEVEL + (level-i)*POS_LEVEL_SPACE);
@@ -582,7 +582,7 @@ void GameView::viewDiffMove(int origoX)
 	DiffMoveTh *diff = diffList.getFirst();
 
 	while (diff) {
-		sprintf(buffer, "%.5f", diff->thEquity);
+		snprintf(buffer, sizeof(buffer), "%.5f", diff->thEquity);
 		txth.printr(buffer, POS_TH3 + c++ * POS_TH_SPACE);
 
 		diff = diffList.getNext();
@@ -605,14 +605,14 @@ void GameView::viewDiffMove(int origoX)
 
 			while (diff) {
 				if (c==0) {
-					sprintf(buffer, "%i:%i", level1, level2);
+					snprintf(buffer, sizeof(buffer), "%i:%i", level1, level2);
 					txth.printr(buffer, POS_TH1 + c*POS_TH_SPACE);
 				}
 
-				sprintf(buffer, "%.1f", diff->threshold);
+				snprintf(buffer, sizeof(buffer), "%.1f", diff->threshold);
 				txt.printr(buffer, POS_TH2 + c*POS_TH_SPACE);
 
-				sprintf(buffer, "%.5f", diff->percent+0.00000000001);
+				snprintf(buffer, sizeof(buffer), "%.5f", diff->percent+0.00000000001);
 				txt.printr(buffer, POS_TH3 + c*POS_TH_SPACE);
 				diff = diffList.getNext();
 				c++;
@@ -633,7 +633,7 @@ void GameView::viewDiffMove(int origoX)
 	txth.lineFeed();
 
 	for (int i=preview; i<=level; i++) {
-		sprintf(buffer, "Level %i:", i);
+		snprintf(buffer, sizeof(buffer), "Level %i:", i);
 		txth.printr(buffer, POS_MOVE1);
 
 		txt.printr(BrainJote20::threshold[preview-1][i], POS_MOVE2, 1);
