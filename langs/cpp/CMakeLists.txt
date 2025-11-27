@@ -6,31 +6,31 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(SOURCES
-    Board.cpp
-    BrainJote20.cpp
-    DiffMove.cpp
-    DiffMoveGroup.cpp
-    DiffMoveTh.cpp
-    DiffMoveThList.cpp
-    FileReader.cpp
-    FileWriter.cpp
-    Game.cpp
-    GameInfo.cpp
-    GameObserverList.cpp
-    GameSettings.cpp
-    GameView.cpp
-    Move.cpp
-    MoveList.cpp
-    MovePath.cpp
-    MovePathStep.cpp
-    Piece.cpp
-    PieceGeneratorRandom.cpp
-    Player.cpp
-    Random.cpp
-    Render.cpp
-    RenderText.cpp
-    StdAfx.cpp
-    TetrisApp.cpp
+    src/Board.cpp
+    src/BrainJote20.cpp
+    src/DiffMove.cpp
+    src/DiffMoveGroup.cpp
+    src/DiffMoveTh.cpp
+    src/DiffMoveThList.cpp
+    src/FileReader.cpp
+    src/FileWriter.cpp
+    src/Game.cpp
+    src/GameInfo.cpp
+    src/GameObserverList.cpp
+    src/GameSettings.cpp
+    src/GameView.cpp
+    src/Move.cpp
+    src/MoveList.cpp
+    src/MovePath.cpp
+    src/MovePathStep.cpp
+    src/Piece.cpp
+    src/PieceGeneratorRandom.cpp
+    src/Player.cpp
+    src/Random.cpp
+    src/Render.cpp
+    src/RenderText.cpp
+    src/StdAfx.cpp
+    src/TetrisApp.cpp
 )
 
 find_package(OpenGL REQUIRED)
@@ -66,7 +66,7 @@ endif()
 
 add_executable(TetrisAnalyzer ${SOURCES})
 target_include_directories(TetrisAnalyzer PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${OPENGL_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIRS}
 )

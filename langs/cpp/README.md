@@ -1,5 +1,7 @@
 # TetrisAnalyzer (C++)
 
+![TetrisAnalyzer](tetris-analyzer-cpp.png)
+
 The C++ version of **TetrisAnalyzer** now uses [GLFW](https://www.glfw.org/), an actively
 maintained, MIT-licensed alternative to GLUT that provides native windowing and input on every platform.
 
