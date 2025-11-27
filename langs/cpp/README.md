@@ -32,7 +32,7 @@ the GLFW binaries and linking against `opengl32`, `glu32`, and `glfw3`.
    - `glfw3.h` (the whole `GLFW` include folder) → `C:\Program Files\Microsoft Visual Studio\VC98\Include`
    - `glfw3.lib` → `C:\Program Files\Microsoft Visual Studio\VC98\Lib`
    - `glfw3.dll` somewhere on your `PATH` (for example `C:\Windows\System32`) or next to the executable.
-3. Open `TetrisApp.dsw` in Visual C++.
+3. Open `legacy/TetrisApp.dsw` in Visual C++.
 4. Configure Precompiled Headers via `Project → Settings`:
    - `StdAfx.cpp`: *Create* precompiled header, through header `stdafx.h`.
    - `TetrisApp.cpp`: *Use* the precompiled header file (`.pch`).
