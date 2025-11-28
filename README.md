@@ -7,7 +7,7 @@ A Tetris playing AI, by Joakim Tengstrand.
 ![Tetris Analyzer - Scala](langs/scala/tetris-analyzer.png)
 
 Watch the computer play!
-This is the most performant program, that can play 76,000 pieces per second on a MacBook Air M4 (next piece: off, max speed).
+This highly optimized program can play 76,000 pieces per second on a MacBook Air M4 (set next piece to `off`, and turn on `max speed`)!
 
 To run the program, clone this repo and go to `langs/scala` and execute:
 
