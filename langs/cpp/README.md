@@ -8,6 +8,14 @@ maintained, MIT-licensed alternative to GLUT that provides native windowing and 
 Note that this version is not as performance-optimized as the Scala implementation and is actually slower.
 With proper optimization, it should be at least twice as fast as the Scala version.
 
+For max speed:
+- Next: off
+- Level: 1
+- Sliding: off
+- Step: off
+- Animate: off
+- Delay: 0
+
 ## Building on macOS (and other modern toolchains)
 
 1. Install dependencies (Homebrew example):

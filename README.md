@@ -2,19 +2,42 @@
 
 A Tetris playing AI, by Joakim Tengstrand.
 
-![Tetris Analyzer screenshot](tetris-analyzer.png)
+## The Scala version
+
+![Tetris Analyzer - Scala](langs/scala/tetris-analyzer.png)
+
+Watch the computer play!
+This is the most performant program, that can play 76,000 pieces per second on a MacBook Air M4 (next piece: off, max speed).
 
 To run the program, clone this repo and go to `langs/scala` and execute:
 
-## Build
 ```bash
 ./build.sh
-```
-
-## Run
-```bash
 ./run.sh
 ```
+
+## The C++ version
+
+![Tetris Analyzer - C++](langs/cpp/tetris-analyzer-cpp.png)
+
+Watch the computer play, up to 9 moves ahead!
+This version plays 26,0000 pieces per second on a MacBook Air M4.
+
+For more instructions, see [langs/cpp/README.md](langs/cpp/README.md)
+
+## The Java version (if you want to optimize the board evaluator):
+
+![Tetris Analyzer screenshot](langs/java/images/tetris-analyzer-tool.png)
+
+To run the program, clone this repo and go to `langs/java` and execute:
+
+```bash
+./build.sh
+./run.sh example/system.yaml example/five-games-parameter-areaWidthFactor1.yaml
+```
+
+For more instructions, see [langs/java/README.md](langs/java/README.md)
+
 
 Copyright (c) Joakim Tengstrand. All rights reserved.
 
