@@ -27,7 +27,7 @@ When running the program, you can press `<F1>` for help.
 Watch the computer play, up to 9 moves ahead!
 This version is not as performance-optimized as the Scala version, and can "only" place 26,0000 pieces per second on a MacBook Air M4.
 
-For more instructions, see the [readme](langs/cpp/README.md)
+For more instructions, see [here](langs/cpp/README.md)
 
 ## Optimize the algorithm
 
@@ -44,7 +44,7 @@ To run the program, clone this repo and go to `langs/java` and execute:
 
 This tool is specifically written for the Scala version of the Tetris playing program, but can also be used by versions written in other languages.
 
-For more instructions, see the [readme](langs/java/README.md).
+For more instructions, see [here](langs/java/README.md)
 
 
 Copyright (c) Joakim Tengstrand. All rights reserved.
