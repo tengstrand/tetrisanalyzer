@@ -52,7 +52,7 @@ Replace the YAML file paths with your own configuration files:
 
 ### How to use
 
-**Filled cells**
+**Filled cells:**
 The vertical bar shows how many filled cells correspond to the selected x-position on the graph.
 Use the arrow keys (left/right) to move the vertical bar. The Tetris board is updated accordingly.
 
