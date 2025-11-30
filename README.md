@@ -7,7 +7,7 @@ A Tetris playing AI, by Joakim Tengstrand.
 ![Tetris Analyzer - Scala](langs/scala/tetris-analyzer.png)
 
 Watch the computer play!
-This highly optimized program can play 76,000 pieces per second on a MacBook Air M4! (set next piece to `off`, and turn on `max speed`)
+This highly optimized program can play 76,000 pieces per second on a MacBook Air M4! (set next piece to `off`, and turn on `max speed`).
 
 To run the program, clone this repo and go to `langs/scala` and execute:
 
@@ -16,18 +16,22 @@ To run the program, clone this repo and go to `langs/scala` and execute:
 ./run.sh
 ```
 
+Press <F1> for help.
+
 ## The C++ version
 
 ![Tetris Analyzer - C++](langs/cpp/tetris-analyzer-cpp.png)
 
 Watch the computer play, up to 9 moves ahead!
-This version plays 26,0000 pieces per second on a MacBook Air M4.
+This version is not as performance-optimized as the Scala version, and can "only" play 26,0000 pieces per second on a MacBook Air M4.
 
-For more instructions, see [langs/cpp/README.md](langs/cpp/README.md)
+For more instructions, see the [readme](langs/cpp/README.md)
 
-## The Java version (if you want to optimize the board evaluator):
+## The Java version:
 
 ![Tetris Analyzer screenshot](langs/java/images/tetris-analyzer-tool.png)
+
+This tool helps you find better parameter values used by the board evaluator, which decides how well it plays (more rows in average per game is better).
 
 To run the program, clone this repo and go to `langs/java` and execute:
 
@@ -36,7 +40,7 @@ To run the program, clone this repo and go to `langs/java` and execute:
 ./run.sh example/system.yaml example/five-games-parameter-areaWidthFactor1.yaml
 ```
 
-For more instructions, see [langs/java/README.md](langs/java/README.md)
+For more instructions, see the [readme](langs/java/README.md).
 
 
 Copyright (c) Joakim Tengstrand. All rights reserved.
