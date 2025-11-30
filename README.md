@@ -27,7 +27,7 @@ This version is not as performance-optimized as the Scala version, and can "only
 
 For more instructions, see the [readme](langs/cpp/README.md)
 
-## The Java version:
+## The parameter optimizing tool (in Java)
 
 ![Tetris Analyzer screenshot](langs/java/images/tetris-analyzer-tool.png)
 
@@ -39,6 +39,8 @@ To run the program, clone this repo and go to `langs/java` and execute:
 ./build.sh
 ./run.sh example/system.yaml example/five-games-parameter-areaWidthFactor1.yaml
 ```
+
+This tool is specifically written for the Scala version, but can also be used by versions written in other languages.
 
 For more instructions, see the [readme](langs/java/README.md).
 
