@@ -18,7 +18,7 @@ To run the program, clone this repo and go to `langs/scala` and execute:
 ./run.sh
 ```
 
-Press <F1> for help.
+When running the program, you can press `<F1>` for help.
 
 ## The C++ version
 
