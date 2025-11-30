@@ -29,7 +29,7 @@ This version is not as performance-optimized as the Scala version, and can "only
 
 For more instructions, see the [readme](langs/cpp/README.md)
 
-## The parameter optimizing tool (in Java)
+## Optimize the algorithm (in Java)
 
 ![Tetris Analyzer screenshot](langs/java/images/tetris-analyzer-tool.png)
 
