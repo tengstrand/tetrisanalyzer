@@ -29,11 +29,11 @@ This version is not as performance-optimized as the Scala version, and can "only
 
 For more instructions, see the [readme](langs/cpp/README.md)
 
-## Optimize the algorithm (in Java)
+## Optimize the algorithm
 
 ![Tetris Analyzer screenshot](langs/java/images/tetris-analyzer-tool.png)
 
-This tool helps you find better parameter values used by the board evaluator, which decides how well it plays (more rows in average per game is better).
+This tool, written in Java, helps you find better parameter values used by the board evaluator, which decides how well it plays (more rows in average per game is better).
 
 To run the program, clone this repo and go to `langs/java` and execute:
 
