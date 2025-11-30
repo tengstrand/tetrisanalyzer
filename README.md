@@ -42,7 +42,7 @@ To run the program, clone this repo and go to `langs/java` and execute:
 ./run.sh example/system.yaml example/five-games-parameter-areaWidthFactor1.yaml
 ```
 
-This tool is specifically written for the Scala version, but can also be used by versions written in other languages.
+This tool is specifically written for the Scala version of the Tetris playing program, but can also be used by versions written in other languages.
 
 For more instructions, see the [readme](langs/java/README.md).
 
