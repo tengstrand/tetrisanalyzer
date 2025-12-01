@@ -31,7 +31,7 @@ To run the program, clone this repo and go to `langs/scala` and execute:
 
 **Requirements:**
 - Java (JDK 8 or later) must be installed. To check if Java is installed, run `java -version`. If not installed, download from [Adoptium](https://adoptium.net/)
-- If sbt is not installed, the build script will automatically download an sbt launcher. Alternatively, you can install sbt from https://www.scala-sbt.org/download.html
+- If sbt is not installed, the build script will automatically download an sbt launcher. Alternatively, you can install sbt from [here](https://www.scala-sbt.org/download.html)
 
 For details on how the algorithm works, see [here](#how-the-algorithm-works).
 
