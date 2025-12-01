@@ -20,7 +20,7 @@ A Tetris playing AI, by Joakim Tengstrand.
 Watch the computer play!
 This highly optimized Tetris playing program can place 76,000 pieces per second on a MacBook Air M4! (set next piece to `off`, and turn on `max speed`).
 
-It clears an average of 3,500,000 rows per game (with sliding turned off) when it doesn't know the next piece on a standard 10x20 board. If it knows the next piece, it has cleared 100,000,000 rows without ever filling more than 50% of the board.
+It clears an average of 3,500,000 rows per game (with `sliding` turned off) when it doesn't know the next piece on a standard 10x20 board. If it knows the next piece, it has cleared 100,000,000 rows without ever filling more than 50% of the board.
 
 To run the program, clone this repo and go to `langs/scala` and execute:
 
