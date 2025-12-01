@@ -30,10 +30,7 @@ To run the program, clone this repo and go to `langs/scala` and execute:
 ```
 
 **Requirements:**
-- Java (JDK 8 or later) must be installed. To check if Java is installed, run `java -version`. If not installed:
-  - **macOS**: Install via Homebrew: `brew install openjdk` or download from [Adoptium](https://adoptium.net/)
-  - **Linux**: Install via package manager, e.g., `sudo apt install default-jdk` (Debian/Ubuntu) or `sudo yum install java-11-openjdk-devel` (RHEL/CentOS)
-  - **Windows**: Download from [Adoptium](https://adoptium.net/) or use [Chocolatey](https://chocolatey.org/): `choco install temurin11-jdk`
+- Java (JDK 8 or later) must be installed. To check if Java is installed, run `java -version`. If not installed, download from [Adoptium](https://adoptium.net/)
 - If sbt is not installed, the build script will automatically download an sbt launcher. Alternatively, you can install sbt from https://www.scala-sbt.org/download.html
 
 For details on how the algorithm works, see [here](#how-the-algorithm-works).
