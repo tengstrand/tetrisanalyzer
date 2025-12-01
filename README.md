@@ -64,7 +64,7 @@ For more instructions, see [here](langs/java/README.md)
 ## How the algorithm works
 
 In the case the next piece is not known, the way the Tetris "AI" program finds the best move is to go through all valid placements of current piece, and for each valid move/placement, any completed/full rows are cleared, after which the position is ready to be evaluated by the algorithm.
-The best move is considered the safest move, which may differ from how people play, who often try to clear four rows at a time, when possible, to maximize their score.
+The best move is considered the safest move, which may differ from how people play, who often try to clear four rows at a time (when possible) to maximize their score.
 
 If the next piece is known and/or the search depth (level) is greater than the number of known pieces, the program computes all valid placements for that many moves ahead. For example, it may evaluate current + next, or current + next + all seven possible pieces (in which case it computes the average).
 For every level beyond the known pieces, it will prune the tree of variants, so that it only advances to the next level if it finds it necessary. The amount of tree branches ignored increases with each level. This pruning is only supported by the C++ version at the moment.
