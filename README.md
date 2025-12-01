@@ -9,8 +9,7 @@ A Tetris playing AI, by Joakim Tengstrand.
 Watch the computer play!
 This highly optimized Tetris playing program can place 76,000 pieces per second on a MacBook Air M4! (set next piece to `off`, and turn on `max speed`).
 
-It clears an average of 3,500,000 rows per game when it doesn't know the next piece (and sliding is turned off) on a standard 10x20 board.
-When the next piece _is_ known, it has cleared 100,000,000 rows without ever filling more than 50% of the board.
+It clears an average of 3,500,000 rows per game (with sliding turned off) when it doesn't know the next piece on a standard 10x20 board. If it knows the next piece, it has cleared 100,000,000 rows without ever filling more than 50% of the board.
 
 To run the program, clone this repo and go to `langs/scala` and execute:
 
@@ -19,9 +18,16 @@ To run the program, clone this repo and go to `langs/scala` and execute:
 ./run.sh
 ```
 
+**Requirements:**
+- Java (JDK 8 or later) must be installed. To check if Java is installed, run `java -version`. If not installed:
+  - **macOS**: Install via Homebrew: `brew install openjdk` or download from [Adoptium](https://adoptium.net/)
+  - **Linux**: Install via package manager, e.g., `sudo apt install default-jdk` (Debian/Ubuntu) or `sudo yum install java-11-openjdk-devel` (RHEL/CentOS)
+  - **Windows**: Download from [Adoptium](https://adoptium.net/) or use [Chocolatey](https://chocolatey.org/): `choco install temurin11-jdk`
+- If sbt is not installed, the build script will automatically download an sbt launcher. Alternatively, you can install sbt from https://www.scala-sbt.org/download.html
+
 When running the program, you can press `<F1>` for help.
 
-For details on how the algorithm works, see [How the algorithm works](#how-the-algorithm-works).
+For details on how the algorithm works, see [here](#how-the-algorithm-works).
 
 ## The C++ version
 
@@ -48,15 +54,6 @@ To run the program, clone this repo and go to `langs/java` and execute:
 This tool is specifically written for the Scala version of the Tetris playing program, but can also be used by versions written in other languages.
 
 For more instructions, see [here](langs/java/README.md)
-
-
-Copyright (c) Joakim Tengstrand. All rights reserved.
-
-The use and distribution terms for this software are covered by the
-Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-which can be found in the file epl-v10.html at the root of this distribution.
-By using this software in any fashion, you are agreeing to be bound by the terms of this license.
-You must not remove this notice, or any other, from this software.
 
 ## How the algorithm works
 
@@ -146,3 +143,13 @@ Holes: 18.2
 ```
 
 This gives a total equity for the position of: `51.0386`
+
+## License
+
+Copyright (c) Joakim Tengstrand. All rights reserved.
+
+The use and distribution terms for this software are covered by the
+Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+which can be found in the file epl-v10.html at the root of this distribution.
+By using this software in any fashion, you are agreeing to be bound by the terms of this license.
+You must not remove this notice, or any other, from this software.
