@@ -1,6 +1,17 @@
 # Tetris Analyzer
 
 A Tetris playing AI, by Joakim Tengstrand.
+ 
+## Table of Contents
+
+- [The Scala version](#the-scala-version)
+- [The C++ version](#the-c-version)
+- [Optimize the algorithm](#optimize-the-algorithm)
+- [How the algorithm works](#how-the-algorithm-works)
+  - [Contour height](#contour-height)
+  - [The Structure of the Contour](#the-structure-of-the-contour)
+  - [Cavities](#cavities)
+- [License](#license)
 
 ## The Scala version
 
@@ -24,8 +35,6 @@ To run the program, clone this repo and go to `langs/scala` and execute:
   - **Linux**: Install via package manager, e.g., `sudo apt install default-jdk` (Debian/Ubuntu) or `sudo yum install java-11-openjdk-devel` (RHEL/CentOS)
   - **Windows**: Download from [Adoptium](https://adoptium.net/) or use [Chocolatey](https://chocolatey.org/): `choco install temurin11-jdk`
 - If sbt is not installed, the build script will automatically download an sbt launcher. Alternatively, you can install sbt from https://www.scala-sbt.org/download.html
-
-When running the program, you can press `<F1>` for help.
 
 For details on how the algorithm works, see [here](#how-the-algorithm-works).
 
@@ -70,7 +79,7 @@ Assume we have the following position:
 The numbers on the left side show the y-values, and the numbers along the bottom show the x-values. As the algorithm currently works, and as it has worked since the C++ version was written sometime between 2001–2002, it evaluates the position based on three properties, which are added together to produce the final score.
 The value of the position is referred to in the algorithm as `equity`, a term borrowed from [Backgammon](https://en.wikipedia.org/wiki/Backgammon), where it's used to describe the value of a position. Interestingly, there are quite a few similarities between Backgammon and Tetris, for example, in both games you don’t know which Tetris pieces or Backgammon dice rolls will come next.
 
-The following three properties are measured: contour height, the structure of the contour, and cavities.
+The following three properties are measured: contour height, the structure of the contour, and cavities (holes in the structure).
 
 ### Contour height
 
