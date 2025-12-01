@@ -80,7 +80,7 @@ The following three properties are measured: contour height, the structure of th
 
 ### Contour height
 
-This property measures how tall the construction is — or more precisely, the height of the contour for each column (x-value):
+This property measures how tall the construction is, or more precisely, the height of the contour for each column/x-value:
 
 ![Contour height](images/contour-height.png)
 
@@ -98,7 +98,7 @@ The next property that is measured and added to the equity is the number of encl
 
 The higher the area is, the more value is added to the equity. The wider the area is, the less value is added to the equity, with the exception of width 3, which has a larger constant than width 2 and is therefore considered worse.
 
-![Contour structure](images/contour-structure.png)
+<img src="images/contour-structure.png" alt="Contour structure" style="width: 150%;">
 
 To calculate the value of an area, a constant determined by its width is multiplied by another constant determined by its height.
 Area A has width 1, which gives the constant 4.25, and height 2, which gives the constant 1.19, resulting in a product of 5.0575.
