@@ -1,4 +1,4 @@
-(ns tetrisanalyzer.piece.piece)
+(ns tetrisanalyzer.piece.shape)
 
 (def pieces [nil
 
