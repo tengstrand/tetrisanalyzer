@@ -1,0 +1,19 @@
+[project]
+name = "tetris-polylith-uv"
+version = "0.1.0"
+description = "A tetris playing AI in Python using the Polylith architecture"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "polylith-cli>=1.40.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+dev-mode-dirs = ["components", "bases", "development", "."]
