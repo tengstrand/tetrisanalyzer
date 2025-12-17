@@ -5,8 +5,7 @@
 
                                org.clojure/clojure {:mvn/version "1.12.2"}}}
 
-            :test {:extra-paths ["components/board/test"
-                                 "components/piece/test"]}
+            :test {:extra-paths ["components/board/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
