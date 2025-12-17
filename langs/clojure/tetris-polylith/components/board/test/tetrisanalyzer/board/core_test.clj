@@ -1,7 +1,7 @@
-(ns tetrisanalyzer.board.board-test
+(ns tetrisanalyzer.board.core-test
   (:require [clojure.test :refer :all]
             [tetrisanalyzer.piece.interface :as piece]
-            [tetrisanalyzer.board.board :as board]))
+            [tetrisanalyzer.board.core :as board]))
 
 (def empty-board [[0 0 0 0 0 0 0 0 0 0]
                   [0 0 0 0 0 0 0 0 0 0]
@@ -25,8 +25,8 @@
 
 (deftest set-piece-test
   (let [T piece/T
-        piece-t (piece/piece T 0)
-        x 2
+        piece-t (piece/piece T 2)
+        x 5
         y 13]
     (is (= [[0 0 0 0 0 0 0 0 0 0]
             [0 0 0 0 0 0 0 0 0 0]
@@ -41,6 +41,6 @@
             [0 0 0 0 0 0 0 0 0 0]
             [0 0 0 0 0 0 0 0 0 0]
             [0 0 0 0 0 0 0 0 0 0]
-            [0 0 T T T 0 0 0 0 0]
-            [0 0 0 T 0 0 0 0 0 0]]
+            [0 0 0 0 0 0 T 0 0 0]
+            [0 0 0 0 0 T T T 0 0]]
            (board/set-piece empty-board T x y piece-t)))))

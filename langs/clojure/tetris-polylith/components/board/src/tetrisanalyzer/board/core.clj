@@ -1,4 +1,4 @@
-(ns tetrisanalyzer.board.board)
+(ns tetrisanalyzer.board.core)
 
 (defn empty-board [width height]
   (vec (repeat height (vec (repeat width 0)))))
