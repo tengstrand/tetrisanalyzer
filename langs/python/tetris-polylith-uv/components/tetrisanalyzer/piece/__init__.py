@@ -1,14 +1,3 @@
-from tetrisanalyzer.piece import shape
+from tetrisanalyzer.piece.core import I, Z, S, J, L, T, O, piece
 
-__all__ = ["shape"]
-
-I = 1
-Z = 2
-S = 3
-J = 4
-L = 5
-T = 6
-O = 7
-
-def piece(p, rotation):
-    return shape.pieces[p][rotation]
+__all__ = ["I", "Z", "S", "J", "L", "T", "O", "piece"]
