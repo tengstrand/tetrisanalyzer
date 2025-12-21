@@ -25,7 +25,8 @@
 
 (deftest set-piece-test
   (let [T piece/T
-        piece-t (piece/piece T 2)
+        rotate-two-times 2
+        piece-t (piece/piece T rotate-two-times)
         x 5
         y 13]
     (is (= [[0 0 0 0 0 0 0 0 0 0]

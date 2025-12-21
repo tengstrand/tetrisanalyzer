@@ -24,7 +24,8 @@ class BoardTest(unittest.TestCase):
 
     def test_set_piece(self):
         T = piece.T
-        piece_t = piece.piece(T, 2)
+        rotate_two_times = 2
+        piece_t = piece.piece(T, rotate_two_times)
         x = 5
         y = 13
         expected = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
