@@ -10,6 +10,8 @@ dependencies = []
 dev = [
     "polylith-cli>=1.40.0",
     "pytest>=9.0.2",
+    "ruff>=0.14.10",
+    "ty>=0.0.7",
 ]
 
 [build-system]
@@ -18,3 +20,13 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build]
 dev-mode-dirs = ["components", "bases", "development", "."]
+
+[tool.uv.workspace]
+members = ["projects/*"]
+
+[tool.ruff]
+lint.ignore = ["E741"]  # Ambiguous variable name (the "I" and "O" variables)
+
+[tool.polylith.bricks]
+"components/tetrisanalyzer/board" = "tetrisanalyzer/board"
+"components/tetrisanalyzer/piece" = "tetrisanalyzer/piece"
