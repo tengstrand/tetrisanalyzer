@@ -10,6 +10,7 @@ dependencies = []
 dev = [
     "polylith-cli>=1.40.0",
     "pytest>=9.0.2",
+    "ruff>=0.14.10",
 ]
 
 [build-system]
