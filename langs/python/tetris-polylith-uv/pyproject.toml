@@ -21,5 +21,8 @@ build-backend = "hatchling.build"
 [tool.hatch.build]
 dev-mode-dirs = ["components", "bases", "development", "."]
 
+[tool.uv.workspace]
+members = ["projects/*"]
+
 [tool.ruff]
 lint.ignore = ["E741"]  # Ambiguous variable name (the "I" and "O" variables)
