@@ -26,3 +26,7 @@ members = ["projects/*"]
 
 [tool.ruff]
 lint.ignore = ["E741"]  # Ambiguous variable name (the "I" and "O" variables)
+
+[tool.polylith.bricks]
+"components/tetrisanalyzer/board" = "tetrisanalyzer/board"
+"components/tetrisanalyzer/piece" = "tetrisanalyzer/piece"
