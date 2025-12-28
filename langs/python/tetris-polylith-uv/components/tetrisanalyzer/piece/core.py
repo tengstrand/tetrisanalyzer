@@ -8,6 +8,6 @@ L = 5
 T = 6
 O = 7
 
+
 def piece(p, rotation):
     return shape.pieces[p][rotation]
-
