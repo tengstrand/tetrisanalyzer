@@ -1,7 +1,10 @@
 (ns tetrisanalyzer.board.core)
 
+(defn empty-row [width]
+  (vec (repeat width 0)))
+
 (defn empty-board [width height]
-  (vec (repeat height (vec (repeat width 0)))))
+  (vec (repeat height (empty-row width))))
 
 (defn set-cell [board p x y [cx cy]]
   (assoc-in board [(+ y cy) (+ x cx)] p))
