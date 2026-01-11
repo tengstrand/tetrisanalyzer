@@ -1,5 +1,9 @@
+def empty_row(width):
+    return [0] * width
+
+
 def empty_board(width, height):
-    return [[0] * width for _ in range(height)]
+    return [empty_row(width) for _ in range(height)]
 
 
 def set_cell(board, p, x, y, cell):
