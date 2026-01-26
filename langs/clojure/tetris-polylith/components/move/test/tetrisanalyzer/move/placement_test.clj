@@ -12,19 +12,19 @@
             [0 0 1 0 0 1]
             [0 0 1 1 1 1]])
 
+(def shapes atari-arcade/shapes)
+
 ;; Start position of the J piece:
 ;; --JJJ-
 ;; --xxJ-
 ;; --x--x
 ;; --xxxx
-
-(def shapes atari-arcade/shapes)
-
 (deftest all-placements--without-rotation-kick
   (is (= [[2 0 0]
           [3 0 0]]
          (sort-by sorter (valid-moves/all-placements board piece/J start-x false shapes)))))
-;; With kick (checking x-1) it fits:
+
+;; With rotation kick (checking x-1) it fits:
 ;; -JJ---
 ;; -Jxx--
 ;; -Jx--x
