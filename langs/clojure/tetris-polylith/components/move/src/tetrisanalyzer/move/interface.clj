@@ -1,0 +1,1 @@
+(ns tetrisanalyzer.move.interface)

@@ -1,4 +1,48 @@
+## Build outputs
+**/classes
+**/target
 target/
 lib_managed/
 src_managed/
 project/boot/
+**/.artifacts
+**/.cpcache
+**/.gradle
+
+## OS files
+**/.DS_Store
+
+## IntelliJ / IDEA (user-specific)
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf
+.idea/**/statistic.xml
+.idea/dictionaries/**
+.idea/libraries/**
+
+## IntelliJ file-based project format
+*.iws
+*.ipr
+
+## Cursive Clojure plugin
+.idea/replstate.xml
+*.iml
+
+## Local examples / artifacts
+/example/example/**
+artifacts
+projects/**/pom.xml
+
+## nrepl
+.nrepl-port
+
+## clojure-lsp
+.lsp/.cache
+
+## clj-kondo
+.clj-kondo/.cache
+
+## Calva VS Code Extension
+.calva/output-window/output.calva-repl
+.calva/repl.calva-repl

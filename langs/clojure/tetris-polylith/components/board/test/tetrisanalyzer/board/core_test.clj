@@ -1,7 +1,8 @@
 (ns tetrisanalyzer.board.core-test
   (:require [clojure.test :refer :all]
+            [tetrisanalyzer.board.core :as board]
             [tetrisanalyzer.piece.interface :as piece]
-            [tetrisanalyzer.board.core :as board]))
+            [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
 (def empty-board [[0 0 0 0 0 0 0 0 0 0]
                   [0 0 0 0 0 0 0 0 0 0]
@@ -26,7 +27,8 @@
 (deftest set-piece-test
   (let [T piece/T
         rotate-two-times 2
-        piece-t (piece/piece T rotate-two-times)
+        shapes atari-arcade/shapes
+        piece-t (piece/piece T rotate-two-times shapes)
         x 5
         y 13]
     (is (= [[0 0 0 0 0 0 0 0 0 0]

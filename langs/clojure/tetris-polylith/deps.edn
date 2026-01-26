@@ -1,11 +1,14 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
 
                   :extra-deps {poly/board {:local/root "components/board"}
+                               poly/move  {:local/root "components/move"}
                                poly/piece {:local/root "components/piece"}
 
                                org.clojure/clojure {:mvn/version "1.12.2"}}}
 
-            :test {:extra-paths ["components/board/test"]}
+            :test {:extra-paths ["components/board/test"
+                                 "components/move/test"
+                                 "components/piece/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :jvm-opts ["--enable-native-access=ALL-UNNAMED"]
