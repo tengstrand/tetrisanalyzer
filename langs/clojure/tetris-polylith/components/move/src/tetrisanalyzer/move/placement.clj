@@ -4,8 +4,7 @@
             [tetrisanalyzer.board.interface :as board]
             [tetrisanalyzer.piece.interface :as piece]))
 
-(defn placements
-  [board x y p rotation bitmask valid-moves visited-moves rotation-fn shapes]
+(defn ->placements [board x y p rotation bitmask valid-moves visited-moves rotation-fn shapes]
   (loop [next-moves (list [x y rotation])
          placements []
          valid-moves valid-moves
@@ -26,10 +25,10 @@
                    (visit/visit visited-moves x y rotation)))))
       placements)))
 
-(defn all-placements [board p start-x kick? shapes]
+(defn placements [board p start-x kick? shapes]
   (let [bitmask (piece/rotation-bitmask shapes p)
         visited-moves (board/empty-board board)
         rotation-fn (move/rotation-fn kick?)]
     (if (move/valid-move? board start-x 0 p 0 shapes)
-      (placements board start-x 0 p 0 bitmask [] visited-moves rotation-fn shapes)
+      (->placements board start-x 0 p 0 bitmask [] visited-moves rotation-fn shapes)
       [])))

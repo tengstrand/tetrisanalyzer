@@ -19,19 +19,19 @@
 ;; --xxJ-
 ;; --x--x
 ;; --xxxx
-(deftest all-placements--without-rotation-kick
+(deftest placements--without-rotation-kick
   (is (= [[2 0 0]
           [3 0 0]]
-         (sort-by sorter (valid-moves/all-placements board piece/J start-x false shapes)))))
+         (sort-by sorter (valid-moves/placements board piece/J start-x false shapes)))))
 
 ;; With rotation kick (checking x-1) it fits:
 ;; -JJ---
 ;; -Jxx--
 ;; -Jx--x
 ;; --xxxx
-(deftest all-placements--with-rotation-kick
+(deftest placements--with-rotation-kick
   (is (= [[1 0 1]
           [2 0 0]
           [3 0 0]
           [0 1 1]]
-         (sort-by sorter (valid-moves/all-placements board piece/J start-x true shapes)))))
+         (sort-by sorter (valid-moves/placements board piece/J start-x true shapes)))))
