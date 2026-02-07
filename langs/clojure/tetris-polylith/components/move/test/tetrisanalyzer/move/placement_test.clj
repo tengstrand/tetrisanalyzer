@@ -24,7 +24,7 @@
           [3 0 0]]
          (sort-by sorter (valid-moves/placements board piece/J start-x false shapes)))))
 
-;; With rotation kick (checking x-1) it fits:
+;; With rotation kick, checking if x-1 fits:
 ;; -JJ---
 ;; -Jxx--
 ;; -Jx--x
