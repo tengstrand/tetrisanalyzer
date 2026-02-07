@@ -25,10 +25,12 @@
                    (visit/visit visited-moves x y rotation)))))
       placements)))
 
-(defn placements [board p start-x kick? shapes]
-  (let [bitmask (piece/rotation-bitmask shapes p)
+(defn placements [board p x kick? shapes]
+  (let [y 0
+        rotation 0
+        bitmask (piece/rotation-bitmask shapes p)
         visited-moves (board/empty-board board)
         rotation-fn (move/rotation-fn kick?)]
-    (if (move/valid-move? board start-x 0 p 0 shapes)
-      (->placements board start-x 0 p 0 bitmask [] visited-moves rotation-fn shapes)
+    (if (move/valid-move? board x y p rotation shapes)
+      (->placements board x y p rotation bitmask [] visited-moves rotation-fn shapes)
       [])))
