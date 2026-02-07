@@ -1,35 +1,26 @@
-pieces = [None,
+def shape(piece_grid):
+    """Convert a piece grid (strings with 'x' and '-') into a list of [x, y] cells.
 
-          # I (1)
-          [[[0, 0], [1, 0], [2, 0], [3, 0]],
-           [[0, 0], [0, 1], [0, 2], [0, 3]]],
+    Mirrors `tetrisanalyzer.piece.shape/shape` in the Clojure implementation.
 
-          # Z (2)
-          [[[0, 0], [1, 0], [1, 1], [2, 1]],
-           [[1, 0], [0, 1], [1, 1], [0, 2]]],
+    Example:
+        ["--x-",
+         "-xx-",
+         "-x--",
+         "----"]
 
-          # S (3)
-          [[[1, 0], [2, 0], [0, 1], [1, 1]],
-           [[0, 0], [0, 1], [1, 1], [1, 2]]],
+        -> [[2, 0], [1, 1], [2, 1], [1, 2]]
+    """
 
-          # J (4)
-          [[[0, 0], [1, 0], [2, 0], [2, 1]],
-           [[0, 0], [1, 0], [0, 1], [0, 2]],
-           [[0, 0], [0, 1], [1, 1], [2, 1]],
-           [[1, 0], [1, 1], [0, 2], [1, 2]]],
+    cells = []
+    for y, row in enumerate(piece_grid):
+        for x, ch in enumerate(str(row)):
+            if ch == "x":
+                cells.append([x, y])
+    return cells
 
-          # L (5)
-          [[[0, 0], [1, 0], [2, 0], [0, 1]],
-           [[0, 0], [0, 1], [0, 2], [1, 2]],
-           [[2, 0], [0, 1], [1, 1], [2, 1]],
-           [[0, 0], [1, 0], [1, 1], [1, 2]]],
 
-          # T (6)
-          [[[0, 0], [1, 0], [2, 0], [1, 1]],
-           [[0, 0], [0, 1], [1, 1], [0, 2]],
-           [[1, 0], [0, 1], [1, 1], [2, 1]],
-           [[1, 0], [0, 1], [1, 1], [1, 2]]],
+def shapes(piece_grids):
+    """Convert a list of piece rotation grids into cell coordinate shapes."""
 
-          # O (7)
-          [[[0, 0], [1, 0], [0, 1], [1, 1]]]]
-
+    return [[shape(rotation_grid) for rotation_grid in rotations] for rotations in piece_grids]

@@ -1,13 +1,12 @@
-from tetrisanalyzer.piece import shape
-
+O = 0
 I = 1
 Z = 2
 S = 3
 J = 4
 L = 5
 T = 6
-O = 7
+X = 8  # Outside the board
 
 
-def piece(p, rotation):
-    return shape.pieces[p][rotation]
+def piece(p, rotation, shapes):
+    return shapes[p][rotation]
