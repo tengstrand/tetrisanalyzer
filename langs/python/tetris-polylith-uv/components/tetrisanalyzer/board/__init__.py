@@ -9,6 +9,5 @@ __all__ = [
     "empty_board",
     "empty_board_as",
     "clear_rows",
-    "set_cell",
     "set_piece",
 ]

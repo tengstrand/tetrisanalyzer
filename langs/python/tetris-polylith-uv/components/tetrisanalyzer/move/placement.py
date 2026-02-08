@@ -37,9 +37,6 @@ def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, r
 
 
 def placements(board, p, start_x, kick, shapes):
-    """
-    Returns all valid moves on a board for a given piece in its starting position.
-    """
     bitmask = rotation_bitmask(shapes, p)
     visited_moves = board_ifc.empty_board_as(board)
     rotation_move_fn = move.rotation_fn(kick)
