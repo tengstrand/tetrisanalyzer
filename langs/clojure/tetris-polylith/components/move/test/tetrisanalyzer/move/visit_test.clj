@@ -13,9 +13,6 @@
          (visit/visited? unvisited x y rotation))))
 
 (deftest move-is-visited
-  (let [x 2
-        y 1
-        rotation 0
-        visited (visit/visit unvisited x y rotation)]
+  (let [visited (visit/visit unvisited x y rotation)]
     (is (= true
            (visit/visited? visited x y rotation)))))
