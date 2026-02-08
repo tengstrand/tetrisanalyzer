@@ -50,9 +50,13 @@
   (is (= [2 1 0]
          (move/rotate board x y S (dec rotation) bitmask shapes))))
 
-(deftest invalid-rotation
+(deftest invalid-rotation-without-kick
   (is (= nil
-         (move/rotate board x y S rotation bitmask shapes))))
+         (move/rotate board (inc x) y S (inc rotation) bitmask shapes))))
+
+(deftest valid-rotation-with-kick
+  (is (= [2 1 0]
+         (move/rotate-with-kick board (inc x) y S (inc rotation) bitmask shapes))))
 
 (deftest invalid-move-outside-board
   (is (= false
