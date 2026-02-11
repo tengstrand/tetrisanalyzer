@@ -1,6 +1,5 @@
-(ns tetrisanalyzer.piece.placement.set-test
+(ns tetrisanalyzer.piece.piece-test
   (:require [clojure.test :refer :all]
-            [tetrisanalyzer.piece.set :as set]
             [tetrisanalyzer.piece.piece :as piece]
             [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
@@ -42,4 +41,4 @@
             [0 0 0 0 0 0 0 0 0 0]
             [0 0 0 0 0 0 T 0 0 0]
             [0 0 0 0 0 T T T 0 0]]
-           (set/set-piece empty-board T x y piece-t)))))
+           (piece/set-piece empty-board T x y piece-t)))))

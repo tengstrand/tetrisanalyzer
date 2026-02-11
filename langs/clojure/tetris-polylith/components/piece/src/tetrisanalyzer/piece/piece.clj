@@ -11,3 +11,9 @@
 
 (defn piece [p rotation shapes]
   (get-in shapes [p rotation]))
+
+(defn set-piece [board p x y piece]
+  (reduce (fn [board [cx cy]]
+            (assoc-in board [(+ y cy) (+ x cx)] p))
+          board
+          piece))
