@@ -1,6 +1,6 @@
-(ns tetrisanalyzer.move.visit-test
+(ns tetrisanalyzer.piece.move.visit-test
   (:require [clojure.test :refer :all]
-            [tetrisanalyzer.move.visit :as visit]))
+            [tetrisanalyzer.piece.move.visit :as visit]))
 
 (def x 2)
 (def y 1)

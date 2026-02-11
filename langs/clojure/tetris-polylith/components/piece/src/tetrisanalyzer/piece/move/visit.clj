@@ -1,4 +1,4 @@
-(ns tetrisanalyzer.move.visit)
+(ns tetrisanalyzer.piece.move.visit)
 
 (defn visited? [visited-moves x y rotation]
   (if-let [visited-rotations (get-in visited-moves [y x])]

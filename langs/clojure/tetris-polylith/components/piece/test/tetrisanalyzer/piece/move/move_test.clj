@@ -1,8 +1,9 @@
-(ns tetrisanalyzer.move.move-test
+(ns tetrisanalyzer.piece.move.move-test
   (:require [clojure.test :refer :all]
-            [tetrisanalyzer.move.move :as move]
+            [tetrisanalyzer.piece.piece :as piece]
+            [tetrisanalyzer.piece.move.move :as move]
+            [tetrisanalyzer.piece.bitmask :as bitmask]
             [tetrisanalyzer.board.interface :as board]
-            [tetrisanalyzer.piece.interface :as piece]
             [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
 (def x 2)
@@ -10,7 +11,7 @@
 (def rotation 0)
 (def S piece/S)
 (def shapes atari-arcade/shapes)
-(def bitmask (piece/rotation-bitmask shapes S))
+(def bitmask (bitmask/rotation-bitmask shapes S))
 (def piece (piece/piece S rotation shapes))
 
 (def board (board/board ['xxxxxxxx

@@ -1,7 +1,7 @@
 (ns tetrisanalyzer.board.core-test
   (:require [clojure.test :refer :all]
             [tetrisanalyzer.board.core :as board]
-            [tetrisanalyzer.piece.interface :as piece]
+            [tetrisanalyzer.piece.piece :as piece]
             [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
 (def empty-board [[0 0 0 0 0 0 0 0 0 0]
