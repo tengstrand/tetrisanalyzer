@@ -1,9 +1,7 @@
-from tetrisanalyzer import piece
-from tetrisanalyzer.board import board
-from tetrisanalyzer.piece.move import move
-from tetrisanalyzer.piece.settings import atari_arcade
+from tetrisanalyzer import board, piece
 
-BOARD = board(
+move = piece.placement.move
+BOARD = board.board(
     [
         "xxxxxxxx",
         "xxx--xxx",
@@ -16,7 +14,7 @@ X = 2
 Y = 1
 ROTATION = 0
 S = piece.S
-SHAPES = atari_arcade.shapes
+SHAPES = piece.settings.atari_arcade.shapes
 BITMASK = piece.rotation_bitmask(SHAPES, S)
 
 
@@ -25,7 +23,7 @@ def test_valid_move():
 
 
 def test_valid_left_move():
-    assert move.left(BOARD, X + 1, Y, S, ROTATION, None, SHAPES) == [2, 1, 0]
+    assert [2, 1, 0] == move.left(BOARD, X + 1, Y, S, ROTATION, None, SHAPES)
 
 
 def test_invalid_left_move():
@@ -33,7 +31,7 @@ def test_invalid_left_move():
 
 
 def test_valid_right_move():
-    assert move.right(BOARD, X - 1, Y, S, ROTATION, None, SHAPES) == [2, 1, 0]
+    assert [2, 1, 0] == move.right(BOARD, X - 1, Y, S, ROTATION, None, SHAPES)
 
 
 def test_invalid_right_move():
@@ -41,15 +39,15 @@ def test_invalid_right_move():
 
 
 def test_unoccupied_down_move():
-    assert move.down(BOARD, X, Y - 1, S, ROTATION, None, SHAPES) == ([2, 1, 0], None)
+    assert ([2, 1, 0], None) == move.down(BOARD, X, Y - 1, S, ROTATION, None, SHAPES)
 
 
 def test_down_move_hits_ground():
-    assert move.down(BOARD, X, Y, S, ROTATION, None, SHAPES) == (None, [[2, 1, 0]])
+    assert (None, [[2, 1, 0]]) == move.down(BOARD, X, Y, S, ROTATION, None, SHAPES)
 
 
 def test_valid_rotation():
-    assert move.rotate(BOARD, X, Y, S, ROTATION - 1, BITMASK, SHAPES) == [2, 1, 0]
+    assert [2, 1, 0] == move.rotate(BOARD, X, Y, S, ROTATION - 1, BITMASK, SHAPES)
 
 
 def test_invalid_rotation_without_kick():
@@ -57,7 +55,7 @@ def test_invalid_rotation_without_kick():
 
 
 def test_valid_rotation_with_kick():
-    assert move.rotate_with_kick(BOARD, X + 1, Y, S, ROTATION + 1, BITMASK, SHAPES) == [2, 1, 0]
+    assert [2, 1, 0] == move.rotate_with_kick(BOARD, X + 1, Y, S, ROTATION + 1, BITMASK, SHAPES)
 
 
 def test_invalid_move_outside_board():

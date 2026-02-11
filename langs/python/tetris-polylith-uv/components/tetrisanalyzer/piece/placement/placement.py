@@ -1,8 +1,7 @@
 from collections import deque
 
-from tetrisanalyzer import board as board_ifc
-from tetrisanalyzer.piece.move import move, visit
-from tetrisanalyzer.piece.bitmask import rotation_bitmask
+from tetrisanalyzer import board as board_ifc, piece
+from . import move, visit
 
 
 def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, rotation_move_fn, shapes):
@@ -37,7 +36,7 @@ def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, r
 
 
 def placements(board, p, start_x, kick, shapes):
-    bitmask = rotation_bitmask(shapes, p)
+    bitmask = piece.bitmask.rotation_bitmask(shapes, p)
     visited_moves = board_ifc.empty_board_as(board)
     rotation_move_fn = move.rotation_fn(kick)
 

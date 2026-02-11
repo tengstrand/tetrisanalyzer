@@ -1,4 +1,4 @@
-from tetrisanalyzer.piece import shape
+from tetrisanalyzer import piece
 
 # https://strategywiki.org/wiki/Tetris/Rotation_systems#Nintendo_rotation_system
 # start_x = 4
@@ -131,4 +131,4 @@ pieces = [
     [T0, T1, T2, T3],
 ]
 
-shapes = shape.shapes(pieces)
+shapes = piece.shape.shapes(pieces)

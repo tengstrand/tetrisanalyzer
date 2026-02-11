@@ -23,8 +23,3 @@ def empty_board_as(board):
 def set_cell(board, p, x, y, cell):
     cx, cy = cell
     board[y + cy][x + cx] = p
-
-
-def set_piece(board, p, x, y, piece_cells):
-    for cx, cy in piece_cells:
-        board[y + cy][x + cx] = p
