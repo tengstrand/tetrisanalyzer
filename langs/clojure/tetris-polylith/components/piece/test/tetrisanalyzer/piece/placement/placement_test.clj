@@ -1,7 +1,7 @@
-(ns tetrisanalyzer.piece.move.placement-test
+(ns tetrisanalyzer.piece.placement.placement-test
   (:require [clojure.test :refer :all]
             [tetrisanalyzer.piece.piece :as piece]
-            [tetrisanalyzer.piece.move.placement :as valid-moves]
+            [tetrisanalyzer.piece.placement.placement :as placement]
             [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
 (def start-x 2)
@@ -22,7 +22,7 @@
 (deftest placements--without-rotation-kick
   (is (= [[2 0 0]
           [3 0 0]]
-         (sort-by sorter (valid-moves/placements board piece/J start-x false shapes)))))
+         (sort-by sorter (placement/placements board piece/J start-x false shapes)))))
 
 ;; With rotation kick, checking if x-1 fits:
 ;; -JJ---
@@ -34,4 +34,4 @@
           [2 0 0]
           [3 0 0]
           [0 1 1]]
-         (sort-by sorter (valid-moves/placements board piece/J start-x true shapes)))))
+         (sort-by sorter (placement/placements board piece/J start-x true shapes)))))

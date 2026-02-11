@@ -1,7 +1,7 @@
 (ns tetrisanalyzer.piece.interface
   (:require [tetrisanalyzer.piece.piece :as piece]
-            [tetrisanalyzer.piece.bitmask :as bitmask]
-            [tetrisanalyzer.piece.move.placement :as placement]))
+            [tetrisanalyzer.piece.placement.placement :as placement]
+            [tetrisanalyzer.piece.set :as set]))
 
 (def O piece/O)
 (def I piece/I)
@@ -15,8 +15,8 @@
 (defn piece [p rotation shapes]
   (piece/piece p rotation shapes))
 
-(defn rotation-bitmask [shapes p]
-  (bitmask/rotation-bitmask shapes p))
+(defn set-piece [board p x y piece]
+  (set/set-piece board p x y piece))
 
 (defn placements [board p x kick? shapes]
   (placement/placements board p x kick? shapes))

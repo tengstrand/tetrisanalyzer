@@ -16,6 +16,3 @@
    (core/empty-board (width board) (height board)))
   ([width height]
    (core/empty-board width height)))
-
-(defn set-piece [board p x y piece]
-  (core/set-piece board p x y piece))
