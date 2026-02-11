@@ -1,5 +1,5 @@
 from tetrisanalyzer import piece
-from tetrisanalyzer.move import placements
+from tetrisanalyzer.piece.move import placements
 from tetrisanalyzer.piece.settings import atari_arcade
 
 

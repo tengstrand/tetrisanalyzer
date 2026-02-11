@@ -1,7 +1,7 @@
 from collections import deque
 
 from tetrisanalyzer import board as board_ifc
-from tetrisanalyzer.move import move, visit
+from tetrisanalyzer.piece.move import move, visit
 from tetrisanalyzer.piece.bitmask import rotation_bitmask
 
 
