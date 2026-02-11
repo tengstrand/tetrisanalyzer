@@ -36,11 +36,13 @@ def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, r
 
 
 def placements(board, p, start_x, kick, shapes):
+    y = 0
+    rotation = 0
     bitmask = piece.bitmask.rotation_bitmask(shapes, p)
     visited_moves = board_ifc.empty_board_as(board)
     rotation_move_fn = move.rotation_fn(kick)
 
-    if not move.is_valid_move(board, start_x, 0, p, 0, shapes):
+    if not move.is_valid_move(board, start_x, y, p, rotation, shapes):
         return []
 
-    return _placements(board, start_x, 0, p, 0, bitmask, [], visited_moves, rotation_move_fn, shapes)
+    return _placements(board, start_x, y, p, rotation, bitmask, [], visited_moves, rotation_move_fn, shapes)
