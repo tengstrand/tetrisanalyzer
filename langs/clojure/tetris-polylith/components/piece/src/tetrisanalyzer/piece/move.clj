@@ -1,4 +1,4 @@
-(ns tetrisanalyzer.piece.placement.move
+(ns tetrisanalyzer.piece.move
   (:require [tetrisanalyzer.piece.piece :as piece]))
 
 (defn cell [board x y [cx cy]]

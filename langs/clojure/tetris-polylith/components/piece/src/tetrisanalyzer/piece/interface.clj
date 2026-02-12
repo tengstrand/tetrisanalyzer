@@ -1,6 +1,6 @@
 (ns tetrisanalyzer.piece.interface
   (:require [tetrisanalyzer.piece.piece :as piece]
-            [tetrisanalyzer.piece.placement.placement :as placement]))
+            [tetrisanalyzer.piece.placement :as placement]))
 
 (def O piece/O)
 (def I piece/I)

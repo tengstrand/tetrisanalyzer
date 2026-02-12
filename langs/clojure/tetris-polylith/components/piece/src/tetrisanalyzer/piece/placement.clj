@@ -1,6 +1,6 @@
-(ns tetrisanalyzer.piece.placement.placement
-  (:require [tetrisanalyzer.piece.placement.move :as move]
-            [tetrisanalyzer.piece.placement.visit :as visit]
+(ns tetrisanalyzer.piece.placement
+  (:require [tetrisanalyzer.piece.move :as move]
+            [tetrisanalyzer.piece.visit :as visit]
             [tetrisanalyzer.board.interface :as board]
             [tetrisanalyzer.piece.bitmask :as bitmask]))
 
