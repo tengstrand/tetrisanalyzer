@@ -1,4 +1,4 @@
-from tetrisanalyzer import piece
+from tetrisanalyzer.piece.shape import shapes
 
 # https://tetris.wiki/Tetris_(Atari)
 # start_x = 4
@@ -122,4 +122,4 @@ pieces = [
     [T0, T1, T2, T3],
 ]
 
-shapes = piece.shape.shapes(pieces)
+shapes = shapes(pieces)

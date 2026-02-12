@@ -1,7 +1,6 @@
-from tetrisanalyzer.piece.bitmask import rotation_bitmask
 from tetrisanalyzer.piece.core import I, J, L, O, S, T, X, Z, piece
-
-from . import placement, set_piece, shape, settings
+from tetrisanalyzer.piece.placement import placements
+from tetrisanalyzer.piece.set_piece import set_piece
 
 __all__ = [
     "O",
@@ -13,5 +12,6 @@ __all__ = [
     "T",
     "X",
     "piece",
-    "rotation_bitmask",
+    "set_piece",
+    "placements",
 ]
