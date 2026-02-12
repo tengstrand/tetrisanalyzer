@@ -1,11 +1,13 @@
 def shape(piece_grid):
-    cells = []
-    for y, row in enumerate(piece_grid):
-        for x, ch in enumerate(str(row)):
-            if ch == "x":
-                cells.append([x, y])
-    return cells
+    return [
+        [x, y]
+        for y, row in enumerate(piece_grid)
+        for x, ch in enumerate(row)
+        if ch == "x"
+    ]
 
-
-def shapes(piece_grids):
-    return [[shape(rotation_grid) for rotation_grid in rotations] for rotations in piece_grids]
+def shapes(pieces_grids):
+    return [
+        [shape(piece_grid) for piece_grid in piece_grids]
+        for piece_grids in pieces_grids
+    ]
