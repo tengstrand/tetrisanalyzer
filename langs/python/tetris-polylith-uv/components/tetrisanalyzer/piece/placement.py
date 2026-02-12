@@ -8,7 +8,7 @@ from . import move, visit
 
 def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, rotation_move_fn, shapes):
     next_moves = deque([[x, y, rotation]])
-    placements = []
+    valid_placements = []
 
     while next_moves:
         x, y, rotation = next_moves.popleft()
@@ -29,12 +29,12 @@ def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, r
         next_moves.extend(moves)
 
         if placement is not None:
-            placements.extend(placement)
+            valid_placements.extend(placement)
 
         valid_moves.append([x, y, rotation])
         visit.visit(visited_moves, x, y, rotation)
 
-    return placements
+    return valid_placements
 
 
 def placements(board, p, start_x, kick, shapes):
