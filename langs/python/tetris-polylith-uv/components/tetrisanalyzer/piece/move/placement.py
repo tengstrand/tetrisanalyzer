@@ -3,8 +3,8 @@ from collections import deque
 from tetrisanalyzer import board as board_ifc
 from tetrisanalyzer.piece import piece
 from tetrisanalyzer.piece.bitmask import rotation_bitmask
-from . import move, visit
-
+from tetrisanalyzer.piece.move import move
+from tetrisanalyzer.piece.move import visit
 
 def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, rotation_move_fn, shapes):
     next_moves = deque([[x, y, rotation]])

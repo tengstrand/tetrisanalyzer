@@ -1,4 +1,4 @@
-from tetrisanalyzer import piece
+from tetrisanalyzer.piece import core as piece
 
 
 def cell(board, x, y, cx, cy):

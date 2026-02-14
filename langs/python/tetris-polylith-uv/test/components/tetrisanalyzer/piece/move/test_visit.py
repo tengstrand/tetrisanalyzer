@@ -1,4 +1,4 @@
-from tetrisanalyzer.piece.visit import is_visited, visit
+from tetrisanalyzer.piece.move.visit import is_visited, visit
 
 X = 2
 Y = 1
