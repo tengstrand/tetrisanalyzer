@@ -1,7 +1,7 @@
-(ns tetrisanalyzer.piece.placement-test
+(ns tetrisanalyzer.piece.move.placement-test
   (:require [clojure.test :refer :all]
             [tetrisanalyzer.piece.piece :as piece]
-            [tetrisanalyzer.piece.placement :as placement]
+            [tetrisanalyzer.piece.move.placement :as placement]
             [tetrisanalyzer.piece.settings.atari-arcade :as atari-arcade]))
 
 (def start-x 2)
