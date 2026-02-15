@@ -22,8 +22,8 @@ def _placements(board, x, y, p, rotation, bitmask, valid_moves, visited_moves, r
             move.left(board, x, y, p, rotation, bitmask, shapes),
             move.right(board, x, y, p, rotation, bitmask, shapes),
             rotation_move_fn(board, x, y, p, rotation, bitmask, shapes),
-            down_move,
-        ]
+            down_move]
+
         moves = [m for m in moves if m is not None]
 
         next_moves.extend(moves)
