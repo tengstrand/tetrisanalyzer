@@ -5,8 +5,7 @@ Y = 1
 ROTATION = 3
 UNVISITED = [
     [0, 0, 0, 0],
-    [0, 0, 0, 0],
-]
+    [0, 0, 0, 0]]
 
 
 def test_move_is_not_visited():
