@@ -1,17 +1,16 @@
-def empty_row(width):
-    return [0] * width
+def width(board):
+    return len(board[0])
+
+
+def height(board):
+    return len(board)
+
+
+def empty_row(w):
+    return [0] * w
 
 
 def empty_board(width, height):
-    return [empty_row(width) for _ in range(height)]
-
-
-def set_cell(board, p, x, y, cell):
-    cx, cy = cell
-    board[y + cy][x + cx] = p
-
-
-def set_piece(board, p, x, y, piece):
-    for cell in piece:
-        set_cell(board, p, x, y, cell)
-    return board
+    w = int(width)
+    h = int(height)
+    return [empty_row(w) for _ in range(h)]

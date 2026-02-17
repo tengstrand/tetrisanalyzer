@@ -1,0 +1,36 @@
+(ns tetrisanalyzer.piece.move.placement
+  (:require [tetrisanalyzer.piece.move.move :as move]
+            [tetrisanalyzer.piece.move.visit :as visit]
+            [tetrisanalyzer.board.interface :as board]
+            [tetrisanalyzer.piece.bitmask :as bitmask]))
+
+(defn ->placements [board x y p rotation bitmask valid-moves visited-moves rotation-fn shapes]
+  (loop [next-moves (list [x y rotation])
+         placements []
+         valid-moves valid-moves
+         visited-moves visited-moves]
+    (if-let [[x y rotation] (first next-moves)]
+      (let [next-moves (rest next-moves)]
+        (if (visit/visited? visited-moves x y rotation)
+          (recur next-moves placements valid-moves visited-moves)
+          (let [[down placement] (move/down board x y p rotation bitmask shapes)
+                moves (keep #(% board x y p rotation bitmask shapes)
+                            [move/left
+                             move/right
+                             rotation-fn
+                             (constantly down)])]
+            (recur (into next-moves moves)
+                   (concat placements placement)
+                   (conj valid-moves [x y rotation])
+                   (visit/visit visited-moves x y rotation)))))
+      placements)))
+
+(defn placements [board p x kick? shapes]
+  (let [y 0
+        rotation 0
+        bitmask (bitmask/rotation-bitmask shapes p)
+        visited-moves (board/empty-board board)
+        rotation-fn (move/rotation-fn kick?)]
+    (if (move/valid-move? board x y p rotation shapes)
+      (->placements board x y p rotation bitmask [] visited-moves rotation-fn shapes)
+      [])))

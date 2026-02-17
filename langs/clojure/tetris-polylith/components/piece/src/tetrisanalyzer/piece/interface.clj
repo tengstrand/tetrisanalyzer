@@ -1,13 +1,9 @@
 (ns tetrisanalyzer.piece.interface
-  (:require [tetrisanalyzer.piece.shape :as shape]))
+  (:require [tetrisanalyzer.piece.piece :as piece]
+            [tetrisanalyzer.piece.move.placement :as placement]))
 
-(def I 1)
-(def Z 2)
-(def S 3)
-(def J 4)
-(def L 5)
-(def T 6)
-(def O 7)
+(defn set-piece [board p x y piece]
+  (piece/set-piece board p x y piece))
 
-(defn piece [p rotation]
-  (get-in shape/pieces [p rotation]))
+(defn placements [board p x kick? shapes]
+  (placement/placements board p x kick? shapes))

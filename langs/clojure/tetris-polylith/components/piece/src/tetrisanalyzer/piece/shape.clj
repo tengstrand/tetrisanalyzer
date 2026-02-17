@@ -1,36 +1,17 @@
 (ns tetrisanalyzer.piece.shape)
 
-(def pieces [nil
+(defn cell [x character y]
+  (when (= \x character)
+    [x y]))
 
-             ;; I (1)
-             [[[0 0] [1 0] [2 0] [3 0]]
-              [[0 0] [0 1] [0 2] [0 3]]]
+(defn row-cells [y row]
+  (keep-indexed #(cell %1 %2 y)
+                (str row)))
 
-             ;; Z (2)
-             [[[0 0] [1 0] [1 1] [2 1]]
-              [[1 0] [0 1] [1 1] [0 2]]]
+(defn shape [piece-grid]
+  (vec (mapcat identity
+               (map-indexed row-cells piece-grid))))
 
-             ;; S (3)
-             [[[1 0] [2 0] [0 1] [1 1]]
-              [[0 0] [0 1] [1 1] [1 2]]]
-
-             ;; J (4)
-             [[[0 0] [1 0] [2 0] [2 1]]
-              [[0 0] [1 0] [0 1] [0 2]]
-              [[0 0] [0 1] [1 1] [2 1]]
-              [[1 0] [1 1] [0 2] [1 2]]]
-
-             ;; L (5)
-             [[[0 0] [1 0] [2 0] [0 1]]
-              [[0 0] [0 1] [0 2] [1 2]]
-              [[2 0] [0 1] [1 1] [2 1]]
-              [[0 0] [1 0] [1 1] [1 2]]]
-
-             ;; T (6)
-             [[[0 0] [1 0] [2 0] [1 1]]
-              [[0 0] [0 1] [1 1] [0 2]]
-              [[1 0] [0 1] [1 1] [2 1]]
-              [[1 0] [0 1] [1 1] [1 2]]]
-
-             ;; O (7)
-             [[[0 0] [1 0] [0 1] [1 1]]]])
+(defn shapes [piece-grids]
+  (mapv #(mapv shape %)
+        piece-grids))
